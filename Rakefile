@@ -10,7 +10,7 @@
 # This program is licenced under the same licence as Ruby.
 #
 
-$LOAD_PATH.unshift "./lib"
+$LOAD_PATH << File.expand_path("lib", File.dirname(__FILE__))
 
 require 'rake/packagetask'
 require 'rake/gempackagetask'

@@ -37,7 +37,7 @@ Rails / ActiveRecord specific code now lives in gettext_rails and gettext_active
   * a message is looked up in its class/module and ancestors.
 
 * CGI support (gettext/cgi)
-  * Locale is retrieved from client informations \<br /\>
+  * Locale is retrieved from client informations
     (HTTP_ACCEPT_LANGUAGE, HTTP_ACCEPT_CHARSET, QUERY_STRING(lang), Cookies(lang)).
 
 * String%() is extended to use named argument such as <tt>%{foo}" %{:foo => 1}</tt>.

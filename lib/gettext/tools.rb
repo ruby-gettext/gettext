@@ -16,6 +16,7 @@ end
 
 require 'gettext/tools/rgettext'
 require 'gettext/tools/rmsgfmt'
+require 'gettext/mofile'
 require 'fileutils'
 
 module GetText
