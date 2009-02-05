@@ -36,7 +36,8 @@ localized message files(message catalogs) easily.
   * Locale is retrieved from client informations
     (HTTP_ACCEPT_LANGUAGE, HTTP_ACCEPT_CHARSET, QUERY_STRING(lang), Cookies(lang)).
 
-* String%() is extended to use named argument such as "%{foo}" %{:foo => 1}
+* String%() is extended to use named argument such as "%{foo}" %{:foo => 1}.
+  Notes that Ruby-1.9.x supports this format by itself.
 
 == Requirements
 * Ruby 1.8.3 or later <http://www.ruby-lang.org/ja/>
@@ -74,7 +75,7 @@ This program is licenced under the same licence as Ruby.
 (See the file 'COPYING'.)
 
 * mo.rb
-  * Copyright (C) 2001-2007 Masao Mutoh <mutoh at highwhay.ne.jp>
+  * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
   * Copyright (C) 2001,2002 Masahiro Sakai <s01397ms at sfc.keio.ac.jp>
 
 * gettext.rb
@@ -82,7 +83,7 @@ This program is licenced under the same licence as Ruby.
   * Copyright (C) 2001,2002 Masahiro Sakai <s01397ms at sfc.keio.ac.jp>
 
 * rgettext 
-  * Copyright (C) 2001-2007 Masao Mutoh <mutoh at highwhay.ne.jp>
+  * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
   * Copyright (C) 2001,2002 Yasushi Shoji <yashi at atmark-techno.com>
 
 * setup.rb
