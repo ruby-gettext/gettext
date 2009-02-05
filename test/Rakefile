@@ -1,0 +1,16 @@
+$:.unshift "../lib"
+require 'rubygems'
+require 'rake/testtask'
+
+desc "Create mo files"
+task :makemo do
+  require 'gettext/tools'
+  GetText.create_mofiles(:mo_root => "locale")
+end
+
+desc 'Run all tests'
+task :test do
+   Dir.glob("test_*.rb").each do |path|
+     ruby "-I../lib", "-rubygems", path
+   end
+end
