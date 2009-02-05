@@ -40,7 +40,7 @@ Rails / ActiveRecord specific code now lives in gettext_rails and gettext_active
   * Locale is retrieved from client informations
     (HTTP_ACCEPT_LANGUAGE, HTTP_ACCEPT_CHARSET, QUERY_STRING(lang), Cookies(lang)).
 
-* String%() is extended to use named argument such as +%{foo}" %{:foo => 1}+.
+* String%() is extended to use named argument such as <tt>%{foo}" %{:foo => 1}</tt>. <br />
   Notes that Ruby-1.9.x supports this format by itself.
 
 == Requirements
@@ -65,7 +65,7 @@ Rails / ActiveRecord specific code now lives in gettext_rails and gettext_active
     sudo ruby setup.rb
 
 You can also install files in your favorite directory by  
-supplying setup.rb some options. Try `ruby setup.rb --help`.
+supplying setup.rb some options. Try "ruby setup.rb --help".
 
 == Usage
 Have a look at the examples folder.
