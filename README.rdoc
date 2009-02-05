@@ -37,10 +37,10 @@ Rails / ActiveRecord specific code now lives in gettext_rails and gettext_active
   * a message is looked up in its class/module and ancestors.
 
 * CGI support (gettext/cgi)
-  * Locale is retrieved from client informations
+  * Locale is retrieved from client informations \<br /\>
     (HTTP_ACCEPT_LANGUAGE, HTTP_ACCEPT_CHARSET, QUERY_STRING(lang), Cookies(lang)).
 
-* String%() is extended to use named argument such as <tt>%{foo}" %{:foo => 1}</tt>. <br />
+* String%() is extended to use named argument such as <tt>%{foo}" %{:foo => 1}</tt>.
   Notes that Ruby-1.9.x supports this format by itself.
 
 == Requirements
@@ -65,7 +65,7 @@ Rails / ActiveRecord specific code now lives in gettext_rails and gettext_active
     sudo ruby setup.rb
 
 You can also install files in your favorite directory by  
-supplying setup.rb some options. Try "ruby setup.rb --help".
+supplying setup.rb some options. Try <tt>ruby setup.rb --help</tt>.
 
 == Usage
 Have a look at the examples folder.
