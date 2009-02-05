@@ -10,6 +10,10 @@ variable or CGI variable).
 And the tools for developers support to create, use, and modify 
 localized message files(message catalogs) easily.
 
+((*Notes*))
+Supporting Rails has been removed.
+It will move and be separated to gettext_rails/gettext_activerecord.
+
 == Website
 * http://www.yotabanana.com/hiki/ruby-gettext.html
 * http://gettext/rubyforge.org/
