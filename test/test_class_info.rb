@@ -1,4 +1,4 @@
-require File.dirname(__FILE__)+'/test_helper'
+require 'testlib/helper.rb'
 require 'gettext/class_info'
 
 module M1; end

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__)+'/test_helper'
+require 'testlib/helper.rb'
 
 class TestGetTextString < Test::Unit::TestCase
   def test_string_sprintf

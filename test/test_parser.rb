@@ -1,4 +1,4 @@
-require File.dirname(__FILE__)+'/test_helper'
+require 'testlib/helper.rb'
 require 'gettext/parser/ruby'
 require 'gettext/parser/glade'
 require 'gettext/parser/erb'

@@ -1,4 +1,6 @@
+gem 'locale', '>=0.9'
 require 'locale'
+
 require 'gettext/version'
 require 'gettext/textdomain_manager'
 

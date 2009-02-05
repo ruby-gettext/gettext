@@ -1,4 +1,4 @@
-require File.dirname(__FILE__)+'/test_helper'
+require 'testlib/helper.rb'
 require 'testlib/simple.rb'
 require 'testlib/gettext.rb'
 require 'testlib/sgettext.rb'

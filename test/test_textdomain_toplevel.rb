@@ -1,4 +1,4 @@
-require File.dirname(__FILE__)+'/test_helper'
+require 'testlib/helper.rb'
 include GetText
 
 bindtextdomain("test1", :path => "locale")

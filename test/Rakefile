@@ -13,7 +13,7 @@ end
 
 desc 'Run all tests'
 task :test do
-   Dir.glob("*_test.rb").each do |path|
-     ruby "-I../lib", "-rubygems", path
+   Dir.glob("test_*.rb").each do |path|
+    ruby "-I../lib", "-rubygems", path rescue nil
    end
 end
