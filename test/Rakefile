@@ -1,6 +1,9 @@
-$:.unshift "../lib"
-require 'rubygems'
-require 'rake/testtask'
+$LOAD_PATH.unshift "../lib"
+
+#gems that are required, to run the tests...
+gem 'locale'
+
+task :default => :test
 
 desc "Create mo files"
 task :makemo do
@@ -10,7 +13,7 @@ end
 
 desc 'Run all tests'
 task :test do
-   Dir.glob("test_*.rb").each do |path|
+   Dir.glob("*_test.rb").each do |path|
      ruby "-I../lib", "-rubygems", path
    end
 end

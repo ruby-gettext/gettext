@@ -1,6 +1,4 @@
-require 'test/unit'
-
-require 'gettext'
+require File.dirname(__FILE__)+'/test_helper'
 include GetText
 
 bindtextdomain("test1", :path => "locale")

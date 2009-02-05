@@ -1,9 +1,8 @@
-require 'test/unit'
+require File.dirname(__FILE__)+'/test_helper'
 require 'gettext/parser/ruby'
 require 'gettext/parser/glade'
 require 'gettext/parser/erb'
 
-require 'rubygems'
 require 'gettext/tools/rgettext'
 
 class TestGetTextParser < Test::Unit::TestCase

@@ -1,6 +1,4 @@
-require 'test/unit'
-
-require 'gettext'
+require File.dirname(__FILE__)+'/test_helper'
 require 'testlib/multi_textdomain.rb'
 
 class TestGetTextMulti < Test::Unit::TestCase

@@ -1,4 +1,4 @@
-require 'test/unit'
+require File.dirname(__FILE__)+'/test_helper'
 require 'gettext/class_info'
 
 module M1; end
