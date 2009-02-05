@@ -1,23 +1,23 @@
 = Ruby-Gettext-Package
 
-Ruby-GetText-Package is a Localization(L10n) library and tool
+Ruby-GetText-Package is a Localization(L10n) library and tool  
 which is modeled after the GNU gettext package.
 
-This library translates original messages to localized
-messages using client-side locale information(environment
+This library translates original messages to localized  
+messages using client-side locale information(environment  
 variable or CGI variable).
 
-The tools for developers support creating, useing, and modifying
+The tools for developers support creating, useing, and modifying  
 localized message files(message catalogs).
 
-((*Notes*))
-Rails support has been removed.
+((*Rails*))
+Rails support has been removed.  
 Rails / ActiveRecord specific code now lives in gettext_rails and gettext_activerecord.
 
 == Website
-* http://www.yotabanana.com/hiki/ruby-gettext.html
-* http://gettext/rubyforge.org/
-* http://github.com/gettext/
+* homepage[http://www.yotabanana.com/hiki/ruby-gettext.html]
+* on rubyforge[http://gettext/rubyforge.org/]
+* on github[http://github.com/gettext/]
 
 == Features
 * Simple APIs(similar to GNU gettext)
@@ -40,38 +40,32 @@ Rails / ActiveRecord specific code now lives in gettext_rails and gettext_active
   * Locale is retrieved from client informations
     (HTTP_ACCEPT_LANGUAGE, HTTP_ACCEPT_CHARSET, QUERY_STRING(lang), Cookies(lang)).
 
-* String%() is extended to use named argument such as "%{foo}" %{:foo => 1}.
+* String%() is extended to use named argument such as `%{foo}" %{:foo => 1}`.
   Notes that Ruby-1.9.x supports this format by itself.
 
 == Requirements
-* Ruby 1.8.3 or later <http://www.ruby-lang.org/ja/>
+* {Ruby 1.8.3 or later}[http://www.ruby-lang.org]
 * (for development only)
-  * GNU gettext 0.10.35 or later 
-    <http://www.gnu.org/software/gettext/gettext.html>
-  * Racc-1.4.3 or later
-    <http://www.ruby-lang.org/raa/list.rhtml?name=racc>
+  * {GNU gettext 0.10.35 or later}[http://www.gnu.org/software/gettext/gettext.html]
+  * {Racc-1.4.3 or later}[http://www.ruby-lang.org/raa/list.rhtml?name=racc]
 * (for compiling src/rmsgfmt.ry only)
 
 == Install
-* gem: sudo gem install gettext
+* gem 
+    sudo gem install gettext`
 
-* tar-ball:
-    De-Compress archive and enter its top directory.
-    # sudo ruby setup.rb
+* download tar-ball
+    # De-Compress archive and enter its top directory.
+    sudo ruby setup.rb
 
-You can also install files in your favorite directory by
-supplying setup.rb some options. Try "ruby setup.rb --help".
+You can also install files in your favorite directory by  
+supplying setup.rb some options. Try `ruby setup.rb --help`.
 
 == Usage
-If you are end-user of an application which depends on this library, 
-you do not need to do anything (See applications documents).
-
-If you are developer of the application which depends on this library,
-
-see: http://gettext.rubyforge.org/
+Have a look at the examples folder.
 
 == License
-This program is licenced under the same licence as Ruby.
+This program is licenced under the same licence as Ruby.  
 (See the file 'COPYING'.)
 
 * mo.rb
