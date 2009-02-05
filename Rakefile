@@ -12,8 +12,6 @@
 
 $LOAD_PATH.unshift "./lib"
 
-require 'rubygems'
-require 'rake'
 require 'rake/packagetask'
 require 'rake/gempackagetask'
 require 'rake/rdoctask'
@@ -21,6 +19,8 @@ require 'rake/testtask'
 require 'gettext/version'
 
 PKG_VERSION = GetText::VERSION
+
+task :default => :test
 
 ############################################################
 # GetText tasks for developing
