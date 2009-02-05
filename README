@@ -45,6 +45,9 @@ It will move and be separated to gettext_rails/gettext_activerecord.
 
 == Requirements
 * Ruby 1.8.3 or later <http://www.ruby-lang.org/ja/>
+* Ruby-Locale <http://http://rubyforge.org/projects/locale/>
+  $ gem install locale
+
 * (for development only)
   * GNU gettext 0.10.35 or later 
     <http://www.gnu.org/software/gettext/gettext.html>
@@ -55,6 +58,7 @@ It will move and be separated to gettext_rails/gettext_activerecord.
 == Install
 * gem:
     ($ su)
+     # gem install locale
      # gem install gettext
 
 * tar-ball:
