@@ -10,7 +10,7 @@
 # This program is licenced under the same licence as Ruby.
 #
 
-$:.unshift "./lib"
+$LOAD_PATH.unshift "./lib"
 
 require 'rubygems'
 require 'rake'
