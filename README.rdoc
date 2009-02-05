@@ -1,18 +1,18 @@
 = Ruby-Gettext-Package
 
-Ruby-GetText-Package is a Localization(L10n) library and tools 
-which modeled after GNU gettext package.
+Ruby-GetText-Package is a Localization(L10n) library and tool
+which is modeled after the GNU gettext package.
 
-This library provides to translate original messages to localized 
-messages properly using client-side locale information(environment
+This library translates original messages to localized
+messages using client-side locale information(environment
 variable or CGI variable).
 
-And the tools for developers support to create, use, and modify 
-localized message files(message catalogs) easily.
+The tools for developers support creating, useing, and modifying
+localized message files(message catalogs).
 
 ((*Notes*))
-Supporting Rails has been removed.
-It will move and be separated to gettext_rails/gettext_activerecord.
+Rails support has been removed.
+Rails / ActiveRecord specific code now lives in gettext_rails and gettext_activerecord.
 
 == Website
 * http://www.yotabanana.com/hiki/ruby-gettext.html
@@ -20,14 +20,14 @@ It will move and be separated to gettext_rails/gettext_activerecord.
 * http://github.com/gettext/
 
 == Features
-* Simple APIs(similar GNU gettext)
+* Simple APIs(similar to GNU gettext)
 
 * rgettext creates po-files from 
   * ruby scripts 
   * glade-2 XML file(.glade)
   * ERB file(.rhtml, .erb)
-  * Others(with your own parsers)
-  * The po-file is compatible to GNU gettext.
+  * Anything (with your own parsers)
+  * The po-files are compatible to GNU gettext.
 
 * rmsgfmt creates a mo-file from a po-file.
   The mo-file is compatible to GNU gettext(msgfmt).
@@ -53,22 +53,18 @@ It will move and be separated to gettext_rails/gettext_activerecord.
 * (for compiling src/rmsgfmt.ry only)
 
 == Install
-* gem:
-    ($ su)
-     # gem install gettext
+* gem: sudo gem install gettext
 
 * tar-ball:
     De-Compress archive and enter its top directory.
-    Then type:
-    ($ su)
-     # ruby setup.rb
+    # sudo ruby setup.rb
 
-You can also install files in your favor directory by
+You can also install files in your favorite directory by
 supplying setup.rb some options. Try "ruby setup.rb --help".
 
 == Usage
 If you are end-user of an application which depends on this library, 
-you don't need do nothing (See applications documents).
+you do not need to do anything (See applications documents).
 
 If you are developer of the application which depends on this library,
 
