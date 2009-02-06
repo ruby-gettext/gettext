@@ -46,7 +46,7 @@ Rails / ActiveRecord specific code now lives in gettext_rails and gettext_active
 == Requirements
 * {Ruby 1.8.3 or later}[http://www.ruby-lang.org]
 * {Rubygems}[http://www.rubygems.org/]
-* {locale}[http://http://rubyforge.org/projects/locale/] gem
+* {locale gem}[http://rubyforge.org/projects/locale/]
   * $ gem install locale
 * (for development only)
   * {GNU gettext 0.10.35 or later}[http://www.gnu.org/software/gettext/gettext.html]
