@@ -11,7 +11,6 @@
 
 require 'cgi'
 require 'gettext'
-require 'locale'
 
 Locale.init(:driver => :cgi)
 

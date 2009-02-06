@@ -1,6 +1,4 @@
-require 'test/unit'
-
-require 'gettext'
+require 'testlib/helper.rb'
 require 'testlib/multi_textdomain.rb'
 
 class TestGetTextMulti < Test::Unit::TestCase

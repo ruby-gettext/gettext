@@ -1,6 +1,4 @@
-require 'test/unit'
-
-require 'gettext'
+require 'testlib/helper.rb'
 include GetText
 
 bindtextdomain("test1", :path => "locale")

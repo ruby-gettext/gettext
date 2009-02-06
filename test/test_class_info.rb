@@ -1,4 +1,4 @@
-require 'test/unit'
+require 'testlib/helper.rb'
 require 'gettext/class_info'
 
 module M1; end

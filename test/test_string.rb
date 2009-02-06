@@ -1,5 +1,4 @@
-require 'test/unit'
-require 'gettext'
+require 'testlib/helper.rb'
 
 class TestGetTextString < Test::Unit::TestCase
   def test_string_sprintf

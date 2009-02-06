@@ -195,12 +195,20 @@ end
 desc 'Run all tests'
 task :test do
    Dir.chdir("test") do
-     sh "rake test"
+     if RUBY_PLATFORM =~ /win32/
+       sh "rake.bat", "test"
+     else
+       sh "rake", "test"
+     end
    end
 end
 
 Rake::RDocTask.new { |rdoc|
-  allison = `allison --path`.chop
+  begin
+    allison = `allison --path`.chop
+  rescue
+    allison = ''
+  end
   rdoc.rdoc_dir = 'doc'
   rdoc.title    = "Ruby-GetText-Package API Reference"
   rdoc.options << '--line-numbers' << '--inline-source'

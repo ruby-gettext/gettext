@@ -1,6 +1,4 @@
-require 'test/unit'
-
-require 'gettext'
+require 'testlib/helper.rb'
 require 'testlib/simple'
 
 class TestTextDomain < Test::Unit::TestCase
