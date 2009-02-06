@@ -37,11 +37,11 @@ module GetText
       ["ruby.rb", "RubyParser"] # Default parser.
     ].each do |f, klass|
       begin
-	require "gettext/parser/#{f}"
-	@ex_parsers << GetText.const_get(klass)
+        require "gettext/parser/#{f}"
+        @ex_parsers << GetText.const_get(klass)
       rescue
-	$stderr.puts _("'%{klass}' is ignored.") % {:klass => klass}
-	$stderr.puts $! if $DEBUG
+        $stderr.puts _("'%{klass}' is ignored.") % {:klass => klass}
+        $stderr.puts $! if $DEBUG
       end
     end
 
@@ -73,7 +73,8 @@ module GetText
       sign = off <= 0 ? '-' : '+'
       time += sprintf('%s%02d%02d', sign, *(off.abs / 60).divmod(60))
 
-      %Q[# SOME DESCRIPTIVE TITLE.
+      <<TITLE
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -89,42 +90,42 @@ msgstr ""
 "MIME-Version: 1.0\\n"
 "Content-Type: text/plain; charset=UTF-8\\n"
 "Content-Transfer-Encoding: 8bit\\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"]
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
+TITLE
     end
 
     def generate_pot(ary) # :nodoc:
       str = ""
-      result = Array.new
       ary.each do |key|
-	msgid = key.shift
-	curr_pos = MAX_LINE_LEN
-	key.each do |e|
-	  if curr_pos + e.size > MAX_LINE_LEN
-	    str << "\n#:"
-	    curr_pos = 3
-	  else
-	    curr_pos += (e.size + 1)
-	  end
-	  str << " " << e
-	end
-	msgid.gsub!(/"/, '\"')
-	msgid.gsub!(/\r/, '')
-	if msgid.include?("\004")
-	  msgctxt, msgid = msgid.split(/\004/)
-	  str << "\nmsgctxt \"" << msgctxt << "\"\n"
+        msgid = key.shift
+        curr_pos = MAX_LINE_LEN
+        key.each do |e|
+          if curr_pos + e.size > MAX_LINE_LEN
+            str << "\n#:"
+            curr_pos = 3
+          else
+            curr_pos += (e.size + 1)
+          end
+          str << " " << e
+        end
+        msgid.gsub!(/"/, '\"')
+        msgid.gsub!(/\r/, '')
+        if msgid.include?("\004")
+          msgctxt, msgid = msgid.split(/\004/)
+          str << "\nmsgctxt \"" << msgctxt << "\"\n"
         else
           str << "\n"
-	end	
-	if msgid.include?("\000")
-	  ids = msgid.split(/\000/)
-	  str << "msgid \"" << ids[0] << "\"\n"
-	  str << "msgid_plural \"" << ids[1] << "\"\n"
-	  str << "msgstr[0] \"\"\n"
-	  str << "msgstr[1] \"\"\n"
-	else
-	  str << "msgid \"" << msgid << "\"\n"
-	  str << "msgstr \"\"\n"
-	end
+        end
+        if msgid.include?("\000")
+          ids = msgid.split(/\000/)
+          str << "msgid \"" << ids[0] << "\"\n"
+          str << "msgid_plural \"" << ids[1] << "\"\n"
+          str << "msgstr[0] \"\"\n"
+          str << "msgstr[1] \"\"\n"
+        else
+          str << "msgid \"" << msgid << "\"\n"
+          str << "msgstr \"\"\n"
+        end
       end
       str
     end
@@ -142,7 +143,7 @@ msgstr ""
                single_msg[0] != plural_msg[0])
             if single_msg[0] != key 
               warn %Q[Warning: n_("#{plural_msg[0].gsub(/\000/, '", "')}") and n_("#{single_msg[0].gsub(/\000/, '", "')}") are duplicated. First msgid was used.] 
-                used_plural_msgs << single_msg[0]
+              used_plural_msgs << single_msg[0]
             end
 
             single_msg[1..-1].each do |line_info|
@@ -167,17 +168,17 @@ msgstr ""
     def parse(files) # :nodoc:
       ary = []
       files.each do |file|
-	begin
-	  @ex_parsers.each do |klass|
-	    if klass.target?(file)
-	      ary = klass.parse(file, ary)
-	      break
-	    end
-	  end
-	rescue
-	  puts "Error occurs in " + file
-	  raise
-	end
+        begin
+          @ex_parsers.each do |klass|
+            if klass.target?(file)
+              ary = klass.parse(file, ary)
+              break
+            end
+          end
+        rescue
+          puts "Error occurs in " + file
+          raise
+        end
       end
       normalize(ary)
     end
@@ -193,33 +194,33 @@ msgstr ""
       opts.separator(_("Specific options:"))
 
       opts.on("-o", "--output=FILE", _("write output to specified file")) do |out|
-	unless FileTest.exist? out
-	  output = File.new(File.expand_path(out), "w+")
-	else
-	  $stderr.puts(_("File '%s' already exists.") % out)
-	  exit 1
-	end
+        unless FileTest.exist? out
+          output = File.new(File.expand_path(out), "w+")
+        else
+          $stderr.puts(_("File '%s' already exists.") % out)
+          exit 1
+        end
       end
 
       opts.on("-r", "--require=library", _("require the library before executing rgettext")) do |out|
-	require out
+        require out
       end
 
       opts.on("-d", "--debug", _("run in debugging mode")) do
-	$DEBUG = true
+        $DEBUG = true
       end
 
       opts.on_tail("--version", _("display version information and exit")) do
-	puts "#{$0} #{VERSION} (#{DATE})"
-	puts "#{File.join(Config::CONFIG["bindir"], Config::CONFIG["RUBY_INSTALL_NAME"])} #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
-	exit
+        puts "#{$0} #{VERSION} (#{DATE})"
+        puts "#{File.join(Config::CONFIG["bindir"], Config::CONFIG["RUBY_INSTALL_NAME"])} #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+        exit
       end
 
       opts.parse!(ARGV)
 
       if ARGV.size == 0
-	puts opts.help
-	exit 1
+        puts opts.help
+        exit 1
       end
 
       [ARGV, output]
@@ -227,23 +228,23 @@ msgstr ""
 
     def run(targetfiles = nil, out = STDOUT)  # :nodoc:
       if targetfiles.is_a? String
-	targetfiles = [targetfiles]
+        targetfiles = [targetfiles]
       elsif ! targetfiles
-	targetfiles, out = check_options
+        targetfiles, out = check_options
       end
 
       if targetfiles.size == 0
-	raise ArgumentError, _("no input files")
+        raise ArgumentError, _("no input files")
       end
 
       if out.is_a? String
-	File.open(File.expand_path(out), "w+") do |file|
-	  file.puts generate_pot_header
-	  file.puts generate_pot(parse(targetfiles))
-	end
+        File.open(File.expand_path(out), "w+") do |file|
+          file.puts generate_pot_header
+          file.puts generate_pot(parse(targetfiles))
+        end
       else
-	out.puts generate_pot_header
-	out.puts generate_pot(parse(targetfiles))
+        out.puts generate_pot_header
+        out.puts generate_pot(parse(targetfiles))
       end
       self
     end
@@ -256,7 +257,7 @@ msgstr ""
   # This function is a part of GetText.create_pofiles.
   # Usually you don't need to call this function directly.
   #
-  # *Note* for ActiveRecord, you need to run your database server and configure the config/database.xml 
+  # *Note* for ActiveRecord, you need to run your database server and configure the config/database.yml
   # correctly before execute this function.
   #
   # * targetfiles: An Array of po-files or nil.
