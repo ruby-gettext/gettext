@@ -46,35 +46,45 @@ Rails / ActiveRecord specific code now lives in gettext_rails and gettext_active
 == Requirements
 * {Ruby 1.8.3 or later}[http://www.ruby-lang.org]
 * {Rubygems}[http://www.rubygems.org/]
-* locale gem
+* {locale gem}[http://rubyforge.org/projects/locale/]
+  * $ gem install locale
 * (for development only)
   * {GNU gettext 0.10.35 or later}[http://www.gnu.org/software/gettext/gettext.html]
   * {Racc-1.4.3 or later}[http://www.ruby-lang.org/raa/list.rhtml?name=racc]
-* (for compiling src/rmsgfmt.ry only)
+    * (for compiling src/rmsgfmt.ry only)
 
 == Install
+* Uninstall old gettext if exists.
+    (sudo/su on POSIX system)
+    gem uninstall gettext
+
 * gem
     #from github (edge/unstable)
-    sudo gem install mutoh-gettext -s http://gems.github.com/
+    (sudo/su on POSIX system)
+    gem install locale
+    gem install mutoh-gettext -s http://gems.github.com/
 
     #from rubyforge (stable)
-    sudo gem install gettext
+    (sudo/su on POSIX system)
+    gem install locale
+    gem install gettext
 
 * download tar-ball
     # De-Compress archive and enter its top directory.
-    sudo ruby setup.rb
+    (sudo/su on POSIX system)
+    ruby setup.rb
 
 You can also install files in your favorite directory by  
 supplying setup.rb some options. Try <tt>ruby setup.rb --help</tt>.
 
 == Usage
-Have a look at the examples folder.
+Have a look at the samples folder.
 
 == License
 This program is licenced under the same licence as Ruby.  
 (See the file 'COPYING'.)
 
-* mo.rb
+* mofile.rb
   * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
   * Copyright (C) 2001,2002 Masahiro Sakai <s01397ms at sfc.keio.ac.jp>
 

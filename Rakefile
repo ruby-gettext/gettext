@@ -184,8 +184,38 @@ Rake::Task[:test].instance_eval("@actions.clear;prerequisites.clear")#remove ech
 desc 'Run all tests'
 task :test do
   Dir.chdir("test") do
-    sh "rake"
+    if RUBY_PLATFORM =~ /win32/
+      sh "rake.bat", "test"
+    else
+      sh "rake", "test"
+    end
   end
+end
+
+Rake::RDocTask.new { |rdoc|
+  begin
+    allison = `allison --path`.chop
+  rescue
+    allison = ''
+  end
+  rdoc.rdoc_dir = 'doc'
+  rdoc.title    = "Ruby-GetText-Package API Reference"
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.rdoc_files.include('README', 'ChangeLog')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+  rdoc.template = allison if allison.size > 0
+}
+
+desc "Publish the release files to RubyForge."
+task :release => [ :package ] do
+  require 'rubyforge'
+
+  rubyforge = RubyForge.new
+  rubyforge.login
+  rubyforge.add_release("gettext", "gettext",
+                        "Ruby-GetText-Package #{PKG_VERSION}",
+                        "pkg/gettext-#{PKG_VERSION}.gem",
+                        "pkg/ruby-gettext-package-#{PKG_VERSION}.tar.gz")
 end
 
 desc "Setup Ruby-GetText-Package. (for setup.rb)"

@@ -251,14 +251,11 @@ TITLE
   end
 
   module_function
-  # Creates a po-file from targetfiles(ruby-script-files, ActiveRecord, .rhtml files, glade-2 XML files), 
+  # Creates a po-file from targetfiles(ruby-script-files, .rhtml files, glade-2 XML files), 
   # then output the result to out. If no parameter is set, it behaves same as command line tools(rgettet). 
   #
   # This function is a part of GetText.create_pofiles.
   # Usually you don't need to call this function directly.
-  #
-  # *Note* for ActiveRecord, you need to run your database server and configure the config/database.yml
-  # correctly before execute this function.
   #
   # * targetfiles: An Array of po-files or nil.
   # * out: output IO or output path.
