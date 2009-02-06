@@ -156,53 +156,36 @@ end
 ############################################################
 # Package tasks
 ############################################################
-def spec
-  eval(File.read('gettext.gemspec'))
-end
-
-desc "Create gem and tar.gz"
-Rake::PackageTask.new("ruby-gettext-package", PKG_VERSION) do |o|
-  o.package_files = FileList['**/*'].to_a.select{|v| v !~ /pkg|CVS/}
-  o.need_tar_gz = true
-  o.need_zip = false
-end
-
-Rake::GemPackageTask.new(spec) do |p|
-  p.gem_spec = spec
-  p.need_tar_gz = false
-  p.need_zip = false
+#Gemspec
+#rake manifest
+#rake build_gemspec  # only for github
+#rake release
+#rake publish_docs
+# http://blog.evanweaver.com/files/doc/fauna/echoe/files/README.html
+require 'echoe'
+Echoe.new('gettext' , GetText::VERSION) do |gem|
+  gem.summary        = "Ruby-GetText-Package is a libary and tools to localize messages."
+  gem.description    = <<-EOF
+Ruby-GetText-Package is a GNU GetText-like program for Ruby.
+The catalog file(po-file) is same format with GNU GetText.
+So you can use GNU GetText tools for maintaining.
+EOF
+  gem.url            = "http://gettext.rubyforge.org/"
+  gem.author         = "Masao Mutoh"
+  gem.email          = "mutoh@highway.ne.jp"
+  gem.ignore_pattern = ['nbproject/**/*', 'data/**/*', "pkg", 'samples/locale/**/*', 'samples/cgi/locale/**/*', 'test/locale/**/*']
+  gem.dependencies   = %w[locale]
 end
 
 ############################################################
 # Misc tasks
 ############################################################
+Rake::Task[:test].instance_eval("@actions.clear;prerequisites.clear")#remove echoes test task...
 desc 'Run all tests'
 task :test do
-   Dir.chdir("test") do
-     sh "rake test"
-   end
-end
-
-Rake::RDocTask.new { |rdoc|
-  allison = `allison --path`.chop
-  rdoc.rdoc_dir = 'doc'
-  rdoc.title    = "Ruby-GetText-Package API Reference"
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README', 'ChangeLog')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-  rdoc.template = allison if allison.size > 0
-}
-
-desc "Publish the release files to RubyForge."
-task :release => [ :package ] do
-  require 'rubyforge'
-
-  rubyforge = RubyForge.new
-  rubyforge.login
-  rubyforge.add_release("gettext", "gettext",
-                        "Ruby-GetText-Package #{PKG_VERSION}",
-                        "pkg/gettext-#{PKG_VERSION}.gem",
-                        "pkg/ruby-gettext-package-#{PKG_VERSION}.tar.gz")
+  Dir.chdir("test") do
+    sh "rake"
+  end
 end
 
 desc "Setup Ruby-GetText-Package. (for setup.rb)"
