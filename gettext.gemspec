@@ -1,6 +1,7 @@
+require 'lib/gettext/version'
 Gem::Specification.new do |s|
   s.name = 'gettext'
-  s.version = PKG_VERSION
+  s.version = GetText::VERSION
   s.summary = 'Ruby-GetText-Package is a libary and tools to localize messages.'
   s.author = 'Masao Mutoh'
   s.email = 'mutoh@highway.ne.jp'
