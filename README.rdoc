@@ -95,8 +95,8 @@ The gettext methods comes in 3 combinable flavours
     s_("Printer|Open") => "Open"   #translation not found
 
 - combinations
-  np_("Fruit","Apple","%{num} Apples",3)
-  ns_("Fruit|Apple","Fruit|%{num} Apples",3)
+    np_("Fruit","Apple","%{num} Apples",3)
+    ns_("Fruit|Apple","Fruit|%{num} Apples",3)
 
 === Locale / Domain
 Gettext stores the locale your are using
