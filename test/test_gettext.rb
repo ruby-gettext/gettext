@@ -108,6 +108,10 @@ DDD
     assert_equal(["a picture", "%{num} pictures"], test.test_5)
   end
 
+  def test_n_defaults_to_1_when_number_is_missing
+    assert_equal n_("aaa","aaa2",1), "aaa"
+  end
+
   def test_nsgettext
     GetText.locale = nil
     test = TestNSGetText.new

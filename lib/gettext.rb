@@ -130,8 +130,8 @@ module GetText
   # * n: a number used to determine the plural form.
   # * Returns: the localized text which key is msgid_plural if n is plural(follow plural-rule) or msgid.
   #   "plural-rule" is defined in po-file.
-  def ngettext(arg1, arg2, arg3 = nil)
-    TextDomainManager.get(self).translate_plural_message(self, arg1, arg2, arg3)
+  def ngettext(msgid, msgid_plural, n = nil)
+    TextDomainManager.get(self).translate_plural_message(self, msgid, msgid_plural, n)
   end
 
   # call-seq:
