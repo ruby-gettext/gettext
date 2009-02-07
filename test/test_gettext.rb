@@ -72,16 +72,20 @@ DDD
     assert_equal("BBB", test.test_9)
   end
 
+  def test_s_uses_no_seperator_when_nil_is_given
+    assert_equal "AAA|BBB", s_("AAA|BBB", nil)
+  end
+
   def test_pgettext
     GetText.locale = nil
     test = TestPGetText.new
 
-    assert_equal("¤¨¡¼¤Ó¡¼", test.test_1)
-    assert_equal("¤¨¡¼¤Ó¡¼", test.test_2)
-    assert_equal("¤¨¡¼¤Ó¡¼¤·¡¼", test.test_3)
+    assert_equal("ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½", test.test_1)
+    assert_equal("ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½", test.test_2)
+    assert_equal("ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½", test.test_3)
     assert_equal("CCC", test.test_4)
-    assert_equal("¤·¡¼¤Ó¡¼", test.test_5)
-    assert_equal("¤Ó¡¼", test.test_6)
+    assert_equal("ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½", test.test_5)
+    assert_equal("ï¿½Ó¡ï¿½", test.test_6)
 
     GetText.locale = "en"
     test = TestPGetText.new
@@ -97,10 +101,10 @@ DDD
   def test_npgettext
     GetText.locale = nil
     test = TestNPGetText.new
-    assert_equal(["°ì¤Ä¤ÎËÜ", "%{num}¤ÎËÜ¤¿¤Á"], test.test_1)
-    assert_equal(["°ì¤Ä¤ÎËÜ", "%{num}¤ÎËÜ¤¿¤Á"], test.test_2)
-    assert_equal(["°ì¤Ä¤Î¥Ï¡¼¥É¥«¥Ð¡¼ËÜ", "%{num}¤Î¥Ï¡¼¥É¥«¥Ð¡¼ËÜ¤¿¤Á"], test.test_3)
-    assert_equal(["¥Þ¥¬¥¸¥ó¤ò1ºý»ý¤Ã¤Æ¤Þ¤¹¡£", "¥Þ¥¬¥¸¥ó¤¿¤Á¤ò%{num}ºý»ý¤Ã¤Æ¤Þ¤¹¡£"], test.test_4)
+    assert_equal(["ï¿½ï¿½Ä¤ï¿½ï¿½ï¿½", "%{num}ï¿½ï¿½ï¿½Ü¤ï¿½ï¿½ï¿½"], test.test_1)
+    assert_equal(["ï¿½ï¿½Ä¤ï¿½ï¿½ï¿½", "%{num}ï¿½ï¿½ï¿½Ü¤ï¿½ï¿½ï¿½"], test.test_2)
+    assert_equal(["ï¿½ï¿½Ä¤Î¥Ï¡ï¿½ï¿½É¥ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½", "%{num}ï¿½Î¥Ï¡ï¿½ï¿½É¥ï¿½ï¿½Ð¡ï¿½ï¿½Ü¤ï¿½ï¿½ï¿½"], test.test_3)
+    assert_equal(["ï¿½Þ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Ã¤Æ¤Þ¤ï¿½ï¿½ï¿½", "ï¿½Þ¥ï¿½ï¿½ï¿½ï¿½ó¤¿¤ï¿½ï¿½ï¿½%{num}ï¿½ï¿½ï¿½Ã¤Æ¤Þ¤ï¿½ï¿½ï¿½"], test.test_4)
     assert_equal(["a picture", "%{num} pictures"], test.test_5)
   end
 

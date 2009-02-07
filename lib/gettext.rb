@@ -90,12 +90,13 @@ module GetText
   # it returns a last part of msgid separeted "div".
   #
   # * msgid: the message id.
-  # * div: separator or nil.
+  # * separator: separator or nil for no seperation.
   # * Returns: the localized text by msgid. If there are no localized text, 
-  #   it returns a last part of msgid separeted "div".
+  #   it returns a last part of the msgid separeted by "seperator".
+  #   <tt>Movie|Location -> Location</tt>
   # See: http://www.gnu.org/software/gettext/manual/html_mono/gettext.html#SEC151
-  def sgettext(msgid, div = "|")
-    TextDomainManager.get(self).translate_singluar_message(self, msgid, div)
+  def sgettext(msgid, seperator = "|")
+    TextDomainManager.get(self).translate_singluar_message(self, msgid, seperator)
   end
 
   # call-seq:
