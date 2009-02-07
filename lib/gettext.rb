@@ -137,8 +137,8 @@ module GetText
   # call-seq:
   #   nsgettext(msgid, msgid_plural, n, div = "|")
   #   nsgettext(msgids, n, div = "|")  # msgids = [msgid, msgid_plural]
-  #   n_(msgid, msgid_plural, n, div = "|")
-  #   n_(msgids, n, div = "|")  # msgids = [msgid, msgid_plural]
+  #   ns_(msgid, msgid_plural, n, div = "|")
+  #   ns_(msgids, n, div = "|")  # msgids = [msgid, msgid_plural]
   #
   # The nsgettext is similar to the ngettext.
   # But if there are no localized text, 
@@ -149,8 +149,8 @@ module GetText
   # * n: a number used to determine the plural form.
   # * Returns: the localized text which key is msgid_plural if n is plural(follow plural-rule) or msgid.
   #   "plural-rule" is defined in po-file.
-  def nsgettext(arg1, arg2, arg3 = "|", arg4 = "|")
-    TextDomainManager.get(self).translate_plural_message(self, arg1, arg2, arg3, arg4)
+  def nsgettext(msgid, msgid_plural, n="|", seperator = "|")
+    TextDomainManager.get(self).translate_plural_message(self, msgid, msgid_plural, n, seperator)
   end
 
   # call-seq:
@@ -167,26 +167,27 @@ module GetText
   # * n: a number used to determine the plural form.
   # * Returns: the localized text which key is msgid_plural if n is plural(follow plural-rule) or msgid.
   #   "plural-rule" is defined in po-file.
-  def npgettext(msgctxt, arg1, arg2 = nil, arg3 = nil)
-     if arg1.kind_of?(Array)
-      msgid = arg1[0]
+  def npgettext(msgctxt, msgids, arg2 = nil, arg3 = nil)
+     if msgids.kind_of?(Array)
+      msgid = msgids[0]
       msgid_ctxt = "#{msgctxt}\004#{msgid}"
-      msgid_plural = arg1[1]
+      msgid_plural = msgids[1]
       opt1 = arg2
       opt2 = arg3
     else
-      msgid = arg1
+      msgid = msgids
       msgid_ctxt = "#{msgctxt}\004#{msgid}"
       msgid_plural = arg2
       opt1 = arg3
       opt2 = nil
     end
-    ret = TextDomainManager.get(self).translate_plural_message(self, msgid_ctxt, msgid_plural, opt1, opt2)
     
-    if ret == msgid_ctxt
-      ret = msgid
+    msgstr = TextDomainManager.get(self).translate_plural_message(self, msgid_ctxt, msgid_plural, opt1, opt2)
+    if msgstr == msgid_ctxt
+      msgid
+    else
+      msgstr
     end
-    ret   
   end
   
   # This function does nothing. But it is required in order to recognize the msgid by rgettext.
