@@ -1,5 +1,6 @@
-gem 'locale', '>=0.9'
+begin gem 'locale', '>=0.9'; rescue LoadError;end
 require 'locale'
+raise "Insall locale as gem or uninstall old gettext" unless Locale.respond_to? :candidates
 
 require 'gettext/version'
 require 'gettext/textdomain_manager'
