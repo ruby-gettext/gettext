@@ -81,18 +81,18 @@ supplying setup.rb some options. Try <tt>ruby setup.rb --help</tt>.
 ===Translation
 The gettext methods comes in 3 combinable flavours
 - n: Pluralized
-Returns singular or plural form, depending on how many you have.
-  n_('Apple', '%{num} Apples', 3)
+  Returns singular or plural form, depending on how many you have.
+    n_('Apple', '%{num} Apples', 3)
 
 - p: context aware
-A context is a prefix to your translation, usefull when one word has different meanings, depending on its context.
-  p_("Printer","Open") <=> p_("File","Open")
-  is the same as s_("Printer|Open")
+  A context is a prefix to your translation, usefull when one word has different meanings, depending on its context.
+    p_("Printer","Open") <=> p_("File","Open")
+    is the same as s_("Printer|Open")
 
 - s: without context
-If a translation could not be found, return the msgid without context.
-  s_("Printer|Open") => "Öffnen" #translation found
-  s_("Printer|Open") => "Open"   #translation not found
+  If a translation could not be found, return the msgid without context.
+    s_("Printer|Open") => "Öffnen" #translation found
+    s_("Printer|Open") => "Open"   #translation not found
 
 - combinations
   np_("Fruit","Apple","%{num} Apples",3)
@@ -106,7 +106,7 @@ Gettext stores the locale your are using
 Each locale can have different sets of translations (text domains) (e.g. Financial terms + Human-resource terms)
   Gettext.bindtextdomain('financial')
 
-Have a look at the samples folder.
+For more details and options, have a look at the samples folder.
 
 
 == License
