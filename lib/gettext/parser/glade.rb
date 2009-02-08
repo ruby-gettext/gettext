@@ -15,12 +15,13 @@ require 'gettext'
 module GetText
   module GladeParser
     extend GetText
+    extend self
+    
     bindtextdomain("rgettext")
 
     TARGET1 = /<property.*translatable="yes">(.*)/
     TARGET2 = /(.*)<\/property>/
 
-    module_function
     def parse(file, targets = []) # :nodoc: 
       lines = IO.readlines(file)
       parse_lines(file, lines, targets)

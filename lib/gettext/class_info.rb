@@ -2,9 +2,9 @@ require 'locale/util/memoizable'
 
 module GetText
   module ClassInfo
+    extend self
     include Locale::Util::Memoizable
 
-    module_function
     # normalize the klass name
     def normalize_class(klass)
       ret = (klass.kind_of? Module) ? klass : klass.class
@@ -52,4 +52,3 @@ module GetText
     memoize :related_classes
   end
 end
-

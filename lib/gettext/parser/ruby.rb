@@ -61,12 +61,13 @@ end
 
 module GetText
   module RubyParser
+    extend self
+    
     ID = ['gettext', '_', 'N_', 'sgettext', 's_']
     PLURAL_ID = ['ngettext', 'n_', 'Nn_', 'ns_', 'nsgettext']
     MSGCTXT_ID = ['pgettext', 'p_']
     MSGCTXT_PLURAL_ID = ['npgettext', 'np_']
 
-    module_function
     def parse(file, targets = [])  # :nodoc:
       lines = IO.readlines(file)
       parse_lines(file, lines, targets)
