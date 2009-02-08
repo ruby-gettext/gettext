@@ -389,6 +389,7 @@ module GetText
   
   module RMsgMerge
     extend GetText
+    extend self
 
     bindtextdomain("rgettext")
     
@@ -396,8 +397,6 @@ module GetText
     VERSION = GetText::VERSION
     DATE = %w($Date: 2007/07/21 15:03:05 $)[1]
     
-    module_function
-
     def check_options(config)
       opts = OptionParser.new
       opts.banner = _("Usage: %s def.po ref.pot [-o output.pot]") % $0
@@ -483,8 +482,6 @@ end
 
 module GetText
   
-  module_function
-
   # Experimental
   def rmsgmerge(reference = nil, definition = nil, out = STDOUT)
     RMsgMerge.run(reference, definition, out)

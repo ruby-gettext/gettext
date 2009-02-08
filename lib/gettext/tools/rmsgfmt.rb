@@ -16,11 +16,11 @@ require 'rbconfig'
 module GetText
 
   module RMsgfmt  #:nodoc:
-    extend GetText 
+    extend GetText
+    extend self
 
     bindtextdomain "rgettext"
 
-    module_function
     def run(targetfile = nil, output_path = nil) # :nodoc:
       unless targetfile
 	targetfile, output_path = check_options
@@ -49,26 +49,25 @@ module GetText
       opts.separator(_("Specific options:"))
 
       opts.on("-o", "--output=FILE", _("write output to specified file")) do |out|
-	output = out
+        output = out
       end
 
       opts.on_tail("--version", _("display version information and exit")) do
-	puts "#{$0} #{GetText::VERSION}"
-	puts "#{File.join(Config::CONFIG["bindir"], Config::CONFIG["RUBY_INSTALL_NAME"])} #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
-	exit
+        puts "#{$0} #{GetText::VERSION}"
+        puts "#{File.join(Config::CONFIG["bindir"], Config::CONFIG["RUBY_INSTALL_NAME"])} #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+        exit
       end
       opts.parse!(ARGV)
 
       if ARGV.size == 0
-	puts opts.help
-	exit 1
+        puts opts.help
+        exit 1
       end
 
       [ARGV[0], output]
     end
   end
-
-  module_function
+  
   # Creates a mo-file from a targetfile(po-file), then output the result to out. 
   # If no parameter is set, it behaves same as command line tools(rmsgfmt).
   # * targetfile: An Array of po-files or nil.

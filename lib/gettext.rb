@@ -6,12 +6,12 @@ require 'gettext/version'
 require 'gettext/textdomain_manager'
 
 module GetText
+  extend self
 
   def self.included(mod)  #:nodoc:
     mod.extend self
   end
 
-  module_function
   # bindtextdomain(domainname, options = {})
   #
   # Bind a textdomain(%{path}/%{locale}/LC_MESSAGES/%{domainname}.mo) to 
@@ -228,37 +228,22 @@ module GetText
   end
 
   alias :locale= :set_locale #:nodoc:
-  module_function :locale= #:nodoc:
-
   alias :_ :gettext   #:nodoc:
-  module_function :_ #:nodoc:
-
   alias :n_ :ngettext #:nodoc:
-  module_function :n_ #:nodoc:
-
   alias :s_ :sgettext #:nodoc:
-  module_function :s_ #:nodoc:
-
   alias :ns_ :nsgettext #:nodoc:
-  module_function :ns_ #:nodoc:
-
   alias :np_ :npgettext #:nodoc:
-  module_function :np_ #:nodoc:
 
   alias :output_charset= :set_output_charset #:nodoc:
-  module_function :output_charset= #:nodoc:
 
 unless defined? XX
   # This is the workaround to conflict p_ methods with the xx("double x") library.
   # http://rubyforge.org/projects/codeforpeople/
   alias :p_ :pgettext #:nodoc:
-  module_function :p_
 end
 
   # for backward compatibility
   alias :set_locale_all :set_locale #:nodoc:
   alias :set_locale_all :set_locale #:nodoc:
-  module_function :set_locale_all #:nodoc:
   alias :setlocale :set_locale #:nodoc:
-  module_function :setlocale #:nodoc:
 end

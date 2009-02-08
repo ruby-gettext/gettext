@@ -24,8 +24,6 @@ module GetText
 
   BOM_UTF8 = [0xef, 0xbb, 0xbf].pack("c3")
 
-  module_function
-
   # Currently, GNU msgmerge doesn't accept BOM. 
   # This mesthod remove the UTF-8 BOM from the po-file.
   def remove_bom(path)  #:nodoc:

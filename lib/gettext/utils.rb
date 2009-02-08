@@ -16,10 +16,8 @@ module GetText
   alias :create_mofiles_org :create_mofiles
   alias :update_pofiles_org :update_pofiles
 
-  module_function :create_mofiles_org, :update_pofiles_org
 
   # Deprecated. Use gettext/tools instead.
-  module_function
   def create_mofiles(verbose = false,
                      podir = "./po", targetdir = "./data/locale",
                      targetpath_rule = "%s/LC_MESSAGES")

@@ -15,7 +15,6 @@ require 'gettext'
 Locale.init(:driver => :cgi)
 
 module GetText
-  module_function
 
   # Sets a CGI object.
   # * cgi_: CGI object

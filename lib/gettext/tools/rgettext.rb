@@ -249,8 +249,7 @@ TITLE
       self
     end
   end
-
-  module_function
+  extend self
   # Creates a po-file from targetfiles(ruby-script-files, .rhtml files, glade-2 XML files), 
   # then output the result to out. If no parameter is set, it behaves same as command line tools(rgettet). 
   #

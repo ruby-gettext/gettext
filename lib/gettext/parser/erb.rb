@@ -14,11 +14,12 @@ require 'gettext/parser/ruby.rb'
 
 module GetText
   module ErbParser
+    extend self
+
     @config = {
       :extnames => ['.rhtml', '.erb']
     }
 
-    module_function
     # Sets some preferences to parse ERB files.
     # * config: a Hash of the config. It can takes some values below:
     #   * :extnames: An Array of target files extension. Default is [".rhtml"].
