@@ -1,4 +1,4 @@
-= Ruby-Gettext-Package
+= Ruby-GetText-Package
 
 Ruby-GetText-Package is a Localization(L10n) library and tool  
 which is modeled after the GNU gettext package.
@@ -115,15 +115,15 @@ The gettext methods comes in 3 combinable flavours
     n_(fruits, 3)
 
 === Locale / Domain
-Gettext stores the locale your are using
-  Gettext.locale = "en_US" # translate into english from now on
-  Gettext.locale # => en_US
+GetText stores the locale your are using
+  GetText.locale = "en_US" # translate into english from now on
+  GetText.locale # => en_US
 Or
   include GetText
   set_locale "en_US"
 
 Each locale can have different sets of translations (text domains) (e.g. Financial terms + Human-resource terms)
-  Gettext.bindtextdomain('financial')
+  GetText.bindtextdomain('financial')
 Or
   include GetText
   bindtextdomain('financial')
