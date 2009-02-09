@@ -8,8 +8,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ruby-gettext 1.93.0\n"
-"POT-Creation-Date: 2008-10-07 00:13+0900\n"
+"Project-Id-Version: ruby-gettext 2.0.0\n"
+"POT-Creation-Date: 2009-02-09 13:41+0100\n"
 "PO-Revision-Date: 2005-12-20 10:33+0900E\n"
 "Last-Translator: Ramon Salvadó <rsalvado at gnuine.com>\n"
 "Language-Team: Catalan\n"
@@ -18,83 +18,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/gettext/utils.rb:68
+#: lib/gettext/tools.rb:69
 msgid ""
-"`%{cmd}' may not be found. \n"
+"`%{cmd}' can not be found. \n"
 "Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
 msgstr ""
 
-#: lib/gettext/utils.rb:80
+#: lib/gettext/tools.rb:88
 msgid "Failed to merge with %{defpo}"
 msgstr "Ha fallat al fer el merge amb %{defpo}"
 
-#: lib/gettext/utils.rb:81
+#: lib/gettext/tools.rb:89
 msgid "New .pot was copied to %{failed_filename}"
 msgstr "S'ha copiat el nou .pot a %{failed_filename}"
 
-#: lib/gettext/utils.rb:82
+#: lib/gettext/tools.rb:90
 msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 msgstr ""
 "Revisa aquestes po/pot-files. Poden contenir errors o quelcom malament."
 
-#: lib/gettext/rgettext.rb:43
+#: lib/gettext/parser/glade.rb:75
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "El fitxer `%{file}' no té el format glade-2.0."
+
+#: lib/gettext/textdomain_manager.rb:157
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "El tercer paràmetre es erroni: valor = %{number}"
+
+#: lib/gettext/tools/rgettext.rb:43
 msgid "'%{klass}' is ignored."
 msgstr "'%{klass}' ignorat"
 
-#: lib/gettext/rgettext.rb:189
+#: lib/gettext/tools/rgettext.rb:190
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Ús: %s entrada.po [-r parser.rb] [-o sortida.pot]"
 
-#: lib/gettext/rgettext.rb:191
+#: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Extreu les cadenes de paraules traduïbles dels fitxers d'entrada."
 
-#: lib/gettext/rgettext.rb:193 lib/gettext/rmsgfmt.rb:51
-#: lib/gettext/rmsgmerge.rb:408
+#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
+#: lib/gettext/tools/rmsgfmt.rb:49
 msgid "Specific options:"
 msgstr "Opcions específiques:"
 
-#: lib/gettext/rgettext.rb:195 lib/gettext/rmsgfmt.rb:53
-#: lib/gettext/rmsgmerge.rb:410
+#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
+#: lib/gettext/tools/rmsgfmt.rb:51
 msgid "write output to specified file"
 msgstr "escriu la sortida en un fitxer especificat"
 
-#: lib/gettext/rgettext.rb:199
+#: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "El fitxer '%s' ja existeix"
 
-#: lib/gettext/rgettext.rb:204
+#: lib/gettext/tools/rgettext.rb:205
 msgid "require the library before executing rgettext"
 msgstr "requereix la llibreria abans d'executar rgettext"
 
-#: lib/gettext/rgettext.rb:208
+#: lib/gettext/tools/rgettext.rb:209
 msgid "run in debugging mode"
 msgstr "executa en mode debug"
 
-#: lib/gettext/rgettext.rb:212 lib/gettext/rmsgfmt.rb:57
-#: lib/gettext/rmsgmerge.rb:421
+#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
+#: lib/gettext/tools/rmsgfmt.rb:55
 msgid "display version information and exit"
 msgstr "mostra informació de la versió i surt"
 
-#: lib/gettext/rgettext.rb:236 lib/gettext/rmsgfmt.rb:31
+#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
 msgid "no input files"
 msgstr "no hi ha fitxers d'entrada"
 
-#: lib/gettext/rmsgfmt.rb:47
-msgid "Usage: %s input.po [-o output.mo]"
-msgstr "Ús: %s entrada.po [-o sortida.mo]"
-
-#: lib/gettext/rmsgfmt.rb:49
-msgid "Generate binary message catalog from textual translation description."
-msgstr ""
-"Genera un catàleg de missatges binaris a partir d'un fitxer de traducció "
-"textual."
-
-#: lib/gettext/rmsgmerge.rb:403
+#: lib/gettext/tools/rmsgmerge.rb:402
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "Ús: %s def.po ref.pot [-o sortida.pot]"
 
-#: lib/gettext/rmsgmerge.rb:406
+#: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
 "Merges two Uniforum style .po files together. The def.po file is an existing "
 "PO file with translations. The ref.pot file is the last created PO file with "
@@ -104,41 +102,23 @@ msgstr ""
 "existent amb traduccions. El fitxer ref.pot és l'últim fitxer PO amb "
 "referències actualitzades. Normalment qui ha creat ref.pot és rgettext"
 
-#: lib/gettext/rmsgmerge.rb:447
+#: lib/gettext/tools/rmsgmerge.rb:446
 msgid "definition po is not given."
 msgstr "no s'ha donat una definició po"
 
-#: lib/gettext/rmsgmerge.rb:449
+#: lib/gettext/tools/rmsgmerge.rb:448
 msgid "reference pot is not given."
 msgstr "no s'ha donat una referència pot"
 
-#: lib/gettext/parser/glade.rb:74
-msgid "`%{file}' is not glade-2.0 format."
-msgstr "El fitxer `%{file}' no té el format glade-2.0."
+#: lib/gettext/tools/rmsgfmt.rb:45
+msgid "Usage: %s input.po [-o output.mo]"
+msgstr "Ús: %s entrada.po [-o sortida.mo]"
 
-#: lib/gettext/parser/active_record.rb:39
-msgid "'%{file}' is not found."
-msgstr "El fitxer '%{file}' no s'ha trobat"
-
-#: lib/gettext/parser/active_record.rb:80
-msgid "Ignored '%{file}'. Solve dependencies first."
-msgstr "S'ignora el fitxer '%{file}'. Primer ha de resoldre les dependències."
-
-#: lib/gettext/parser/active_record.rb:104
-msgid "No database is available."
-msgstr "No hi ha una base de dades disponible."
-
-#: lib/gettext/parser/active_record.rb:140
-msgid "rubygems are not found."
-msgstr "no s'ha trobat rubygems"
-
-#: lib/gettext.rb:417
-msgid "3rd parmeter is wrong: value = %{number}"
-msgstr "El tercer paràmetre es erroni: valor = %{number}"
-
-#: lib/gettext.rb:607
-msgid "XX"
+#: lib/gettext/tools/rmsgfmt.rb:47
+msgid "Generate binary message catalog from textual translation description."
 msgstr ""
+"Genera un catàleg de missatges binaris a partir d'un fitxer de traducció "
+"textual."
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -147,3 +127,16 @@ msgstr "Avís: s'ha ignorat el missatge ambigu.\n"
 #: src/poparser.ry:148
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Avís: existeix un msgid obsolet.\n"
+
+#~ msgid "'%{file}' is not found."
+#~ msgstr "El fitxer '%{file}' no s'ha trobat"
+
+#~ msgid "Ignored '%{file}'. Solve dependencies first."
+#~ msgstr ""
+#~ "S'ignora el fitxer '%{file}'. Primer ha de resoldre les dependències."
+
+#~ msgid "No database is available."
+#~ msgstr "No hi ha una base de dades disponible."
+
+#~ msgid "rubygems are not found."
+#~ msgstr "no s'ha trobat rubygems"
