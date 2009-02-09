@@ -13,19 +13,17 @@ module GetText
     @@output_charset = nil
     @@gettext_classes = []
 
-    # Gets all textdomains.
+    # Find textdomain by name
     def self.textdomain_pool(domainname)
       @@textdomain_pool[domainname]
     end
 
-    def self.get(obj) #:nodoc:
+    # create or find a textdomain-manager for an given object/class
+    def self.get(obj)
       klass = ClassInfo.normalize_class(obj)
-      ret = @@textdomain_manager_pool[klass]
-      unless ret
-        ret = TextDomainManager.new
-        @@textdomain_manager_pool[klass] = ret
-      end
-      ret
+      manager = @@textdomain_manager_pool[klass]
+      return manager if manager
+      @@textdomain_manager_pool[klass] = TextDomainManager.new
     end
 
     # Set the value whether cache messages or not. 
@@ -62,21 +60,12 @@ module GetText
     def self.bind_to(klass, domainname, options = {})
       warn "Bind the domain '#{domainname}' to '#{klass}'. " if $DEBUG
 
-      path = options[:path] if options[:path]
       charset = options[:output_charset] || self.output_charset
-
-      # Create a new textdomain into the pool.
-      textdomain = @@textdomain_pool[domainname]
-      unless textdomain
-        textdomain = TextDomain.new(domainname, path, charset)
-      end
-      @@textdomain_pool[domainname] = textdomain
+      textdomain = create_or_find_textdomain(domainname,options[:path],charset)
 
       target_klass = ClassInfo.normalize_class(klass)
-
       get(target_klass).add(textdomain, options[:supported_language_tags])
-
-      @@gettext_classes << target_klass unless @@gettext_classes.include? target_klass
+      add_to_gettext_classes(target_klass)
 
       textdomain
     end
@@ -94,7 +83,7 @@ module GetText
     end
 
     def add(textdomain, supported_language_tags)
-      @textdomains.insert(0, textdomain) unless @textdomains.include? textdomain
+      @textdomains.unshift(textdomain) unless @textdomains.include? textdomain
       @supported_language_tags = supported_language_tags if supported_language_tags
     end
 
@@ -213,6 +202,20 @@ module GetText
       @@textdomain_pool = {}
       @@textdomain_manager_pool = {}
       @@gettext_classes = []
+    end
+    
+  private
+
+    def self.add_to_gettext_classes(klass)
+      @@gettext_classes << klass unless @@gettext_classes.include? klass
+    end
+
+    def self.create_or_find_textdomain(name,path,charset)#:nodoc:
+      textdomain = @@textdomain_pool[name]
+      unless textdomain
+        textdomain = TextDomain.new(name, path, charset)
+      end
+      @@textdomain_pool[name] = textdomain
     end
   end
 end
