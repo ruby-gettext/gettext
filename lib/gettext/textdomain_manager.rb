@@ -148,7 +148,7 @@ module GetText
     def translate_plural_message(klass, arg1, arg2, arg3 = "|", arg4 = "|")
       lang = Locale.candidates(:supported_language_tags => @supported_language_tags,
                                :type => :posix)[0]
-      
+      # parse arguments
       if arg1.kind_of?(Array)
         msgid = arg1[0]
         msgid_plural = arg1[1]
@@ -165,6 +165,7 @@ module GetText
       end
 
       msgs = nil
+      
       # Find messages from related classes.
       ClassInfo.related_classes(klass, @@gettext_classes).each do |target|
         msgs = nil
@@ -176,25 +177,17 @@ module GetText
       end
       
       # If not found, return msgid.
-      unless msgs
-        msgs = [[msgid, msgid_plural], "n != 1"]
-      end
+      msgs = [[msgid, msgid_plural], "n != 1"] unless msgs
 
       msgstrs = msgs[0]
-      if div and msgstrs[0] == msgid
-        if index = msgstrs[0].rindex(div)
-          msgstrs[0] = msgstrs[0][(index + 1)..-1]
-        end
+      if div and msgstrs[0] == msgid and index = msgstrs[0].rindex(div)
+        msgstrs[0] = msgstrs[0][(index + 1)..-1]
       end
 
       # Return the singular or plural message.
       plural = eval(msgs[1])
-      if plural.kind_of?(Numeric)
-        ret = msgstrs[plural]
-      else
-        ret = plural ? msgstrs[1] : msgstrs[0]
-      end
-      ret
+      return msgstrs[plural] if plural.kind_of?(Numeric)
+      return plural ? msgstrs[1] : msgstrs[0]
     end
     
     # for testing.
@@ -212,10 +205,8 @@ module GetText
 
     def self.create_or_find_textdomain(name,path,charset)#:nodoc:
       textdomain = @@textdomain_pool[name]
-      unless textdomain
-        textdomain = TextDomain.new(name, path, charset)
-      end
-      @@textdomain_pool[name] = textdomain
+      return textdomain if textdomain
+      @@textdomain_pool[name] = TextDomain.new(name, path, charset)
     end
   end
 end

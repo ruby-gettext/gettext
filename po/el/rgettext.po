@@ -8,8 +8,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ruby-gettext 1.93.0\n"
-"POT-Creation-Date: 2008-10-07 00:13+0900\n"
+"Project-Id-Version: ruby-gettext 2.0.0\n"
+"POT-Creation-Date: 2009-02-09 13:41+0100\n"
 "PO-Revision-Date: 2006-01-06 19:50+0100\n"
 "Last-Translator: damphyr <damphyr@gmx.net>\n"
 "Language-Team: Greek\n"
@@ -18,81 +18,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/gettext/utils.rb:68
+#: lib/gettext/tools.rb:69
 msgid ""
-"`%{cmd}' may not be found. \n"
+"`%{cmd}' can not be found. \n"
 "Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
 msgstr ""
 
-#: lib/gettext/utils.rb:80
+#: lib/gettext/tools.rb:88
 msgid "Failed to merge with %{defpo}"
 msgstr "Αποτυχία συγχώνευσης με %{defpo}"
 
-#: lib/gettext/utils.rb:81
+#: lib/gettext/tools.rb:89
 msgid "New .pot was copied to %{failed_filename}"
 msgstr "Ελέγξτε το καινούργιο .pot στο %{failed_filename}"
 
-#: lib/gettext/utils.rb:82
+#: lib/gettext/tools.rb:90
 msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 msgstr "Ελέγξτε τα αρχεία .po/.pot. Μπορεί να υπάρχουν συντακτικά λάθη"
 
-#: lib/gettext/rgettext.rb:43
+#: lib/gettext/parser/glade.rb:75
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "το `%{file}' δεν είναι σε μορφή glade-2.0."
+
+#: lib/gettext/textdomain_manager.rb:157
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "Η τρίτη παράμετρος είναι λανθασμένη: value = %{number}"
+
+#: lib/gettext/tools/rgettext.rb:43
 msgid "'%{klass}' is ignored."
 msgstr "το %{klass}' θα αγνοηθεί."
 
-#: lib/gettext/rgettext.rb:189
+#: lib/gettext/tools/rgettext.rb:190
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Χρήση: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#: lib/gettext/rgettext.rb:191
+#: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Εξαγωγή μεταφράσεων από αρχεία εισόδου."
 
-#: lib/gettext/rgettext.rb:193 lib/gettext/rmsgfmt.rb:51
-#: lib/gettext/rmsgmerge.rb:408
+#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
+#: lib/gettext/tools/rmsgfmt.rb:49
 msgid "Specific options:"
 msgstr "Ειδικές παράμετροι:"
 
-#: lib/gettext/rgettext.rb:195 lib/gettext/rmsgfmt.rb:53
-#: lib/gettext/rmsgmerge.rb:410
+#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
+#: lib/gettext/tools/rmsgfmt.rb:51
 msgid "write output to specified file"
 msgstr "εγγραφή στο καθορισμένο αρχείο"
 
-#: lib/gettext/rgettext.rb:199
+#: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "Το αρχείο '%s' προϋπάρχει."
 
-#: lib/gettext/rgettext.rb:204
+#: lib/gettext/tools/rgettext.rb:205
 msgid "require the library before executing rgettext"
 msgstr ""
 "Κάντε χρήση της βιβλιοθήκης (require) πριν από την εκτέλεση του rgettext"
 
-#: lib/gettext/rgettext.rb:208
+#: lib/gettext/tools/rgettext.rb:209
 msgid "run in debugging mode"
 msgstr "εκτέλεση σε debugging mode"
 
-#: lib/gettext/rgettext.rb:212 lib/gettext/rmsgfmt.rb:57
-#: lib/gettext/rmsgmerge.rb:421
+#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
+#: lib/gettext/tools/rmsgfmt.rb:55
 msgid "display version information and exit"
 msgstr "πληροφορίες έκδοσης και έξοδος"
 
-#: lib/gettext/rgettext.rb:236 lib/gettext/rmsgfmt.rb:31
+#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
 msgid "no input files"
 msgstr "που είναι τα αρχεία εισόδου ρε;"
 
-#: lib/gettext/rmsgfmt.rb:47
-msgid "Usage: %s input.po [-o output.mo]"
-msgstr "Χρήση: %s input.po [-o output.mo]"
-
-#: lib/gettext/rmsgfmt.rb:49
-msgid "Generate binary message catalog from textual translation description."
-msgstr "Δημιουργία καταλόγου μυνημάτων από τη μετάφραση"
-
-#: lib/gettext/rmsgmerge.rb:403
+#: lib/gettext/tools/rmsgmerge.rb:402
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "Χρήση: %s def.po ref.pot [-o output.pot]"
 
-#: lib/gettext/rmsgmerge.rb:406
+#: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
 "Merges two Uniforum style .po files together. The def.po file is an existing "
 "PO file with translations. The ref.pot file is the last created PO file with "
@@ -103,41 +103,21 @@ msgstr ""
 "αναφοράς που κατασκευάστηκε και έχει ενημερωμένες αναφορές κώδικα. Το ref."
 "pot κατασκευάζεται γενικά από το rgettext"
 
-#: lib/gettext/rmsgmerge.rb:447
+#: lib/gettext/tools/rmsgmerge.rb:446
 msgid "definition po is not given."
 msgstr "το αρχείο ορισμών .po δε δόθηκε."
 
-#: lib/gettext/rmsgmerge.rb:449
+#: lib/gettext/tools/rmsgmerge.rb:448
 msgid "reference pot is not given."
 msgstr "το αρχείο αναφοράς .pot δε δόθηκε."
 
-#: lib/gettext/parser/glade.rb:74
-msgid "`%{file}' is not glade-2.0 format."
-msgstr "το `%{file}' δεν είναι σε μορφή glade-2.0."
+#: lib/gettext/tools/rmsgfmt.rb:45
+msgid "Usage: %s input.po [-o output.mo]"
+msgstr "Χρήση: %s input.po [-o output.mo]"
 
-#: lib/gettext/parser/active_record.rb:39
-msgid "'%{file}' is not found."
-msgstr "Δεν βρέθηκε το αρχείο '%{file}'."
-
-#: lib/gettext/parser/active_record.rb:80
-msgid "Ignored '%{file}'. Solve dependencies first."
-msgstr "Το '%{file}' αγνοήθηκε. Πρέπει να επιλυθούν οι εξαρτήσεις πρώτα."
-
-#: lib/gettext/parser/active_record.rb:104
-msgid "No database is available."
-msgstr "Καμία βάση δεδομένων δεν είναι διαθέσιμη."
-
-#: lib/gettext/parser/active_record.rb:140
-msgid "rubygems are not found."
-msgstr "δεν βρέθηκαν τα rubygems."
-
-#: lib/gettext.rb:417
-msgid "3rd parmeter is wrong: value = %{number}"
-msgstr "Η τρίτη παράμετρος είναι λανθασμένη: value = %{number}"
-
-#: lib/gettext.rb:607
-msgid "XX"
-msgstr ""
+#: lib/gettext/tools/rmsgfmt.rb:47
+msgid "Generate binary message catalog from textual translation description."
+msgstr "Δημιουργία καταλόγου μυνημάτων από τη μετάφραση"
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -146,3 +126,15 @@ msgstr "Προειδοποίηση: Ασαφές μύνημα αγνοήθηκε
 #: src/poparser.ry:148
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Προειδοποίηση: ύπαρξη ξεπερασμένου msgid.\n"
+
+#~ msgid "'%{file}' is not found."
+#~ msgstr "Δεν βρέθηκε το αρχείο '%{file}'."
+
+#~ msgid "Ignored '%{file}'. Solve dependencies first."
+#~ msgstr "Το '%{file}' αγνοήθηκε. Πρέπει να επιλυθούν οι εξαρτήσεις πρώτα."
+
+#~ msgid "No database is available."
+#~ msgstr "Καμία βάση δεδομένων δεν είναι διαθέσιμη."
+
+#~ msgid "rubygems are not found."
+#~ msgstr "δεν βρέθηκαν τα rubygems."
