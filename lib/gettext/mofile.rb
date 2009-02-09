@@ -163,26 +163,18 @@ module GetText
       self
     end
 
-    # From gettext-0.12.1/gettext-tools/lib/hash.c
-    def prime?(candidate)
-      divn = 3
-      sq = divn * divn
-
-      while (sq < candidate && candidate % divn != 0)
-        divn += 1
-        sq += 4 * divn
-        divn += 1
-      end
-      candidate % divn != 0
+    # Is this number a prime number ?
+    # http://apidock.com/ruby/Prime
+    def prime?(number)
+      ('1' * number) !~ /^1?$|^(11+?)\1+$/
     end
 
-    # From gettext-0.12.1/gettext-tools/lib/hash.c
     def next_prime(seed)
-      seed |= 1
-      while (! prime?(seed))
-        seed += 2
+      require 'mathn'
+      prime = Prime.new
+      while current = prime.succ
+        return current if current > seed
       end
-      seed
     end
 
     # From gettext-0.12.1/gettext-runtime/intl/hash-string.h
