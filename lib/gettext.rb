@@ -190,7 +190,9 @@ module GetText
     end
   end
   
-  # This function does nothing. But it is required in order to recognize the msgid by rgettext.
+  # makes dynamic translation messages readable for the gettext parser.
+  # <tt>_(fruit)</tt> cannot be understood by the gettext parser. To help the parser find all your translations,
+  # you can add <tt>fruit = N_("Apple")</tt> which does not translate, but tells the parser: "Apple" needs translation.
   # * msgid: the message id.
   # * Returns: msgid.
   def N_(msgid)
