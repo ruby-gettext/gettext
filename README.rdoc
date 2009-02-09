@@ -128,7 +128,8 @@ Or
   include GetText
   bindtextdomain('financial')
 
-For more details and options, have a look at the samples folder.
+For more details and options, have a look at the samples folder or
+consult the tutorial[http://www.yotabanana.com/hiki/ruby-gettext-howto.html].
 
 
 == License
