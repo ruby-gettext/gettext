@@ -79,13 +79,11 @@ supplying setup.rb some options. Try <tt>ruby setup.rb --help</tt>.
 
 == Usage
 ===Translation
-GetText translate messages which _("")
-
 - _: Basic translation method
-  Most basic method to translate the message.
+  Translates the message.
     _("Hello")
 
-The gettext methods comes in 3 combinable flavours
+The gettext methods comes in 3 combinable flavors
 - n: Pluralized
   Returns singular or plural form, depending on how many you have.
     n_("Apple", "%{num} Apples", 3)
@@ -102,15 +100,19 @@ The gettext methods comes in 3 combinable flavours
     s_("Printer|Open") => "Open"   #translation not found
 
 - combinations
-    np_("Fruit","Apple","%{num} Apples", 3)
+    np_("Fruit", "Apple", "%{num} Apples", 3)
     ns_("Fruit|Apple","%{num} Apples", 3)
 
     np_(["Fruit","Apple","%{num} Apples"], 3)
     ns_(["Fruit|Apple","%{num} Apples"], 3)
 
-- N_, Nn_: Nothing to do, but extract with rgettext as the msgid.
-    fruit = N_("Apple")  # Nothing to do
-    _(fruit)             # Translate the variable "fruit" here.
+- N_, Nn_: Makes dynamic translation messages readable for the gettext parser.
+  <tt>_(fruit)</tt> cannot be understood by the gettext parser. To help the parser find all your translations,
+  you can add <tt>fruit = N_("Apple")</tt> which does not translate, but tells the parser: "Apple" needs translation.
+
+    fruit = N_("Apple")   # same as fruit = "Apple"
+    _(fruit)              # does a normal translation
+
     fruits = Nn_("Apple", "%{num} Apples")
     n_(fruits, 3)
 
