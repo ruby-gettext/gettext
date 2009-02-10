@@ -60,29 +60,14 @@ module GetText
     verbose = options.delete(:verbose) || false
     puts "msgmerge called" if verbose
     $stderr.print defpo + " "
-    cmd = ENV["MSGMERGE_PATH"] || "msgmerge"
 
-    cont = ""
     if FileTest.exist? defpo
-      `#{cmd} --help`
-      unless $? && $?.success?
-        raise _("`%{cmd}' can not be found. \nInstall GNU Gettext then set PATH or MSGMERGE_PATH correctly.") % {:cmd => cmd}
-      end
-      remove_bom(defpo)
-
-      cmd_params = (options.delete(:msgmerge) || {}).map do |o|
-        o.kind_of?(Symbol) ? "--#{o}".gsub('_','-') : o.to_s
-      end.join(' ')
-
-      to_run = "#{cmd} #{cmd_params} #{defpo} #{refpo}"
-      puts "\nrunning #{to_run}" if verbose
-      cont = `#{to_run}`
+      content = merge_po_files(defpo,refpo,options.delete(:msgmerge),verbose)
     else
-      File.open(refpo) do |io| 
-        cont = io.read
-      end
+      content = File.read(refpo)
     end
-    if cont.empty?
+    
+    if content.empty?
       failed_filename = refpo + "~"
       FileUtils.cp(refpo, failed_filename)
       $stderr.puts _("Failed to merge with %{defpo}") % {:defpo => defpo}
@@ -91,9 +76,10 @@ module GetText
     else
       cont.sub!(/(Project-Id-Version\:).*$/, "\\1 #{app_version}\\n\"")
       File.open(defpo, "w") do |out|
-        out.write(cont)
+        out.write(content)
       end
     end
+    
     self
   end
 
@@ -167,6 +153,34 @@ module GetText
     end
 
     File.delete(refpot)
+  end
+
+  private
+
+  # Merge 2 po files, using msgmerge
+  def merge_po_files(po_a,po_b,msgmerge_options={},verbose=false)
+    cmd = ENV["MSGMERGE_PATH"] || "msgmerge"
+    test_if_command_exists(cmd)
+
+    remove_bom(defpo)
+
+    cmd_params = hash_to_cli_options(msgmerge_options)
+    to_run = "#{cmd} #{cmd_params} #{po_a} #{po_b}"
+    puts "\nrunning #{to_run}" if verbose
+    `#{to_run}`
+  end
+
+  def hash_to_cli_options(hash)
+    (hash || {}).map do |o|
+      o.kind_of?(Symbol) ? "--#{o}".gsub('_','-') : o.to_s
+    end.join(' ')
+  end
+
+  def test_if_command_exist(cmd)
+    `#{cmd} --help`
+    unless $? && $?.success?
+      raise _("`%{cmd}' can not be found. \nInstall GNU Gettext then set PATH or MSGMERGE_PATH correctly.") % {:cmd => cmd}
+    end
   end
 end
 
