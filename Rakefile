@@ -86,8 +86,10 @@ task :updatepo do
 
   #lib/gettext/*.rb -> rgettext.po
   GetText.update_pofiles("rgettext",
-                         Dir.glob("lib/**/*.rb") + ["src/poparser.ry"],
-                         "ruby-gettext #{GetText::VERSION}")
+    Dir.glob("lib/**/*.rb") + ["src/poparser.ry"],
+    "ruby-gettext #{GetText::VERSION}",
+    :msgmerge=>[:sort_output]
+  )
 end
 
 desc "Gather the newest po files. (for me)"

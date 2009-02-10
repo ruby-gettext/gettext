@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-10 08:12+0100\n"
+"POT-Creation-Date: 2009-02-10 09:12+0100\n"
 "PO-Revision-Date: 2008-07-13 10:00W. Europe Standard Time\n"
 "Last-Translator: Patrick Lenz <patrick at limited-overload.de>\n"
 "Language-Team: German\n"
@@ -23,41 +23,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/gettext/tools.rb:69
-msgid ""
-"`%{cmd}' can not be found. \n"
-"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
-msgstr ""
-
-#: lib/gettext/tools.rb:88
-msgid "Failed to merge with %{defpo}"
-msgstr "Zusammenführung mit %{defpo} fehlgeschlagen"
-
-#: lib/gettext/tools.rb:89
-msgid "New .pot was copied to %{failed_filename}"
-msgstr "Die neue .pot Datei wurde nach %{failed_filename} kopiert"
-
-#: lib/gettext/tools.rb:90
-msgid "Check these po/pot-files. It may have syntax errors or something wrong."
-msgstr ""
-"Überprüfe diese po/pot Dateien. Sie enthalten syntaktische Fehler oder "
-"andere Probleme."
-
-#: lib/gettext/parser/glade.rb:75
-msgid "`%{file}' is not glade-2.0 format."
-msgstr "`%{file}' liegt nicht im Glade-2.0-Format vor."
+#: lib/gettext/tools/rgettext.rb:43
+msgid "'%{klass}' is ignored."
+msgstr "'%{klass}' wird ignoriert."
 
 #: lib/gettext/textdomain_manager.rb:157
 msgid "3rd parmeter is wrong: value = %{number}"
 msgstr "Der 3. Parameter ist ungültig: value = %{number}"
 
-#: lib/gettext/tools/rgettext.rb:43
-msgid "'%{klass}' is ignored."
-msgstr "'%{klass}' wird ignoriert."
-
-#: lib/gettext/tools/rgettext.rb:190
-msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
-msgstr "Verwendung: %s eingabe.po [-r parser.rb] [-o ausgabe.mo]"
+#: lib/gettext/tools.rb:75
+msgid "Check these po/pot-files. It may have syntax errors or something wrong."
+msgstr ""
+"Überprüfe diese po/pot Dateien. Sie enthalten syntaktische Fehler oder "
+"andere Probleme."
 
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
@@ -65,40 +43,18 @@ msgstr ""
 "Extrahiere die übersetzbaren Zeichenketten aus den angegebenen "
 "Eingabedateien."
 
-#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
-#: lib/gettext/tools/rmsgfmt.rb:49
-msgid "Specific options:"
-msgstr "Spezifische Optionen:"
-
-#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
-#: lib/gettext/tools/rmsgfmt.rb:51
-msgid "write output to specified file"
-msgstr "Schreibe Ausgabe in die angegebene Datei"
+#: lib/gettext/tools.rb:73
+msgid "Failed to merge with %{defpo}"
+msgstr "Zusammenführung mit %{defpo} fehlgeschlagen"
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "Die Datei »%s« existierte bereits."
 
-#: lib/gettext/tools/rgettext.rb:205
-msgid "require the library before executing rgettext"
-msgstr "Bitte zunächst die Library einbinden bevor rgettext ausgeführt wird"
-
-#: lib/gettext/tools/rgettext.rb:209
-msgid "run in debugging mode"
-msgstr "Ausführung im Debug-Modus"
-
-#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
-#: lib/gettext/tools/rmsgfmt.rb:55
-msgid "display version information and exit"
-msgstr "Zeige Versionsinformationen und beende."
-
-#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
-msgid "no input files"
-msgstr "Keine Eingabedateien"
-
-#: lib/gettext/tools/rmsgmerge.rb:402
-msgid "Usage: %s def.po ref.pot [-o output.pot]"
-msgstr "Verwendung: %s def.po ref.pot [-o ausgabe.mo]"
+#: lib/gettext/tools/rmsgfmt.rb:47
+msgid "Generate binary message catalog from textual translation description."
+msgstr ""
+"Erstelle binären Meldungskatalog aus schriftlicher Übersetzungsbeschreibung."
 
 #: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
@@ -111,22 +67,26 @@ msgstr ""
 "zuletzt erstellte Datei mit aktuellen Quellenreferenzen. ref.pot wird in "
 "aller Regel durch rgettext erstellt"
 
-#: lib/gettext/tools/rmsgmerge.rb:446
-msgid "definition po is not given."
-msgstr "Definitions .po ist nicht angegeben."
+#: lib/gettext/tools.rb:74
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "Die neue .pot Datei wurde nach %{failed_filename} kopiert"
 
-#: lib/gettext/tools/rmsgmerge.rb:448
-msgid "reference pot is not given."
-msgstr "Referenz .po ist nicht angegeben."
+#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
+#: lib/gettext/tools/rmsgfmt.rb:49
+msgid "Specific options:"
+msgstr "Spezifische Optionen:"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Verwendung: %s def.po ref.pot [-o ausgabe.mo]"
 
 #: lib/gettext/tools/rmsgfmt.rb:45
 msgid "Usage: %s input.po [-o output.mo]"
 msgstr "Verwendung: %s eingabe.po [-o ausgabe.mo]"
 
-#: lib/gettext/tools/rmsgfmt.rb:47
-msgid "Generate binary message catalog from textual translation description."
-msgstr ""
-"Erstelle binären Meldungskatalog aus schriftlicher Übersetzungsbeschreibung."
+#: lib/gettext/tools/rgettext.rb:190
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Verwendung: %s eingabe.po [-r parser.rb] [-o ausgabe.mo]"
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -135,6 +95,46 @@ msgstr "Warnung: 'fuzzy'-Zeichenkette wurde ignoriert.\n"
 #: src/poparser.ry:148
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Warnung: Veraltete msgid enthalten.\n"
+
+#: lib/gettext/tools.rb:183
+msgid ""
+"`%{cmd}' can not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+#: lib/gettext/parser/glade.rb:75
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}' liegt nicht im Glade-2.0-Format vor."
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "Definitions .po ist nicht angegeben."
+
+#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
+#: lib/gettext/tools/rmsgfmt.rb:55
+msgid "display version information and exit"
+msgstr "Zeige Versionsinformationen und beende."
+
+#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "Keine Eingabedateien"
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "Referenz .po ist nicht angegeben."
+
+#: lib/gettext/tools/rgettext.rb:205
+msgid "require the library before executing rgettext"
+msgstr "Bitte zunächst die Library einbinden bevor rgettext ausgeführt wird"
+
+#: lib/gettext/tools/rgettext.rb:209
+msgid "run in debugging mode"
+msgstr "Ausführung im Debug-Modus"
+
+#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
+#: lib/gettext/tools/rmsgfmt.rb:51
+msgid "write output to specified file"
+msgstr "Schreibe Ausgabe in die angegebene Datei"
 
 #~ msgid "'%{file}' is not found."
 #~ msgstr "'%{file}' wurde nicht gefunden."

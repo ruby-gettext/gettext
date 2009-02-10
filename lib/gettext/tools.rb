@@ -74,7 +74,7 @@ module GetText
       $stderr.puts _("New .pot was copied to %{failed_filename}") %{:failed_filename => failed_filename}
       raise _("Check these po/pot-files. It may have syntax errors or something wrong.")
     else
-      cont.sub!(/(Project-Id-Version\:).*$/, "\\1 #{app_version}\\n\"")
+      content.sub!(/(Project-Id-Version\:).*$/, "\\1 #{app_version}\\n\"")
       File.open(defpo, "w") do |out|
         out.write(content)
       end
@@ -158,25 +158,26 @@ module GetText
   private
 
   # Merge 2 po files, using msgmerge
-  def merge_po_files(po_a,po_b,msgmerge_options={},verbose=false)
+  def merge_po_files(po_a,po_b,msgmerge_options=[],verbose=false)
     cmd = ENV["MSGMERGE_PATH"] || "msgmerge"
     test_if_command_exists(cmd)
 
-    remove_bom(defpo)
+    remove_bom(po_a)
 
-    cmd_params = hash_to_cli_options(msgmerge_options)
+    cmd_params = array_to_cli_options(msgmerge_options)
     to_run = "#{cmd} #{cmd_params} #{po_a} #{po_b}"
     puts "\nrunning #{to_run}" if verbose
     `#{to_run}`
   end
 
-  def hash_to_cli_options(hash)
-    (hash || {}).map do |o|
+  # convert an array of String/Symbol to cli options
+  def array_to_cli_options(array)
+    [*array].map do |o|
       o.kind_of?(Symbol) ? "--#{o}".gsub('_','-') : o.to_s
     end.join(' ')
   end
 
-  def test_if_command_exist(cmd)
+  def test_if_command_exists(cmd)
     `#{cmd} --help`
     unless $? && $?.success?
       raise _("`%{cmd}' can not be found. \nInstall GNU Gettext then set PATH or MSGMERGE_PATH correctly.") % {:cmd => cmd}

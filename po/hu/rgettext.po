@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
-"POT-Creation-Date: 2009-02-10 08:12+0100\n"
+"POT-Creation-Date: 2009-02-10 09:12+0100\n"
 "PO-Revision-Date: 2008-07-15 09:00+0900\n"
 "Last-Translator: Tamás Tompa <tompata at gmail.com>\n"
 "Language-Team: Hungarian\n"
@@ -19,80 +19,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/gettext/tools.rb:69
-msgid ""
-"`%{cmd}' can not be found. \n"
-"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
-msgstr ""
-
-#: lib/gettext/tools.rb:88
-msgid "Failed to merge with %{defpo}"
-msgstr "Sikertelen összefésülés a %{defpo} állománnyal"
-
-#: lib/gettext/tools.rb:89
-msgid "New .pot was copied to %{failed_filename}"
-msgstr "Ellenőrizd az új .pot fájlt %{failed_filename}"
-
-#: lib/gettext/tools.rb:90
-msgid "Check these po/pot-files. It may have syntax errors or something wrong."
-msgstr ""
-"Ellenőrizd a következő po/pot fájlokat, talán szintaktikai hibák találhatóak "
-"bennük."
-
-#: lib/gettext/parser/glade.rb:75
-msgid "`%{file}' is not glade-2.0 format."
-msgstr "`%{file}' nem glade-2.0 formátumú."
+#: lib/gettext/tools/rgettext.rb:43
+msgid "'%{klass}' is ignored."
+msgstr "'%{klass}' figyelmen kívül hagyva."
 
 #: lib/gettext/textdomain_manager.rb:157
 msgid "3rd parmeter is wrong: value = %{number}"
 msgstr "A harmadik paraméter hibás: value = %{number}"
 
-#: lib/gettext/tools/rgettext.rb:43
-msgid "'%{klass}' is ignored."
-msgstr "'%{klass}' figyelmen kívül hagyva."
-
-#: lib/gettext/tools/rgettext.rb:190
-msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
-msgstr "Használat: %s input.rb [-r parser.rb] [-o output.pot]"
+#: lib/gettext/tools.rb:75
+msgid "Check these po/pot-files. It may have syntax errors or something wrong."
+msgstr ""
+"Ellenőrizd a következő po/pot fájlokat, talán szintaktikai hibák találhatóak "
+"bennük."
 
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Összegyűjti a lefordítandó szövegeket a megadott fájlokból."
 
-#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
-#: lib/gettext/tools/rmsgfmt.rb:49
-msgid "Specific options:"
-msgstr "Speciális opciók:"
-
-#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
-#: lib/gettext/tools/rmsgfmt.rb:51
-msgid "write output to specified file"
-msgstr "kimenet írása egy megadott fájlba"
+#: lib/gettext/tools.rb:73
+msgid "Failed to merge with %{defpo}"
+msgstr "Sikertelen összefésülés a %{defpo} állománnyal"
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "A fájl '%s' már létezik."
 
-#: lib/gettext/tools/rgettext.rb:205
-msgid "require the library before executing rgettext"
-msgstr "szükséges library az rgettext futtatása előtt"
-
-#: lib/gettext/tools/rgettext.rb:209
-msgid "run in debugging mode"
-msgstr "debug módban futtatás"
-
-#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
-#: lib/gettext/tools/rmsgfmt.rb:55
-msgid "display version information and exit"
-msgstr "verzió információ kiírása és kilépés"
-
-#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
-msgid "no input files"
-msgstr "Nincs feldolgozandó fájl"
-
-#: lib/gettext/tools/rmsgmerge.rb:402
-msgid "Usage: %s def.po ref.pot [-o output.pot]"
-msgstr "Használat: %s def.po ref.pot [-o output.pot]"
+#: lib/gettext/tools/rmsgfmt.rb:47
+msgid "Generate binary message catalog from textual translation description."
+msgstr "Bináris üzenetállományt generál a lefordított szöveges állományokból."
 
 #: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
@@ -104,21 +59,26 @@ msgstr ""
 "fájl fordításokkal. A ref.pot fájl az utolsó PO fájl frissített "
 "hivatkozásokkal (rgettext által generált)."
 
-#: lib/gettext/tools/rmsgmerge.rb:446
-msgid "definition po is not given."
-msgstr "a definiciós (def) PO nincs megadva"
+#: lib/gettext/tools.rb:74
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "Ellenőrizd az új .pot fájlt %{failed_filename}"
 
-#: lib/gettext/tools/rmsgmerge.rb:448
-msgid "reference pot is not given."
-msgstr "a referencia (ref) PO nincs megadva"
+#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
+#: lib/gettext/tools/rmsgfmt.rb:49
+msgid "Specific options:"
+msgstr "Speciális opciók:"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Használat: %s def.po ref.pot [-o output.pot]"
 
 #: lib/gettext/tools/rmsgfmt.rb:45
 msgid "Usage: %s input.po [-o output.mo]"
 msgstr "Használat: %s input.po [-o output.mo]"
 
-#: lib/gettext/tools/rmsgfmt.rb:47
-msgid "Generate binary message catalog from textual translation description."
-msgstr "Bináris üzenetállományt generál a lefordított szöveges állományokból."
+#: lib/gettext/tools/rgettext.rb:190
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Használat: %s input.rb [-r parser.rb] [-o output.pot]"
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -127,6 +87,46 @@ msgstr "Figyelem: fuzzy üzenet figyelmen kívül hagyva."
 #: src/poparser.ry:148
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Figyelem: Elavult msgid található."
+
+#: lib/gettext/tools.rb:183
+msgid ""
+"`%{cmd}' can not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+#: lib/gettext/parser/glade.rb:75
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}' nem glade-2.0 formátumú."
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "a definiciós (def) PO nincs megadva"
+
+#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
+#: lib/gettext/tools/rmsgfmt.rb:55
+msgid "display version information and exit"
+msgstr "verzió információ kiírása és kilépés"
+
+#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "Nincs feldolgozandó fájl"
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "a referencia (ref) PO nincs megadva"
+
+#: lib/gettext/tools/rgettext.rb:205
+msgid "require the library before executing rgettext"
+msgstr "szükséges library az rgettext futtatása előtt"
+
+#: lib/gettext/tools/rgettext.rb:209
+msgid "run in debugging mode"
+msgstr "debug módban futtatás"
+
+#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
+#: lib/gettext/tools/rmsgfmt.rb:51
+msgid "write output to specified file"
+msgstr "kimenet írása egy megadott fájlba"
 
 #~ msgid "'%{file}' is not found."
 #~ msgstr "'%{file}' nem található."
