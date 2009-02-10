@@ -56,7 +56,7 @@ module GetText
   # * refpo: a po-file. references to new sources
   # * app_version: the application information which appears "Project-Id-Version: #{app_version}" in the pot/po-files.
   # * Returns: self 
-  def msgmerge(defpo, refpo, app_version, options)
+  def msgmerge(defpo, refpo, app_version, options={})
     verbose = options.delete(:verbose) || false
     puts "msgmerge called" if verbose
     $stderr.print defpo + " "
