@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
-"POT-Creation-Date: 2009-02-09 13:41+0100\n"
+"POT-Creation-Date: 2009-02-10 08:12+0100\n"
 "PO-Revision-Date: 2008-07-14 05:33+0200\n"
 "Last-Translator: Alex Rootoff <rootoff at pisem.net>\n"
 "Language-Team: Ukrainian\n"

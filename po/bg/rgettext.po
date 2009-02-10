@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
-"POT-Creation-Date: 2009-02-09 13:41+0100\n"
+"POT-Creation-Date: 2009-02-10 08:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Sava Chankov <sava.chankov@gmail.com>\n"
 "Language-Team: Bulgarian <ruby-on-rails-bulgaria@googlegroups.com>\n"
