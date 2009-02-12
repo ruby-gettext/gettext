@@ -73,6 +73,11 @@ module GetText
     bindtextdomain(domainname)
   end
 
+  def textdomain_to(klass, domainname)  #:nodoc:
+    warn "GetText.textdomain_to is deprecated. Call bindtextdomain_to instead."
+    bindtextdomain_to(klass, domainname)
+  end
+
   # call-seq:
   #   gettext(msgid)
   #   _(msgid)
