@@ -57,27 +57,23 @@ module GetText
   # * app_version: the application information which appears "Project-Id-Version: #{app_version}" in the pot/po-files.
   # * Returns: self 
   def msgmerge(defpo, refpo, app_version, options={})
-    verbose = options.delete(:verbose) || false
+    verbose = options.delete(:verbose)
     puts "msgmerge called" if verbose
     $stderr.print defpo + " "
 
-    if FileTest.exist? defpo
-      content = merge_po_files(defpo,refpo,options.delete(:msgmerge),verbose)
-    else
-      content = File.read(refpo)
-    end
+    content = merge_po_files(defpo,refpo,options.delete(:msgmerge),verbose)
     
     if content.empty?
+      # report failure
       failed_filename = refpo + "~"
       FileUtils.cp(refpo, failed_filename)
       $stderr.puts _("Failed to merge with %{defpo}") % {:defpo => defpo}
       $stderr.puts _("New .pot was copied to %{failed_filename}") %{:failed_filename => failed_filename}
       raise _("Check these po/pot-files. It may have syntax errors or something wrong.")
     else
+      # update version and save merged data
       content.sub!(/(Project-Id-Version\:).*$/, "\\1 #{app_version}\\n\"")
-      File.open(defpo, "w") do |out|
-        out.write(content)
-      end
+      File.open(defpo, "w") {|f|f.write(content)}
     end
     
     self
@@ -151,9 +147,10 @@ module GetText
 
   private
 
-
   # Merge 2 po files, using msgmerge
   def merge_po_files(po_a,po_b,msgmerge_options=[],verbose=false)
+    return File.read(po_b) unless FileTest.exist? po_a
+
     cmd = ENV["MSGMERGE_PATH"] || "msgmerge"
     ensure_command_exists(cmd)
 
