@@ -2,10 +2,16 @@ require 'testlib/helper'
 
 require 'gettext/tools'
 class TestToolsTools < Test::Unit::TestCase
+  def setup
+    `cp -r tools/files tools/test_files`
+  end
+  def teardown
+    `rm -rf tools/test_files`
+  end
+
   def test_msgmerge_merges_old_and_new_po_file
-    old = backup('simple_1.po')
-    GetText.msgmerge(old,path('simple_2.po'),'X',:msgmerge=>[:sort_output,:no_location])
-    assert_equal File.read(old), <<EOF
+    GetText.msgmerge(path('simple_1.po'),path('simple_2.po'),'X',:msgmerge=>[:sort_output,:no_location])
+    assert_equal File.read(path('simple_1.po')), <<EOF
 msgid "a"
 msgstr "b"
 
@@ -20,6 +26,22 @@ EOF
     assert File.read(old) =~ /"Project-Id-Version: NEW\\n"/
   end
 
+  def test_update_pofiles_updates_a_single_language
+    GetText.update_pofiles('app',[path('simple_translation.rb')],'x',:po_root=>path('.'),:lang=>'en',:msgmerge=>[:no_location])
+    text = <<EOF
+msgid "a translation"
+msgstr ""
+EOF
+    assert_equal text, File.read(path('app.pot'))
+    assert_equal text, File.read(path('en/app.po'))
+    assert_equal '', File.read(path('de/app.po'))
+  end
+
+  def test_update_pofiles_updates_creates_po_folder_if_missing
+    GetText.update_pofiles('app',[path('simple_translation.rb')],'x',:po_root=>path('./xx'))
+    assert File.exist?(path('xx/app.pot'))
+  end
+
 private
 
   def backup(name)
@@ -29,6 +51,6 @@ private
   end
 
   def path(name)
-    File.join(File.dirname(__FILE__),'files',name)
+    File.join(File.dirname(__FILE__),'test_files',name)
   end
 end

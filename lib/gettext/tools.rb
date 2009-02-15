@@ -122,7 +122,7 @@ module GetText
   #
   # See <HOWTO maintain po/mo files(http://www.yotabanana.com/hiki/ruby-gettext-howto-manage.html)> for more detals.
   # * domainname: the textdomain name.
-  # * targetfiles: An Array of target files or nil (See GetText.rgettext for more details).
+  # * targetfiles: An Array of target files, that should be parsed for messages (See GetText.rgettext for more details).
   # * app_version: the application information which appears "Project-Id-Version: #{app_version}" in the pot/po-files.
   # * options: a hash with following possible settings
   #     :lang    - update files only for one language - the language specified by this option
@@ -134,25 +134,28 @@ module GetText
   #
   # Example: GetText.update_pofiles("myapp", Dir.glob("lib/*.rb"), "myapp 1.0.0", :verbose => true)
   def update_pofiles(textdomain, files, app_version, options = {})
-    puts options.inspect
+    puts options.inspect if options[:verbose]
+
+    #write found messages to tmp.pot
+    temp_pot = "tmp.pot"
+    rgettext(files, temp_pot)
+
+    #merge tmp.pot and existing pot
     po_root = options.delete(:po_root) || "po"
+    FileUtils.mkdir_p(po_root)
+    msgmerge("#{po_root}/#{textdomain}.pot", temp_pot, app_version, options.dup)
+
+    #update local po-files
     only_one_language = options.delete(:lang)
-    refpot = "tmp.pot"
-    rgettext(files, refpot)
-
-    FileUtils.mkdir_p(po_root) unless FileTest.exist? po_root
-    msgmerge("#{po_root}/#{textdomain}.pot", refpot, app_version, options.dup)
-
     if only_one_language
-      msgmerge("#{po_root}/#{only_one_language}/#{textdomain}.po", refpot, app_version, options.dup)
+      msgmerge("#{po_root}/#{only_one_language}/#{textdomain}.po", temp_pot, app_version, options.dup)
     else
-      Dir.glob("#{po_root}/*/#{textdomain}.po"){ |f|
-        lang = /#{po_root}\/(.*)\//.match(f).to_a[1]
-        msgmerge("#{po_root}/#{lang}/#{textdomain}.po", refpot, app_version, options.dup)
-      }
+      Dir.glob("#{po_root}/*/#{textdomain}.po") do |po_file|
+        msgmerge(po_file, temp_pot, app_version, options.dup)
+      end
     end
 
-    File.delete(refpot)
+    File.delete(temp_pot)
   end
 
   private
