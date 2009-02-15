@@ -29,10 +29,8 @@ module GetText
   def remove_bom(path)  #:nodoc:
     bom = IO.read(path, 3)
     if bom == BOM_UTF8
-      data = IO.read(path)
-      File.open(path, "w") do |out|
-        out.write(data[3..-1])
-      end
+      data = IO.read(path)[3..-1]
+      File.open(path, "w") {|f| f.write(data)}
     end
   end
 
