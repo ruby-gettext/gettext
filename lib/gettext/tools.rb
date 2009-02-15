@@ -86,30 +86,21 @@ module GetText
   # Creates mo-files using #{po_root}/#{lang}/*.po an put them to 
   # #{targetdir}/#{targetdir_rule}/. 
   #
-  # This is a convenience function of GetText.rmsgfmt for plural target files. 
+  # This is a convenience function of GetText.rmsgfmt for multiple target files.
   # * options: options as a Hash.
   #   * verbose: true if verbose mode, otherwise false
   #   * po_root: the root directory of po-files.
   #   * mo_root: the target root directory where the mo-files are stored.
   #   * mo_path_rule: the target directory for each mo-files.
   def create_mofiles(options = {})
-    opts = {:verbose => false, :po_root => "./po", :mo_root => "./data/locale", 
-      :mo_path_rule => "%{lang}/LC_MESSAGES"}
-    opts.merge!(options)
+    options = {:po_root => "./po"}.merge(options)
 
-    modir = File.join(opts[:mo_root], opts[:mo_path_rule])
-    Dir.glob(File.join(opts[:po_root], "*/*.po")) do |file|
-      lang, basename = /\/([^\/]+?)\/(.*)\.po/.match(file[opts[:po_root].size..-1]).to_a[1,2]
-      outdir = modir % {:lang => lang}
-      FileUtils.mkdir_p(outdir) unless File.directory?(outdir)
-      $stderr.print %Q[#{file} -> #{File.join(outdir, "#{basename}.mo")} ... ] if opts[:verbose]
-      begin
-        rmsgfmt(file, File.join(outdir, "#{basename}.mo"))
-      rescue Exception => e
-        $stderr.puts "Error." if opts[:verbose]
-        raise e
-      end
-      $stderr.puts "Done." if opts[:verbose]
+    Dir.glob(File.join(options[:po_root], "*/*.po")) do |po_file|
+      mo_file = mo_file_from_po_file(po_file,options)
+      $stderr.print %Q[#{po_file} -> #{mo_file} ... ] if options[:verbose]
+      FileUtils.mkdir_p(File.dirname(mo_file))
+      rmsgfmt(po_file, mo_file)
+      $stderr.puts "Done." if options[:verbose]
     end
   end
 
@@ -186,6 +177,21 @@ module GetText
     unless $? && $?.success?
       raise _("`%{cmd}' can not be found. \nInstall GNU Gettext then set PATH or MSGMERGE_PATH correctly.") % {:cmd => cmd}
     end
+  end
+
+  # where lies the mo file for a given po_file
+  # generare directory unless it exists
+  def mo_file_from_po_file(po_file,options)
+    options = {
+      :mo_root => "./data/locale",
+      :mo_path_rule => "%{lang}/LC_MESSAGES"
+    }.merge(options)
+    
+    lang, textdomain = %r[/([^/]+?)/(.*)\.po].match(po_file[options[:po_root].size..-1]).to_a[1,2]
+
+    mo_dir_rule = File.join(options[:mo_root], options[:mo_path_rule])
+    mo_dir = mo_dir_rule % {:lang => lang}
+    File.join(mo_dir, "#{textdomain}.mo")
   end
 end
 

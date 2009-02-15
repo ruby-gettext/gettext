@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
-"POT-Creation-Date: 2009-02-15 09:46+0100\n"
+"POT-Creation-Date: 2009-02-15 11:14+0100\n"
 "PO-Revision-Date: 2008-07-13 10:16+0200\n"
 "Last-Translator: Malte Milatz\n"
 "Language-Team: Esperanto\n"
@@ -87,7 +87,7 @@ msgstr "Averto: ignoras senfunkcian frazon.\n"
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Averto: msgid arkaika.\n"
 
-#: lib/gettext/tools.rb:187
+#: lib/gettext/tools.rb:178
 msgid ""
 "`%{cmd}' can not be found. \n"
 "Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."

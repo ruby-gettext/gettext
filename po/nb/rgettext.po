@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-15 09:46+0100\n"
+"POT-Creation-Date: 2009-02-15 11:14+0100\n"
 "PO-Revision-Date: 2008-07-14 16:42+0200\n"
 "Last-Translator: Runar Ingebrigtsen <runar@mopo.no>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
@@ -90,7 +90,7 @@ msgstr "Advarsel: uferdig melding ble ignorert.\n"
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Advarsel: det fins utdaterte msgid.\n"
 
-#: lib/gettext/tools.rb:187
+#: lib/gettext/tools.rb:178
 msgid ""
 "`%{cmd}' can not be found. \n"
 "Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."

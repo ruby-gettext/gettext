@@ -42,6 +42,11 @@ EOF
     assert File.exist?(path('xx/app.pot'))
   end
 
+  def test_create_mofiles_generates_mo_for_each_po
+    GetText.create_mofiles(:po_root=>path('.'),:mo_root=>path('mo'))
+    assert File.exist?(path('mo/en/LC_MESSAGES/app.mo'))
+    assert File.exist?(path('mo/de/LC_MESSAGES/app.mo'))
+  end
 private
 
   def backup(name)
