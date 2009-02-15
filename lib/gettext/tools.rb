@@ -157,10 +157,11 @@ module GetText
 
   private
 
+
   # Merge 2 po files, using msgmerge
   def merge_po_files(po_a,po_b,msgmerge_options=[],verbose=false)
     cmd = ENV["MSGMERGE_PATH"] || "msgmerge"
-    test_if_command_exists(cmd)
+    ensure_command_exists(cmd)
 
     remove_bom(po_a)
 
@@ -177,7 +178,7 @@ module GetText
     end.join(' ')
   end
 
-  def test_if_command_exists(cmd)
+  def ensure_command_exists(cmd)
     `#{cmd} --help`
     unless $? && $?.success?
       raise _("`%{cmd}' can not be found. \nInstall GNU Gettext then set PATH or MSGMERGE_PATH correctly.") % {:cmd => cmd}
