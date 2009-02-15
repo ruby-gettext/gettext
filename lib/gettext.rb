@@ -1,3 +1,18 @@
+=begin
+  gettext.rb - GetText module
+
+  Copyright (C) 2001-2009  Masao Mutoh
+  Copyright (C) 2001-2003  Masahiro Sakai
+
+      Masao Mutoh       <mutoh@highway.ne.jp>
+      Masahiro Sakai    <s01397ms@sfc.keio.ac.jp>
+
+  You may redistribute it and/or modify it under the same
+  license terms as Ruby.
+
+  $Id: gettext.rb,v 1.46 2008/09/13 18:23:55 mutoh Exp $
+=end
+
 begin gem 'locale', '>=0.9'; rescue LoadError;end
 require 'locale'
 raise "Insall locale as gem or uninstall old gettext" unless Locale.respond_to? :candidates
