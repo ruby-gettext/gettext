@@ -10,7 +10,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
+<<<<<<< HEAD:po/sr/rgettext.po
 "POT-Creation-Date: 2009-02-09 13:41+0100\n"
+=======
+"POT-Creation-Date: 2009-02-15 11:14+0100\n"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/sr/rgettext.po
 "PO-Revision-Date: 2008-07-13 08:53+0200\n"
 "Last-Translator: Slobodan Paunović\n"
 "Language-Team: Serbian\n"
@@ -20,6 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
+<<<<<<< HEAD:po/sr/rgettext.po
 #: lib/gettext/tools.rb:69
 msgid ""
 "`%{cmd}' can not be found. \n"
@@ -35,11 +40,23 @@ msgid "New .pot was copied to %{failed_filename}"
 msgstr "Нови .pot фајл је ископиран као %{failed_filename}"
 
 #: lib/gettext/tools.rb:90
+=======
+#: lib/gettext/tools/rgettext.rb:43
+msgid "'%{klass}' is ignored."
+msgstr "'%{klass}' игнорисано."
+
+#: lib/gettext/textdomain_manager.rb:157
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "3. параметар је погрешан: вредност = %{number}"
+
+#: lib/gettext/tools.rb:75
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/sr/rgettext.po
 msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 msgstr ""
 "Проверите ове po/pot фајлове. Могуће је да има синтаксних грешака или да "
 "нешто није у реду."
 
+<<<<<<< HEAD:po/sr/rgettext.po
 #: lib/gettext/parser/glade.rb:75
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "%{file} није у glade-2.0 формату."
@@ -56,10 +73,13 @@ msgstr "'%{klass}' игнорисано."
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Употреба: %s input.rb [-r parser.rb] [-o output.pot]"
 
+=======
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/sr/rgettext.po
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Екстракција стрингова за превођење из задатих улазних фајлова."
 
+<<<<<<< HEAD:po/sr/rgettext.po
 #: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
 #: lib/gettext/tools/rmsgfmt.rb:49
 msgid "Specific options:"
@@ -69,11 +89,17 @@ msgstr "Посебне опције:"
 #: lib/gettext/tools/rmsgfmt.rb:51
 msgid "write output to specified file"
 msgstr "писање излаза у задат фајл"
+=======
+#: lib/gettext/tools.rb:73
+msgid "Failed to merge with %{defpo}"
+msgstr "Неуспело спајање са %{defpo}"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/sr/rgettext.po
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "Фајл '%s' већ постоји."
 
+<<<<<<< HEAD:po/sr/rgettext.po
 #: lib/gettext/tools/rgettext.rb:205
 msgid "require the library before executing rgettext"
 msgstr "захтевај библиотеку пре извршења rgettext-а"
@@ -94,6 +120,11 @@ msgstr "нема улазних фајлова"
 #: lib/gettext/tools/rmsgmerge.rb:402
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "Употреба: %s def.po ref.pot [-o output.pot]"
+=======
+#: lib/gettext/tools/rmsgfmt.rb:47
+msgid "Generate binary message catalog from textual translation description."
+msgstr "Формирање бинарног каталога порука из текстуалног превода."
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/sr/rgettext.po
 
 #: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
@@ -105,6 +136,7 @@ msgstr ""
 "преводима. Ref.pot фајл је последње креиран PO фајл са текућим изворним "
 "референцама. Ref.pot се обично креира помоћу rgettext-а."
 
+<<<<<<< HEAD:po/sr/rgettext.po
 #: lib/gettext/tools/rmsgmerge.rb:446
 msgid "definition po is not given."
 msgstr "дефинициони po фајл није задат."
@@ -112,14 +144,34 @@ msgstr "дефинициони po фајл није задат."
 #: lib/gettext/tools/rmsgmerge.rb:448
 msgid "reference pot is not given."
 msgstr "референтни pot фајл није задат."
+=======
+#: lib/gettext/tools.rb:74
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "Нови .pot фајл је ископиран као %{failed_filename}"
+
+#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
+#: lib/gettext/tools/rmsgfmt.rb:49
+msgid "Specific options:"
+msgstr "Посебне опције:"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Употреба: %s def.po ref.pot [-o output.pot]"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/sr/rgettext.po
 
 #: lib/gettext/tools/rmsgfmt.rb:45
 msgid "Usage: %s input.po [-o output.mo]"
 msgstr "Употреба: %s input.po [-o output.mo]"
 
+<<<<<<< HEAD:po/sr/rgettext.po
 #: lib/gettext/tools/rmsgfmt.rb:47
 msgid "Generate binary message catalog from textual translation description."
 msgstr "Формирање бинарног каталога порука из текстуалног превода."
+=======
+#: lib/gettext/tools/rgettext.rb:190
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Употреба: %s input.rb [-r parser.rb] [-o output.pot]"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/sr/rgettext.po
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -129,6 +181,49 @@ msgstr "Упозорење: фази порука је игнорисана.\n"
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Упозорење: постоји застарели msgid.\n"
 
+<<<<<<< HEAD:po/sr/rgettext.po
+=======
+#: lib/gettext/tools.rb:178
+msgid ""
+"`%{cmd}' can not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+#: lib/gettext/parser/glade.rb:75
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "%{file} није у glade-2.0 формату."
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "дефинициони po фајл није задат."
+
+#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
+#: lib/gettext/tools/rmsgfmt.rb:55
+msgid "display version information and exit"
+msgstr "приказ информација о верзији и излаз"
+
+#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "нема улазних фајлова"
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "референтни pot фајл није задат."
+
+#: lib/gettext/tools/rgettext.rb:205
+msgid "require the library before executing rgettext"
+msgstr "захтевај библиотеку пре извршења rgettext-а"
+
+#: lib/gettext/tools/rgettext.rb:209
+msgid "run in debugging mode"
+msgstr "ради у дибагинг моду"
+
+#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
+#: lib/gettext/tools/rmsgfmt.rb:51
+msgid "write output to specified file"
+msgstr "писање излаза у задат фајл"
+
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/sr/rgettext.po
 #~ msgid "'%{file}' is not found."
 #~ msgstr "%{file} није нађен."
 

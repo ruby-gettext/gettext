@@ -11,7 +11,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:po/nb/rgettext.po
 "POT-Creation-Date: 2009-02-09 13:41+0100\n"
+=======
+"POT-Creation-Date: 2009-02-15 11:14+0100\n"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/nb/rgettext.po
 "PO-Revision-Date: 2008-07-14 16:42+0200\n"
 "Last-Translator: Runar Ingebrigtsen <runar@mopo.no>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
@@ -20,6 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+<<<<<<< HEAD:po/nb/rgettext.po
 #: lib/gettext/tools.rb:69
 msgid ""
 "`%{cmd}' can not be found. \n"
@@ -35,11 +40,23 @@ msgid "New .pot was copied to %{failed_filename}"
 msgstr "Kontroller ny .pot i %{failed_filename}"
 
 #: lib/gettext/tools.rb:90
+=======
+#: lib/gettext/tools/rgettext.rb:43
+msgid "'%{klass}' is ignored."
+msgstr "'%{klass}' blir ignorert."
+
+#: lib/gettext/textdomain_manager.rb:157
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "Tredje parameter er feil: verdi = %{number}"
+
+#: lib/gettext/tools.rb:75
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/nb/rgettext.po
 msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 msgstr ""
 "Kontroller disse po/pot-filene. Det kan være syntaks-feil eller noe annet "
 "galt."
 
+<<<<<<< HEAD:po/nb/rgettext.po
 #: lib/gettext/parser/glade.rb:75
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' er ikke glade-2.0-formattert."
@@ -56,10 +73,13 @@ msgstr "'%{klass}' blir ignorert."
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Bruk: %s input.rb [-r parser.rb] [-o output.pot]"
 
+=======
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/nb/rgettext.po
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Trekk ut oversettbare tekststrenger fra angitte filer"
 
+<<<<<<< HEAD:po/nb/rgettext.po
 #: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
 #: lib/gettext/tools/rmsgfmt.rb:49
 msgid "Specific options:"
@@ -69,11 +89,17 @@ msgstr "Spesifikke alternativer:"
 #: lib/gettext/tools/rmsgfmt.rb:51
 msgid "write output to specified file"
 msgstr "skriv ut til spesifisert fil"
+=======
+#: lib/gettext/tools.rb:73
+msgid "Failed to merge with %{defpo}"
+msgstr "Klarte ikke slå sammen med %{defpo}·-·hopper over!"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/nb/rgettext.po
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "Filen '%s' eksisterer fra før"
 
+<<<<<<< HEAD:po/nb/rgettext.po
 #: lib/gettext/tools/rgettext.rb:205
 msgid "require the library before executing rgettext"
 msgstr "krev biblioteket før du kjører rgettext"
@@ -94,6 +120,12 @@ msgstr "ingen angitte filer"
 #: lib/gettext/tools/rmsgmerge.rb:402
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "Bruk: %s def.po ref.pot [-o output.pot]"
+=======
+#: lib/gettext/tools/rmsgfmt.rb:47
+msgid "Generate binary message catalog from textual translation description."
+msgstr ""
+"Opprett mappe for binære meldinger ut fra beskrivelse av oversettelsen."
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/nb/rgettext.po
 
 #: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
@@ -105,6 +137,7 @@ msgstr ""
 "fil med oversettelser. ref.po-filen er den sist opprettede PO-filen "
 "medoppdaterte kildereferanser. ref.pot er generelt opprettet av rgettext."
 
+<<<<<<< HEAD:po/nb/rgettext.po
 #: lib/gettext/tools/rmsgmerge.rb:446
 msgid "definition po is not given."
 msgstr "definisjons-po ikke angitt"
@@ -112,15 +145,35 @@ msgstr "definisjons-po ikke angitt"
 #: lib/gettext/tools/rmsgmerge.rb:448
 msgid "reference pot is not given."
 msgstr "referanse-po ikke angitt"
+=======
+#: lib/gettext/tools.rb:74
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "Kontroller ny .pot i %{failed_filename}"
+
+#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
+#: lib/gettext/tools/rmsgfmt.rb:49
+msgid "Specific options:"
+msgstr "Spesifikke alternativer:"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Bruk: %s def.po ref.pot [-o output.pot]"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/nb/rgettext.po
 
 #: lib/gettext/tools/rmsgfmt.rb:45
 msgid "Usage: %s input.po [-o output.mo]"
 msgstr "Bruk: %s input.po [-p output.mo]"
 
+<<<<<<< HEAD:po/nb/rgettext.po
 #: lib/gettext/tools/rmsgfmt.rb:47
 msgid "Generate binary message catalog from textual translation description."
 msgstr ""
 "Opprett mappe for binære meldinger ut fra beskrivelse av oversettelsen."
+=======
+#: lib/gettext/tools/rgettext.rb:190
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Bruk: %s input.rb [-r parser.rb] [-o output.pot]"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/nb/rgettext.po
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -130,6 +183,49 @@ msgstr "Advarsel: uferdig melding ble ignorert.\n"
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Advarsel: det fins utdaterte msgid.\n"
 
+<<<<<<< HEAD:po/nb/rgettext.po
+=======
+#: lib/gettext/tools.rb:178
+msgid ""
+"`%{cmd}' can not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+#: lib/gettext/parser/glade.rb:75
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}' er ikke glade-2.0-formattert."
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "definisjons-po ikke angitt"
+
+#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
+#: lib/gettext/tools/rmsgfmt.rb:55
+msgid "display version information and exit"
+msgstr "vis versjonsinformasjon og avslutt"
+
+#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "ingen angitte filer"
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "referanse-po ikke angitt"
+
+#: lib/gettext/tools/rgettext.rb:205
+msgid "require the library before executing rgettext"
+msgstr "krev biblioteket før du kjører rgettext"
+
+#: lib/gettext/tools/rgettext.rb:209
+msgid "run in debugging mode"
+msgstr "kjør i feilsøkingsmodus"
+
+#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
+#: lib/gettext/tools/rmsgfmt.rb:51
+msgid "write output to specified file"
+msgstr "skriv ut til spesifisert fil"
+
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/nb/rgettext.po
 #~ msgid "'%{file}' is not found."
 #~ msgstr "'%{file}' ble ikke funnet."
 

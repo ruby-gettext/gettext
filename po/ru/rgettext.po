@@ -9,7 +9,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
+<<<<<<< HEAD:po/ru/rgettext.po
 "POT-Creation-Date: 2009-02-09 13:41+0100\n"
+=======
+"POT-Creation-Date: 2009-02-15 11:14+0100\n"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/ru/rgettext.po
 "PO-Revision-Date: 2008-07-13 10:08+0400\n"
 "Last-Translator: Yuri Kozlov <kozlov.y@gmail.com>\n"
 "Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
@@ -20,6 +24,7 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.4\n"
 
+<<<<<<< HEAD:po/ru/rgettext.po
 #: lib/gettext/tools.rb:69
 msgid ""
 "`%{cmd}' can not be found. \n"
@@ -35,11 +40,23 @@ msgid "New .pot was copied to %{failed_filename}"
 msgstr "Новый .pot скопирован в %{failed_filename}"
 
 #: lib/gettext/tools.rb:90
+=======
+#: lib/gettext/tools/rgettext.rb:43
+msgid "'%{klass}' is ignored."
+msgstr "проигнорирован '%{klass}'."
+
+#: lib/gettext/textdomain_manager.rb:157
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "Ошибка в третьем параметре: value = %{number}"
+
+#: lib/gettext/tools.rb:75
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/ru/rgettext.po
 msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 msgstr ""
 "Проверьте данные po/pot-файлы. В них могут быть синтаксические и другие "
 "ошибки."
 
+<<<<<<< HEAD:po/ru/rgettext.po
 #: lib/gettext/parser/glade.rb:75
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' не в формате glade-2.0."
@@ -56,10 +73,13 @@ msgstr "проигнорирован '%{klass}'."
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Использование: %s input.rb [-r parser.rb] [-o output.pot]"
 
+=======
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/ru/rgettext.po
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Извлекает строки для перевода из указанных входных файлов."
 
+<<<<<<< HEAD:po/ru/rgettext.po
 #: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
 #: lib/gettext/tools/rmsgfmt.rb:49
 msgid "Specific options:"
@@ -69,11 +89,17 @@ msgstr "Дополнительные параметры:"
 #: lib/gettext/tools/rmsgfmt.rb:51
 msgid "write output to specified file"
 msgstr "записать результат в указанный файл"
+=======
+#: lib/gettext/tools.rb:73
+msgid "Failed to merge with %{defpo}"
+msgstr "Не удалось объединить с %{defpo}"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/ru/rgettext.po
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "Файл '%s' уже существует."
 
+<<<<<<< HEAD:po/ru/rgettext.po
 #: lib/gettext/tools/rgettext.rb:205
 msgid "require the library before executing rgettext"
 msgstr "для выполнения rgettext требуется библиотека"
@@ -94,6 +120,11 @@ msgstr "не заданы входные файлы"
 #: lib/gettext/tools/rmsgmerge.rb:402
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "Использование: %s def.po ref.pot [-o output.pot]"
+=======
+#: lib/gettext/tools/rmsgfmt.rb:47
+msgid "Generate binary message catalog from textual translation description."
+msgstr "Генерирует бинарный каталог сообщений из перевода."
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/ru/rgettext.po
 
 #: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
@@ -106,6 +137,7 @@ msgstr ""
 "исходных текстов и не содержит переводов. ref.pot обычно создаётся с помощью "
 "программы rgettext."
 
+<<<<<<< HEAD:po/ru/rgettext.po
 #: lib/gettext/tools/rmsgmerge.rb:446
 msgid "definition po is not given."
 msgstr "не указан файл def.po."
@@ -113,14 +145,34 @@ msgstr "не указан файл def.po."
 #: lib/gettext/tools/rmsgmerge.rb:448
 msgid "reference pot is not given."
 msgstr "не указан файл ref.po."
+=======
+#: lib/gettext/tools.rb:74
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "Новый .pot скопирован в %{failed_filename}"
+
+#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
+#: lib/gettext/tools/rmsgfmt.rb:49
+msgid "Specific options:"
+msgstr "Дополнительные параметры:"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Использование: %s def.po ref.pot [-o output.pot]"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/ru/rgettext.po
 
 #: lib/gettext/tools/rmsgfmt.rb:45
 msgid "Usage: %s input.po [-o output.mo]"
 msgstr "Использование: %s input.po [-o output.mo]"
 
+<<<<<<< HEAD:po/ru/rgettext.po
 #: lib/gettext/tools/rmsgfmt.rb:47
 msgid "Generate binary message catalog from textual translation description."
 msgstr "Генерирует бинарный каталог сообщений из перевода."
+=======
+#: lib/gettext/tools/rgettext.rb:190
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Использование: %s input.rb [-r parser.rb] [-o output.pot]"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/ru/rgettext.po
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -130,6 +182,49 @@ msgstr "Предупреждение: игнорирован неточный п
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Предупреждение: присутствует устаревшая msgid.\n"
 
+<<<<<<< HEAD:po/ru/rgettext.po
+=======
+#: lib/gettext/tools.rb:178
+msgid ""
+"`%{cmd}' can not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+#: lib/gettext/parser/glade.rb:75
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}' не в формате glade-2.0."
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "не указан файл def.po."
+
+#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
+#: lib/gettext/tools/rmsgfmt.rb:55
+msgid "display version information and exit"
+msgstr "показать информацию о версии и закончить работу"
+
+#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "не заданы входные файлы"
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "не указан файл ref.po."
+
+#: lib/gettext/tools/rgettext.rb:205
+msgid "require the library before executing rgettext"
+msgstr "для выполнения rgettext требуется библиотека"
+
+#: lib/gettext/tools/rgettext.rb:209
+msgid "run in debugging mode"
+msgstr "запуск в режиме отладки"
+
+#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
+#: lib/gettext/tools/rmsgfmt.rb:51
+msgid "write output to specified file"
+msgstr "записать результат в указанный файл"
+
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/ru/rgettext.po
 #~ msgid "'%{file}' is not found."
 #~ msgstr "'%{file}' не найден."
 

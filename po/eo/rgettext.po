@@ -10,7 +10,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
+<<<<<<< HEAD:po/eo/rgettext.po
 "POT-Creation-Date: 2009-02-09 13:41+0100\n"
+=======
+"POT-Creation-Date: 2009-02-15 11:14+0100\n"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/eo/rgettext.po
 "PO-Revision-Date: 2008-07-13 10:16+0200\n"
 "Last-Translator: Malte Milatz\n"
 "Language-Team: Esperanto\n"
@@ -19,6 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+<<<<<<< HEAD:po/eo/rgettext.po
 #: lib/gettext/tools.rb:69
 msgid ""
 "`%{cmd}' can not be found. \n"
@@ -34,10 +39,23 @@ msgid "New .pot was copied to %{failed_filename}"
 msgstr "Nova pot-dosiero kopiiĝis al %{failed_filename}"
 
 #: lib/gettext/tools.rb:90
+=======
+#: lib/gettext/tools/rgettext.rb:43
+msgid "'%{klass}' is ignored."
+msgstr "ignoras '%{klass}'."
+
+# TODO: Should this be "parameter"?
+#: lib/gettext/textdomain_manager.rb:157
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "Malĝusta tria parametro: valoro = %{number}"
+
+#: lib/gettext/tools.rb:75
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/eo/rgettext.po
 msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 msgstr ""
 "Kontrolu jenajn po/pot-dosierojn. Estas eble sintaksaj eraroj en ili, aŭ io."
 
+<<<<<<< HEAD:po/eo/rgettext.po
 #: lib/gettext/parser/glade.rb:75
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' ne konformas al la formato de glade-2.0."
@@ -55,10 +73,13 @@ msgstr "ignoras '%{klass}'."
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Uzmaniero: %s en.rb [ -r analiz.rb ] [ -o el.pot ]"
 
+=======
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/eo/rgettext.po
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Arigos tradukeblajn frazojn el donitaj dosieroj."
 
+<<<<<<< HEAD:po/eo/rgettext.po
 #: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
 #: lib/gettext/tools/rmsgfmt.rb:49
 msgid "Specific options:"
@@ -68,11 +89,17 @@ msgstr "Specifaj opcioj:"
 #: lib/gettext/tools/rmsgfmt.rb:51
 msgid "write output to specified file"
 msgstr "skribos la produkton en la indikitan dosieron"
+=======
+#: lib/gettext/tools.rb:73
+msgid "Failed to merge with %{defpo}"
+msgstr "Kunfando kun %{defpo} fiaskis"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/eo/rgettext.po
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "Dosiero '%s' jam ekzistas."
 
+<<<<<<< HEAD:po/eo/rgettext.po
 # TODO: This translation looks somehow unrelated... What did I do that day?
 #: lib/gettext/tools/rgettext.rb:205
 msgid "require the library before executing rgettext"
@@ -96,6 +123,12 @@ msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "Uzmaniero: %s def.po ref.pot [ -o el.pot ]"
 
 #: lib/gettext/tools/rmsgmerge.rb:405
+=======
+#: lib/gettext/tools/rmsgfmt.rb:47
+msgid "Generate binary message catalog from textual translation description."
+msgstr "Generu porkomputilan mesaĝaron el la traduktekstoj."
+
+#: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
 "Merges two Uniforum style .po files together. The def.po file is an existing "
 "PO file with translations. The ref.pot file is the last created PO file with "
@@ -104,10 +137,54 @@ msgstr ""
 "Kunfandos du po-dosierojn `Uniforum'-formatitajn. def.po jam enhavu "
 "tradukojn; ref.pot estu aktuale kreita el la fontkodo per rgettext."
 
+#: lib/gettext/tools.rb:74
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "Nova pot-dosiero kopiiĝis al %{failed_filename}"
+
+#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
+#: lib/gettext/tools/rmsgfmt.rb:49
+msgid "Specific options:"
+msgstr "Specifaj opcioj:"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Uzmaniero: %s def.po ref.pot [ -o el.pot ]"
+
+#: lib/gettext/tools/rmsgfmt.rb:45
+msgid "Usage: %s input.po [-o output.mo]"
+msgstr "Uzmaniero: %s en.po [ -o el.mo ]"
+
+#: lib/gettext/tools/rgettext.rb:190
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Uzmaniero: %s en.rb [ -r analiz.rb ] [ -o el.pot ]"
+
+#: src/poparser.ry:38 src/poparser.ry:55
+msgid "Warning: fuzzy message was ignored.\n"
+msgstr "Averto: ignoras senfunkcian frazon.\n"
+
+#: src/poparser.ry:148
+msgid "Warning: obsolete msgid exists.\n"
+msgstr "Averto: msgid arkaika.\n"
+
+#: lib/gettext/tools.rb:178
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/eo/rgettext.po
+msgid ""
+"`%{cmd}' can not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+<<<<<<< HEAD:po/eo/rgettext.po
+=======
+#: lib/gettext/parser/glade.rb:75
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}' ne konformas al la formato de glade-2.0."
+
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/eo/rgettext.po
 #: lib/gettext/tools/rmsgmerge.rb:446
 msgid "definition po is not given."
 msgstr "ne ricevis po-dosieron."
 
+<<<<<<< HEAD:po/eo/rgettext.po
 #: lib/gettext/tools/rmsgmerge.rb:448
 msgid "reference pot is not given."
 msgstr "ne ricevis referencan pot-dosieron."
@@ -119,11 +196,45 @@ msgstr "Uzmaniero: %s en.po [ -o el.mo ]"
 #: lib/gettext/tools/rmsgfmt.rb:47
 msgid "Generate binary message catalog from textual translation description."
 msgstr "Generu porkomputilan mesaĝaron el la traduktekstoj."
+=======
+#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
+#: lib/gettext/tools/rmsgfmt.rb:55
+msgid "display version information and exit"
+msgstr "montros versi-informon"
 
-#: src/poparser.ry:38 src/poparser.ry:55
-msgid "Warning: fuzzy message was ignored.\n"
-msgstr "Averto: ignoras senfunkcian frazon.\n"
+#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "neniu dosiero donita"
 
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "ne ricevis referencan pot-dosieron."
+
+# TODO: This translation looks somehow unrelated... What did I do that day?
+#: lib/gettext/tools/rgettext.rb:205
+msgid "require the library before executing rgettext"
+msgstr "uzos indikitan opcianalizilon"
+
+#: lib/gettext/tools/rgettext.rb:209
+msgid "run in debugging mode"
+msgstr "sencimiga modo"
+
+#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
+#: lib/gettext/tools/rmsgfmt.rb:51
+msgid "write output to specified file"
+msgstr "skribos la produkton en la indikitan dosieron"
+
+#~ msgid "'%{file}' is not found."
+#~ msgstr "`%{file}' ne ekzistas."
+
+#~ msgid "Ignored '%{file}'. Solve dependencies first."
+#~ msgstr "Ignoris `%{file}' pro malklaraj dependecoj."
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/eo/rgettext.po
+
+#~ msgid "No database is available."
+#~ msgstr "Neniu datumbazo."
+
+<<<<<<< HEAD:po/eo/rgettext.po
 #: src/poparser.ry:148
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Averto: msgid arkaika.\n"
@@ -137,5 +248,7 @@ msgstr "Averto: msgid arkaika.\n"
 #~ msgid "No database is available."
 #~ msgstr "Neniu datumbazo."
 
+=======
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/eo/rgettext.po
 #~ msgid "rubygems are not found."
 #~ msgstr "rubygems ne trovebla."

@@ -10,7 +10,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
+<<<<<<< HEAD:po/lv/rgettext.po
 "POT-Creation-Date: 2009-02-09 13:41+0100\n"
+=======
+"POT-Creation-Date: 2009-02-15 11:14+0100\n"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/lv/rgettext.po
 "PO-Revision-Date: 2008-07-22 12:26+0200\n"
 "Last-Translator: Aivars Akots <aivars.akots@gmail.com>\n"
 "Language-Team: Latvian\n"
@@ -20,6 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
+<<<<<<< HEAD:po/lv/rgettext.po
 #: lib/gettext/tools.rb:69
 msgid ""
 "`%{cmd}' can not be found. \n"
@@ -35,11 +40,23 @@ msgid "New .pot was copied to %{failed_filename}"
 msgstr "Jaunais .pot tika pārkopēts kā %{failed_filename}"
 
 #: lib/gettext/tools.rb:90
+=======
+#: lib/gettext/tools/rgettext.rb:43
+msgid "'%{klass}' is ignored."
+msgstr "'%{klass}' ir ignorēta."
+
+#: lib/gettext/textdomain_manager.rb:157
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "trešais parametrs ir kļūdains: vērtība = %{number}"
+
+#: lib/gettext/tools.rb:75
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/lv/rgettext.po
 msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 msgstr ""
 "Pārbaudi šīs po/pot datnes. Tajās varētu būt sintakses kļūdas vai kas cits "
 "nogājis greizi."
 
+<<<<<<< HEAD:po/lv/rgettext.po
 #: lib/gettext/parser/glade.rb:75
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' nav glade-2.0 formātā."
@@ -56,10 +73,13 @@ msgstr "'%{klass}' ir ignorēta."
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Lietošana: %s input.rb [-r parser.rb] [-o output.pot]"
 
+=======
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/lv/rgettext.po
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Iegūt tulkojamos tekstus no norādītajām ievades datnēm."
 
+<<<<<<< HEAD:po/lv/rgettext.po
 #: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
 #: lib/gettext/tools/rmsgfmt.rb:49
 msgid "Specific options:"
@@ -69,11 +89,17 @@ msgstr "Īpaši uzstādījumi:"
 #: lib/gettext/tools/rmsgfmt.rb:51
 msgid "write output to specified file"
 msgstr "ierakstīt izvadi norādītajā datnē"
+=======
+#: lib/gettext/tools.rb:73
+msgid "Failed to merge with %{defpo}"
+msgstr "Nesanāca apvienot ar %{defpo}"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/lv/rgettext.po
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "Datne '%s' jau eksistē."
 
+<<<<<<< HEAD:po/lv/rgettext.po
 #: lib/gettext/tools/rgettext.rb:205
 msgid "require the library before executing rgettext"
 msgstr "izmanto \"require bibliotēka\" pirms izsauc rgettext"
@@ -94,6 +120,11 @@ msgstr "nav ievades datņu"
 #: lib/gettext/tools/rmsgmerge.rb:402
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "Lietošana: %s def.po ref.pot [-o output.pot]"
+=======
+#: lib/gettext/tools/rmsgfmt.rb:47
+msgid "Generate binary message catalog from textual translation description."
+msgstr "Ģenerēt bināro katalogu no tekstuālo tulkojumu apraksta."
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/lv/rgettext.po
 
 #: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
@@ -105,6 +136,7 @@ msgstr ""
 "datne ar tulkojumiem. Ref.pot datne ir pēdējā izveidotā PO datne ar "
 "atjauninātām izejas faila atsaucēm. Ref.pot ir datni veido rgettext."
 
+<<<<<<< HEAD:po/lv/rgettext.po
 #: lib/gettext/tools/rmsgmerge.rb:446
 msgid "definition po is not given."
 msgstr "po definīcija nav padota."
@@ -112,14 +144,34 @@ msgstr "po definīcija nav padota."
 #: lib/gettext/tools/rmsgmerge.rb:448
 msgid "reference pot is not given."
 msgstr "pot atsauce nav padota."
+=======
+#: lib/gettext/tools.rb:74
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "Jaunais .pot tika pārkopēts kā %{failed_filename}"
+
+#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
+#: lib/gettext/tools/rmsgfmt.rb:49
+msgid "Specific options:"
+msgstr "Īpaši uzstādījumi:"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Lietošana: %s def.po ref.pot [-o output.pot]"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/lv/rgettext.po
 
 #: lib/gettext/tools/rmsgfmt.rb:45
 msgid "Usage: %s input.po [-o output.mo]"
 msgstr "Lietošana: %s ievades.po [-o izvades.mo]"
 
+<<<<<<< HEAD:po/lv/rgettext.po
 #: lib/gettext/tools/rmsgfmt.rb:47
 msgid "Generate binary message catalog from textual translation description."
 msgstr "Ģenerēt bināro katalogu no tekstuālo tulkojumu apraksta."
+=======
+#: lib/gettext/tools/rgettext.rb:190
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Lietošana: %s input.rb [-r parser.rb] [-o output.pot]"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/lv/rgettext.po
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -129,6 +181,49 @@ msgstr "Brīdinājums: ziņa tika ignorēta.\n"
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Brīdinājums: msgid eksistē.\n"
 
+<<<<<<< HEAD:po/lv/rgettext.po
+=======
+#: lib/gettext/tools.rb:178
+msgid ""
+"`%{cmd}' can not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+#: lib/gettext/parser/glade.rb:75
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}' nav glade-2.0 formātā."
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "po definīcija nav padota."
+
+#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
+#: lib/gettext/tools/rmsgfmt.rb:55
+msgid "display version information and exit"
+msgstr "parādīt versiju un iziet"
+
+#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "nav ievades datņu"
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "pot atsauce nav padota."
+
+#: lib/gettext/tools/rgettext.rb:205
+msgid "require the library before executing rgettext"
+msgstr "izmanto \"require bibliotēka\" pirms izsauc rgettext"
+
+#: lib/gettext/tools/rgettext.rb:209
+msgid "run in debugging mode"
+msgstr "izpildīt atkļūdošanas veidā"
+
+#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
+#: lib/gettext/tools/rmsgfmt.rb:51
+msgid "write output to specified file"
+msgstr "ierakstīt izvadi norādītajā datnē"
+
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/lv/rgettext.po
 #~ msgid "'%{file}' is not found."
 #~ msgstr "'%{file}' nav atrasts."
 

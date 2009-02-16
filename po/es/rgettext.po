@@ -10,7 +10,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
+<<<<<<< HEAD:po/es/rgettext.po
 "POT-Creation-Date: 2009-02-09 13:41+0100\n"
+=======
+"POT-Creation-Date: 2009-02-15 11:14+0100\n"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/es/rgettext.po
 "PO-Revision-Date: 2005-04-24 14:54+0100\n"
 "Last-Translator: David Espada <davinci at escomposlinux.org>\n"
 "Language-Team: Spanish\n"
@@ -19,6 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+<<<<<<< HEAD:po/es/rgettext.po
 #: lib/gettext/tools.rb:69
 msgid ""
 "`%{cmd}' can not be found. \n"
@@ -53,10 +58,25 @@ msgstr "'%{klass}' ignorado"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Uso: %s entrada.po [-r parser.rb] [-o salida.pot]"
 
+=======
+#: lib/gettext/tools/rgettext.rb:43
+msgid "'%{klass}' is ignored."
+msgstr "'%{klass}' ignorado"
+
+#: lib/gettext/textdomain_manager.rb:157
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "tercer parámetro es erróneo: valor = %{número}"
+
+#: lib/gettext/tools.rb:75
+msgid "Check these po/pot-files. It may have syntax errors or something wrong."
+msgstr "Chequee estos ficheros po/pot. Pueden tener errores"
+
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/es/rgettext.po
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Extraer las cadenas traducibles de los ficheros de entrada."
 
+<<<<<<< HEAD:po/es/rgettext.po
 #: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
 #: lib/gettext/tools/rmsgfmt.rb:49
 msgid "Specific options:"
@@ -66,11 +86,17 @@ msgstr "Opciones específicas:"
 #: lib/gettext/tools/rmsgfmt.rb:51
 msgid "write output to specified file"
 msgstr "escribir salida en fichero especificado"
+=======
+#: lib/gettext/tools.rb:73
+msgid "Failed to merge with %{defpo}"
+msgstr "Fallo al unir con %{defpo}"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/es/rgettext.po
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "El fichero '%s' ya ha existido"
 
+<<<<<<< HEAD:po/es/rgettext.po
 #: lib/gettext/tools/rgettext.rb:205
 msgid "require the library before executing rgettext"
 msgstr "importe la biblioteca antes de ejecutar rgettext"
@@ -91,6 +117,13 @@ msgstr "no hay ficheros de entrada"
 #: lib/gettext/tools/rmsgmerge.rb:402
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "Uso: %s def.po ref.pot [-o salida.pot]"
+=======
+#: lib/gettext/tools/rmsgfmt.rb:47
+msgid "Generate binary message catalog from textual translation description."
+msgstr ""
+"Generar catálogo de mensajes binarios a partir de la descripción textual de "
+"la traducción."
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/es/rgettext.po
 
 #: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
@@ -103,6 +136,7 @@ msgstr ""
 "fichero PO con referencias actualizadas. ref.pot generalmente es creado por "
 "rgettext."
 
+<<<<<<< HEAD:po/es/rgettext.po
 #: lib/gettext/tools/rmsgmerge.rb:446
 msgid "definition po is not given."
 msgstr "no se ha dado definición po"
@@ -110,16 +144,36 @@ msgstr "no se ha dado definición po"
 #: lib/gettext/tools/rmsgmerge.rb:448
 msgid "reference pot is not given."
 msgstr "no se ha dado referencia pot"
+=======
+#: lib/gettext/tools.rb:74
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "Nuevo .pot se ha copiado en %{failed_filename}"
+
+#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
+#: lib/gettext/tools/rmsgfmt.rb:49
+msgid "Specific options:"
+msgstr "Opciones específicas:"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Uso: %s def.po ref.pot [-o salida.pot]"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/es/rgettext.po
 
 #: lib/gettext/tools/rmsgfmt.rb:45
 msgid "Usage: %s input.po [-o output.mo]"
 msgstr "Uso: %s entrada.po [-o salida.mo]"
 
+<<<<<<< HEAD:po/es/rgettext.po
 #: lib/gettext/tools/rmsgfmt.rb:47
 msgid "Generate binary message catalog from textual translation description."
 msgstr ""
 "Generar catálogo de mensajes binarios a partir de la descripción textual de "
 "la traducción."
+=======
+#: lib/gettext/tools/rgettext.rb:190
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Uso: %s entrada.po [-r parser.rb] [-o salida.pot]"
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/es/rgettext.po
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -129,6 +183,49 @@ msgstr "Aviso: se ha ignorado mensaje ambigüo.\n"
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Aviso: existe msgid obsoleto.\n"
 
+<<<<<<< HEAD:po/es/rgettext.po
+=======
+#: lib/gettext/tools.rb:178
+msgid ""
+"`%{cmd}' can not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+#: lib/gettext/parser/glade.rb:75
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}' no tiene formato glade-2.0."
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "no se ha dado definición po"
+
+#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
+#: lib/gettext/tools/rmsgfmt.rb:55
+msgid "display version information and exit"
+msgstr "mostrar información de versión y salir"
+
+#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "no hay ficheros de entrada"
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "no se ha dado referencia pot"
+
+#: lib/gettext/tools/rgettext.rb:205
+msgid "require the library before executing rgettext"
+msgstr "importe la biblioteca antes de ejecutar rgettext"
+
+#: lib/gettext/tools/rgettext.rb:209
+msgid "run in debugging mode"
+msgstr "ejecute en modo depuración"
+
+#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
+#: lib/gettext/tools/rmsgfmt.rb:51
+msgid "write output to specified file"
+msgstr "escribir salida en fichero especificado"
+
+>>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/es/rgettext.po
 #~ msgid "'%{file}' is not found."
 #~ msgstr "'%{file}' no se ha encontrado"
 
