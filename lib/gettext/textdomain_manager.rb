@@ -203,9 +203,10 @@ module GetText
       @@gettext_classes << klass unless @@gettext_classes.include? klass
     end
 
-    def self.create_or_find_textdomain(name,path,charset)#:nodoc:
+    def self.create_or_find_textdomain(name, path, charset)#:nodoc:
       textdomain = @@textdomain_pool[name]
       return textdomain if textdomain
+
       @@textdomain_pool[name] = TextDomain.new(name, path, charset)
     end
   end
