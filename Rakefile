@@ -10,8 +10,10 @@
 # This program is licenced under the same licence as Ruby.
 #
 
-$LOAD_PATH << File.expand_path("lib", File.dirname(__FILE__))
+$:.unshift "./lib"
 
+require 'rubygems'
+require 'rake'
 require 'rake/packagetask'
 require 'rake/gempackagetask'
 require 'rake/rdoctask'
@@ -19,8 +21,6 @@ require 'rake/testtask'
 require 'gettext/version'
 
 PKG_VERSION = GetText::VERSION
-
-task :default => :test
 
 ############################################################
 # GetText tasks for developing
@@ -84,12 +84,14 @@ task :updatepo do
     puts "gettext/poparser was not found."
   end
 
+  rails = ["lib/gettext/rails.rb", "lib/gettext/active_record.rb"]
   #lib/gettext/*.rb -> rgettext.po
   GetText.update_pofiles("rgettext",
-    Dir.glob("lib/**/*.rb") + ["src/poparser.ry"],
-    "ruby-gettext #{GetText::VERSION}",
-    :msgmerge=>[:sort_output]
-  )
+                         Dir.glob("lib/**/*.rb") + ["src/poparser.ry"] - rails,
+                         "ruby-gettext #{GetText::VERSION}")
+  #lib/gettext/rails.rb -> rails.po
+  GetText.update_pofiles("rails", rails,
+                         "ruby-gettext #{GetText::VERSION}")
 end
 
 desc "Gather the newest po files. (for me)"
@@ -154,40 +156,51 @@ end
 ############################################################
 # Package tasks
 ############################################################
-#Gemspec
-#rake manifest
-#rake build_gemspec  # only for github
-#rake release
-#rake publish_docs
-# http://blog.evanweaver.com/files/doc/fauna/echoe/files/README.html
-require 'echoe'
-Echoe.new('gettext' , GetText::VERSION) do |gem|
-  gem.summary        = "Ruby-GetText-Package is a libary and tools to localize messages."
-  gem.description    = <<-EOF
-Ruby-GetText-Package is a GNU GetText-like program for Ruby.
-The catalog file(po-file) is same format with GNU GetText.
-So you can use GNU GetText tools for maintaining.
-EOF
-  gem.url            = "http://gettext.rubyforge.org/"
-  gem.author         = "Masao Mutoh"
-  gem.email          = "mutoh@highway.ne.jp"
-  gem.ignore_pattern = ['nbproject/**/*', 'data/**/*', "pkg", 'samples/locale/**/*', 'samples/cgi/locale/**/*', 'test/locale/**/*']
-  gem.dependencies   = %w[locale]
+desc "Create gem and tar.gz"
+spec = Gem::Specification.new do |s|
+  s.name = 'gettext'
+  s.version = PKG_VERSION
+  s.summary = 'Ruby-GetText-Package is a libary and tools to localize messages.'
+  s.author = 'Masao Mutoh'
+  s.email = 'mutoh@highway.ne.jp'
+  s.homepage = 'http://gettext.rubyforge.org/'
+  s.rubyforge_project = "gettext"
+  s.files = FileList['**/*'].to_a.select{|v| v !~ /pkg|CVS/}
+  s.require_path = 'lib'
+  s.executables = Dir.entries('bin').delete_if {|item| /^\.|CVS|~$/ =~ item }
+  s.bindir = 'bin'
+  s.has_rdoc = true
+  s.description = <<-EOF
+        Ruby-GetText-Package is a GNU GetText-like program for Ruby.
+        The catalog file(po-file) is same format with GNU GetText.
+        So you can use GNU GetText tools for maintaining.
+  EOF
+end
+
+Rake::PackageTask.new("ruby-gettext-package", PKG_VERSION) do |o|
+  o.package_files = FileList['**/*'].to_a.select{|v| v !~ /pkg|CVS/}
+  o.need_tar_gz = true
+  o.need_zip = false
+end
+
+Rake::GemPackageTask.new(spec) do |p|
+  p.gem_spec = spec
+  p.need_tar_gz = false
+  p.need_zip = false
 end
 
 ############################################################
 # Misc tasks
 ############################################################
-Rake::Task[:test].instance_eval("@actions.clear;prerequisites.clear")#remove echoes test task...
 desc 'Run all tests'
 task :test do
-  Dir.chdir("test") do
-    if RUBY_PLATFORM =~ /win32/
-      sh "rake.bat", "test"
-    else
-      sh "rake", "test"
-    end
-  end
+   Dir.chdir("test") do
+     if RUBY_PLATFORM =~ /win32/
+       sh "rake.bat", "test"
+     else
+       sh "rake", "test"
+     end
+   end
 end
 
 Rake::RDocTask.new { |rdoc|
