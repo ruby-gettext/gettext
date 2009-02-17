@@ -1,3 +1,4 @@
+# encoding: utf-8
 =begin
   iconv.rb - Pseudo Iconv class. Supports Iconv.iconv, Iconv.conv.
 
