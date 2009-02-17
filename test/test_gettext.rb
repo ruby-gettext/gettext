@@ -10,8 +10,8 @@ require 'testlib/npgettext.rb'
 class TestGetText < Test::Unit::TestCase
 
   def setup
-    ENV["LC_ALL"] = "ja_JP.EUC-JP"
-    ENV["LANG"] = "ja_JP.EUC-JP"
+    ENV["LC_ALL"] = "ja_JP.UTF-8"
+    ENV["LANG"] = "ja_JP.UTF-8"
     GetText.locale = nil
   end
 
@@ -80,12 +80,12 @@ DDD
     GetText.locale = nil
     test = TestPGetText.new
 
-    assert_equal("�����ӡ�", test.test_1)
-    assert_equal("�����ӡ�", test.test_2)
-    assert_equal("�����ӡ�����", test.test_3)
+    assert_equal("えーびー", test.test_1)
+    assert_equal("えーびー", test.test_2)
+    assert_equal("えーびーしー", test.test_3)
     assert_equal("CCC", test.test_4)
-    assert_equal("�����ӡ�", test.test_5)
-    assert_equal("�ӡ�", test.test_6)
+    assert_equal("しーびー", test.test_5)
+    assert_equal("びー", test.test_6)
 
     GetText.locale = "en"
     test = TestPGetText.new
@@ -101,10 +101,10 @@ DDD
   def test_npgettext
     GetText.locale = nil
     test = TestNPGetText.new
-    assert_equal(["��Ĥ���", "%{num}���ܤ���"], test.test_1)
-    assert_equal(["��Ĥ���", "%{num}���ܤ���"], test.test_2)
-    assert_equal(["��ĤΥϡ��ɥ��С���", "%{num}�Υϡ��ɥ��С��ܤ���"], test.test_3)
-    assert_equal(["�ޥ������1���äƤޤ���", "�ޥ����󤿤���%{num}���äƤޤ���"], test.test_4)
+    assert_equal(["一つの本", "%{num}の本たち"], test.test_1)
+    assert_equal(["一つの本", "%{num}の本たち"], test.test_2)
+    assert_equal(["一つのハードカバー本", "%{num}のハードカバー本たち"], test.test_3)
+    assert_equal(["マガジンを1冊持ってます。", "マガジンたちを%{num}冊持ってます。"], test.test_4)
     assert_equal(["a picture", "%{num} pictures"], test.test_5)
   end
 
@@ -252,7 +252,7 @@ DDD
     assert_equal("japanese", _("language"))
 
     # Confirm to set Locale::Object.
-    loc = Locale::Tag::Posix.parse("ja_JP.eucJP")
+    loc = Locale::Tag::Posix.parse("ja_JP.UTF-8")
     assert_equal(loc, GetText.locale = loc)
     assert_equal(Locale::Tag::Posix, GetText.locale.class)
   end
