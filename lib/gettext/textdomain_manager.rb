@@ -6,7 +6,6 @@ module GetText
   class TextDomainManager
     include Locale::Util::Memoizable
 
-    @@cached  = ! $DEBUG
     @@textdomain_pool = {}
     @@textdomain_manager_pool = {}
 
@@ -32,15 +31,12 @@ module GetText
     # Default is true. If $DEBUG is false, messages are not checked even if
     # this value is true.
     def self.cached=(val)
-      @@cached = val
-      @@textdomain_pool.each do |key, textdomain|
-        textdomain.cached = val
-      end
+      TextDomain.cached = val
     end
     
     # Return the cached value.
     def self.cached?
-      @@cached
+      TextDomain.cached?
     end
 
     # Gets the output charset.
@@ -52,7 +48,7 @@ module GetText
     def self.output_charset=(charset)
       @@output_charset = charset
       @@textdomain_pool.each do |key, textdomain|
-        textdomain.charset = charset
+        textdomain.output_charset = charset
       end
     end
    

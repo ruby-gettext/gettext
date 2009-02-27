@@ -12,7 +12,7 @@ localized message files(message catalogs).
 
 ((*Rails*))
 Rails support has been removed.  
-Rails / ActiveRecord specific code now lives in gettext_rails and gettext_activerecord.
+Rails / ActiveRecord specific code now lives in locale_rails[http://github.com/locale_rails], gettext_rails[http://github.com/gettext_rails] and gettext_activerecord[http://github.com/gettext_activerecord].
 
 == Website
 * homepage[http://www.yotabanana.com/hiki/ruby-gettext.html]
@@ -20,17 +20,23 @@ Rails / ActiveRecord specific code now lives in gettext_rails and gettext_active
 * on github[http://github.com/gettext/]
 
 == Features
-* Simple APIs(similar to GNU gettext)
+* Translate singular/plural messages with simple APIs(similar to GNU gettext)
 
-* rgettext creates po-files from 
-  * ruby scripts 
-  * glade-2 XML file(.glade)
-  * ERB file(.rhtml, .erb)
-  * Anything (with your own parsers)
-  * The po-files are compatible to GNU gettext.
+* Thread safety. Message resources are shared from all threads, but 
+  returns translated messages of the current thread's locale.
 
-* rmsgfmt creates a mo-file from a po-file.
-  The mo-file is compatible to GNU gettext(msgfmt).
+* Tools to find message IDs
+  * Extract message IDs to po-files using rgettext from 
+    * ruby scripts 
+    * glade-2 XML file(.glade)
+    * ERB file(.rhtml, .erb)
+    * Anything (with your own parsers)
+    * The po-files are compatible to GNU gettext.
+
+  * rmsgfmt creates a mo-file from a po-file.
+    The mo-file is compatible to GNU gettext(msgfmt).
+
+  * Using rgettext/rmsgfmt as Rake tasks
 
 * textdomain's scope is adapt to ruby class/module mechanism.
   * A class/module can have plural textdomains.

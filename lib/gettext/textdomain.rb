@@ -166,8 +166,16 @@ module GetText
       ret
     end
 
+    # Clear cached mofiles.
     def clear
       @mofiles = {}
+    end
+
+    # Set output_charset.
+    # * charset: output charset.
+    def output_charset=(charset)
+      @output_charset = charset
+      clear
     end
 
     private
