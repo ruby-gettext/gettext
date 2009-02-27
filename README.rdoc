@@ -12,7 +12,7 @@ localized message files(message catalogs).
 
 ((*Rails*))
 Rails support has been removed.  
-Rails / ActiveRecord specific code now lives in locale_rails[http://github.com/locale_rails], gettext_rails[http://github.com/gettext_rails] and gettext_activerecord[http://github.com/gettext_activerecord].
+Rails / ActiveRecord specific code now lives in locale_rails[http://github.com/mutoh/locale_rails/tree/master], gettext_rails[http://github.com/mutoh/gettext_rails/tree/master] and gettext_activerecord[http://github.com/mutoh/gettext_activerecord/tree/master].
 
 == Website
 * homepage[http://www.yotabanana.com/hiki/ruby-gettext.html]
