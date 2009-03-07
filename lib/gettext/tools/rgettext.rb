@@ -6,7 +6,7 @@
   Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
  
       Yasushi Shoji   <yashi at atmark-techno.com>
-      Masao Mutoh     <mutoh at highway.ne.jp>
+      Masao Mutoh     <mutomasa at gmail.com>
  
   You may redistribute it and/or modify it under the same
   license terms as Ruby.

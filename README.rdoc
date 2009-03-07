@@ -193,7 +193,7 @@ This program is licenced under the same licence as Ruby.
 * Italian(it)
   * Marco Lazzeri <marco.lazzeri at gmail.com>
   * Gabriele Renzi <surrender_it at yahoo.it>
-* Japanese(ja)               - Masao Mutoh <mutoh at highway.ne.jp>
+* Japanese(ja)               - Masao Mutoh <mutomasa at gmail.com>
 * Korean(ko)                 - Gyoung-Yoon Noh <nohmad at gmail.com>
 * Latvian(lv)                - Aivars Akots <aivars.akots at gmail.com>
 * Norwegian(nb)              - Runar Ingebrigtsen <runar at mopo.no>
@@ -239,4 +239,4 @@ This program is licenced under the same licence as Ruby.
 * Vietnamese(vi)            - 2.0.0pre1
 
 == Maintainer
-Masao Mutoh <mutoh at highway.ne.jp>
+Masao Mutoh <mutomasa at gmail.com>

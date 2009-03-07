@@ -42,7 +42,7 @@ task :poparser do
     file.print <<-EOS
   poparser.rb - Generate a .mo
 
-  Copyright (C) 2003-2009 Masao Mutoh <mutoh at highway.ne.jp>
+  Copyright (C) 2003-2009 Masao Mutoh <mutomasa at gmail.com>
 
   You may redistribute it and/or modify it under the same
   license terms as Ruby.

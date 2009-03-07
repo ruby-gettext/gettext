@@ -6,7 +6,7 @@
     Copyright (C) 2001  Masahiro Sakai
 
         Masahiro Sakai                  <s01397ms at sfc.keio.ac.jp>
-        Masao Mutoh                     <mutoh at highway.ne.jp>
+        Masao Mutoh                     <mutomasa at gmail.com>
 
     You can redistribute this file and/or modify it under the same term
     of Ruby.  License of Ruby is included with Ruby distribution in
