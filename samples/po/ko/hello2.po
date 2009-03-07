@@ -1,6 +1,6 @@
 # Hello World 2 -- a sample for ruby-gettext package.
 #
-# Copyright (C) Masao Mutoh <mutoh@highway.ne.jp>
+# Copyright (C) Masao Mutoh <mutomasa at gmail.com>
 #
 msgid ""
 msgstr ""

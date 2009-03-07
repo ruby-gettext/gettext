@@ -4,7 +4,7 @@
   Copyright (C) 2001-2009  Masao Mutoh
   Copyright (C) 2001-2003  Masahiro Sakai
 
-      Masao Mutoh       <mutoh@highway.ne.jp>
+      Masao Mutoh       <mutomasa at gmail.com>
       Masahiro Sakai    <s01397ms@sfc.keio.ac.jp>
 
   You may redistribute it and/or modify it under the same

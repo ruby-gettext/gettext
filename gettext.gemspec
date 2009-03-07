@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors = ["Masao Mutoh"]
   s.date = %q{2009-02-06}
   s.description = %q{Ruby-GetText-Package is a GNU GetText-like program for Ruby. The catalog file(po-file) is same format with GNU GetText. So you can use GNU GetText tools for maintaining.}
-  s.email = %q{mutoh@highway.ne.jp}
+  s.email = %q{mutomasa at gmail.com}
   s.executables = ["rgettext", "rmsgmerge", "rmsgfmt"]
   s.extra_rdoc_files = ["lib/gettext.rb", "lib/gettext/tools.rb", "lib/gettext/core_ext/string.rb", "lib/gettext/version.rb", "README.rdoc"]
   s.files = ["Manifest", "po/hr/rgettext.po", "po/cs/rgettext.po", 

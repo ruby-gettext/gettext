@@ -5,7 +5,7 @@
   Copyright (C) 2001-2003  Masahiro Sakai
 
       Masahiro Sakai    <s01397ms@sfc.keio.ac.jp>
-      Masao Mutoh       <mutoh@highway.ne.jp>
+      Masao Mutoh       <mutomasa at gmail.com>
 
   You may redistribute it and/or modify it under the same
   license terms as Ruby.

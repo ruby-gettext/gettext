@@ -1,6 +1,6 @@
 # Hello World -- a sample for Ruby-GetText-Package
 #
-# Copyright (C) 2001-2006 Masao Mutoh <mutoh@highway.ne.jp>
+# Copyright (C) 2001-2006 Masao Mutoh <mutomasa at gmail.com>
 #
 # This file is distributed under the same license as the Ruby-GetText-Package.
 #

@@ -1,6 +1,6 @@
 # Hello World noop -- sample for ruby-gettext-package
 #
-# Copyright (C) Masao Mutoh <mutoh@highway.ne.jp>
+# Copyright (C) Masao Mutoh <mutomasa at gmail.com>
 #
 # Karel Miarka <kajism@yahoo.com>, 2005.
 #
