@@ -15,7 +15,7 @@
 
 require 'gettext/core_ext/string'
 require 'gettext/mofile'
-require 'rbconfig'
+require 'gettext/locale_path'
 
 module GetText
   # GetText::TextDomain class manages mo-files of a textdomain.
@@ -26,7 +26,6 @@ module GetText
   class TextDomain
 
     attr_reader :output_charset
-    attr_reader :locale_paths
     attr_reader :mofiles
     attr_reader :name
 
@@ -42,21 +41,14 @@ module GetText
     def self.cached=(val)
       @@cached = val
     end
-    # The default locale paths.
-    CONFIG_PREFIX = Config::CONFIG['prefix'].gsub(/\/local/, "")
-    DEFAULT_LOCALE_PATHS = [
-      "#{Config::CONFIG['datadir']}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
-      "#{Config::CONFIG['datadir'].gsub(/\/local/, "")}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
-      "#{CONFIG_PREFIX}/share/locale/%{lang}/LC_MESSAGES/%{name}.mo",
-      "#{CONFIG_PREFIX}/local/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
-    ].uniq
 
     # Add default locale path. Usually you should use GetText.add_default_locale_path instead.
     # * path: a new locale path. (e.g.) "/usr/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
     #   ('locale' => "ja_JP", 'name' => "textdomain")
     # * Returns: the new DEFAULT_LOCALE_PATHS
     def self.add_default_locale_path(path)
-      DEFAULT_LOCALE_PATHS.unshift(path)
+      warn "Deprecated. Use GetText::LocalePath.add_default_rule instead."
+      LocalePath.add_default_rule(path)
     end
 
     # Creates a new GetText::TextDomain.
@@ -65,32 +57,9 @@ module GetText
     # * output_charset: output charset.
     # * Returns: a newly created GetText::TextDomain object.
     def initialize(name, topdir = nil, output_charset = nil)
-      @name, @topdir, @output_charset = name, topdir, output_charset
+      @name, @output_charset = name, output_charset
 
-      @locale_paths = []
-      if ENV["GETTEXT_PATH"]
-        ENV["GETTEXT_PATH"].split(/,/).each {|i| 
-          @locale_paths += ["#{i}/%{lang}/LC_MESSAGES/%{name}.mo", "#{i}/%{lang}/%{name}.mo"]
-        }
-      elsif @topdir
-        @locale_paths += ["#{@topdir}/%{lang}/LC_MESSAGES/%{name}.mo", "#{@topdir}/%{lang}/%{name}.mo"]
-      end
-
-      unless @topdir
-        @locale_paths += DEFAULT_LOCALE_PATHS
-    
-        if defined? Gem
-          $:.each do |path|
-            if /(.*)\/lib$/ =~ path
-              @locale_paths += [
-                                "#{$1}/data/locale/%{lang}/LC_MESSAGES/%{name}.mo", 
-                                "#{$1}/data/locale/%{lang}/%{name}.mo", 
-                                "#{$1}/locale/%{lang}/%{name}.mo"]
-            end
-          end
-        end
-      end
-   
+      @locale_path = LocalePath.new(@name, topdir)
       @mofiles = {}
     end
     
@@ -195,39 +164,14 @@ module GetText
         return mofile
       end
 
-      search_files = []
+      path = @locale_path.current_path(lang)
 
-      lang_candidates = lang.to_posix.candidates
-      @locale_paths.each do |dir|
-        lang_candidates.each{|tag|
-          fname = dir % {:lang => tag, :name => @name}
-          if $DEBUG
-            search_files << fname unless search_files.include?(fname)
-          end
-          if File.exist?(fname)
-            warn "GetText::TextDomain#load_mo: mo-file is #{fname}" if $DEBUG
-
-            charset = @output_charset || lang.charset || Locale.charset || "UTF-8"
-            mofile = MOFile.open(fname, charset)
-            break
-          end
-        }
-        break if mofile
-      end
-
-      if mofile
-        @mofiles[lang_key] = mofile
+      if path
+        charset = @output_charset || lang.charset || Locale.charset || "UTF-8"
+        @mofiles[lang_key] = MOFile.open(path, charset)
       else
         @mofiles[lang_key] = :empty
-        if $DEBUG
-          warn "MO file is not found in"
-          search_files.each do |v|
-            warn "  #{v}"
-          end
-        end
       end
-      mofile
     end
-
   end
 end

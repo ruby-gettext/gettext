@@ -65,13 +65,16 @@ task :makemo do
   GetText.create_mofiles
 
   $stderr.puts "Create samples mo files."
-  GetText.create_mofiles(:po_root => "samples/po", :mo_root => "samples/locale")
+  GetText.create_mofiles(
+	:po_root => "samples/po", :mo_root => "samples/locale")
 
   $stderr.puts "Create samples/cgi mo files."
-  GetText.create_mofiles(:po_root => "samples/cgi/po", :mo_root => "samples/cgi/locale")
+  GetText.create_mofiles(
+	:po_root => "samples/cgi/po", :mo_root => "samples/cgi/locale")
 
   $stderr.puts "Create test mo files."
-  GetText.create_mofiles(:po_root => "test/po", :mo_root => "test/locale")
+  GetText.create_mofiles(
+	:po_root => "test/po", :mo_root => "test/locale")
 end
 
 desc "Update pot/po files to match new version."
