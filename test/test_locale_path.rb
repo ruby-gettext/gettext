@@ -24,9 +24,10 @@ class TestLocalePath < Test::Unit::TestCase
   end
 
   def test_initialize_with_topdir
-    path = GetText::LocalePath.new("test1", "./locale")
-    assert_equal path.locale_paths, ["./locale/%{lang}/LC_MESSAGES/test1.mo", 
-                                     "./locale/%{lang}/test1.mo"]
+    testdir = File.dirname(File.expand_path(__FILE__))
+    path = GetText::LocalePath.new("test1", "#{testdir}/locale")
+    assert_equal path.locale_paths, ["#{testdir}/locale/%{lang}/LC_MESSAGES/test1.mo", 
+                                     "#{testdir}/locale/%{lang}/test1.mo"]
     assert_equal path.current_path(Locale::Tag.parse("ja")), "./locale/ja/LC_MESSAGES/test1.mo"
     assert_equal path.current_path(Locale::Tag.parse("ja-JP")), "./locale/ja/LC_MESSAGES/test1.mo"
     assert_equal path.current_path(Locale::Tag.parse("ja-JP.UTF-8")), "./locale/ja/LC_MESSAGES/test1.mo"
