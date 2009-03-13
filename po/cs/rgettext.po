@@ -9,11 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
-<<<<<<< HEAD:po/cs/rgettext.po
-"POT-Creation-Date: 2009-02-09 13:41+0100\n"
-=======
 "POT-Creation-Date: 2009-02-15 11:14+0100\n"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/cs/rgettext.po
 "PO-Revision-Date: 2006-12-16 13:12+0100\n"
 "Last-Translator: Karel Miarka <kajism@yahoo.com>\n"
 "Language-Team: Czech\n"
@@ -25,44 +21,6 @@ msgstr ""
 "X-Poedit-Language: Czech\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,-1,15,-1\n"
 
-<<<<<<< HEAD:po/cs/rgettext.po
-#: lib/gettext/tools.rb:69
-msgid ""
-"`%{cmd}' can not be found. \n"
-"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
-msgstr ""
-
-#: lib/gettext/tools.rb:88
-#, fuzzy
-msgid "Failed to merge with %{defpo}"
-msgstr "Nepodařilo se sloučit s %{defpo} - přeskakuji!"
-
-#: lib/gettext/tools.rb:89
-#, fuzzy
-msgid "New .pot was copied to %{failed_filename}"
-msgstr "Zkontrolujte prosím nový .pot soubor v %{failed_filename}"
-
-#: lib/gettext/tools.rb:90
-msgid "Check these po/pot-files. It may have syntax errors or something wrong."
-msgstr ""
-
-#: lib/gettext/parser/glade.rb:75
-msgid "`%{file}' is not glade-2.0 format."
-msgstr "`%{file}' není ve formátu glade-2.0."
-
-#: lib/gettext/textdomain_manager.rb:157
-msgid "3rd parmeter is wrong: value = %{number}"
-msgstr ""
-
-#: lib/gettext/tools/rgettext.rb:43
-msgid "'%{klass}' is ignored."
-msgstr "'%{klass}' je ignorován."
-
-#: lib/gettext/tools/rgettext.rb:190
-msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
-msgstr "Použití: %s input.rb [-r parser.rb] [-o output.pot]"
-
-=======
 #: lib/gettext/tools/rgettext.rb:43
 msgid "'%{klass}' is ignored."
 msgstr "'%{klass}' je ignorován."
@@ -75,58 +33,22 @@ msgstr ""
 msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 msgstr ""
 
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/cs/rgettext.po
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Extrahuj přeložitelné texty ze zadaných vstupních souborů."
 
-<<<<<<< HEAD:po/cs/rgettext.po
-#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
-#: lib/gettext/tools/rmsgfmt.rb:49
-msgid "Specific options:"
-msgstr "Volby:"
-
-#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
-#: lib/gettext/tools/rmsgfmt.rb:51
-msgid "write output to specified file"
-msgstr "zapsat výstup od určeného souboru"
-=======
 #: lib/gettext/tools.rb:73
 #, fuzzy
 msgid "Failed to merge with %{defpo}"
 msgstr "Nepodařilo se sloučit s %{defpo} - přeskakuji!"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/cs/rgettext.po
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "Soubor '%s' již existoval."
 
-<<<<<<< HEAD:po/cs/rgettext.po
-#: lib/gettext/tools/rgettext.rb:205
-msgid "require the library before executing rgettext"
-msgstr "před spuštěním rgettext je vyžadován require knihovny"
-
-#: lib/gettext/tools/rgettext.rb:209
-msgid "run in debugging mode"
-msgstr "běh v debug módu"
-
-#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
-#: lib/gettext/tools/rmsgfmt.rb:55
-msgid "display version information and exit"
-msgstr "zobrazit informaci o verzi a skončit"
-
-#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
-msgid "no input files"
-msgstr "vstupní soubory nenalezeny"
-
-#: lib/gettext/tools/rmsgmerge.rb:402
-msgid "Usage: %s def.po ref.pot [-o output.pot]"
-msgstr "Použití: %s def.po ref.pot [-o output.pot]"
-=======
 #: lib/gettext/tools/rmsgfmt.rb:47
 msgid "Generate binary message catalog from textual translation description."
 msgstr "Generovat binání katalog zpráv z textového popisu překladu."
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/cs/rgettext.po
 
 #: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
@@ -139,15 +61,6 @@ msgstr ""
 "soubor s aktuálními zdrojovými referencemi. ref.pot je většinou vytvořen "
 "rgettextem."
 
-<<<<<<< HEAD:po/cs/rgettext.po
-#: lib/gettext/tools/rmsgmerge.rb:446
-msgid "definition po is not given."
-msgstr "definiční po soubor není zadán."
-
-#: lib/gettext/tools/rmsgmerge.rb:448
-msgid "reference pot is not given."
-msgstr "referenční pot soubor není zadán."
-=======
 #: lib/gettext/tools.rb:74
 #, fuzzy
 msgid "New .pot was copied to %{failed_filename}"
@@ -161,21 +74,14 @@ msgstr "Volby:"
 #: lib/gettext/tools/rmsgmerge.rb:402
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "Použití: %s def.po ref.pot [-o output.pot]"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/cs/rgettext.po
 
 #: lib/gettext/tools/rmsgfmt.rb:45
 msgid "Usage: %s input.po [-o output.mo]"
 msgstr "Použití: %s input.po [-o output.mo]"
 
-<<<<<<< HEAD:po/cs/rgettext.po
-#: lib/gettext/tools/rmsgfmt.rb:47
-msgid "Generate binary message catalog from textual translation description."
-msgstr "Generovat binání katalog zpráv z textového popisu překladu."
-=======
 #: lib/gettext/tools/rgettext.rb:190
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Použití: %s input.rb [-r parser.rb] [-o output.pot]"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/cs/rgettext.po
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -185,8 +91,6 @@ msgstr "Varování: neurčitý (fuzzy) překlad byl ignorován.\n"
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Varování: existoval zastaralý (obsolete) msgid.\n"
 
-<<<<<<< HEAD:po/cs/rgettext.po
-=======
 #: lib/gettext/tools.rb:178
 msgid ""
 "`%{cmd}' can not be found. \n"
@@ -227,7 +131,6 @@ msgstr "běh v debug módu"
 msgid "write output to specified file"
 msgstr "zapsat výstup od určeného souboru"
 
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/cs/rgettext.po
 #~ msgid "'%{file}' is not found."
 #~ msgstr "'%{file}' nebyl nalezen."
 

@@ -9,11 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
-<<<<<<< HEAD:po/bs/rgettext.po
-"POT-Creation-Date: 2009-02-09 13:41+0100\n"
-=======
 "POT-Creation-Date: 2009-02-15 11:14+0100\n"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bs/rgettext.po
 "PO-Revision-Date: 2007-03-17 16:19+0100\n"
 "Last-Translator: Sanjin Sehic <saserr@gmail.com>\n"
 "Language-Team: Bosnian <saserr@gmail.com>\n"
@@ -24,44 +20,6 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: KBabel 1.11.4\n"
 
-<<<<<<< HEAD:po/bs/rgettext.po
-#: lib/gettext/tools.rb:69
-msgid ""
-"`%{cmd}' can not be found. \n"
-"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
-msgstr ""
-
-#: lib/gettext/tools.rb:88
-#, fuzzy
-msgid "Failed to merge with %{defpo}"
-msgstr "Spajanje sa %{defpo} nije uspjelo - nastavljam dalje!"
-
-#: lib/gettext/tools.rb:89
-#, fuzzy
-msgid "New .pot was copied to %{failed_filename}"
-msgstr "Molim da provjerite novi .pot u %{failed_filename}"
-
-#: lib/gettext/tools.rb:90
-msgid "Check these po/pot-files. It may have syntax errors or something wrong."
-msgstr ""
-
-#: lib/gettext/parser/glade.rb:75
-msgid "`%{file}' is not glade-2.0 format."
-msgstr "'%{file}' nije glade-2.0 format."
-
-#: lib/gettext/textdomain_manager.rb:157
-msgid "3rd parmeter is wrong: value = %{number}"
-msgstr ""
-
-#: lib/gettext/tools/rgettext.rb:43
-msgid "'%{klass}' is ignored."
-msgstr "%{klass} je ignorisan."
-
-#: lib/gettext/tools/rgettext.rb:190
-msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
-msgstr "Korištenje: %s ulaz.rb [-r parser.rb] [-o izlaz.pot]"
-
-=======
 #: lib/gettext/tools/rgettext.rb:43
 msgid "'%{klass}' is ignored."
 msgstr "%{klass} je ignorisan."
@@ -74,58 +32,22 @@ msgstr ""
 msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 msgstr ""
 
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bs/rgettext.po
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Izvadi niske za prevođenje iz date ulazne datoteke."
 
-<<<<<<< HEAD:po/bs/rgettext.po
-#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
-#: lib/gettext/tools/rmsgfmt.rb:49
-msgid "Specific options:"
-msgstr "Specifične opcije:"
-
-#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
-#: lib/gettext/tools/rmsgfmt.rb:51
-msgid "write output to specified file"
-msgstr "zapiši izlaz u specifičnu datoteku"
-=======
 #: lib/gettext/tools.rb:73
 #, fuzzy
 msgid "Failed to merge with %{defpo}"
 msgstr "Spajanje sa %{defpo} nije uspjelo - nastavljam dalje!"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bs/rgettext.po
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "Datoteka '%s' već postoji."
 
-<<<<<<< HEAD:po/bs/rgettext.po
-#: lib/gettext/tools/rgettext.rb:205
-msgid "require the library before executing rgettext"
-msgstr "zahtjevaj biblioteku prije izvršavanja rgettext-a"
-
-#: lib/gettext/tools/rgettext.rb:209
-msgid "run in debugging mode"
-msgstr "pokreni u modu za nalaženje grešaka"
-
-#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
-#: lib/gettext/tools/rmsgfmt.rb:55
-msgid "display version information and exit"
-msgstr "prikaži informaciju o verziji i završi"
-
-#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
-msgid "no input files"
-msgstr "nema ulaznih datoteka"
-
-#: lib/gettext/tools/rmsgmerge.rb:402
-msgid "Usage: %s def.po ref.pot [-o output.pot]"
-msgstr "Korištenje: %s def.po ref.pot [-o izlaz.pot]"
-=======
 #: lib/gettext/tools/rmsgfmt.rb:47
 msgid "Generate binary message catalog from textual translation description."
 msgstr "Generiši binarni katalog poruka iz tekstualnog opisa prevoda"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bs/rgettext.po
 
 #: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
@@ -138,15 +60,6 @@ msgstr ""
 "datoteka sa najnovijim referencama koda. ref.pot je najčešće napravljen sa "
 "rgettext."
 
-<<<<<<< HEAD:po/bs/rgettext.po
-#: lib/gettext/tools/rmsgmerge.rb:446
-msgid "definition po is not given."
-msgstr "definicijski po nije dat."
-
-#: lib/gettext/tools/rmsgmerge.rb:448
-msgid "reference pot is not given."
-msgstr "referencni po nije dat."
-=======
 #: lib/gettext/tools.rb:74
 #, fuzzy
 msgid "New .pot was copied to %{failed_filename}"
@@ -160,21 +73,14 @@ msgstr "Specifične opcije:"
 #: lib/gettext/tools/rmsgmerge.rb:402
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "Korištenje: %s def.po ref.pot [-o izlaz.pot]"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bs/rgettext.po
 
 #: lib/gettext/tools/rmsgfmt.rb:45
 msgid "Usage: %s input.po [-o output.mo]"
 msgstr "Korištenje: %s ulaz.po [-o izlaz.mo]"
 
-<<<<<<< HEAD:po/bs/rgettext.po
-#: lib/gettext/tools/rmsgfmt.rb:47
-msgid "Generate binary message catalog from textual translation description."
-msgstr "Generiši binarni katalog poruka iz tekstualnog opisa prevoda"
-=======
 #: lib/gettext/tools/rgettext.rb:190
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Korištenje: %s ulaz.rb [-r parser.rb] [-o izlaz.pot]"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bs/rgettext.po
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -184,8 +90,6 @@ msgstr "Upozorenje: čudna poruka je ignorisana.\n"
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Upozorenje: nekorišteni msgid postoji.\n"
 
-<<<<<<< HEAD:po/bs/rgettext.po
-=======
 #: lib/gettext/tools.rb:178
 msgid ""
 "`%{cmd}' can not be found. \n"
@@ -226,7 +130,6 @@ msgstr "pokreni u modu za nalaženje grešaka"
 msgid "write output to specified file"
 msgstr "zapiši izlaz u specifičnu datoteku"
 
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bs/rgettext.po
 #~ msgid "'%{file}' is not found."
 #~ msgstr "'%{file} nije pronađen."
 

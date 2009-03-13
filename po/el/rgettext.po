@@ -9,11 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
-<<<<<<< HEAD:po/el/rgettext.po
-"POT-Creation-Date: 2009-02-09 13:41+0100\n"
-=======
 "POT-Creation-Date: 2009-02-15 11:14+0100\n"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/el/rgettext.po
 "PO-Revision-Date: 2006-01-06 19:50+0100\n"
 "Last-Translator: damphyr <damphyr@gmx.net>\n"
 "Language-Team: Greek\n"
@@ -22,42 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-<<<<<<< HEAD:po/el/rgettext.po
-#: lib/gettext/tools.rb:69
-msgid ""
-"`%{cmd}' can not be found. \n"
-"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
-msgstr ""
-
-#: lib/gettext/tools.rb:88
-msgid "Failed to merge with %{defpo}"
-msgstr "Αποτυχία συγχώνευσης με %{defpo}"
-
-#: lib/gettext/tools.rb:89
-msgid "New .pot was copied to %{failed_filename}"
-msgstr "Ελέγξτε το καινούργιο .pot στο %{failed_filename}"
-
-#: lib/gettext/tools.rb:90
-msgid "Check these po/pot-files. It may have syntax errors or something wrong."
-msgstr "Ελέγξτε τα αρχεία .po/.pot. Μπορεί να υπάρχουν συντακτικά λάθη"
-
-#: lib/gettext/parser/glade.rb:75
-msgid "`%{file}' is not glade-2.0 format."
-msgstr "το `%{file}' δεν είναι σε μορφή glade-2.0."
-
-#: lib/gettext/textdomain_manager.rb:157
-msgid "3rd parmeter is wrong: value = %{number}"
-msgstr "Η τρίτη παράμετρος είναι λανθασμένη: value = %{number}"
-
-#: lib/gettext/tools/rgettext.rb:43
-msgid "'%{klass}' is ignored."
-msgstr "το %{klass}' θα αγνοηθεί."
-
-#: lib/gettext/tools/rgettext.rb:190
-msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
-msgstr "Χρήση: %s input.rb [-r parser.rb] [-o output.pot]"
-
-=======
 #: lib/gettext/tools/rgettext.rb:43
 msgid "'%{klass}' is ignored."
 msgstr "το %{klass}' θα αγνοηθεί."
@@ -70,58 +30,21 @@ msgstr "Η τρίτη παράμετρος είναι λανθασμένη: valu
 msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 msgstr "Ελέγξτε τα αρχεία .po/.pot. Μπορεί να υπάρχουν συντακτικά λάθη"
 
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/el/rgettext.po
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Εξαγωγή μεταφράσεων από αρχεία εισόδου."
 
-<<<<<<< HEAD:po/el/rgettext.po
-#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
-#: lib/gettext/tools/rmsgfmt.rb:49
-msgid "Specific options:"
-msgstr "Ειδικές παράμετροι:"
-
-#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
-#: lib/gettext/tools/rmsgfmt.rb:51
-msgid "write output to specified file"
-msgstr "εγγραφή στο καθορισμένο αρχείο"
-=======
 #: lib/gettext/tools.rb:73
 msgid "Failed to merge with %{defpo}"
 msgstr "Αποτυχία συγχώνευσης με %{defpo}"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/el/rgettext.po
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "Το αρχείο '%s' προϋπάρχει."
 
-<<<<<<< HEAD:po/el/rgettext.po
-#: lib/gettext/tools/rgettext.rb:205
-msgid "require the library before executing rgettext"
-msgstr ""
-"Κάντε χρήση της βιβλιοθήκης (require) πριν από την εκτέλεση του rgettext"
-
-#: lib/gettext/tools/rgettext.rb:209
-msgid "run in debugging mode"
-msgstr "εκτέλεση σε debugging mode"
-
-#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
-#: lib/gettext/tools/rmsgfmt.rb:55
-msgid "display version information and exit"
-msgstr "πληροφορίες έκδοσης και έξοδος"
-
-#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
-msgid "no input files"
-msgstr "που είναι τα αρχεία εισόδου ρε;"
-
-#: lib/gettext/tools/rmsgmerge.rb:402
-msgid "Usage: %s def.po ref.pot [-o output.pot]"
-msgstr "Χρήση: %s def.po ref.pot [-o output.pot]"
-=======
 #: lib/gettext/tools/rmsgfmt.rb:47
 msgid "Generate binary message catalog from textual translation description."
 msgstr "Δημιουργία καταλόγου μυνημάτων από τη μετάφραση"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/el/rgettext.po
 
 #: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
@@ -134,15 +57,6 @@ msgstr ""
 "αναφοράς που κατασκευάστηκε και έχει ενημερωμένες αναφορές κώδικα. Το ref."
 "pot κατασκευάζεται γενικά από το rgettext"
 
-<<<<<<< HEAD:po/el/rgettext.po
-#: lib/gettext/tools/rmsgmerge.rb:446
-msgid "definition po is not given."
-msgstr "το αρχείο ορισμών .po δε δόθηκε."
-
-#: lib/gettext/tools/rmsgmerge.rb:448
-msgid "reference pot is not given."
-msgstr "το αρχείο αναφοράς .pot δε δόθηκε."
-=======
 #: lib/gettext/tools.rb:74
 msgid "New .pot was copied to %{failed_filename}"
 msgstr "Ελέγξτε το καινούργιο .pot στο %{failed_filename}"
@@ -155,21 +69,14 @@ msgstr "Ειδικές παράμετροι:"
 #: lib/gettext/tools/rmsgmerge.rb:402
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "Χρήση: %s def.po ref.pot [-o output.pot]"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/el/rgettext.po
 
 #: lib/gettext/tools/rmsgfmt.rb:45
 msgid "Usage: %s input.po [-o output.mo]"
 msgstr "Χρήση: %s input.po [-o output.mo]"
 
-<<<<<<< HEAD:po/el/rgettext.po
-#: lib/gettext/tools/rmsgfmt.rb:47
-msgid "Generate binary message catalog from textual translation description."
-msgstr "Δημιουργία καταλόγου μυνημάτων από τη μετάφραση"
-=======
 #: lib/gettext/tools/rgettext.rb:190
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Χρήση: %s input.rb [-r parser.rb] [-o output.pot]"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/el/rgettext.po
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -179,8 +86,6 @@ msgstr "Προειδοποίηση: Ασαφές μύνημα αγνοήθηκε
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Προειδοποίηση: ύπαρξη ξεπερασμένου msgid.\n"
 
-<<<<<<< HEAD:po/el/rgettext.po
-=======
 #: lib/gettext/tools.rb:178
 msgid ""
 "`%{cmd}' can not be found. \n"
@@ -222,7 +127,6 @@ msgstr "εκτέλεση σε debugging mode"
 msgid "write output to specified file"
 msgstr "εγγραφή στο καθορισμένο αρχείο"
 
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/el/rgettext.po
 #~ msgid "'%{file}' is not found."
 #~ msgstr "Δεν βρέθηκε το αρχείο '%{file}'."
 

@@ -10,11 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
-<<<<<<< HEAD:po/it/rgettext.po
-"POT-Creation-Date: 2009-02-09 13:41+0100\n"
-=======
 "POT-Creation-Date: 2009-02-15 11:14+0100\n"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/it/rgettext.po
 "PO-Revision-Date: 2005-12-17 14:33+0900\n"
 "Last-Translator: Marco Lazzeri <marco.lazzeri at gmail.com>\n"
 "Language-Team: Italian\n"
@@ -23,42 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-<<<<<<< HEAD:po/it/rgettext.po
-#: lib/gettext/tools.rb:69
-msgid ""
-"`%{cmd}' can not be found. \n"
-"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
-msgstr ""
-
-#: lib/gettext/tools.rb:88
-msgid "Failed to merge with %{defpo}"
-msgstr ""
-
-#: lib/gettext/tools.rb:89
-msgid "New .pot was copied to %{failed_filename}"
-msgstr ""
-
-#: lib/gettext/tools.rb:90
-msgid "Check these po/pot-files. It may have syntax errors or something wrong."
-msgstr ""
-
-#: lib/gettext/parser/glade.rb:75
-msgid "`%{file}' is not glade-2.0 format."
-msgstr "`%{file}' non è nel formato glade-2.0."
-
-#: lib/gettext/textdomain_manager.rb:157
-msgid "3rd parmeter is wrong: value = %{number}"
-msgstr ""
-
-#: lib/gettext/tools/rgettext.rb:43
-msgid "'%{klass}' is ignored."
-msgstr "'%{klass}' ignorata."
-
-#: lib/gettext/tools/rgettext.rb:190
-msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
-msgstr "Utilizzo: %s input.rb [-r parser.rb] [-o output.pot]"
-
-=======
 #: lib/gettext/tools/rgettext.rb:43
 msgid "'%{klass}' is ignored."
 msgstr "'%{klass}' ignorata."
@@ -71,59 +31,23 @@ msgstr ""
 msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 msgstr ""
 
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/it/rgettext.po
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Estrae le stringhe traducibili dai file in input."
 
-<<<<<<< HEAD:po/it/rgettext.po
-#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
-#: lib/gettext/tools/rmsgfmt.rb:49
-msgid "Specific options:"
-msgstr "Opzioni:"
-
-#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
-#: lib/gettext/tools/rmsgfmt.rb:51
-msgid "write output to specified file"
-msgstr "scrivi l'output sul file specificato"
-=======
 #: lib/gettext/tools.rb:73
 msgid "Failed to merge with %{defpo}"
 msgstr ""
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/it/rgettext.po
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "Il file '%s' è già esistente."
 
-<<<<<<< HEAD:po/it/rgettext.po
-#: lib/gettext/tools/rgettext.rb:205
-msgid "require the library before executing rgettext"
-msgstr ""
-
-#: lib/gettext/tools/rgettext.rb:209
-msgid "run in debugging mode"
-msgstr ""
-
-#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
-#: lib/gettext/tools/rmsgfmt.rb:55
-msgid "display version information and exit"
-msgstr "mostra la versione ed esce"
-
-#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
-msgid "no input files"
-msgstr "nessun file specificato in input"
-
-#: lib/gettext/tools/rmsgmerge.rb:402
-msgid "Usage: %s def.po ref.pot [-o output.pot]"
-msgstr "Utilizzo: %s input.po [-o output.pot]"
-=======
 #: lib/gettext/tools/rmsgfmt.rb:47
 msgid "Generate binary message catalog from textual translation description."
 msgstr ""
 "Genera un catalogo binario dei messaggi dalla descrizione testuale della "
 "traduzione."
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/it/rgettext.po
 
 #: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
@@ -136,22 +60,6 @@ msgstr ""
 "aggiornati al sorgente e viene creato per ultimo (solitamente viene generato "
 "da rgettext)."
 
-<<<<<<< HEAD:po/it/rgettext.po
-#: lib/gettext/tools/rmsgmerge.rb:446
-msgid "definition po is not given."
-msgstr "il file .po con la definizione non è stato specificato."
-
-#: lib/gettext/tools/rmsgmerge.rb:448
-msgid "reference pot is not given."
-msgstr "il file .pot di riferimento non è stato specificato."
-
-#: lib/gettext/tools/rmsgfmt.rb:45
-msgid "Usage: %s input.po [-o output.mo]"
-msgstr "Utilizzo: %s input.po [-o output.mo]"
-
-#: lib/gettext/tools/rmsgfmt.rb:47
-msgid "Generate binary message catalog from textual translation description."
-=======
 #: lib/gettext/tools.rb:74
 msgid "New .pot was copied to %{failed_filename}"
 msgstr ""
@@ -214,23 +122,13 @@ msgstr ""
 
 #: lib/gettext/tools/rgettext.rb:209
 msgid "run in debugging mode"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/it/rgettext.po
 msgstr ""
-"Genera un catalogo binario dei messaggi dalla descrizione testuale della "
-"traduzione."
 
 #: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
 #: lib/gettext/tools/rmsgfmt.rb:51
 msgid "write output to specified file"
 msgstr "scrivi l'output sul file specificato"
 
-<<<<<<< HEAD:po/it/rgettext.po
-#: src/poparser.ry:148
-msgid "Warning: obsolete msgid exists.\n"
-msgstr ""
-
-=======
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/it/rgettext.po
 #~ msgid "'%{file}' is not found."
 #~ msgstr "'%{file}' non trovato."
 

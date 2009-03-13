@@ -9,11 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.0.0\n"
-<<<<<<< HEAD:po/bg/rgettext.po
-"POT-Creation-Date: 2009-02-09 13:41+0100\n"
-=======
 "POT-Creation-Date: 2009-02-15 11:14+0100\n"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bg/rgettext.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Sava Chankov <sava.chankov@gmail.com>\n"
 "Language-Team: Bulgarian <ruby-on-rails-bulgaria@googlegroups.com>\n"
@@ -22,23 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-<<<<<<< HEAD:po/bg/rgettext.po
-#: lib/gettext/tools.rb:69
-msgid ""
-"`%{cmd}' can not be found. \n"
-"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
-msgstr ""
-
-#: lib/gettext/tools.rb:88
-msgid "Failed to merge with %{defpo}"
-msgstr "Пропадна сливането с %{defpo}"
-
-#: lib/gettext/tools.rb:89
-msgid "New .pot was copied to %{failed_filename}"
-msgstr "Новия .pot беше копиран като %{failed_filename}"
-
-#: lib/gettext/tools.rb:90
-=======
 #: lib/gettext/tools/rgettext.rb:43
 msgid "'%{klass}' is ignored."
 msgstr "'%{klass}' беше игнориран."
@@ -48,81 +27,26 @@ msgid "3rd parmeter is wrong: value = %{number}"
 msgstr "Третият параметър е грешен: value = %{number}"
 
 #: lib/gettext/tools.rb:75
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bg/rgettext.po
 msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 msgstr ""
 "Проверете тези po/pot файлове. Може да имат синтактични грешки или нещо "
 "друго."
 
-<<<<<<< HEAD:po/bg/rgettext.po
-#: lib/gettext/parser/glade.rb:75
-msgid "`%{file}' is not glade-2.0 format."
-msgstr "`%{file}' не е във формат glade-2.0."
-
-#: lib/gettext/textdomain_manager.rb:157
-msgid "3rd parmeter is wrong: value = %{number}"
-msgstr "Третият параметър е грешен: value = %{number}"
-
-#: lib/gettext/tools/rgettext.rb:43
-msgid "'%{klass}' is ignored."
-msgstr "'%{klass}' беше игнориран."
-
-#: lib/gettext/tools/rgettext.rb:190
-msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
-msgstr "Употреба: %s input.rb [-r parser.rb] [-o output.pot] "
-
-=======
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bg/rgettext.po
 #: lib/gettext/tools/rgettext.rb:192
 msgid "Extract translatable strings from given input files."
 msgstr "Извличане на преводните низове от зададените файлове."
 
-<<<<<<< HEAD:po/bg/rgettext.po
-#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgmerge.rb:407
-#: lib/gettext/tools/rmsgfmt.rb:49
-msgid "Specific options:"
-msgstr "Специфични опции:"
-
-#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgmerge.rb:409
-#: lib/gettext/tools/rmsgfmt.rb:51
-msgid "write output to specified file"
-msgstr "изходът беше записан в зададения файл"
-=======
 #: lib/gettext/tools.rb:73
 msgid "Failed to merge with %{defpo}"
 msgstr "Пропадна сливането с %{defpo}"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bg/rgettext.po
 
 #: lib/gettext/tools/rgettext.rb:200
 msgid "File '%s' already exists."
 msgstr "Файлът '%s' съществува."
 
-<<<<<<< HEAD:po/bg/rgettext.po
-#: lib/gettext/tools/rgettext.rb:205
-msgid "require the library before executing rgettext"
-msgstr "заредете библиотеката с require преди да изпълните rgettext"
-
-#: lib/gettext/tools/rgettext.rb:209
-msgid "run in debugging mode"
-msgstr "изпълнение в режим на дебъгване"
-
-#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgmerge.rb:420
-#: lib/gettext/tools/rmsgfmt.rb:55
-msgid "display version information and exit"
-msgstr "показване на версията и изход"
-
-#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
-msgid "no input files"
-msgstr "няма зададени файлове"
-
-#: lib/gettext/tools/rmsgmerge.rb:402
-msgid "Usage: %s def.po ref.pot [-o output.pot]"
-msgstr "Употреба: %s def.po ref.pot [-o output.pot]"
-=======
 #: lib/gettext/tools/rmsgfmt.rb:47
 msgid "Generate binary message catalog from textual translation description."
 msgstr "Генериране на двоични файлове с преводите от текстовите описания."
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bg/rgettext.po
 
 #: lib/gettext/tools/rmsgmerge.rb:405
 msgid ""
@@ -134,15 +58,6 @@ msgstr ""
 "pot е пресен PO файл с актуални референции към кода. ref.pot обикновено е "
 "създаден от rgettext."
 
-<<<<<<< HEAD:po/bg/rgettext.po
-#: lib/gettext/tools/rmsgmerge.rb:446
-msgid "definition po is not given."
-msgstr "съществуващия po не е зададен."
-
-#: lib/gettext/tools/rmsgmerge.rb:448
-msgid "reference pot is not given."
-msgstr "pot с референциите не е зададен."
-=======
 #: lib/gettext/tools.rb:74
 msgid "New .pot was copied to %{failed_filename}"
 msgstr "Новия .pot беше копиран като %{failed_filename}"
@@ -155,21 +70,14 @@ msgstr "Специфични опции:"
 #: lib/gettext/tools/rmsgmerge.rb:402
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "Употреба: %s def.po ref.pot [-o output.pot]"
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bg/rgettext.po
 
 #: lib/gettext/tools/rmsgfmt.rb:45
 msgid "Usage: %s input.po [-o output.mo]"
 msgstr "Употреба: %s input.po [-o output.mo]"
 
-<<<<<<< HEAD:po/bg/rgettext.po
-#: lib/gettext/tools/rmsgfmt.rb:47
-msgid "Generate binary message catalog from textual translation description."
-msgstr "Генериране на двоични файлове с преводите от текстовите описания."
-=======
 #: lib/gettext/tools/rgettext.rb:190
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Употреба: %s input.rb [-r parser.rb] [-o output.pot] "
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bg/rgettext.po
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -181,8 +89,6 @@ msgstr ""
 "Предупреждение: има несъществуващи вече msgid\n"
 "."
 
-<<<<<<< HEAD:po/bg/rgettext.po
-=======
 #: lib/gettext/tools.rb:178
 msgid ""
 "`%{cmd}' can not be found. \n"
@@ -223,7 +129,6 @@ msgstr "изпълнение в режим на дебъгване"
 msgid "write output to specified file"
 msgstr "изходът беше записан в зададения файл"
 
->>>>>>> 9d5ecc74e04e7764603802fc389059748f3254aa:po/bg/rgettext.po
 #~ msgid "'%{file}' is not found."
 #~ msgstr "'%{file}' не беше намерен."
 
