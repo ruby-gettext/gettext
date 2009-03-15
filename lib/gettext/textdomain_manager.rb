@@ -1,3 +1,13 @@
+=begin
+  gettext/textdomain_manager - GetText::TextDomainManager class
+
+  Copyright (C) 2009  Masao Mutoh
+
+  You may redistribute it and/or modify it under the same
+  license terms as Ruby.
+
+=end
+
 require 'gettext/textdomain'
 require 'gettext/class_info'
 require 'locale/util/memoizable'
@@ -65,7 +75,16 @@ module GetText
 
       textdomain
     end
- 
+
+    def self.each_textdomains(klass) #:nodoc:
+      ClassInfo.related_classes(klass, @@gettext_classes).each do |target|
+        msg = nil
+        get(target).textdomains.each do |textdomain|
+          yield textdomain
+        end
+      end
+    end
+
     #
     # Instance methods
     #
@@ -185,7 +204,7 @@ module GetText
       return msgstrs[plural] if plural.kind_of?(Numeric)
       return plural ? msgstrs[1] : msgstrs[0]
     end
-    
+
     # for testing.
     def self.clear_all_textdomains
       @@textdomain_pool = {}

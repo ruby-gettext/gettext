@@ -21,6 +21,16 @@ require 'gettext/version'
 require 'gettext/textdomain_manager'
 
 module GetText
+  # If the textdomain isn't bound when calling GetText.textdomain, this error is raised.
+  class NoboundTextDomainError < RuntimeError
+    def initialize(domainname)
+      @domainname = domainname
+    end
+    def message
+      "#{domainname} is not bound."
+    end
+  end
+
   extend self
 
   def self.included(mod)  #:nodoc:
@@ -43,7 +53,15 @@ module GetText
   #     library doesn't use this option. Application may use this once.
   # * Returns: the GetText::TextDomainManager.
   #
-  def bindtextdomain(domainname, *args)
+  def bindtextdomain(domainname, options = {})
+    bindtextdomain_to(self, domainname, options)
+  end
+
+  # Includes GetText module and bind a textdomain to a class.
+  # * klass: the target ruby class.
+  # * domainname: the textdomain name.
+  # * options: options as an Hash. See GetText.bindtextdomain.
+  def bindtextdomain_to(klass, domainname, *args) 
     if args[0].kind_of? Hash
       options = args[0]
     else
@@ -52,29 +70,30 @@ module GetText
       options[:path] = args[0] if args[0]
       options[:output_charset] = args[2] if args[2]
     end
-    TextDomainManager.bind_to(self, domainname, options)
+    unless (klass.kind_of? GetText or klass.include? GetText)
+      klass.__send__(:include, GetText)
+    end
+    TextDomainManager.bind_to(klass, domainname, options)
   end
 
-  # Includes GetText module and bind a textdomain to a class.
+  # Binds a existed textdomain to your program. 
+  # This is the same function with GetText.bindtextdomain but simpler(and faster) than bindtextdomain.
+  # Note that you need to call GetText.bindtextdomain first. If the domainname hasn't bound yet, 
+  # raises GetText::NoboundTextDomainError.
+  # * domainname: a textdomain name.
+  # * Returns: the GetText::TextDomainManager.
+  def textdomain(domainname) #:nodoc:
+    textdomain_to(self, domainname)
+  end
+
+  # Includes GetText module and bind an exsited textdomain to a class. 
+  # See textdomain for more detail.
   # * klass: the target ruby class.
   # * domainname: the textdomain name.
-  # * options: options as an Hash. See GetText.bindtextdomain.
-  def bindtextdomain_to(klass, domainname, options = {}) 
-    ret = nil
-    klass.module_eval {
-      include GetText
-      ret = bindtextdomain(domainname, options)
-    }
-    ret
-  end
-
-  def textdomain(domainname) #:nodoc:
-    warn "GetText.textdomain is deprecated. Call bindtextdomain instead."
-    bindtextdomain(domainname)
-  end
 
   def textdomain_to(klass, domainname)  #:nodoc:
-    warn "GetText.textdomain_to is deprecated. Call bindtextdomain_to instead."
+    domain = TextDomainManager.textdomain_pool(domainname)
+    raise NoboundTextDomainError.new(domainname) unless domain
     bindtextdomain_to(klass, domainname)
   end
 
@@ -267,7 +286,6 @@ unless defined? XX
 end
 
   # for backward compatibility
-  alias :set_locale_all :set_locale #:nodoc:
   alias :set_locale_all :set_locale #:nodoc:
   alias :setlocale :set_locale #:nodoc:
 end
