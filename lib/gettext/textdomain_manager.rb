@@ -118,12 +118,8 @@ module GetText
     def translate_singluar_message_to(lang, klass, msgid, div = '|') #:nodoc:
       msg = nil
       # Find messages from related classes.
-      ClassInfo.related_classes(klass, @@gettext_classes).each do |target|
-        msg = nil
-        self.class.get(target).textdomains.each do |textdomain|
-          msg = textdomain.translate_singluar_message(lang, msgid)
-          break if msg
-        end
+      self.class.each_textdomains(klass) do |textdomain|
+        msg = textdomain.translate_singluar_message(lang, msgid)
         break if msg
       end
       
@@ -136,7 +132,7 @@ module GetText
       end
       msg
     end
-    memoize :translate_singluar_message_to
+    memoize :translate_singluar_message_to unless $DEBUG
 
     # This function is similar to the get_singluar_message function 
     # as it finds the message catalogs in the same way. 
@@ -161,8 +157,12 @@ module GetText
     # * n: a number used to determine the plural form.
     # * div: the separator. Default is "|".
     def translate_plural_message(klass, arg1, arg2, arg3 = "|", arg4 = "|")
-      lang = Locale.candidates(:supported_language_tags => @supported_language_tags,
+      lang = Locale.candidates(:supported_language_tags => @supported_language_tags, 
                                :type => :posix)[0]
+      translate_plural_message_to(lang, klass, arg1, arg2, arg3, arg4)
+    end
+
+    def translate_plural_message_to(lang, klass, arg1, arg2, arg3 = "|", arg4 = "|")
       # parse arguments
       if arg1.kind_of?(Array)
         msgid = arg1[0]
@@ -179,15 +179,10 @@ module GetText
         div = arg4
       end
 
-      msgs = nil
-      
       # Find messages from related classes.
-      ClassInfo.related_classes(klass, @@gettext_classes).each do |target|
-        msgs = nil
-        self.class.get(target).textdomains.each do |textdomain|
-          msgs = textdomain.translate_plural_message(lang, msgid, msgid_plural)
-          break if msgs
-        end
+      msgs = nil
+      self.class.each_textdomains(klass) do |textdomain|
+        msgs = textdomain.translate_plural_message(lang, msgid, msgid_plural)
         break if msgs
       end
       
@@ -204,6 +199,7 @@ module GetText
       return msgstrs[plural] if plural.kind_of?(Numeric)
       return plural ? msgstrs[1] : msgstrs[0]
     end
+    memoize :translate_plural_message_to unless $DEBUG
 
     # for testing.
     def self.clear_all_textdomains
