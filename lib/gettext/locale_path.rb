@@ -30,35 +30,35 @@ module GetText
       DEFAULT_RULES.unshift(path)
     end
 
-    @@path_rules = []
+    @@default_path_rules = []
 
     # Returns path rules as an Array. 
     # (e.g.) ["/usr/share/locale/%{lang}/LC_MESSAGES/%{name}.mo", ...] 
-    def self.create_path_rules 
-      return @@path_rules if @@path_rules
+    def self.default_path_rules 
+      return @@default_path_rules if @@default_path_rules
 
       if ENV["GETTEXT_PATH"]
         ENV["GETTEXT_PATH"].split(/,/).each {|i| 
-          @@path_rules = ["#{i}/%{lang}/LC_MESSAGES/%{name}.mo", "#{i}/%{lang}/%{name}.mo"]
+          @@default_path_rules = ["#{i}/%{lang}/LC_MESSAGES/%{name}.mo", "#{i}/%{lang}/%{name}.mo"]
         }
       end
 
-      @@path_rules += DEFAULT_RULES
+      @@default_path_rules += DEFAULT_RULES
       
       $LOAD_PATH.each {|path|
         if /(.*)\/lib$/ =~ path
-          @@path_rules += [
+          @@default_path_rules += [
                            "#{$1}/data/locale/%{lang}/LC_MESSAGES/%{name}.mo", 
                            "#{$1}/data/locale/%{lang}/%{name}.mo", 
                            "#{$1}/locale/%{lang}/%{name}.mo"]
         end
       }
-      @@path_rules
+      @@default_path_rules
     end
 
     # Clear path_rules for testing.
     def self.clear
-      @@path_rules = nil
+      @@default_path_rules = nil
     end
 
     attr_reader :locale_paths
@@ -72,7 +72,7 @@ module GetText
       if topdir
         @locale_paths = ["#{topdir}/%{lang}/LC_MESSAGES/%{name}.mo", "#{topdir}/%{lang}/%{name}.mo"]
       else
-        @locale_paths = self.class.create_path_rules
+        @locale_paths = self.class.default_path_rules
       end
       @locale_paths.map! {|v| v % {:name => name} }
     end
