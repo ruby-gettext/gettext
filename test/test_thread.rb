@@ -30,7 +30,7 @@ class TestThread < Test::Unit::TestCase
     th1 = invoke_thread("ja_JP.eucJP", "japanese", 0.6)
     th2 = invoke_thread("fr", "french", 0.4)
     th3 = invoke_thread("en", "language", 0.2)
-    th3 = invoke_thread("zh_CN", "language", 0.3) # No translation.
+    th4 = invoke_thread("zh_CN", "language", 0.3) # No translation.
     th1.join
     th2.join   
     th3.join

@@ -1,4 +1,4 @@
-= Ruby-GetText-Package
+= gettext - Ruby-GetText-Package
 
 Ruby-GetText-Package is a Localization(L10n) library and tool  
 which is modeled after the GNU gettext package.
@@ -43,7 +43,7 @@ Rails / ActiveRecord specific code now lives in locale_rails[http://github.com/m
   * a message is looked up in its class/module and ancestors.
 
 * CGI support (gettext/cgi)
-  * Locale is retrieved from client informations
+  * Locale is retrieved from client informations using Ruby-Locale.
     (HTTP_ACCEPT_LANGUAGE, HTTP_ACCEPT_CHARSET, QUERY_STRING(lang), Cookies(lang)).
 
 * String%() is extended to use named argument such as <tt>%{foo}" %{:foo => 1}</tt>.
@@ -60,7 +60,7 @@ Rails / ActiveRecord specific code now lives in locale_rails[http://github.com/m
     * (for compiling src/rmsgfmt.ry only)
 
 == Install
-* Uninstall old gettext if exists.
+* Uninstall old gettext if exists. (You need to do this when updating 1.93.0 -> 2.0.0)
     (sudo/su on POSIX system)
     gem uninstall gettext
 
@@ -122,23 +122,32 @@ The gettext methods comes in 3 combinable flavors
     fruits = Nn_("Apple", "%{num} Apples")
     n_(fruits, 3)
 
-=== Locale / Domain
-GetText stores the locale your are using
+=== Bind textdomains to the classes.
+A textdomain has a translation file in each language.
+A module/class can have multi textdomains. This means the 
+libraries/applications can have their own textdomains.
+
+ class Foo
+   include GetText
+   bindtextdomain "your_app_domain_name"
+ end
+
+ class Book
+   include GetText
+   bindtextdomain "general"
+   bindtextdomain "book"
+ end
+
+=== Locale
+If you need to set the locale by yourself, then use:
   GetText.locale = "en_US" # translate into english from now on
   GetText.locale # => en_US
 Or
   include GetText
   set_locale "en_US"
 
-Each locale can have different sets of translations (text domains) (e.g. Financial terms + Human-resource terms)
-  GetText.bindtextdomain('financial')
-Or
-  include GetText
-  bindtextdomain('financial')
-
 For more details and options, have a look at the samples folder or
 consult the tutorial[http://www.yotabanana.com/hiki/ruby-gettext-howto.html].
-
 
 == License
 This program is licenced under the same licence as Ruby.  
@@ -211,32 +220,32 @@ This program is licenced under the same licence as Ruby.
 
 == Status of translations
 * Bosnian(bs)               - 1.90.0 (old)
-* Bulgarian(bg)             - 2.0.0pre1 (new)
-* Catalan(ca)               - 2.0.0pre1
+* Bulgarian(bg)             - 2.0.0 (new)
+* Catalan(ca)               - 2.0.0
 * Croatian(hr)              - 1.90.0 (old)
-* Chinese(zh_CN)            - 2.0.0pre1
-* Chinese(zh_TW)            - 2.0.0pre1
+* Chinese(zh_CN)            - 2.0.0
+* Chinese(zh_TW)            - 2.0.0
 * Czech(cs)                 - 1.9.0 (old)
 * Dutch(nl)                 - 1.90.0 (old)
 * English(default)          - 1.90.0 (old)
-* Esperanto(eo)             - 2.0.0pre1
-* Estonian(et)              - 2.0.0pre1
-* French(fr)                - 2.0.0pre1
-* German(de)                - 2.0.0pre1
-* Greek(el)                 - 2.0.0pre1 
-* Hungarian(hu)             - 2.0.0pre1
+* Esperanto(eo)             - 2.0.0
+* Estonian(et)              - 2.0.0
+* French(fr)                - 2.0.0
+* German(de)                - 2.0.0
+* Greek(el)                 - 2.0.0 
+* Hungarian(hu)             - 2.0.0
 * Italian(it)               - 1.6.0 (old)
-* Japanese(ja)              - 2.0.0pre1
+* Japanese(ja)              - 2.0.0
 * Korean(ko)                - 1.9.0 (old)
-* Latvian(lv)               - 2.0.0pre1 (new)
-* Norwegian(nb)             - 2.0.0pre1
-* Portuguese(Brazil)(pt_BR) - 2.0.0pre1
-* Russian(ru)               - 2.0.0pre1
+* Latvian(lv)               - 2.0.0 (new)
+* Norwegian(nb)             - 2.0.0
+* Portuguese(Brazil)(pt_BR) - 2.0.0
+* Russian(ru)               - 2.0.0
 * Serbian(sr)               - 1.91.0 (old)
-* Spanish(es)               - 2.0.0pre1
+* Spanish(es)               - 2.0.0
 * Swedish(sv)               - 0.8.0 (too much old)
-* Ukrainian(ua)             - 2.0.0pre1
-* Vietnamese(vi)            - 2.0.0pre1
+* Ukrainian(ua)             - 2.0.0
+* Vietnamese(vi)            - 2.0.0
 
 == Maintainer
 Masao Mutoh <mutomasa at gmail.com>
