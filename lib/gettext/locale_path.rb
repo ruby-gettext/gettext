@@ -35,7 +35,7 @@ module GetText
     # Returns path rules as an Array. 
     # (e.g.) ["/usr/share/locale/%{lang}/LC_MESSAGES/%{name}.mo", ...] 
     def self.default_path_rules 
-      return @@default_path_rules if @@default_path_rules
+      return @@default_path_rules if @@default_path_rules.size > 0
 
       if ENV["GETTEXT_PATH"]
         ENV["GETTEXT_PATH"].split(/,/).each {|i| 
