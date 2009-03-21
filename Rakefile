@@ -225,6 +225,7 @@ task :release => [ :package ] do
   require 'rubyforge'
 
   rubyforge = RubyForge.new
+  rubyforge.configure
   rubyforge.login
   rubyforge.add_release("gettext", "gettext",
                         "Ruby-GetText-Package #{PKG_VERSION}",
