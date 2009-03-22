@@ -117,3 +117,15 @@ class C4 < C3
     _("no data")
   end
 end
+
+class C51
+  include GetText
+  bindtextdomain("test3", :path => "locale")
+  def test
+    _("language")
+  end
+end
+
+class C52 < C12
+  bindtextdomain("test3", :path => "locale")
+end

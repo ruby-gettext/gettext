@@ -2,6 +2,7 @@ require 'testlib/helper.rb'
 require 'testlib/multi_textdomain.rb'
 
 class TestGetTextMulti < Test::Unit::TestCase
+
   def setup
     GetText.locale = "ja_JP.EUC-JP"
   end
@@ -65,5 +66,14 @@ class TestGetTextMulti < Test::Unit::TestCase
     assert_equal("no data", test.test3)   # No po file.
   end
 
+  def test_same_msgid_but_different_textdomain
+    test1 = C12.new  # test1 domain
+    test2 = C51.new  # test3 domain
+    test3 = C52.new  # test3 domain but inherited C11.
+
+    assert_equal("japanese", test1.test)  # Use text1 message
+    assert_equal("JAPANESE", test2.test)  # Use text3 message
+    assert_equal("JAPANESE", test3.test)  # Use text3 message
+  end
 
 end
