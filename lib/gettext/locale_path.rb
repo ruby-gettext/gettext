@@ -9,6 +9,7 @@
 =end
 
 require 'rbconfig'
+require 'gettext/core_ext/string'
 
 module GetText
   # Treats locale-path for mo-files.
@@ -44,21 +45,26 @@ module GetText
       end
 
       @@default_path_rules += DEFAULT_RULES
-      
-      $LOAD_PATH.each {|path|
-        if /(.*)\/lib$/ =~ path
-          @@default_path_rules += [
-                           "#{$1}/data/locale/%{lang}/LC_MESSAGES/%{name}.mo", 
-                           "#{$1}/data/locale/%{lang}/%{name}.mo", 
-                           "#{$1}/locale/%{lang}/%{name}.mo"]
-        end
+
+      load_path = $LOAD_PATH
+      if defined? ::Gem
+        load_path += Gem.all_load_paths.map{|v| v =~ /(.*)\/lib$/; $1}
+      end
+
+      load_path.each {|path|
+        @@default_path_rules += [
+                                 "#{path}/data/locale/%{lang}/LC_MESSAGES/%{name}.mo", 
+                                 "#{path}/data/locale/%{lang}/%{name}.mo", 
+                                 "#{path}/locale/%{lang}/%{name}.mo"]
       }
+      # paths existed only.
+      @@default_path_rules = @@default_path_rules.select{|path| Dir.glob(path % {:lang => "*", :name => "*"}).size > 0}.uniq
       @@default_path_rules.dup
     end
 
     # Clear path_rules for testing.
     def self.clear
-      @@default_path_rules = nil
+      @@default_path_rules = []
     end
 
     attr_reader :locale_paths
