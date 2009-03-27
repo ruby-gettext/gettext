@@ -8,7 +8,7 @@ module GetText
     # normalize the klass name
     def normalize_class(klass)
       ret = (klass.kind_of? Module) ? klass : klass.class
-      if ret.name =~ /^\#<|^$/ or ret == GetText
+      if ret.name.to_s =~ /^\#<|^$/ or ret == GetText
         ret = Object
       end
       ret
