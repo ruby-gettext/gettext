@@ -34,7 +34,22 @@ module GetText
 
       parser = PoParser.new
       data = MOFile.new
-      parser.parse(File.open(targetfile).read, data)
+      open_args = [ targetfile ]
+
+      if String.instance_methods.include?(:encode)
+        # In Ruby 1.9, we must detect proper encoding of a PO file.
+        encoding = 'US-ASCII'
+        open(targetfile, :encoding => 'ASCII-8BIT') do |input|
+          input.lines.each do |line|
+            if %r["Content-Type:.*\scharset=(.*)\\n"] =~ line
+              encoding = $1
+              break
+            end
+          end
+        end
+        open_args << { :encoding => encoding }
+      end
+      parser.parse(File.open(*open_args).read, data)
       data.save_to_file(output_path)
     end
 
