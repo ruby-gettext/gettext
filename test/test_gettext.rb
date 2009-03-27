@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 require 'testlib/helper.rb'
 
 require 'testlib/simple.rb'
