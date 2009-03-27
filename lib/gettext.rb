@@ -61,19 +61,19 @@ module GetText
   # * klass: the target ruby class.
   # * domainname: the textdomain name.
   # * options: options as an Hash. See GetText.bindtextdomain.
-  def bindtextdomain_to(klass, domainname, *args) 
-    if args[0].kind_of? Hash
-      options = args[0]
+  def bindtextdomain_to(klass, domainname, *options) 
+    if options[0].kind_of? Hash
+      opts = options[0]
     else
       # for backward compatibility.
-      options = {}
-      options[:path] = args[0] if args[0]
-      options[:output_charset] = args[2] if args[2]
+      opts = {}
+      opts[:path] = options[0] if options[0]
+      opts[:output_charset] = options[2] if options[2]
     end
     unless (klass.kind_of? GetText or klass.include? GetText)
       klass.__send__(:include, GetText)
     end
-    TextDomainManager.bind_to(klass, domainname, options)
+    TextDomainManager.bind_to(klass, domainname, opts)
   end
 
   # Binds a existed textdomain to your program. 
