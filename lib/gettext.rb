@@ -53,8 +53,8 @@ module GetText
   #     library doesn't use this option. Application may use this once.
   # * Returns: the GetText::TextDomainManager.
   #
-  def bindtextdomain(domainname, options = {})
-    bindtextdomain_to(self, domainname, options)
+  def bindtextdomain(domainname, *options)
+    bindtextdomain_to(self, domainname, *options)
   end
 
   # Includes GetText module and bind a textdomain to a class.
