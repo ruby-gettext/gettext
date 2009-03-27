@@ -32,7 +32,7 @@ module GetText
       @domainname = domainname
     end
     def message
-      "#{domainname} is not bound."
+      "#{@domainname} is not bound."
     end
   end
 
