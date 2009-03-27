@@ -169,11 +169,18 @@ module GetText
       ('1' * number) !~ /^1?$|^(11+?)\1+$/
     end
 
-    def next_prime(seed)
-      require 'mathn'
-      prime = Prime.new
-      while current = prime.succ
-        return current if current > seed
+    begin
+      require 'prime'
+      def next_prime(seed)
+        Prime.instance.find{|x| x > seed }
+      end
+    rescue LoadError
+      def next_prime(seed)
+        require 'mathn'
+        prime = Prime.new
+        while current = prime.succ
+          return current if current > seed
+        end
       end
     end
 
