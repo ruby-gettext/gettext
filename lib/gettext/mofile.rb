@@ -230,17 +230,17 @@ module GetText
 
       orig_table_data = Array.new()
       ary.each{|item, _|
-        orig_table_data.push(item.size)
+        orig_table_data.push(item.bytesize)
         orig_table_data.push(pos)
-        pos += item.size + 1 # +1 is <NUL>
+        pos += item.bytesize + 1 # +1 is <NUL>
       }
       io.write(orig_table_data.pack('V*'))
 
       trans_table_data = Array.new()
       ary.each{|_, item|
-        trans_table_data.push(item.size)
+        trans_table_data.push(item.bytesize)
         trans_table_data.push(pos)
-        pos += item.size + 1 # +1 is <NUL>
+        pos += item.bytesize + 1 # +1 is <NUL>
       }
       io.write(trans_table_data.pack('V*'))
 
