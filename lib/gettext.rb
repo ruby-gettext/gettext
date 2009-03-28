@@ -13,7 +13,12 @@
   $Id: gettext.rb,v 1.46 2008/09/13 18:23:55 mutoh Exp $
 =end
 
-begin gem 'locale', '>=0.9'; rescue LoadError;end
+begin
+  gem 'locale', '>=0.9' 
+rescue NoMethodError
+else LoadError
+end
+
 require 'locale'
 raise "Insall locale as gem or uninstall old gettext" unless Locale.respond_to? :candidates
 
