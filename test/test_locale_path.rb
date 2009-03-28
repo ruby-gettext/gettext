@@ -12,6 +12,8 @@ class TestLocalePath < Test::Unit::TestCase
     assert_equal("japanese", test.test)
     prefix = GetText::LocalePath::CONFIG_PREFIX
     default_locale_dirs = [
+      "./locale/%{lang}/LC_MESSAGES/%{name}.mo",
+      "./locale/%{lang}/%{name}.mo",
       "#{Config::CONFIG['datadir']}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
       "#{Config::CONFIG['datadir'].gsub(/\/local/, "")}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
       "#{prefix}/share/locale/%{lang}/LC_MESSAGES/%{name}.mo",
