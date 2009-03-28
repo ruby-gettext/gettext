@@ -92,20 +92,20 @@ class TestGetTextParser < Test::Unit::TestCase
 
   def test_rgettext_parse
     GetText::ErbParser.init(:extnames => ['.rhtml', '.rxml'])
-    ary = GetText::RGetText.parse('testlib/erb.rhtml')
+    ary = GetText::RGetText.parse(['testlib/erb.rhtml'])
     assert_equal(['aaa', 'testlib/erb.rhtml:8'], ary[0])
     assert_equal(['aaa\n', 'testlib/erb.rhtml:11'], ary[1])
     assert_equal(['bbb', 'testlib/erb.rhtml:12'], ary[2])
     assert_equal(["ccc1\000ccc2", 'testlib/erb.rhtml:13'], ary[3])
 
-    ary = GetText::RGetText.parse('testlib/erb.rxml')
+    ary = GetText::RGetText.parse(['testlib/erb.rxml'])
     assert_equal(['aaa', 'testlib/erb.rxml:9'], ary[0])
     assert_equal(['aaa\n', 'testlib/erb.rxml:12'], ary[1])
     assert_equal(['bbb', 'testlib/erb.rxml:13'], ary[2])
     assert_equal(["ccc1\000ccc2", 'testlib/erb.rxml:14'], ary[3])
 
 
-    ary = GetText::RGetText.parse('testlib/ngettext.rb')
+    ary = GetText::RGetText.parse(['testlib/ngettext.rb'])
     assert_equal(["ooo\000ppp", 'testlib/ngettext.rb:64', 'testlib/ngettext.rb:65'], ary[12])
     assert_equal(["qqq\000rrr", 'testlib/ngettext.rb:69', 'testlib/ngettext.rb:70'], ary[13])
   end
