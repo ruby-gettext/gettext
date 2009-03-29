@@ -30,7 +30,10 @@ module GetText
     end
 
     def parse(file, targets = []) # :nodoc:
-      erb = ERB.new(IO.readlines(file).join).src.split(/$/)
+      src = ERB.new(IO.readlines(file).join).src
+      # Remove magic comment prepended by erb in Ruby 1.9.
+      src.sub!(/\A#.*?coding[:=].*?\n/, '') if src.respond_to?(:encode)
+      erb = src.split(/$/)
       RubyParser.parse_lines(file, erb, targets)
     end
 
