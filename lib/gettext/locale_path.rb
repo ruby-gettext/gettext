@@ -14,6 +14,8 @@ require 'gettext/core_ext/string'
 module GetText
   # Treats locale-path for mo-files.
   class LocalePath
+    include Locale::Util::Memoizable
+
     # The default locale paths.
     CONFIG_PREFIX = Config::CONFIG['prefix'].gsub(/\/local/, "")
     DEFAULT_RULES = [
@@ -24,49 +26,48 @@ module GetText
                      "#{CONFIG_PREFIX}/share/locale/%{lang}/LC_MESSAGES/%{name}.mo",
                      "#{CONFIG_PREFIX}/local/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
                     ].uniq
-    
-    # Add default locale path. Usually you should use GetText.add_default_locale_path instead.
-    # * path: a new locale path. (e.g.) "/usr/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
-    #   ('locale' => "ja_JP", 'name' => "textdomain")
-    # * Returns: the new DEFAULT_LOCALE_PATHS
-    def self.add_default_rule(path)
-      DEFAULT_RULES.unshift(path)
-    end
 
-    @@default_path_rules = []
+    class << self
+      include Locale::Util::Memoizable
 
-    # Returns path rules as an Array. 
-    # (e.g.) ["/usr/share/locale/%{lang}/LC_MESSAGES/%{name}.mo", ...] 
-    def self.default_path_rules 
-      return @@default_path_rules.dup if @@default_path_rules.size > 0
-
-      if ENV["GETTEXT_PATH"]
-        ENV["GETTEXT_PATH"].split(/,/).each {|i| 
-          @@default_path_rules = ["#{i}/%{lang}/LC_MESSAGES/%{name}.mo", "#{i}/%{lang}/%{name}.mo"]
-        }
+      # Add default locale path. Usually you should use GetText.add_default_locale_path instead.
+      # * path: a new locale path. (e.g.) "/usr/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
+      #   ('locale' => "ja_JP", 'name' => "textdomain")
+      # * Returns: the new DEFAULT_LOCALE_PATHS
+      def add_default_rule(path)
+        DEFAULT_RULES.unshift(path)
       end
+      
+      # Returns path rules as an Array. 
+      # (e.g.) ["/usr/share/locale/%{lang}/LC_MESSAGES/%{name}.mo", ...] 
+      def default_path_rules 
+        default_path_rules = []
 
-      @@default_path_rules += DEFAULT_RULES
-
-      load_path = $LOAD_PATH
-      if defined? ::Gem
-        load_path += Gem.all_load_paths.map{|v| v =~ /(.*)\/lib$/; $1}
-      end
-
-      load_path.each {|path|
-        @@default_path_rules += [
+        if ENV["GETTEXT_PATH"]
+          ENV["GETTEXT_PATH"].split(/,/).each {|i| 
+            default_path_rules = ["#{i}/%{lang}/LC_MESSAGES/%{name}.mo", "#{i}/%{lang}/%{name}.mo"]
+          }
+        end
+        
+        default_path_rules += DEFAULT_RULES
+        
+        load_path = $LOAD_PATH
+        if defined? ::Gem
+          load_path += Gem.all_load_paths.map{|v| v =~ /(.*)\/lib$/; $1}
+        end
+        
+        load_path.each {|path|
+          default_path_rules += [
                                  "#{path}/data/locale/%{lang}/LC_MESSAGES/%{name}.mo", 
                                  "#{path}/data/locale/%{lang}/%{name}.mo", 
                                  "#{path}/locale/%{lang}/%{name}.mo"]
-      }
-      # paths existed only.
-      @@default_path_rules = @@default_path_rules.select{|path| Dir.glob(path % {:lang => "*", :name => "*"}).size > 0}.uniq
-      @@default_path_rules.dup
-    end
-
-    # Clear path_rules for testing.
-    def self.clear
-      @@default_path_rules = []
+        }
+        # paths existed only.
+        default_path_rules = default_path_rules.select{|path| 
+          Dir.glob(path % {:lang => "*", :name => "*"}).size > 0}.uniq
+        default_path_rules
+      end
+      memoize_dup :default_path_rules
     end
 
     attr_reader :locale_paths
@@ -78,11 +79,21 @@ module GetText
       @name = name
       
       if topdir
-        @locale_paths = ["#{topdir}/%{lang}/LC_MESSAGES/%{name}.mo", "#{topdir}/%{lang}/%{name}.mo"]
+        path_rules = ["#{topdir}/%{lang}/LC_MESSAGES/%{name}.mo", "#{topdir}/%{lang}/%{name}.mo"]
       else
-        @locale_paths = self.class.default_path_rules
+        path_rules = self.class.default_path_rules
+
       end
-      @locale_paths.map! {|v| v % {:name => name} }
+
+      @locale_paths = {}
+      path_rules.each do |rule|
+        this_path_rules = rule % {:lang => "([^\/]+)", :name => name}
+        Dir.glob(rule %{:lang => "*", :name => name}).each do |path|
+          if /#{this_path_rules}/ =~ path
+            @locale_paths[$1] = path unless @locale_paths[$1]
+          end
+        end
+      end
     end
 
     # Gets the current path.
@@ -91,25 +102,20 @@ module GetText
       lang_candidates = lang.to_posix.candidates
       search_files = []
 
-      @locale_paths.each {|path|
-        lang_candidates.each{|tag|
-          fname = path % {:lang => tag}
-          if $DEBUG
-            search_files << fname unless search_files.include?(fname)
-          end
-          if File.exist?(fname)
-            warn "GetText::TextDomain#load_mo: mo-file is #{fname}" if $DEBUG
-            return fname
-          end
-        }
-      }
+      lang_candidates.each do |tag|
+        path = @locale_paths[tag.to_s]
+        warn "GetText::TextDomain#load_mo: mo-file is #{path}" if $DEBUG
+        return path if path
+      end
+
       if $DEBUG
         warn "MO file is not found in"
-        search_files.each do |v|
-          warn "  #{v}"
+        @locale_paths.each do |path|
+          warn "  #{path}"
         end
       end
       nil
     end
+    memoize :current_path
   end
 end
