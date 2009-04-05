@@ -36,4 +36,15 @@ class TestLocalePath < Test::Unit::TestCase
     assert_equal path.current_path(Locale::Tag.parse("en")), nil
   end
 
+  def test_supported_locales
+    testdir = File.dirname(File.expand_path(__FILE__))
+    path = GetText::LocalePath.new("test1", "#{testdir}/locale")
+    assert_equal ["fr", "ja"], path.supported_locales
+
+    path = GetText::LocalePath.new("plural", "#{testdir}/locale")
+    assert_equal ["cr", "da", "fr", "ir", "ja", "la", "li", "po", "sl"], path.supported_locales
+
+    path = GetText::LocalePath.new("nodomain", "#{testdir}/locale")
+    assert_equal [], path.supported_locales
+  end
 end

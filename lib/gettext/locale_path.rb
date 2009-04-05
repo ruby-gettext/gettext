@@ -70,7 +70,7 @@ module GetText
       memoize_dup :default_path_rules
     end
 
-    attr_reader :locale_paths
+    attr_reader :locale_paths, :supported_locales
 
     # Creates a new GetText::TextDomain.
     # * name: the textdomain name.
@@ -94,6 +94,7 @@ module GetText
           end
         end
       end
+      @supported_locales = @locale_paths.keys.sort
     end
 
     # Gets the current path.
@@ -117,5 +118,6 @@ module GetText
       nil
     end
     memoize :current_path
+    
   end
 end
