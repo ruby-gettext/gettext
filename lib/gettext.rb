@@ -267,7 +267,10 @@ module GetText
   end
 
   def set_locale(lang)
-    Locale.clear
+    Locale.default = lang
+  end
+
+  def set_current_locale(lang)
     Locale.current = lang
   end
 
@@ -276,6 +279,7 @@ module GetText
   end
 
   alias :locale= :set_locale #:nodoc:
+  alias :current_locale= :set_current_locale #:nodoc:
   alias :_ :gettext   #:nodoc:
   alias :n_ :ngettext #:nodoc:
   alias :s_ :sgettext #:nodoc:
