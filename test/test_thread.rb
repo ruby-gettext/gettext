@@ -15,7 +15,7 @@ class TestThread < Test::Unit::TestCase
     Thread.start do
       @mutex.synchronize {
         Thread.current["language"] = language
-        GetText.locale = tag
+        GetText.current_locale = tag
       }
       (1..10).each do |v|
         assert_equal Thread.current["language"], _("language") 
