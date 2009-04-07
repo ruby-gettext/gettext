@@ -1,7 +1,7 @@
 =begin
     mofile.rb - A simple class for operating GNU MO file.
 
-    Copyright (C) 2003-2008  Masao Mutoh
+    Copyright (C) 2003-2009  Masao Mutoh
     Copyright (C) 2002  Masahiro Sakai, Masao Mutoh
     Copyright (C) 2001  Masahiro Sakai
 
@@ -12,7 +12,6 @@
     of Ruby.  License of Ruby is included with Ruby distribution in
     the file "README".
 
-    $Id: mo.rb,v 1.10 2008/06/17 16:40:52 mutoh Exp $
 =end
 
 require 'gettext/core_ext/iconv'
