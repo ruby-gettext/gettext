@@ -11,7 +11,7 @@ class TestGetTextBind < Test::Unit::TestCase
 
   def test_bindtextdomain
     domain = GetText.bindtextdomain("foo")
-    assert_equal domain, GetText::TextDomainManager.get(GetText).textdomains[0]
+    assert_equal domain, GetText::TextDomainManager.create_or_find_textdomain_group(Object).textdomains[0]
     assert_equal domain, GetText::TextDomainManager.textdomain_pool("foo")
   end
 

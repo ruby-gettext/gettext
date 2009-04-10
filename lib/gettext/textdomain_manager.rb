@@ -8,31 +8,29 @@
 
 =end
 
-require 'gettext/textdomain'
 require 'gettext/class_info'
-require 'locale/util/memoizable'
+require 'gettext/textdomain'
+require 'gettext/textdomain_group'
 
 module GetText
-  class TextDomainManager
-    include Locale::Util::Memoizable
+
+  module TextDomainManager
 
     @@textdomain_pool = {}
-    @@textdomain_manager_pool = {}
+    @@textdomain_group_pool = {}
 
     @@output_charset = nil
     @@gettext_classes = []
 
-    # Find textdomain by name
-    def self.textdomain_pool(domainname)
-      @@textdomain_pool[domainname]
-    end
+    @@singular_message_cache = {}
+    @@plural_message_cache = {}
+    @@cached = ! $DEBUG
 
-    # create or find a textdomain-manager for an given object/class
-    def self.get(obj)
-      klass = ClassInfo.normalize_class(obj)
-      manager = @@textdomain_manager_pool[klass]
-      return manager if manager
-      @@textdomain_manager_pool[klass] = TextDomainManager.new
+    extend self
+    
+    # Find textdomain by name
+    def textdomain_pool(domainname)
+      @@textdomain_pool[domainname]
     end
 
     # Set the value whether cache messages or not. 
@@ -40,66 +38,55 @@ module GetText
     #
     # Default is true. If $DEBUG is false, messages are not checked even if
     # this value is true.
-    def self.cached=(val)
+    def cached=(val)
+      @@cached = val
       TextDomain.cached = val
     end
     
     # Return the cached value.
-    def self.cached?
+    def cached?
+      @@cached
       TextDomain.cached?
     end
 
     # Gets the output charset.
-    def self.output_charset
+    def output_charset
       @@output_charset 
     end
-
+    
     # Sets the output charset.The program can have a output charset.
-    def self.output_charset=(charset)
+    def output_charset=(charset)
       @@output_charset = charset
       @@textdomain_pool.each do |key, textdomain|
         textdomain.output_charset = charset
       end
     end
-   
+    
     # bind textdomain to the class.
-    def self.bind_to(klass, domainname, options = {})
+    def bind_to(klass, domainname, options = {})
       warn "Bind the domain '#{domainname}' to '#{klass}'. " if $DEBUG
 
       charset = options[:output_charset] || self.output_charset
       textdomain = create_or_find_textdomain(domainname,options[:path],charset)
 
       target_klass = ClassInfo.normalize_class(klass)
-      get(target_klass).add(textdomain, options[:supported_language_tags])
-      add_to_gettext_classes(target_klass)
-
+      create_or_find_textdomain_group(target_klass, options[:supported_language_tags]).add(textdomain)
+      @@gettext_classes << target_klass unless @@gettext_classes.include? target_klass
+      
       textdomain
     end
-
-    def self.each_textdomains(klass) #:nodoc:
+    
+    def each_textdomains(klass) #:nodoc:
       ClassInfo.related_classes(klass, @@gettext_classes).each do |target|
         msg = nil
-        get(target).textdomains.each do |textdomain|
-          yield textdomain
+        if group = @@textdomain_group_pool[target]
+          lang = Locale.candidates(:supported_language_tags => group.supported_language_tags, 
+                                   :type => :posix)[0]
+          group.textdomains.each do |textdomain|
+            yield textdomain, lang
+          end
         end
       end
-    end
-
-    #
-    # Instance methods
-    #
-
-    # Returns the textdoman in the instance.
-    attr_reader :textdomains, :supported_language_tags
-  
-    def initialize
-      @textdomains = []
-      @supported_language_tags = nil
-    end
-
-    def add(textdomain, supported_language_tags)
-      @textdomains.unshift(textdomain) unless @textdomains.include? textdomain
-      @supported_language_tags = supported_language_tags if supported_language_tags
     end
 
     # Translates msgid, but if there are no localized text, 
@@ -109,16 +96,12 @@ module GetText
     # * div: separator or nil.
     # * Returns: the localized text by msgid. If there are no localized text, 
     #   it returns a last part of msgid separeted "div".
-    def translate_singluar_message(klass, msgid, div = '|')
-      lang = Locale.candidates(:supported_language_tags => @supported_language_tags, 
-                               :type => :posix)[0]
-      translate_singluar_message_to(lang, klass, msgid, div)
-    end
-
-    def translate_singluar_message_to(lang, klass, msgid, div = '|') #:nodoc:
-      msg = nil
+    def translate_singluar_message(klass, msgid, div = nil)
+      key = [Locale.current, klass, msgid, div].hash
+      msg = @@singular_message_cache[key]
+      return msg if msg and @@cached
       # Find messages from related classes.
-      self.class.each_textdomains(klass) do |textdomain|
+      each_textdomains(klass) do |textdomain, lang|
         msg = textdomain.translate_singluar_message(lang, msgid)
         break if msg
       end
@@ -130,10 +113,9 @@ module GetText
           msg = msg[(index + 1)..-1]
         end
       end
-      msg
+      @@singular_message_cache[key] = msg
     end
-    memoize :translate_singluar_message_to unless $DEBUG
-
+    
     # This function is similar to the get_singluar_message function 
     # as it finds the message catalogs in the same way. 
     # But it takes two extra arguments for plural form.
@@ -157,12 +139,6 @@ module GetText
     # * n: a number used to determine the plural form.
     # * div: the separator. Default is "|".
     def translate_plural_message(klass, arg1, arg2, arg3 = "|", arg4 = "|")
-      lang = Locale.candidates(:supported_language_tags => @supported_language_tags, 
-                               :type => :posix)[0]
-      translate_plural_message_to(lang, klass, arg1, arg2, arg3, arg4)
-    end
-
-    def translate_plural_message_to(lang, klass, arg1, arg2, arg3 = "|", arg4 = "|")
       # parse arguments
       if arg1.kind_of?(Array)
         msgid = arg1[0]
@@ -179,45 +155,53 @@ module GetText
         div = arg4
       end
 
-      # Find messages from related classes.
-      msgs = nil
-      self.class.each_textdomains(klass) do |textdomain|
-        msgs = textdomain.translate_plural_message(lang, msgid, msgid_plural)
-        break if msgs
-      end
-      
-      # If not found, return msgid.
-      msgs = [[msgid, msgid_plural], "n != 1"] unless msgs
+      key = [Locale.current, klass, msgid, msgid_plural, div].hash
+      msgs = @@plural_message_cache[key]
+      unless (msgs and @@cached)
 
-      msgstrs = msgs[0]
-      if div and msgstrs[0] == msgid and index = msgstrs[0].rindex(div)
-        msgstrs[0] = msgstrs[0][(index + 1)..-1]
+        # Find messages from related classes.
+        msgs = nil
+        each_textdomains(klass) do |textdomain, lang|
+          msgs = textdomain.translate_plural_message(lang, msgid, msgid_plural)
+          break if msgs
+        end
+        
+        msgs = [[msgid, msgid_plural], Proc.new{|n| eval("n != 1")}] unless msgs
+
+        msgstrs = msgs[0]
+        if div and msgstrs[0] == msgid and index = msgstrs[0].rindex(div)
+          msgstrs[0] = msgstrs[0][(index + 1)..-1]
+        end
+        @@plural_message_cache[key] = msgs
       end
 
       # Return the singular or plural message.
-      plural = eval(msgs[1])
+      msgstrs = msgs[0]
+      plural = msgs[1].call(n)
       return msgstrs[plural] if plural.kind_of?(Numeric)
       return plural ? msgstrs[1] : msgstrs[0]
     end
-    memoize :translate_plural_message_to unless $DEBUG
 
     # for testing.
-    def self.clear_all_textdomains
+    def clear_all_textdomains
       @@textdomain_pool = {}
-      @@textdomain_manager_pool = {}
+      @@textdomain_group_pool = {}
       @@gettext_classes = []
+      @@singular_message_cache = {}
+      @@plural_message_cache = {}
+    end
+
+    def create_or_find_textdomain_group(klass, supported_language_tags = nil) #:nodoc:
+      group = @@textdomain_group_pool[klass]
+      return group if group
+      
+      @@textdomain_group_pool[klass] = TextDomainGroup.new(supported_language_tags)
     end
     
-  private
-
-    def self.add_to_gettext_classes(klass)
-      @@gettext_classes << klass unless @@gettext_classes.include? klass
-    end
-
-    def self.create_or_find_textdomain(name, path, charset)#:nodoc:
+    def create_or_find_textdomain(name, path, charset)#:nodoc:
       textdomain = @@textdomain_pool[name]
       return textdomain if textdomain
-
+      
       @@textdomain_pool[name] = TextDomain.new(name, path, charset)
     end
   end

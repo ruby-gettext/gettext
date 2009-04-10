@@ -112,6 +112,9 @@ module GetText
       end
     end
 
+    DEFAULT_PLURAL_CALC = Proc.new{|n| "n != 1"}
+    DEFAULT_SINGLE_CALC = Proc.new{|n| 0}
+
     # Translates the translated string.
     # * lang: Locale::Tag::Simple's subclass.
     # * msgid: the original message.
@@ -126,11 +129,11 @@ module GetText
       elsif msg.include?("\000")
         # [[msgstr[0], msgstr[1], msgstr[2],...], cond]
         mofile = @mofiles[lang.to_posix.to_s]
-        cond = (mofile and mofile != :empty) ? mofile.plural : nil
-        cond ||= "n != 1"
+        cond = (mofile and mofile != :empty) ? Proc.new{|n| eval(mofile.plural)} : nil
+        cond ||= DEFAULT_PLURAL_CALC
         ret = [msg.split("\000"), cond]
       else
-        ret = [[msg], "0"]
+        ret = [[msg], DEFAULT_SINGLE_CALC]
       end
       ret
     end

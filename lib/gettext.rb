@@ -13,10 +13,15 @@
   $Id: gettext.rb,v 1.46 2008/09/13 18:23:55 mutoh Exp $
 =end
 
-begin
-  gem 'locale', '>=0.9' 
-rescue NoMethodError
-else LoadError
+if respond_to? :gem
+  begin
+    begin
+      gem 'locale', '>=0.9' 
+    rescue Gem::LoadError
+    end
+  rescue NoMethodError
+  else LoadError
+  end
 end
 
 require 'locale'
@@ -123,7 +128,7 @@ module GetText
   # * msgid: the message id.
   # * Returns: localized text by msgid. If there are not binded mo-file, it will return msgid.
   def gettext(msgid)
-    TextDomainManager.get(self).translate_singluar_message(self, msgid)
+    TextDomainManager.translate_singluar_message(self, msgid)
   end
 
   # call-seq:
@@ -140,7 +145,7 @@ module GetText
   #   <tt>Movie|Location -> Location</tt>
   # See: http://www.gnu.org/software/gettext/manual/html_mono/gettext.html#SEC151
   def sgettext(msgid, seperator = "|")
-    TextDomainManager.get(self).translate_singluar_message(self, msgid, seperator)
+    TextDomainManager.translate_singluar_message(self, msgid, seperator)
   end
 
   # call-seq:
@@ -157,7 +162,7 @@ module GetText
   #   it returns msgid.
   # See: http://www.gnu.org/software/autoconf/manual/gettext/Contexts.html
   def pgettext(msgctxt, msgid)
-    TextDomainManager.get(self).translate_singluar_message(self, "#{msgctxt}\004#{msgid}", "\004")
+    TextDomainManager.translate_singluar_message(self, "#{msgctxt}\004#{msgid}", "\004")
   end
 
   # call-seq:
@@ -175,7 +180,7 @@ module GetText
   # * Returns: the localized text which key is msgid_plural if n is plural(follow plural-rule) or msgid.
   #   "plural-rule" is defined in po-file.
   def ngettext(msgid, msgid_plural, n = nil)
-    TextDomainManager.get(self).translate_plural_message(self, msgid, msgid_plural, n)
+    TextDomainManager.translate_plural_message(self, msgid, msgid_plural, n)
   end
 
   # call-seq:
@@ -194,7 +199,7 @@ module GetText
   # * Returns: the localized text which key is msgid_plural if n is plural(follow plural-rule) or msgid.
   #   "plural-rule" is defined in po-file.
   def nsgettext(msgid, msgid_plural, n="|", seperator = "|")
-    TextDomainManager.get(self).translate_plural_message(self, msgid, msgid_plural, n, seperator)
+    TextDomainManager.translate_plural_message(self, msgid, msgid_plural, n, seperator)
   end
 
   # call-seq:
@@ -226,7 +231,7 @@ module GetText
       opt2 = nil
     end
     
-    msgstr = TextDomainManager.get(self).translate_plural_message(self, msgid_ctxt, msgid_plural, opt1, opt2)
+    msgstr = TextDomainManager.translate_plural_message(self, msgid_ctxt, msgid_plural, opt1, opt2)
     if msgstr == msgid_ctxt
       msgid
     else

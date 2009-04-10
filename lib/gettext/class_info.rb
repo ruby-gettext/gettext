@@ -47,7 +47,10 @@ module GetText
     # (klass's ancestors, included modules and nested modules)
     def related_classes(klass, all_classes = [])
       ret = related_classes_internal(klass, all_classes)
-      (ret + [Object]).uniq
+      unless ret.include? Object
+        ret += [Object]
+      end
+      ret
     end
     memoize :related_classes
   end
