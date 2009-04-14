@@ -9,12 +9,16 @@
 =end
 
 if RUBY_VERSION < "1.9.0"
-
 # Extension for String class. This feature is included in Ruby 1.9 or later.
 #
 # String#% method which accept "named argument". The translator can know 
 # the meaning of the msgids using "named argument" instead of %s/%d style.
 class String
+
+  unless respond_to? :bytesize  # For older ruby (such as ruby-1.8.5)
+    alias :bytesize :size
+  end
+
   alias :_old_format_m :% # :nodoc:
     
   # call-seq:
