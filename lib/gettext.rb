@@ -25,7 +25,7 @@ if respond_to? :gem
 end
 
 require 'locale'
-raise "Insall locale as gem or uninstall old gettext" unless Locale.respond_to? :candidates
+raise "Install locale as gem or uninstall old gettext" unless Locale.respond_to? :candidates
 
 require 'gettext/version'
 require 'gettext/textdomain_manager'
