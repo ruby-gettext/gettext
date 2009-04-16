@@ -1,7 +1,18 @@
-2009-04-15  Masao Mutoh  <mutoh@highway.ne.jp>
+= Ruby-GetText-Package-2.0.1 (2009-04-17)
+ * Fixed bugs
+   * doesn't work with ruby-1.8.5. [Reported by Dan Coutu]
+   * GetText.locale= can't keep the locale. [Reported by Adam Ilan]
+   * Break backward compatibility of bindtextdomain
+	       [Reported by Mamoru Tasaka(#24947), Mathieu Blondel]
+   * Other trivial fixes/improvement.
+ * 1.8 times faster than 2.0.0.
+ * GetText::LocalePath is separated from GetText::TextDomainManager.
+   Improve to find the locale path.
+ * Enhance to support ruby-1.9.x [by OZAWA Sakuro]
 
-	* lib/gettext/core_ext/string.rb: 
-
+Thanks to:
+   OZAWA Sakuro, Tietew, Adam Ilan, Mamoru Tasaka, Mathieu Blondel.
+	
 = Ruby-GetText-Package-2.0.0 (2009-03-21)
  * Separate this library to locale and rails-support to locale, 
    locale_rails, gettext_activerecord, gettext_rails.
