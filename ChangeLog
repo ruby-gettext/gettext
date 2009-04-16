@@ -1,3 +1,7 @@
+2009-04-15  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/core_ext/string.rb: 
+
 = Ruby-GetText-Package-2.0.0 (2009-03-21)
  * Separate this library to locale and rails-support to locale, 
    locale_rails, gettext_activerecord, gettext_rails.

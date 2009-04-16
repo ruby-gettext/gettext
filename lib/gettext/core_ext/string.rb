@@ -1,4 +1,3 @@
-#! /usr/bin/ruby
 =begin
   string.rb - Extension for String.
 
