@@ -190,14 +190,22 @@ DDD
     assert_equal("fr_first", n_("first", "second", 0))
     assert_equal("fr_first", n_("first", "second", 1))
     assert_equal("fr_first", n_("first", "second", 2))
-    setlocale("da")
+    setlocale("da") # Invalid Plural-Forms.
     assert_equal("da_first", n_("first", "second", 0))
     assert_equal("da_first", n_("first", "second", 1))
     assert_equal("da_first", n_("first", "second", 2))
-    setlocale("la")
+    setlocale("la") # wrong number of msgstr.
     assert_equal("la_first", n_("first", "second", 0))
     assert_equal("la_first", n_("first", "second", 1))
     assert_equal("la_first", n_("first", "second", 2))
+
+    setlocale("li") # Invalid Plural-Forms: nplurals is set, but wrong plural=.
+    assert_equal("li_first", n_("first", "second", 0))
+    assert_equal("li_first", n_("first", "second", 1))
+    assert_equal("li_first", n_("first", "second", 2))
+    assert_equal("li_one", n_("one", "two", 0))
+    assert_equal("li_one", n_("one", "two", 1))
+    assert_equal("li_one", n_("one", "two", 2))
   end
 
   def test_plural_array

@@ -54,6 +54,7 @@ module GetText
       @last_modified = nil
       @little_endian = true
       @output_charset = output_charset
+      @plural_proc = nil
       super()
     end
 
@@ -289,6 +290,17 @@ module GetText
       #Do nothing
     end
 
+    def plural_as_proc
+      unless @plural_proc
+        @plural_proc = Proc.new{|n| eval(@plural)}
+        begin
+          @plural_proc.call(1)
+        rescue
+          @plural_proc = Proc.new{|n| 0}
+        end
+      end
+      @plural_proc
+    end
 
     attr_accessor :little_endian, :path, :last_modified
     attr_reader :charset, :nplurals, :plural

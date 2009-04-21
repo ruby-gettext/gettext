@@ -158,7 +158,6 @@ module GetText
       key = [Locale.current, klass, msgid, msgid_plural, div].hash
       msgs = @@plural_message_cache[key]
       unless (msgs and @@cached)
-
         # Find messages from related classes.
         msgs = nil
         each_textdomains(klass) do |textdomain, lang|
@@ -166,7 +165,7 @@ module GetText
           break if msgs
         end
         
-        msgs = [[msgid, msgid_plural], Proc.new{|n| eval("n != 1")}] unless msgs
+        msgs = [[msgid, msgid_plural], TextDomain::DEFAULT_PLURAL_CALC] unless msgs
 
         msgstrs = msgs[0]
         if div and msgstrs[0] == msgid and index = msgstrs[0].rindex(div)
