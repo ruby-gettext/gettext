@@ -53,9 +53,9 @@ module GetText
         
         load_path = $LOAD_PATH
         if defined? ::Gem
-          load_path += Gem.all_load_paths.map{|v| v =~ /(.*)\/lib$/; $1}
+          load_path += Gem.all_load_paths
         end
-        
+       load_path.map!{|v| v.match(/(.*?)(\/lib)*?$/); $1}
         load_path.each {|path|
           default_path_rules += [
                                  "#{path}/data/locale/%{lang}/LC_MESSAGES/%{name}.mo", 
