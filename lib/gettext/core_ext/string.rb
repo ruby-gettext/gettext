@@ -1,14 +1,13 @@
 =begin
   string.rb - Extension for String.
 
-  Copyright (C) 2005,2006 Masao Mutoh
+  Copyright (C) 2005-2009 Masao Mutoh
  
   You may redistribute it and/or modify it under the same
   license terms as Ruby.
 =end
 
-if RUBY_VERSION < "1.9.0"
-# Extension for String class. This feature is included in Ruby 1.9 or later.
+# Extension for String class. This feature is included in Ruby 1.9 or later but not occur TypeError.
 #
 # String#% method which accept "named argument". The translator can know 
 # the meaning of the msgids using "named argument" instead of %s/%d style.
@@ -38,16 +37,28 @@ class String
   # * hash: {:key1 => value1, :key2 => value2, ... }
   # * Returns: formatted String
   #
-  #  (e.g.) "%{firstname}, %{familyname}" % {:firstname => "Masao", :familyname => "Mutoh"}
+  #  (e.g.)
+  #         For strings.
+  #         "%{firstname}, %{familyname}" % {:firstname => "Masao", :familyname => "Mutoh"}
+  #
+  #         With field type to specify format such as d(decimal), f(float),...
+  #         "%<age>d, %<weight>.1f" % {:age => 10, :weight => 43.4}
   def %(args)
     if args.kind_of?(Hash)
       ret = dup
       args.each {|key, value|
         ret.gsub!(/\%\{#{key}\}/, value.to_s)
       }
-      ret
+
+      # %<..>d type
+      args.each {|key, value|
+        ret.gsub!(/\%<#{key}>([ #\+-0\*]?\d*\.?\d*[bBdiouxXeEfgGcps])/){|matched|
+          sprintf("%#{$1}", value)
+        }
+      }
+      ret.gsub(/%%/, "%")
     else
-      ret = gsub(/%\{/, '%%{')
+      ret = gsub(/%([{<])/, '%%\1')
       begin
         ret._old_format_m(args)
       rescue ArgumentError => e
@@ -63,4 +74,3 @@ class String
   end
 end
 
-end

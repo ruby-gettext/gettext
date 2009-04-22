@@ -12,15 +12,14 @@ class TestGetTextString < Test::Unit::TestCase
     assert_raise(ArgumentError) { "%-%" % [1] }
   end
 
-=begin
   def test_sprintf_lack_argument
     assert_equal("%{num}, test", "%{num}, %{record}" % {:record => "test"})
     assert_equal("%{record}", "%{record}" % {:num => 1})
   end
 
-  def test_sprintf_ruby19
+  def test_sprintf_ruby19_style
     assert_equal("1", "%<num>d" % {:num => 1})
-    assert_equal("1", "%<num>#b" % {:num => 1})
+    assert_equal("0b1", "%<num>#b" % {:num => 1})
     assert_equal("foo", "%<msg>s" % {:msg => "foo"})
     assert_equal("1.000000", "%<num>f" % {:num => 1.0})
     assert_equal("  1", "%<num>3.0f" % {:num => 1.0})
@@ -28,9 +27,17 @@ class TestGetTextString < Test::Unit::TestCase
     assert_equal("0x64", "%<num>#x" % {:num => 100.0})
   end
 
+  def test_sprintf_old_style
+    assert_equal("foo 1.000000", "%s %f" % ["foo", 1.0])
+  end
+
+  def test_sprintf_mix
+    assert_equal("foo 1.000000", "%{name} %<num>f" % {:name => "foo", :num => 1.0})
+    assert_equal("%{name} 1.000000", "%{name} %f" % [1.0])
+  end
+
   def test_percent
     assert_equal("% 1", "%% %<num>d" % {:num => 1.0})
   end
-=end
 
 end
