@@ -16,7 +16,7 @@
 if respond_to? :gem
   begin
     begin
-      gem 'locale', '>=0.9' 
+      gem 'locale', '>=2.0' 
     rescue Gem::LoadError
     end
   rescue NoMethodError
@@ -271,10 +271,18 @@ module GetText
     TextDomainManager.output_charset
   end
 
+  # Set the locale. This value forces the locale whole the programs.
+  # This method calls Locale.set_app_language_tags, Locale.default, Locale.current.
+  # Use Locale methods if you need to handle locales more flexible.
   def set_locale(lang)
+    Locale.set_app_language_tags(lang)
     Locale.default = lang
+    Locale.current = lang
   end
 
+  # Set the locale to the current thread. 
+  # Note that if #set_locale is set, this value is ignored.
+  # If you need, set_locale(nil); set_current_locale(lang) 
   def set_current_locale(lang)
     Locale.current = lang
   end

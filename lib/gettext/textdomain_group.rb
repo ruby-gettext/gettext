@@ -11,11 +11,10 @@
 module GetText
 
   class TextDomainGroup
-    attr_reader :textdomains, :supported_language_tags
+    attr_reader :textdomains
     
-    def initialize(supported_language_tags)
+    def initialize
       @textdomains = []
-      @supported_language_tags = supported_language_tags
     end
 
     def add(textdomain)

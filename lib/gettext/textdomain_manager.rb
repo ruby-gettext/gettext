@@ -70,18 +70,17 @@ module GetText
       textdomain = create_or_find_textdomain(domainname,options[:path],charset)
 
       target_klass = ClassInfo.normalize_class(klass)
-      create_or_find_textdomain_group(target_klass, options[:supported_language_tags]).add(textdomain)
+      create_or_find_textdomain_group(target_klass).add(textdomain)
       @@gettext_classes << target_klass unless @@gettext_classes.include? target_klass
       
       textdomain
     end
     
     def each_textdomains(klass) #:nodoc:
+      lang = Locale.candidates[0]
       ClassInfo.related_classes(klass, @@gettext_classes).each do |target|
         msg = nil
         if group = @@textdomain_group_pool[target]
-          lang = Locale.candidates(:supported_language_tags => group.supported_language_tags, 
-                                   :type => :posix)[0]
           group.textdomains.each do |textdomain|
             yield textdomain, lang
           end
@@ -190,11 +189,11 @@ module GetText
       @@plural_message_cache = {}
     end
 
-    def create_or_find_textdomain_group(klass, supported_language_tags = nil) #:nodoc:
+    def create_or_find_textdomain_group(klass) #:nodoc:
       group = @@textdomain_group_pool[klass]
       return group if group
       
-      @@textdomain_group_pool[klass] = TextDomainGroup.new(supported_language_tags)
+      @@textdomain_group_pool[klass] = TextDomainGroup.new
     end
     
     def create_or_find_textdomain(name, path, charset)#:nodoc:

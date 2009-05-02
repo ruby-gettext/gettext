@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 require 'testlib/helper.rb'
 
 require 'testlib/simple.rb'
@@ -251,9 +251,11 @@ DDD
     assert_equal("japanese", _("language"))
     set_locale("en")
     assert_equal("language", _("language"))
+
     set_locale("fr")
     assert_equal("french", _("language"))
 
+    set_locale(nil)
     Locale.set "en"
     assert_equal("language", _("language"))
 
@@ -265,6 +267,22 @@ DDD
     assert_equal(loc, GetText.locale = loc)
     assert_equal(Locale::Tag::Posix, GetText.locale.class)
   end
+
+  def test_restrict_locale
+    bindtextdomain("test1", :path => "locale")
+    Locale.set_app_language_tags("ja", "en")
+
+    Locale.set_current "fr"
+    assert_equal("language", _("language"))
+
+    Locale.set_current "en"
+    assert_equal("language", _("language"))
+
+    Locale.set_current "ja"
+    assert_equal("japanese", _("language"))
+    Locale.set_app_language_tags(nil)
+  end
+
 
   # Anonymous
   @@anon = Module.new
