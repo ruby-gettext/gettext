@@ -112,7 +112,7 @@ module GetText
       if $DEBUG
         warn "MO file is not found in"
         @locale_paths.each do |path|
-          warn "  #{path}"
+          warn "  #{path[1]}"
         end
       end
       nil
