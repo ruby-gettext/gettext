@@ -13,7 +13,7 @@
 # the meaning of the msgids using "named argument" instead of %s/%d style.
 class String
 
-  unless respond_to? :bytesize  # For older ruby (such as ruby-1.8.5)
+  unless ''.respond_to? :bytesize  # For older ruby (such as ruby-1.8.5)
     alias :bytesize :size
   end
 
