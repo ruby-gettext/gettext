@@ -1,11 +1,14 @@
 require 'locale/util/memoizable'
 
 module GetText
+  # For normalize/finding the related classes/modules.
+  # This is used for realizing the scope of TextDomain.
+  # (see: http://www.yotabanana.com/hiki/ruby-gettext-scope.html)
   module ClassInfo
     extend self
     include Locale::Util::Memoizable
 
-    # normalize the klass name
+    # normalize the class name
     def normalize_class(klass)
       ret = (klass.kind_of? Module) ? klass : klass.class
       if ret.name.to_s =~ /^\#<|^$/ or ret == GetText

@@ -58,7 +58,6 @@ module GetText
   # * options: options as an Hash.
   #   * :path - the path to the mo-files. When the value is nil, it will search default paths such as 
   #     /usr/share/locale, /usr/local/share/locale)
-  #   * :supported_language_tags - an Array of the supported language tags for this textdomain.
   #   * :output_charset - The output charset. Same with GetText.set_output_charset. Usually, L10n
   #     library doesn't use this option. Application may use this once.
   # * Returns: the GetText::TextDomainManager.

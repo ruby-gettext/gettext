@@ -163,8 +163,6 @@ module GetText
       self
     end
 
-    # Is this number a prime number ?
-    # http://apidock.com/ruby/Prime
     def prime?(number)
       ('1' * number) !~ /^1?$|^(11+?)\1+$/
     end
@@ -184,11 +182,11 @@ module GetText
       end
     end
 
+    HASHWORDBITS = 32
     # From gettext-0.12.1/gettext-runtime/intl/hash-string.h
     # Defines the so called `hashpjw' function by P.J. Weinberger
     # [see Aho/Sethi/Ullman, COMPILERS: Principles, Techniques and Tools,
     # 1986, 1987 Bell Telephone Laboratories, Inc.] 
-    HASHWORDBITS = 32
     def hash_string(str)
       hval = 0
       i = 0
@@ -205,8 +203,8 @@ module GetText
       hval
     end
 
+    #Save data as little endian format.
     def save_to_stream(io)
-      #Save data as little endian format.
       header_size = 4 * 7
       table_size  = 4 * 2 * size
 
