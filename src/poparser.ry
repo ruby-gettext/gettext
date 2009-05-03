@@ -194,5 +194,23 @@ end
     @comments << comment
   end 
 
+  def parse_file(po_file, data, ignore_fuzzy = true)
+    args = [ po_file ]
+    # In Ruby 1.9, we must detect proper encoding of a PO file.
+    if String.instance_methods.include?(:encode)
+      encoding = detect_file_encoding(po_file)
+      args << "r:#{encoding}"
+    end
+    parse(File.open(*args) {|io| io.read }, data, ignore_fuzzy)
+  end
 
+  def detect_file_encoding(po_file)
+    open(po_file, :encoding => 'ASCII-8BIT') do |input|
+      input.lines.each do |line|
+        return Encoding.find($1) if %r["Content-Type:.*\scharset=(.*)\\n"] =~ line
+      end
+    end
+    Encoding.default_external
+  end
+  private :detect_file_encoding
 ---- footer

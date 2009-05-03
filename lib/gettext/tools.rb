@@ -188,25 +188,6 @@ module GetText
     mo_dir = mo_dir_rule % {:lang => lang}
     File.join(mo_dir, "#{textdomain}.mo")
   end
-
-  # In Ruby 1.9, we must detect proper encoding of a PO file.
-  def po_file_content(po_file)
-    args = [ po_file ]
-    if String.instance_methods.include?(:encode)
-      encoding = detect_po_file_encoding(po_file)
-      args << "r:#{encoding}"
-    end
-    File.open(*args) {|io| io.read }
-  end
-
-  def detect_po_file_encoding(po_file)
-    open(po_file, :encoding => 'ASCII-8BIT') do |input|
-      input.lines.each do |line|
-        return Encoding.find($1) if %r["Content-Type:.*\scharset=(.*)\\n"] =~ line
-      end
-    end
-    Encoding.default_external
-  end
 end
 
 if __FILE__ == $0

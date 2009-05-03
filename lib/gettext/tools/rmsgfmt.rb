@@ -35,7 +35,7 @@ module GetText
       parser = PoParser.new
       data = MOFile.new
 
-      parser.parse(po_file_content(targetfile), data)
+      parser.parse_file(targetfile, data)
       data.save_to_file(output_path)
     end
 

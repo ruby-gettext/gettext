@@ -20,7 +20,7 @@ module GetText
 
   class PoParser < Racc::Parser
 
-module_eval <<'..end src/poparser.ry modeval..id7a99570e05', 'src/poparser.ry', 108
+module_eval <<'..end src/poparser.ry modeval..ida5d3d657e2', 'src/poparser.ry', 108
   include GetText
   GetText.bindtextdomain("rgettext")
 
@@ -110,8 +110,26 @@ module_eval <<'..end src/poparser.ry modeval..id7a99570e05', 'src/poparser.ry', 
     @comments << comment
   end 
 
+  def parse_file(po_file, data, ignore_fuzzy = true)
+    args = [ po_file ]
+    # In Ruby 1.9, we must detect proper encoding of a PO file.
+    if String.instance_methods.include?(:encode)
+      encoding = detect_file_encoding(po_file)
+      args << "r:#{encoding}"
+    end
+    parse(File.open(*args) {|io| io.read }, data, ignore_fuzzy)
+  end
 
-..end src/poparser.ry modeval..id7a99570e05
+  def detect_file_encoding(po_file)
+    open(po_file, :encoding => 'ASCII-8BIT') do |input|
+      input.lines.each do |line|
+        return Encoding.find($1) if %r["Content-Type:.*\scharset=(.*)\\n"] =~ line
+      end
+    end
+    Encoding.default_external
+  end
+  private :detect_file_encoding
+..end src/poparser.ry modeval..ida5d3d657e2
 
 ##### racc 1.4.5 generates ###
 

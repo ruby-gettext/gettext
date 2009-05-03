@@ -449,12 +449,8 @@ module GetText
       end
       
       parser = PoParser.new
-      defstr = nil
-      refstr = nil      
-      File.open(config.defpo){|f| defstr = f.read}
-      File.open(config.refpot){|f| refstr = f.read}
-      defpo = parser.parse(defstr, PoData.new, false)
-      refpot = parser.parse(refstr, PoData.new, false)
+      defpo = parser.parse_file(config.defpo, PoData.new, false)
+      refpot = parser.parse_file(config.refstrrefstr, PoData.new, false)
       
       m = Merger.new
       result = m.merge(defpo, refpot)      
