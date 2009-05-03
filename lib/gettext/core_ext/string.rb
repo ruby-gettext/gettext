@@ -13,7 +13,8 @@
 # the meaning of the msgids using "named argument" instead of %s/%d style.
 class String
 
-  unless instance_methods.include?(:bytesize)  # For older ruby (such as ruby-1.8.5)
+  unless instance_methods.find {|m| m.to_s == 'bytesize'} 
+    # For older ruby (such as ruby-1.8.5)
     alias :bytesize :size
   end
 
