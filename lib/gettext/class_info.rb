@@ -36,10 +36,12 @@ module GetText
         ret.uniq!
       end
 
+      excluded = [Kernel]
+      excluded.unshift BasicObject if defined? BasicObject
       if all_classes.size > 0
-        ((ret - [Kernel]) & all_classes).uniq 
+        ((ret - excluded) & all_classes).uniq 
       else
-        (ret - [Kernel]).uniq
+        (ret - excluded).uniq
       end
     end
 
