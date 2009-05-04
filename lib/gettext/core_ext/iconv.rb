@@ -21,13 +21,15 @@ begin
 rescue LoadError
   # Pseudo Iconv class
   # 
-  # Provides Iconv.iconv which uses Ruby/GLib(1) functions. This library also required from 'gettext'.
-  # If you require 'gettext/iconv', Iconv.iconv try to call Ruby/GLib function 
-  # when it doesn't find original Iconv class(iconv.so).
+  # ==== For Matz Ruby:
+  # If you don't have iconv but Ruby/GLib2, this library uses Ruby/GLib2's 
+  # iconv functions.
   #
-  # (1) Ruby/GLib is a module which is provided from Ruby-GNOME2 Project. 
+  # Ruby/GLib is a module which is provided from Ruby-GNOME2 Project. 
   # You can get binaries for Win32(One-Click Ruby Installer).
   # <URL: http://ruby-gnome2.sourceforge.jp/>
+  # ==== For JRuby:
+  # Use Java String class to convert strings.
   class Iconv
     module Failure; end
     class InvalidEncoding < ArgumentError;  include Failure; end
