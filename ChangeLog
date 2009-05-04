@@ -1,3 +1,17 @@
+= Ruby-GetText-Package-2.0.2 (2009-05-04)
+ * Support ruby-1.9.1 style format string such as %<foo>d.
+ * Apply new Locale.set_app_language_tags and Locale.candidates.
+   [Suggested by Vladimir Dobriakov]
+ * Enhance to support ruby-1.9.x [by OZAWA Sakuro]
+   * poparser work with proper encoding.
+   * string.rb: #bytesize alias to #size in older ruby version such as 1.8.5.
+ * Fixed bugs
+   * n_() to work when Plural-Forms line in po-file is not correct.
+     [Reported by Sava Chankov (Bug#25570)]
+   * GetText::Locale.default_rules_path : $LOAD_PATH is not well parsed.
+     [by hallelujah]
+   * locale_path.rb: Fixed warning message.
+
 = Ruby-GetText-Package-2.0.1 (2009-04-17)
  * Fixed bugs
    * doesn't work with ruby-1.8.5. [Reported by Dan Coutu]
