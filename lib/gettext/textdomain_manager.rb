@@ -165,14 +165,14 @@ module GetText
         end
         
         msgs = [[msgid, msgid_plural], TextDomain::DEFAULT_PLURAL_CALC] unless msgs
-
+        
         msgstrs = msgs[0]
         if div and msgstrs[0] == msgid and index = msgstrs[0].rindex(div)
           msgstrs[0] = msgstrs[0][(index + 1)..-1]
         end
         @@plural_message_cache[key] = msgs
       end
-
+      
       # Return the singular or plural message.
       msgstrs = msgs[0]
       plural = msgs[1].call(n)

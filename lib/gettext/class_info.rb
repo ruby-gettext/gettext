@@ -17,12 +17,17 @@ module GetText
       ret
     end
 
+    def root_ancestors  # :nodoc:
+      Object.ancestors
+    end
+    memoize :root_ancestors
+
     # Internal method for related_classes.
-    def related_classes_internal(klass, all_classes = [], analyzed_classes = [] )
+    def related_classes_internal(klass, all_classes = [], analyzed_classes = [] )0
       ret = []
       klass = normalize_class(klass)
 
-      return [Object] if [Object, Kernel].include? klass
+      return [Object] if root_ancestors.include? klass
 
       ary = klass.name.split(/::/)
       while(v = ary.shift)
@@ -34,17 +39,16 @@ module GetText
         ret.uniq!
       end
       analyzed_classes << klass unless analyzed_classes.include? klass
+
       klass.ancestors[1..-1].each do |v|
         ret += related_classes_internal(v, all_classes, analyzed_classes)
         ret.uniq!
       end
 
-      excluded = [Kernel]
-      excluded.unshift BasicObject if defined? BasicObject
       if all_classes.size > 0
-        ((ret - excluded) & all_classes).uniq 
+        (ret & all_classes).uniq 
       else
-        (ret - excluded).uniq
+        ret.uniq
       end
     end
 

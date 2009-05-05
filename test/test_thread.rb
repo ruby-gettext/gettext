@@ -18,7 +18,9 @@ class TestThread < Test::Unit::TestCase
         GetText.current_locale = tag
       }
       (1..10).each do |v|
-        assert_equal Thread.current["language"], _("language") 
+        @mutex.synchronize{
+          assert_equal Thread.current["language"], _("language") 
+        }
         print "."
         $stdout.flush
         sleep sleep_time
@@ -27,10 +29,10 @@ class TestThread < Test::Unit::TestCase
   end
 
   def test_thread
-    th1 = invoke_thread("ja_JP.eucJP", "japanese", 0.6)
-    th2 = invoke_thread("fr", "french", 0.4)
-    th3 = invoke_thread("en", "language", 0.2)
-    th4 = invoke_thread("zh_CN", "language", 0.3) # No translation.
+    th1 = invoke_thread("ja_JP.eucJP", "japanese", 0.4)
+    th2 = invoke_thread("fr", "french", 0.3)
+    th3 = invoke_thread("en", "language", 0.1)
+    th4 = invoke_thread("zh_CN", "language", 0.2) # No translation.
     th1.join
     th2.join   
     th3.join
