@@ -21,13 +21,13 @@ class TestGetTextString < Test::Unit::TestCase
   end
 
   def test_sprintf_ruby19_style
-    # assert_equal("1", "%<num>d" % {:num => 1})
-    # assert_equal("0b1", "%<num>#b" % {:num => 1})
-    # assert_equal("foo", "%<msg>s" % {:msg => "foo"})
-    # assert_equal("1.000000", "%<num>f" % {:num => 1.0})
-    # assert_equal("  1", "%<num>3.0f" % {:num => 1.0})
-    # assert_equal("100.00", "%<num>2.2f" % {:num => 100.0})
-    # assert_equal("0x64", "%<num>#x" % {:num => 100.0})
+    assert_equal("1", "%<num>d" % {:num => 1})
+    assert_equal("0b1", "%<num>#b" % {:num => 1})
+    assert_equal("foo", "%<msg>s" % {:msg => "foo"})
+    assert_equal("1.000000", "%<num>f" % {:num => 1.0})
+    assert_equal("  1", "%<num>3.0f" % {:num => 1.0})
+    assert_equal("100.00", "%<num>2.2f" % {:num => 100.0})
+    assert_equal("0x64", "%<num>#x" % {:num => 100.0})
     assert_raise { "%<num>,d" % {:num => 100} }
     assert_raise { "%<num>/d" % {:num => 100} }
   end
