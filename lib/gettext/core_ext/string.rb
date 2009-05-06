@@ -47,6 +47,7 @@ class String
   def %(args)
     if args.kind_of?(Hash)
       ret = dup
+      ret.gsub!(/\%\%/, '<_percent__>')
       args.each {|key, value|
         ret.gsub!(/\%\{#{key}\}/, value.to_s)
       }
@@ -57,7 +58,7 @@ class String
           sprintf("%#{$1}", value)
         }
       }
-      ret.gsub(/%%/, "%")
+      ret.gsub(/<_percent__>/, "%")
     else
       ret = gsub(/%([{<])/, '%%\1')
       begin

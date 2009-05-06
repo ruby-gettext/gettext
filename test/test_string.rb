@@ -40,6 +40,7 @@ class TestGetTextString < Test::Unit::TestCase
 
   def test_percent
     assert_equal("% 1", "%% %<num>d" % {:num => 1.0})
+    assert_equal("%{num} %<num>d", "%%{num} %%<num>d" % {:num => 1})
   end
 
 end
