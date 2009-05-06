@@ -19,7 +19,13 @@ class String
   end
 
   alias :_old_format_m :% # :nodoc:
-    
+
+  PERCENT_MATCH_RE = Regexp.union(
+      /%%/,
+      /%\{(\w+)\}/,
+      /%<(\w+)>(.*?\d*\.?\d*[bBdiouxXeEfgGcps])/
+  )
+
   # call-seq:
   #  %(arg)
   #  %(hash)
@@ -47,21 +53,15 @@ class String
   def %(args)
     if args.kind_of?(Hash)
       ret = dup
-      re1 = /%%/
-      re2 = /%\{(\w+)\}/
-      re3 = /%<(\w+)>((.*?)\d*\.?\d*[bBdiouxXeEfgGcps])/
-      re = Regexp.union(re1, re2, re3)
-      ret.gsub!(re) {|match|
-        matches = [match, $1, $2, $3, $4]
-        case match
-        when '%%'
+      ret.gsub!(PERCENT_MATCH_RE) {|match|
+        if match == '%%'
           '%'
-        when re2
-          key = matches[1].to_sym
-          args.has_key?(key) ? args[key] : matches[0]
-        when re3
-          key = matches[2].to_sym
-          args.has_key?(key) ? sprintf("%#{matches[3]}", args[key]) : matches[0]
+        elsif $1
+          key = $1.to_sym
+          args.has_key?(key) ? args[key] : match
+        elsif $2
+          key = $2.to_sym
+          args.has_key?(key) ? sprintf("%#{$3}", args[key]) : match
         end
       }
     else
