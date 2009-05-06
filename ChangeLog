@@ -12,6 +12,9 @@
      [by hallelujah]
    * locale_path.rb: Fixed warning message.
 
+Thanks to:
+   hallelujah, Sava Chankov, OZAWA Sakuro, Vladimir Dobriakov
+
 = Ruby-GetText-Package-2.0.1 (2009-04-17)
  * Fixed bugs
    * doesn't work with ruby-1.8.5. [Reported by Dan Coutu]
