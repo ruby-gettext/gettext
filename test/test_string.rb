@@ -25,6 +25,8 @@ class TestGetTextString < Test::Unit::TestCase
     assert_equal("  1", "%<num>3.0f" % {:num => 1.0})
     assert_equal("100.00", "%<num>2.2f" % {:num => 100.0})
     assert_equal("0x64", "%<num>#x" % {:num => 100.0})
+    assert_equal("%<num>,d", "%<num>,d" % {:num => 100.0})
+    assert_equal("%<num>/d", "%<num>/d" % {:num => 100.0})
   end
 
   def test_sprintf_old_style

@@ -53,7 +53,7 @@ class String
 
       # %<..>d type
       args.each {|key, value|
-        ret.gsub!(/\%<#{key}>([ #\+-0\*]?\d*\.?\d*[bBdiouxXeEfgGcps])/){|matched|
+        ret.gsub!(/\%<#{key}>([ #\+\-0\*]?\d*\.?\d*[bBdiouxXeEfgGcps])/){|matched|
           sprintf("%#{$1}", value)
         }
       }
