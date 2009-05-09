@@ -1,3 +1,6 @@
+= Ruby-GetText-Package-2.0.3 (2009-05-09)
+ * Fixed the dependencies. [Reported by Hans de Graaff]
+
 = Ruby-GetText-Package-2.0.2 (2009-05-04)
  * Support ruby-1.9.1 style format string such as %<foo>d.
  * Apply new Locale.set_app_language_tags and Locale.candidates.
