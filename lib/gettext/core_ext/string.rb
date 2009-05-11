@@ -64,6 +64,7 @@ class String
           args.has_key?(key) ? sprintf("%#{$3}", args[key]) : match
         end
       }
+      ret
     else
       ret = gsub(/%([{<])/, '%%\1')
       begin
