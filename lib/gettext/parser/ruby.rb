@@ -83,9 +83,8 @@ module GetText
       target = nil
       msgid = nil
       line_no = nil
-      tk = nil
-      begin
-        rl.parse do |tk|
+      rl.parse do |tk|
+        begin
           case tk
           when RubyToken::TkIDENTIFIER, RubyToken::TkCONSTANT
             if ID.include?(tk.name)
@@ -140,12 +139,12 @@ module GetText
             end
           end
           targets
+        rescue
+          $stderr.print "\n\nError: #{$!.inspect} "
+          $stderr.print " in #{file_name}:#{tk.line_no}\n\t #{lines[tk.line_no - 1]}" if tk
+          $stderr.print "\n"
+          exit 1
         end
-      rescue
-        $stderr.print "\n\nError: #{$!.inspect} "
-        $stderr.print " in #{file_name}:#{tk.line_no}\n\t #{lines[tk.line_no - 1]}" if tk
-        $stderr.print "\n"
-        exit 1
       end
       targets
     end
