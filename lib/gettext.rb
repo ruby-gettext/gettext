@@ -216,7 +216,7 @@ module GetText
   # * Returns: the localized text which key is msgid_plural if n is plural(follow plural-rule) or msgid.
   #   "plural-rule" is defined in po-file.
   def npgettext(msgctxt, msgids, arg2 = nil, arg3 = nil)
-     if msgids.kind_of?(Array)
+    if msgids.kind_of?(Array)
       msgid = msgids[0]
       msgid_ctxt = "#{msgctxt}\004#{msgid}"
       msgid_plural = msgids[1]

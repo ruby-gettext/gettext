@@ -45,7 +45,6 @@ module GetText
     
     # Return the cached value.
     def cached?
-      @@cached
       TextDomain.cached?
     end
 

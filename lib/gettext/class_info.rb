@@ -23,7 +23,7 @@ module GetText
     memoize :root_ancestors
 
     # Internal method for related_classes.
-    def related_classes_internal(klass, all_classes = [], analyzed_classes = [] )0
+    def related_classes_internal(klass, all_classes = [], analyzed_classes = [] )
       ret = []
       klass = normalize_class(klass)
 
@@ -40,8 +40,8 @@ module GetText
       end
       analyzed_classes << klass unless analyzed_classes.include? klass
 
-      klass.ancestors[1..-1].each do |v|
-        ret += related_classes_internal(v, all_classes, analyzed_classes)
+      klass.ancestors[1..-1].each do |a|
+        ret += related_classes_internal(a, all_classes, analyzed_classes)
         ret.uniq!
       end
 
