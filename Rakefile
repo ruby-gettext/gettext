@@ -87,13 +87,9 @@ task :updatepo do
     puts "gettext/poparser was not found."
   end
 
-  rails = ["lib/gettext/rails.rb", "lib/gettext/active_record.rb"]
   #lib/gettext/*.rb -> rgettext.po
   GetText.update_pofiles("rgettext",
-                         Dir.glob("lib/**/*.rb") + ["src/poparser.ry"] - rails,
-                         "ruby-gettext #{GetText::VERSION}")
-  #lib/gettext/rails.rb -> rails.po
-  GetText.update_pofiles("rails", rails,
+                         Dir.glob("lib/**/*.rb") + ["src/poparser.ry"],
                          "ruby-gettext #{GetText::VERSION}")
 end
 
@@ -152,8 +148,6 @@ task :deploypo do
     mv_pofiles(srcdir, "po", lang)
     mv_pofiles(srcdir, "samples/cgi/po", lang)
     mv_pofiles(srcdir, "samples/po", lang)
-    mv_pofiles(srcdir, "samples/rails/po", lang)
-    mv_pofiles(srcdir, "samples/rails/vendor/plugins/gettext/po", lang)
 end
 
 ############################################################
