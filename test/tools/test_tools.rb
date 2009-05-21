@@ -3,10 +3,10 @@ require 'testlib/helper'
 require 'gettext/tools'
 class TestToolsTools < Test::Unit::TestCase
   def setup
-    `cp -r tools/files tools/test_files`
+    FileUtils.cp_r "tools/files", "tools/test_files"
   end
   def teardown
-    `rm -rf tools/test_files`
+    FileUtils.rm_rf "tools/test_files"
   end
 
   def test_msgmerge_merges_old_and_new_po_file
