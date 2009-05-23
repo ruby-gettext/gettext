@@ -1,8 +1,5 @@
 $LOAD_PATH.unshift "../lib"
 
-#gems that are required, to run the tests...
-gem 'locale'
-
 task :default => :test
 
 desc "Create mo files"
