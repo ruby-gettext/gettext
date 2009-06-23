@@ -14,6 +14,7 @@
 
 require 'irb/ruby-lex.rb'
 require 'stringio'
+require 'translation_target.rb'
 
 class RubyLexX < RubyLex  # :nodoc: all
   # Parser#parse resemlbes RubyLex#lex
@@ -57,6 +58,21 @@ class RubyLexX < RubyLex  # :nodoc: all
     return nil
   end
 
+  RubyToken.def_token :TkCOMMENT_WITH_CONTENT, TkVal
+
+  def identify_comment
+    @ltype = "#"
+
+    while ch = getc
+      if ch == "\n"
+        @ltype = nil
+        ungetc
+        break
+      end
+    end
+    return Token(TkCOMMENT_WITH_CONTENT, get_readed)
+  end
+
 end
 
 module GetText
@@ -83,6 +99,8 @@ module GetText
       target = nil
       msgid = nil
       line_no = nil
+      last_translator_comment = ''
+      reset_translator_comment = false
       rl.parse do |tk|
         begin
           case tk
@@ -132,7 +150,10 @@ module GetText
                 targets[targets.index(key_existed)] = key_existed <<
                 file_name + ":" + line_no
               else
-                targets << [msgid.gsub(/\n/, '\n'), file_name + ":" + line_no]
+                target_obj = TranslationTarget.new([msgid.gsub(/\n/, '\n'), file_name + ":" + line_no])
+                target_obj.translator_comment = last_translator_comment \
+                  unless last_translator_comment.empty?
+                targets << target_obj
               end
               msgid = nil
               target = nil
@@ -144,6 +165,17 @@ module GetText
           $stderr.print " in #{file_name}:#{tk.line_no}\n\t #{lines[tk.line_no - 1]}" if tk
           $stderr.print "\n"
           exit 1
+        end
+
+        case tk 
+        when RubyToken::TkCOMMENT_WITH_CONTENT
+          last_translator_comment = '' if reset_translator_comment
+          last_translator_comment += tk.value
+          reset_translator_comment = false
+        when RubyToken::TkNL
+          last_translator_comment += "\n"
+        else
+          reset_translator_comment = true
         end
       end
       targets

@@ -85,6 +85,16 @@ EOF
   def test_18
     "<div>#{_('in_quote')}</div>"
   end
+
+  def about
+    puts (
+      # TRANSLATORS: This is a proper name.  See the gettext
+      # manual, section Names.  Note this is actually a non-ASCII
+      # name: The first name is (with Unicode escapes)
+      # "Fran\u00e7ois" or (with HTML entities) "Fran&ccedil;ois".
+      # Pronunciation is like "fraa-swa pee-nar".
+      _("Francois Pinard"))
+  end
 end
 
 module ActionController
