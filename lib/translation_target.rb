@@ -6,7 +6,7 @@
 # A real class would be better way to accomodate all the
 # data related to the translation target.
 class TranslationTarget < Array
-  attr_accessor :translator_comment
+  attr_accessor :extracted_comment
   # TODO: migrate original two-element array to this methods
   # attr_accessor :msgid, :occurences
 end

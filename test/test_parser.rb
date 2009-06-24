@@ -25,9 +25,9 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_equal(["\#", 'testlib/gettext.rb:66', 'testlib/gettext.rb:70'], ary[13])
     assert_equal(["\\taaa", 'testlib/gettext.rb:74'], ary[14])
     assert_equal(["Here document1\\nHere document2\\n", 'testlib/gettext.rb:78'], ary[15])
-    assert_equal(["Francois Pinard", 'testlib/gettext.rb:96'], ary[16])
-    assert_match(/proper name/, ary[16].translator_comment)
-    assert_match(/Pronunciation/, ary[16].translator_comment)
+    assert_equal(["Francois Pinard", 'testlib/gettext.rb:97'], ary[16])
+    assert_match(/proper name/, ary[16].extracted_comment)
+    assert_match(/Pronunciation/, ary[16].extracted_comment)
 #    assert_equal(["in_quote", 'testlib/gettext.rb:96'], ary[16])
   end
 

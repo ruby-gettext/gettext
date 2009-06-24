@@ -98,6 +98,15 @@ TITLE
       str = ""
       ary.each do |key|
         msgid = key.shift
+
+        # extracted comments
+        if key.extracted_comment
+          key.extracted_comment.split("\n").each do |comment_line|
+            str << "\n#. #{comment_line.strip}"
+          end
+        end
+
+        # references
         curr_pos = MAX_LINE_LEN
         key.each do |e|
           if curr_pos + e.size > MAX_LINE_LEN
@@ -108,6 +117,8 @@ TITLE
           end
           str << " " << e
         end
+
+        # msgctxt, msgid, msgstr
         msgid.gsub!(/"/, '\"')
         msgid.gsub!(/\r/, '')
         if msgid.include?("\004")

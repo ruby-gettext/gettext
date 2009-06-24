@@ -93,6 +93,7 @@ EOF
       # name: The first name is (with Unicode escapes)
       # "Fran\u00e7ois" or (with HTML entities) "Fran&ccedil;ois".
       # Pronunciation is like "fraa-swa pee-nar".
+      # This is an example from GNU gettext documentation.
       _("Francois Pinard"))
   end
 end
