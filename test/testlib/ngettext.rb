@@ -70,5 +70,10 @@ eee2", 1)
     n_("qqq", "sss", 1)  # This is merged to "qqq\000rrr".
   end
 
+  def extracted_comments
+    # TRANSLATORS:please provide translations for all 
+    # the plural forms!
+    n_('comment', 'comments', 2)
+  end
 end
     

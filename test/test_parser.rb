@@ -28,6 +28,8 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_equal(["Francois Pinard", 'testlib/gettext.rb:97'], ary[16])
     assert_match(/proper name/, ary[16].extracted_comment)
     assert_match(/Pronunciation/, ary[16].extracted_comment)
+    assert_equal(["self explaining", 'testlib/gettext.rb:102'], ary[17])
+    assert_nil ary[17].extracted_comment
 #    assert_equal(["in_quote", 'testlib/gettext.rb:96'], ary[16])
   end
 
@@ -62,6 +64,8 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_equal(["a\"b\"c\"\000a\"b\"c\"2", 'testlib/ngettext.rb:51'], ary[8])
     assert_equal(["mmmmmm\000mmm2mmm2", 'testlib/ngettext.rb:59'], ary[10])
     assert_equal(["nnn\000nnn2", 'testlib/ngettext.rb:60'], ary[11])
+    assert_equal(["comment\000comments", 'testlib/ngettext.rb:76'], ary[16])
+    assert_equal("please provide translations for all \n the plural forms!", ary[16].extracted_comment)
   end
   
   def test_ruby_p
@@ -70,6 +74,8 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_equal(["AAA|BBB\004CCC", "testlib/pgettext.rb:16"], ary[1])
     assert_equal(["AAA\004CCC", "testlib/pgettext.rb:20"], ary[2])
     assert_equal(["CCC\004BBB", "testlib/pgettext.rb:24"], ary[3])
+    assert_equal(["program\004name", 'testlib/pgettext.rb:34'], ary[5])
+    assert_equal("please translate 'name' in the context of 'program'.\n Hint: the translation should NOT contain the translation of 'program'.", ary[5].extracted_comment)
   end
 
   def test_glade

@@ -28,4 +28,9 @@ class TestPGetText
     _("BBB")
   end
 
+  def with_context
+    # TRANSLATORS:please translate 'name' in the context of 'program'.
+    # Hint: the translation should NOT contain the translation of 'program'.
+    p_('program', 'name')
+  end
 end

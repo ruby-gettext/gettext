@@ -14,7 +14,7 @@
 
 require 'irb/ruby-lex.rb'
 require 'stringio'
-require 'translation_target.rb'
+require 'gettext/translation_target.rb'
 
 class RubyLexX < RubyLex  # :nodoc: all
   # Parser#parse resemlbes RubyLex#lex

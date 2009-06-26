@@ -95,7 +95,13 @@ EOF
       # Pronunciation is like "fraa-swa pee-nar".
       # This is an example from GNU gettext documentation.
       _("Francois Pinard"))
+
+    puts (
+      # This comment should not be extracted because it does
+      # not start with 'TRANSLATORS:'
+      _('self explaining'))
   end
+
 end
 
 module ActionController
