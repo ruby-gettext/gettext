@@ -16,7 +16,7 @@
 if Object.constants.include? "Gem"
   begin
     begin
-      gem 'locale', '>=2.0' 
+      gem 'locale', '>=2.0.4' 
     rescue Gem::LoadError
     end
   rescue NoMethodError
@@ -127,12 +127,7 @@ module GetText
   # * msgid: the message id.
   # * Returns: localized text by msgid. If there are not binded mo-file, it will return msgid.
   def gettext(msgid)
-    TextDomainManager.translate_singluar_message(self_class, msgid)
-    #TextDomainManager.translate_singluar_message((self.kind_of? Module) ? self : self.class, msgid)
-  end
-
-  def self_class
-    (self.kind_of? Module) ? self : self.class
+    TextDomainManager.translate_singluar_message(self, msgid)
   end
 
   # call-seq:

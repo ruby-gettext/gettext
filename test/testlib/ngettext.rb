@@ -67,7 +67,7 @@ eee2", 1)
 
   def test_11
     n_("qqq", "rrr", 1) 
-    n_("qqq", "sss", 1)  # This is merged to "qqq\000rrr".
+    n_("qqq", "sss", 1)  # This is merged to "qqq" with plural form "rrr".
   end
 
   def extracted_comments
