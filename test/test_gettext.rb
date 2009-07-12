@@ -14,6 +14,7 @@ class TestGetText < Test::Unit::TestCase
     ENV["LC_ALL"] = "ja_JP.UTF-8"
     ENV["LANG"] = "ja_JP.UTF-8"
     GetText.locale = nil
+    GetText::TextDomainManager.clear_caches
   end
 
   def test_change_locale

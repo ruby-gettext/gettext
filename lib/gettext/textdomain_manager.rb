@@ -95,6 +95,7 @@ module GetText
     # * Returns: the localized text by msgid. If there are no localized text, 
     #   it returns a last part of msgid separeted "div".
     def translate_singluar_message(klass, msgid, div = nil)
+      klass = ClassInfo.normalize_class(klass)
       key = [Locale.current, klass, msgid, div].hash
       msg = @@singular_message_cache[key]
       return msg if msg and @@cached
@@ -137,6 +138,7 @@ module GetText
     # * n: a number used to determine the plural form.
     # * div: the separator. Default is "|".
     def translate_plural_message(klass, arg1, arg2, arg3 = "|", arg4 = "|")
+      klass = ClassInfo.normalize_class(klass)
       # parse arguments
       if arg1.kind_of?(Array)
         msgid = arg1[0]
@@ -184,6 +186,11 @@ module GetText
       @@textdomain_pool = {}
       @@textdomain_group_pool = {}
       @@gettext_classes = []
+      clear_caches
+    end
+
+    # for testing.
+    def clear_caches
       @@singular_message_cache = {}
       @@plural_message_cache = {}
     end
