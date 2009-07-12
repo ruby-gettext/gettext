@@ -101,7 +101,6 @@ module GetText
       #rl.readed_auto_clean_up = true
 
       target = nil
-      msgid = nil
       line_no = nil
       last_extracted_comment = ''
       reset_extracted_comment = false
@@ -110,63 +109,42 @@ module GetText
           case tk
           when RubyToken::TkIDENTIFIER, RubyToken::TkCONSTANT
             if ID.include?(tk.name)
-              target = :normal
+              target = TranslationTarget.new(:normal)
             elsif PLURAL_ID.include?(tk.name)
-              target = :plural
+              target = TranslationTarget.new(:plural)
             elsif MSGCTXT_ID.include?(tk.name)
-              target = :msgctxt
+              target = TranslationTarget.new(:msgctxt)
             elsif MSGCTXT_PLURAL_ID.include?(tk.name)
-              target = :msgctxt_plural
+              target = TranslationTarget.new(:msgctxt_plural)
             else
               target = nil
             end
             line_no = tk.line_no.to_s
           when RubyToken::TkSTRING
-            if target
-              if msgid
-                msgid += tk.value
-              else
-                msgid = tk.value
-              end
-            end
+            target.set_current_attribute tk.value if target
           when RubyToken::TkPLUS, RubyToken::TkNL
             #do nothing
           when RubyToken::TkCOMMA
-            if msgid
-              case target
-              when :plural
-                msgid += "\000"
-                target = :normal
-              when :msgctxt
-                msgid += "\004"
-                target = :normal
-              when :msgctxt_plural
-                msgid += "\004"
-                target = :plural
-              else
-                target = :normal
-              end
-            end
+            target.advance_to_next_attribute if target
           else
-            if msgid
-              key_existed = targets.assoc(msgid.gsub(/\n/, '\n'))
-              if key_existed
-                targets[targets.index(key_existed)] = key_existed <<
-                file_name + ":" + line_no
+            if target && target.msgid
+              existing = targets.find_index {|t| t.matches?(target)}
+              if existing
+                target = targets[existing].merge(target)
+                targets[existing] = target
               else
-                target_obj = TranslationTarget.new([msgid.gsub(/\n/, '\n'), file_name + ":" + line_no])
-                target_obj.extracted_comment = last_extracted_comment \
-                  unless last_extracted_comment.empty?
-                targets << target_obj
+                targets << target
               end
-              msgid = nil
+              target.occurrences << file_name + ":" + line_no
+              target.add_extracted_comment last_extracted_comment unless last_extracted_comment.empty?
               target = nil
             end
           end
-          targets
         rescue
-          $stderr.print "\n\nError: #{$!.inspect} "
-          $stderr.print " in #{file_name}:#{tk.line_no}\n\t #{lines[tk.line_no - 1]}" if tk
+          $stderr.print "\n\nError"
+          $stderr.print " parsing #{file_name}:#{tk.line_no}\n\t #{lines[tk.line_no - 1]}" if tk
+          $stderr.print "\n #{$!.inspect} in\n"
+          $stderr.print $!.backtrace.join("\n")
           $stderr.print "\n"
           exit 1
         end

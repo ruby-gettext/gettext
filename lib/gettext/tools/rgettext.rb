@@ -96,19 +96,17 @@ TITLE
 
     def generate_pot(ary) # :nodoc:
       str = ""
-      ary.each do |key|
-        msgid = key.shift
-
+      ary.each do |target|
         # extracted comments
-        if key.extracted_comment
-          key.extracted_comment.split("\n").each do |comment_line|
+        if target.extracted_comment
+          target.extracted_comment.split("\n").each do |comment_line|
             str << "\n#. #{comment_line.strip}"
           end
         end
 
         # references
         curr_pos = MAX_LINE_LEN
-        key.each do |e|
+        target.occurrences.each do |e|
           if curr_pos + e.size > MAX_LINE_LEN
             str << "\n#:"
             curr_pos = 3
@@ -119,61 +117,17 @@ TITLE
         end
 
         # msgctxt, msgid, msgstr
-        msgid.gsub!(/"/, '\"')
-        msgid.gsub!(/\r/, '')
-        if msgid.include?("\004")
-          msgctxt, msgid = msgid.split(/\004/)
-          str << "\nmsgctxt \"" << msgctxt << "\"\n"
-        else
-          str << "\n"
-        end
-        if msgid.include?("\000")
-          ids = msgid.split(/\000/)
-          str << "msgid \"" << ids[0] << "\"\n"
-          str << "msgid_plural \"" << ids[1] << "\"\n"
+        str << "\nmsgctxt \"" << target.msgctxt << "\"" if target.msgctxt
+        str << "\nmsgid \"" << target.escaped(:msgid) << "\"\n"
+        if target.plural
+          str << "msgid_plural \"" << target.escaped(:plural) << "\"\n"
           str << "msgstr[0] \"\"\n"
           str << "msgstr[1] \"\"\n"
         else
-          str << "msgid \"" << msgid << "\"\n"
           str << "msgstr \"\"\n"
         end
       end
       str
-    end
-
-    def normalize(ary)  # :nodoc:
-      used_plural_msgs = []
-      ary.select{|item| item[0].include? "\000"}.each do |plural_msg|
-        next if used_plural_msgs.include?(plural_msg[0])
-
-        key = plural_msg[0].split("\000")[0]
-
-        ary.dup.each do |single_msg|
-          if single_msg[0] == key or
-              (single_msg[0] =~ /^#{Regexp.quote(key)}\000/ and 
-               single_msg[0] != plural_msg[0])
-            if single_msg[0] != key 
-              warn %Q[Warning: n_("#{plural_msg[0].gsub(/\000/, '", "')}") and n_("#{single_msg[0].gsub(/\000/, '", "')}") are duplicated. First msgid was used.] 
-              used_plural_msgs << single_msg[0]
-            end
-
-            single_msg[1..-1].each do |line_info|
-              plural_msg << line_info
-              fname = line_info.split(/:/)[0]
-              sorted = plural_msg[1..-1].select{|l| l.split(/:/)[0].include?(fname)}.collect{|l| 
-                aline = l.split(/:/)
-                [aline[0], aline[1] =~ /[0-9]+/ ? aline[1].to_i : aline[1]]
-              }.sort.collect{|l| "#{l[0]}:#{l[1]}"}
-              plural_msg.delete_if{|i| sorted.include?(i)}
-              sorted.each {|i|
-                plural_msg << i
-              }
-            end
-            ary.delete(single_msg)
-          end
-        end
-      end
-      ary.collect{|i| i.uniq}
     end
 
     def parse(files) # :nodoc:
@@ -187,11 +141,11 @@ TITLE
             end
           end
         rescue
-          puts "Error occurs in " + file
+          puts "Error parsing " + file
           raise
         end
       end
-      normalize(ary)
+      ary
     end
 
     def check_options # :nodoc:
