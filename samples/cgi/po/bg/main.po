@@ -32,7 +32,7 @@ msgstr ""
 
 #: index.cgi:38
 msgid "an ERB/CGI sample (Auto-Detect charset)."
-msgstr "ERB/CGI пример (автоматично разпознаване на кодирането).""
+msgstr "ERB/CGI пример (автоматично разпознаване на кодирането)."
 
 #: index.cgi:50 cookie.cgi:44
 msgid "Sample script for CGI/ERB and Ruby-GetText-Package"
