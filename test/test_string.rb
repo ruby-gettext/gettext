@@ -9,6 +9,7 @@ class TestGetTextString < Test::Unit::TestCase
     assert_equal("test, 1", "%{record}, %{num}" % {:num => 1, :record => "test"})
     assert_equal("1, test", "%d, %s" % [1, "test"])
     assert_equal("test, 1", "%2$s, %1$d" % [1, "test"])
+    assert_equal("a", "%{foo.foo}" % {"foo.foo".to_sym => "a"})
     assert_raise(ArgumentError) { "%-%" % [1] }
   end
 
@@ -39,6 +40,7 @@ class TestGetTextString < Test::Unit::TestCase
     assert_equal("  1", "%<num>3.0f" % {:num => 1.0})
     assert_equal("100.00", "%<num>2.2f" % {:num => 100.0})
     assert_equal("0x64", "%<num>#x" % {:num => 100.0})
+    assert_equal("a", "%<foo.foo>s" % {"foo.foo".to_sym => "a"})
     assert_raise(ArgumentError) { "%<num>,d" % {:num => 100} }
     assert_raise(ArgumentError) { "%<num>/d" % {:num => 100} }
   end
