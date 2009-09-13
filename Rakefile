@@ -25,9 +25,9 @@ PKG_VERSION = GetText::VERSION
 ############################################################
 # GetText tasks for developing
 ############################################################
-desc "Create lib/gettext/poparser.rb"
+desc "Create lib/gettext/tools/poparser.rb"
 task :poparser do
-  poparser_path = "lib/gettext/poparser.rb"
+  poparser_path = "lib/gettext/tools/poparser.rb"
   racc = File.join(Config::CONFIG['bindir'], "racc")
   if ! FileTest.exist?(racc)
     puts "racc was not found: #{racc}"

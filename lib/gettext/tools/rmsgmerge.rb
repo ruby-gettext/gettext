@@ -10,7 +10,7 @@
 
 require 'optparse'
 require 'gettext'
-require 'gettext/poparser'
+require 'gettext/tools/poparser'
 require 'rbconfig'
 
 module GetText

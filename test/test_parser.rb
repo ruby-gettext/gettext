@@ -1,7 +1,7 @@
 require 'testlib/helper.rb'
-require 'gettext/parser/ruby'
-require 'gettext/parser/glade'
-require 'gettext/parser/erb'
+require 'gettext/tools/parser/ruby'
+require 'gettext/tools/parser/glade'
+require 'gettext/tools/parser/erb'
 
 require 'gettext/tools/rgettext'
 
@@ -26,11 +26,11 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_target "\\taaa", ['testlib/gettext.rb:74']
     assert_target "Here document1\\nHere document2\\n", ['testlib/gettext.rb:78']
     assert_target "Francois Pinard", ['testlib/gettext.rb:97'] do |t|
-      assert_match /proper name/, t.extracted_comment
-      assert_match /Pronunciation/, t.extracted_comment
+      assert_match /proper name/, t.comment
+      assert_match /Pronunciation/, t.comment
     end
     assert_target "self explaining", ['testlib/gettext.rb:102'] do |t|
-      assert_nil t.extracted_comment
+      assert_nil t.comment
     end
     # TODO: assert_target "in_quote", ['testlib/gettext.rb:96']
   end
@@ -67,7 +67,7 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_plural_target "mmmmmm", "mmm2mmm2", ['testlib/ngettext.rb:59']
     assert_plural_target "nnn", "nnn2", ['testlib/ngettext.rb:60']
     assert_plural_target "comment", "comments", ['testlib/ngettext.rb:76'] do |t|
-      assert_equal "please provide translations for all \n the plural forms!", t.extracted_comment
+      assert_equal "please provide translations for all \n the plural forms!", t.comment
     end
   end
   
@@ -78,11 +78,12 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_target_in_context "AAA", "CCC", ["testlib/pgettext.rb:20"]
     assert_target_in_context "CCC", "BBB", ["testlib/pgettext.rb:24"]
     assert_target_in_context "program", "name", ['testlib/pgettext.rb:34'] do |t|
-      assert_equal "please translate 'name' in the context of 'program'.\n Hint: the translation should NOT contain the translation of 'program'.", t.extracted_comment
+      assert_equal "please translate 'name' in the context of 'program'.\n Hint: the translation should NOT contain the translation of 'program'.", t.comment
     end
   end
 
   def test_glade
+    # Old style (~2.0.4)
     ary = GetText::GladeParser.parse('testlib/gladeparser.glade')
 
     assert_equal(['window1', 'testlib/gladeparser.glade:8'], ary[0])
@@ -124,11 +125,11 @@ class TestGetTextParser < Test::Unit::TestCase
 
   private
 
-  def assert_target(msgid, occurrences = nil)
+  def assert_target(msgid, file_name_line_no = nil)
     t = @ary.detect {|elem| elem.msgid == msgid}
     if t
-      if occurrences
-        assert_equal occurrences.sort, t.occurrences.sort, 'Translation target occurrences do not match.'
+      if file_name_line_no
+        assert_equal file_name_line_no.sort, t.file_name_line_no.sort, 'Translation target file_name_line_no do not match.'
       end
       yield t if block_given?
     else
@@ -136,18 +137,18 @@ class TestGetTextParser < Test::Unit::TestCase
     end
   end
 
-  def assert_plural_target(msgid, plural, occurrences = nil)
-    assert_target msgid, occurrences do |t|
-      assert_equal plural, t.plural, 'Expected plural form'
+  def assert_plural_target(msgid, plural, file_name_line_no = nil)
+    assert_target msgid, file_name_line_no do |t|
+      assert_equal plural, t.msgid_plural, 'Expected plural form'
       yield t if block_given?
     end
   end
 
-  def assert_target_in_context(msgid, msgctxt, occurrences = nil)
+  def assert_target_in_context(msgctxt, msgid, file_name_line_no = nil)
     t = @ary.detect {|elem| elem.msgid == msgid && elem.msgctxt == msgctxt}
     if t
-      if occurrences
-        assert_equal occurrences.sort, t.occurrences.sort, 'Translation target occurrences do not match.'
+      if file_name_line_no
+        assert_equal file_name_line_no.sort, t.file_name_line_no.sort, 'Translation target file_name_line_no do not match.'
       end
       yield t if block_given?
     else

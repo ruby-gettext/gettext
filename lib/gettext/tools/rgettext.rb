@@ -37,7 +37,7 @@ module GetText
       ["ruby.rb", "RubyParser"] # Default parser.
     ].each do |f, klass|
       begin
-        require "gettext/parser/#{f}"
+        require "gettext/tools/parser/#{f}"
         @ex_parsers << GetText.const_get(klass)
       rescue
         $stderr.puts _("'%{klass}' is ignored.") % {:klass => klass}
@@ -50,7 +50,7 @@ module GetText
     # Add an option parser
     # the option parser module requires to have target?(file) and parser(file, ary) method.
     # 
-    #  require 'gettext/rgettext'
+    #  require 'gettext/tools/rgettext'
     #  module FooParser
     #    module_function
     #    def target?(file)

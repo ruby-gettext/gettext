@@ -28,7 +28,7 @@ require 'locale'
 raise "Install locale as gem or uninstall old gettext" unless Locale.respond_to? :candidates
 
 require 'gettext/version'
-require 'gettext/textdomain_manager'
+require 'gettext/runtime/textdomain_manager'
 
 module GetText
   # If the textdomain isn't bound when calling GetText.textdomain, this error is raised.
