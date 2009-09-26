@@ -205,7 +205,7 @@ module GetText
     private
     def store_target(targets, target, file_name, line_no, last_comment) #:nodoc:
       if target && target.msgid
-        target.file_name_line_no << file_name + ":" + line_no
+        target.file_name_line_nos << file_name + ":" + line_no
         target.add_comment(last_comment) unless last_comment.empty?
 
         # Save the previous target.

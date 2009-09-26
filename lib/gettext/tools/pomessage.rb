@@ -11,13 +11,13 @@ module GetText
     # Options
     attr_accessor :msgid_plural
     attr_accessor :msgctxt
-    attr_accessor :file_name_line_no    # ["file1:line1", "file2:line2", ...]
+    attr_accessor :file_name_line_nos    # ["file1:line1", "file2:line2", ...]
     attr_accessor :comment
 
     # Create the object. +type+ should be :normal, :plural, :msgctxt or :msgctxt_plural. 
     def initialize(type)
       @type = type
-      @file_name_line_no = []
+      @file_name_line_nos = []
     end
 
     # Support for extracted comments. Explanation s.
@@ -52,14 +52,14 @@ module GetText
       "  self: #{self.inspect}\n  other: '#{other.inspect}'" unless matches?(other)
       if other.msgid_plural && !self.msgid_plural
         res = other
-        unless (res.file_name_line_no.include? self.file_name_line_no[0])
-          res.file_name_line_no += self.file_name_line_no
+        unless (res.file_name_line_nos.include? self.file_name_line_nos[0])
+          res.file_name_line_nos += self.file_name_line_nos
           res.add_comment(self.comment)
         end
       else
         res = self
-        unless (res.file_name_line_no.include? other.file_name_line_no[0])
-          res.file_name_line_no += other.file_name_line_no
+        unless (res.file_name_line_nos.include? other.file_name_line_nos[0])
+          res.file_name_line_nos += other.file_name_line_nos
           res.add_comment(other.comment)
         end
       end
@@ -79,7 +79,7 @@ module GetText
     public
     # For backward comatibility. This doesn't support "comment".
     # ary = [msgid1, "file1:line1", "file2:line"]
-    def self.new_from_ary(msgid, *file_name_line_no)
+    def self.new_from_ary(msgid, *file_name_line_nos)
       type = :normal
       msgctxt = nil
       msgid_plural = nil
@@ -100,7 +100,7 @@ module GetText
       end
       ret = self.new(type)
       ret.msgid = msgid
-      ret.file_name_line_no = file_name_line_no
+      ret.file_name_line_nos = file_name_line_nos
       ret.msgctxt = msgctxt
       ret.msgid_plural = msgid_plural
     end

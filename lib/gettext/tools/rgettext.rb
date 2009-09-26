@@ -98,15 +98,15 @@ TITLE
       str = ""
       ary.each do |target|
         # extracted comments
-        if target.extracted_comment
-          target.extracted_comment.split("\n").each do |comment_line|
+        if target.comment
+          target.comment.split("\n").each do |comment_line|
             str << "\n#. #{comment_line.strip}"
           end
         end
 
         # references
         curr_pos = MAX_LINE_LEN
-        target.occurrences.each do |e|
+        target.file_name_line_nos.each do |e|
           if curr_pos + e.size > MAX_LINE_LEN
             str << "\n#:"
             curr_pos = 3
@@ -119,7 +119,7 @@ TITLE
         # msgctxt, msgid, msgstr
         str << "\nmsgctxt \"" << target.msgctxt << "\"" if target.msgctxt
         str << "\nmsgid \"" << target.escaped(:msgid) << "\"\n"
-        if target.plural
+        if target.msgid_plural
           str << "msgid_plural \"" << target.escaped(:plural) << "\"\n"
           str << "msgstr[0] \"\"\n"
           str << "msgstr[1] \"\"\n"
