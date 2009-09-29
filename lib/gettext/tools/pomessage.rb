@@ -79,7 +79,10 @@ module GetText
     public
     # For backward comatibility. This doesn't support "comment".
     # ary = [msgid1, "file1:line1", "file2:line"]
-    def self.new_from_ary(msgid, *file_name_line_nos)
+    def self.new_from_ary(ary)
+      ary = ary.dup
+      msgid = ary.shift
+      file_name_line_nos = ary
       type = :normal
       msgctxt = nil
       msgid_plural = nil
@@ -103,6 +106,7 @@ module GetText
       ret.file_name_line_nos = file_name_line_nos
       ret.msgctxt = msgctxt
       ret.msgid_plural = msgid_plural
+      ret
     end
   end
   

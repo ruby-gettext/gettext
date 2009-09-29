@@ -97,6 +97,10 @@ TITLE
     def generate_pot(ary) # :nodoc:
       str = ""
       ary.each do |target|
+        # for backward compatibility.
+        if target.kind_of? Array
+          target = PoMessage.new_from_ary(target)
+        end
         # extracted comments
         if target.comment
           target.comment.split("\n").each do |comment_line|
