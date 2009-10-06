@@ -125,11 +125,11 @@ class TestGetTextParser < Test::Unit::TestCase
 
   private
 
-  def assert_target(msgid, file_name_line_nos = nil)
+  def assert_target(msgid, sources = nil)
     t = @ary.detect {|elem| elem.msgid == msgid}
     if t
-      if file_name_line_nos
-        assert_equal file_name_line_nos.sort, t.file_name_line_nos.sort, 'Translation target file_name_line_nos do not match.'
+      if sources
+        assert_equal sources.sort, t.sources.sort, 'Translation target sources do not match.'
       end
       yield t if block_given?
     else
@@ -137,18 +137,18 @@ class TestGetTextParser < Test::Unit::TestCase
     end
   end
 
-  def assert_plural_target(msgid, plural, file_name_line_nos = nil)
-    assert_target msgid, file_name_line_nos do |t|
+  def assert_plural_target(msgid, plural, sources = nil)
+    assert_target msgid, sources do |t|
       assert_equal plural, t.msgid_plural, 'Expected plural form'
       yield t if block_given?
     end
   end
 
-  def assert_target_in_context(msgctxt, msgid, file_name_line_nos = nil)
+  def assert_target_in_context(msgctxt, msgid, sources = nil)
     t = @ary.detect {|elem| elem.msgid == msgid && elem.msgctxt == msgctxt}
     if t
-      if file_name_line_nos
-        assert_equal file_name_line_nos.sort, t.file_name_line_nos.sort, 'Translation target file_name_line_nos do not match.'
+      if sources
+        assert_equal sources.sort, t.sources.sort, 'Translation target sources do not match.'
       end
       yield t if block_given?
     else

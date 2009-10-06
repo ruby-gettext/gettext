@@ -11,13 +11,13 @@ module GetText
     # Options
     attr_accessor :msgid_plural
     attr_accessor :msgctxt
-    attr_accessor :file_name_line_nos    # ["file1:line1", "file2:line2", ...]
+    attr_accessor :sources    # ["file1:line1", "file2:line2", ...]
     attr_accessor :comment
 
     # Create the object. +type+ should be :normal, :plural, :msgctxt or :msgctxt_plural. 
     def initialize(type)
       @type = type
-      @file_name_line_nos = []
+      @sources = []
     end
 
     # Support for extracted comments. Explanation s.
@@ -52,14 +52,14 @@ module GetText
       "  self: #{self.inspect}\n  other: '#{other.inspect}'" unless matches?(other)
       if other.msgid_plural && !self.msgid_plural
         res = other
-        unless (res.file_name_line_nos.include? self.file_name_line_nos[0])
-          res.file_name_line_nos += self.file_name_line_nos
+        unless (res.sources.include? self.sources[0])
+          res.sources += self.sources
           res.add_comment(self.comment)
         end
       else
         res = self
-        unless (res.file_name_line_nos.include? other.file_name_line_nos[0])
-          res.file_name_line_nos += other.file_name_line_nos
+        unless (res.sources.include? other.sources[0])
+          res.sources += other.sources
           res.add_comment(other.comment)
         end
       end
@@ -82,7 +82,7 @@ module GetText
     def self.new_from_ary(ary)
       ary = ary.dup
       msgid = ary.shift
-      file_name_line_nos = ary
+      sources = ary
       type = :normal
       msgctxt = nil
       msgid_plural = nil
@@ -103,7 +103,7 @@ module GetText
       end
       ret = self.new(type)
       ret.msgid = msgid
-      ret.file_name_line_nos = file_name_line_nos
+      ret.sources = sources
       ret.msgctxt = msgctxt
       ret.msgid_plural = msgid_plural
       ret

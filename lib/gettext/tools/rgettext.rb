@@ -110,7 +110,7 @@ TITLE
 
         # references
         curr_pos = MAX_LINE_LEN
-        target.file_name_line_nos.each do |e|
+        target.sources.each do |e|
           if curr_pos + e.size > MAX_LINE_LEN
             str << "\n#:"
             curr_pos = 3
