@@ -7,7 +7,7 @@
   Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
  
   You may redistribute it and/or modify it under the same
-  license terms as Ruby.
+  license terms as Ruby or LGPL.
 
 =end
 

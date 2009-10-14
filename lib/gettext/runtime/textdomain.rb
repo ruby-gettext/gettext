@@ -8,7 +8,7 @@
       Masao Mutoh       <mutomasa at gmail.com>
 
   You may redistribute it and/or modify it under the same
-  license terms as Ruby.
+  license terms as Ruby or LGPL.
 =end
 
 require 'gettext/core_ext/string'

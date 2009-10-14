@@ -4,7 +4,7 @@
   Copyright (C) 2005,2006 Masao Mutoh
 
   You may redistribute it and/or modify it under the same
-  license terms as Ruby.
+  license terms as Ruby or LGPL.
 =end
 
 require 'gettext/tools'

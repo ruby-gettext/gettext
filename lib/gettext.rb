@@ -8,7 +8,7 @@
       Masahiro Sakai    <s01397ms@sfc.keio.ac.jp>
 
   You may redistribute it and/or modify it under the same
-  license terms as Ruby.
+  license terms as Ruby or LGPL.
 =end
 
 if Object.constants.include? "Gem"
