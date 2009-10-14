@@ -2,12 +2,10 @@
 =begin
   http.rb - An WebServer for helloerb sample.
 
-  Copyright (C) 2005-2008 Masao Mutoh
+  Copyright (C) 2005-2009 Masao Mutoh
 
   You may redistribute it and/or modify it under the same
   license terms as Ruby.
-
-  $Id: http.rb,v 1.3 2008/02/02 16:47:40 mutoh Exp $
 =end
 
 require 'webrick'

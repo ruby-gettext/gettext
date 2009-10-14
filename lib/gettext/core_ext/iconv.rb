@@ -8,12 +8,10 @@
   For JRuby:
   Use Java String class to convert strings.
 
-  Copyright (C) 2004-2007  Masao Mutoh
+  Copyright (C) 2004-2009  Masao Mutoh
 
   You may redistribute it and/or modify it under the same
   license terms as Ruby.
-
-  $Id: iconv.rb,v 1.6 2007/11/08 14:21:22 mutoh Exp $
 =end
 
 begin

@@ -5,8 +5,6 @@
 
   You may redistribute it and/or modify it under the same
   license terms as Ruby.
-
-  $Id$
 =end
 
 require 'cgi'

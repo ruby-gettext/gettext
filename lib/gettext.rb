@@ -9,8 +9,6 @@
 
   You may redistribute it and/or modify it under the same
   license terms as Ruby.
-
-  $Id: gettext.rb,v 1.46 2008/09/13 18:23:55 mutoh Exp $
 =end
 
 if Object.constants.include? "Gem"

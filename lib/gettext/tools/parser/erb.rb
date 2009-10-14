@@ -5,8 +5,6 @@
  
   You may redistribute it and/or modify it under the same
   license terms as Ruby.
-
-  $Id: erb.rb,v 1.5 2007/08/01 01:39:14 mutoh Exp $
 =end
 
 require 'erb'

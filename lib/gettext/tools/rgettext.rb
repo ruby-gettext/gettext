@@ -25,7 +25,6 @@ module GetText
 
     # constant values
     VERSION = GetText::VERSION
-    DATE = %w($Date: 2008/08/06 17:35:52 $)[1]
  
     @ex_parsers = []
     [
@@ -167,7 +166,7 @@ TITLE
       end
 
       opts.on_tail("--version", _("display version information and exit")) do
-        puts "#{$0} #{VERSION} (#{DATE})"
+        puts "#{$0} #{VERSION}"
         puts "#{File.join(Config::CONFIG["bindir"], Config::CONFIG["RUBY_INSTALL_NAME"])} #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
         exit
       end

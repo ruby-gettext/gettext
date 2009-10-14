@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 # hello.rb - sample for _() and class.
 #
-# Copyright (C) 2001-2006 Masao Mutoh
+# Copyright (C) 2001-2009 Masao Mutoh
 # This file is distributed under the same license as Ruby-GetText-Package.
 
 require 'rubygems'

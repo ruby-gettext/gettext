@@ -5,8 +5,6 @@
  
   You may redistribute it and/or modify it under the same
   license terms as Ruby.
-
-  $Id: glade.rb,v 1.5 2006/06/11 15:36:20 mutoh Exp $
 =end
 
 require 'cgi'

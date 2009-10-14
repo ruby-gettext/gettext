@@ -6,8 +6,6 @@
  
   You may redistribute it and/or modify it under the same
   license terms as Ruby.
-
-  $Id: rmsgmerge,v 1.13 2008/07/24 17:17:48 mutoh Exp $
 =end
 
 begin
