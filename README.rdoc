@@ -150,9 +150,8 @@ For more details and options, have a look at the samples folder or
 consult the tutorial[http://www.yotabanana.com/hiki/ruby-gettext-howto.html].
 
 == License
-This program is licenced under the same licence as Ruby or LGPL(Lesser General 
-Public License: http://www.gnu.org/licenses/lgpl-3.0.txt).  
-(See the file 'COPYING'.)
+This program is licenced under the same licence as Ruby(See COPYING) or 
+LGPL(Lesser General Public License: http://www.gnu.org/licenses/lgpl-3.0.txt).  
 
 * mofile.rb
   * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
