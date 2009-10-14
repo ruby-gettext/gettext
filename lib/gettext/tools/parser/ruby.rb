@@ -123,19 +123,24 @@ module GetText
     MSGCTXT_ID = ['pgettext', 'p_']
     MSGCTXT_PLURAL_ID = ['npgettext', 'np_']
 
-    def parse(file, targets = [])  # :nodoc:
-      lines = IO.readlines(file)
-      parse_lines(file, lines, targets)
+    # (Since 2.1.0) the 2nd parameter is deprecated
+    # (and ignored here). 
+    # And You don't need to keep the pomessages as unique.
+
+    def parse(path, deprecated = nil)  # :nodoc:
+      lines = IO.readlines(path)
+      parse_lines(path, lines)
     end
 
-    def parse_lines(file_name, lines, targets)  # :nodoc:
+    def parse_lines(path, lines, deprecated = [])  # :nodoc:
+      pomessages = []
       file = StringIO.new(lines.join + "\n")
       rl = RubyLexX.new
       rl.set_input(file)
       rl.skip_space = true
       #rl.readed_auto_clean_up = true
 
-      target = nil
+      pomessage = nil
       line_no = nil
       last_comment = ''
       reset_comment = false
@@ -143,33 +148,33 @@ module GetText
         begin
           case tk
           when RubyToken::TkIDENTIFIER, RubyToken::TkCONSTANT
-            store_target(targets, target, file_name, line_no, last_comment)
+            store_pomessage(pomessages, pomessage, path, line_no, last_comment)
             if ID.include?(tk.name)
-              target = PoMessage.new(:normal)
+              pomessage = PoMessage.new(:normal)
             elsif PLURAL_ID.include?(tk.name)
-              target = PoMessage.new(:plural)
+              pomessage = PoMessage.new(:plural)
             elsif MSGCTXT_ID.include?(tk.name)
-              target = PoMessage.new(:msgctxt)
+              pomessage = PoMessage.new(:msgctxt)
             elsif MSGCTXT_PLURAL_ID.include?(tk.name)
-              target = PoMessage.new(:msgctxt_plural)
+              pomessage = PoMessage.new(:msgctxt_plural)
             else
-              target = nil
+              pomessage = nil
             end
             line_no = tk.line_no.to_s
           when RubyToken::TkSTRING
-            target.set_current_attribute tk.value if target
+            pomessage.set_current_attribute tk.value if pomessage
           when RubyToken::TkPLUS, RubyToken::TkNL
             #do nothing
           when RubyToken::TkCOMMA
-            target.advance_to_next_attribute if target
+            pomessage.advance_to_next_attribute if pomessage
           else
-            if store_target(targets, target, file_name, line_no, last_comment)
-              target = nil
+            if store_pomessage(pomessages, pomessage, path, line_no, last_comment)
+              pomessage = nil
             end
           end
         rescue
           $stderr.print "\n\nError"
-          $stderr.print " parsing #{file_name}:#{tk.line_no}\n\t #{lines[tk.line_no - 1]}" if tk
+          $stderr.print " parsing #{path}:#{tk.line_no}\n\t #{lines[tk.line_no - 1]}" if tk
           $stderr.print "\n #{$!.inspect} in\n"
           $stderr.print $!.backtrace.join("\n")
           $stderr.print "\n"
@@ -195,7 +200,7 @@ module GetText
           reset_comment = true
         end
       end
-      targets
+      pomessages
     end
 
     def target?(file)  # :nodoc:
@@ -203,19 +208,11 @@ module GetText
     end
 
     private
-    def store_target(targets, target, file_name, line_no, last_comment) #:nodoc:
-      if target && target.msgid
-        target.sources << file_name + ":" + line_no
-        target.add_comment(last_comment) unless last_comment.empty?
-
-        # Save the previous target.
-        existing = targets.find_index {|t| t.matches?(target)}
-        if existing
-          target = targets[existing].merge(target)
-          targets[existing] = target
-        else
-          targets << target
-        end
+    def store_pomessage(pomessages, pomessage, file_name, line_no, last_comment) #:nodoc:
+      if pomessage && pomessage.msgid
+        pomessage.sources << file_name + ":" + line_no
+        pomessage.add_comment(last_comment) unless last_comment.empty?
+        pomessages << pomessage
         true
       else
         false
@@ -226,8 +223,8 @@ end
 
 if __FILE__ == $0
   require 'pp'
-  ARGV.each do |file|
-    pp GetText::RubyParser.parse(file)
+  ARGV.each do |path|
+    pp GetText::RubyParser.parse(path)
   end
   
   #rl = GetText::RubyLexX.new; rl.set_input(ARGF)  

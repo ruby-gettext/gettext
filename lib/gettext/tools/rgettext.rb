@@ -26,13 +26,11 @@ module GetText
     # constant values
     VERSION = GetText::VERSION
     DATE = %w($Date: 2008/08/06 17:35:52 $)[1]
-    MAX_LINE_LEN = 70
-
+ 
     @ex_parsers = []
     [
       ["glade.rb", "GladeParser"],
       ["erb.rb", "ErbParser"],
-#      ["active_record.rb", "ActiveRecordParser"],
 #      ["ripper.rb", "RipperParser"],
       ["ruby.rb", "RubyParser"] # Default parser.
     ].each do |f, klass|
@@ -94,62 +92,51 @@ msgstr ""
 TITLE
     end
 
-    def generate_pot(ary) # :nodoc:
+    def generate_pot(paths) # :nodoc:
+      pomessages = parse(paths)
       str = ""
-      ary.each do |target|
-        # for backward compatibility.
-        if target.kind_of? Array
-          target = PoMessage.new_from_ary(target)
-        end
-        # extracted comments
-        if target.comment
-          target.comment.split("\n").each do |comment_line|
-            str << "\n#. #{comment_line.strip}"
-          end
-        end
-
-        # references
-        curr_pos = MAX_LINE_LEN
-        target.sources.each do |e|
-          if curr_pos + e.size > MAX_LINE_LEN
-            str << "\n#:"
-            curr_pos = 3
-          else
-            curr_pos += (e.size + 1)
-          end
-          str << " " << e
-        end
-
-        # msgctxt, msgid, msgstr
-        str << "\nmsgctxt \"" << target.msgctxt << "\"" if target.msgctxt
-        str << "\nmsgid \"" << target.escaped(:msgid) << "\"\n"
-        if target.msgid_plural
-          str << "msgid_plural \"" << target.escaped(:plural) << "\"\n"
-          str << "msgstr[0] \"\"\n"
-          str << "msgstr[1] \"\"\n"
-        else
-          str << "msgstr \"\"\n"
-        end
+      pomessages.each do |target|
+        str << target.to_po_str
       end
       str
     end
 
-    def parse(files) # :nodoc:
-      ary = []
-      files.each do |file|
+    def parse(paths) # :nodoc:
+      pomessages = []
+      paths.each do |path|
         begin
           @ex_parsers.each do |klass|
-            if klass.target?(file)
-              ary = klass.parse(file, ary)
+            if klass.target?(path)
+              if klass.method(:parse).arity == 1
+                targets = klass.parse(path)
+              else
+                # For backward compatibility.
+                targets = klass.parse(path, [])
+              end
+
+              targets.each{|pomessage|
+                if pomessage.kind_of? Array
+                  pomessage = PoMessage.new_from_ary(pomessage)
+                end
+
+                # Save the previous target.
+                existing = pomessages.find_index {|t| t == pomessage}
+                if existing
+                  pomessage = pomessages[existing].merge(pomessage)
+                  pomessages[existing] = pomessage
+                else
+                  pomessages << pomessage
+                end
+              }
               break
             end
           end
         rescue
-          puts "Error parsing " + file
+          puts _("Error parsing %{path}") % {:path => path}
           raise
         end
       end
-      ary
+      pomessages
     end
 
     def check_options # :nodoc:
@@ -195,25 +182,25 @@ TITLE
       [ARGV, output]
     end
 
-    def run(targetfiles = nil, out = STDOUT)  # :nodoc:
-      if targetfiles.is_a? String
-        targetfiles = [targetfiles]
-      elsif ! targetfiles
-        targetfiles, out = check_options
+    def run(paths = nil, out = STDOUT)  # :nodoc:
+      if paths.is_a? String
+        paths = [paths]
+      elsif ! paths
+        paths, out = check_options
       end
 
-      if targetfiles.size == 0
+      if paths.size == 0
         raise ArgumentError, _("no input files")
       end
 
       if out.is_a? String
         File.open(File.expand_path(out), "w+") do |file|
           file.puts generate_pot_header
-          file.puts generate_pot(parse(targetfiles))
+          file.puts generate_pot(paths)
         end
       else
         out.puts generate_pot_header
-        out.puts generate_pot(parse(targetfiles))
+        out.puts generate_pot(paths)
       end
       self
     end
@@ -225,11 +212,11 @@ TITLE
   # This function is a part of GetText.create_pofiles.
   # Usually you don't need to call this function directly.
   #
-  # * targetfiles: An Array of po-files or nil.
+  # * paths: An Array of po-file paths or nil.
   # * out: output IO or output path.
   # * Returns: self
-  def rgettext(targetfiles = nil, out = STDOUT)
-    RGetText.run(targetfiles, out)
+  def rgettext(paths = nil, out = STDOUT)
+    RGetText.run(paths, out)
     self
   end
 end

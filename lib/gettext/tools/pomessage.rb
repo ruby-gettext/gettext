@@ -5,6 +5,18 @@ module GetText
   # Contains data related to the expression or sentence that
   # is to be translated.
   class PoMessage
+    @@max_line_length = 70
+
+    # Sets the max line length.
+    def self.max_line_length=(len)
+      @@max_line_length = len
+    end
+
+    # Gets the max line length.
+    def self.max_line_length
+      @@max_line_length
+    end
+
     # Required
     attr_accessor :type          # :normal, :plural, :msgctxt, :msgctxt_plural 
     attr_accessor :msgid
@@ -39,7 +51,7 @@ module GetText
 
     # Checks if the other translation target is mergeable with
     # the current one. Relevant are msgid and translation context (msgctxt).
-    def matches?(other)
+    def ==(other)
       other.msgid == self.msgid && other.msgctxt == self.msgctxt
     end
 
@@ -49,7 +61,7 @@ module GetText
     def merge(other)
       return self unless other
       raise ParseError, "Translation targets do not match: \n" \
-      "  self: #{self.inspect}\n  other: '#{other.inspect}'" unless matches?(other)
+      "  self: #{self.inspect}\n  other: '#{other.inspect}'" unless self == other
       if other.msgid_plural && !self.msgid_plural
         res = other
         unless (res.sources.include? self.sources[0])
@@ -64,6 +76,64 @@ module GetText
         end
       end
       res
+    end
+
+    # Output the po message for the po-file.
+    def to_po_str
+      raise "msgid is nil." unless @msgid
+      raise "sources is nil." unless @sources
+
+      str = ""
+      # extracted comments
+      if comment
+        comment.split("\n").each do |comment_line|
+          str << "\n#. #{comment_line.strip}"
+        end
+      end
+
+      # references
+      curr_pos = @@max_line_length
+      sources.each do |e|
+        if curr_pos + e.size > @@max_line_length
+          str << "\n#:"
+          curr_pos = 3
+        else
+          curr_pos += (e.size + 1)
+        end
+        str << " " << e
+      end
+
+      # msgctxt, msgid, msgstr
+      str << "\nmsgctxt \"" << msgctxt << "\"" if msgctxt?
+      str << "\nmsgid \"" << escaped(:msgid) << "\"\n"
+      if plural?
+        str << "msgid_plural \"" << escaped(:msgid_plural) << "\"\n"
+        str << "msgstr[0] \"\"\n"
+        str << "msgstr[1] \"\"\n"
+      else
+        str << "msgstr \"\"\n"
+      end
+      str
+    end
+
+    # Returns true if the type is kind of msgctxt.
+    # And if this is a kind of msgctxt and msgctxt property 
+    # is nil, then raise an RuntimeException.
+    def msgctxt?
+      if [:msgctxt, :msgctxt_plural].include? @type
+        raise "This PoMessage is a kind of msgctxt but the msgctxt property is nil. msgid: #{msgid}" unless @msgctxt
+        true
+      end
+    end
+
+    # Returns true if the type is kind of plural.
+    # And if this is a kind of plural and msgid_plural property 
+    # is nil, then raise an RuntimeException.
+    def plural?
+      if [:plural, :msgctxt_plural].include? @type
+        raise "This PoMessage is a kind of plural but the msgid_plural property is nil. msgid: #{msgid}" unless @msgid_plural
+        true
+      end
     end
 
     private

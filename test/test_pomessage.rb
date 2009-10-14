@@ -26,4 +26,74 @@ class TestPoMessage < Test::Unit::TestCase
     assert_equal 'long tail', tt.msgid
     assert_equal 'long tails', tt.msgid_plural
   end
+
+  def test_to_po_str_normal
+    po = GetText::PoMessage.new(:normal)
+    po.msgid = 'hello'
+    po.sources = ["file1:1", "file2:10"]
+    assert_equal "\n#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_po_str
+
+    po.msgctxt = 'context'
+    po.msgid_plural = 'hello2'
+    # Ignore these properties.
+    assert_equal "\n#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_po_str
+  end
+
+  def test_to_po_str_plural
+    po = GetText::PoMessage.new(:plural)
+    po.msgid = 'hello'
+    po.msgid_plural = 'hello2'
+    po.sources = ["file1:1", "file2:10"]
+    assert_equal "\n#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_po_str
+
+    po.msgctxt = 'context'
+    # Ignore this property
+    assert_equal "\n#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_po_str
+  end
+
+  def test_to_po_str_msgctxt
+    po = GetText::PoMessage.new(:msgctxt)
+    po.msgctxt = 'context'
+    po.msgid = 'hello'
+    po.sources = ["file1:1", "file2:10"]
+    assert_equal "\n#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_po_str
+  end
+
+  def test_to_po_str_msgctxt_plural
+    po = GetText::PoMessage.new(:msgctxt_plural)
+    po.msgctxt = 'context'
+    po.msgid = 'hello'
+    po.msgid_plural = 'hello2'
+    po.sources = ["file1:1", "file2:10"]
+    assert_equal "\n#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_po_str
+  end
+
+  def test_to_po_str_exception
+    po = GetText::PoMessage.new(:normal)
+    po.sources = ["file1:1", "file2:10"]
+    assert_raise(RuntimeError){ po.to_po_str }
+
+    po.sources = nil
+    assert_raise(RuntimeError){ po.to_po_str }
+
+    po = GetText::PoMessage.new(:plural)
+    po.msgid = 'hello'
+    po.sources = ["file1:1", "file2:10"]
+    assert_raise(RuntimeError){ po.to_po_str }
+
+    po.msgid_plural = 'hello2'
+    po.sources = nil
+    assert_raise(RuntimeError){ po.to_po_str }
+
+    po = GetText::PoMessage.new(:msgctxt)
+    po.msgid = 'hello'
+    po.sources = ["file1:1", "file2:10"]
+    assert_raise(RuntimeError){ po.to_po_str }
+
+    po = GetText::PoMessage.new(:msgctxt_plural)
+    po.msgctxt = 'context'
+    po.msgid = 'hello'
+    po.sources = ["file1:1", "file2:10"]
+    assert_raise(RuntimeError){ po.to_po_str }
+  end
 end

@@ -1,5 +1,5 @@
 require 'testlib/helper.rb'
-require 'gettext/class_info'
+require 'gettext/runtime/class_info'
 
 module M1; end
 module M2; end
