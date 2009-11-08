@@ -81,10 +81,10 @@ desc "Update pot/po files to match new version."
 task :updatepo do
   begin
     require 'gettext'
-    require 'gettext/poparser'
+    require 'gettext/tools/poparser'
     require 'gettext/tools'
   rescue LoadError
-    puts "gettext/poparser was not found."
+    puts "gettext/tools/poparser was not found."
   end
 
   #lib/gettext/*.rb -> rgettext.po
