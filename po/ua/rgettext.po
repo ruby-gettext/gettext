@@ -10,8 +10,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ruby-gettext 2.0.3\n"
-"POT-Creation-Date: 2009-05-17 23:09+0900\n"
+"Project-Id-Version: ruby-gettext 2.1.0\n"
+"POT-Creation-Date: 2009-11-08 22:43+0900\n"
 "PO-Revision-Date: 2008-07-14 05:33+0200\n"
 "Last-Translator: Alex Rootoff <rootoff at pisem.net>\n"
 "Language-Team: Ukrainian\n"
@@ -22,6 +22,88 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Використання: %s def.po ref.pot [-o output.pot]"
+
+#: lib/gettext/tools/rmsgmerge.rb:405
+msgid ""
+"Merges two Uniforum style .po files together. The def.po file is an existing "
+"PO file with translations. The ref.pot file is the last created PO file with "
+"up-to-date source references. ref.pot is generally created by rgettext."
+msgstr ""
+"Об'єднує файли .po Uniforum формату. В файлі def.po зберігаються уже "
+"перекладені стрічки. Файл ref.pot є оновленою версією PO файлу із вихідних "
+"текстів і не містить перекладів. ref.pot зазвичай створюють за допомогою "
+"програми rgettext."
+
+#: lib/gettext/tools/rmsgmerge.rb:407 lib/gettext/tools/rgettext.rb:149
+#: lib/gettext/tools/rmsgfmt.rb:50
+msgid "Specific options:"
+msgstr "Додаткові параметри:"
+
+#: lib/gettext/tools/rmsgmerge.rb:409 lib/gettext/tools/rgettext.rb:151
+#: lib/gettext/tools/rmsgfmt.rb:52
+msgid "write output to specified file"
+msgstr "записати результат у вказаний файл"
+
+#: lib/gettext/tools/rmsgmerge.rb:420 lib/gettext/tools/rgettext.rb:168
+#: lib/gettext/tools/rmsgfmt.rb:56
+msgid "display version information and exit"
+msgstr "показати інформацію про версію і завершити роботу"
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "не вказано файл def.po."
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "не вказано файл ref.po."
+
+#: lib/gettext/tools/parser/glade.rb:73
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}' не в форматі glade-2.0."
+
+#: lib/gettext/tools/rgettext.rb:40
+msgid "'%{klass}' is ignored."
+msgstr "проігноровано '%{klass}'."
+
+#: lib/gettext/tools/rgettext.rb:134
+msgid "Error parsing %{path}"
+msgstr ""
+
+#: lib/gettext/tools/rgettext.rb:145
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Використання: %s input.rb [-r parser.rb] [-o output.pot]"
+
+#: lib/gettext/tools/rgettext.rb:147
+msgid "Extract translatable strings from given input files."
+msgstr "Витягувати стрічки для перекладу із вказаних вхідних файлів."
+
+#: lib/gettext/tools/rgettext.rb:155
+msgid "File '%s' already exists."
+msgstr "Файл '%s' уже існує."
+
+#: lib/gettext/tools/rgettext.rb:160
+msgid "require the library before executing rgettext"
+msgstr "для виконання rgettext необхідна бібліотека"
+
+#: lib/gettext/tools/rgettext.rb:164
+msgid "run in debugging mode"
+msgstr "запуск в режимі відлагодження"
+
+#: lib/gettext/tools/rgettext.rb:192 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "не задані вхідні файли"
+
+#: lib/gettext/tools/rmsgfmt.rb:46
+msgid "Usage: %s input.po [-o output.mo]"
+msgstr "Використання: %s input.po [-o output.mo]"
+
+#: lib/gettext/tools/rmsgfmt.rb:48
+msgid "Generate binary message catalog from textual translation description."
+msgstr "Генерує бінарний каталог повідомлень із перекладу."
 
 #: lib/gettext/tools.rb:68
 msgid "Failed to merge with %{defpo}"
@@ -43,87 +125,9 @@ msgid ""
 "Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
 msgstr ""
 
-#: lib/gettext/textdomain_manager.rb:147
+#: lib/gettext/runtime/textdomain_manager.rb:147
 msgid "3rd parmeter is wrong: value = %{number}"
 msgstr "Третій параметр неправильний: value = %{number}"
-
-#: lib/gettext/tools/rgettext.rb:43
-msgid "'%{klass}' is ignored."
-msgstr "проігноровано '%{klass}'."
-
-#: lib/gettext/tools/rgettext.rb:190
-msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
-msgstr "Використання: %s input.rb [-r parser.rb] [-o output.pot]"
-
-#: lib/gettext/tools/rgettext.rb:192
-msgid "Extract translatable strings from given input files."
-msgstr "Витягувати стрічки для перекладу із вказаних вхідних файлів."
-
-#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgfmt.rb:50
-#: lib/gettext/tools/rmsgmerge.rb:407
-msgid "Specific options:"
-msgstr "Додаткові параметри:"
-
-#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgfmt.rb:52
-#: lib/gettext/tools/rmsgmerge.rb:409
-msgid "write output to specified file"
-msgstr "записати результат у вказаний файл"
-
-#: lib/gettext/tools/rgettext.rb:200
-msgid "File '%s' already exists."
-msgstr "Файл '%s' уже існує."
-
-#: lib/gettext/tools/rgettext.rb:205
-msgid "require the library before executing rgettext"
-msgstr "для виконання rgettext необхідна бібліотека"
-
-#: lib/gettext/tools/rgettext.rb:209
-msgid "run in debugging mode"
-msgstr "запуск в режимі відлагодження"
-
-#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgfmt.rb:56
-#: lib/gettext/tools/rmsgmerge.rb:420
-msgid "display version information and exit"
-msgstr "показати інформацію про версію і завершити роботу"
-
-#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
-msgid "no input files"
-msgstr "не задані вхідні файли"
-
-#: lib/gettext/tools/rmsgfmt.rb:46
-msgid "Usage: %s input.po [-o output.mo]"
-msgstr "Використання: %s input.po [-o output.mo]"
-
-#: lib/gettext/tools/rmsgfmt.rb:48
-msgid "Generate binary message catalog from textual translation description."
-msgstr "Генерує бінарний каталог повідомлень із перекладу."
-
-#: lib/gettext/tools/rmsgmerge.rb:402
-msgid "Usage: %s def.po ref.pot [-o output.pot]"
-msgstr "Використання: %s def.po ref.pot [-o output.pot]"
-
-#: lib/gettext/tools/rmsgmerge.rb:405
-msgid ""
-"Merges two Uniforum style .po files together. The def.po file is an existing "
-"PO file with translations. The ref.pot file is the last created PO file with "
-"up-to-date source references. ref.pot is generally created by rgettext."
-msgstr ""
-"Об'єднує файли .po Uniforum формату. В файлі def.po зберігаються уже "
-"перекладені стрічки. Файл ref.pot є оновленою версією PO файлу із вихідних "
-"текстів і не містить перекладів. ref.pot зазвичай створюють за допомогою "
-"програми rgettext."
-
-#: lib/gettext/tools/rmsgmerge.rb:446
-msgid "definition po is not given."
-msgstr "не вказано файл def.po."
-
-#: lib/gettext/tools/rmsgmerge.rb:448
-msgid "reference pot is not given."
-msgstr "не вказано файл ref.po."
-
-#: lib/gettext/parser/glade.rb:75
-msgid "`%{file}' is not glade-2.0 format."
-msgstr "`%{file}' не в форматі glade-2.0."
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -132,4 +136,3 @@ msgstr "Попередження: проігноровано неточний п
 #: src/poparser.ry:148
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Попередження: є застаріла стрічка msgid.\n"
-

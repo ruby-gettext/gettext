@@ -9,14 +9,96 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ruby-gettext 2.0.3\n"
-"POT-Creation-Date: 2009-05-17 23:09+0900\n"
+"Project-Id-Version: ruby-gettext 2.1.0\n"
+"POT-Creation-Date: 2009-11-08 22:43+0900\n"
 "PO-Revision-Date: 2008-07-13 14:05:30+0900\n"
 "Last-Translator: Masao Mutoh\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "使い方: %s def.po ref.pot [-o output.pot]"
+
+#: lib/gettext/tools/rmsgmerge.rb:405
+msgid ""
+"Merges two Uniforum style .po files together. The def.po file is an existing "
+"PO file with translations. The ref.pot file is the last created PO file with "
+"up-to-date source references. ref.pot is generally created by rgettext."
+msgstr ""
+"２つの.poファイルをマージします。def.poファイルはすでにある翻訳済みのPOファイ"
+"ルです。ref.potは最新のPOファイルです。ref.potは通常rgettextから新たに生成さ"
+"れたものです。"
+
+#: lib/gettext/tools/rmsgmerge.rb:407 lib/gettext/tools/rgettext.rb:149
+#: lib/gettext/tools/rmsgfmt.rb:50
+msgid "Specific options:"
+msgstr "オプション："
+
+#: lib/gettext/tools/rmsgmerge.rb:409 lib/gettext/tools/rgettext.rb:151
+#: lib/gettext/tools/rmsgfmt.rb:52
+msgid "write output to specified file"
+msgstr "出力ファイルを指定します"
+
+#: lib/gettext/tools/rmsgmerge.rb:420 lib/gettext/tools/rgettext.rb:168
+#: lib/gettext/tools/rmsgfmt.rb:56
+msgid "display version information and exit"
+msgstr "バージョンを表示します"
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "翻訳済みの.poファイルが与えられていません。"
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "最新の.potファイルが与えられていません。"
+
+#: lib/gettext/tools/parser/glade.rb:73
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}'はglade-2.0フォーマットではありません。"
+
+#: lib/gettext/tools/rgettext.rb:40
+msgid "'%{klass}' is ignored."
+msgstr "'%{klass}' は無視されました。"
+
+#: lib/gettext/tools/rgettext.rb:134
+msgid "Error parsing %{path}"
+msgstr "%{path}をパース時にエラーが発生しました。"
+
+#: lib/gettext/tools/rgettext.rb:145
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "使い方: %s input.rb [-r parser.rb] [-o output.pot]"
+
+#: lib/gettext/tools/rgettext.rb:147
+msgid "Extract translatable strings from given input files."
+msgstr "翻訳可能な文字列を入力ファイルから抜き出します。"
+
+#: lib/gettext/tools/rgettext.rb:155
+msgid "File '%s' already exists."
+msgstr "ファイル '%s' はすでに存在します。"
+
+#: lib/gettext/tools/rgettext.rb:160
+msgid "require the library before executing rgettext"
+msgstr "rgettextを実行する前に指定したライブラリを読み込みます。"
+
+#: lib/gettext/tools/rgettext.rb:164
+msgid "run in debugging mode"
+msgstr "デバッグモードで実行する"
+
+#: lib/gettext/tools/rgettext.rb:192 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "入力ファイルがありません"
+
+#: lib/gettext/tools/rmsgfmt.rb:46
+msgid "Usage: %s input.po [-o output.mo]"
+msgstr "使い方: %s input.po [-o output.mo]"
+
+#: lib/gettext/tools/rmsgfmt.rb:48
+msgid "Generate binary message catalog from textual translation description."
+msgstr ""
+"poファイルからバイナリのメッセージカタログファイル(moファイル)を生成します。"
 
 #: lib/gettext/tools.rb:68
 msgid "Failed to merge with %{defpo}"
@@ -36,89 +118,12 @@ msgstr ""
 msgid ""
 "`%{cmd}' can not be found. \n"
 "Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
-msgstr ""
+msgstr "`%{cmd}'は見つかりませんでした。\n"
+"GNU Gettextをインストールし、環境変数PATHかMSGMERGE_PATHを正しく設定してください。"
 
-#: lib/gettext/textdomain_manager.rb:147
+#: lib/gettext/runtime/textdomain_manager.rb:147
 msgid "3rd parmeter is wrong: value = %{number}"
 msgstr "3つめのパラメータが不正です。: value = %{number}"
-
-#: lib/gettext/tools/rgettext.rb:43
-msgid "'%{klass}' is ignored."
-msgstr "'%{klass}' は無視されました。"
-
-#: lib/gettext/tools/rgettext.rb:190
-msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
-msgstr "使い方: %s input.rb [-r parser.rb] [-o output.pot]"
-
-#: lib/gettext/tools/rgettext.rb:192
-msgid "Extract translatable strings from given input files."
-msgstr "翻訳可能な文字列を入力ファイルから抜き出します。"
-
-#: lib/gettext/tools/rgettext.rb:194 lib/gettext/tools/rmsgfmt.rb:50
-#: lib/gettext/tools/rmsgmerge.rb:407
-msgid "Specific options:"
-msgstr "オプション："
-
-#: lib/gettext/tools/rgettext.rb:196 lib/gettext/tools/rmsgfmt.rb:52
-#: lib/gettext/tools/rmsgmerge.rb:409
-msgid "write output to specified file"
-msgstr "出力ファイルを指定します"
-
-#: lib/gettext/tools/rgettext.rb:200
-msgid "File '%s' already exists."
-msgstr "ファイル '%s' はすでに存在します。"
-
-#: lib/gettext/tools/rgettext.rb:205
-msgid "require the library before executing rgettext"
-msgstr "rgettextを実行する前に指定したライブラリを読み込みます。"
-
-#: lib/gettext/tools/rgettext.rb:209
-msgid "run in debugging mode"
-msgstr "デバッグモードで実行する"
-
-#: lib/gettext/tools/rgettext.rb:213 lib/gettext/tools/rmsgfmt.rb:56
-#: lib/gettext/tools/rmsgmerge.rb:420
-msgid "display version information and exit"
-msgstr "バージョンを表示します"
-
-#: lib/gettext/tools/rgettext.rb:237 lib/gettext/tools/rmsgfmt.rb:29
-msgid "no input files"
-msgstr "入力ファイルがありません"
-
-#: lib/gettext/tools/rmsgfmt.rb:46
-msgid "Usage: %s input.po [-o output.mo]"
-msgstr "使い方: %s input.po [-o output.mo]"
-
-#: lib/gettext/tools/rmsgfmt.rb:48
-msgid "Generate binary message catalog from textual translation description."
-msgstr ""
-"poファイルからバイナリのメッセージカタログファイル(moファイル)を生成します。"
-
-#: lib/gettext/tools/rmsgmerge.rb:402
-msgid "Usage: %s def.po ref.pot [-o output.pot]"
-msgstr "使い方: %s def.po ref.pot [-o output.pot]"
-
-#: lib/gettext/tools/rmsgmerge.rb:405
-msgid ""
-"Merges two Uniforum style .po files together. The def.po file is an existing "
-"PO file with translations. The ref.pot file is the last created PO file with "
-"up-to-date source references. ref.pot is generally created by rgettext."
-msgstr ""
-"２つの.poファイルをマージします。def.poファイルはすでにある翻訳済みのPOファイ"
-"ルです。ref.potは最新のPOファイルです。ref.potは通常rgettextから新たに生成さ"
-"れたものです。"
-
-#: lib/gettext/tools/rmsgmerge.rb:446
-msgid "definition po is not given."
-msgstr "翻訳済みの.poファイルが与えられていません。"
-
-#: lib/gettext/tools/rmsgmerge.rb:448
-msgid "reference pot is not given."
-msgstr "最新の.potファイルが与えられていません。"
-
-#: lib/gettext/parser/glade.rb:75
-msgid "`%{file}' is not glade-2.0 format."
-msgstr "`%{file}'はglade-2.0フォーマットではありません。"
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"
@@ -127,4 +132,3 @@ msgstr "Warning: fuzzyメッセージは無視されました。\n"
 #: src/poparser.ry:148
 msgid "Warning: obsolete msgid exists.\n"
 msgstr "Warning: 使用されていないメッセージ(obsolete msgid)が存在します。\n"
-
