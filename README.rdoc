@@ -65,14 +65,8 @@ Rails / ActiveRecord specific code now lives in locale_rails[http://github.com/m
     gem uninstall gettext
 
 * gem
-    #from github (edge/unstable)
+    #from rubyforge 
     (sudo/su on POSIX system)
-    gem install locale
-    gem install mutoh-gettext -s http://gems.github.com/
-
-    #from rubyforge (stable)
-    (sudo/su on POSIX system)
-    gem install locale
     gem install gettext
 
 * download tar-ball
@@ -227,21 +221,21 @@ LGPL(Lesser General Public License: http://www.gnu.org/licenses/lgpl-3.0.txt).
 * Chinese(zh_TW)            - 2.0.1
 * Czech(cs)                 - 1.9.0 (old)
 * Dutch(nl)                 - 1.90.0 (old)
-* English(default)          - 1.90.0 (old)
+* English(default)          - 2.1.0
 * Esperanto(eo)             - 2.0.1
 * Estonian(et)              - 2.0.1
-* French(fr)                - 2.0.1
+* French(fr)                - 2.0.1 
 * German(de)                - 2.0.1
 * Greek(el)                 - 2.0.1 
 * Hungarian(hu)             - 2.0.1
 * Italian(it)               - 1.6.0 (old)
-* Japanese(ja)              - 2.0.1
+* Japanese(ja)              - 2.1.0
 * Korean(ko)                - 1.9.0 (old)
 * Latvian(lv)               - 2.0.1 
 * Norwegian(nb)             - 2.0.1
 * Portuguese(Brazil)(pt_BR) - 2.0.1
 * Russian(ru)               - 2.0.1
-* Serbian(sr)               - 1.91.0 (old)
+* Serbian(sr)               - 2.0.1
 * Spanish(es)               - 2.0.1
 * Swedish(sv)               - 0.8.0 (too much old)
 * Ukrainian(ua)             - 2.0.1
