@@ -82,7 +82,6 @@ module GetText
         path_rules = ["#{topdir}/%{lang}/LC_MESSAGES/%{name}.mo", "#{topdir}/%{lang}/%{name}.mo"]
       else
         path_rules = self.class.default_path_rules
-
       end
 
       @locale_paths = {}

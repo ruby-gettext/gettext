@@ -67,7 +67,6 @@ module GetText
 
       charset = options[:output_charset] || self.output_charset
       textdomain = create_or_find_textdomain(domainname,options[:path],charset)
-
       target_klass = ClassInfo.normalize_class(klass)
       create_or_find_textdomain_group(target_klass).add(textdomain)
       @@gettext_classes << target_klass unless @@gettext_classes.include? target_klass
