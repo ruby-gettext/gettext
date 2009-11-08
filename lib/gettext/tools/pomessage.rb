@@ -5,6 +5,13 @@ module GetText
   # Contains data related to the expression or sentence that
   # is to be translated.
   class PoMessage
+    PARAMS = {
+      :normal => [:msgid],
+      :plural => [:msgid, :msgid_plural],
+      :msgctxt => [:msgctxt, :msgid],
+      :msgctxt_plural => [:msgctxt, :msgid, :msgid_plural]
+    }
+
     @@max_line_length = 70
 
     # Sets the max line length.
@@ -30,6 +37,7 @@ module GetText
     def initialize(type)
       @type = type
       @sources = []
+      @param_type = PARAMS[@type]
     end
 
     # Support for extracted comments. Explanation s.
@@ -177,6 +185,12 @@ module GetText
       ret.msgctxt = msgctxt
       ret.msgid_plural = msgid_plural
       ret
+    end
+
+    def [](number)
+      param = @param_type[number]
+      raise ParseError, 'no more string parameters expected' unless param
+      send param
     end
   end
   

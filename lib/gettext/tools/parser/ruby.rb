@@ -82,13 +82,6 @@ module GetText
   # Extends PoMessage for RubyParser.
   # Implements a sort of state machine to assist the parser.
   module PoMessageForRubyParser
-    PARAMS = {
-      :normal => [:msgid],
-      :plural => [:msgid, :msgid_plural],
-      :msgctxt => [:msgctxt, :msgid],
-      :msgctxt_plural => [:msgctxt, :msgid, :msgid_plural]
-    }
-
     # Supports parsing by setting attributes by and by.
     def set_current_attribute(str)
       param = @param_type[@param_number]
@@ -98,7 +91,6 @@ module GetText
 
     def init_param
       @param_number = 0
-      @param_type = PARAMS[@type]
       self
     end
 
@@ -127,13 +119,13 @@ module GetText
     # (and ignored here). 
     # And You don't need to keep the pomessages as unique.
 
-    def parse(path, deprecated = nil)  # :nodoc:
+    def parse(path, deprecated = [])  # :nodoc:
       lines = IO.readlines(path)
-      parse_lines(path, lines)
+      parse_lines(path, lines, deprecated)
     end
 
     def parse_lines(path, lines, deprecated = [])  # :nodoc:
-      pomessages = []
+      pomessages = deprecated
       file = StringIO.new(lines.join + "\n")
       rl = RubyLexX.new
       rl.set_input(file)
