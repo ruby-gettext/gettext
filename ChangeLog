@@ -1,3 +1,24 @@
+= Ruby-GetText-Package-2.1.0 (2009-11-11)
+ * Implemented parsing of translator comments (GNU gettext feature) 
+   [by Vladimir Dobriakov]
+ * Refactor the directory structure.
+   * Move files for runtime to lib/gettext/runtime/*.
+   * Move files for development(rgettext/rmsgfmt) to
+     lib/gettext/tools/*.
+ * Refactor parsers for po. po-message object is defined as GetText::PoMessage
+   class. [by Vladimir Dobriakov, Masao Mutoh]
+ * Speed up when lots of objects are created to share the textdomain in each
+   objects. [Reported by Gaël Séchaud.]
+ * Fix "%{foo.bar}" %{"foo.bar".to_sym => "a"} doesn't work.
+   [Bug#26663, Reported by Danilo Castilho]
+ * lib/gettext.rb: Fixed to work unless gem. [Reported by Vladimir Dobriakov]
+ * Fixed a wrong String literal in a CGI sample.
+   [Bug #26531, by Eugene Mikhailov]
+ * Update license information(explicit to use ruby's or LGPL).
+   [Pointed out by Masateru Yoshikawa]
+ * Code cleanup.
+ * Update minor version.
+
 = Ruby-GetText-Package-2.0.4 (2009-05-23)
  * Fix String#% return nil when the string have no place holders. [by okkez]
  * Update pofiles and remove old messages.
