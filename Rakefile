@@ -166,7 +166,7 @@ spec = Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.executables = Dir.entries('bin').delete_if {|item| /^\.|CVS|~$/ =~ item }
   s.bindir = 'bin'
-  s.add_dependency('locale', '>= 2.0.4')
+  s.add_dependency('locale', '>= 2.0.5')
   s.has_rdoc = true
   s.description = <<-EOF
         Ruby-GetText-Package is a GNU GetText-like program for Ruby.
