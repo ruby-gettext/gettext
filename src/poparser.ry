@@ -36,7 +36,7 @@ class GetText::PoParser
     if @fuzzy and $ignore_fuzzy 
       if val[1] != ""
         $stderr.print _("Warning: fuzzy message was ignored.\n")
-        $stderr.print "         msgid '#{val[1]}'\n"
+        $stderr.print "  #{@po_file}: msgid '#{val[1]}'\n"
       else
         on_message('', unescape(val[3]))
       end
@@ -201,6 +201,7 @@ end
       encoding = detect_file_encoding(po_file)
       args << "r:#{encoding}"
     end
+    @po_file = po_file
     parse(File.open(*args) {|io| io.read }, data, ignore_fuzzy)
   end
 
