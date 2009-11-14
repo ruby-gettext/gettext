@@ -1,4 +1,4 @@
-= Ruby-GetText-Package-2.1.0 (2009-11-11)
+= Ruby-GetText-Package-2.1.0 (2009-11-14)
  * Implemented parsing of translator comments (GNU gettext feature) 
    [by Vladimir Dobriakov]
  * Refactor the directory structure.
