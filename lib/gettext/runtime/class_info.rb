@@ -12,7 +12,7 @@ module GetText
     # klass should kind of the class, not object.
     def normalize_class(klass)
       ret = (klass.kind_of? Module) ? klass : klass.class
-      if ret.name =~ /^\#<|^$/ or ret == GetText
+      if ret.name =~ /^\#<|^$/ or ret == GetText or ret.name.nil?
         ret = Object
       end
       ret

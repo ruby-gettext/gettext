@@ -80,4 +80,7 @@ class TestClassInfo < Test::Unit::TestCase
     assert_equal [M8, M8::M9, Object], related_classes(M8)
   end
 
+  def test_ruby19
+    assert_equal Object, GetText::ClassInfo.normalize_class(Module.new)
+  end
 end
