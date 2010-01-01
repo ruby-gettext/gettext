@@ -53,9 +53,35 @@ module GetText
     #    def target?(file)
     #      File.extname(file) == '.foo'  # *.foo file only.
     #    end
-    #    def parse(file, ary)
+    #    def parse(file)
     #      :
-    #      return ary # [["msgid1", "foo.rb:200"], ["msgid2", "bar.rb:300", "baz.rb:400"], ...]
+    #      ary = []
+    #      # Simple message
+    #      po = PoMessage.new(:normal)
+    #      po.msgid = "hello"
+    #      po.sources = ["foo.rb:200", "bar.rb:300"]
+    #      po.add_comment("Comment for the message")
+    #      ary << po
+    #      # Plural message
+    #      po = PoMessage.new(:plural)
+    #      po.msgid = "An apple"
+    #      po.msgid_plural = "Apples"
+    #      po.sources = ["foo.rb:200", "bar.rb:300"]
+    #      ary << po
+    #      # Simple message with the message context
+    #      po = PoMessage.new(:msgctxt)
+    #      po.msgctxt = "context"
+    #      po.msgid = "hello"
+    #      po.sources = ["foo.rb:200", "bar.rb:300"]
+    #      ary << po
+    #      # Plural message with the message context.
+    #      po = PoMessage.new(:msgctxt_plural)
+    #      po.msgctxt = "context"
+    #      po.msgid = "An apple"
+    #      po.msgid_plural = "Apples"
+    #      po.sources = ["foo.rb:200", "bar.rb:300"]
+    #      ary << po
+    #      return ary
     #    end
     #  end
     #  
