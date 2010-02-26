@@ -213,11 +213,9 @@ TITLE
       elsif ! paths
         paths, out = check_options
       end
-
       if paths.size == 0
         raise ArgumentError, _("no input files")
       end
-
       if out.is_a? String
         File.open(File.expand_path(out), "w+") do |file|
           file.puts generate_pot_header
