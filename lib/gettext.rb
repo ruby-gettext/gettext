@@ -1,7 +1,7 @@
 =begin
   gettext.rb - GetText module
 
-  Copyright (C) 2001-2009  Masao Mutoh
+  Copyright (C) 2001-2010  Masao Mutoh
   Copyright (C) 2001-2003  Masahiro Sakai
 
       Masao Mutoh       <mutomasa at gmail.com>
@@ -14,7 +14,7 @@
 if Object.constants.include? "Gem"
   begin
     begin
-      gem 'locale', '>=2.0.4' 
+      gem 'locale', '>=2.0.5' 
     rescue Gem::LoadError
     end
   rescue NoMethodError

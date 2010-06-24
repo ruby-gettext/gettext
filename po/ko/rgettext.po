@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.1.0\n"
-"POT-Creation-Date: 2009-11-08 22:43+0900\n"
+"POT-Creation-Date: 2010-06-25 01:16+0900\n"
 "PO-Revision-Date: 2006-07-11 02:46+0900\n"
 "Last-Translator: Gyoung-Yoon Noh <nohmad at gmail.com>\n"
 "Language-Team: Korean\n"
@@ -33,17 +33,17 @@ msgstr ""
 "진 PO 파일입니다. ref.pot 파일은 최신 소스를 참조하는 가장 최근에 생성된 PO "
 "파일입니다. ref.pot는 일반적으로 rgettext에 의해 생성됩니다."
 
-#: lib/gettext/tools/rmsgmerge.rb:407 lib/gettext/tools/rgettext.rb:149
+#: lib/gettext/tools/rmsgmerge.rb:407 lib/gettext/tools/rgettext.rb:176
 #: lib/gettext/tools/rmsgfmt.rb:50
 msgid "Specific options:"
 msgstr "특별한 옵션들:"
 
-#: lib/gettext/tools/rmsgmerge.rb:409 lib/gettext/tools/rgettext.rb:151
+#: lib/gettext/tools/rmsgmerge.rb:409 lib/gettext/tools/rgettext.rb:178
 #: lib/gettext/tools/rmsgfmt.rb:52
 msgid "write output to specified file"
 msgstr "지정한 파일에 출력 내용을 저장합니다"
 
-#: lib/gettext/tools/rmsgmerge.rb:420 lib/gettext/tools/rgettext.rb:168
+#: lib/gettext/tools/rmsgmerge.rb:420 lib/gettext/tools/rgettext.rb:195
 #: lib/gettext/tools/rmsgfmt.rb:56
 msgid "display version information and exit"
 msgstr "버전 정보를 표시하고 빠져나갑니다"
@@ -64,31 +64,31 @@ msgstr "`%{file}'이(가) glade-2.0 형식에 맞지 않습니다."
 msgid "'%{klass}' is ignored."
 msgstr "'%{klass}'이(가) 무시되었습니다."
 
-#: lib/gettext/tools/rgettext.rb:134
+#: lib/gettext/tools/rgettext.rb:161
 msgid "Error parsing %{path}"
 msgstr ""
 
-#: lib/gettext/tools/rgettext.rb:145
+#: lib/gettext/tools/rgettext.rb:172
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "사용법: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#: lib/gettext/tools/rgettext.rb:147
+#: lib/gettext/tools/rgettext.rb:174
 msgid "Extract translatable strings from given input files."
 msgstr "주어진 입력 파일들로부터 번역할 수 있는 문자열을 추출합니다."
 
-#: lib/gettext/tools/rgettext.rb:155
+#: lib/gettext/tools/rgettext.rb:182
 msgid "File '%s' already exists."
 msgstr "'%s' 파일이 이미 존재합니다."
 
-#: lib/gettext/tools/rgettext.rb:160
+#: lib/gettext/tools/rgettext.rb:187
 msgid "require the library before executing rgettext"
 msgstr "rgettext를 실행하려면 라이브러리가 필요합니다"
 
-#: lib/gettext/tools/rgettext.rb:164
+#: lib/gettext/tools/rgettext.rb:191
 msgid "run in debugging mode"
 msgstr "디버깅 모드에서 실행합니다"
 
-#: lib/gettext/tools/rgettext.rb:192 lib/gettext/tools/rmsgfmt.rb:29
+#: lib/gettext/tools/rgettext.rb:218 lib/gettext/tools/rmsgfmt.rb:29
 msgid "no input files"
 msgstr "입력 파일이 없습니다"
 
@@ -121,7 +121,11 @@ msgid ""
 msgstr ""
 
 #: lib/gettext/runtime/textdomain_manager.rb:147
-msgid "3rd parmeter is wrong: value = %{number}"
+msgid "ngettext: 3rd parmeter is wrong: value = %{number}"
+msgstr ""
+
+#: lib/gettext/runtime/textdomain_manager.rb:153
+msgid "ngettext: 3rd parameter should be a number, not nil."
 msgstr ""
 
 #: src/poparser.ry:38 src/poparser.ry:55

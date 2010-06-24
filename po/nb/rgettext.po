@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-08 22:43+0900\n"
+"POT-Creation-Date: 2010-06-25 01:16+0900\n"
 "PO-Revision-Date: 2008-07-14 16:42+0200\n"
 "Last-Translator: Runar Ingebrigtsen <runar@mopo.no>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
@@ -34,17 +34,17 @@ msgstr ""
 "fil med oversettelser. ref.po-filen er den sist opprettede PO-filen "
 "medoppdaterte kildereferanser. ref.pot er generelt opprettet av rgettext."
 
-#: lib/gettext/tools/rmsgmerge.rb:407 lib/gettext/tools/rgettext.rb:149
+#: lib/gettext/tools/rmsgmerge.rb:407 lib/gettext/tools/rgettext.rb:176
 #: lib/gettext/tools/rmsgfmt.rb:50
 msgid "Specific options:"
 msgstr "Spesifikke alternativer:"
 
-#: lib/gettext/tools/rmsgmerge.rb:409 lib/gettext/tools/rgettext.rb:151
+#: lib/gettext/tools/rmsgmerge.rb:409 lib/gettext/tools/rgettext.rb:178
 #: lib/gettext/tools/rmsgfmt.rb:52
 msgid "write output to specified file"
 msgstr "skriv ut til spesifisert fil"
 
-#: lib/gettext/tools/rmsgmerge.rb:420 lib/gettext/tools/rgettext.rb:168
+#: lib/gettext/tools/rmsgmerge.rb:420 lib/gettext/tools/rgettext.rb:195
 #: lib/gettext/tools/rmsgfmt.rb:56
 msgid "display version information and exit"
 msgstr "vis versjonsinformasjon og avslutt"
@@ -65,31 +65,31 @@ msgstr "`%{file}' er ikke glade-2.0-formattert."
 msgid "'%{klass}' is ignored."
 msgstr "'%{klass}' blir ignorert."
 
-#: lib/gettext/tools/rgettext.rb:134
+#: lib/gettext/tools/rgettext.rb:161
 msgid "Error parsing %{path}"
 msgstr ""
 
-#: lib/gettext/tools/rgettext.rb:145
+#: lib/gettext/tools/rgettext.rb:172
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Bruk: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#: lib/gettext/tools/rgettext.rb:147
+#: lib/gettext/tools/rgettext.rb:174
 msgid "Extract translatable strings from given input files."
 msgstr "Trekk ut oversettbare tekststrenger fra angitte filer"
 
-#: lib/gettext/tools/rgettext.rb:155
+#: lib/gettext/tools/rgettext.rb:182
 msgid "File '%s' already exists."
 msgstr "Filen '%s' eksisterer fra før"
 
-#: lib/gettext/tools/rgettext.rb:160
+#: lib/gettext/tools/rgettext.rb:187
 msgid "require the library before executing rgettext"
 msgstr "krev biblioteket før du kjører rgettext"
 
-#: lib/gettext/tools/rgettext.rb:164
+#: lib/gettext/tools/rgettext.rb:191
 msgid "run in debugging mode"
 msgstr "kjør i feilsøkingsmodus"
 
-#: lib/gettext/tools/rgettext.rb:192 lib/gettext/tools/rmsgfmt.rb:29
+#: lib/gettext/tools/rgettext.rb:218 lib/gettext/tools/rmsgfmt.rb:29
 msgid "no input files"
 msgstr "ingen angitte filer"
 
@@ -123,8 +123,13 @@ msgid ""
 msgstr ""
 
 #: lib/gettext/runtime/textdomain_manager.rb:147
-msgid "3rd parmeter is wrong: value = %{number}"
+#, fuzzy
+msgid "ngettext: 3rd parmeter is wrong: value = %{number}"
 msgstr "Tredje parameter er feil: verdi = %{number}"
+
+#: lib/gettext/runtime/textdomain_manager.rb:153
+msgid "ngettext: 3rd parameter should be a number, not nil."
+msgstr ""
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"

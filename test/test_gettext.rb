@@ -110,8 +110,12 @@ DDD
     assert_equal(["a picture", "%{num} pictures"], test.test_5)
   end
 
-  def test_n_defaults_to_1_when_number_is_missing
+  def test_ngettext_defaults_to_1_when_number_is_missing
     assert_equal n_("aaa","aaa2",1), "aaa"
+  end
+
+  def test_ngettext_format_error
+    assert_raise(ArgumentError) { n_("aaa", "aaa2") }
   end
 
   def test_nsgettext

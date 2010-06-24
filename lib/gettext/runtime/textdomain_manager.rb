@@ -144,12 +144,13 @@ module GetText
         msgid_plural = arg1[1]
         n = arg2
         if arg3 and arg3.kind_of? Numeric
-          raise ArgumentError, _("3rd parmeter is wrong: value = %{number}") % {:number => arg3}
+          raise ArgumentError, _("ngettext: 3rd parmeter is wrong: value = %{number}") % {:number => arg3}
         end
         div = arg3
       else
         msgid = arg1
         msgid_plural = arg2
+        raise ArgumentError, _("ngettext: 3rd parameter should be a number, not nil.")  unless arg3 
         n = arg3
         div = arg4
       end

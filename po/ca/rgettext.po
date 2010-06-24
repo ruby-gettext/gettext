@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.1.0\n"
-"POT-Creation-Date: 2009-11-08 22:43+0900\n"
+"POT-Creation-Date: 2010-06-25 01:16+0900\n"
 "PO-Revision-Date: 2005-12-20 10:33+0900E\n"
 "Last-Translator: Ramon Salvadó <rsalvado at gnuine.com>\n"
 "Language-Team: Catalan\n"
@@ -32,17 +32,17 @@ msgstr ""
 "existent amb traduccions. El fitxer ref.pot és l'últim fitxer PO amb "
 "referències actualitzades. Normalment qui ha creat ref.pot és rgettext"
 
-#: lib/gettext/tools/rmsgmerge.rb:407 lib/gettext/tools/rgettext.rb:149
+#: lib/gettext/tools/rmsgmerge.rb:407 lib/gettext/tools/rgettext.rb:176
 #: lib/gettext/tools/rmsgfmt.rb:50
 msgid "Specific options:"
 msgstr "Opcions específiques:"
 
-#: lib/gettext/tools/rmsgmerge.rb:409 lib/gettext/tools/rgettext.rb:151
+#: lib/gettext/tools/rmsgmerge.rb:409 lib/gettext/tools/rgettext.rb:178
 #: lib/gettext/tools/rmsgfmt.rb:52
 msgid "write output to specified file"
 msgstr "escriu la sortida en un fitxer especificat"
 
-#: lib/gettext/tools/rmsgmerge.rb:420 lib/gettext/tools/rgettext.rb:168
+#: lib/gettext/tools/rmsgmerge.rb:420 lib/gettext/tools/rgettext.rb:195
 #: lib/gettext/tools/rmsgfmt.rb:56
 msgid "display version information and exit"
 msgstr "mostra informació de la versió i surt"
@@ -63,31 +63,31 @@ msgstr "El fitxer `%{file}' no té el format glade-2.0."
 msgid "'%{klass}' is ignored."
 msgstr "'%{klass}' ignorat"
 
-#: lib/gettext/tools/rgettext.rb:134
+#: lib/gettext/tools/rgettext.rb:161
 msgid "Error parsing %{path}"
 msgstr ""
 
-#: lib/gettext/tools/rgettext.rb:145
+#: lib/gettext/tools/rgettext.rb:172
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Ús: %s entrada.po [-r parser.rb] [-o sortida.pot]"
 
-#: lib/gettext/tools/rgettext.rb:147
+#: lib/gettext/tools/rgettext.rb:174
 msgid "Extract translatable strings from given input files."
 msgstr "Extreu les cadenes de paraules traduïbles dels fitxers d'entrada."
 
-#: lib/gettext/tools/rgettext.rb:155
+#: lib/gettext/tools/rgettext.rb:182
 msgid "File '%s' already exists."
 msgstr "El fitxer '%s' ja existeix"
 
-#: lib/gettext/tools/rgettext.rb:160
+#: lib/gettext/tools/rgettext.rb:187
 msgid "require the library before executing rgettext"
 msgstr "requereix la llibreria abans d'executar rgettext"
 
-#: lib/gettext/tools/rgettext.rb:164
+#: lib/gettext/tools/rgettext.rb:191
 msgid "run in debugging mode"
 msgstr "executa en mode debug"
 
-#: lib/gettext/tools/rgettext.rb:192 lib/gettext/tools/rmsgfmt.rb:29
+#: lib/gettext/tools/rgettext.rb:218 lib/gettext/tools/rmsgfmt.rb:29
 msgid "no input files"
 msgstr "no hi ha fitxers d'entrada"
 
@@ -121,8 +121,13 @@ msgid ""
 msgstr ""
 
 #: lib/gettext/runtime/textdomain_manager.rb:147
-msgid "3rd parmeter is wrong: value = %{number}"
+#, fuzzy
+msgid "ngettext: 3rd parmeter is wrong: value = %{number}"
 msgstr "El tercer paràmetre es erroni: valor = %{number}"
+
+#: lib/gettext/runtime/textdomain_manager.rb:153
+msgid "ngettext: 3rd parameter should be a number, not nil."
+msgstr ""
 
 #: src/poparser.ry:38 src/poparser.ry:55
 msgid "Warning: fuzzy message was ignored.\n"

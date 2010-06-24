@@ -128,6 +128,7 @@ TITLE
 
     def parse(paths) # :nodoc:
       pomessages = []
+      paths = [paths] if paths.kind_of? String
       paths.each do |path|
         begin
           @ex_parsers.each do |klass|
