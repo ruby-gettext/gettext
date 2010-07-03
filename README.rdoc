@@ -209,7 +209,7 @@ LGPL(Lesser General Public License: http://www.gnu.org/licenses/lgpl-3.0.txt).
   * David Espada <davinci at escomposlinux.org> (current)
   * David Moreno Garza <damog at damog.net>
 * Swedish(sv)                - Nikolai Weibull <mailing-lists.ruby-talk at rawuncut.elitemail.org>
-* Ukrainian(ua)              - Alex Rootoff <rootoff at pisem.net>
+* Ukrainian(uk)              - Alex Rootoff <rootoff at pisem.net>
 * Vietnamese(vi)             - Ngoc Dao Thanh <ngocdaothanh at gmail.com>
 
 == Status of translations
@@ -238,7 +238,7 @@ LGPL(Lesser General Public License: http://www.gnu.org/licenses/lgpl-3.0.txt).
 * Serbian(sr)               - 2.0.1
 * Spanish(es)               - 2.0.1
 * Swedish(sv)               - 0.8.0 (too much old)
-* Ukrainian(ua)             - 2.0.1
+* Ukrainian(uk)             - 2.0.1
 * Vietnamese(vi)            - 2.0.1
 
 == Maintainer
