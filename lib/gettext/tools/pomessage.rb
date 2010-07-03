@@ -60,7 +60,7 @@ module GetText
     # Checks if the other translation target is mergeable with
     # the current one. Relevant are msgid and translation context (msgctxt).
     def ==(other)
-      other.msgid == self.msgid && other.msgctxt == self.msgctxt
+      other && other.msgid == self.msgid && other.msgctxt == self.msgctxt
     end
 
     # Merges two translation targets with the same msgid and returns the merged

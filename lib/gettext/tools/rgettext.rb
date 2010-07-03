@@ -2,7 +2,7 @@
 =begin
   rgettext.rb - Generate a .pot file.
 
-  Copyright (C) 2003-2009  Masao Mutoh
+  Copyright (C) 2003-2010  Masao Mutoh
   Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
  
       Yasushi Shoji   <yashi at atmark-techno.com>
@@ -146,7 +146,7 @@ TITLE
                 end
 
                 # Save the previous target.
-                existing = pomessages.find_index {|t| t == pomessage}
+                existing = pomessages.empty? ? nil : pomessages.index(pomessages.find {|t| t == pomessage})
                 if existing
                   pomessage = pomessages[existing].merge(pomessage)
                   pomessages[existing] = pomessage
