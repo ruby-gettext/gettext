@@ -47,4 +47,20 @@ class TestLocalePath < Test::Unit::TestCase
     path = GetText::LocalePath.new("nodomain", "#{testdir}/locale")
     assert_equal [], path.supported_locales
   end
+
+  def test_env_GETTEXT_PATH
+    topdir = File.join(File.dirname(File.expand_path(__FILE__)), "../samples")
+    path1 = File.join(topdir, "locale")
+    path2 = File.join(topdir, "cgi", "locale")
+
+    ENV["GETTEXT_PATH"] = path1
+    default_path_rules = GetText::LocalePath.default_path_rules
+    assert(Regexp.compile(path1) =~ default_path_rules[0])
+
+    GetText::LocalePath.memoize_clear
+    ENV["GETTEXT_PATH"] = "#{path1},#{path2}"
+    default_path_rules = GetText::LocalePath.default_path_rules
+    assert(Regexp.compile(path1) =~ default_path_rules[0])
+    assert(Regexp.compile(path2) =~ default_path_rules[1])
+  end
 end

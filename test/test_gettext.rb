@@ -312,4 +312,11 @@ DDD
     assert(GetText._("language").frozen?)
   end
 
+  def test_safe_mode
+    Thread.start{
+      $SAFE = 1
+      GetText.bindtextdomain("test1", :path => "locale")
+      _("language")
+    }.join
+  end
 end

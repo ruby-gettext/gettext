@@ -1,7 +1,7 @@
 =begin
   locale_path.rb - GetText::LocalePath
 
-  Copyright (C) 2001-2009  Masao Mutoh
+  Copyright (C) 2001-2010  Masao Mutoh
 
   You may redistribute it and/or modify it under the same
   license terms as Ruby or LGPL.
@@ -45,10 +45,9 @@ module GetText
 
         if ENV["GETTEXT_PATH"]
           ENV["GETTEXT_PATH"].split(/,/).each {|i| 
-            default_path_rules = ["#{i}/%{lang}/LC_MESSAGES/%{name}.mo", "#{i}/%{lang}/%{name}.mo"]
+            default_path_rules += ["#{i}/%{lang}/LC_MESSAGES/%{name}.mo", "#{i}/%{lang}/%{name}.mo"]
           }
         end
-        
         default_path_rules += DEFAULT_RULES
         
         load_path = $LOAD_PATH
