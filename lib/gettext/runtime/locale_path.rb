@@ -49,8 +49,8 @@ module GetText
           }
         end
         default_path_rules += DEFAULT_RULES
-        
-        load_path = $LOAD_PATH
+       
+        load_path = $LOAD_PATH.dup
         if defined? ::Gem
           load_path += Gem.all_load_paths
         end

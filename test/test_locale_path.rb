@@ -53,6 +53,7 @@ class TestLocalePath < Test::Unit::TestCase
     path1 = File.join(topdir, "locale")
     path2 = File.join(topdir, "cgi", "locale")
 
+    GetText::LocalePath.memoize_clear
     ENV["GETTEXT_PATH"] = path1
     default_path_rules = GetText::LocalePath.default_path_rules
     assert(Regexp.compile(path1) =~ default_path_rules[0])
@@ -62,5 +63,12 @@ class TestLocalePath < Test::Unit::TestCase
     default_path_rules = GetText::LocalePath.default_path_rules
     assert(Regexp.compile(path1) =~ default_path_rules[0])
     assert(Regexp.compile(path2) =~ default_path_rules[1])
+  end
+
+  def test_default_path_rules
+    GetText::LocalePath.memoize_clear
+    $LOAD_PATH.unshift("./lib")
+    default_path_rules = GetText::LocalePath.default_path_rules
+    assert_equal($LOAD_PATH[0], "./lib")
   end
 end
