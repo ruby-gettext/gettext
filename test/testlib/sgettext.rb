@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'gettext'
 
 class TestSGetText
@@ -7,11 +9,11 @@ class TestSGetText
   def test_1
     s_("AAA|BBB")
   end
-  
+
   def test_2
     sgettext("AAA|BBB")
   end
-  
+
   def test_3
     s_("AAA") #not found
   end

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 =begin
   textdomain.rb - GetText::Textdomain
 
@@ -60,7 +62,7 @@ module GetText
       @locale_path = LocalePath.new(@name, topdir)
       @mofiles = {}
     end
-    
+
     # Translates the translated string.
     # * lang: Locale::Tag::Simple's subclass.
     # * msgid: the original message.
@@ -77,7 +79,7 @@ module GetText
       unless mofile
         mofile = load_mo(lang)
       end
-     
+
       if (! mofile) or (mofile ==:empty)
         return nil
       end
@@ -89,7 +91,7 @@ module GetText
         # Check "aaa\000bbb" and show warning but return the singluar part.
         ret = nil
         msgid_single = msgid.split("\000")[0]
-        mofile.each{|key, val| 
+        mofile.each{|key, val|
           if key =~ /^#{Regexp.quote(msgid_single)}\000/
             # Usually, this is not caused to make po-files from rgettext.
             warn %Q[Warning: n_("#{msgid_single}", "#{msgid.split("\000")[1]}") and n_("#{key.gsub(/\000/, '", "')}") are duplicated.]
@@ -100,7 +102,7 @@ module GetText
         ret
       else
         ret = nil
-        mofile.each{|key, val| 
+        mofile.each{|key, val|
           if key =~ /^#{Regexp.quote(msgid)}\000/
             ret = val.split("\000")[0]
             break

@@ -18,12 +18,12 @@ begin
   require 'iconv.so'
 rescue LoadError
   # Pseudo Iconv class
-  # 
+  #
   # ==== For Matz Ruby:
-  # If you don't have iconv but Ruby/GLib2, this library uses Ruby/GLib2's 
+  # If you don't have iconv but Ruby/GLib2, this library uses Ruby/GLib2's
   # iconv functions.
   #
-  # Ruby/GLib is a module which is provided from Ruby-GNOME2 Project. 
+  # Ruby/GLib is a module which is provided from Ruby-GNOME2 Project.
   # You can get binaries for Win32(One-Click Ruby Installer).
   # <URL: http://ruby-gnome2.sourceforge.jp/>
   # ==== For JRuby:
@@ -47,16 +47,16 @@ rescue LoadError
     else
       begin
         require 'glib2'
-      
+
         def self.check_glib_version?(major, minor, micro) # :nodoc:
           (GLib::BINDING_VERSION[0] > major ||
-           (GLib::BINDING_VERSION[0] == major && 
+           (GLib::BINDING_VERSION[0] == major &&
             GLib::BINDING_VERSION[1] > minor) ||
-           (GLib::BINDING_VERSION[0] == major && 
+           (GLib::BINDING_VERSION[0] == major &&
             GLib::BINDING_VERSION[1] == minor &&
             GLib::BINDING_VERSION[2] >= micro))
         end
-        
+
         if check_glib_version?(0, 11, 0)
           # This is a function equivalent of Iconv.iconv.
           # * to: encoding name for destination

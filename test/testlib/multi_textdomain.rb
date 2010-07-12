@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class C11
   include GetText
   def initialize

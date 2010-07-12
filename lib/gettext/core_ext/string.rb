@@ -1,19 +1,21 @@
+# encoding: utf-8
+
 =begin
   string.rb - Extension for String.
 
   Copyright (C) 2005-2009 Masao Mutoh
- 
+
   You may redistribute it and/or modify it under the same
   license terms as Ruby or LGPL.
 =end
 
 # Extension for String class. This feature is included in Ruby 1.9 or later but not occur TypeError.
 #
-# String#% method which accept "named argument". The translator can know 
+# String#% method which accept "named argument". The translator can know
 # the meaning of the msgids using "named argument" instead of %s/%d style.
 class String
 
-  unless instance_methods.find {|m| m.to_s == 'bytesize'} 
+  unless instance_methods.find {|m| m.to_s == 'bytesize'}
     # For older ruby (such as ruby-1.8.5)
     alias :bytesize :size
   end
@@ -30,9 +32,9 @@ class String
   #  %(arg)
   #  %(hash)
   #
-  # Format - Uses str as a format specification, and returns the result of applying it to arg. 
-  # If the format specification contains more than one substitution, then arg must be 
-  # an Array containing the values to be substituted. See Kernel::sprintf for details of the 
+  # Format - Uses str as a format specification, and returns the result of applying it to arg.
+  # If the format specification contains more than one substitution, then arg must be
+  # an Array containing the values to be substituted. See Kernel::sprintf for details of the
   # format string. This is the default behavior of the String class.
   # * arg: an Array or other class except Hash.
   # * Returns: formatted String

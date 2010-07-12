@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 =begin
     mofile.rb - A simple class for operating GNU MO file.
 
@@ -18,7 +20,7 @@ require 'gettext/core_ext/iconv'
 require 'stringio'
 
 module GetText
-  class MOFile < Hash 
+  class MOFile < Hash
     class InvalidFormat < RuntimeError; end;
 
     attr_reader :filename
@@ -31,7 +33,7 @@ module GetText
                         :hash_table_size,
                         :hash_table_offset)
 
-    # The following are only used in .mo files 
+    # The following are only used in .mo files
     # with minor revision >= 1.
     class HeaderRev1 < Header
       attr_accessor :n_sysdep_segments,
@@ -186,7 +188,7 @@ module GetText
     # From gettext-0.12.1/gettext-runtime/intl/hash-string.h
     # Defines the so called `hashpjw' function by P.J. Weinberger
     # [see Aho/Sethi/Ullman, COMPILERS: Principles, Techniques and Tools,
-    # 1986, 1987 Bell Telephone Laboratories, Inc.] 
+    # 1986, 1987 Bell Telephone Laboratories, Inc.]
     def hash_string(str)
       hval = 0
       i = 0
@@ -208,7 +210,7 @@ module GetText
       header_size = 4 * 7
       table_size  = 4 * 2 * size
 
-      hash_table_size = next_prime((size * 4) / 3) 
+      hash_table_size = next_prime((size * 4) / 3)
       hash_table_size = 3 if hash_table_size <= 2
       header = Header.new(
                           MAGIC_LITTLE_ENDIAN,          # magic
@@ -313,7 +315,7 @@ if $0 == __FILE__
     STDERR.puts("mo.rb [filename.mo ...]")
     exit
   end
-  
+
   ARGV.each{ |item|
     mo = GetText::MOFile.open(item)
     puts "------------------------------------------------------------------"

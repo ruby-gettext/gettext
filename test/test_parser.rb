@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'testlib/helper.rb'
 require 'gettext/tools/parser/ruby'
 require 'gettext/tools/parser/glade'
@@ -70,7 +72,7 @@ class TestGetTextParser < Test::Unit::TestCase
       assert_equal "please provide translations for all \n the plural forms!", t.comment
     end
   end
-  
+
   def test_ruby_p
     @ary = GetText::RGetText.parse(['testlib/pgettext.rb'])
     assert_target_in_context "AAA", "BBB", ["testlib/pgettext.rb:8", "testlib/pgettext.rb:12"]

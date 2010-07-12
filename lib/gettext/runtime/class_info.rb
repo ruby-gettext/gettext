@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'locale/util/memoizable'
 
 module GetText
@@ -47,13 +49,13 @@ module GetText
       end
 
       if all_classes.size > 0
-        (ret & all_classes).uniq 
+        (ret & all_classes).uniq
       else
         ret.uniq
       end
     end
 
-    # Returns the classes which related to klass 
+    # Returns the classes which related to klass
     # (klass's ancestors, included modules and nested modules)
     def related_classes(klass, all_classes = [])
       ret = related_classes_internal(klass, all_classes)

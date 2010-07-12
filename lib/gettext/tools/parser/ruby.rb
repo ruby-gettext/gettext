@@ -5,7 +5,7 @@
   Copyright (C) 2003-2009  Masao Mutoh
   Copyright (C) 2005       speakillof
   Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
- 
+
   You may redistribute it and/or modify it under the same
   license terms as Ruby or LGPL.
 
@@ -23,13 +23,13 @@ module GetText
         s = get_readed
         if RubyToken::TkSTRING === tk
           def tk.value
-            @value 
+            @value
           end
-          
+
           def tk.value=(s)
             @value = s
           end
-          
+
           if @here_header
             s = s.sub(/\A.*?\n/, '').sub(/^.*\n\Z/, '')
           else
@@ -39,10 +39,10 @@ module GetText
               # Do nothing.
             end
           end
-          
+
           tk.value = s
         end
-        
+
         if $DEBUG
           if tk.is_a? TkSTRING
             $stderr.puts("#{tk}: #{tk.value}")
@@ -52,7 +52,7 @@ module GetText
             $stderr.puts(tk)
           end
         end
-        
+
         yield tk
       end
       return nil
@@ -96,7 +96,7 @@ module GetText
 
     def advance_to_next_attribute
       @param_number += 1
-    end    
+    end
   end
   class PoMessage
     include PoMessageForRubyParser
@@ -109,14 +109,14 @@ module GetText
 
   module RubyParser
     extend self
-    
+
     ID = ['gettext', '_', 'N_', 'sgettext', 's_']
     PLURAL_ID = ['ngettext', 'n_', 'Nn_', 'ns_', 'nsgettext']
     MSGCTXT_ID = ['pgettext', 'p_']
     MSGCTXT_PLURAL_ID = ['npgettext', 'np_']
 
     # (Since 2.1.0) the 2nd parameter is deprecated
-    # (and ignored here). 
+    # (and ignored here).
     # And You don't need to keep the pomessages as unique.
 
     def parse(path, deprecated = [])  # :nodoc:
@@ -173,7 +173,7 @@ module GetText
           exit 1
         end
 
-        case tk 
+        case tk
         when RubyToken::TkCOMMENT_WITH_CONTENT
           last_comment = "" if reset_comment
           if last_comment.empty?
@@ -183,7 +183,7 @@ module GetText
               last_comment = $'
             end
           else
-            last_comment += "\n" 
+            last_comment += "\n"
             last_comment += tk.value
           end
           reset_comment = false
@@ -210,7 +210,7 @@ module GetText
         false
       end
     end
-  end 
+  end
 end
 
 if __FILE__ == $0
@@ -218,9 +218,9 @@ if __FILE__ == $0
   ARGV.each do |path|
     pp GetText::RubyParser.parse(path)
   end
-  
-  #rl = GetText::RubyLexX.new; rl.set_input(ARGF)  
+
+  #rl = GetText::RubyLexX.new; rl.set_input(ARGF)
   #rl.parse do |tk|
   #p tk
-  #end  
+  #end
 end

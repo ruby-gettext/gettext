@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module GetText
   class ParseError < StandardError
   end
@@ -25,7 +27,7 @@ module GetText
     end
 
     # Required
-    attr_accessor :type          # :normal, :plural, :msgctxt, :msgctxt_plural 
+    attr_accessor :type          # :normal, :plural, :msgctxt, :msgctxt_plural
     attr_accessor :msgid
     # Options
     attr_accessor :msgid_plural
@@ -33,7 +35,7 @@ module GetText
     attr_accessor :sources    # ["file1:line1", "file2:line2", ...]
     attr_accessor :comment
 
-    # Create the object. +type+ should be :normal, :plural, :msgctxt or :msgctxt_plural. 
+    # Create the object. +type+ should be :normal, :plural, :msgctxt or :msgctxt_plural.
     def initialize(type)
       @type = type
       @sources = []
@@ -125,7 +127,7 @@ module GetText
     end
 
     # Returns true if the type is kind of msgctxt.
-    # And if this is a kind of msgctxt and msgctxt property 
+    # And if this is a kind of msgctxt and msgctxt property
     # is nil, then raise an RuntimeException.
     def msgctxt?
       if [:msgctxt, :msgctxt_plural].include? @type
@@ -135,7 +137,7 @@ module GetText
     end
 
     # Returns true if the type is kind of plural.
-    # And if this is a kind of plural and msgid_plural property 
+    # And if this is a kind of plural and msgid_plural property
     # is nil, then raise an RuntimeException.
     def plural?
       if [:plural, :msgctxt_plural].include? @type
@@ -164,7 +166,7 @@ module GetText
       type = :normal
       msgctxt = nil
       msgid_plural = nil
-      
+
       if msgid.include? "\004"
         msgctxt, msgid = msgid.split(/\004/)
         type = :msgctxt
@@ -193,5 +195,5 @@ module GetText
       send param
     end
   end
-  
+
 end

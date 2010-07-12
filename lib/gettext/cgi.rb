@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 =begin
   gettext/cgi.rb - GetText for CGI
 

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'gettext'
 
 class TestPGetText
@@ -7,7 +9,7 @@ class TestPGetText
   def test_1
     p_("AAA", "BBB")
   end
-  
+
   def test_2
     pgettext("AAA", "BBB")
   end
@@ -15,7 +17,7 @@ class TestPGetText
   def test_3
     pgettext("AAA|BBB", "CCC")
   end
-  
+
   def test_4
     p_("AAA", "CCC") #not found
   end

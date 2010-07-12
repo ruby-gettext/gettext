@@ -1,8 +1,10 @@
+# encoding: utf-8
+
 =begin
   parser/glade.rb - parser for Glade-2
 
   Copyright (C) 2004,2005  Masao Mutoh
- 
+
   You may redistribute it and/or modify it under the same
   license terms as Ruby or LGPL.
 =end
@@ -14,13 +16,13 @@ module GetText
   module GladeParser
     extend GetText
     extend self
-    
+
     bindtextdomain("rgettext")
 
     TARGET1 = /<property.*translatable="yes">(.*)/
     TARGET2 = /(.*)<\/property>/
 
-    def parse(file, targets = []) # :nodoc: 
+    def parse(file, targets = []) # :nodoc:
       lines = IO.readlines(file)
       parse_lines(file, lines, targets)
     end
@@ -31,11 +33,11 @@ module GetText
       target = false
       line_no = 0
       val = nil
-      
-      loop do 
+
+      loop do
         line = lines.shift
         break unless line
-        
+
         cnt += 1
         if TARGET1 =~ line
           line_no = cnt
@@ -61,18 +63,18 @@ module GetText
       targets
     end
 
-    XML_RE = /<\?xml/ 
+    XML_RE = /<\?xml/
     GLADE_RE = /glade-2.0.dtd/
- 
+
     def target?(file) # :nodoc:
       data = IO.readlines(file)
       if XML_RE =~ data[0] and GLADE_RE =~ data[1]
-	true
+  true
       else
-	if File.extname(file) == '.glade'
-	  raise _("`%{file}' is not glade-2.0 format.") % {:file => file}
-	end
-	false
+  if File.extname(file) == '.glade'
+    raise _("`%{file}' is not glade-2.0 format.") % {:file => file}
+  end
+  false
       end
     end
 
@@ -80,7 +82,7 @@ module GetText
       return unless val.size > 0
       assoc_data = targets.assoc(val)
       val = CGI.unescapeHTML(val)
-      if assoc_data 
+      if assoc_data
         targets[targets.index(assoc_data)] = assoc_data << "#{file}:#{line_no}"
       else
         targets << [val.gsub(/\n/, '\n'), "#{file}:#{line_no}"]

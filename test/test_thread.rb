@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'testlib/helper.rb'
 require 'thread'
 
@@ -19,7 +21,7 @@ class TestThread < Test::Unit::TestCase
       }
       (1..10).each do |v|
         @mutex.synchronize{
-          assert_equal Thread.current["language"], _("language") 
+          assert_equal Thread.current["language"], _("language")
         }
         print "."
         $stdout.flush
@@ -34,7 +36,7 @@ class TestThread < Test::Unit::TestCase
     th3 = invoke_thread("en", "language", 0.1)
     th4 = invoke_thread("zh_CN", "language", 0.2) # No translation.
     th1.join
-    th2.join   
+    th2.join
     th3.join
     th4.join
   end

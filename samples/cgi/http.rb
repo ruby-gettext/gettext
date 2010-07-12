@@ -13,16 +13,16 @@ require 'cgi'
 require 'rbconfig'
 
 interpreter = File.join(Config::CONFIG['bindir'], Config::CONFIG['ruby_install_name']) +
- 			       Config::CONFIG['EXEEXT']
+              Config::CONFIG['EXEEXT']
 
 srv = WEBrick::HTTPServer.new({:BindAddress => '127.0.0.1',
                                :Logger => WEBrick::Log::new($stderr, WEBrick::Log::DEBUG),
-			       :CGIInterpreter => interpreter,
-			      # :CGIInterpreter => "ruby -d",
-			       :Port => 10080})
+             :CGIInterpreter => interpreter,
+            # :CGIInterpreter => "ruby -d",
+             :Port => 10080})
 
 ['INT', 'TERM'].each { |signal|
-   trap(signal){ srv.shutdown} 
+   trap(signal){ srv.shutdown}
 }
 
 srv.mount("/", WEBrick::HTTPServlet::FileHandler, File.expand_path('.'))

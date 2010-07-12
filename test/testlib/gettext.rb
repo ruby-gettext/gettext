@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'gettext'
 include GetText
 
@@ -46,7 +48,7 @@ ddd
   end
 
   def test_10
-    _("jjj") + 
+    _("jjj") +
     _("kkk")
   end
 
@@ -59,7 +61,7 @@ ddd
   end
 
   def test_13
-    _("nnn\n" + 
+    _("nnn\n" +
       "ooo")
   end
   def test_14

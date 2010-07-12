@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'testlib/helper.rb'
 require 'testlib/simple'
 
@@ -28,7 +30,7 @@ class TestLocalePath < Test::Unit::TestCase
   def test_initialize_with_topdir
     testdir = File.dirname(File.expand_path(__FILE__))
     path = GetText::LocalePath.new("test1", "#{testdir}/locale")
-    assert_equal path.locale_paths, { "ja" => "#{testdir}/locale/ja/LC_MESSAGES/test1.mo", 
+    assert_equal path.locale_paths, { "ja" => "#{testdir}/locale/ja/LC_MESSAGES/test1.mo",
                                      "fr" => "#{testdir}/locale/fr/LC_MESSAGES/test1.mo"}
     assert_equal path.current_path(Locale::Tag.parse("ja")), "#{testdir}/locale/ja/LC_MESSAGES/test1.mo"
     assert_equal path.current_path(Locale::Tag.parse("ja-JP")), "#{testdir}/locale/ja/LC_MESSAGES/test1.mo"

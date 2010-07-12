@@ -14,7 +14,7 @@ class HelloNoop
 
   def initialize
     # You can call bindtextdomain as instance methods.
-    # In this case, it initializes(decided the locale lazily) 
+    # In this case, it initializes(decided the locale lazily)
     # in a instance.
     bindtextdomain("hello_noop", :path => "locale")
   end

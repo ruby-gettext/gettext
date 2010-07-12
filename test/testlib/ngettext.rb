@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'gettext'
 include GetText
 
@@ -13,13 +15,13 @@ class TestRubyParser_n
   end
 
   def test_3_1
-    n_("ddd\nddd", 
-	"ddd2\nddd2", 
-	1)
+    n_("ddd\nddd",
+  "ddd2\nddd2",
+  1)
   end
   def test_3_2
     n_("eee\neee\n" ,
-       "eee2\neee2\n" , 
+       "eee2\neee2\n" ,
        1)
   end
 
@@ -56,7 +58,7 @@ eee2", 1)
   end
 
   def test_9
-    n_("mmm" + "mmm","mmm2" + "mmm2",1) + 
+    n_("mmm" + "mmm","mmm2" + "mmm2",1) +
     n_("nnn" ,"nnn2" ,1)
   end
 
@@ -66,14 +68,14 @@ eee2", 1)
   end
 
   def test_11
-    n_("qqq", "rrr", 1) 
+    n_("qqq", "rrr", 1)
     n_("qqq", "sss", 1)  # This is merged to "qqq" with plural form "rrr".
   end
 
   def extracted_comments
-    # TRANSLATORS:please provide translations for all 
+    # TRANSLATORS:please provide translations for all
     # the plural forms!
     n_('comment', 'comments', 2)
   end
 end
-    
+

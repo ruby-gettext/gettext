@@ -1,8 +1,10 @@
+# encoding: utf-8
+
 =begin
   parser/erb.rb - parser for ERB
 
   Copyright (C) 2005-2009  Masao Mutoh
- 
+
   You may redistribute it and/or modify it under the same
   license terms as Ruby or LGPL.
 =end
@@ -23,7 +25,7 @@ module GetText
     #   * :extnames: An Array of target files extension. Default is [".rhtml"].
     def init(config)
       config.each{|k, v|
-	@config[k] = v
+  @config[k] = v
       }
     end
 
@@ -37,7 +39,7 @@ module GetText
 
     def target?(file) # :nodoc:
       @config[:extnames].each do |v|
-	return true if File.extname(file) == v
+  return true if File.extname(file) == v
       end
       false
     end

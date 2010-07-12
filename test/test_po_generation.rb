@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'testlib/helper.rb'
 require 'gettext'
 require 'gettext/tools/rgettext.rb'
@@ -6,7 +8,7 @@ require 'stringio'
 class TestPoGeneration < Test::Unit::TestCase
   def test_extracted_comments
     GetText::RGetText.run(
-      File.join(File.dirname(__FILE__), 'testlib/gettext.rb'), 
+      File.join(File.dirname(__FILE__), 'testlib/gettext.rb'),
       out = StringIO.new)
     res = out.string
 

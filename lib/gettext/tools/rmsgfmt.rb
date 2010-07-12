@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 =begin
   rmsgfmt.rb - Generate a .mo
 
@@ -23,13 +25,13 @@ module GetText
 
     def run(targetfile = nil, output_path = nil) # :nodoc:
       unless targetfile
-	targetfile, output_path = check_options
+  targetfile, output_path = check_options
       end
       unless targetfile
-	raise ArgumentError, _("no input files")
+  raise ArgumentError, _("no input files")
       end
       unless output_path
-	output_path = "messages.mo"
+  output_path = "messages.mo"
       end
 
       parser = PoParser.new
@@ -68,8 +70,8 @@ module GetText
       [ARGV[0], output]
     end
   end
-  
-  # Creates a mo-file from a targetfile(po-file), then output the result to out. 
+
+  # Creates a mo-file from a targetfile(po-file), then output the result to out.
   # If no parameter is set, it behaves same as command line tools(rmsgfmt).
   # * targetfile: An Array of po-files or nil.
   # * output_path: output path.

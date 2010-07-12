@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 =begin
   locale_path.rb - GetText::LocalePath
 
@@ -37,19 +39,19 @@ module GetText
       def add_default_rule(path)
         DEFAULT_RULES.unshift(path)
       end
-      
-      # Returns path rules as an Array. 
-      # (e.g.) ["/usr/share/locale/%{lang}/LC_MESSAGES/%{name}.mo", ...] 
-      def default_path_rules 
+
+      # Returns path rules as an Array.
+      # (e.g.) ["/usr/share/locale/%{lang}/LC_MESSAGES/%{name}.mo", ...]
+      def default_path_rules
         default_path_rules = []
 
         if ENV["GETTEXT_PATH"]
-          ENV["GETTEXT_PATH"].split(/,/).each {|i| 
+          ENV["GETTEXT_PATH"].split(/,/).each {|i|
             default_path_rules += ["#{i}/%{lang}/LC_MESSAGES/%{name}.mo", "#{i}/%{lang}/%{name}.mo"]
           }
         end
         default_path_rules += DEFAULT_RULES
-       
+
         load_path = $LOAD_PATH.dup
         if defined? ::Gem
           load_path += Gem.all_load_paths
@@ -57,12 +59,12 @@ module GetText
         load_path.map!{|v| v.match(/(.*?)(\/lib)*?$/); $1}
         load_path.each {|path|
           default_path_rules += [
-                                 "#{path}/data/locale/%{lang}/LC_MESSAGES/%{name}.mo", 
-                                 "#{path}/data/locale/%{lang}/%{name}.mo", 
+                                 "#{path}/data/locale/%{lang}/LC_MESSAGES/%{name}.mo",
+                                 "#{path}/data/locale/%{lang}/%{name}.mo",
                                  "#{path}/locale/%{lang}/%{name}.mo"]
         }
         # paths existed only.
-        default_path_rules = default_path_rules.select{|path| 
+        default_path_rules = default_path_rules.select{|path|
           Dir.glob(path % {:lang => "*", :name => "*"}).size > 0}.uniq
         default_path_rules
       end
@@ -76,7 +78,7 @@ module GetText
     # * topdir: the locale path ("%{topdir}/%{lang}/LC_MESSAGES/%{name}.mo") or nil.
     def initialize(name, topdir = nil)
       @name = name
-      
+
       if topdir
         path_rules = ["#{topdir}/%{lang}/LC_MESSAGES/%{name}.mo", "#{topdir}/%{lang}/%{name}.mo"]
       else
@@ -116,6 +118,6 @@ module GetText
       nil
     end
     memoize :current_path
-    
+
   end
 end

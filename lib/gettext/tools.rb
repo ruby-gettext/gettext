@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 =begin
   tools.rb - Utility functions
 
@@ -24,7 +26,7 @@ module GetText
 
   BOM_UTF8 = [0xef, 0xbb, 0xbf].pack("c3")
 
-  # Currently, GNU msgmerge doesn't accept BOM. 
+  # Currently, GNU msgmerge doesn't accept BOM.
   # This mesthod remove the UTF-8 BOM from the po-file.
   def remove_bom(path)  #:nodoc:
     bom = IO.read(path, 3)
@@ -34,13 +36,13 @@ module GetText
     end
   end
 
-  # Merges two Uniforum style .po files together. 
+  # Merges two Uniforum style .po files together.
   #
-  # *Note* This function requires "msgmerge" tool included in GNU GetText. So you need to install GNU GetText. 
+  # *Note* This function requires "msgmerge" tool included in GNU GetText. So you need to install GNU GetText.
   #
-  # The def.po file is an existing PO file with translations which will be taken 
+  # The def.po file is an existing PO file with translations which will be taken
   # over to the newly created file as long as they still match; comments will be preserved,
-  # but extracted comments and file positions will be discarded. 
+  # but extracted comments and file positions will be discarded.
   #
   # The ref.pot file is the last created PO file with up-to-date source references but
   # old translations, or a PO Template file (generally created by rgettext);
@@ -53,14 +55,14 @@ module GetText
   # * defpo: a po-file. translations referring to old sources
   # * refpo: a po-file. references to new sources
   # * app_version: the application information which appears "Project-Id-Version: #{app_version}" in the pot/po-files.
-  # * Returns: self 
+  # * Returns: self
   def msgmerge(defpo, refpo, app_version, options={})
     verbose = options.delete(:verbose)
     puts "msgmerge called" if verbose
     $stderr.print defpo + " "
 
     content = merge_po_files(defpo,refpo,options.delete(:msgmerge),verbose)
-    
+
     if content.empty?
       # report failure
       failed_filename = refpo + "~"
@@ -73,12 +75,12 @@ module GetText
       content.sub!(/(Project-Id-Version\:).*$/, "\\1 #{app_version}\\n\"")
       File.open(defpo, "w") {|f|f.write(content)}
     end
-    
+
     self
   end
 
-  # Creates mo-files using #{po_root}/#{lang}/*.po an put them to 
-  # #{targetdir}/#{targetdir_rule}/. 
+  # Creates mo-files using #{po_root}/#{lang}/*.po an put them to
+  # #{targetdir}/#{targetdir_rule}/.
   #
   # This is a convenience function of GetText.rmsgfmt for multiple target files.
   # * options: options as a Hash.
@@ -101,9 +103,9 @@ module GetText
 
   # At first, this creates the #{po_root}/#{domainname}.pot file using GetText.rgettext.
   # In the second step, this updates(merges) the #{po_root}/#{domainname}.pot and all of the
-  # #{po_root}/#{lang}/#{domainname}.po files under "po_root" using "msgmerge". 
+  # #{po_root}/#{lang}/#{domainname}.po files under "po_root" using "msgmerge".
   #
-  # *Note* "msgmerge" tool is included in GNU GetText. So you need to install GNU GetText. 
+  # *Note* "msgmerge" tool is included in GNU GetText. So you need to install GNU GetText.
   #
   # See <HOWTO maintain po/mo files(http://www.yotabanana.com/hiki/ruby-gettext-howto-manage.html)> for more detals.
   # * domainname: the textdomain name.
@@ -181,7 +183,7 @@ module GetText
       :mo_root => "./data/locale",
       :mo_path_rule => "%{lang}/LC_MESSAGES"
     }.merge(options)
-    
+
     lang, textdomain = %r[/([^/]+?)/(.*)\.po].match(po_file[options[:po_root].size..-1]).to_a[1,2]
 
     mo_dir_rule = File.join(options[:mo_root], options[:mo_path_rule])

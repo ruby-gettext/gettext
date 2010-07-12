@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 =begin
   gettext.rb - GetText module
 
@@ -14,7 +16,7 @@
 if Object.constants.include? "Gem"
   begin
     begin
-      gem 'locale', '>=2.0.5' 
+      gem 'locale', '>=2.0.5'
     rescue Gem::LoadError
     end
   rescue NoMethodError
@@ -47,14 +49,14 @@ module GetText
 
   # bindtextdomain(domainname, options = {})
   #
-  # Bind a textdomain(%{path}/%{locale}/LC_MESSAGES/%{domainname}.mo) to 
+  # Bind a textdomain(%{path}/%{locale}/LC_MESSAGES/%{domainname}.mo) to
   # your program.
-  # Normally, the texdomain scope becomes the class/module(and parent 
+  # Normally, the texdomain scope becomes the class/module(and parent
   # classes/included modules).
   #
   # * domainname: the textdomain name.
   # * options: options as an Hash.
-  #   * :path - the path to the mo-files. When the value is nil, it will search default paths such as 
+  #   * :path - the path to the mo-files. When the value is nil, it will search default paths such as
   #     /usr/share/locale, /usr/local/share/locale)
   #   * :output_charset - The output charset. Same with GetText.set_output_charset. Usually, L10n
   #     library doesn't use this option. Application may use this once.
@@ -68,7 +70,7 @@ module GetText
   # * klass: the target ruby class.
   # * domainname: the textdomain name.
   # * options: options as an Hash. See GetText.bindtextdomain.
-  def bindtextdomain_to(klass, domainname, *options) 
+  def bindtextdomain_to(klass, domainname, *options)
     if options[0].kind_of? Hash
       opts = options[0]
     else
@@ -83,9 +85,9 @@ module GetText
     TextDomainManager.bind_to(klass, domainname, opts)
   end
 
-  # Binds a existed textdomain to your program. 
+  # Binds a existed textdomain to your program.
   # This is the same function with GetText.bindtextdomain but simpler(and faster) than bindtextdomain.
-  # Note that you need to call GetText.bindtextdomain first. If the domainname hasn't bound yet, 
+  # Note that you need to call GetText.bindtextdomain first. If the domainname hasn't bound yet,
   # raises GetText::NoboundTextDomainError.
   # * domainname: a textdomain name.
   # * Returns: the GetText::TextDomainManager.
@@ -93,7 +95,7 @@ module GetText
     textdomain_to(self, domainname)
   end
 
-  # Includes GetText module and bind an exsited textdomain to a class. 
+  # Includes GetText module and bind an exsited textdomain to a class.
   # See textdomain for more detail.
   # * klass: the target ruby class.
   # * domainname: the textdomain name.
@@ -109,13 +111,13 @@ module GetText
   #   _(msgid)
   #
   # Translates msgid and return the message.
-  # This doesn't make a copy of the message. 
+  # This doesn't make a copy of the message.
   #
-  # You need to use String#dup if you want to modify the return value 
-  # with destructive functions. 
+  # You need to use String#dup if you want to modify the return value
+  # with destructive functions.
   #
   # (e.g.1) _("Hello ").dup << "world"
-  # 
+  #
   # But e.g.1 should be rewrite to:
   #
   # (e.g.2) _("Hello %{val}") % {:val => "world"}
@@ -132,12 +134,12 @@ module GetText
   #   sgettext(msgid, div = '|')
   #   s_(msgid, div = '|')
   #
-  # Translates msgid, but if there are no localized text, 
+  # Translates msgid, but if there are no localized text,
   # it returns a last part of msgid separeted "div".
   #
   # * msgid: the message id.
   # * separator: separator or nil for no seperation.
-  # * Returns: the localized text by msgid. If there are no localized text, 
+  # * Returns: the localized text by msgid. If there are no localized text,
   #   it returns a last part of the msgid separeted by "seperator".
   #   <tt>Movie|Location -> Location</tt>
   # See: http://www.gnu.org/software/gettext/manual/html_mono/gettext.html#SEC151
@@ -155,7 +157,7 @@ module GetText
   #
   # * msgctxt: the message context.
   # * msgid: the message id.
-  # * Returns: the localized text by msgid. If there are no localized text, 
+  # * Returns: the localized text by msgid. If there are no localized text,
   #   it returns msgid.
   # See: http://www.gnu.org/software/autoconf/manual/gettext/Contexts.html
   def pgettext(msgctxt, msgid)
@@ -168,7 +170,7 @@ module GetText
   #   n_(msgid, msgid_plural, n)
   #   n_(msgids, n)  # msgids = [msgid, msgid_plural]
   #
-  # The ngettext is similar to the gettext function as it finds the message catalogs in the same way. 
+  # The ngettext is similar to the gettext function as it finds the message catalogs in the same way.
   # But it takes two extra arguments for plural form.
   #
   # * msgid: the singular form.
@@ -187,7 +189,7 @@ module GetText
   #   ns_(msgids, n, div = "|")  # msgids = [msgid, msgid_plural]
   #
   # The nsgettext is similar to the ngettext.
-  # But if there are no localized text, 
+  # But if there are no localized text,
   # it returns a last part of msgid separeted "div".
   #
   # * msgid: the singular form with "div". (e.g. "Special|An apple")
@@ -227,7 +229,7 @@ module GetText
       opt1 = arg3
       opt2 = nil
     end
-    
+
     msgstr = TextDomainManager.translate_plural_message(self, msgid_ctxt, msgid_plural, opt1, opt2)
     if msgstr == msgid_ctxt
       msgid
@@ -235,7 +237,7 @@ module GetText
       msgstr
     end
   end
-  
+
   # makes dynamic translation messages readable for the gettext parser.
   # <tt>_(fruit)</tt> cannot be understood by the gettext parser. To help the parser find all your translations,
   # you can add <tt>fruit = N_("Apple")</tt> which does not translate, but tells the parser: "Apple" needs translation.
@@ -245,7 +247,7 @@ module GetText
     msgid
   end
 
-  # This is same function as N_ but for ngettext. 
+  # This is same function as N_ but for ngettext.
   # * msgid: the message id.
   # * msgid_plural: the plural message id.
   # * Returns: msgid.
@@ -253,7 +255,7 @@ module GetText
     [msgid, msgid_plural]
   end
 
-  # Sets charset(String) such as "euc-jp", "sjis", "CP932", "utf-8", ... 
+  # Sets charset(String) such as "euc-jp", "sjis", "CP932", "utf-8", ...
   # You shouldn't use this in your own Libraries.
   # * charset: an output_charset
   # * Returns: self
@@ -277,9 +279,9 @@ module GetText
     Locale.current = lang
   end
 
-  # Set the locale to the current thread. 
+  # Set the locale to the current thread.
   # Note that if #set_locale is set, this value is ignored.
-  # If you need, set_locale(nil); set_current_locale(lang) 
+  # If you need, set_locale(nil); set_current_locale(lang)
   def set_current_locale(lang)
     Locale.current = lang
   end

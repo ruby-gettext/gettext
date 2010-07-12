@@ -5,7 +5,7 @@
   Copyright (C) 2003-2005  Masao Mutoh
   Copyright (C) 2005       speakillof
   Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
- 
+
   You may redistribute it and/or modify it under the same
   license terms as Ruby.
 
@@ -22,13 +22,13 @@ class RubyLexX < RubyLex  # :nodoc: all
       s = get_readed
       if RubyToken::TkSTRING === tk
         def tk.value
-          @value 
+          @value
         end
-        
+
         def tk.value=(s)
           @value = s
         end
-        
+
         if @here_header
           s = s.sub(/\A.*?\n/, '').sub(/^.*\n\Z/, '')
         else
@@ -38,10 +38,10 @@ class RubyLexX < RubyLex  # :nodoc: all
             # Do nothing.
           end
         end
-        
+
         tk.value = s
       end
-      
+
       if $DEBUG
         if tk.is_a? TkSTRING
           $stderr.puts("#{tk}: #{tk.value}")
@@ -51,7 +51,7 @@ class RubyLexX < RubyLex  # :nodoc: all
           $stderr.puts(tk)
         end
       end
-      
+
       yield tk
     end
     return nil
@@ -62,7 +62,7 @@ end
 module GetText
   module RubyParser
     extend self
-    
+
     unless defined? ID
       ID = ['gettext', '_', 'N_', 'sgettext', 's_']
       PLURAL_ID = ['ngettext', 'n_', 'Nn_', 'ns_', 'nsgettext']
@@ -154,7 +154,7 @@ module GetText
     def target?(file)  # :nodoc:
       true # always true, as default parser.
     end
-  end 
+  end
 end
 
 
@@ -164,9 +164,9 @@ if __FILE__ == $0
   ARGV.each do |file|
     pp GetText::RubyParser.parse(file)
   end
-  
-  #rl = RubyLexX.new; rl.set_input(ARGF)  
+
+  #rl = RubyLexX.new; rl.set_input(ARGF)
   #rl.parse do |tk|
     #p tk
-  #end  
+  #end
 end

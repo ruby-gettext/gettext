@@ -4,10 +4,10 @@
 
   Copyright (C) 2003-2010  Masao Mutoh
   Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
- 
+
       Yasushi Shoji   <yashi at atmark-techno.com>
       Masao Mutoh     <mutomasa at gmail.com>
- 
+
   You may redistribute it and/or modify it under the same
   license terms as Ruby or LGPL.
 =end
@@ -25,7 +25,7 @@ module GetText
 
     # constant values
     VERSION = GetText::VERSION
- 
+
     @ex_parsers = []
     [
       ["glade.rb", "GladeParser"],
@@ -46,7 +46,7 @@ module GetText
 
     # Add an option parser
     # the option parser module requires to have target?(file) and parser(file, ary) method.
-    # 
+    #
     #  require 'gettext/tools/rgettext'
     #  module FooParser
     #    module_function
@@ -84,7 +84,7 @@ module GetText
     #      return ary
     #    end
     #  end
-    #  
+    #
     #  GetText::RGetText.add_parser(FooParser)
     def add_parser(klass)
       @ex_parsers.insert(0, klass)
@@ -230,8 +230,8 @@ TITLE
     end
   end
   extend self
-  # Creates a po-file from targetfiles(ruby-script-files, .rhtml files, glade-2 XML files), 
-  # then output the result to out. If no parameter is set, it behaves same as command line tools(rgettet). 
+  # Creates a po-file from targetfiles(ruby-script-files, .rhtml files, glade-2 XML files),
+  # then output the result to out. If no parameter is set, it behaves same as command line tools(rgettet).
   #
   # This function is a part of GetText.create_pofiles.
   # Usually you don't need to call this function directly.

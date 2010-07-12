@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 filename, to = ARGV
 p filename
 p to

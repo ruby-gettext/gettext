@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 =begin
   utils.rb - Utility functions
 

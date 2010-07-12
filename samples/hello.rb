@@ -21,7 +21,7 @@ if __FILE__ == $0
   a = HelloWorld.new
 
   a.hello # Show in your locale
-  
+
   old = GetText.locale
   p old.to_s # Show current locale
 

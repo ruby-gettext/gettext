@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 =begin
   gettext/textdomain_group - GetText::TextDomainGroup class
 
@@ -12,7 +14,7 @@ module GetText
 
   class TextDomainGroup
     attr_reader :textdomains
-    
+
     def initialize
       @textdomains = []
     end

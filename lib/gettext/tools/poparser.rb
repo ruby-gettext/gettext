@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 =begin
   poparser.rb - Generate a .mo
 
@@ -28,7 +30,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 108)
     ret.gsub!(/\\"/, "\"")
     ret
   end
-  
+
   def parse(str, data, ignore_fuzzy = true)
     @comments = []
     @data = data
@@ -41,39 +43,39 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 108)
     until str.empty? do
       case str
       when /\A\s+/
-	str = $'
+  str = $'
       when /\Amsgctxt/
-	@q.push [:MSGCTXT, $&]
-	str = $'
+  @q.push [:MSGCTXT, $&]
+  str = $'
       when /\Amsgid_plural/
-	@q.push [:MSGID_PLURAL, $&]
-	str = $'
+  @q.push [:MSGID_PLURAL, $&]
+  str = $'
       when /\Amsgid/
-	@q.push [:MSGID, $&]
-	str = $'
+  @q.push [:MSGID, $&]
+  str = $'
       when /\Amsgstr/
-	@q.push [:MSGSTR, $&]
-	str = $'
+  @q.push [:MSGSTR, $&]
+  str = $'
       when /\A\[(\d+)\]/
-	@q.push [:PLURAL_NUM, $1]
-	str = $'
+  @q.push [:PLURAL_NUM, $1]
+  str = $'
       when /\A\#~(.*)/
-	$stderr.print _("Warning: obsolete msgid exists.\n")
-	$stderr.print "         #{$&}\n"
-	@q.push [:COMMENT, $&]
-	str = $'
+  $stderr.print _("Warning: obsolete msgid exists.\n")
+  $stderr.print "         #{$&}\n"
+  @q.push [:COMMENT, $&]
+  str = $'
       when /\A\#(.*)/
-	@q.push [:COMMENT, $&]
-	str = $'      
+  @q.push [:COMMENT, $&]
+  str = $'
       when /\A\"(.*)\"/
-	@q.push [:STRING, $1]
-	str = $'
+  @q.push [:STRING, $1]
+  str = $'
       else
-	#c = str[0,1]
-	#@q.push [:STRING, c]
-	str = str[1..-1]
+  #c = str[0,1]
+  #@q.push [:STRING, c]
+  str = str[1..-1]
       end
-    end 
+    end
     @q.push [false, '$end']
     if $DEBUG
       @q.each do |a,b|
@@ -88,7 +90,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 108)
     end
     @data
   end
-  
+
   def next_token
     @q.shift
   end
@@ -101,11 +103,11 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 108)
     @comments.clear
     @msgctxt = ""
   end
-      
+
   def on_comment(comment)
     @fuzzy = true if (/fuzzy/ =~ comment)
     @comments << comment
-  end 
+  end
 
   def parse_file(po_file, data, ignore_fuzzy = true)
     args = [ po_file ]
@@ -253,7 +255,7 @@ Racc_debug_parser = true
 module_eval(<<'.,.,', 'poparser.ry', 23)
   def _reduce_5(val, _values, result)
         @msgctxt = unescape(val[1]) + "\004"
-  
+
     result
   end
 .,.,
@@ -264,7 +266,7 @@ module_eval(<<'.,.,', 'poparser.ry', 23)
 
 module_eval(<<'.,.,', 'poparser.ry', 35)
   def _reduce_8(val, _values, result)
-        if @fuzzy and $ignore_fuzzy 
+        if @fuzzy and $ignore_fuzzy
       if val[1] != ""
         $stderr.print _("Warning: fuzzy message was ignored.\n")
         $stderr.print "  #{@po_file}: msgid '#{val[1]}'\n"
@@ -276,7 +278,7 @@ module_eval(<<'.,.,', 'poparser.ry', 35)
       on_message(@msgctxt + unescape(val[1]), unescape(val[3]))
     end
     result = ""
-  
+
     result
   end
 .,.,
@@ -295,7 +297,7 @@ module_eval(<<'.,.,', 'poparser.ry', 52)
       on_message(@msgctxt + unescape(val[1]) + "\000" + unescape(val[3]), unescape(val[4]))
     end
     result = ""
-  
+
     result
   end
 .,.,
@@ -307,7 +309,7 @@ module_eval(<<'.,.,', 'poparser.ry', 70)
     else
       result = ""
     end
-  
+
     result
   end
 .,.,
@@ -317,7 +319,7 @@ module_eval(<<'.,.,', 'poparser.ry', 70)
 module_eval(<<'.,.,', 'poparser.ry', 82)
   def _reduce_12(val, _values, result)
         result = val[2]
-  
+
     result
   end
 .,.,
@@ -325,7 +327,7 @@ module_eval(<<'.,.,', 'poparser.ry', 82)
 module_eval(<<'.,.,', 'poparser.ry', 89)
   def _reduce_13(val, _values, result)
         on_comment(val[0])
-  
+
     result
   end
 .,.,
@@ -333,7 +335,7 @@ module_eval(<<'.,.,', 'poparser.ry', 89)
 module_eval(<<'.,.,', 'poparser.ry', 97)
   def _reduce_14(val, _values, result)
         result = val.delete_if{|item| item == ""}.join
-  
+
     result
   end
 .,.,
@@ -341,7 +343,7 @@ module_eval(<<'.,.,', 'poparser.ry', 97)
 module_eval(<<'.,.,', 'poparser.ry', 101)
   def _reduce_15(val, _values, result)
         result = val[0]
-  
+
     result
   end
 .,.,

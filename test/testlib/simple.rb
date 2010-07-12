@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'gettext'
 
 class Simple
