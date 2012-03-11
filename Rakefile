@@ -16,7 +16,7 @@ $:.unshift "./lib"
 
 require 'rake'
 require 'rubygems'
-require 'rubygems/package_task'
+require "bundler/gem_tasks"
 require 'rdoc/task'
 require 'rake/testtask'
 require 'gettext/version'
@@ -151,42 +151,6 @@ task :deploypo do
     mv_pofiles(srcdir, "samples/po", lang)
 end
 
-############################################################
-# Package tasks
-############################################################
-desc "Create gem and tar.gz"
-spec = Gem::Specification.new do |s|
-  s.name = 'gettext'
-  s.version = PKG_VERSION
-  s.summary = 'Ruby-GetText-Package is a libary and tools to localize messages.'
-  s.author = 'Masao Mutoh'
-  s.email = 'mutomasa at gmail.com'
-  s.homepage = 'http://gettext.rubyforge.org/'
-  s.rubyforge_project = "gettext"
-  s.files = FileList['**/*'].to_a.select{|v| v !~ /pkg|CVS/}
-  s.require_path = 'lib'
-  s.executables = Dir.entries('bin').delete_if {|item| /^\.|CVS|~$/ =~ item }
-  s.bindir = 'bin'
-  s.add_dependency('locale', '>= 2.0.5')
-  s.has_rdoc = true
-  s.description = <<-EOF
-        Ruby-GetText-Package is a GNU GetText-like program for Ruby.
-        The catalog file(po-file) is same format with GNU GetText.
-        So you can use GNU GetText tools for maintaining.
-  EOF
-end
-
-Rake::PackageTask.new("ruby-gettext-package", PKG_VERSION) do |o|
-  o.package_files = FileList['**/*'].to_a.select{|v| v !~ /pkg|CVS/}
-  o.need_tar_gz = true
-  o.need_zip = false
-end
-
-Gem::PackageTask.new(spec) do |p|
-  p.gem_spec = spec
-  p.need_tar_gz = false
-  p.need_zip = false
-end
 
 task :package => [:makemo]
 
