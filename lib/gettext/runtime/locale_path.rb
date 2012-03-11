@@ -19,12 +19,12 @@ module GetText
     include Locale::Util::Memoizable
 
     # The default locale paths.
-    CONFIG_PREFIX = Config::CONFIG['prefix'].gsub(/\/local/, "")
+    CONFIG_PREFIX = RbConfig::CONFIG['prefix'].gsub(/\/local/, "")
     DEFAULT_RULES = [
                      "./locale/%{lang}/LC_MESSAGES/%{name}.mo",
                      "./locale/%{lang}/%{name}.mo",
-                     "#{Config::CONFIG['datadir']}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
-                     "#{Config::CONFIG['datadir'].gsub(/\/local/, "")}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
+                     "#{RbConfig::CONFIG['datadir']}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
+                     "#{RbConfig::CONFIG['datadir'].gsub(/\/local/, "")}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
                      "#{CONFIG_PREFIX}/share/locale/%{lang}/LC_MESSAGES/%{name}.mo",
                      "#{CONFIG_PREFIX}/local/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
                     ].uniq
