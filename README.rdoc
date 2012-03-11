@@ -15,9 +15,8 @@ Rails support has been removed.
 Rails / ActiveRecord specific code now lives in locale_rails[http://github.com/mutoh/locale_rails/tree/master], gettext_rails[http://github.com/mutoh/gettext_rails/tree/master] and gettext_activerecord[http://github.com/mutoh/gettext_activerecord/tree/master].
 
 == Website
-* homepage[http://www.yotabanana.com/hiki/ruby-gettext.html]
-* on rubyforge[http://gettext/rubyforge.org/]
-* on github[http://github.com/gettext/]
+* homepage[http://ruby-gettext.github.com/]
+* on github[http://github.com/ruby-gettext/gettext]
 
 == Features
 * Translate singular/plural messages with simple APIs(similar to GNU gettext)
