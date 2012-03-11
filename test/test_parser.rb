@@ -121,8 +121,8 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_plural_target "ccc1", "ccc2", ['testlib/erb.rxml:14']
 
     @ary = GetText::RGetText.parse(['testlib/ngettext.rb'])
-    assert_plural_target "ooo", "ppp", ['testlib/ngettext.rb:64', 'testlib/ngettext.rb:65']
-    assert_plural_target "qqq", "rrr", ['testlib/ngettext.rb:69', 'testlib/ngettext.rb:70']
+    assert_plural_target "ooo", "ppp", ['testlib/ngettext.rb:66', 'testlib/ngettext.rb:67']
+    assert_plural_target "qqq", "rrr", ['testlib/ngettext.rb:71', 'testlib/ngettext.rb:72']
   end
 
   private
