@@ -16,8 +16,8 @@ class TestLocalePath < Test::Unit::TestCase
     default_locale_dirs = [
       "./locale/%{lang}/LC_MESSAGES/%{name}.mo",
       "./locale/%{lang}/%{name}.mo",
-      "#{Config::CONFIG['datadir']}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
-      "#{Config::CONFIG['datadir'].gsub(/\/local/, "")}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
+      "#{RbConfig::CONFIG['datadir']}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
+      "#{RbConfig::CONFIG['datadir'].gsub(/\/local/, "")}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
       "#{prefix}/share/locale/%{lang}/LC_MESSAGES/%{name}.mo",
       "#{prefix}/local/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
     ].uniq
