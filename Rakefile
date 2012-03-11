@@ -200,7 +200,7 @@ task :test do
      if RUBY_PLATFORM =~ /win32/
        sh "rake.bat", "test"
      else
-       sh "rake", "test"
+       ruby "-S", "rake", "test"
      end
    end
 end
