@@ -58,18 +58,18 @@ class TestGetTextParser < Test::Unit::TestCase
   def test_ruby_n
     @ary = GetText::RGetText.parse(['testlib/ngettext.rb'])
     assert_plural_target "aaa", "aaa2", ['testlib/ngettext.rb:10']
-    assert_plural_target "bbb\\n", "ccc2\\nccc2", ['testlib/ngettext.rb:12']
-    assert_plural_target "ddd\\nddd", "ddd2\\nddd2", ['testlib/ngettext.rb:16']
-    assert_plural_target "eee\\neee\\n", "eee2\\neee2\\n", ['testlib/ngettext.rb:21']
-    assert_plural_target "ddd\\neee\\n", "ddd\\neee2", ['testlib/ngettext.rb:27']
-    assert_plural_target "fff", "fff2", ['testlib/ngettext.rb:34', 'testlib/ngettext.rb:38']
-    assert_plural_target "ggg", "ggg2", ['testlib/ngettext.rb:38']
-    assert_plural_target "ggghhhiii", "jjjkkklll", ['testlib/ngettext.rb:42']
-    assert_plural_target "a\"b\"c\"", "a\"b\"c\"2", ['testlib/ngettext.rb:51']
-    assert_plural_target "mmmmmm", "mmm2mmm2", ['testlib/ngettext.rb:59']
-    assert_plural_target "nnn", "nnn2", ['testlib/ngettext.rb:60']
-    assert_plural_target "comment", "comments", ['testlib/ngettext.rb:76'] do |t|
-      assert_equal "please provide translations for all \n the plural forms!", t.comment
+    assert_plural_target "bbb\\n", "ccc2\\nccc2", ['testlib/ngettext.rb:14']
+    assert_plural_target "ddd\\nddd", "ddd2\\nddd2", ['testlib/ngettext.rb:18']
+    assert_plural_target "eee\\neee\\n", "eee2\\neee2\\n", ['testlib/ngettext.rb:23']
+    assert_plural_target "ddd\\neee\\n", "ddd\\neee2", ['testlib/ngettext.rb:29']
+    assert_plural_target "fff", "fff2", ['testlib/ngettext.rb:36', 'testlib/ngettext.rb:40']
+    assert_plural_target "ggg", "ggg2", ['testlib/ngettext.rb:40']
+    assert_plural_target "ggghhhiii", "jjjkkklll", ['testlib/ngettext.rb:44']
+    assert_plural_target "a\"b\"c\"", "a\"b\"c\"2", ['testlib/ngettext.rb:53']
+    assert_plural_target "mmmmmm", "mmm2mmm2", ['testlib/ngettext.rb:61']
+    assert_plural_target "nnn", "nnn2", ['testlib/ngettext.rb:62']
+    assert_plural_target "comment", "comments", ['testlib/ngettext.rb:78'] do |t|
+      assert_equal "please provide translations for all\n the plural forms!", t.comment
     end
   end
 
