@@ -20,7 +20,7 @@ So you can use GNU GetText tools for maintaining.
   s.require_paths = ["lib"]
   Dir.chdir(base_dir) do
     s.files = Dir.glob("{bin,data,doc/text,lib,po,samples,src,test}/**/*")
-    s.files += ["COPYING", "README.rdoc", "Rakefile"]
+    s.files += ["COPYING", "README.rdoc", "Rakefile", "gettext.gemspec"]
     s.executables = Dir.chdir("bin") do
       Dir.glob("*")
     end
