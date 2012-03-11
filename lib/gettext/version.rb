@@ -3,10 +3,11 @@
   version - version information of Ruby-GetText-Package
 
   Copyright (C) 2005-2009 Masao Mutoh
+  Copyright (C) 2012 Kouhei Sutou <kou@clear-code.com>
 
   You may redistribute it and/or modify it under the same
   license terms as Ruby or LGPL.
 =end
 module GetText
-  VERSION = "2.1.0"
+  VERSION = "2.2.0"
 end
