@@ -1,4 +1,3 @@
-#! /usr/bin/ruby
 =begin
   version - version information of Ruby-GetText-Package
 
