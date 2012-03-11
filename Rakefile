@@ -1,3 +1,4 @@
+# -*- ruby -*-
 #
 # Rakefile for Ruby-GetText-Package
 #
@@ -7,6 +8,7 @@
 # You don't need to use this file directly.
 #
 # Copyright(c) 2005-2009 Masao Mutoh
+# Copyright(c) 2012 Kouhei Sutou <kou@clear-code.com>
 # This program is licenced under the same licence as Ruby.
 #
 
