@@ -17,7 +17,7 @@ $:.unshift "./lib"
 require 'rake'
 require 'rubygems'
 require 'rubygems/package_task'
-require 'rake/rdoctask'
+require 'rdoc/task'
 require 'rake/testtask'
 require 'gettext/version'
 
@@ -204,7 +204,7 @@ task :test do
    end
 end
 
-Rake::RDocTask.new { |rdoc|
+RDoc::Task.new { |rdoc|
   begin
     allison = `allison --path`.chop
   rescue
