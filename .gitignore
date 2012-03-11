@@ -1,8 +1,7 @@
-Manifest
-pkg
-data
-test/locale
-samples/cgi/locale/
-samples/locale/
-
-
+/pkg/
+/data/
+/test/locale/
+/samples/cgi/locale/
+/samples/locale/
+/doc/reference/
+/.yardoc/

@@ -1,0 +1,7 @@
+--protected
+--no-private
+--output doc/reference
+--title "gettext API Reference"
+-
+doc/text/*
+COPYING

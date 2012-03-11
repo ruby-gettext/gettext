@@ -17,7 +17,7 @@ $:.unshift "./lib"
 require 'rake'
 require 'rubygems'
 require "bundler/gem_tasks"
-require 'rdoc/task'
+require "yard/rake/yardoc_task"
 require 'rake/testtask'
 require 'gettext/version'
 
@@ -168,19 +168,8 @@ task :test do
    end
 end
 
-RDoc::Task.new { |rdoc|
-  begin
-    allison = `allison --path`.chop
-  rescue
-    allison = ''
-  end
-  rdoc.rdoc_dir = 'doc'
-  rdoc.title    = "Ruby-GetText-Package API Reference"
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README.rdoc', 'ChangeLog')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-  rdoc.template = allison if allison.size > 0
-}
+YARD::Rake::YardocTask.new do |t|
+end
 
 desc "Setup Ruby-GetText-Package. (for setup.rb)"
 task :setup => [:makemo]
