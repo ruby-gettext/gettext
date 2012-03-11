@@ -3,6 +3,7 @@
 =begin
     mofile.rb - A simple class for operating GNU MO file.
 
+    Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
     Copyright (C) 2003-2009  Masao Mutoh
     Copyright (C) 2002  Masahiro Sakai, Masao Mutoh
     Copyright (C) 2001  Masahiro Sakai
@@ -44,6 +45,10 @@ module GetText
 
     MAGIC_BIG_ENDIAN    = "\x95\x04\x12\xde"
     MAGIC_LITTLE_ENDIAN = "\xde\x12\x04\x95"
+    if "".respond_to?(:force_encoding)
+      MAGIC_BIG_ENDIAN.force_encoding("ASCII-8BIT")
+      MAGIC_LITTLE_ENDIAN.force_encoding("ASCII-8BIT")
+    end
 
     def self.open(arg = nil, output_charset = nil)
       result = self.new(output_charset)
