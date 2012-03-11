@@ -16,7 +16,6 @@
 
 =end
 
-require 'gettext/core_ext/iconv'
 require 'stringio'
 
 module GetText
@@ -147,17 +146,8 @@ module GetText
             @plural = "0" unless @plural
           end
         else
-          if @output_charset
-            begin
-              str = Iconv.conv(@output_charset, @charset, str) if @charset
-            rescue Iconv::Failure
-              if $DEBUG
-                warn "@charset = ", @charset
-                warn"@output_charset = ", @output_charset
-                warn "msgid = ", original_strings[i]
-                warn "msgstr = ", str
-              end
-            end
+          if @charset and @output_charset
+            str = convert_encoding(str, original_strings[i])
           end
         end
         self[original_strings[i]] = str.freeze
@@ -306,6 +296,36 @@ module GetText
     attr_reader :charset, :nplurals, :plural
   end
 
+  private
+  if "".respond_to?(:encode)
+    def convert_encoding(string, original_string)
+      begin
+        string.encode(@output_charset, @charset)
+      rescue EncodingError
+        if $DEBUG
+          warn "@charset = ", @charset
+          warn "@output_charset = ", @output_charset
+          warn "msgid = ", original_string
+          warn "msgstr = ", string
+        end
+        string
+      end
+    end
+  else
+    require 'gettext/core_ext/iconv'
+    def convert_encoding(string, original_string)
+      begin
+        Iconv.conv(@output_charset, @charset, string)
+      rescue Iconv::Failure
+        if $DEBUG
+          warn "@charset = ", @charset
+          warn "@output_charset = ", @output_charset
+          warn "msgid = ", original_string
+          warn "msgstr = ", str
+        end
+      end
+    end
+  end
 end
 
 # Test
