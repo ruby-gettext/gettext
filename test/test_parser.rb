@@ -41,18 +41,18 @@ class TestGetTextParser < Test::Unit::TestCase
     @ary = GetText::RGetText.parse(['testlib/N_.rb'])
 
     assert_target 'aaa', ['testlib/N_.rb:10']
-    assert_target 'aaa\n', ['testlib/N_.rb:12']
-    assert_target 'bbb\nccc', ['testlib/N_.rb:16']
-    assert_target 'bbb\nccc\nddd\n', ['testlib/N_.rb:20']
-    assert_target 'eee', ['testlib/N_.rb:27', 'testlib/N_.rb:31']
-    assert_target 'fff', ['testlib/N_.rb:31']
-    assert_target 'ggghhhiii', ['testlib/N_.rb:35']
-    assert_target 'a"b"c"', ['testlib/N_.rb:41']
-    assert_target 'd"e"f"', ['testlib/N_.rb:45']
-    assert_target 'jjj', ['testlib/N_.rb:49']
-    assert_target 'kkk', ['testlib/N_.rb:50']
-    assert_target 'lllmmm', ['testlib/N_.rb:54']
-    assert_target 'nnn\nooo', ['testlib/N_.rb:62']
+    assert_target 'aaa\n', ['testlib/N_.rb:14']
+    assert_target 'bbb\nccc', ['testlib/N_.rb:18']
+    assert_target 'bbb\nccc\nddd\n', ['testlib/N_.rb:22']
+    assert_target 'eee', ['testlib/N_.rb:29', 'testlib/N_.rb:33']
+    assert_target 'fff', ['testlib/N_.rb:33']
+    assert_target 'ggghhhiii', ['testlib/N_.rb:37']
+    assert_target 'a"b"c"', ['testlib/N_.rb:43']
+    assert_target 'd"e"f"', ['testlib/N_.rb:47']
+    assert_target 'jjj', ['testlib/N_.rb:51']
+    assert_target 'kkk', ['testlib/N_.rb:52']
+    assert_target 'lllmmm', ['testlib/N_.rb:56']
+    assert_target 'nnn\nooo', ['testlib/N_.rb:64']
   end
 
   def test_ruby_n
