@@ -53,9 +53,6 @@ module GetText
         default_path_rules += DEFAULT_RULES
 
         load_path = $LOAD_PATH.dup
-        if defined? ::Gem
-          load_path += Gem.all_load_paths
-        end
         load_path.map!{|v| v.match(/(.*?)(\/lib)*?$/); $1}
         load_path.each {|path|
           default_path_rules += [
