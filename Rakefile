@@ -14,10 +14,9 @@
 
 $:.unshift "./lib"
 
-require 'rubygems'
 require 'rake'
-require 'rake/packagetask'
-require 'rake/gempackagetask'
+require 'rubygems'
+require 'rubygems/package_task'
 require 'rake/rdoctask'
 require 'rake/testtask'
 require 'gettext/version'
@@ -183,7 +182,7 @@ Rake::PackageTask.new("ruby-gettext-package", PKG_VERSION) do |o|
   o.need_zip = false
 end
 
-Rake::GemPackageTask.new(spec) do |p|
+Gem::PackageTask.new(spec) do |p|
   p.gem_spec = spec
   p.need_tar_gz = false
   p.need_zip = false
