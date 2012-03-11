@@ -16,10 +16,18 @@ $:.unshift "./lib"
 
 require 'rake'
 require 'rubygems'
-require "bundler/gem_tasks"
 require "yard/rake/yardoc_task"
 require 'rake/testtask'
 require 'gettext/version'
+
+require "bundler/gem_helper"
+class Bundler::GemHelper
+  undef_method :version_tag
+  def version_tag
+    version
+  end
+end
+Bundler::GemHelper.install_tasks
 
 PKG_VERSION = GetText::VERSION
 
