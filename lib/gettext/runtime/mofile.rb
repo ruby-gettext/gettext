@@ -294,34 +294,34 @@ module GetText
 
     attr_accessor :little_endian, :path, :last_modified
     attr_reader :charset, :nplurals, :plural
-  end
 
-  private
-  if "".respond_to?(:encode)
-    def convert_encoding(string, original_string)
-      begin
-        string.encode(@output_charset, @charset)
-      rescue EncodingError
-        if $DEBUG
-          warn "@charset = ", @charset
-          warn "@output_charset = ", @output_charset
-          warn "msgid = ", original_string
-          warn "msgstr = ", string
+    private
+    if "".respond_to?(:encode)
+      def convert_encoding(string, original_string)
+        begin
+          string.encode(@output_charset, @charset)
+        rescue EncodingError
+          if $DEBUG
+            warn "@charset = ", @charset
+            warn "@output_charset = ", @output_charset
+            warn "msgid = ", original_string
+            warn "msgstr = ", string
+          end
+          string
         end
-        string
       end
-    end
-  else
-    require 'gettext/core_ext/iconv'
-    def convert_encoding(string, original_string)
-      begin
-        Iconv.conv(@output_charset, @charset, string)
-      rescue Iconv::Failure
-        if $DEBUG
-          warn "@charset = ", @charset
-          warn "@output_charset = ", @output_charset
-          warn "msgid = ", original_string
-          warn "msgstr = ", str
+    else
+      require 'gettext/core_ext/iconv'
+      def convert_encoding(string, original_string)
+        begin
+          Iconv.conv(@output_charset, @charset, string)
+        rescue Iconv::Failure
+          if $DEBUG
+            warn "@charset = ", @charset
+            warn "@output_charset = ", @output_charset
+            warn "msgid = ", original_string
+            warn "msgstr = ", str
+          end
         end
       end
     end
