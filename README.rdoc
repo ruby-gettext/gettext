@@ -242,4 +242,9 @@ LGPL(Lesser General Public License: http://www.gnu.org/licenses/lgpl-3.0.txt).
 * Vietnamese(vi)            - 2.0.1
 
 == Maintainer
-Masao Mutoh <mutomasa at gmail.com>
+
+* Kouhei Sutou <tt><kou@clear-code.com></tt>
+
+=== Old maintainer
+
+* Masao Mutoh <mutomasa at gmail.com>
