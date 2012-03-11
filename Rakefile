@@ -182,18 +182,5 @@ RDoc::Task.new { |rdoc|
   rdoc.template = allison if allison.size > 0
 }
 
-desc "Publish the release files to RubyForge."
-task :release => [ :package ] do
-  require 'rubyforge'
-
-  rubyforge = RubyForge.new
-  rubyforge.configure
-  rubyforge.login
-  rubyforge.add_release("gettext", "gettext",
-                        "Ruby-GetText-Package #{PKG_VERSION}",
-                        "pkg/gettext-#{PKG_VERSION}.gem",
-                        "pkg/ruby-gettext-package-#{PKG_VERSION}.tar.gz")
-end
-
 desc "Setup Ruby-GetText-Package. (for setup.rb)"
 task :setup => [:makemo]
