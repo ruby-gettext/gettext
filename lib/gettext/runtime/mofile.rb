@@ -155,7 +155,7 @@ module GetText
             str = convert_encoding(str, original_strings[i])
           end
         end
-        self[original_strings[i]] = str.freeze
+        self[convert_encoding(original_strings[i], original_strings[i])] = str.freeze
       end
       self
     end
