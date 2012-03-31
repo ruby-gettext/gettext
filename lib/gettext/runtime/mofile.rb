@@ -303,6 +303,8 @@ module GetText
     private
     if "".respond_to?(:encode)
       def convert_encoding(string, original_string)
+        return string if @output_charset.nil? or @charset.nil?
+
         begin
           string.encode(@output_charset, @charset)
         rescue EncodingError
