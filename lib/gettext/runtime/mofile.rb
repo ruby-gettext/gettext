@@ -122,10 +122,10 @@ module GetText
       io.pos = header.translated_table_offset
       trans_table_data = io.read((4 * 2) * header.nstrings).unpack(endian_type_astr)
 
-      original_strings = Array.new(header.nstrings)
+      msgids = Array.new(header.nstrings)
       for i in 0...header.nstrings
         io.pos = orig_table_data[i * 2 + 1]
-        original_strings[i] = io.read(orig_table_data[i * 2 + 0])
+        msgids[i] = io.read(orig_table_data[i * 2 + 0])
       end
 
       clear
@@ -133,7 +133,7 @@ module GetText
         io.pos = trans_table_data[i * 2 + 1]
         str = io.read(trans_table_data[i * 2 + 0])
 
-        if (! original_strings[i]) || original_strings[i] == ""
+        if (! msgids[i]) || msgids[i] == ""
           if str
             @charset = nil
             @nplurals = nil
@@ -152,10 +152,10 @@ module GetText
           end
         else
           if @charset and @output_charset
-            str = convert_encoding(str, original_strings[i])
+            str = convert_encoding(str, msgids[i])
           end
         end
-        self[convert_encoding(original_strings[i], original_strings[i])] = str.freeze
+        self[convert_encoding(msgids[i], msgids[i])] = str.freeze
       end
       self
     end
