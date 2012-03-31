@@ -134,7 +134,7 @@ module GetText
         str = io.read(trans_table_data[i * 2 + 0])
 
         msgid = msgids[i]
-        if (! msgid) || msgid == ""
+        if msgid.nil? || msgid.empty?
           if str
             @charset = nil
             @nplurals = nil
