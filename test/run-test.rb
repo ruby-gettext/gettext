@@ -27,8 +27,11 @@ test_dir = File.join(base_dir, "test")
 
 $LOAD_PATH.unshift(lib_dir)
 
-require 'test-unit'
+require "test-unit"
 
 Dir.chdir(test_dir) do
-  exit Test::Unit::AutoRunner.run(true, ".")
+  Dir.glob("**/test_*.rb").each do |test_file_path|
+    require test_file_path
+  end
+  exit Test::Unit::AutoRunner.run
 end
