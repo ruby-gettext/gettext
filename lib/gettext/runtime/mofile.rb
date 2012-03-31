@@ -133,7 +133,8 @@ module GetText
         io.pos = trans_table_data[i * 2 + 1]
         str = io.read(trans_table_data[i * 2 + 0])
 
-        if (! msgids[i]) || msgids[i] == ""
+        msgid = msgids[i]
+        if (! msgid) || msgid == ""
           if str
             @charset = nil
             @nplurals = nil
@@ -155,7 +156,7 @@ module GetText
             str = convert_encoding(str, msgids[i])
           end
         end
-        self[convert_encoding(msgids[i], msgids[i])] = str.freeze
+        self[convert_encoding(msgid, msgid)] = str.freeze
       end
       self
     end
