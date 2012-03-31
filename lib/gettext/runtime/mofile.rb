@@ -153,7 +153,7 @@ module GetText
           end
         else
           if @charset and @output_charset
-            str = convert_encoding(str, msgids[i])
+            str = convert_encoding(str, msgid)
           end
         end
         self[convert_encoding(msgid, msgid)] = str.freeze
