@@ -190,7 +190,8 @@ end
 
 desc 'Run all tests'
 task :test => "test:prepare" do
-  ruby "test/run-test.rb"
+  options = ARGV - Rake.application.top_level_tasks
+  ruby "test/run-test.rb", *options
 end
 
 YARD::Rake::YardocTask.new do |t|
