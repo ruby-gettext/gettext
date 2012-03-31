@@ -288,10 +288,8 @@ DDD
     Locale.set_app_language_tags(nil)
   end
 
-
-  # Anonymous
-  @@anon = Module.new
-  class @@anon::I
+  @anonymous_module = Module.new
+  class @anonymous_module::I
     bindtextdomain("test1", :path => "locale")
     def self.test
       _("language")
@@ -302,9 +300,9 @@ DDD
   end
 
   def test_anonymous_module
-    assert_equal("japanese", @@anon::I.test)
-    assert_equal("japanese", @@anon::I.new.test2)
-
+    anonymous_module = self.class.instance_variable_get(:@anonymous_module)
+    assert_equal("japanese", anonymous_module::I.test)
+    assert_equal("japanese", anonymous_module::I.new.test2)
   end
 
   def test_frozen
