@@ -29,4 +29,6 @@ So you can use GNU GetText tools for maintaining.
 
   s.add_runtime_dependency("locale")
   s.add_development_dependency("yard")
+  s.add_development_dependency("test-unit")
+  s.add_development_dependency("test-unit-notify")
 end
