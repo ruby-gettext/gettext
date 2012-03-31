@@ -4,13 +4,13 @@ require 'testlib/helper.rb'
 require 'testlib/multi_textdomain.rb'
 
 class TestGetTextMulti < Test::Unit::TestCase
+  include MultiTextDomain
 
   def setup
     GetText.locale = "ja"
   end
 
   def test_two_domains_in_a_class
-
     test = C11.new
     assert_equal("japanese", test.test)  # Use test1.po
     assert_equal("JAPANESE", test.test2) # Use test2.po

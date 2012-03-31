@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+module MultiTextDomain
 class C11
   include GetText
   def initialize
@@ -130,4 +131,5 @@ end
 
 class C52 < C12
   bindtextdomain("test3", :path => "locale")
+end
 end
