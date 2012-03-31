@@ -131,15 +131,15 @@ module GetText
       clear
       for i in 0...header.nstrings
         io.pos = trans_table_data[i * 2 + 1]
-        str = io.read(trans_table_data[i * 2 + 0])
+        msgstr = io.read(trans_table_data[i * 2 + 0])
 
         msgid = msgids[i]
         if msgid.nil? || msgid.empty?
-          if str
+          if msgstr
             @charset = nil
             @nplurals = nil
             @plural = nil
-            str.each_line{|line|
+            msgstr.each_line{|line|
               if /^Content-Type:/i =~ line and /charset=((?:\w|-)+)/i =~ line
                 @charset = $1
               elsif /^Plural-Forms:\s*nplurals\s*\=\s*(\d*);\s*plural\s*\=\s*([^;]*)\n?/ =~ line
@@ -152,9 +152,9 @@ module GetText
             @plural = "0" unless @plural
           end
         else
-          str = convert_encoding(str, msgid)
+          msgstr = convert_encoding(msgstr, msgid)
         end
-        self[convert_encoding(msgid, msgid)] = str.freeze
+        self[convert_encoding(msgid, msgid)] = msgstr.freeze
       end
       self
     end
