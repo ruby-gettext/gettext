@@ -162,18 +162,35 @@ end
 
 task :package => [:makemo]
 
-############################################################
-# Misc tasks
-############################################################
+namespace :test do
+  namespace :mo do
+    mo_paths = []
+    language_paths = Dir.glob("test/po/*")
+    language_paths.each do |language_path|
+      language = File.basename(language_path)
+      po_paths = Dir.glob("#{language_path}/*.po")
+      po_paths.each do |po_path|
+        mo_base_path = File.basename(po_path).sub(/\.po\z/, ".mo")
+        mo_path = "test/locale/#{language}/LC_MESSAGES/#{mo_base_path}"
+        mo_paths << mo_path
+        file mo_path => po_path do
+          require "gettext/tools"
+          GetText.rmsgfmt(po_path, mo_path)
+        end
+      end
+    end
+
+    desc "Update mo files for testing"
+    task :update => mo_paths
+  end
+
+  desc "Prepare test environment"
+  task :prepare => "test:mo:update"
+end
+
 desc 'Run all tests'
-task :test do
-   Dir.chdir("test") do
-     if RUBY_PLATFORM =~ /win32/
-       sh "rake.bat", "test"
-     else
-       ruby "-S", "rake", "test"
-     end
-   end
+task :test => "test:prepare" do
+  ruby "test/run-test.rb"
 end
 
 YARD::Rake::YardocTask.new do |t|
