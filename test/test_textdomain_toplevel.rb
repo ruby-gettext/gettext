@@ -38,7 +38,6 @@ class TestGetText < Test::Unit::TestCase
     assert_equal("japanese", TopLevelClass.class_method)
     assert_equal("japanese", TopLevelClass.new.instance_method)
 
-    GetText::TextDomainManager.clear_all_textdomains
     GetText.bindtextdomain("test1", :path => "locale")
     assert_equal("japanese", toplevel_method)
     assert_equal("japanese", TopLevelModule.module_function)
