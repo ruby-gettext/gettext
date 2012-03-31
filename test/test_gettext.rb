@@ -17,6 +17,10 @@ class TestGetText < Test::Unit::TestCase
     GetText::TextDomainManager.clear_caches
   end
 
+  def teardown
+    GetText.locale = nil
+  end
+
   def test_change_locale
     GetText.locale = nil
     bindtextdomain("test2", "locale")

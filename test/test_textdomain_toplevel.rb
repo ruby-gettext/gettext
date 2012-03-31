@@ -27,6 +27,10 @@ end
 class TestGetText < Test::Unit::TestCase
   include GetText
 
+  def teardown
+    GetText.locale = nil
+  end
+
   def test_toplevel
     GetText.locale = "ja"
     assert_equal("japanese", toplevel_method)

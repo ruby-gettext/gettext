@@ -9,6 +9,10 @@ class TestLocalePath < Test::Unit::TestCase
     GetText::LocalePath.clear
   end
 
+  def teardown
+    GetText.locale = nil
+  end
+
   def test_locale_path
     test = Simple.new
     assert_equal("japanese", test.test)

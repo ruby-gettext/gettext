@@ -10,6 +10,10 @@ class TestGetTextMulti < Test::Unit::TestCase
     GetText.locale = "ja"
   end
 
+  def teardown
+    GetText.locale = nil
+  end
+
   def test_two_domains_in_a_class
     test = C11.new
     assert_equal("japanese", test.test)  # Use test1.po
