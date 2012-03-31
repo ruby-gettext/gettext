@@ -152,9 +152,7 @@ module GetText
             @plural = "0" unless @plural
           end
         else
-          if @charset and @output_charset
-            str = convert_encoding(str, msgid)
-          end
+          str = convert_encoding(str, msgid)
         end
         self[convert_encoding(msgid, msgid)] = str.freeze
       end
