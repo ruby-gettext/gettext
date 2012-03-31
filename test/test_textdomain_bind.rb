@@ -8,7 +8,12 @@ end
 class TestGetTextBind < Test::Unit::TestCase
   def setup
     GetText.locale = "ja_JP.EUC-JP"
+    @dumped_all_textdomains = GetText::TextDomainManager.dump_all_textdomains
     GetText::TextDomainManager.clear_all_textdomains
+  end
+
+  def teardown
+    GetText::TextDomainManager.restore_all_textdomains(@dumped_all_textdomains)
   end
 
   def test_bindtextdomain

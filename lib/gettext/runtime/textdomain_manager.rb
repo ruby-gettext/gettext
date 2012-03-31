@@ -184,6 +184,22 @@ module GetText
     end
 
     # for testing.
+    def dump_all_textdomains
+      [
+        @@textdomain_pool.dup,
+        @@textdomain_group_pool.dup,
+        @@gettext_classes.dup,
+      ]
+    end
+
+    # for testing.
+    def restore_all_textdomains(dumped_all_textdomains)
+      @@textdomain_pool, @@textdomain_group_pool, @@gettext_classes =
+        dumped_all_textdomains
+      clear_caches
+    end
+
+    # for testing.
     def clear_all_textdomains
       @@textdomain_pool = {}
       @@textdomain_group_pool = {}
