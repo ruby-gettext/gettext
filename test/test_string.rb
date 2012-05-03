@@ -59,11 +59,11 @@ class TestGetTextString < Test::Unit::TestCase
     end
 
     class TestMix < self
-    def test_mix
-      assert_equal("foo 1.000000", "%{name} %<num>f" % {:name => "foo", :num => 1.0})
-      assert_equal("%{name} 1.000000", "%{name} %f" % [1.0])
-      assert_equal("%{name} 1.000000", "%{name} %f" % [1.0, 2.0])
+      def test_mix
+        assert_equal("foo 1.000000", "%{name} %<num>f" % {:name => "foo", :num => 1.0})
+        assert_equal("%{name} 1.000000", "%{name} %f" % [1.0])
+        assert_equal("%{name} 1.000000", "%{name} %f" % [1.0, 2.0])
+      end
     end
-  end
   end
 end
