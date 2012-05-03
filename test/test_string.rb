@@ -4,7 +4,7 @@ require 'testlib/helper.rb'
 
 class TestGetTextString < Test::Unit::TestCase
   class TestFormat < self
-    def test_sprintf
+    def test_basic
       assert_equal("foo is a number", "%{msg} is a number" % {:msg => "foo"})
       assert_equal("bar is a number", "%s is a number" % ["bar"])
       assert_equal("bar is a number", "%s is a number" % "bar")
@@ -15,7 +15,7 @@ class TestGetTextString < Test::Unit::TestCase
       assert_raise(ArgumentError) { "%-%" % [1] }
     end
 
-    def test_sprintf_placeholder_include_non_english
+    def test_placeholder_include_non_english
       assert_equal("a", "%{foo+foo}" % {"foo+foo".to_sym => "a"})
       assert_equal("a", "%{foo.foo}" % {"foo.foo".to_sym => "a"})
       assert_equal("a }", "%{foo+foo} }" % {"foo+foo".to_sym => "a"})
@@ -27,11 +27,11 @@ class TestGetTextString < Test::Unit::TestCase
       assert_equal("%{num} %<num>d", "%%{num} %%<num>d" % {:num => 1})
     end
 
-    def test_sprintf_percent_in_replacement
+    def test_percent_in_replacement
       assert_equal("%<not_translated>s", "%{msg}" % { :msg => '%<not_translated>s', :not_translated => 'should not happen' })
     end
 
-    def test_sprintf_lack_argument
+    def test_lack_argument
       assert_equal("%{num}, test", "%{num}, %{record}" % {:record => "test"})
       assert_equal("%{record}", "%{record}" % {:num => 1})
     end
@@ -41,7 +41,7 @@ class TestGetTextString < Test::Unit::TestCase
       assert_equal("bbb", "bbb" % [1])
     end
 
-    def test_sprintf_ruby19_style
+    def test_ruby19_style
       assert_equal("1", "%<num>d" % {:num => 1})
       assert_equal("0b1", "%<num>#b" % {:num => 1})
       assert_equal("foo", "%<msg>s" % {:msg => "foo"})
@@ -54,11 +54,11 @@ class TestGetTextString < Test::Unit::TestCase
       assert_raise(ArgumentError) { "%<num>/d" % {:num => 100} }
     end
 
-    def test_sprintf_old_style
+    def test_old_style
       assert_equal("foo 1.000000", "%s %f" % ["foo", 1.0])
     end
 
-    def test_sprintf_mix
+    def test_mix
       assert_equal("foo 1.000000", "%{name} %<num>f" % {:name => "foo", :num => 1.0})
       assert_equal("%{name} 1.000000", "%{name} %f" % [1.0])
       assert_equal("%{name} 1.000000", "%{name} %f" % [1.0, 2.0])
