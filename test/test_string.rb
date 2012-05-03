@@ -31,11 +31,6 @@ class TestGetTextString < Test::Unit::TestCase
       assert_equal("%<not_translated>s", "%{msg}" % { :msg => '%<not_translated>s', :not_translated => 'should not happen' })
     end
 
-    def test_lack_argument
-      assert_equal("%{num}, test", "%{num}, %{record}" % {:record => "test"})
-      assert_equal("%{record}", "%{record}" % {:num => 1})
-    end
-
     def test_no_placeholder
       assert_equal("aaa", "aaa" % {:num => 1})
       assert_equal("bbb", "bbb" % [1])
@@ -62,11 +57,6 @@ class TestGetTextString < Test::Unit::TestCase
       def test_brace_and_angle_bracket
         assert_equal("foo 1.000000",
                      "%{name} %<num>f" % {:name => "foo", :num => 1.0})
-      end
-
-      def test_brace_and_unnamed
-        assert_equal("%{name} 1.000000", "%{name} %f" % [1.0])
-        assert_equal("%{name} 1.000000", "%{name} %f" % [1.0, 2.0])
       end
     end
   end
