@@ -3,6 +3,7 @@
 require 'testlib/helper.rb'
 
 class TestGetTextString < Test::Unit::TestCase
+  class TestFormat < self
   def test_sprintf
     assert_equal("foo is a number", "%{msg} is a number" % {:msg => "foo"})
     assert_equal("bar is a number", "%s is a number" % ["bar"])
@@ -62,6 +63,5 @@ class TestGetTextString < Test::Unit::TestCase
     assert_equal("%{name} 1.000000", "%{name} %f" % [1.0])
     assert_equal("%{name} 1.000000", "%{name} %f" % [1.0, 2.0])
   end
-
-
+  end
 end
