@@ -20,6 +20,9 @@ class String
     alias :bytesize :size
   end
 
+  begin
+    "%<key>" % {:key => "value"}
+  rescue ArgumentError
   alias :_old_format_m :% # :nodoc:
 
   PERCENT_MATCH_RE = Regexp.union(
@@ -81,6 +84,7 @@ class String
         end
       end
     end
+  end
   end
 end
 
