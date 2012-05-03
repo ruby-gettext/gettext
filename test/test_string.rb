@@ -60,7 +60,8 @@ class TestGetTextString < Test::Unit::TestCase
 
     class TestMix < self
       def test_brace_and_angle_bracket
-        assert_equal("foo 1.000000", "%{name} %<num>f" % {:name => "foo", :num => 1.0})
+        assert_equal("foo 1.000000",
+                     "%{name} %<num>f" % {:name => "foo", :num => 1.0})
       end
 
       def test_brace_and_unnamed
