@@ -7,6 +7,7 @@
   You may redistribute it and/or modify it under the same
   license terms as Ruby or LGPL.
 =end
+
 module GetText
   VERSION = "2.2.0"
 end
