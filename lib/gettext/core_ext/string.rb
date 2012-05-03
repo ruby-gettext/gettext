@@ -23,68 +23,68 @@ class String
   begin
     "%<key>" % {:key => "value"}
   rescue ArgumentError
-  alias :_old_format_m :% # :nodoc:
+    alias :_old_format_m :% # :nodoc:
 
-  PERCENT_MATCH_RE = Regexp.union(
-      /%%/,
-      /%\{(.+?)\}/,
-      /%<(.+?)>(.*?\d*\.?\d*[bBdiouxXeEfgGcps])/
-  )
+    PERCENT_MATCH_RE = Regexp.union(
+        /%%/,
+        /%\{(.+?)\}/,
+        /%<(.+?)>(.*?\d*\.?\d*[bBdiouxXeEfgGcps])/
+    )
 
-  # call-seq:
-  #  %(arg)
-  #  %(hash)
-  #
-  # Format - Uses str as a format specification, and returns the result of applying it to arg.
-  # If the format specification contains more than one substitution, then arg must be
-  # an Array containing the values to be substituted. See Kernel::sprintf for details of the
-  # format string. This is the default behavior of the String class.
-  # * arg: an Array or other class except Hash.
-  # * Returns: formatted String
-  #
-  #  (e.g.) "%s, %s" % ["Masao", "Mutoh"]
-  #
-  # Also you can use a Hash as the "named argument". This is recommanded way for Ruby-GetText
-  # because the translators can understand the meanings of the msgids easily.
-  # * hash: {:key1 => value1, :key2 => value2, ... }
-  # * Returns: formatted String
-  #
-  #  (e.g.)
-  #         For strings.
-  #         "%{firstname}, %{familyname}" % {:firstname => "Masao", :familyname => "Mutoh"}
-  #
-  #         With field type to specify format such as d(decimal), f(float),...
-  #         "%<age>d, %<weight>.1f" % {:age => 10, :weight => 43.4}
-  def %(args)
-    if args.kind_of?(Hash)
-      ret = dup
-      ret.gsub!(PERCENT_MATCH_RE) {|match|
-        if match == '%%'
-          '%'
-        elsif $1
-          key = $1.to_sym
-          args.has_key?(key) ? args[key] : match
-        elsif $2
-          key = $2.to_sym
-          args.has_key?(key) ? sprintf("%#{$3}", args[key]) : match
-        end
-      }
-      ret
-    else
-      ret = gsub(/%([{<])/, '%%\1')
-      begin
-        ret._old_format_m(args)
-      rescue ArgumentError => e
-        if $DEBUG
-          $stderr.puts "  The string:#{ret}"
-          $stderr.puts "  args:#{args.inspect}"
-          puts e.backtrace
-        else
-          raise ArgumentError, e.message
+    # call-seq:
+    #  %(arg)
+    #  %(hash)
+    #
+    # Format - Uses str as a format specification, and returns the result of applying it to arg.
+    # If the format specification contains more than one substitution, then arg must be
+    # an Array containing the values to be substituted. See Kernel::sprintf for details of the
+    # format string. This is the default behavior of the String class.
+    # * arg: an Array or other class except Hash.
+    # * Returns: formatted String
+    #
+    #  (e.g.) "%s, %s" % ["Masao", "Mutoh"]
+    #
+    # Also you can use a Hash as the "named argument". This is recommanded way for Ruby-GetText
+    # because the translators can understand the meanings of the msgids easily.
+    # * hash: {:key1 => value1, :key2 => value2, ... }
+    # * Returns: formatted String
+    #
+    #  (e.g.)
+    #         For strings.
+    #         "%{firstname}, %{familyname}" % {:firstname => "Masao", :familyname => "Mutoh"}
+    #
+    #         With field type to specify format such as d(decimal), f(float),...
+    #         "%<age>d, %<weight>.1f" % {:age => 10, :weight => 43.4}
+    def %(args)
+      if args.kind_of?(Hash)
+        ret = dup
+        ret.gsub!(PERCENT_MATCH_RE) {|match|
+          if match == '%%'
+            '%'
+          elsif $1
+            key = $1.to_sym
+            args.has_key?(key) ? args[key] : match
+          elsif $2
+            key = $2.to_sym
+            args.has_key?(key) ? sprintf("%#{$3}", args[key]) : match
+          end
+        }
+        ret
+      else
+        ret = gsub(/%([{<])/, '%%\1')
+        begin
+          ret._old_format_m(args)
+        rescue ArgumentError => e
+          if $DEBUG
+            $stderr.puts "  The string:#{ret}"
+            $stderr.puts "  args:#{args.inspect}"
+            puts e.backtrace
+          else
+            raise ArgumentError, e.message
+          end
         end
       end
     end
-  end
   end
 end
 
