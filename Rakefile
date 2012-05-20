@@ -49,6 +49,8 @@ file poparser_rb_path => poparser_ry_path do
 
   File.open(poparser_rb_path, "w") do |poparser_rb|
     poparser_rb.puts(<<-EOH)
+# -*- coding: utf-8 -*-
+
 =begin
   poparser.rb - Generate a .mo
 
