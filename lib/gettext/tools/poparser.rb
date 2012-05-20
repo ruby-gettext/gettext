@@ -26,6 +26,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 114)
     def _(message_id)
       message_id
     end
+    private :_
   end
 
   attr_writer :ignore_fuzzy, :report_warning
@@ -49,6 +50,12 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 114)
     ret.gsub!(/\\"/, "\"")
     ret
   end
+  private :unescape
+
+  def unescape_string(string)
+    string.gsub(/\\\\/, "\\")
+  end
+  private :unescape_string
 
   def parse(str, data)
     @comments = []
@@ -88,7 +95,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 114)
 	@q.push [:COMMENT, $&]
 	str = $'
       when /\A\"(.*)\"/
-	@q.push [:STRING, $1]
+	@q.push [:STRING, unescape_string($1)]
 	str = $'
       else
 	#c = str[0,1]

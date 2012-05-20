@@ -118,6 +118,7 @@ end
     def _(message_id)
       message_id
     end
+    private :_
   end
 
   attr_writer :ignore_fuzzy, :report_warning
@@ -141,6 +142,12 @@ end
     ret.gsub!(/\\"/, "\"")
     ret
   end
+  private :unescape
+
+  def unescape_string(string)
+    string.gsub(/\\\\/, "\\")
+  end
+  private :unescape_string
 
   def parse(str, data)
     @comments = []
@@ -180,7 +187,7 @@ end
 	@q.push [:COMMENT, $&]
 	str = $'
       when /\A\"(.*)\"/
-	@q.push [:STRING, $1]
+	@q.push [:STRING, unescape_string($1)]
 	str = $'
       else
 	#c = str[0,1]

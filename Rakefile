@@ -169,7 +169,7 @@ namespace :test do
     pot_paths = []
     ruby_base_paths = [
       "non_ascii", "npgettext", "nsgettext",
-      "pgettext", "plural", "plural_error",
+      "pgettext", "backslash",
     ]
     ruby_paths = Dir.glob("test/testlib/{#{ruby_base_paths.join(',')}}.rb")
     ruby_paths.each do |ruby_path|
@@ -196,7 +196,7 @@ namespace :test do
         mo_base_path = File.basename(po_path).sub(/\.po\z/, ".mo")
         mo_path = "test/locale/#{language}/LC_MESSAGES/#{mo_base_path}"
         mo_paths << mo_path
-        file mo_path => po_path do
+        file mo_path => [po_path, poparser_rb_path] do
           require "gettext/tools"
           GetText.rmsgfmt(po_path, mo_path)
         end
