@@ -1,3 +1,15 @@
+= Ruby-GetText-Package-2.2.1 (2012-05-20)
+ * Supported non ASCII string in msgid. [GitHub#1]
+   [Patch by Urban Hafner]
+ * Stopped overriding String#% on Ruby 1.9.
+ * Fixed a bug that "\" is too escaped.
+ * Removed GetText.bindtext dependency from GetText::PoParser.
+ * Ranamed GetText::MOFile to GetText::MoFile but GetText::MOFile
+   is still available.
+
+Thanks to:
+ * Urban Hafner
+
 = Ruby-GetText-Package-2.2.0 (2012-03-11)
  * Supported ruby-1.9. [Patch by hallelujah]
  * Supported $SAFE=1. [Patch by bon]
