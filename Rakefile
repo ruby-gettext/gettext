@@ -50,16 +50,14 @@ file poparser_rb_path => poparser_ry_path do
   File.open(poparser_rb_path, "w") do |poparser_rb|
     poparser_rb.puts(<<-EOH)
 # -*- coding: utf-8 -*-
-
-=begin
-  poparser.rb - Generate a .mo
-
-  Copyright (C) 2003-2009 Masao Mutoh <mutomasa at gmail.com>
-  Copyright (C) 2012 Kouhei Sutou <kou@clear-code.com>
-
-  You may redistribute it and/or modify it under the same
-  license terms as Ruby or LGPL.
-=end
+#
+# poparser.rb - Generate a .mo
+#
+# Copyright (C) 2003-2009 Masao Mutoh <mutomasa at gmail.com>
+# Copyright (C) 2012 Kouhei Sutou <kou@clear-code.com>
+#
+# You may redistribute it and/or modify it under the same
+# license terms as Ruby or LGPL.
 
 EOH
 
