@@ -170,7 +170,7 @@ module GetText
 
       if path
         charset = @output_charset || lang.charset || Locale.charset || "UTF-8"
-        @mofiles[lang_key] = MOFile.open(path, charset)
+        @mofiles[lang_key] = MoFile.open(path, charset)
       else
         @mofiles[lang_key] = :empty
       end

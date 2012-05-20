@@ -3,13 +3,13 @@
 require 'testlib/helper.rb'
 require 'gettext/runtime/mofile'
 
-class TestMOFile < Test::Unit::TestCase
+class TestMoFile < Test::Unit::TestCase
   def test_non_ascii
     mo = load_mo("non_ascii.mo")
     assert_equal("Hello in Japanese", mo["こんにちは"])
   end
 
   def load_mo(file)
-    GetText::MOFile.open("locale/ja/LC_MESSAGES/#{file}", "UTF-8")
+    GetText::MoFile.open("locale/ja/LC_MESSAGES/#{file}", "UTF-8")
   end
 end

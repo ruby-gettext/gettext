@@ -35,7 +35,7 @@ module GetText
       end
 
       parser = PoParser.new
-      data = MOFile.new
+      data = MoFile.new
 
       parser.parse_file(targetfile, data)
       data.save_to_file(output_path)
@@ -75,7 +75,7 @@ module GetText
   # If no parameter is set, it behaves same as command line tools(rmsgfmt).
   # * targetfile: An Array of po-files or nil.
   # * output_path: output path.
-  # * Returns: the MOFile object.
+  # * Returns: the MoFile object.
   def rmsgfmt(targetfile = nil, output_path = nil)
     RMsgfmt.run(targetfile, output_path)
   end

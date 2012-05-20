@@ -20,7 +20,7 @@
 require 'stringio'
 
 module GetText
-  class MOFile < Hash
+  class MoFile < Hash
     class InvalidFormat < RuntimeError; end;
 
     attr_reader :filename
@@ -332,6 +332,9 @@ module GetText
       end
     end
   end
+
+  # Just for backward compatibility.
+  MOFile = MoFile
 end
 
 # Test
@@ -343,7 +346,7 @@ if $0 == __FILE__
   end
 
   ARGV.each{ |item|
-    mo = GetText::MOFile.open(item)
+    mo = GetText::MoFile.open(item)
     puts "------------------------------------------------------------------"
     puts "charset  = \"#{mo.charset}\""
     puts "nplurals = \"#{mo.nplurals}\""
