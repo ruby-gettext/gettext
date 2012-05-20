@@ -34,18 +34,22 @@ PKG_VERSION = GetText::VERSION
 ############################################################
 # GetText tasks for developing
 ############################################################
-desc "Create lib/gettext/tools/poparser.rb"
-task :poparser do
-  poparser_path = "lib/gettext/tools/poparser.rb"
-  racc = File.join(Config::CONFIG['bindir'], "racc")
+poparser_rb = "lib/gettext/tools/poparser.rb"
+desc "Create #{poparser_rb}"
+task :poparser => poparser_rb
+
+poparser_ry = "src/poparser.ry"
+file poparser_rb => poparser_ry do
+  racc = File.join(Gem.bindir, "racc")
   if ! FileTest.exist?(racc)
     puts "racc was not found: #{racc}"
     exit 1
   else FileTest.exist?(racc)
-    ruby "#{racc} -g src/poparser.ry -o src/poparser.tmp.rb"
-    $stderr.puts  %Q[ruby #{racc} -g src/poparser.ry -o src/poparser.tmp.rb]
+    command_line = "#{racc} -g #{poparser_ry} -o src/poparser.tmp.rb"
+    ruby(command_line)
+    $stderr.puts("ruby #{command_line}")
 
-    file = open(poparser_path, "w")
+    file = open(poparser_rb, "w")
 
     file.print "=begin\n"
     file.print <<-EOS
@@ -63,7 +67,7 @@ EOS
     file.close
     tmpfile.close
     File.delete("src/poparser.tmp.rb")
-    $stderr.puts "Create #{poparser_path}."
+    $stderr.puts "Create #{poparser_rb}."
   end
 end
 
