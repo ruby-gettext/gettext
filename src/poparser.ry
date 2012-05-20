@@ -3,11 +3,11 @@
 #
 #  Copyright (C) 2002-2008 Masao Mutoh <mutomasa at gmail.com>
 #  Copyright (C) 2012 Kouhei Sutou <kou@clear-code.com>
-# 
+#
 #  You may redistribute it and/or modify it under the same
 #  license terms as Ruby or LGPL.
 
-class GetText::PoParser 
+class GetText::PoParser
   token COMMENT MSGID MSGCTXT MSGID_PLURAL MSGSTR STRING PLURAL_NUM
 
   rule
@@ -77,7 +77,7 @@ class GetText::PoParser
   }
   | msgstr_plural_line
   ;
-  
+
   msgstr_plural_line
   : MSGSTR PLURAL_NUM string_list
   {
@@ -86,7 +86,7 @@ class GetText::PoParser
   ;
 
   comment
-  : COMMENT 
+  : COMMENT
   {
     on_comment(val[0])
   }
@@ -131,7 +131,7 @@ end
     ret.gsub!(/\\"/, "\"")
     ret
   end
-  
+
   def parse(str, data)
     @comments = []
     @data = data
@@ -166,7 +166,7 @@ end
 	str = $'
       when /\A\#(.*)/
 	@q.push [:COMMENT, $&]
-	str = $'      
+	str = $'
       when /\A\"(.*)\"/
 	@q.push [:STRING, $1]
 	str = $'
@@ -175,7 +175,7 @@ end
 	#@q.push [:STRING, c]
 	str = str[1..-1]
       end
-    end 
+    end
     @q.push [false, '$end']
     if $DEBUG
       @q.each do |a,b|
@@ -190,7 +190,7 @@ end
     end
     @data
   end
-  
+
   def next_token
     @q.shift
   end
@@ -203,11 +203,11 @@ end
     @comments.clear
     @msgctxt = ""
   end
-      
+
   def on_comment(comment)
     @fuzzy = true if (/fuzzy/ =~ comment)
     @comments << comment
-  end 
+  end
 
   def parse_file(po_file, data)
     args = [ po_file ]
