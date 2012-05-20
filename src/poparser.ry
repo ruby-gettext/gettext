@@ -34,7 +34,7 @@ class GetText::PoParser
   single_message
   : MSGID string_list MSGSTR string_list
   {
-    if @fuzzy and $ignore_fuzzy 
+    if @fuzzy and ignore_fuzzy?
       if val[1] != ""
         $stderr.print _("Warning: fuzzy message was ignored.\n")
         $stderr.print "  #{@po_file}: msgid '#{val[1]}'\n"
@@ -115,6 +115,15 @@ end
     end
   end
 
+  attr_writer :ignore_fuzzy
+  def initialize
+    @ignore_fuzzy = true
+  end
+
+  def ignore_fuzzy?
+    @ignore_fuzzy
+  end
+
   def unescape(orig)
     ret = orig.gsub(/\\n/, "\n")
     ret.gsub!(/\\t/, "\t")
@@ -123,12 +132,11 @@ end
     ret
   end
   
-  def parse(str, data, ignore_fuzzy = true)
+  def parse(str, data)
     @comments = []
     @data = data
     @fuzzy = false
     @msgctxt = ""
-    $ignore_fuzzy = ignore_fuzzy
 
     str.strip!
     @q = []
@@ -201,7 +209,7 @@ end
     @comments << comment
   end 
 
-  def parse_file(po_file, data, ignore_fuzzy = true)
+  def parse_file(po_file, data)
     args = [ po_file ]
     # In Ruby 1.9, we must detect proper encoding of a PO file.
     if String.instance_methods.include?(:encode)
@@ -209,7 +217,7 @@ end
       args << "r:#{encoding}"
     end
     @po_file = po_file
-    parse(File.open(*args) {|io| io.read }, data, ignore_fuzzy)
+    parse(File.open(*args) {|io| io.read }, data)
   end
 
   def detect_file_encoding(po_file)

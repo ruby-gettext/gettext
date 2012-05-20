@@ -1,12 +1,12 @@
-=begin
-  poparser.rb - Generate a .mo
-
-  Copyright (C) 2003-2009 Masao Mutoh <mutomasa at gmail.com>
-  Copyright (C) 2012 Kouhei Sutou <kou@clear-code.com>
-
-  You may redistribute it and/or modify it under the same
-  license terms as Ruby or LGPL.
-=end
+# -*- coding: utf-8 -*-
+#
+# poparser.rb - Generate a .mo
+#
+# Copyright (C) 2003-2009 Masao Mutoh <mutomasa at gmail.com>
+# Copyright (C) 2012 Kouhei Sutou <kou@clear-code.com>
+#
+# You may redistribute it and/or modify it under the same
+# license terms as Ruby or LGPL.
 
 #
 # DO NOT MODIFY!!!!
@@ -28,6 +28,15 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 109)
     end
   end
 
+  attr_writer :ignore_fuzzy
+  def initialize
+    @ignore_fuzzy = true
+  end
+
+  def ignore_fuzzy?
+    @ignore_fuzzy
+  end
+
   def unescape(orig)
     ret = orig.gsub(/\\n/, "\n")
     ret.gsub!(/\\t/, "\t")
@@ -36,12 +45,11 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 109)
     ret
   end
   
-  def parse(str, data, ignore_fuzzy = true)
+  def parse(str, data)
     @comments = []
     @data = data
     @fuzzy = false
     @msgctxt = ""
-    $ignore_fuzzy = ignore_fuzzy
 
     str.strip!
     @q = []
@@ -114,7 +122,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 109)
     @comments << comment
   end 
 
-  def parse_file(po_file, data, ignore_fuzzy = true)
+  def parse_file(po_file, data)
     args = [ po_file ]
     # In Ruby 1.9, we must detect proper encoding of a PO file.
     if String.instance_methods.include?(:encode)
@@ -122,7 +130,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 109)
       args << "r:#{encoding}"
     end
     @po_file = po_file
-    parse(File.open(*args) {|io| io.read }, data, ignore_fuzzy)
+    parse(File.open(*args) {|io| io.read }, data)
   end
 
   def detect_file_encoding(po_file)
@@ -271,7 +279,7 @@ module_eval(<<'.,.,', 'poparser.ry', 24)
 
 module_eval(<<'.,.,', 'poparser.ry', 36)
   def _reduce_8(val, _values, result)
-        if @fuzzy and $ignore_fuzzy 
+        if @fuzzy and ignore_fuzzy?
       if val[1] != ""
         $stderr.print _("Warning: fuzzy message was ignored.\n")
         $stderr.print "  #{@po_file}: msgid '#{val[1]}'\n"
