@@ -52,9 +52,10 @@ file poparser_rb => poparser_ry do
   poparser.rb - Generate a .mo
 
   Copyright (C) 2003-2009 Masao Mutoh <mutomasa at gmail.com>
+  Copyright (C) 2012 Kouhei Sutou <kou@clear-code.com>
 
   You may redistribute it and/or modify it under the same
-  license terms as Ruby.
+  license terms as Ruby or LGPL.
 EOS
   file.print "=end\n\n"
 
