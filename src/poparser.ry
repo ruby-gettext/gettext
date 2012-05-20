@@ -2,9 +2,10 @@
 #  poparser.ry - ruby version of msgfmt
 #
 #  Copyright (C) 2002-2008 Masao Mutoh <mutomasa at gmail.com>
+#  Copyright (C) 2012 Kouhei Sutou <kou@clear-code.com>
 # 
 #  You may redistribute it and/or modify it under the same
-#  license terms as Ruby.
+#  license terms as Ruby or LGPL.
 
 class GetText::PoParser 
   token COMMENT MSGID MSGCTXT MSGID_PLURAL MSGSTR STRING PLURAL_NUM
@@ -105,8 +106,14 @@ class GetText::PoParser
 end
 
 ---- inner
-  include GetText
-  GetText.bindtextdomain("rgettext")
+  if GetText.respond_to?(:bindtextdomain)
+    include GetText
+    GetText.bindtextdomain("rgettext")
+  else
+    def _(message_id)
+      message_id
+    end
+  end
 
   def unescape(orig)
     ret = orig.gsub(/\\n/, "\n")
