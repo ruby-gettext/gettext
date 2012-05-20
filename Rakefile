@@ -18,7 +18,6 @@ require "tempfile"
 require 'rake'
 require 'rubygems'
 require "yard/rake/yardoc_task"
-require 'rake/testtask'
 require 'gettext/version'
 
 require "bundler/gem_helper"
