@@ -1,6 +1,7 @@
 /pkg/
 /data/
 /test/locale/
+/test/pot/
 /samples/cgi/locale/
 /samples/locale/
 /doc/reference/

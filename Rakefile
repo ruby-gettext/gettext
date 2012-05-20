@@ -162,6 +162,30 @@ end
 task :package => [:makemo]
 
 namespace :test do
+  namespace :pot do
+    pot_base_dir = "test/pot"
+    directory pot_base_dir
+
+    pot_paths = []
+    ruby_base_paths = [
+      "non_ascii", "npgettext", "nsgettext",
+      "pgettext", "plural", "plural_error",
+    ]
+    ruby_paths = Dir.glob("test/testlib/{#{ruby_base_paths.join(',')}}.rb")
+    ruby_paths.each do |ruby_path|
+      pot_base_path = File.basename(ruby_path).sub(/\.rb\z/, ".pot")
+      pot_path = "#{pot_base_dir}/#{pot_base_path}"
+      pot_paths << pot_path
+      file pot_path => [pot_base_dir, ruby_path] do
+        require "gettext/tools"
+        GetText.rgettext(ruby_path, pot_path)
+      end
+    end
+
+    desc "Update pot files for testing"
+    task :update => pot_paths
+  end
+
   namespace :mo do
     mo_paths = []
     language_paths = Dir.glob("test/po/*")
