@@ -452,7 +452,7 @@ module GetText
 
       parser = PoParser.new
       defpo = parser.parse_file(config.defpo, PoData.new, false)
-      refpot = parser.parse_file(config.refstrrefstr, PoData.new, false)
+      refpot = parser.parse_file(config.refpot, PoData.new, false)
 
       m = Merger.new
       result = m.merge(defpo, refpot)
