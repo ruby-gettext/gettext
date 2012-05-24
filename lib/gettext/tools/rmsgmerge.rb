@@ -119,6 +119,13 @@ module GetText
         id = msgid.gsub(/"/, '\"').gsub(/\r/, '')
         msgstr = @msgid2msgstr[msgid].gsub(/"/, '\"').gsub(/\r/, '')
 
+        if id.include?("\004")
+          ids = id.split(/\004/)
+          context = ids[0]
+          id      = ids[1]
+          str << "msgctxt "  << __conv(context) << "\n"
+        end
+        
         if id.include?("\000")
           ids = id.split(/\000/)
           str << "msgid " << __conv(ids[0]) << "\n"
