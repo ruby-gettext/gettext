@@ -91,8 +91,9 @@ module GetText
         # Check "aaa\000bbb" and show warning but return the singluar part.
         ret = nil
         msgid_single = msgid.split("\000")[0]
+        msgid_single_prefix_re = /^#{Regexp.quote(msgid_single)}\000/
         mofile.each{|key, val|
-          if key =~ /^#{Regexp.quote(msgid_single)}\000/o
+          if key =~ msgid_single_prefix_re
             # Usually, this is not caused to make po-files from rgettext.
             warn %Q[Warning: n_("#{msgid_single}", "#{msgid.split("\000")[1]}") and n_("#{key.gsub(/\000/, '", "')}") are duplicated.]
             ret = val
@@ -102,8 +103,9 @@ module GetText
         ret
       else
         ret = nil
+        msgid_prefix_re = /^#{Regexp.quote(msgid)}\000/
         mofile.each{|key, val|
-          if key =~ /^#{Regexp.quote(msgid)}\000/o
+          if key =~ msgid_prefix_re
             ret = val.split("\000")[0]
             break
           end
