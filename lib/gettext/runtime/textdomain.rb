@@ -92,7 +92,7 @@ module GetText
         ret = nil
         msgid_single = msgid.split("\000")[0]
         mofile.each{|key, val|
-          if key =~ /^#{Regexp.quote(msgid_single)}\000/
+          if key =~ /^#{Regexp.quote(msgid_single)}\000/o
             # Usually, this is not caused to make po-files from rgettext.
             warn %Q[Warning: n_("#{msgid_single}", "#{msgid.split("\000")[1]}") and n_("#{key.gsub(/\000/, '", "')}") are duplicated.]
             ret = val
@@ -103,7 +103,7 @@ module GetText
       else
         ret = nil
         mofile.each{|key, val|
-          if key =~ /^#{Regexp.quote(msgid)}\000/
+          if key =~ /^#{Regexp.quote(msgid)}\000/o
             ret = val.split("\000")[0]
             break
           end
