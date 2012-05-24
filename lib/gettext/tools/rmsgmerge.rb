@@ -125,7 +125,7 @@ module GetText
           id      = ids[1]
           str << "msgctxt "  << __conv(context) << "\n"
         end
-        
+
         if id.include?("\000")
           ids = id.split(/\000/)
           str << "msgid " << __conv(ids[0]) << "\n"

@@ -6,7 +6,7 @@ require 'gettext/tools/rmsgmerge'
 class TestRMsgMerge < Test::Unit::TestCase
   def test_po_data_should_generate_msgctxt
     msg_id = "Context\004Translation"
-    
+
     po_data = GetText::RMsgMerge::PoData.new
     po_data[msg_id] = "Translated"
     po_data.set_comment(msg_id, "#no comment")
