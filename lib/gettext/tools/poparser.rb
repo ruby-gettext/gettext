@@ -314,7 +314,7 @@ module_eval(<<'.,.,', 'poparser.ry', 37)
 
 module_eval(<<'.,.,', 'poparser.ry', 56)
   def _reduce_9(val, _values, result)
-        if @fuzzy and $ignore_fuzzy
+        if @fuzzy and ignore_fuzzy?
       if val[1] != ""
         if report_warning?
           $stderr.print _("Warning: fuzzy message was ignored.\n")

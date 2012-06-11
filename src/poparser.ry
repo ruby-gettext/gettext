@@ -54,7 +54,7 @@ class GetText::PoParser
   plural_message
   : MSGID string_list MSGID_PLURAL string_list msgstr_plural
   {
-    if @fuzzy and $ignore_fuzzy
+    if @fuzzy and ignore_fuzzy?
       if val[1] != ""
         if report_warning?
           $stderr.print _("Warning: fuzzy message was ignored.\n")
