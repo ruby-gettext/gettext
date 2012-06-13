@@ -68,22 +68,26 @@ EOH
 end
 
 
-desc "Create *.mo from *.po"
-task :makemo do
-  require 'gettext/tools'
-  GetText.create_mofiles
+desc "Create *.mo"
+task :mo => ["mo:gettext", "mo:samples", "mo:test"]
+namespace :mo do
+  desc "Create *.mo for gettext gem"
+  task :gettext do
+    require 'gettext/tools'
+    GetText.create_mofiles
+  end
 
-  $stderr.puts "Create samples mo files."
-  GetText.create_mofiles(
-	:po_root => "samples/po", :mo_root => "samples/locale")
+  desc "Create *.mo for samples"
+  task :samples do
+    require 'gettext/tools'
+    GetText.create_mofiles(:po_root => "samples/po",
+                           :mo_root => "samples/locale")
+    GetText.create_mofiles(:po_root => "samples/cgi/po",
+                           :mo_root => "samples/cgi/locale")
+  end
 
-  $stderr.puts "Create samples/cgi mo files."
-  GetText.create_mofiles(
-	:po_root => "samples/cgi/po", :mo_root => "samples/cgi/locale")
-
-  $stderr.puts "Create test mo files."
-  GetText.create_mofiles(
-	:po_root => "test/po", :mo_root => "test/locale")
+  desc "Create *.mo for tests"
+  task :test => ["test:mo:update"]
 end
 
 desc "Update pot/po files to match new version."
@@ -218,7 +222,7 @@ namespace :test do
   end
 
   desc "Prepare test environment"
-  task :prepare => "test:mo:update"
+  task :prepare => ["test:mo:update", "mo:samples"]
 end
 
 YARD::Rake::YardocTask.new do |t|
