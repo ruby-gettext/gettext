@@ -160,6 +160,12 @@ end
 
 task :package => [:makemo]
 
+desc 'Run all tests'
+task :test => "test:prepare" do
+  options = ARGV - Rake.application.top_level_tasks
+  ruby "test/run-test.rb", *options
+end
+
 namespace :test do
   namespace :pot do
     pot_base_dir = "test/pot"
@@ -208,12 +214,6 @@ namespace :test do
 
   desc "Prepare test environment"
   task :prepare => "test:mo:update"
-end
-
-desc 'Run all tests'
-task :test => "test:prepare" do
-  options = ARGV - Rake.application.top_level_tasks
-  ruby "test/run-test.rb", *options
 end
 
 YARD::Rake::YardocTask.new do |t|
