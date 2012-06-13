@@ -32,4 +32,5 @@ So you can use GNU GetText tools for maintaining.
   s.add_development_dependency("yard")
   s.add_development_dependency("test-unit")
   s.add_development_dependency("test-unit-notify")
+  s.add_development_dependency("test-unit-rr")
 end
