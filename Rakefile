@@ -31,6 +31,8 @@ Bundler::GemHelper.install_tasks
 
 PKG_VERSION = GetText::VERSION
 
+task :default => :test
+
 ############################################################
 # GetText tasks for developing
 ############################################################
