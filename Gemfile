@@ -1,3 +1,5 @@
 # -*- ruby -*-
 
+source :rubygems
+
 gemspec
