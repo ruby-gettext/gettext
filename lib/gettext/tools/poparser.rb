@@ -18,7 +18,7 @@ require 'racc/parser.rb'
 module GetText
   class PoParser < Racc::Parser
 
-module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 114)
+module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 118)
   if GetText.respond_to?(:bindtextdomain)
     include GetText
     GetText.bindtextdomain("rgettext")
@@ -293,26 +293,30 @@ module_eval(<<'.,.,', 'poparser.ry', 25)
 
 module_eval(<<'.,.,', 'poparser.ry', 37)
   def _reduce_8(val, _values, result)
-        if @fuzzy and ignore_fuzzy?
-      if val[1] != ""
-        if report_warning?
+        msgid_raw = val[1]
+    msgid = unescape(msgid_raw)
+    msgstr = unescape(val[3])
+    use_message_p = true
+    if @fuzzy and not msgid.empty?
+      use_message_p = (not ignore_fuzzy?)
+      if report_warning?
+        if ignore_fuzzy?
           $stderr.print _("Warning: fuzzy message was ignored.\n")
-          $stderr.print "  #{@po_file}: msgid '#{val[1]}'\n"
+        else
+          $stderr.print _("Warning: fuzzy message was used.\n")
         end
-      else
-        on_message('', unescape(val[3]))
+        $stderr.print "  #{@po_file}: msgid '#{msgid_raw}'\n"
       end
-      @fuzzy = false
-    else
-      on_message(@msgctxt + unescape(val[1]), unescape(val[3]))
     end
+    @fuzzy = false
+    on_message(@msgctxt + msgid, msgstr) if use_message_p
     result = ""
   
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'poparser.ry', 56)
+module_eval(<<'.,.,', 'poparser.ry', 60)
   def _reduce_9(val, _values, result)
         if @fuzzy and ignore_fuzzy?
       if val[1] != ""
@@ -333,7 +337,7 @@ module_eval(<<'.,.,', 'poparser.ry', 56)
   end
 .,.,
 
-module_eval(<<'.,.,', 'poparser.ry', 76)
+module_eval(<<'.,.,', 'poparser.ry', 80)
   def _reduce_10(val, _values, result)
         if val[0].size > 0
       result = val[0] + "\000" + val[1]
@@ -347,7 +351,7 @@ module_eval(<<'.,.,', 'poparser.ry', 76)
 
 # reduce 11 omitted
 
-module_eval(<<'.,.,', 'poparser.ry', 88)
+module_eval(<<'.,.,', 'poparser.ry', 92)
   def _reduce_12(val, _values, result)
         result = val[2]
   
@@ -355,7 +359,7 @@ module_eval(<<'.,.,', 'poparser.ry', 88)
   end
 .,.,
 
-module_eval(<<'.,.,', 'poparser.ry', 95)
+module_eval(<<'.,.,', 'poparser.ry', 99)
   def _reduce_13(val, _values, result)
         on_comment(val[0])
   
@@ -363,7 +367,7 @@ module_eval(<<'.,.,', 'poparser.ry', 95)
   end
 .,.,
 
-module_eval(<<'.,.,', 'poparser.ry', 103)
+module_eval(<<'.,.,', 'poparser.ry', 107)
   def _reduce_14(val, _values, result)
         result = val.delete_if{|item| item == ""}.join
   
@@ -371,7 +375,7 @@ module_eval(<<'.,.,', 'poparser.ry', 103)
   end
 .,.,
 
-module_eval(<<'.,.,', 'poparser.ry', 107)
+module_eval(<<'.,.,', 'poparser.ry', 111)
   def _reduce_15(val, _values, result)
         result = val[0]
   

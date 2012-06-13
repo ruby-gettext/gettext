@@ -35,19 +35,23 @@ class GetText::PoParser
   single_message
   : MSGID string_list MSGSTR string_list
   {
-    if @fuzzy and ignore_fuzzy?
-      if val[1] != ""
-        if report_warning?
+    msgid_raw = val[1]
+    msgid = unescape(msgid_raw)
+    msgstr = unescape(val[3])
+    use_message_p = true
+    if @fuzzy and not msgid.empty?
+      use_message_p = (not ignore_fuzzy?)
+      if report_warning?
+        if ignore_fuzzy?
           $stderr.print _("Warning: fuzzy message was ignored.\n")
-          $stderr.print "  #{@po_file}: msgid '#{val[1]}'\n"
+        else
+          $stderr.print _("Warning: fuzzy message was used.\n")
         end
-      else
-        on_message('', unescape(val[3]))
+        $stderr.print "  #{@po_file}: msgid '#{msgid_raw}'\n"
       end
-      @fuzzy = false
-    else
-      on_message(@msgctxt + unescape(val[1]), unescape(val[3]))
     end
+    @fuzzy = false
+    on_message(@msgctxt + msgid, msgstr) if use_message_p
     result = ""
   }
 
