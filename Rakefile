@@ -200,10 +200,13 @@ namespace :test do
       language = File.basename(language_path)
       po_paths = Dir.glob("#{language_path}/*.po")
       po_paths.each do |po_path|
+        mo_directory = "test/locale/#{language}/LC_MESSAGES"
+        directory mo_directory
+
         mo_base_path = File.basename(po_path).sub(/\.po\z/, ".mo")
-        mo_path = "test/locale/#{language}/LC_MESSAGES/#{mo_base_path}"
+        mo_path = "#{mo_directory}/#{mo_base_path}"
         mo_paths << mo_path
-        file mo_path => [po_path, poparser_rb_path] do
+        file mo_path => [mo_directory, po_path, poparser_rb_path] do
           require "gettext/tools"
           GetText.rmsgfmt(po_path, mo_path)
         end
