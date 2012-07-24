@@ -21,7 +21,7 @@ class String
   end
 
   begin
-    "%<key>" % {:key => "value"}
+    "%{key}" % {:key => "value"}
   rescue ArgumentError
     alias :_old_format_m :% # :nodoc:
 
