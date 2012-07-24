@@ -21,7 +21,8 @@ class String
   end
 
   begin
-    "%{key}" % {:key => "value"}
+    formatted = "%{key}" % {:key => "value"}
+    raise ArgumentError if formatted != "value"
   rescue ArgumentError
     alias :_old_format_m :% # :nodoc:
 
