@@ -12,8 +12,8 @@ require 'webrick'
 require 'cgi'
 require 'rbconfig'
 
-interpreter = File.join(Config::CONFIG['bindir'], Config::CONFIG['ruby_install_name']) +
-              Config::CONFIG['EXEEXT']
+interpreter = File.join(::RbConfig::CONFIG['bindir'], ::RbConfig::CONFIG['ruby_install_name']) +
+              ::RbConfig::CONFIG['EXEEXT']
 
 srv = WEBrick::HTTPServer.new({:BindAddress => '127.0.0.1',
                                :Logger => WEBrick::Log::new($stderr, WEBrick::Log::DEBUG),

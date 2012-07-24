@@ -428,7 +428,7 @@ module GetText
 
       opts.on_tail("--version", _("display version information and exit")) do
         puts "#{$0} #{VERSION} (#{DATE})"
-  puts "#{File.join(::Config::CONFIG["bindir"], ::Config::CONFIG["RUBY_INSTALL_NAME"])} #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+  puts "#{File.join(::RbConfig::CONFIG["bindir"], ::RbConfig::CONFIG["RUBY_INSTALL_NAME"])} #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
         exit
       end
 
