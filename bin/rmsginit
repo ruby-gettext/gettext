@@ -1,0 +1,22 @@
+#! /usr/bin/ruby
+=begin
+  rmsginit - ruby version of msginit
+
+  Copyright (C) 2012  Haruka Yoshihara
+
+  You may redistribute it and/or modify it under the same
+  license terms as Ruby.
+=end
+
+begin
+  require 'gettext/tools/rmsginit'
+rescue LoadError
+  begin
+    require 'rubygems'
+    require 'gettext/tools/rmsginit'
+  rescue LoadError
+    raise 'Ruby-GetText-Package are not installed.'
+  end
+end
+
+GetText.rmsginit
