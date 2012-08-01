@@ -25,16 +25,10 @@ module GetText
       input_file, output_file, locale = check_options(*options)
 
       pot_contents = File.read(input_file)
-
-      pot_contents = replace_description(pot_contents, locale)
-      pot_contents = replace_translators(pot_contents)
-      pot_contents = replace_date(pot_contents)
-      pot_contents = replace_language(pot_contents, locale)
-      pot_contents = replace_plural_forms(pot_contents, locale)
-      pot_contents = pot_contents.gsub(/#, fuzzy\n/, "")
+      po_contents = replace_pot_header(pot_contents, locale)
 
       File.open(output_file, "w") do |f|
-        f.puts(pot_contents)
+        f.puts(po_contents)
       end
 
       self
@@ -128,6 +122,15 @@ EOD
     end
 
     DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
+
+    def replace_pot_header(pot, locale)
+      pot = replace_description(pot, locale)
+      pot = replace_translators(pot)
+      pot = replace_date(pot)
+      pot = replace_language(pot, locale)
+      pot = replace_plural_forms(pot, locale)
+      pot.gsub(/#, fuzzy\n/, "")
+    end
 
     def replace_description(pot, locale)
       language_name = Locale::Info.get_language(locale.to_s).name
