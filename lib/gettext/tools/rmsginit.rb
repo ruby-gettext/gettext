@@ -94,12 +94,12 @@ EOD
 
       parser.on("-h",
                 "--help", _("dispray this help and exit")) do
-        puts parser.help
+        puts(parser.help)
         exit(true)
       end
 
       parser.on_tail("--version", _("display version information and exit")) do
-        puts "#{$0} #{VERSION} (#{DATE})"
+        puts("#{$0} #{VERSION} (#{DATE})")
         ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
         ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
         ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
@@ -170,7 +170,7 @@ EOD
         fullname = logname
       end
 
-      puts "Please enter your email address."
+      puts("Please enter your email address.")
       mail = STDIN.gets.chomp
       if mail.empty?
         hostname = `hostname`.chomp
