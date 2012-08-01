@@ -107,8 +107,7 @@ EOD
       if input_file.nil?
         input_file = Dir.glob("./*.pot").first
         if input_file.nil?
-          message = _(".pot file does not exist in current directory.")
-          raise(message)
+          raise(_(".pot file does not exist in current directory."))
         end
       else
         unless File.exist?(input_file)
