@@ -40,6 +40,30 @@ module GetText
       self
     end
 
+    def check_options(*options)
+      input_file, output_file, locale = parse_arguments(*options)
+
+      if input_file.nil?
+        input_file = Dir.glob("./*.pot").first
+        if input_file.nil?
+          raise(_(".pot file does not exist in current directory."))
+        end
+      else
+        unless File.exist?(input_file)
+          raise(_("file #{input_file} does not exist."))
+        end
+      end
+
+      locale ||= "ja"
+
+      output_file ||= "#{locale}.po"
+      if File.exist?(output_file)
+        raise(_("file #{output_file} has already existed."))
+      end
+
+      [input_file, output_file, locale]
+    end
+
     VERSION = GetText::VERSION
     DATE = "2012/07/30"
 
@@ -97,30 +121,6 @@ EOD
       end
 
       parser.parse!(options)
-
-      [input_file, output_file, locale]
-    end
-
-    def check_options(*options)
-      input_file, output_file, locale = parse_arguments(*options)
-
-      if input_file.nil?
-        input_file = Dir.glob("./*.pot").first
-        if input_file.nil?
-          raise(_(".pot file does not exist in current directory."))
-        end
-      else
-        unless File.exist?(input_file)
-          raise(_("file #{input_file} does not exist."))
-        end
-      end
-
-      locale ||= "ja"
-
-      output_file ||= "#{locale}.po"
-      if File.exist?(output_file)
-        raise(_("file #{output_file} has already existed."))
-      end
 
       [input_file, output_file, locale]
     end
