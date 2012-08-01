@@ -21,12 +21,8 @@ module GetText
 
     bindtextdomain "rgettext"
 
-    def run(input_file=nil, output_file=nil, locale=nil)
-      options = check_options(input_file, output_file, locale)
-
-      input_file = options[:input_file]
-      output_file = options[:output_file]
-      locale = options[:locale]
+    def run(*options)
+      input_file, output_file, locale = check_options(*options)
 
       pot_contents = File.read(input_file)
 
@@ -47,7 +43,7 @@ module GetText
     VERSION = GetText::VERSION
     DATE = "2012/07/30"
 
-    def parse_arguments #:nodoc:
+    def parse_arguments(*options) #:nodoc:
       input_file = nil
       output_file = nil
       locale = nil
@@ -108,38 +104,28 @@ EOD
         exit(true)
       end
 
-      parser.parse!(ARGV)
+      parser.parse!(options)
 
       [input_file, output_file, locale]
     end
 
-    def check_options(input_file, output_file, locale)
-      options = {}
-
-      options[:input_file] ||= input_file
-      if options[:input_file].nil?
-        default_pot_file = Dir.glob("./*.pot").first
-        if default_pot_file.nil?
-          message = _("rmsginit: input file is not specified, " +
-            "but no .pot file exists in current directory.")
-          raise(message)
-        else
-          options[:input_file] = default_pot_file
-        end
+    def check_options(*options)
+      input_file, output_file, locale = parse_arguments(*options)
+      input_file ||= Dir.glob("./*.pot").first
+      if input_file.nil?
+        message = _("rmsginit: input file is not specified, " +
+                      "but no .pot file exists in current directory.")
+        raise(message)
       end
 
-      options[:locale] = locale || "ja"
+      locale ||= "ja"
 
-      options[:output_file] ||= output_file
-      if options[:output_file].nil? or File.exist?(options[:output_file])
-        default_po_file = "#{options[:locale]}.po"
-        if File.exist?(default_po_file)
-          raise(_("file #{default_po_file} has existed."))
-        else
-          options[:output_file] = default_po_file
-        end
+      output_file ||= "#{locale}.po"
+      if File.exist?(output_file)
+        raise(_("file #{output_file} has already existed."))
       end
-      options
+
+      [input_file, output_file, locale]
     end
 
     DESCRIPTION_TITLE = /SOME DESCRIPTIVE TITLE\./
@@ -266,7 +252,7 @@ module GetText
   # if output_file isn't specified, output_file is "locale.po".
   # If locale is not specified, 'ja' is used as locale.
   def rmsginit
-    GetText::RMsgInit.run(*GetText::RMsgInit.parse_arguments)
+    GetText::RMsgInit.run(*ARGV)
     self
   end
 

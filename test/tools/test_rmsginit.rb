@@ -16,7 +16,9 @@ class TestRMsgInit < Test::Unit::TestCase
       pot_file = create_pot_file
       po_file_path = File.join(dir, "test.po")
 
-      GetText::RMsgInit.run(pot_file.path, po_file_path, "ja")
+      GetText::RMsgInit.run("--input", pot_file.path,
+                            "--output", po_file_path,
+                            "--locale", "ja")
 
       actual_po_file = normalize_po_file(po_file_path)
       assert_equal(expected_ja_po_file, actual_po_file)
@@ -30,7 +32,7 @@ class TestRMsgInit < Test::Unit::TestCase
         locale = "fr"
         po_file_path = "#{locale}.po"
 
-        GetText::RMsgInit.run(nil, nil, locale)
+        GetText::RMsgInit.run("--locale", locale)
 
         actual_po_file = normalize_po_file(po_file_path)
         assert_equal(expected_fr_po_file, actual_po_file)
@@ -43,7 +45,8 @@ class TestRMsgInit < Test::Unit::TestCase
       pot_file = create_pot_file
       po_file_path = File.join(dir, "test.po")
 
-      GetText::RMsgInit.run(pot_file.path, po_file_path)
+      GetText::RMsgInit.run("--input", pot_file.path,
+                            "--output", po_file_path)
 
       actual_po_file = normalize_po_file(po_file_path)
       assert_equal(expected_ja_po_file, actual_po_file)
@@ -56,7 +59,7 @@ class TestRMsgInit < Test::Unit::TestCase
         pot_file = create_pot_file
         po_file_path = "ja.po"
 
-        GetText::RMsgInit.run(pot_file.path)
+        GetText::RMsgInit.run("--input", pot_file.path)
 
         actual_po_file = normalize_po_file(po_file_path)
         assert_equal(expected_ja_po_file, actual_po_file)
