@@ -107,8 +107,7 @@ EOD
       if input_file.nil?
         input_file = Dir.glob("./*.pot").first
         if input_file.nil?
-          message = _("rmsginit: input file is not specified, " +
-                        "but no .pot file exists in current directory.")
+          message = _(".pot file does not exist in current directory.")
           raise(message)
         end
       else
