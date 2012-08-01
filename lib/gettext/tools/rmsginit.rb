@@ -89,28 +89,29 @@ EOD
       parser.separator("")
       parser.separator(_("Specific options:"))
 
-      parser.on("-i",
-                "--input=FILE", _("read input from specified file")) do |input|
+      parser.on("-i", "--input=FILE",
+                _("read input from specified file")) do |input|
         input_file = input
       end
 
-      parser.on("-o",
-                "--output=FILE", _("write output to specified file")) do |output|
+      parser.on("-o", "--output=FILE",
+                _("write output to specified file")) do |output|
         output_file = output
       end
 
-      parser.on("-l",
-                "--locale=LOCALE", _("locale used with .po file")) do |loc|
+      parser.on("-l", "--locale=LOCALE",
+                _("locale used with .po file")) do |loc|
         locale = loc
       end
 
-      parser.on("-h",
-                "--help", _("dispray this help and exit")) do
+      parser.on("-h", "--help",
+                _("dispray this help and exit")) do
         puts(parser.help)
         exit(true)
       end
 
-      parser.on_tail("--version", _("display version information and exit")) do
+      parser.on_tail("--version",
+                     _("display version information and exit")) do
         puts("#{$0} #{VERSION} (#{DATE})")
         ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
         ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
