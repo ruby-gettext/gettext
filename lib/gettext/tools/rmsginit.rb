@@ -48,7 +48,7 @@ module GetText
         end
       end
 
-      locale ||= "ja"
+      locale ||= Locale.current.to_s
 
       output_file ||= "#{locale}.po"
       if File.exist?(output_file)
@@ -76,7 +76,7 @@ A .pot file is specified as input_file. If input_file is not
 specified, a .pot file existing current directory is used. A .po file is
 created from initialized input_file as output_file. if output_file
 isn't specified, output_file is "locale.po". If locale is not
-specified, 'ja' is used as locale.
+specified, the current locale is used.
 EOD
 )
       parser.separator(options_description)
@@ -254,7 +254,7 @@ module GetText
   # specified, a .pot file existing current directory is used.
   # A .po file is created from initialized input_file as output_file.
   # if output_file isn't specified, output_file is "locale.po".
-  # If locale is not specified, 'ja' is used as locale.
+  # If locale is not specified, the current locale is used.
   def rmsginit
     GetText::RMsgInit.run(*ARGV)
     self

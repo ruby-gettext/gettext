@@ -15,13 +15,14 @@ class TestRMsgInit < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       pot_file = create_pot_file
       po_file_path = File.join(dir, "test.po")
+      locale = Locale.current.to_s
 
       GetText::RMsgInit.run("--input", pot_file.path,
                             "--output", po_file_path,
-                            "--locale", "ja")
+                            "--locale", locale)
 
       actual_po_file = normalize_po_file(po_file_path)
-      assert_equal(expected_ja_po_file, actual_po_file)
+      assert_equal(expected_po_file(locale), actual_po_file)
     end
   end
 
@@ -35,7 +36,7 @@ class TestRMsgInit < Test::Unit::TestCase
         GetText::RMsgInit.run("--locale", locale)
 
         actual_po_file = normalize_po_file(po_file_path)
-        assert_equal(expected_fr_po_file, actual_po_file)
+        assert_equal(expected_po_file(locale), actual_po_file)
       end
     end
   end
@@ -44,12 +45,13 @@ class TestRMsgInit < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       pot_file = create_pot_file
       po_file_path = File.join(dir, "test.po")
+      locale = Locale.current.to_s
 
       GetText::RMsgInit.run("--input", pot_file.path,
                             "--output", po_file_path)
 
       actual_po_file = normalize_po_file(po_file_path)
-      assert_equal(expected_ja_po_file, actual_po_file)
+      assert_equal(expected_po_file(locale), actual_po_file)
     end
   end
 
@@ -57,12 +59,13 @@ class TestRMsgInit < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
         pot_file = create_pot_file
-        po_file_path = "ja.po"
+        locale = Locale.current.to_s
+        po_file_path = "#{locale}.po"
 
         GetText::RMsgInit.run("--input", pot_file.path)
 
         actual_po_file = normalize_po_file(po_file_path)
-        assert_equal(expected_ja_po_file, actual_po_file)
+        assert_equal(expected_po_file(locale), actual_po_file)
       end
     end
   end
@@ -71,12 +74,13 @@ class TestRMsgInit < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
         create_pot_file
-        po_file_path = "ja.po"
+        locale = Locale.current.to_s
+        po_file_path = "#{locale}.po"
 
         GetText::RMsgInit.run
 
         actual_po_file = normalize_po_file(po_file_path)
-        assert_equal(expected_ja_po_file, actual_po_file)
+        assert_equal(expected_po_file(locale), actual_po_file)
       end
     end
   end
@@ -121,10 +125,12 @@ EOF
     po_file.gsub(/#{Time.now.year}/, "YYYY")
   end
 
-  def expected_ja_po_file
+  def expected_po_file(locale)
     translator, mail = translator_metadata
+    language = Locale::Info.get_language(locale.to_s).name
+    nplural, plural_expression = GetText::RMsgInit.plural_forms(locale)
 <<EOF
-# Japanese translations for PACKAGE package.
+# #{language} translations for PACKAGE package.
 # Copyright (C) YYYY THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # #{translator} <#{mail}>, YYYY.
@@ -135,35 +141,12 @@ msgstr ""
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n"
 "Last-Translator: #{translator} <#{mail}>\\n"
-"Language: ja\\n"
-"Language-Team: Japanese\\n"
+"Language: #{locale}\\n"
+"Language-Team: #{language}\\n"
 "MIME-Version: 1.0\\n"
 "Content-Type: text/plain; charset=UTF-8\\n"
 "Content-Transfer-Encoding: 8bit\\n"
-"Plural-Forms: nplurals=1; plural=0;\\n"
-EOF
-  end
-
-  def expected_fr_po_file
-    translator, mail = translator_metadata
-<<EOF
-# French translations for PACKAGE package.
-# Copyright (C) YYYY THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# #{translator} <#{mail}>, YYYY.
-#
-msgid ""
-msgstr ""
-"Project-Id-Version: PACKAGE VERSION\\n"
-"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n"
-"Last-Translator: #{translator} <#{mail}>\\n"
-"Language: fr\\n"
-"Language-Team: French\\n"
-"MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=UTF-8\\n"
-"Content-Transfer-Encoding: 8bit\\n"
-"Plural-Forms: nplurals=2; plural=n>1;\\n"
+"Plural-Forms: nplurals=#{nplural}; plural=#{plural_expression};\\n"
 EOF
   end
 end
