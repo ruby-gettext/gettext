@@ -67,20 +67,12 @@ EOD
 
       parser.on("-i",
                 "--input=FILE", _("read input from specified file")) do |input|
-        if File.exist?(input)
-          input_file = input
-        else
-          raise(_("file #{input} does not exist."))
-        end
+        input_file = input
       end
 
       parser.on("-o",
                 "--output=FILE", _("write output to specified file")) do |output|
-        unless File.exist?(output)
-          output_file = output
-        else
-          raise(_("file #{output} has already existed."))
-        end
+        output_file = output
       end
 
       parser.on("-l",
@@ -111,11 +103,18 @@ EOD
 
     def check_options(*options)
       input_file, output_file, locale = parse_arguments(*options)
-      input_file ||= Dir.glob("./*.pot").first
+
       if input_file.nil?
-        message = _("rmsginit: input file is not specified, " +
-                      "but no .pot file exists in current directory.")
-        raise(message)
+        input_file = Dir.glob("./*.pot").first
+        if input_file.nil?
+          message = _("rmsginit: input file is not specified, " +
+                        "but no .pot file exists in current directory.")
+          raise(message)
+        end
+      else
+        unless File.exist?(input_file)
+          raise(_("file #{input_file} does not exist."))
+        end
       end
 
       locale ||= "ja"
