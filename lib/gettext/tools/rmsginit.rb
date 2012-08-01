@@ -31,7 +31,7 @@ module GetText
       pot_contents = replace_date(pot_contents)
       pot_contents = replace_language(pot_contents, locale)
       pot_contents = replace_plural_forms(pot_contents, locale)
-      pot_contents = pot_contents.sub(/#, fuzzy\n/, "")
+      pot_contents = pot_contents.gsub(/#, fuzzy\n/, "")
 
       File.open(output_file, "w") do |f|
         f.puts(pot_contents)
@@ -133,7 +133,7 @@ EOD
       language_name = Locale::Info.get_language(locale.to_s).name
       description = "#{language_name} translations for PACKAGE package."
 
-      pot.sub(DESCRIPTION_TITLE, "\\1 #{description}")
+      pot.gsub(DESCRIPTION_TITLE, "\\1 #{description}")
     end
 
     EMAIL = "<EMAIL@ADDRESS>"
@@ -143,8 +143,8 @@ EOD
     def replace_translators(pot) #:nodoc:
       fullname, mail = get_translator_metadata
       year = Time.now.year
-      pot = pot.sub(FIRST_AUTHOR_KEY, "\\1 #{fullname} <#{mail}>, #{year}.")
-      pot.sub(LAST_TRANSLATOR_KEY, "\\1 #{fullname} <#{mail}>\\n\"")
+      pot = pot.gsub(FIRST_AUTHOR_KEY, "\\1 #{fullname} <#{mail}>, #{year}.")
+      pot.gsub(LAST_TRANSLATOR_KEY, "\\1 #{fullname} <#{mail}>\\n\"")
     end
 
     def get_translator_metadata
@@ -172,7 +172,7 @@ EOD
       date = Time.now
       revision_date = date.strftime("%Y-%m-%d %H:%M%z")
 
-      pot = pot.sub(POT_REVISION_DATE_KEY, "\\1 #{revision_date}\\n\"")
+      pot = pot.gsub(POT_REVISION_DATE_KEY, "\\1 #{revision_date}\\n\"")
       pot.gsub(COPYRIGHT_KEY, "\\1 #{date.year} \\2")
     end
 
@@ -180,10 +180,10 @@ EOD
     LANGUAGE_TEAM_KEY = /^("Language-Team:).+\\n"$/
 
     def replace_language(pot, locale) #:nodoc:
-      pot = pot.sub(LANGUAGE_KEY, "\\1 #{locale}\\n\"")
+      pot = pot.gsub(LANGUAGE_KEY, "\\1 #{locale}\\n\"")
 
       language_name = Locale::Info.get_language(locale.to_s).name
-      pot.sub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}\\n\"")
+      pot.gsub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}\\n\"")
     end
 
     PLURAL_FORMS =
@@ -191,7 +191,7 @@ EOD
 
     def replace_plural_forms(pot, locale)
       nplural, plural_expression = plural_forms(locale)
-      pot.sub(PLURAL_FORMS, "\\1#{nplural}; \\2#{plural_expression};\\n\"")
+      pot.gsub(PLURAL_FORMS, "\\1#{nplural}; \\2#{plural_expression};\\n\"")
     end
 
     def plural_forms(locale)
