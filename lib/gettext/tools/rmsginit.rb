@@ -186,10 +186,11 @@ EOD
       pot.sub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}\\n\"")
     end
 
+    PLURAL_FORMS = /(Plural-Forms: nplurals=)INTEGER;( plural=)EXPRESSION;/
+
     def replace_plural_forms(pot, locale)
       nplural, plural_expression = plural_forms(locale)
-      pot.sub(/(Plural-Forms: nplurals=)INTEGER;( plural=)EXPRESSION;/,
-              "\\1#{nplural};\\2#{plural_expression};")
+      pot.sub(PLURAL_FORMS, "\\1#{nplural};\\2#{plural_expression};")
     end
 
     def plural_forms(locale)
