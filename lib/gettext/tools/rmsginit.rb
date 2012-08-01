@@ -115,7 +115,8 @@ EOD
         ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
         ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
         ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
-          "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+                             "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) " +
+                             "[#{RUBY_PLATFORM}]"
         puts(ruby_description)
         exit(true)
       end
@@ -187,7 +188,7 @@ EOD
     def replace_plural_forms(pot, locale)
       nplural, plural_expression = plural_forms(locale)
       pot.sub(/(Plural-Forms: nplurals=)INTEGER;( plural=)EXPRESSION;/,
-          "\\1#{nplural};\\2#{plural_expression};")
+              "\\1#{nplural};\\2#{plural_expression};")
     end
 
     def plural_forms(locale)
@@ -196,7 +197,7 @@ EOD
         nplural = "1"
         plural_expression = "0"
       when "en", "de", "nl", "sv", "da", "no", "fo", "es", "pt",
-        "it", "bg", "el", "fi", "et", "he", "eo", "hu", "tr"
+           "it", "bg", "el", "fi", "et", "he", "eo", "hu", "tr"
         nplural = "2"
         plural_expression = "n != 1"
       when "pt_BR", "fr"
@@ -211,26 +212,26 @@ EOD
       when "ro"
         nplural = "3"
         plural_expression = "n==1 ? 0 : " +
-          "(n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2"
+                              "(n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2"
       when "lt"
         nplural = "3"
         plural_expression = "n%10==1 && n%100!=11 ? 0 : " +
-          "n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2"
+                              "n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2"
       when "ru", "uk", "sr", "hr"
         nplural = "3"
         plural_expression = "n%10==1 && n%100!=11 ? 0 : n%10>=2 && " +
-          "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2"
+                              "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2"
       when "cs", "sk"
         nplural = "3"
         plural_expression = "(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2"
       when "pl"
         nplural = "3"
         plural_expression = "n==1 ? 0 : n%10>=2 && " +
-          "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2"
+                              "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2"
       when "sl"
         nplural = "4"
         plural_expression = "n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 " +
-          "|| n%100==4 ? 2 : 3"
+                              "|| n%100==4 ? 2 : 3"
       else
         nplural = nil
         plural_expression = nil
