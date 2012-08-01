@@ -127,24 +127,24 @@ EOD
       [input_file, output_file, locale]
     end
 
-    DESCRIPTION_TITLE = /SOME DESCRIPTIVE TITLE\./
+    DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
 
     def replace_description(pot, locale)
       language_name = Locale::Info.get_language(locale.to_s).name
       description = "#{language_name} translations for PACKAGE package."
 
-      pot.sub(DESCRIPTION_TITLE, description)
+      pot.sub(DESCRIPTION_TITLE, "\\1 #{description}")
     end
 
-    FIRST_AUTHOR_KEY = /(#) FIRST AUTHOR/
-    LAST_TRANSLATOR_KEY = /(Last-Translator:) FULL NAME/
-    EMAIL_KEY = /EMAIL@ADDRESS/
+    EMAIL = "<EMAIL@ADDRESS>"
+    FIRST_AUTHOR_KEY = /^(\s*#\s*) FIRST AUTHOR #{EMAIL}, YEAR\.$/
+    LAST_TRANSLATOR_KEY = /^(\"Last-Translator:) FULL NAME #{EMAIL}\\n"$/
 
     def replace_translators(pot) #:nodoc:
       fullname, mail = get_translator_metadata
-      pot = pot.sub(FIRST_AUTHOR_KEY, "\\1 #{fullname}")
-      pot = pot.sub(LAST_TRANSLATOR_KEY, "\\1 #{fullname}")
-      pot.gsub(EMAIL_KEY, mail)
+      year = Time.now.year
+      pot = pot.sub(FIRST_AUTHOR_KEY, "\\1 #{fullname} <#{mail}>, #{year}.")
+      pot.sub(LAST_TRANSLATOR_KEY, "\\1 #{fullname} <#{mail}>\\n\"")
     end
 
     def get_translator_metadata
@@ -165,19 +165,19 @@ EOD
       [fullname, mail]
     end
 
-    POT_REVISION_DATE_KEY = /(PO-Revision-Date:).+/
-    YEAR_KEY = /(\s*#.+) YEAR/
+    POT_REVISION_DATE_KEY = /^("PO-Revision-Date:).+\\n"$/
+    COPYRIGHT_KEY = /(# Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
 
     def replace_date(pot) #:nodoc:
       date = Time.now
       revision_date = date.strftime("%Y-%m-%d %H:%M%z")
 
       pot = pot.sub(POT_REVISION_DATE_KEY, "\\1 #{revision_date}\\n\"")
-      pot.gsub(YEAR_KEY, "\\1 #{date.year.to_s}")
+      pot.gsub(COPYRIGHT_KEY, "\\1 #{date.year} \\2")
     end
 
-    LANGUAGE_KEY = /(Language:).+/
-    LANGUAGE_TEAM_KEY = /(Language-Team:).+/
+    LANGUAGE_KEY = /^("Language:).+\\n"$/
+    LANGUAGE_TEAM_KEY = /^("Language-Team:).+\\n"$/
 
     def replace_language(pot, locale) #:nodoc:
       pot = pot.sub(LANGUAGE_KEY, "\\1 #{locale}\\n\"")
@@ -186,11 +186,12 @@ EOD
       pot.sub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}\\n\"")
     end
 
-    PLURAL_FORMS = /(Plural-Forms: nplurals=)INTEGER;( plural=)EXPRESSION;/
+    PLURAL_FORMS =
+      /^(\"Plural-Forms: nplurals=)INTEGER; (plural=)EXPRESSION;\\n\"$/
 
     def replace_plural_forms(pot, locale)
       nplural, plural_expression = plural_forms(locale)
-      pot.sub(PLURAL_FORMS, "\\1#{nplural};\\2#{plural_expression};")
+      pot.sub(PLURAL_FORMS, "\\1#{nplural}; \\2#{plural_expression};\\n\"")
     end
 
     def plural_forms(locale)
