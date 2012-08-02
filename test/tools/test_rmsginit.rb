@@ -7,6 +7,7 @@ require "rr"
 
 class TestRMsgInit < Test::Unit::TestCase
   def setup
+    Locale.current = "en"
     stub(GetText::RMsgInit).get_translator_full_name{translator_full_name}
     stub(GetText::RMsgInit).get_translator_mail{translator_mail}
     @time = Time.now.strftime("%Y-%m-%d %H:%M%z")
