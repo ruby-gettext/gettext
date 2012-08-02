@@ -22,8 +22,8 @@ class TestRMsgInit < Test::Unit::TestCase
                             "--output", po_file_path,
                             "--locale", locale)
 
-      actual_po_file = normalize_po_file(po_file_path)
-      assert_equal(expected_po_file(locale), actual_po_file)
+      actual_po_header = normalize_po_header(po_file_path)
+      assert_equal(expected_po_header(locale), actual_po_header)
     end
   end
 
@@ -36,8 +36,8 @@ class TestRMsgInit < Test::Unit::TestCase
 
         GetText::RMsgInit.run("--locale", locale)
 
-        actual_po_file = normalize_po_file(po_file_path)
-        assert_equal(expected_po_file(locale), actual_po_file)
+        actual_po_header = normalize_po_header(po_file_path)
+        assert_equal(expected_po_header(locale), actual_po_header)
       end
     end
   end
@@ -51,8 +51,8 @@ class TestRMsgInit < Test::Unit::TestCase
       GetText::RMsgInit.run("--input", pot_file.path,
                             "--output", po_file_path)
 
-      actual_po_file = normalize_po_file(po_file_path)
-      assert_equal(expected_po_file(locale), actual_po_file)
+      actual_po_header = normalize_po_header(po_file_path)
+      assert_equal(expected_po_header(locale), actual_po_header)
     end
   end
 
@@ -65,8 +65,8 @@ class TestRMsgInit < Test::Unit::TestCase
 
         GetText::RMsgInit.run("--input", pot_file.path)
 
-        actual_po_file = normalize_po_file(po_file_path)
-        assert_equal(expected_po_file(locale), actual_po_file)
+        actual_po_header = normalize_po_header(po_file_path)
+        assert_equal(expected_po_header(locale), actual_po_header)
       end
     end
   end
@@ -80,8 +80,8 @@ class TestRMsgInit < Test::Unit::TestCase
 
         GetText::RMsgInit.run
 
-        actual_po_file = normalize_po_file(po_file_path)
-        assert_equal(expected_po_file(locale), actual_po_file)
+        actual_po_header = normalize_po_header(po_file_path)
+        assert_equal(expected_po_header(locale), actual_po_header)
       end
     end
   end
@@ -121,7 +121,7 @@ EOF
     file
   end
 
-  def normalize_po_file(po_file_path)
+  def normalize_po_header(po_file_path)
     po_file = ""
     File.open(po_file_path) do |file|
       po_file = file.read
@@ -130,7 +130,7 @@ EOF
     po_file.gsub(/#{Time.now.year}/, "YYYY")
   end
 
-  def expected_po_file(locale)
+  def expected_po_header(locale)
     full_name = translator_full_name
     mail = translator_mail
     language = Locale::Info.get_language(locale.to_s).name
