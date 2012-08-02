@@ -38,7 +38,7 @@ module GetText
     # Check whether files specified in arguments exist, and assign
     # default values if files are not specified.
     def check_options(*options)
-      input_file, output_file, locale = parse_arguments(*options)
+      input_file, output_file, locale = parse_options(*options)
 
       if input_file.nil?
         input_file = Dir.glob("./*.pot").first
@@ -65,7 +65,7 @@ module GetText
     DATE = "2012/07/30"
 
     # Parse commandline options.
-    def parse_arguments(*options) #:nodoc:
+    def parse_options(*options) #:nodoc:
       input_file = nil
       output_file = nil
       locale = nil
