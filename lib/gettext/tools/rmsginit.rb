@@ -9,10 +9,10 @@
   license terms as Ruby or LGPL.
 =end
 
-require 'gettext'
-require 'locale/info'
-require 'rbconfig'
-require 'optparse'
+require "gettext"
+require "locale/info"
+require "rbconfig"
+require "optparse"
 
 module GetText
   module RMsgInit
