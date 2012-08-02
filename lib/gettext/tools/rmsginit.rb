@@ -22,6 +22,7 @@ module GetText
     bindtextdomain "rgettext"
 
     # Create .po file from .pot file, user's inputs and metadata.
+    # @param [Array] options the list of arguments for rmsginit
     def run(*options)
       input_file, output_file, locale = check_options(*options)
 
@@ -35,9 +36,10 @@ module GetText
       self
     end
 
+    private
     # Check whether files specified in arguments exist, and assign
     # default values if files are not specified.
-    def check_options(*options)
+    def check_options(*options) #:nodoc:
       input_file, output_file, locale = parse_options(*options)
 
       if input_file.nil?
@@ -62,9 +64,9 @@ module GetText
     end
 
     VERSION = GetText::VERSION
-    DATE = "2012/07/30"
+    DATE = "2012/08/02"
 
-    # Parse commandline options.
+    # Parse commandline options to extract values
     def parse_options(*options) #:nodoc:
       input_file = nil
       output_file = nil
@@ -241,6 +243,7 @@ module GetText
         nplural = nil
         plural_expression = nil
       end
+
       "nplurals=#{nplural}; plural=#{plural_expression};"
     end
   end
@@ -249,7 +252,7 @@ end
 module GetText
   # Create a new .po file from initializing .pot file with user's
   # environment and input.
-  # * Returns: self.
+  # @return [self] self
   def rmsginit
     GetText::RMsgInit.run(*ARGV)
     self
