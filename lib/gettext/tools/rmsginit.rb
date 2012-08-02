@@ -36,7 +36,6 @@ module GetText
       self
     end
 
-    private
     # Check whether files specified in arguments exist, and assign
     # default values if files are not specified.
     def check_options(*options) #:nodoc:
