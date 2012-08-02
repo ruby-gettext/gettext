@@ -139,33 +139,33 @@ EOD
       pot.gsub(DESCRIPTION_TITLE, "\\1 #{description}")
     end
 
-    EMAIL = "<EMAIL@ADDRESS>"
-    FIRST_AUTHOR_KEY = /^(\s*#\s*) FIRST AUTHOR #{EMAIL}, YEAR\.$/
-    LAST_TRANSLATOR_KEY = /^(\"Last-Translator:) FULL NAME #{EMAIL}\\n"$/
+    EMAIL = "EMAIL@ADDRESS"
+    FIRST_AUTHOR_KEY = /^(\s*#\s*) FIRST AUTHOR <#{EMAIL}>, YEAR\.$/
+    LAST_TRANSLATOR_KEY = /^(\"Last-Translator:) FULL NAME <#{EMAIL}>\\n"$/
 
     def replace_translators(pot) #:nodoc:
-      fullname, mail = get_translator_metadata
+      full_name = get_translator_full_name
       year = Time.now.year
-      pot = pot.gsub(FIRST_AUTHOR_KEY, "\\1 #{fullname} <#{mail}>, #{year}.")
-      pot.gsub(LAST_TRANSLATOR_KEY, "\\1 #{fullname} <#{mail}>\\n\"")
+      mail = get_translator_mail
+
+      unless full_name.empty?
+        pot = pot.gsub(FIRST_AUTHOR_KEY,
+                       "\\1 #{full_name} <#{mail}>, #{year}.")
+      end
+      unless mail.empty?
+        pot = pot.gsub(LAST_TRANSLATOR_KEY, "\\1 #{full_name} <#{mail}>\\n\"")
+      end
+      pot
     end
 
-    def get_translator_metadata
-      logname = ENV["LOGNAME"] || `whoami`
-      if /Name: (.+)/ =~ `finger #{logname}`
-        fullname = $1
-      else
-        fullname = logname
-      end
+    def get_translator_full_name
+      puts("Please enter your full name.")
+      full_name = STDIN.gets.chomp
+    end
 
+    def get_translator_mail
       puts("Please enter your email address.")
       mail = STDIN.gets.chomp
-      if mail.empty?
-        hostname = `hostname`.chomp
-        mail = "#{logname}@#{hostname}"
-      end
-
-      [fullname, mail]
     end
 
     POT_REVISION_DATE_KEY = /^("PO-Revision-Date:).+\\n"$/

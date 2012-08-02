@@ -7,7 +7,8 @@ require 'rr'
 
 class TestRMsgInit < Test::Unit::TestCase
   def setup
-    stub(GetText::RMsgInit).get_translator_metadata{translator_metadata}
+    stub(GetText::RMsgInit).get_translator_full_name{translator_full_name}
+    stub(GetText::RMsgInit).get_translator_mail{translator_mail}
     @time = Time.now.strftime("%Y-%m-%d %H:%M%z")
   end
 
@@ -86,8 +87,12 @@ class TestRMsgInit < Test::Unit::TestCase
   end
 
   private
-  def translator_metadata
-    ["me", "me@example.com"]
+  def translator_full_name
+    "me"
+  end
+
+  def translator_mail
+    "me@example.com"
   end
 
   def create_pot_file
@@ -126,21 +131,23 @@ EOF
   end
 
   def expected_po_file(locale)
-    translator, mail = translator_metadata
+    full_name = translator_full_name
+    mail = translator_mail
     language = Locale::Info.get_language(locale.to_s).name
     plural_forms = GetText::RMsgInit.plural_forms(locale)
+
 <<EOF
 # #{language} translations for PACKAGE package.
 # Copyright (C) YYYY THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# #{translator} <#{mail}>, YYYY.
+# #{full_name} <#{mail}>, YYYY.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n"
-"Last-Translator: #{translator} <#{mail}>\\n"
+"Last-Translator: #{full_name} <#{mail}>\\n"
 "Language: #{locale}\\n"
 "Language-Team: #{language}\\n"
 "MIME-Version: 1.0\\n"
