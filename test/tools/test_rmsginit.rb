@@ -128,7 +128,7 @@ EOF
   def expected_po_file(locale)
     translator, mail = translator_metadata
     language = Locale::Info.get_language(locale.to_s).name
-    nplural, plural_expression = GetText::RMsgInit.plural_forms(locale)
+    plural_forms = GetText::RMsgInit.plural_forms(locale)
 <<EOF
 # #{language} translations for PACKAGE package.
 # Copyright (C) YYYY THE PACKAGE'S COPYRIGHT HOLDER
@@ -146,7 +146,7 @@ msgstr ""
 "MIME-Version: 1.0\\n"
 "Content-Type: text/plain; charset=UTF-8\\n"
 "Content-Transfer-Encoding: 8bit\\n"
-"Plural-Forms: nplurals=#{nplural}; plural=#{plural_expression};\\n"
+"Plural-Forms: #{plural_forms}\\n"
 EOF
   end
 end

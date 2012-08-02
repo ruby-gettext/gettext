@@ -190,11 +190,10 @@ EOD
     end
 
     PLURAL_FORMS =
-      /^(\"Plural-Forms: nplurals=)INTEGER; (plural=)EXPRESSION;\\n\"$/
+      /^(\"Plural-Forms:) nplurals=INTEGER; plural=EXPRESSION;\\n\"$/
 
     def replace_plural_forms(pot, locale)
-      nplural, plural_expression = plural_forms(locale)
-      pot.gsub(PLURAL_FORMS, "\\1#{nplural}; \\2#{plural_expression};\\n\"")
+      pot.gsub(PLURAL_FORMS, "\\1 #{plural_forms(locale)}\\n\"")
     end
 
     def plural_forms(locale)
@@ -242,7 +241,7 @@ EOD
         nplural = nil
         plural_expression = nil
       end
-      [nplural, plural_expression]
+      "nplurals=#{nplural}; plural=#{plural_expression};"
     end
   end
 end
