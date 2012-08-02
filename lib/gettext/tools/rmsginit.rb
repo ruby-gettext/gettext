@@ -54,6 +54,10 @@ module GetText
       end
 
       locale ||= Locale.current.to_s
+      unless Locale::Info.language_code?(locale)
+        raise(_("Specified locale '#{locale}' is invalid. Please check " +
+                  "your specified locale is usable in your environment."))
+      end
 
       output_file ||= "#{locale}.po"
       if File.exist?(output_file)
@@ -185,14 +189,7 @@ module GetText
     LANGUAGE_TEAM_KEY = /^("Language-Team:).+\\n"$/
 
     def replace_language(pot, locale) #:nodoc:
-      locale = locale.to_s
-      if Locale::Info.language_code?(locale)
-        language_name = Locale::Info.get_language(locale.to_s).name
-      else
-        raise(_("Specified locale '#{locale}' is invalid. Please check " +
-                  "your specified locale is usable in your environment."))
-      end
-
+      language_name = Locale::Info.get_language(locale.to_s).name
       pot = pot.gsub(LANGUAGE_KEY, "\\1 #{locale}\\n\"")
       pot.gsub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}\\n\"")
     end
