@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 =begin
   rmsginit.rb - Create a new .po file from .pot file and meta data.
