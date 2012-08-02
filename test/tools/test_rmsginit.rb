@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-require 'testlib/helper'
-require 'gettext/tools/rmsginit'
-require 'tmpdir'
-require 'rr'
+require "testlib/helper"
+require "gettext/tools/rmsginit"
+require "tmpdir"
+require "rr"
 
 class TestRMsgInit < Test::Unit::TestCase
   def setup

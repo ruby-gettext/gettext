@@ -10,10 +10,10 @@
   license terms as Ruby or LGPL.
 =end
 
-require 'optparse'
-require 'gettext'
-require 'gettext/tools/poparser'
-require 'rbconfig'
+require "optparse"
+require "gettext"
+require "gettext/tools/poparser"
+require "rbconfig"
 
 module GetText
 
