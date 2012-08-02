@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 =begin
-  rmsginit.rb - Initialize .pot with metadata and create .po
+  rmsginit.rb - Create a new .po file from .pot file and meta data.
 
   Copyright (C) 2012 Haruka Yoshihara
 
@@ -21,6 +21,7 @@ module GetText
 
     bindtextdomain "rgettext"
 
+    # Create .po file from .pot file, user's inputs and metadata.
     def run(*options)
       input_file, output_file, locale = check_options(*options)
 
@@ -34,6 +35,8 @@ module GetText
       self
     end
 
+    # Check whether files specified in arguments exist, and assign
+    # default values if files are not specified.
     def check_options(*options)
       input_file, output_file, locale = parse_arguments(*options)
 
@@ -61,6 +64,7 @@ module GetText
     VERSION = GetText::VERSION
     DATE = "2012/07/30"
 
+    # Parse commandline options.
     def parse_arguments(*options) #:nodoc:
       input_file = nil
       output_file = nil
@@ -68,50 +72,46 @@ module GetText
 
       parser = OptionParser.new
       parser.banner = "Usage: #{$0} [OPTION]"
-      options_description =
-_(<<EOD
-Initialize a .pot file with user's environment and input and create a .po
-file from an initialized .pot file.
-A .pot file is specified as input_file. If input_file is not
-specified, a .pot file existing current directory is used. A .po file is
-created from initialized input_file as output_file. if output_file
-isn't specified, output_file is "locale.po". If locale is not
-specified, the current locale is used.
-EOD
-)
-      parser.separator(options_description)
+      description = _("Create a new .po file from initializing .pot " +
+                        "file with user's environment and input.")
+      parser.separator(description)
       parser.separator("")
       parser.separator(_("Specific options:"))
 
-      parser.on("-i", "--input=FILE",
-                _("read input from specified file")) do |input|
+      input_description = _("Use INPUT as a .pot file. If INPUT is not " +
+                              "specified, INPUT is a .pot file existing " +
+                              "current directory.")
+      parser.on("-i", "--input=FILE", input_description) do |input|
         input_file = input
       end
 
-      parser.on("-o", "--output=FILE",
-                _("write output to specified file")) do |output|
+      output_description = _("Use OUTPUT as a created .po file. If OUTPUT " +
+                               "is not specified, OUTPUT depend on LOCALE " +
+                               "or current locale on your environment.")
+      parser.on("-o", "--output=OUTPUT", output_description) do |output|
         output_file = output
       end
 
-      parser.on("-l", "--locale=LOCALE",
-                _("locale used with .po file")) do |loc|
+      locale_description = _("Use LOCALE as target locale. If LOCALE is " +
+                               "not specified, LOCALE is the current " +
+                               "locale on your environment.")
+      parser.on("-l", "--locale=LOCALE", locale_description) do |loc|
         locale = loc
       end
 
-      parser.on("-h", "--help",
-                _("dispray this help and exit")) do
+      parser.on("-h", "--help", _("Dispray this help and exit")) do
         puts(parser.help)
         exit(true)
       end
 
-      parser.on_tail("--version",
-                     _("display version information and exit")) do
-        puts("#{$0} #{VERSION} (#{DATE})")
+      version_description = _("Display version information and exit")
+      parser.on_tail("-v", "--version", version_description) do
         ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
         ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
         ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
                              "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) " +
                              "[#{RUBY_PLATFORM}]"
+        puts("#{$0} #{VERSION} (#{DATE})")
         puts(ruby_description)
         exit(true)
       end
@@ -123,7 +123,7 @@ EOD
 
     DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
 
-    def replace_pot_header(pot, locale)
+    def replace_pot_header(pot, locale) #:nodoc:
       pot = replace_description(pot, locale)
       pot = replace_translators(pot)
       pot = replace_date(pot)
@@ -132,7 +132,7 @@ EOD
       pot.gsub(/#, fuzzy\n/, "")
     end
 
-    def replace_description(pot, locale)
+    def replace_description(pot, locale) #:nodoc:
       language_name = Locale::Info.get_language(locale.to_s).name
       description = "#{language_name} translations for PACKAGE package."
 
@@ -158,12 +158,12 @@ EOD
       pot
     end
 
-    def get_translator_full_name
+    def get_translator_full_name #:nodoc:
       puts("Please enter your full name.")
       full_name = STDIN.gets.chomp
     end
 
-    def get_translator_mail
+    def get_translator_mail #:nodoc:
       puts("Please enter your email address.")
       mail = STDIN.gets.chomp
     end
@@ -192,11 +192,11 @@ EOD
     PLURAL_FORMS =
       /^(\"Plural-Forms:) nplurals=INTEGER; plural=EXPRESSION;\\n\"$/
 
-    def replace_plural_forms(pot, locale)
+    def replace_plural_forms(pot, locale) #:nodoc:
       pot.gsub(PLURAL_FORMS, "\\1 #{plural_forms(locale)}\\n\"")
     end
 
-    def plural_forms(locale)
+    def plural_forms(locale) #:nodoc:
       case locale.to_s
       when "ja", "vi", "ko"
         nplural = "1"
@@ -247,13 +247,9 @@ EOD
 end
 
 module GetText
-  # Initialize a .pot file with user's environment and input and
-  # create a .po file from an initialized .pot file.
-  # A .pot file is specified as input_file. If input_file is not
-  # specified, a .pot file existing current directory is used.
-  # A .po file is created from initialized input_file as output_file.
-  # if output_file isn't specified, output_file is "locale.po".
-  # If locale is not specified, the current locale is used.
+  # Create a new .po file from initializing .pot file with user's
+  # environment and input.
+  # * Returns: self.
   def rmsginit
     GetText::RMsgInit.run(*ARGV)
     self
