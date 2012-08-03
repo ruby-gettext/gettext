@@ -52,11 +52,18 @@ module GetText
         end
       end
 
-      locale ||= Locale.current.to_s
-      unless Locale::Info.language_code?(locale)
-        raise(_("Specified locale '#{locale}' is invalid. Please check " +
-                  "your specified locale is usable in your environment."))
+      if locale.nil?
+        language_tag = Locale.current
+      else
+        language_tag = Locale::Tag.parse(locale)
       end
+
+      unless valid_locale?(language_tag)
+        raise(_("Locale '#{language_tag}' is invalid. " +
+                  "Please check if your specified locale is usable."))
+      end
+      locale = language_tag.to_simple.to_s
+      @language = language_tag.language
 
       output_file ||= "#{locale}.po"
       if File.exist?(output_file)
@@ -64,6 +71,12 @@ module GetText
       end
 
       [input_file, output_file, locale]
+    end
+
+    def valid_locale?(language_tag)
+      return false if language_tag.instance_of?(Locale::Tag::Irregular)
+
+      Locale::Info.language_code?(language_tag.language)
     end
 
     VERSION = GetText::VERSION
@@ -129,16 +142,16 @@ module GetText
     DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
 
     def replace_pot_header(pot, locale) #:nodoc:
-      pot = replace_description(pot, locale)
+      pot = replace_description(pot)
       pot = replace_translators(pot)
       pot = replace_date(pot)
       pot = replace_language(pot, locale)
-      pot = replace_plural_forms(pot, locale)
+      pot = replace_plural_forms(pot)
       pot.gsub(/#, fuzzy\n/, "")
     end
 
-    def replace_description(pot, locale) #:nodoc:
-      language_name = Locale::Info.get_language(locale).name
+    def replace_description(pot) #:nodoc:
+      language_name = Locale::Info.get_language(@language).name
       description = "#{language_name} translations for PACKAGE package."
 
       pot.gsub(DESCRIPTION_TITLE, "\\1 #{description}")
@@ -188,7 +201,7 @@ module GetText
     LANGUAGE_TEAM_KEY = /^("Language-Team:).+\\n"$/
 
     def replace_language(pot, locale) #:nodoc:
-      language_name = Locale::Info.get_language(locale).name
+      language_name = Locale::Info.get_language(@language).name
       pot = pot.gsub(LANGUAGE_KEY, "\\1 #{locale}\\n\"")
       pot.gsub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}\\n\"")
     end
@@ -196,12 +209,12 @@ module GetText
     PLURAL_FORMS =
       /^(\"Plural-Forms:) nplurals=INTEGER; plural=EXPRESSION;\\n\"$/
 
-    def replace_plural_forms(pot, locale) #:nodoc:
-      pot.gsub(PLURAL_FORMS, "\\1 #{plural_forms(locale)}\\n\"")
+    def replace_plural_forms(pot) #:nodoc:
+      pot.gsub(PLURAL_FORMS, "\\1 #{plural_forms(@language)}\\n\"")
     end
 
-    def plural_forms(locale) #:nodoc:
-      case locale
+    def plural_forms(language) #:nodoc:
+      case language
       when "ja", "vi", "ko"
         nplural = "1"
         plural_expression = "0"
