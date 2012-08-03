@@ -138,7 +138,7 @@ module GetText
     end
 
     def replace_description(pot, locale) #:nodoc:
-      language_name = Locale::Info.get_language(locale.to_s).name
+      language_name = Locale::Info.get_language(locale).name
       description = "#{language_name} translations for PACKAGE package."
 
       pot.gsub(DESCRIPTION_TITLE, "\\1 #{description}")
@@ -188,7 +188,7 @@ module GetText
     LANGUAGE_TEAM_KEY = /^("Language-Team:).+\\n"$/
 
     def replace_language(pot, locale) #:nodoc:
-      language_name = Locale::Info.get_language(locale.to_s).name
+      language_name = Locale::Info.get_language(locale).name
       pot = pot.gsub(LANGUAGE_KEY, "\\1 #{locale}\\n\"")
       pot.gsub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}\\n\"")
     end
@@ -201,7 +201,7 @@ module GetText
     end
 
     def plural_forms(locale) #:nodoc:
-      case locale.to_s
+      case locale
       when "ja", "vi", "ko"
         nplural = "1"
         plural_expression = "0"
