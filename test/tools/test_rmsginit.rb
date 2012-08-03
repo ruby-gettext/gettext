@@ -80,8 +80,8 @@ class TestRMsgInit < Test::Unit::TestCase
   def test_pot_file_and_po_file
     Dir.mktmpdir do |dir|
       pot_file = create_pot_file
-      locale = current_language
-      language = locale
+      locale = current_locale
+      language = current_language
       po_file_path = File.join(dir, "test.po")
 
       GetText::RMsgInit.run("--input", pot_file.path,
@@ -96,8 +96,8 @@ class TestRMsgInit < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
         pot_file = create_pot_file
-        locale = current_language
-        language = locale
+        locale = current_locale
+        language = current_language
         po_file_path = "#{locale}.po"
 
         GetText::RMsgInit.run("--input", pot_file.path)
@@ -112,8 +112,8 @@ class TestRMsgInit < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
         create_pot_file
-        locale = current_language
-        language = locale
+        locale = current_locale
+        language = current_language
         po_file_path = "#{locale}.po"
 
         GetText::RMsgInit.run
@@ -125,6 +125,10 @@ class TestRMsgInit < Test::Unit::TestCase
   end
 
   private
+  def current_locale
+    Locale.current.to_simple.to_s
+  end
+
   def current_language
     Locale.current.language
   end
