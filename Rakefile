@@ -17,7 +17,7 @@ $:.unshift "./lib"
 require "tempfile"
 require 'rake'
 require 'rubygems'
-require "yard/rake/yardoc_task"
+require "yard"
 require 'gettext/version'
 
 require "bundler/gem_helper"
