@@ -15,11 +15,13 @@ require "rbconfig"
 require "optparse"
 
 module GetText
-  module RMsgInit
-    extend GetText
-    extend self
+  class RMsgInit
 
-    bindtextdomain "rgettext"
+    GetText.bindtextdomain "rgettext"
+
+    def initialize #:nodoc:
+      @language = nil
+    end
 
     # Create .po file from .pot file, user's inputs and metadata.
     # @param [Array] options the list of arguments for rmsginit
@@ -269,7 +271,8 @@ module GetText
   # environment and input.
   # @return [self] self
   def rmsginit
-    GetText::RMsgInit.run(*ARGV)
+    rmsginit = GetText::RMsgInit.new
+    rmsginit.run(*ARGV)
     self
   end
 
