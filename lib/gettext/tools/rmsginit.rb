@@ -16,6 +16,7 @@ require "optparse"
 
 module GetText
   class RMsgInit
+    include GetText
 
     GetText.bindtextdomain("rgettext")
 
