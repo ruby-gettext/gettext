@@ -25,7 +25,7 @@ class TestRMsgInit < Test::Unit::TestCase
                             "--locale", locale)
 
       actual_po_header = normalize_po_header(po_file_path)
-      assert_equal(expected_po_header(locale, language), actual_po_header)
+      assert_equal(po_header(locale, language), actual_po_header)
     end
   end
 
@@ -40,7 +40,7 @@ class TestRMsgInit < Test::Unit::TestCase
         GetText::RMsgInit.run("--locale", locale)
 
         actual_po_header = normalize_po_header(po_file_path)
-        assert_equal(expected_po_header(locale, language), actual_po_header)
+        assert_equal(po_header(locale, language), actual_po_header)
       end
     end
   end
@@ -56,7 +56,7 @@ class TestRMsgInit < Test::Unit::TestCase
         GetText::RMsgInit.run("--locale", locale)
 
         actual_po_header = normalize_po_header(po_file_path)
-        assert_equal(expected_po_header(locale, language), actual_po_header)
+        assert_equal(po_header(locale, language), actual_po_header)
       end
     end
   end
@@ -73,7 +73,7 @@ class TestRMsgInit < Test::Unit::TestCase
         GetText::RMsgInit.run("--locale", "#{locale}.#{charset}")
 
         actual_po_header = normalize_po_header(po_file_path)
-        assert_equal(expected_po_header(locale, language), actual_po_header)
+        assert_equal(po_header(locale, language), actual_po_header)
       end
     end
   end
@@ -89,7 +89,7 @@ class TestRMsgInit < Test::Unit::TestCase
                             "--output", po_file_path)
 
       actual_po_header = normalize_po_header(po_file_path)
-      assert_equal(expected_po_header(locale, language), actual_po_header)
+      assert_equal(po_header(locale, language), actual_po_header)
     end
   end
 
@@ -104,7 +104,7 @@ class TestRMsgInit < Test::Unit::TestCase
         GetText::RMsgInit.run("--input", pot_file.path)
 
         actual_po_header = normalize_po_header(po_file_path)
-        assert_equal(expected_po_header(locale, language), actual_po_header)
+        assert_equal(po_header(locale, language), actual_po_header)
       end
     end
   end
@@ -120,7 +120,7 @@ class TestRMsgInit < Test::Unit::TestCase
         GetText::RMsgInit.run
 
         actual_po_header = normalize_po_header(po_file_path)
-       assert_equal(expected_po_header(locale, language), actual_po_header)
+        assert_equal(po_header(locale, language), actual_po_header)
       end
     end
   end
@@ -235,7 +235,7 @@ EOF
     po_file.gsub(/#{Time.now.year}/, "YYYY")
   end
 
-  def expected_po_header(locale, language)
+  def po_header(locale, language)
     full_name = translator_full_name
     mail = translator_mail
     language_name = Locale::Info.get_language(language).name
