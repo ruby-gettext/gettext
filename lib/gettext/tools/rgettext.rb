@@ -25,8 +25,6 @@ module GetText
 
     bindtextdomain("rgettext")
 
-    # constant values
-    VERSION = GetText::VERSION
     def initialize
       @ex_parsers = []
       [
@@ -165,6 +163,9 @@ TITLE
       end
       pomessages
     end
+
+    # constant values
+    VERSION = GetText::VERSION
 
     def check_options # :nodoc:
       output = STDOUT
