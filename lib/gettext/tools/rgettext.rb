@@ -149,7 +149,13 @@ TITLE
                 end
 
                 # Save the previous target.
-                existing = pomessages.empty? ? nil : pomessages.index(pomessages.find {|t| t == pomessage})
+                if pomessages.empty?
+                  existing = nil
+                else
+                  message = pomessages.find {|t| t == pomessage}
+                  existing = pomessages.index(message)
+                end
+
                 if existing
                   pomessage = pomessages[existing].merge(pomessage)
                   pomessages[existing] = pomessage
