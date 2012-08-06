@@ -29,12 +29,13 @@ module GetText
 
     def initialize
       @ex_parsers = []
-      [
+      parsers = [
         ["glade.rb", "GladeParser"],
         ["erb.rb", "ErbParser"],
         # ["ripper.rb", "RipperParser"],
         ["ruby.rb", "RubyParser"] # Default parser.
-      ].each do |f, klass|
+      ]
+      parsers.each do |f, klass|
         begin
           require "gettext/tools/parser/#{f}"
           @ex_parsers << GetText.const_get(klass)
