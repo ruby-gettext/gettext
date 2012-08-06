@@ -125,6 +125,64 @@ class TestRMsgInit < Test::Unit::TestCase
     end
   end
 
+  def test_no_translator
+    stub(GetText::RMsgInit).get_translator_full_name{""}
+    stub(GetText::RMsgInit).get_translator_mail{""}
+
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        create_pot_file
+        locale = current_locale
+        language = current_language
+        po_file_path = "#{locale}.po"
+
+        GetText::RMsgInit.run
+
+        actual_po_header = normalize_po_header(po_file_path)
+        expected_po_header = no_translator_po_header(locale, language)
+        assert_equal(expected_po_header, actual_po_header)
+      end
+    end
+  end
+
+  def test_no_translator_full_name
+    stub(GetText::RMsgInit).get_translator_full_name{""}
+
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        create_pot_file
+        locale = current_locale
+        language = current_language
+        po_file_path = "#{locale}.po"
+
+        GetText::RMsgInit.run
+
+        actual_po_header = normalize_po_header(po_file_path)
+        expected_po_header = no_translator_po_header(locale, language)
+        assert_equal(expected_po_header, actual_po_header)
+      end
+    end
+  end
+
+  def test_no_translator_mail
+    stub(GetText::RMsgInit).get_translator_mail{""}
+
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        create_pot_file
+        locale = current_locale
+        language = current_language
+        po_file_path = "#{locale}.po"
+
+        GetText::RMsgInit.run
+
+        actual_po_header = normalize_po_header(po_file_path)
+        expected_po_header = no_translator_po_header(locale, language)
+        assert_equal(expected_po_header, actual_po_header)
+      end
+    end
+  end
+
   private
   def current_locale
     Locale.current.to_simple.to_s
@@ -195,6 +253,31 @@ msgstr ""
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n"
 "Last-Translator: #{full_name} <#{mail}>\\n"
+"Language: #{locale}\\n"
+"Language-Team: #{language_name}\\n"
+"MIME-Version: 1.0\\n"
+"Content-Type: text/plain; charset=UTF-8\\n"
+"Content-Transfer-Encoding: 8bit\\n"
+"Plural-Forms: #{plural_forms}\\n"
+EOF
+  end
+
+  def no_translator_po_header(locale, language)
+    language_name = Locale::Info.get_language(language).name
+    plural_forms = GetText::RMsgInit.plural_forms(language)
+
+<<EOF
+# #{language_name} translations for PACKAGE package.
+# Copyright (C) YYYY THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YYYY.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
 "Language: #{locale}\\n"
 "Language-Team: #{language_name}\\n"
 "MIME-Version: 1.0\\n"
