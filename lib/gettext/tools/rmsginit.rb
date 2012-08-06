@@ -183,12 +183,12 @@ module GetText
 
     def get_translator_full_name #:nodoc:
       puts("Please enter your full name.")
-      full_name = STDIN.gets.chomp
+      STDIN.gets.chomp
     end
 
     def get_translator_mail #:nodoc:
       puts("Please enter your email address.")
-      mail = STDIN.gets.chomp
+      STDIN.gets.chomp
     end
 
     POT_REVISION_DATE_KEY = /^("PO-Revision-Date:).+\\n"$/
