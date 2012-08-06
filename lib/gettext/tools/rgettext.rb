@@ -213,7 +213,7 @@ TITLE
     def run(paths = nil, out = STDOUT)  # :nodoc:
       if paths.is_a? String
         paths = [paths]
-      elsif ! paths
+      elsif paths.nil?
         paths, out = check_options
       end
       if paths.size == 0
