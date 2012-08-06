@@ -18,7 +18,7 @@ module GetText
   class RMsgInit
     include GetText
 
-    GetText.bindtextdomain("rgettext")
+    bindtextdomain("rgettext")
 
     def initialize #:nodoc:
       @input_file = nil
