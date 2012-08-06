@@ -39,8 +39,8 @@ module GetText
           require "gettext/tools/parser/#{f}"
           @ex_parsers << GetText.const_get(klass)
         rescue
-          $stderr.puts _("'%{klass}' is ignored.") % {:klass => klass}
-          $stderr.puts $! if $DEBUG
+          $stderr.puts(_("'%{klass}' is ignored.") % {:klass => klass})
+          $stderr.puts($!) if $DEBUG
         end
       end
     end
@@ -129,7 +129,7 @@ TITLE
 
     def parse(paths) # :nodoc:
       pomessages = []
-      paths = [paths] if paths.kind_of? String
+      paths = [paths] if paths.kind_of?(String)
       paths.each do |path|
         begin
           @ex_parsers.each do |klass|
@@ -142,7 +142,7 @@ TITLE
               end
 
               targets.each{|pomessage|
-                if pomessage.kind_of? Array
+                if pomessage.kind_of?(Array)
                   pomessage = PoMessage.new_from_ary(pomessage)
                 end
 
@@ -159,7 +159,7 @@ TITLE
             end
           end
         rescue
-          puts _("Error parsing %{path}") % {:path => path}
+          puts(_("Error parsing %{path}") % {:path => path})
           raise
         end
       end
@@ -197,15 +197,20 @@ TITLE
       end
 
       opts.on_tail("--version", _("display version information and exit")) do
-        puts "#{$0} #{VERSION}"
-        puts "#{File.join(::RbConfig::CONFIG["bindir"], ::RbConfig::CONFIG["RUBY_INSTALL_NAME"])} #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+        puts("#{$0} #{VERSION}")
+        ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
+        ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
+        ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
+                             "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) " +
+                             "[#{RUBY_PLATFORM}]"
+        puts(ruby_description)
         exit
       end
 
       opts.parse!(ARGV)
 
       if ARGV.size == 0
-        puts opts.help
+        puts(opts.help)
         exit 1
       end
 
@@ -213,7 +218,7 @@ TITLE
     end
 
     def run(paths = nil, out = STDOUT)  # :nodoc:
-      if paths.is_a? String
+      if paths.is_a?(String)
         paths = [paths]
       elsif paths.nil?
         paths, out = check_options
@@ -221,14 +226,14 @@ TITLE
       if paths.size == 0
         raise ArgumentError, _("no input files")
       end
-      if out.is_a? String
+      if out.is_a?(String)
         File.open(File.expand_path(out), "w+") do |file|
-          file.puts generate_pot_header
-          file.puts generate_pot(paths)
+          file.puts(generate_pot_header)
+          file.puts(generate_pot(paths))
         end
       else
-        out.puts generate_pot_header
-        out.puts generate_pot(paths)
+        out.puts(generate_pot_header)
+        out.puts(generate_pot(paths))
       end
       self
     end
