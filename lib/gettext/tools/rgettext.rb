@@ -46,7 +46,8 @@ module GetText
     end
 
     # Add an option parser
-    # the option parser module requires to have target?(file) and parser(file, ary) method.
+    # the option parser module requires to have target?(file) and
+    # parser(file, ary) method.
     #
     #  require 'gettext/tools/rgettext'
     #  module FooParser
@@ -179,7 +180,8 @@ TITLE
       opts.separator("")
       opts.separator(_("Specific options:"))
 
-      opts.on("-o", "--output=FILE", _("write output to specified file")) do |out|
+      opts.on("-o", "--output=FILE",
+              _("write output to specified file")) do |out|
         unless FileTest.exist? out
           output = File.new(File.expand_path(out), "w+")
         else
@@ -188,7 +190,8 @@ TITLE
         end
       end
 
-      opts.on("-r", "--require=library", _("require the library before executing rgettext")) do |out|
+      opts.on("-r", "--require=library",
+              _("require the library before executing rgettext")) do |out|
         require out
       end
 
@@ -239,8 +242,9 @@ TITLE
     end
   end
   extend self
-  # Creates a po-file from targetfiles(ruby-script-files, .rhtml files, glade-2 XML files),
-  # then output the result to out. If no parameter is set, it behaves same as command line tools(rgettet).
+  # Creates a po-file from targetfiles(ruby-script-files, .rhtml
+  # files, glade-2 XML files), then output the result to out. If no
+  # parameter is set, it behaves same as command line tools(rgettet).
   #
   # This function is a part of GetText.create_pofiles.
   # Usually you don't need to call this function directly.
