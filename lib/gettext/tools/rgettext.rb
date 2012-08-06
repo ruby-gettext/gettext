@@ -204,7 +204,7 @@ TITLE
                              "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) " +
                              "[#{RUBY_PLATFORM}]"
         puts(ruby_description)
-        exit
+        exit(true)
       end
 
       opts.parse!(ARGV)
