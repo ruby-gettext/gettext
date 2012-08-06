@@ -7,9 +7,10 @@ require 'stringio'
 
 class TestPoGeneration < Test::Unit::TestCase
   def test_extracted_comments
-    GetText::RGetText.run(
-      File.join(File.dirname(__FILE__), 'testlib/gettext.rb'),
-      out = StringIO.new)
+    rgettext = GetText::RGetText.new
+    input_file = File.join(File.dirname(__FILE__), 'testlib/gettext.rb')
+    out = StringIO.new
+    rgettext.run(input_file, out)
     res = out.string
 
     # Use following to debug the content of the

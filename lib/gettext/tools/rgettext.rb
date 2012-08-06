@@ -2,11 +2,13 @@
 =begin
   rgettext.rb - Generate a .pot file.
 
+  Copyright (C) 2012  Haruka Yoshihara
   Copyright (C) 2003-2010  Masao Mutoh
   Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
 
-      Yasushi Shoji   <yashi at atmark-techno.com>
-      Masao Mutoh     <mutomasa at gmail.com>
+      Yasushi Shoji    <yashi at atmark-techno.com>
+      Masao Mutoh      <mutomasa at gmail.com>
+      Haruka Yoshihara <yoshihara@clear-code.com>
 
   You may redistribute it and/or modify it under the same
   license terms as Ruby or LGPL.
@@ -18,31 +20,30 @@ require 'rbconfig'
 
 module GetText
 
-  module RGetText #:nodoc:
-    extend GetText
+  class RGetText #:nodoc:
+    include GetText
 
     bindtextdomain("rgettext")
 
     # constant values
     VERSION = GetText::VERSION
-
-    @ex_parsers = []
-    [
-      ["glade.rb", "GladeParser"],
-      ["erb.rb", "ErbParser"],
-#      ["ripper.rb", "RipperParser"],
-      ["ruby.rb", "RubyParser"] # Default parser.
-    ].each do |f, klass|
-      begin
-        require "gettext/tools/parser/#{f}"
-        @ex_parsers << GetText.const_get(klass)
-      rescue
-        $stderr.puts _("'%{klass}' is ignored.") % {:klass => klass}
-        $stderr.puts $! if $DEBUG
+    def initialize
+      @ex_parsers = []
+      [
+        ["glade.rb", "GladeParser"],
+        ["erb.rb", "ErbParser"],
+        # ["ripper.rb", "RipperParser"],
+        ["ruby.rb", "RubyParser"] # Default parser.
+      ].each do |f, klass|
+        begin
+          require "gettext/tools/parser/#{f}"
+          @ex_parsers << GetText.const_get(klass)
+        rescue
+          $stderr.puts _("'%{klass}' is ignored.") % {:klass => klass}
+          $stderr.puts $! if $DEBUG
+        end
       end
     end
-
-    module_function
 
     # Add an option parser
     # the option parser module requires to have target?(file) and parser(file, ary) method.
@@ -240,7 +241,8 @@ TITLE
   # * out: output IO or output path.
   # * Returns: self
   def rgettext(paths = nil, out = STDOUT)
-    RGetText.run(paths, out)
+    rgettext = RGetText.new
+    rgettext.run(paths, out)
     self
   end
 end

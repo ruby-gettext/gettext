@@ -8,8 +8,12 @@ require 'gettext/tools/parser/erb'
 require 'gettext/tools/rgettext'
 
 class TestGetTextParser < Test::Unit::TestCase
+  def setup
+    @rgettext = GetText::RGetText.new
+  end
+
   def test_ruby
-    @ary = GetText::RGetText.parse(['testlib/gettext.rb'])
+    @ary = @rgettext.parse(['testlib/gettext.rb'])
 
     assert_target 'aaa', ['testlib/gettext.rb:10']
     assert_target 'aaa\n', ['testlib/gettext.rb:14']
@@ -38,7 +42,7 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   def test_ruby_N
-    @ary = GetText::RGetText.parse(['testlib/N_.rb'])
+    @ary = @rgettext.parse(['testlib/N_.rb'])
 
     assert_target 'aaa', ['testlib/N_.rb:10']
     assert_target 'aaa\n', ['testlib/N_.rb:14']
@@ -56,7 +60,7 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   def test_ruby_n
-    @ary = GetText::RGetText.parse(['testlib/ngettext.rb'])
+    @ary = @rgettext.parse(['testlib/ngettext.rb'])
     assert_plural_target "aaa", "aaa2", ['testlib/ngettext.rb:10']
     assert_plural_target "bbb\\n", "ccc2\\nccc2", ['testlib/ngettext.rb:14']
     assert_plural_target "ddd\\nddd", "ddd2\\nddd2", ['testlib/ngettext.rb:18']
@@ -74,7 +78,7 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   def test_ruby_p
-    @ary = GetText::RGetText.parse(['testlib/pgettext.rb'])
+    @ary = @rgettext.parse(['testlib/pgettext.rb'])
     assert_target_in_context "AAA", "BBB", ["testlib/pgettext.rb:10", "testlib/pgettext.rb:14"]
     assert_target_in_context "AAA|BBB", "CCC", ["testlib/pgettext.rb:18"]
     assert_target_in_context "AAA", "CCC", ["testlib/pgettext.rb:22"]
@@ -108,19 +112,19 @@ class TestGetTextParser < Test::Unit::TestCase
 
   def test_rgettext_parse
     GetText::ErbParser.init(:extnames => ['.rhtml', '.rxml'])
-    @ary = GetText::RGetText.parse(['testlib/erb.rhtml'])
+    @ary = @rgettext.parse(['testlib/erb.rhtml'])
     assert_target 'aaa', ['testlib/erb.rhtml:8']
     assert_target 'aaa\n', ['testlib/erb.rhtml:11']
     assert_target 'bbb', ['testlib/erb.rhtml:12']
     assert_plural_target "ccc1", "ccc2", ['testlib/erb.rhtml:13']
 
-    @ary = GetText::RGetText.parse(['testlib/erb.rxml'])
+    @ary = @rgettext.parse(['testlib/erb.rxml'])
     assert_target 'aaa', ['testlib/erb.rxml:9']
     assert_target 'aaa\n', ['testlib/erb.rxml:12']
     assert_target 'bbb', ['testlib/erb.rxml:13']
     assert_plural_target "ccc1", "ccc2", ['testlib/erb.rxml:14']
 
-    @ary = GetText::RGetText.parse(['testlib/ngettext.rb'])
+    @ary = @rgettext.parse(['testlib/ngettext.rb'])
     assert_plural_target "ooo", "ppp", ['testlib/ngettext.rb:66', 'testlib/ngettext.rb:67']
     assert_plural_target "qqq", "rrr", ['testlib/ngettext.rb:71', 'testlib/ngettext.rb:72']
   end
