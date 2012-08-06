@@ -170,13 +170,13 @@ module GetText
     def replace_translators(pot) #:nodoc:
       full_name = get_translator_full_name
       mail = get_translator_mail
+      translator = "#{full_name} <#{mail}>"
       year = Time.now.year
 
       pot = pot.gsub(YEAR_KEY, "\\1 #{year}.")
       if not full_name.empty? and not mail.empty?
-        pot = pot.gsub(FIRST_AUTHOR_KEY,
-                       "\\1 #{full_name} <#{mail}>, \\2")
-        pot = pot.gsub(LAST_TRANSLATOR_KEY, "\\1 #{full_name} <#{mail}>\\n\"")
+        pot = pot.gsub(FIRST_AUTHOR_KEY, "\\1 #{translator}, \\2")
+        pot = pot.gsub(LAST_TRANSLATOR_KEY, "\\1 #{translator}\\n\"")
       end
       pot
     end
