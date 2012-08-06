@@ -17,7 +17,7 @@ require "optparse"
 module GetText
   class RMsgInit
 
-    GetText.bindtextdomain "rgettext"
+    GetText.bindtextdomain("rgettext")
 
     def initialize #:nodoc:
       @input_file = nil
