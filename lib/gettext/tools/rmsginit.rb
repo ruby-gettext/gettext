@@ -20,18 +20,21 @@ module GetText
     GetText.bindtextdomain "rgettext"
 
     def initialize #:nodoc:
+      @input_file = nil
+      @output_file = nil
+      @locale = nil
       @language = nil
     end
 
     # Create .po file from .pot file, user's inputs and metadata.
     # @param [Array] options the list of arguments for rmsginit
     def run(*options)
-      input_file, output_file, locale = check_options(*options)
+      check_options(*options)
 
-      pot_contents = File.read(input_file)
-      po_contents = replace_pot_header(pot_contents, locale)
+      pot_contents = File.read(@input_file)
+      po_contents = replace_pot_header(pot_contents)
 
-      File.open(output_file, "w") do |f|
+      File.open(@output_file, "w") do |f|
         f.puts(po_contents)
       end
 
@@ -53,6 +56,7 @@ module GetText
           raise(_("file #{input_file} does not exist."))
         end
       end
+      @input_file = input_file
 
       if locale.nil?
         language_tag = Locale.current
@@ -64,15 +68,14 @@ module GetText
         raise(_("Locale '#{language_tag}' is invalid. " +
                   "Please check if your specified locale is usable."))
       end
-      locale = language_tag.to_simple.to_s
+      @locale = language_tag.to_simple.to_s
       @language = language_tag.language
 
-      output_file ||= "#{locale}.po"
+      output_file ||= "#{@locale}.po"
       if File.exist?(output_file)
         raise(_("file #{output_file} has already existed."))
       end
-
-      [input_file, output_file, locale]
+      @output_file = output_file
     end
 
     def valid_locale?(language_tag)
@@ -143,11 +146,11 @@ module GetText
 
     DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
 
-    def replace_pot_header(pot, locale) #:nodoc:
+    def replace_pot_header(pot) #:nodoc:
       pot = replace_description(pot)
       pot = replace_translators(pot)
       pot = replace_date(pot)
-      pot = replace_language(pot, locale)
+      pot = replace_language(pot)
       pot = replace_plural_forms(pot)
       pot.gsub(/#, fuzzy\n/, "")
     end
@@ -202,9 +205,9 @@ module GetText
     LANGUAGE_KEY = /^("Language:).+\\n"$/
     LANGUAGE_TEAM_KEY = /^("Language-Team:).+\\n"$/
 
-    def replace_language(pot, locale) #:nodoc:
+    def replace_language(pot) #:nodoc:
       language_name = Locale::Info.get_language(@language).name
-      pot = pot.gsub(LANGUAGE_KEY, "\\1 #{locale}\\n\"")
+      pot = pot.gsub(LANGUAGE_KEY, "\\1 #{@locale}\\n\"")
       pot.gsub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}\\n\"")
     end
 
