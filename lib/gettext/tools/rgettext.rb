@@ -184,7 +184,7 @@ TITLE
           output = File.new(File.expand_path(out), "w+")
         else
           $stderr.puts(_("File '%s' already exists.") % out)
-          exit 1
+          exit(false)
         end
       end
 
@@ -211,7 +211,7 @@ TITLE
 
       if ARGV.size == 0
         puts(opts.help)
-        exit 1
+        exit(false)
       end
 
       [ARGV, output]
