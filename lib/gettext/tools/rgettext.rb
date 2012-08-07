@@ -142,7 +142,7 @@ TITLE
                 targets = klass.parse(path, [])
               end
 
-              targets.each{|pomessage|
+              targets.each do |pomessage|
                 if pomessage.kind_of?(Array)
                   pomessage = PoMessage.new_from_ary(pomessage)
                 end
@@ -161,7 +161,7 @@ TITLE
                 else
                   pomessages << pomessage
                 end
-              }
+              end
               break
             end
           end
