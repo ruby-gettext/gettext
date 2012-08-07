@@ -54,36 +54,36 @@ module GetText
   end
 
   def parse_options(*options)
-      output_file = nil
+    output_file = nil
 
-      opts = OptionParser.new
-      opts.banner = _("Usage: %s input.po [-o output.mo]" % $0)
-      opts.separator("")
-      description = _("Generate binary message catalog from textual " +
-                        "translation description.")
-      opts.separator(description)
-      opts.separator("")
-      opts.separator(_("Specific options:"))
+    opts = OptionParser.new
+    opts.banner = _("Usage: %s input.po [-o output.mo]" % $0)
+    opts.separator("")
+    description = _("Generate binary message catalog from textual " +
+                      "translation description.")
+    opts.separator(description)
+    opts.separator("")
+    opts.separator(_("Specific options:"))
 
-      opts.on("-o", "--output=FILE",
-              _("write output to specified file")) do |out|
-        output_file = out
-      end
+    opts.on("-o", "--output=FILE",
+            _("write output to specified file")) do |out|
+      output_file = out
+    end
 
-      opts.on_tail("--version", _("display version information and exit")) do
-        ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
-        ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
-        ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
-                             "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) " +
-                             "[#{RUBY_PLATFORM}]"
-        puts("#{$0} #{VERSION} (#{DATE})")
-        puts(ruby_description)
-        exit(true)
-      end
-      opts.parse!(options)
+    opts.on_tail("--version", _("display version information and exit")) do
+      ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
+      ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
+      ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
+                           "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) " +
+                           "[#{RUBY_PLATFORM}]"
+      puts("#{$0} #{VERSION} (#{DATE})")
+      puts(ruby_description)
+      exit(true)
+    end
+    opts.parse!(options)
 
-      input_file = options[0]
-      [input_file, output_file]
+    input_file = options[0]
+    [input_file, output_file]
   end
 
   # Creates a mo-file from a target file(po-file),
