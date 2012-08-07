@@ -185,11 +185,11 @@ EOH
 
       opts.on("-o", "--output=FILE",
               _("write output to specified file")) do |out|
-        unless FileTest.exist?(out)
-          output = File.new(File.expand_path(out), "w+")
-        else
+        if FileTest.exist?(out)
           $stderr.puts(_("File '%s' already exists.") % out)
           exit(false)
+        else
+          output = File.new(File.expand_path(out), "w+")
         end
       end
 
