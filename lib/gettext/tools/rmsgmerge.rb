@@ -162,8 +162,9 @@ module GetText
       #
       # Merge the reference with the definition: take the #. and
       #  #: comments from the reference, take the # comments from
-    # the definition, take the msgstr from the definition.  Add
-    # this merged entry to the output message list.
+      # the definition, take the msgstr from the definition.  Add
+      # this merged entry to the output message list.
+
       DOT_COMMENT_RE = /\A#\./
       SEMICOLON_COMMENT_RE = /\A#\:/
       FUZZY_RE = /\A#\,/
@@ -360,19 +361,18 @@ module GetText
       # update mode options
       attr_accessor :backup, :suffix
 
-=begin
-The result is written back to def.po.
-      --backup=CONTROL        make a backup of def.po
-      --suffix=SUFFIX         override the usual backup suffix
-The version control method may be selected via the --backup option or through
-the VERSION_CONTROL environment variable.  Here are the values:
-  none, off       never make backups (even if --backup is given)
-  numbered, t     make numbered backups
-  existing, nil   numbered if numbered backups exist, simple otherwise
-  simple, never   always make simple backups
-The backup suffix is `~', unless set with --suffix or the SIMPLE_BACKUP_SUFFIX
-environment variable.
-=end
+      # The result is written back to def.po.
+      #       --backup=CONTROL        make a backup of def.po
+      #       --suffix=SUFFIX         override the usual backup suffix
+      # The version control method may be selected
+      # via the --backup option or through
+      # the VERSION_CONTROL environment variable.  Here are the values:
+      #   none, off       never make backups (even if --backup is given)
+      #   numbered, t     make numbered backups
+      #   existing, nil   numbered if numbered backups exist, simple otherwise
+      #   simple, never   always make simple backups
+      # The backup suffix is `~', unless set with --suffix or
+      # the SIMPLE_BACKUP_SUFFIX environment variable.
 
       def initialize
         @output = STDOUT
