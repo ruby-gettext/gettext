@@ -3,6 +3,7 @@
 =begin
   rmsgfmt.rb - Generate a .mo
 
+  Copyright (C) 2012      Haruka Yoshihara
   Copyright (C) 2003-2009 Masao Mutoh
 
   You may redistribute it and/or modify it under the same
@@ -45,17 +46,25 @@ module GetText
       opts = OptionParser.new
       opts.banner = _("Usage: %s input.po [-o output.mo]" % $0)
       opts.separator("")
-      opts.separator(_("Generate binary message catalog from textual translation description."))
+      description = _("Generate binary message catalog from textual " +
+                        "translation description.")
+      opts.separator()
       opts.separator("")
       opts.separator(_("Specific options:"))
 
-      opts.on("-o", "--output=FILE", _("write output to specified file")) do |out|
+      opts.on("-o", "--output=FILE",
+              _("write output to specified file")) do |out|
         output = out
       end
 
       opts.on_tail("--version", _("display version information and exit")) do
-        puts "#{$0} #{GetText::VERSION}"
-        puts "#{File.join(::RbConfig::CONFIG["bindir"], ::RbConfig::CONFIG["RUBY_INSTALL_NAME"])} #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+        ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
+        ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
+        ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
+                             "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) " +
+                             "[#{RUBY_PLATFORM}]"
+        puts("#{$0} #{VERSION} (#{DATE})")
+        puts(ruby_description)
         exit
       end
       opts.parse!(ARGV)
