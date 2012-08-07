@@ -54,7 +54,10 @@ module GetText
       end
 
       def each_msgid
-        msgids = @msgids.delete_if{|i| i.kind_of?(Symbol) or i.empty?}
+        msgids = @msgids.delete_if do |msgid|
+          msgid.kind_of?(Symbol) or msgid.empty?
+        end
+
         msgids.each do |msgid|
           yield(msgid)
         end
@@ -226,10 +229,10 @@ module GetText
           else
             # NG
             s = ""
-            definition.nplural.times {
+            definition.nplural.times do
               s << def_msgstr
               s << "\000"
-            }
+            end
             target[msgid] = s
           end
         else
@@ -302,24 +305,24 @@ module GetText
       def format_comment(normal_comment, dot_comment, semi_comment, is_fuzzy)
         str = ""
 
-        str << normal_comment.join("\n").gsub(/^#(\s*)/){|sss|
+        str << normal_comment.join("\n").gsub(/^#(\s*)/) do |sss|
           if $1 == ""
             "# "
           else
             sss
           end
-        }
+        end
         if normal_comment.size > 0
           str << "\n"
         end
 
-        str << dot_comment.join("\n").gsub(/^#.(\s*)/){|sss|
+        str << dot_comment.join("\n").gsub(/^#.(\s*)/) do |sss|
           if $1 == ""
             "#. "
           else
             sss
           end
-        }
+        end
         if dot_comment.size > 0
           str << "\n"
         end
