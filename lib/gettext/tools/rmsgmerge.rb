@@ -418,7 +418,7 @@ module GetText
 
       opts.on("-o", "--output=FILE",
               _("write output to specified file")) do |out|
-        unless FileTest.exist? out
+        unless FileTest.exist?(out)
           config.output = out
         else
           #$stderr.puts(_("File '%s' has already existed.") % out)
