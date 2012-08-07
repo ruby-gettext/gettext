@@ -93,12 +93,9 @@ module GetText
     end
 
     def generate_pot_header # :nodoc:
-      time = Time.now.strftime("%Y-%m-%d %H:%M")
-      off = Time.now.utc_offset
-      sign = off <= 0 ? "-" : "+"
-      time += sprintf("%s%02d%02d", sign, *(off.abs / 60).divmod(60))
+      time = Time.now.strftime("%Y-%m-%d %H:%M%z")
 
-      <<TITLE
+      <<EOH
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -116,7 +113,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\\n"
 "Content-Transfer-Encoding: 8bit\\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
-TITLE
+EOH
     end
 
     def generate_pot(paths) # :nodoc:
