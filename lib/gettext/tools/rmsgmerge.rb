@@ -401,11 +401,18 @@ module GetText
       opts.banner = _("Usage: %s def.po ref.pot [-o output.pot]") % $0
       #opts.summary_width = 80
       opts.separator("")
-      opts.separator(_("Merges two Uniforum style .po files together. The def.po file is an existing PO file with translations. The ref.pot file is the last created PO file with up-to-date source references. ref.pot is generally created by rgettext."))
+      description = _("Merges two Uniforum style .po files together. " +
+                        "The def.po file is an existing PO file with " +
+                        "translations. The ref.pot file is the last " +
+                        "created PO file with up-to-date source " +
+                        "references. ref.pot is generally created by " +
+                        "rgettext.")
+      opts.separator(description)
       opts.separator("")
       opts.separator(_("Specific options:"))
 
-      opts.on("-o", "--output=FILE", _("write output to specified file")) do |out|
+      opts.on("-o", "--output=FILE",
+              _("write output to specified file")) do |out|
         unless FileTest.exist? out
           config.output = out
         else
@@ -417,8 +424,13 @@ module GetText
       #opts.on("-F", "--fuzzy-matching")
 
       opts.on_tail("--version", _("display version information and exit")) do
-        puts "#{$0} #{VERSION} (#{DATE})"
-  puts "#{File.join(::RbConfig::CONFIG["bindir"], ::RbConfig::CONFIG["RUBY_INSTALL_NAME"])} #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+        ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
+        ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
+        ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
+                             "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) " +
+                             "[#{RUBY_PLATFORM}]"
+        puts("#{$0} #{VERSION} (#{DATE})")
+        puts(ruby_description)
         exit
       end
 
