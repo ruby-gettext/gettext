@@ -19,6 +19,7 @@ require "rake"
 require "rubygems"
 require "yard"
 require "gettext/version"
+require "gettext/tools"
 require "bundler/gem_helper"
 
 class Bundler::GemHelper
@@ -73,13 +74,11 @@ task :mo => ["mo:gettext", "mo:samples", "mo:test"]
 namespace :mo do
   desc "Create *.mo for gettext gem"
   task :gettext do
-    require 'gettext/tools'
     GetText.create_mofiles
   end
 
   desc "Create *.mo for samples"
   task :samples do
-    require 'gettext/tools'
     GetText.create_mofiles(:po_root => "samples/po",
                            :mo_root => "samples/locale")
     GetText.create_mofiles(:po_root => "samples/cgi/po",
@@ -95,7 +94,6 @@ task :updatepo do
   begin
     require "gettext"
     require "gettext/tools/poparser"
-    require "gettext/tools"
   rescue LoadError
     puts "gettext/tools/poparser was not found."
   end
@@ -188,7 +186,6 @@ namespace :test do
       pot_path = "#{pot_base_dir}/#{pot_base_path}"
       pot_paths << pot_path
       file pot_path => [pot_base_dir, ruby_path] do
-        require "gettext/tools"
         GetText.rgettext(ruby_path, pot_path)
       end
     end
@@ -211,7 +208,6 @@ namespace :test do
         mo_path = "#{mo_directory}/#{mo_base_path}"
         mo_paths << mo_path
         file mo_path => [mo_directory, po_path, poparser_rb_path] do
-          require "gettext/tools"
           GetText.rmsgfmt(po_path, "-o", mo_path)
         end
       end
