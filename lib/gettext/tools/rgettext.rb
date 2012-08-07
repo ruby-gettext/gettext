@@ -45,11 +45,11 @@ module GetText
       end
     end
 
-    # Add an option parser
-    # the option parser module requires to have target?(file) and
+    # How to add your option parser
+    # The option parser module requires to have target?(file) and
     # parser(file, ary) method.
     #
-    #  require 'gettext/tools/rgettext'
+    #  require "gettext/tools/rgettext"
     #  module FooParser
     #    module_function
     #    def target?(file)
@@ -138,7 +138,7 @@ TITLE
               if klass.method(:parse).arity == 1
                 targets = klass.parse(path)
               else
-                # For backward compatibility.
+                # For backward compatibility
                 targets = klass.parse(path, [])
               end
 
@@ -147,7 +147,7 @@ TITLE
                   pomessage = PoMessage.new_from_ary(pomessage)
                 end
 
-                # Save the previous target.
+                # Save the previous target
                 if pomessages.empty?
                   existing = nil
                 else
@@ -248,14 +248,14 @@ TITLE
     end
   end
   extend self
-  # Creates a po-file from targetfiles(ruby-script-files, .rhtml
+  # Creates a pot file from target files(ruby-script-files, .rhtml
   # files, glade-2 XML files), then output the result to out. If no
-  # parameter is set, it behaves same as command line tools(rgettet).
+  # parameter is set, it behaves same as command line tools(rgettext).
   #
-  # This function is a part of GetText.create_pofiles.
-  # Usually you don't need to call this function directly.
+  # This method is a part of GetText.create_pofiles.
+  # Usually you don't need to call this method directly.
   #
-  # * paths: An Array of po-file paths or nil.
+  # * paths: An Array of target file paths or nil.
   # * out: output IO or output path.
   # * Returns: self
   def rgettext(paths = nil, out = STDOUT)
