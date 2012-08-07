@@ -17,7 +17,7 @@ require "rbconfig"
 
 module GetText
 
-  module RMsgMerge
+  class RMsgMerge
 
     class PoData  #:nodoc:
 
@@ -358,8 +358,8 @@ module GetText
 
 end
 
-module GetText::RMsgMerge #:nodoc:
-
+module GetText
+  class RMsgMerge
   class Config #:nodoc:
 
     attr_accessor :defpo, :refpot, :output, :fuzzy, :update
@@ -386,19 +386,18 @@ environment variable.
       @fuzzy = nil
       @update = nil
       @backup = ENV["VERSION_CONTROL"]
-      @suffix= ENV["SIMPLE_BACKUP_SUFFIX"] || "~"
+      @suffix = ENV["SIMPLE_BACKUP_SUFFIX"] || "~"
       @input_dirs = ["."]
     end
 
   end
-
+end
 end
 
 module GetText
 
-  module RMsgMerge
-    extend GetText
-    extend self
+  class RMsgMerge
+    include GetText
 
     bindtextdomain("rgettext")
 
@@ -490,7 +489,8 @@ module GetText
 
   # Experimental
   def rmsgmerge(reference = nil, definition = nil, out = STDOUT)
-    RMsgMerge.run(reference, definition, out)
+    rmsgmerge = RMsgMerge.new
+    rmsgmerge.run(reference, definition, out)
   end
 
 end
