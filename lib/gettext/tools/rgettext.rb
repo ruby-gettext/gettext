@@ -215,7 +215,7 @@ EOH
 
       opts.parse!(ARGV)
 
-      if ARGV.size == 0
+      if ARGV.empty?
         puts(opts.help)
         exit(false)
       end
@@ -229,7 +229,7 @@ EOH
       elsif paths.nil?
         paths, out = check_options
       end
-      if paths.size == 0
+      if paths.empty?
         raise ArgumentError, _("no input files")
       end
       if out.is_a?(String)
