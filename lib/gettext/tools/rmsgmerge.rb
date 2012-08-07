@@ -64,7 +64,9 @@ module GetText
       end
 
       def msgid?(msgid)
-        !(msgid.kind_of?(Symbol)) and @msgid2msgstr[msgid] and (msgid.empty?)
+        not (msgid.kind_of?(Symbol)) and
+          @msgid2msgstr[msgid] and
+          msgid.empty?
       end
 
       # Is it necessary to implement this method?
