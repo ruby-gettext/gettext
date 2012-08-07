@@ -132,34 +132,35 @@ EOH
         begin
           @ex_parsers.each do |klass|
             next unless klass.target?(path)
-              if klass.method(:parse).arity == 1
-                targets = klass.parse(path)
+
+            if klass.method(:parse).arity == 1
+              targets = klass.parse(path)
+            else
+              # For backward compatibility
+              targets = klass.parse(path, [])
+            end
+
+            targets.each do |pomessage|
+              if pomessage.kind_of?(Array)
+                pomessage = PoMessage.new_from_ary(pomessage)
+              end
+
+              # Save the previous target
+              if pomessages.empty?
+                existing = nil
               else
-                # For backward compatibility
-                targets = klass.parse(path, [])
+                message = pomessages.find {|t| t == pomessage}
+                existing = pomessages.index(message)
               end
 
-              targets.each do |pomessage|
-                if pomessage.kind_of?(Array)
-                  pomessage = PoMessage.new_from_ary(pomessage)
-                end
-
-                # Save the previous target
-                if pomessages.empty?
-                  existing = nil
-                else
-                  message = pomessages.find {|t| t == pomessage}
-                  existing = pomessages.index(message)
-                end
-
-                if existing
-                  pomessage = pomessages[existing].merge(pomessage)
-                  pomessages[existing] = pomessage
-                else
-                  pomessages << pomessage
-                end
+              if existing
+                pomessage = pomessages[existing].merge(pomessage)
+                pomessages[existing] = pomessage
+              else
+                pomessages << pomessage
               end
-              break
+            end
+            break
           end
         rescue
           puts(_("Error parsing %{path}") % {:path => path})
