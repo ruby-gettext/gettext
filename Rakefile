@@ -9,18 +9,18 @@
 #
 # Copyright(c) 2005-2009 Masao Mutoh
 # Copyright(c) 2012 Kouhei Sutou <kou@clear-code.com>
+# Copyright(c) 2012 Haruka Yoshihara <yoshihara@clear-code.com>
 # This program is licenced under the same licence as Ruby.
-#
 
 $:.unshift "./lib"
 
 require "tempfile"
-require 'rake'
-require 'rubygems'
+require "rake"
+require "rubygems"
 require "yard"
-require 'gettext/version'
-
+require "gettext/version"
 require "bundler/gem_helper"
+
 class Bundler::GemHelper
   undef_method :version_tag
   def version_tag
@@ -93,9 +93,9 @@ end
 desc "Update pot/po files to match new version."
 task :updatepo do
   begin
-    require 'gettext'
-    require 'gettext/tools/poparser'
-    require 'gettext/tools'
+    require "gettext"
+    require "gettext/tools/poparser"
+    require "gettext/tools"
   rescue LoadError
     puts "gettext/tools/poparser was not found."
   end
@@ -166,7 +166,7 @@ end
 
 task :package => [:makemo]
 
-desc 'Run all tests'
+desc "Run all tests"
 task :test => "test:prepare" do
   options = ARGV - Rake.application.top_level_tasks
   ruby "test/run-test.rb", *options
@@ -182,7 +182,7 @@ namespace :test do
       "non_ascii", "npgettext", "nsgettext",
       "pgettext", "backslash",
     ]
-    ruby_paths = Dir.glob("test/testlib/{#{ruby_base_paths.join(',')}}.rb")
+    ruby_paths = Dir.glob("test/testlib/{#{ruby_base_paths.join(",")}}.rb")
     ruby_paths.each do |ruby_path|
       pot_base_path = File.basename(ruby_path).sub(/\.rb\z/, ".pot")
       pot_path = "#{pot_base_dir}/#{pot_base_path}"
