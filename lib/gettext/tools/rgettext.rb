@@ -21,7 +21,6 @@ require 'gettext'
 require 'rbconfig'
 
 module GetText
-
   class RGetText #:nodoc:
     include GetText
 
