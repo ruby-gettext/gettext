@@ -360,12 +360,12 @@ end
 
 module GetText
   class RMsgMerge
-  class Config #:nodoc:
+    class Config #:nodoc:
 
-    attr_accessor :defpo, :refpot, :output, :fuzzy, :update
+      attr_accessor :defpo, :refpot, :output, :fuzzy, :update
 
-    # update mode options
-    attr_accessor :backup, :suffix
+      # update mode options
+      attr_accessor :backup, :suffix
 
 =begin
 The result is written back to def.po.
@@ -381,17 +381,16 @@ The backup suffix is `~', unless set with --suffix or the SIMPLE_BACKUP_SUFFIX
 environment variable.
 =end
 
-    def initialize
-      @output = STDOUT
-      @fuzzy = nil
-      @update = nil
-      @backup = ENV["VERSION_CONTROL"]
-      @suffix = ENV["SIMPLE_BACKUP_SUFFIX"] || "~"
-      @input_dirs = ["."]
+      def initialize
+        @output = STDOUT
+        @fuzzy = nil
+        @update = nil
+        @backup = ENV["VERSION_CONTROL"]
+        @suffix = ENV["SIMPLE_BACKUP_SUFFIX"] || "~"
+        @input_dirs = ["."]
+      end
     end
-
   end
-end
 end
 
 module GetText
