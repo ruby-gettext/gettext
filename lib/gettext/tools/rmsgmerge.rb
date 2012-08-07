@@ -54,9 +54,9 @@ module GetText
       end
 
       def each_msgid
-        arr = @msgids.delete_if{|i| Symbol === i or i == ''}
-        arr.each do |i|
-          yield i
+        msgids = @msgids.delete_if{|i| Symbol === i or i == ''}
+        msgids.each do |msgid|
+          yield(msgid)
         end
       end
 
