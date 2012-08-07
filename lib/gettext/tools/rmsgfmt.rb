@@ -22,39 +22,36 @@ module GetText
 
     bindtextdomain("rgettext")
 
-    def run(targetfile = nil, output_path = nil) # :nodoc:
-      unless targetfile
-        targetfile, output_path = check_options
-      end
-      unless targetfile
-        raise ArgumentError, _("no input files")
-      end
-      unless output_path
-        output_path = "messages.mo"
-      end
+    def initialize
+      @input_file = nil
+      @output_file = nil
+    end
+
+    def run(*options) # :nodoc:
+      check_options(*options)
 
       parser = PoParser.new
       data = MoFile.new
 
-      parser.parse_file(targetfile, data)
-      data.save_to_file(output_path)
+      parser.parse_file(@input_file, data)
+      data.save_to_file(@output_file)
     end
 
-    def check_options # :nodoc:
-      output = nil
+    def check_options(*options) # :nodoc:
+      output_file = nil
 
       opts = OptionParser.new
       opts.banner = _("Usage: %s input.po [-o output.mo]" % $0)
       opts.separator("")
       description = _("Generate binary message catalog from textual " +
                         "translation description.")
-      opts.separator()
+      opts.separator(description)
       opts.separator("")
       opts.separator(_("Specific options:"))
 
       opts.on("-o", "--output=FILE",
               _("write output to specified file")) do |out|
-        output = out
+        output_file = out
       end
 
       opts.on_tail("--version", _("display version information and exit")) do
@@ -67,25 +64,31 @@ module GetText
         puts(ruby_description)
         exit(true)
       end
-      opts.parse!(ARGV)
+      opts.parse!(options)
 
-      if ARGV.size == 0
-        puts opts.help
-        exit(false)
+      input_file = options[0]
+      if input_file.nil?
+        raise ArgumentError, _("no input files specified.")
       end
 
-      [ARGV[0], output]
+      if output_file.nil?
+        output_file = "messages.mo"
+      end
+
+      @input_file = input_file
+      @output_file = output_file
     end
   end
 
-  # Creates a mo-file from a targetfile(po-file), then output the result to out.
+  # Creates a mo-file from a target file(po-file),
+  # then output the result to out.
   # If no parameter is set, it behaves same as command line tools(rmsgfmt).
   # * targetfile: An Array of po-files or nil.
   # * output_path: output path.
   # * Returns: the MoFile object.
-  def rmsgfmt(targetfile = nil, output_path = nil)
+  def rmsgfmt(*options)
     rmsgfmt = RMsgFmt.new
-    rmsgfmt.run(targetfile, output_path)
+    rmsgfmt.run(*options)
   end
 end
 

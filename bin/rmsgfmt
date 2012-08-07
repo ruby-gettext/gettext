@@ -4,11 +4,12 @@
 
   Copyright (C) 2005-2009  Masao Mutoh
   Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+  Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
 
   You may redistribute it and/or modify it under the same
   license terms as Ruby.
 =end
 
-require 'gettext/tools/rmsgfmt'
+require "gettext/tools/rmsgfmt"
 
-GetText.rmsgfmt
+GetText.rmsgfmt(*ARGV)
