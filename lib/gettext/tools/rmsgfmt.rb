@@ -23,13 +23,13 @@ module GetText
 
     def run(targetfile = nil, output_path = nil) # :nodoc:
       unless targetfile
-  targetfile, output_path = check_options
+        targetfile, output_path = check_options
       end
       unless targetfile
-  raise ArgumentError, _("no input files")
+        raise ArgumentError, _("no input files")
       end
       unless output_path
-  output_path = "messages.mo"
+        output_path = "messages.mo"
       end
 
       parser = PoParser.new
