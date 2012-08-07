@@ -65,13 +65,13 @@ module GetText
                              "[#{RUBY_PLATFORM}]"
         puts("#{$0} #{VERSION} (#{DATE})")
         puts(ruby_description)
-        exit
+        exit(true)
       end
       opts.parse!(ARGV)
 
       if ARGV.size == 0
         puts opts.help
-        exit 1
+        exit(false)
       end
 
       [ARGV[0], output]
