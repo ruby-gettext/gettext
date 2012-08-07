@@ -16,9 +16,9 @@
   license terms as Ruby or LGPL.
 =end
 
-require 'optparse'
-require 'gettext'
-require 'rbconfig'
+require "optparse"
+require "gettext"
+require "rbconfig"
 
 module GetText
   class RGetText #:nodoc:
@@ -53,7 +53,7 @@ module GetText
     #  module FooParser
     #    module_function
     #    def target?(file)
-    #      File.extname(file) == '.foo'  # *.foo file only.
+    #      File.extname(file) == ".foo"  # *.foo file only.
     #    end
     #    def parse(file)
     #      :
@@ -95,8 +95,8 @@ module GetText
     def generate_pot_header # :nodoc:
       time = Time.now.strftime("%Y-%m-%d %H:%M")
       off = Time.now.utc_offset
-      sign = off <= 0 ? '-' : '+'
-      time += sprintf('%s%02d%02d', sign, *(off.abs / 60).divmod(60))
+      sign = off <= 0 ? "-" : "+"
+      time += sprintf("%s%02d%02d", sign, *(off.abs / 60).divmod(60))
 
       <<TITLE
 # SOME DESCRIPTIVE TITLE.
