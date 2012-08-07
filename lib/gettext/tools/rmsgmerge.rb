@@ -3,6 +3,7 @@
 =begin
   rmsgmerge.rb - Merge old .po to new .po
 
+  Copyright (C) 2012      Haruka Yoshihara
   Copyright (C) 2005-2009 Masao Mutoh
   Copyright (C) 2005,2006 speakillof
 
@@ -16,9 +17,7 @@ require "gettext/tools/poparser"
 require "rbconfig"
 
 module GetText
-
   class RMsgMerge
-
     class PoData  #:nodoc:
 
       attr_reader :msgids
@@ -79,7 +78,6 @@ module GetText
           else
             return 0
           end
-
         end
       end
 
@@ -157,11 +155,9 @@ module GetText
 
         s.rstrip
       end
-
     end
 
     class Merger #:nodoc:
-
       # From GNU gettext source.
       #
       # Merge the reference with the definition: take the #. and
@@ -351,11 +347,8 @@ module GetText
 
         target[''] = def_msg
       end
-
     end
-
   end
-
 end
 
 module GetText
@@ -394,7 +387,6 @@ environment variable.
 end
 
 module GetText
-
   class RMsgMerge
     include GetText
 
@@ -477,24 +469,16 @@ module GetText
         out.close
       end
     end
-
   end
-
 end
 
-
-
 module GetText
-
   # Experimental
   def rmsgmerge(reference = nil, definition = nil, out = STDOUT)
     rmsgmerge = RMsgMerge.new
     rmsgmerge.run(reference, definition, out)
   end
-
 end
-
-
 
 if $0 == __FILE__ then
   require 'pp'
