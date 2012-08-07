@@ -483,7 +483,7 @@ module GetText
           config.output.puts(result.generate_po)
         end
       ensure
-        out.close
+        config.output.close
       end
     end
   end
