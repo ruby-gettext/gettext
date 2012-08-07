@@ -481,11 +481,5 @@ module GetText
 end
 
 if $0 == __FILE__ then
-  require 'pp'
-
-  #parser = GetText::RMsgMerge::PoParser.new;
-  #parser = GetText::PoParser.new;
-  #pp parser.parse(ARGF.read)
-
   GetText.rmsgmerge
 end
