@@ -212,7 +212,7 @@ namespace :test do
         mo_paths << mo_path
         file mo_path => [mo_directory, po_path, poparser_rb_path] do
           require "gettext/tools"
-          GetText.rmsgfmt(po_path, mo_path)
+          GetText.rmsgfmt(po_path, "-o", mo_path)
         end
       end
     end
