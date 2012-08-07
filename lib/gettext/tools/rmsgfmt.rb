@@ -9,11 +9,11 @@
   license terms as Ruby or LGPL.
 =end
 
-require 'optparse'
-require 'fileutils'
-require 'gettext'
-require 'gettext/tools/poparser'
-require 'rbconfig'
+require "optparse"
+require "fileutils"
+require "gettext"
+require "gettext/tools/poparser"
+require "rbconfig"
 
 module GetText
   class RMsgFmt  #:nodoc:
