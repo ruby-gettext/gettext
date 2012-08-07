@@ -54,14 +54,14 @@ module GetText
       end
 
       def each_msgid
-        msgids = @msgids.delete_if{|i| Symbol === i or i == ''}
+        msgids = @msgids.delete_if{|i| i.kind_of?(Symbol) or i.empty?}
         msgids.each do |msgid|
           yield(msgid)
         end
       end
 
       def msgid?(msgid)
-        !(Symbol === msgid) and  @msgid2msgstr[msgid] and (msgid != '')
+        !(msgid.kind_of?(Symbol)) and @msgid2msgstr[msgid] and (msgid.empty?)
       end
 
       # Is it necessary to implement this method?
@@ -188,7 +188,7 @@ module GetText
           elsif other_msgid = definition.search_msgid_fuzzy(msgid, used)
             used << other_msgid
             merge_fuzzy_message(msgid, result, other_msgid, definition)
-          elsif msgid.index("\000") and ( reference.msgstr(msgid).gsub("\000", '') == '' )
+          elsif msgid.index("\000") and (reference.msgstr(msgid).gsub("\000", "").empty?)
             # plural
             result[msgid] = "\000" * definition.nplural
           else
