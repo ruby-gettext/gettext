@@ -188,9 +188,8 @@ EOH
         if FileTest.exist?(out)
           $stderr.puts(_("File '%s' already exists.") % out)
           exit(false)
-        else
-          output = File.new(File.expand_path(out), "w+")
         end
+        output = File.new(File.expand_path(out), "w+")
       end
 
       opts.on("-r", "--require=library",
