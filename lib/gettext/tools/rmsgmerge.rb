@@ -70,10 +70,10 @@ module GetText
       end
 
       def nplural
-        unless @msgid2msgstr['']
+        unless @msgid2msgstr[""]
           return 0
         else
-          if /\s*nplural\s*=\s*(\d+)/ =~ @msgid2msgstr['']
+          if /\s*nplural\s*=\s*(\d+)/ =~ @msgid2msgstr[""]
             return $1.to_i
           else
             return 0
@@ -82,7 +82,7 @@ module GetText
       end
 
       def generate_po
-        str = ''
+        str = ""
         str << generate_po_header
 
         self.each_msgid do |id|
@@ -96,10 +96,10 @@ module GetText
       def generate_po_header
         str = ""
 
-        str << @msgid2comment[''].strip << "\n"
+        str << @msgid2comment[""].strip << "\n"
         str << 'msgid ""'  << "\n"
         str << 'msgstr ""' << "\n"
-        msgstr = @msgid2msgstr[''].gsub(/"/, '\"').gsub(/\r/, '')
+        msgstr = @msgid2msgstr[""].gsub(/"/, '\"').gsub(/\r/, "")
         msgstr = msgstr.gsub(/^(.*)$/, '"\1\n"')
         str << msgstr
         str << "\n"
@@ -114,8 +114,8 @@ module GetText
           str << "\n"
         end
 
-        id = msgid.gsub(/"/, '\"').gsub(/\r/, '')
-        msgstr = @msgid2msgstr[msgid].gsub(/"/, '\"').gsub(/\r/, '')
+        id = msgid.gsub(/"/, "\"").gsub(/\r/, "")
+        msgstr = @msgid2msgstr[msgid].gsub(/"/, '\"').gsub(/\r/, "")
 
         if id.include?("\004")
           ids = id.split(/\004/)
@@ -144,7 +144,7 @@ module GetText
       end
 
       def __conv(str)
-        s = ''
+        s = ""
 
         if str.count("\n") > 1
           s << '""' << "\n"
@@ -199,11 +199,11 @@ module GetText
         ###################################################################
         # msgids which are not used in reference are handled as obsolete. #
         ###################################################################
-        last_comment = result.comment(:last) || ''
+        last_comment = result.comment(:last) || ""
         definition.each_msgid do |msgid|
           unless used.include?(msgid)
             last_comment << "\n"
-            last_comment << definition.generate_po_entry(msgid).strip.gsub(/^/, '#. ')
+            last_comment << definition.generate_po_entry(msgid).strip.gsub(/^/, "#. ")
             last_comment << "\n"
           end
         end
@@ -225,7 +225,7 @@ module GetText
             target[msgid] = def_msgstr
           else
             # NG
-            s = ''
+            s = ""
             definition.nplural.times {
               s << def_msgstr
               s << "\000"
@@ -300,7 +300,7 @@ module GetText
       end
 
       def format_comment(normal_comment, dot_comment, semi_comment, is_fuzzy)
-        str = ''
+        str = ""
 
         str << normal_comment.join("\n").gsub(/^#(\s*)/){|sss|
           if $1 == ""
@@ -337,16 +337,16 @@ module GetText
       end
 
       def merge_header(target, definition)
-        merge_comment('', target, '', definition)
+        merge_comment("", target, "", definition)
 
-        msg = target.msgstr('')
-        def_msg = definition.msgstr('')
+        msg = target.msgstr("")
+        def_msg = definition.msgstr("")
         if POT_DATE_EXTRACT_RE =~ msg
           time = $1
           def_msg = def_msg.sub(POT_DATE_RE, "POT-Creation-Date: #{time}")
         end
 
-        target[''] = def_msg
+        target[""] = def_msg
       end
     end
   end
