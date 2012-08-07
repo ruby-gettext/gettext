@@ -16,7 +16,7 @@ require 'gettext/tools/poparser'
 require 'rbconfig'
 
 module GetText
-  class RMsgfmt  #:nodoc:
+  class RMsgFmt  #:nodoc:
     include GetText
 
     bindtextdomain("rgettext")
@@ -75,7 +75,7 @@ module GetText
   # * output_path: output path.
   # * Returns: the MoFile object.
   def rmsgfmt(targetfile = nil, output_path = nil)
-    rmsgfmt = RMsgfmt.new
+    rmsgfmt = RMsgFmt.new
     rmsgfmt.run(targetfile, output_path)
   end
 end
