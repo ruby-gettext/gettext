@@ -19,7 +19,7 @@ module GetText
   class RMsgfmt  #:nodoc:
     include GetText
 
-    bindtextdomain "rgettext"
+    bindtextdomain("rgettext")
 
     def run(targetfile = nil, output_path = nil) # :nodoc:
       unless targetfile
