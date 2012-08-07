@@ -244,7 +244,7 @@ EOH
       self
     end
   end
-  extend self
+
   # Creates a pot file from target files(ruby-script-files, .rhtml
   # files, glade-2 XML files), then output the result to out. If no
   # parameter is set, it behaves same as command line tools(rgettext).
