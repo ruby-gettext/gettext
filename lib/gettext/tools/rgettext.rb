@@ -131,7 +131,7 @@ EOH
       paths.each do |path|
         begin
           @ex_parsers.each do |klass|
-            if klass.target?(path)
+            next unless klass.target?(path)
               if klass.method(:parse).arity == 1
                 targets = klass.parse(path)
               else
@@ -160,7 +160,6 @@ EOH
                 end
               end
               break
-            end
           end
         rescue
           puts(_("Error parsing %{path}") % {:path => path})
