@@ -38,6 +38,22 @@ module GetText
     end
 
     def check_options(*options) # :nodoc:
+      input_file, output_file = parse_options(*options)
+
+      if input_file.nil?
+        raise(ArgumentError, _("no input files specified."))
+      end
+
+      if output_file.nil?
+        output_file = "messages.mo"
+      end
+
+      @input_file = input_file
+      @output_file = output_file
+    end
+  end
+
+  def parse_options(*options)
       output_file = nil
 
       opts = OptionParser.new
@@ -67,17 +83,7 @@ module GetText
       opts.parse!(options)
 
       input_file = options[0]
-      if input_file.nil?
-        raise ArgumentError, _("no input files specified.")
-      end
-
-      if output_file.nil?
-        output_file = "messages.mo"
-      end
-
-      @input_file = input_file
-      @output_file = output_file
-    end
+      [input_file, output_file]
   end
 
   # Creates a mo-file from a target file(po-file),
