@@ -75,7 +75,7 @@ module GetText
         ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
                              "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) " +
                              "[#{RUBY_PLATFORM}]"
-        puts("#{$0} #{VERSION} (#{DATE})")
+        puts("#{$0} #{VERSION}")
         puts(ruby_description)
         exit(true)
       end
