@@ -38,7 +38,7 @@ module GetText
     end
 
     def initialize_arguments(*options) # :nodoc:
-      input_file, output_file = parse_options(*options)
+      input_file, output_file = parse_commandline_options(*options)
 
       if input_file.nil?
         raise(ArgumentError, _("no input files specified."))
@@ -52,7 +52,7 @@ module GetText
       @output_file = output_file
     end
 
-    def parse_options(*options)
+    def parse_commandline_options(*options)
       output_file = nil
 
       parser = OptionParser.new
