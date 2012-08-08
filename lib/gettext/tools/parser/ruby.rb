@@ -162,6 +162,7 @@ module GetText
           else
             if store_pomessage(pomessages, pomessage, path, line_no, last_comment)
               pomessage = nil
+              last_comment = ""
             end
           end
         rescue
