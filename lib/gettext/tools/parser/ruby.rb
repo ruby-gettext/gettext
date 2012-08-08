@@ -21,7 +21,7 @@ module GetText
     def parse
       until (  (tk = token).kind_of?(RubyToken::TkEND_OF_SCRIPT) && !@continue or tk.nil?  )
         s = get_readed
-        if RubyToken::TkSTRING === tk
+        if RubyToken::TkSTRING === tk or RubyToken::TkDSTRING === tk
           def tk.value
             @value
           end
@@ -44,7 +44,7 @@ module GetText
         end
 
         if $DEBUG
-          if tk.is_a? TkSTRING
+          if tk.is_a? TkSTRING or tk.is_a? TkDSTRING
             $stderr.puts("#{tk}: #{tk.value}")
           elsif tk.is_a? TkIDENTIFIER
             $stderr.puts("#{tk}: #{tk.name}")
@@ -153,7 +153,7 @@ module GetText
               pomessage = nil
             end
             line_no = tk.line_no.to_s
-          when RubyToken::TkSTRING
+          when RubyToken::TkSTRING, RubyToken::TkDSTRING
             pomessage.set_current_attribute tk.value if pomessage
           when RubyToken::TkPLUS, RubyToken::TkNL
             #do nothing
