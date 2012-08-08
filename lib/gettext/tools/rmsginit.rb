@@ -50,7 +50,7 @@ module GetText
       if input_file.nil?
         input_file = Dir.glob("./*.pot").first
         if input_file.nil?
-          raise(_(".pot file does not exist in current directory."))
+          raise(_(".pot file does not exist in the current directory."))
         end
       else
         unless File.exist?(input_file)
@@ -103,14 +103,14 @@ module GetText
 
       input_description = _("Use INPUT as a .pot file. If INPUT is not " +
                               "specified, INPUT is a .pot file existing " +
-                              "current directory.")
+                              "the current directory.")
       parser.on("-i", "--input=FILE", input_description) do |input|
         input_file = input
       end
 
       output_description = _("Use OUTPUT as a created .po file. If OUTPUT " +
                                "is not specified, OUTPUT depend on LOCALE " +
-                               "or current locale on your environment.")
+                               "or the current locale on your environment.")
       parser.on("-o", "--output=OUTPUT", output_description) do |output|
         output_file = output
       end
