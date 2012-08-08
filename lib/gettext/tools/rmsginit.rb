@@ -281,7 +281,5 @@ module GetText
 end
 
 if $0 == __FILE__ then
-  require 'pp'
-
   GetText.rmsginit
 end
