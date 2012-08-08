@@ -92,10 +92,12 @@ module GetText
   # * targetfile: An Array of po-files or nil.
   # * output_path: output path.
   # * Returns: the MoFile object.
-  def rmsgfmt
+  def rmsgfmt(*options)
     rmsgfmt = RMsgFmt.new
-    rmsgfmt.run(*ARGV)
+    rmsgfmt.run(*options)
   end
+
+  module_function :rmsgfmt
 end
 
 if $0 == __FILE__ then
