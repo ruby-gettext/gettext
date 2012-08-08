@@ -274,7 +274,7 @@ module GetText
   # environment and input.
   # @return [self] self
   def rmsginit
-    rmsginit = GetText::RMsgInit.new
+    rmsginit = RMsgInit.new
     rmsginit.run(*ARGV)
     self
   end
