@@ -28,7 +28,7 @@ module GetText
     end
 
     def run(*options) # :nodoc:
-      check_options(*options)
+      initialize_arguments(*options)
 
       parser = PoParser.new
       data = MoFile.new
@@ -37,7 +37,7 @@ module GetText
       data.save_to_file(@output_file)
     end
 
-    def check_options(*options) # :nodoc:
+    def initialize_arguments(*options) # :nodoc:
       input_file, output_file = parse_options(*options)
 
       if input_file.nil?
