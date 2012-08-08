@@ -12,4 +12,4 @@
 
 require "gettext/tools/rmsgfmt"
 
-GetText.rmsgfmt(*ARGV)
+GetText.rmsgfmt
