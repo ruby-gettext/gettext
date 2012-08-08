@@ -45,7 +45,7 @@ module GetText
     # Check whether files specified in arguments exist, and assign
     # default values if files are not specified.
     def initialize_arguments(*options) #:nodoc:
-      input_file, output_file, locale = parse_commandline_options(*options)
+      input_file, output_file, locale = parse_command_line_options(*options)
 
       if input_file.nil?
         input_file = Dir.glob("./*.pot").first
@@ -87,8 +87,8 @@ module GetText
 
     VERSION = GetText::VERSION
 
-    # Parse commandline options to extract values
-    def parse_commandline_options(*options) #:nodoc:
+    # Parse command line options to extract values
+    def parse_command_line_options(*options) #:nodoc:
       input_file = nil
       output_file = nil
       locale = nil
