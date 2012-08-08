@@ -399,7 +399,6 @@ module GetText
 
     # constant values
     VERSION = GetText::VERSION
-    DATE = %w($Date: 2007/07/21 15:03:05 $)[1]
 
     def check_options(config)
       opts = OptionParser.new
@@ -434,7 +433,7 @@ module GetText
         ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
                              "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) " +
                              "[#{RUBY_PLATFORM}]"
-        puts("#{$0} #{VERSION} (#{DATE})")
+        puts("#{$0} #{VERSION}")
         puts(ruby_description)
         exit(true)
       end
