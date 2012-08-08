@@ -10,6 +10,6 @@
 
 =end
 
-require 'gettext/tools/rgettext'
+require "gettext/tools/rgettext"
 
 GetText.rgettext
