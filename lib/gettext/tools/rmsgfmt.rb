@@ -51,7 +51,6 @@ module GetText
       @input_file = input_file
       @output_file = output_file
     end
-  end
 
   def parse_options(*options)
     output_file = nil
@@ -84,6 +83,7 @@ module GetText
 
     input_file = options[0]
     [input_file, output_file]
+  end
   end
 
   # Creates a mo-file from a target file(po-file),
