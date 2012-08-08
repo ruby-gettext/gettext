@@ -267,15 +267,13 @@ module GetText
       "nplurals=#{nplural}; plural=#{plural_expression};"
     end
   end
-end
 
-module GetText
   # Create a new .po file from initializing .pot file with user's
   # environment and input.
   # @return [self] self
-  def rmsginit
+  def rmsginit(*options)
     rmsginit = RMsgInit.new
-    rmsginit.run(*ARGV)
+    rmsginit.run(*options)
     self
   end
 

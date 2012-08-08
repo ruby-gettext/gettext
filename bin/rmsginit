@@ -11,4 +11,4 @@
 
 require 'gettext/tools/rmsginit'
 
-GetText.rmsginit
+GetText.rmsginit(*ARGV)
