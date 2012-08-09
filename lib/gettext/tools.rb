@@ -125,7 +125,7 @@ module GetText
 
     #write found messages to tmp.pot
     temp_pot = "tmp.pot"
-    rgettext(*files, "-o", temp_pot)
+    rgettext(files, "-o", temp_pot)
 
     #merge tmp.pot and existing pot
     po_root = options.delete(:po_root) || "po"

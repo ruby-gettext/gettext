@@ -214,6 +214,7 @@ EOH
 
       opts.parse!(options)
 
+      options = options.flatten
       if options.empty?
         puts(opts.help)
         exit(false)
