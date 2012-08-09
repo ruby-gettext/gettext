@@ -400,7 +400,7 @@ module GetText
     # constant values
     VERSION = GetText::VERSION
 
-    def check_command_line_options(*options)
+    def check_command_line_options(*options) #:nodoc:
       options, output = parse_arguments(*options)
 
       if output.nil?
@@ -426,7 +426,7 @@ module GetText
       config
     end
 
-    def parse_arguments(*options)
+    def parse_arguments(*options) #:nodoc:
       parser = OptionParser.new
       parser.banner = _("Usage: %s def.po ref.pot [-o output.pot]") % $0
       #parser.summary_width = 80
@@ -466,7 +466,7 @@ module GetText
       [options, output]
     end
 
-    def run(*options)
+    def run(*options) #:nodoc:
       config = check_command_line_options(*options)
 
       parser = PoParser.new
@@ -496,6 +496,8 @@ end
 
 module GetText
   # Experimental
+  # Merge a po-file inluding translated messages and a new pot-file.
+  # @param [Array<String>] options options for rmsgfmt.
   def rmsgmerge(*options)
     rmsgmerge = RMsgMerge.new
     rmsgmerge.run(*options)
