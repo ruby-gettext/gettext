@@ -234,10 +234,6 @@ EOH
     def run(*options)  # :nodoc:
       paths, out = check_command_line_options(*options)
 
-      if paths.is_a?(String)
-        paths = [paths]
-      end
-
       if out.is_a?(String)
         File.open(File.expand_path(out), "w+") do |file|
           file.puts(generate_pot_header)
