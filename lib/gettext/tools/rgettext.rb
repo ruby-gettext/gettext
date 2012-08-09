@@ -174,7 +174,7 @@ EOH
     VERSION = GetText::VERSION
 
     def check_command_line_options(*options) # :nodoc:
-      output = STDOUT
+      output = nil
 
       opts = OptionParser.new
       opts.banner = _("Usage: %s input.rb [-r parser.rb] [-o output.pot]") % $0
@@ -185,10 +185,6 @@ EOH
 
       opts.on("-o", "--output=FILE",
               _("write output to specified file")) do |out|
-        if FileTest.exist?(out)
-          $stderr.puts(_("File '%s' already exists.") % out)
-          exit(false)
-        end
         output = out
       end
 
@@ -213,6 +209,13 @@ EOH
       end
 
       opts.parse!(options)
+
+      if output.nil?
+        output = STDOUT
+      elsif File.exist?(output)
+        $stderr.puts(_("File '%s' already exists.") % out)
+        exit(false)
+      end
 
       options = options.flatten
       if options.empty?
