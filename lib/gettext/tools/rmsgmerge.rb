@@ -416,6 +416,13 @@ module GetText
       config.output = output
       config.defpo = options[0]
       config.refpot = options[1]
+
+      if config.defpo.nil?
+        raise ArgumentError, _("definition po is not given.")
+      elsif config.refpot.nil?
+        raise ArgumentError, _("reference pot is not given.")
+      end
+
       config
     end
 
@@ -466,12 +473,6 @@ module GetText
 
     def run(*options)
       config = check_command_line_options(*options)
-
-      if config.defpo.nil?
-        raise ArgumentError, _("definition po is not given.")
-      elsif config.refpot.nil?
-        raise ArgumentError, _("reference pot is not given.")
-      end
 
       parser = PoParser.new
       parser.ignore_fuzzy = false
