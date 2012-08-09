@@ -64,7 +64,7 @@ module GetText
       end
 
       def msgid?(msgid)
-        return false unless msgid.kind_of?(Symbol)
+        return false if msgid.kind_of?(Symbol)
         return true if msgid.empty?
         @msgid2msgstr.has_key?(msgid)
       end
