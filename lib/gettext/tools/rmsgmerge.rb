@@ -415,16 +415,11 @@ module GetText
       opts.separator("")
       opts.separator(_("Specific options:"))
 
-      config = Config.new
+      output = nil
 
       opts.on("-o", "--output=FILE",
               _("write output to specified file")) do |out|
-        if not FileTest.exist?(out)
-          $stderr.puts(_("File '%s' has already existed.") % out)
-          exit(false)
-        else
-          config.output = out
-        end
+        output = out
       end
 
       #opts.on("-F", "--fuzzy-matching")
@@ -447,6 +442,17 @@ module GetText
         exit(false)
       end
 
+      if output.nil?
+        output = STDOUT
+      else
+        if not FileTest.exist?(output)
+          $stderr.puts(_("File '%s' has already existed.") % out)
+          exit(false)
+        end
+      end
+
+      config = Config.new
+      config.output = output
       config.defpo = options[0]
       config.refpot = options[1]
       config
