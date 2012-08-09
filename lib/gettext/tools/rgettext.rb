@@ -174,7 +174,12 @@ EOH
     VERSION = GetText::VERSION
 
     def check_command_line_options(*options) # :nodoc:
-      options, output = parse_arguments(*options)
+      input_files, output = parse_arguments(*options)
+
+      input_files = input_files.flatten
+      if input_files.empty?
+        raise ArgumentError, _("no input files")
+      end
 
       if output.nil?
         output = STDOUT
@@ -183,13 +188,7 @@ EOH
         exit(false)
       end
 
-      options = options.flatten
-      if options.empty?
-        puts(opts.help)
-        exit(false)
-      end
-
-      [options, output]
+      [input_files, output]
     end
 
     def parse_arguments(*options)
@@ -237,9 +236,8 @@ EOH
 
       if paths.is_a?(String)
         paths = [paths]
-      elsif paths.empty?
-        raise ArgumentError, _("no input files")
       end
+
       if out.is_a?(String)
         File.open(File.expand_path(out), "w+") do |file|
           file.puts(generate_pot_header)
