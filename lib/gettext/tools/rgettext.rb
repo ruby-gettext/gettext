@@ -26,7 +26,7 @@ module GetText
 
     bindtextdomain("rgettext")
 
-    def initialize
+    def initialize #:nodoc:
       @ex_parsers = []
       parsers = [
         ["glade.rb", "GladeParser"],
@@ -195,7 +195,7 @@ EOH
       @output = output
     end
 
-    def parse_arguments(*options)
+    def parse_arguments(*options) #:nodoc:
       output = nil
 
       parser = OptionParser.new
@@ -259,14 +259,8 @@ EOH
   end
 
   # Creates a pot file from target files(ruby-script-files, .rhtml
-  # files, glade-2 XML files), then output the result to out. If no
-  # parameter is set, it behaves same as command line tools(rgettext).
-  #
-  # This method is a part of GetText.create_pofiles.
-  # Usually you don't need to call this method directly.
-  #
-  # * paths: An Array of target file paths or nil.
-  # * out: output IO or output path.
+  # files, glade-2 XML files).
+  # @param [Array<String>] options options for rgettext.
   # @return [void]
   def rgettext(*options)
     rgettext = RGetText.new
