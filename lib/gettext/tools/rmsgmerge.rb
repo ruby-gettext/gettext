@@ -463,11 +463,6 @@ module GetText
 
       opts.parse!(options)
 
-      if options.size != 2
-        puts opts.help
-        exit(false)
-      end
-
       [options, output]
     end
 
