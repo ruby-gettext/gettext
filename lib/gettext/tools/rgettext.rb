@@ -198,28 +198,30 @@ EOH
     def parse_arguments(*options)
       output = nil
 
-      opts = OptionParser.new
-      opts.banner = _("Usage: %s input.rb [-r parser.rb] [-o output.pot]") % $0
-      opts.separator("")
-      opts.separator(_("Extract translatable strings from given input files."))
-      opts.separator("")
-      opts.separator(_("Specific options:"))
+      parser = OptionParser.new
+      banner = _("Usage: %s input.rb [-r parser.rb] [-o output.pot]") % $0
+      parser.banner = banner
+      parser.separator("")
+      description = _("Extract translatable strings from given input files.")
+      parser.separator(description)
+      parser.separator("")
+      parser.separator(_("Specific options:"))
 
-      opts.on("-o", "--output=FILE",
-              _("write output to specified file")) do |out|
+      parser.on("-o", "--output=FILE",
+                _("write output to specified file")) do |out|
         output = out
       end
 
-      opts.on("-r", "--require=library",
-              _("require the library before executing rgettext")) do |out|
+      parser.on("-r", "--require=library",
+                _("require the library before executing rgettext")) do |out|
         require out
       end
 
-      opts.on("-d", "--debug", _("run in debugging mode")) do
+      parser.on("-d", "--debug", _("run in debugging mode")) do
         $DEBUG = true
       end
 
-      opts.on_tail("--version", _("display version information and exit")) do
+      parser.on_tail("--version", _("display version information and exit")) do
         puts("#{$0} #{VERSION}")
         ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
         ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
@@ -230,7 +232,7 @@ EOH
         exit(true)
       end
 
-      opts.parse!(options)
+      parser.parse!(options)
 
       [options, output]
     end
