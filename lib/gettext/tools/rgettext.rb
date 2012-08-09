@@ -173,7 +173,7 @@ EOH
     # constant values
     VERSION = GetText::VERSION
 
-    def check_options # :nodoc:
+    def check_command_line_options(*options) # :nodoc:
       output = STDOUT
 
       opts = OptionParser.new
@@ -189,7 +189,7 @@ EOH
           $stderr.puts(_("File '%s' already exists.") % out)
           exit(false)
         end
-        output = File.new(File.expand_path(out), "w+")
+        output = out
       end
 
       opts.on("-r", "--require=library",
@@ -212,23 +212,22 @@ EOH
         exit(true)
       end
 
-      opts.parse!(ARGV)
+      opts.parse!(options)
 
-      if ARGV.empty?
+      if options.empty?
         puts(opts.help)
         exit(false)
       end
 
-      [ARGV, output]
+      [options, output]
     end
 
-    def run(paths = nil, out = STDOUT)  # :nodoc:
+    def run(*options)  # :nodoc:
+      paths, out = check_command_line_options(*options)
+
       if paths.is_a?(String)
         paths = [paths]
-      elsif paths.nil?
-        paths, out = check_options
-      end
-      if paths.empty?
+      elsif paths.empty?
         raise ArgumentError, _("no input files")
       end
       if out.is_a?(String)
@@ -254,9 +253,9 @@ EOH
   # * paths: An Array of target file paths or nil.
   # * out: output IO or output path.
   # @return [void]
-  def rgettext(paths = nil, out = STDOUT)
+  def rgettext(*options)
     rgettext = RGetText.new
-    rgettext.run(paths, out)
+    rgettext.run(*options)
   end
 end
 

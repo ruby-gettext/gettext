@@ -12,4 +12,4 @@
 
 require "gettext/tools/rgettext"
 
-GetText.rgettext
+GetText.rgettext(*ARGV)

@@ -3,16 +3,19 @@
 require 'testlib/helper.rb'
 require 'gettext'
 require 'gettext/tools/rgettext.rb'
-require 'stringio'
+require "tmpdir"
 
 class TestPoGeneration < Test::Unit::TestCase
   def test_extracted_comments
-    rgettext = GetText::RGetText.new
     input_file = File.join(File.dirname(__FILE__), 'testlib/gettext.rb')
-    out = StringIO.new
-    rgettext.run(input_file, out)
-    res = out.string
-
+    res = ""
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        out = "comments.pot"
+        GetText.rgettext(input_file, "-o", out)
+        res = File.read(out)
+      end
+    end
     # Use following to debug the content of the
     # created file: File.open('/tmp/test.po', 'w').write(res)
 
