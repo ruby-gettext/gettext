@@ -427,30 +427,30 @@ module GetText
     end
 
     def parse_arguments(*options)
-      opts = OptionParser.new
-      opts.banner = _("Usage: %s def.po ref.pot [-o output.pot]") % $0
-      #opts.summary_width = 80
-      opts.separator("")
+      parser = OptionParser.new
+      parser.banner = _("Usage: %s def.po ref.pot [-o output.pot]") % $0
+      #parser.summary_width = 80
+      parser.separator("")
       description = _("Merges two Uniforum style .po files together. " +
                         "The def.po file is an existing PO file with " +
                         "translations. The ref.pot file is the last " +
                         "created PO file with up-to-date source " +
                         "references. ref.pot is generally created by " +
                         "rgettext.")
-      opts.separator(description)
-      opts.separator("")
-      opts.separator(_("Specific options:"))
+      parser.separator(description)
+      parser.separator("")
+      parser.separator(_("Specific options:"))
 
       output = nil
 
-      opts.on("-o", "--output=FILE",
+      parser.on("-o", "--output=FILE",
               _("write output to specified file")) do |out|
         output = out
       end
 
-      #opts.on("-F", "--fuzzy-matching")
+      #parser.on("-F", "--fuzzy-matching")
 
-      opts.on_tail("--version", _("display version information and exit")) do
+      parser.on_tail("--version", _("display version information and exit")) do
         ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
         ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
         ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
@@ -461,7 +461,7 @@ module GetText
         exit(true)
       end
 
-      opts.parse!(options)
+      parser.parse!(options)
 
       [options, output]
     end
