@@ -75,14 +75,12 @@ module GetText
       end
 
       def nplural
-        unless @msgid2msgstr[""]
-          return 0
+        return 0 if @msgid2msgstr[""].nil?
+
+        if /\s*nplural\s*=\s*(\d+)/ =~ @msgid2msgstr[""]
+          return $1.to_i
         else
-          if /\s*nplural\s*=\s*(\d+)/ =~ @msgid2msgstr[""]
-            return $1.to_i
-          else
-            return 0
-          end
+          return 0
         end
       end
 
