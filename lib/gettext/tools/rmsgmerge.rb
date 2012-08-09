@@ -400,7 +400,7 @@ module GetText
     # constant values
     VERSION = GetText::VERSION
 
-    def check_options(config)
+    def check_options(*options)
       opts = OptionParser.new
       opts.banner = _("Usage: %s def.po ref.pot [-o output.pot]") % $0
       #opts.summary_width = 80
@@ -415,13 +415,15 @@ module GetText
       opts.separator("")
       opts.separator(_("Specific options:"))
 
+      config = Config.new
+
       opts.on("-o", "--output=FILE",
               _("write output to specified file")) do |out|
-        unless FileTest.exist?(out)
-          config.output = out
+        if not FileTest.exist?(out)
+          $stderr.puts(_("File '%s' has already existed.") % out)
+          exit(false)
         else
-          #$stderr.puts(_("File '%s' has already existed.") % out)
-          #exit 1
+          config.output = out
         end
       end
 
@@ -438,24 +440,20 @@ module GetText
         exit(true)
       end
 
-      opts.parse!(ARGV)
+      opts.parse!(options)
 
-      if ARGV.size != 2
+      if options.size != 2
         puts opts.help
         exit(false)
       end
 
-      config.defpo = ARGV[0]
-      config.refpot = ARGV[1]
+      config.defpo = options[0]
+      config.refpot = options[1]
+      config
     end
 
-    def run(reference = nil, definition = nil, out = STDOUT)
-      config = GetText::RMsgMerge::Config.new
-      config.refpot = reference
-      config.defpo = definition
-      config.output = out
-
-      check_options(config)
+    def run(*options)
+      config = check_options(*options)
 
       if config.defpo.nil?
         raise ArgumentError, _("definition po is not given.")
@@ -490,9 +488,9 @@ end
 
 module GetText
   # Experimental
-  def rmsgmerge(reference = nil, definition = nil, out = STDOUT)
+  def rmsgmerge(*options)
     rmsgmerge = RMsgMerge.new
-    rmsgmerge.run(reference, definition, out)
+    rmsgmerge.run(*options)
   end
 end
 

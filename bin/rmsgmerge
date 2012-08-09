@@ -11,4 +11,4 @@
 
 require "gettext/tools/rmsgmerge"
 
-GetText.rmsgmerge
+GetText.rmsgmerge(*ARGV)
