@@ -474,8 +474,8 @@ module GetText
       defpo = parser.parse_file(config.defpo, PoData.new)
       refpot = parser.parse_file(config.refpot, PoData.new)
 
-      m = Merger.new
-      result = m.merge(defpo, refpot)
+      merger = Merger.new
+      result = merger.merge(defpo, refpot)
       p result if $DEBUG
       print result.generate_po if $DEBUG
 
