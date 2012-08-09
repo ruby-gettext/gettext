@@ -400,7 +400,26 @@ module GetText
     # constant values
     VERSION = GetText::VERSION
 
-    def check_options(*options)
+    def check_command_line_options(*options)
+      options, output = parse_arguments(*options)
+
+      if output.nil?
+        output = STDOUT
+      else
+        if not FileTest.exist?(output)
+          $stderr.puts(_("File '%s' has already existed.") % out)
+          exit(false)
+        end
+      end
+
+      config = Config.new
+      config.output = output
+      config.defpo = options[0]
+      config.refpot = options[1]
+      config
+    end
+
+    def parse_arguments(*options)
       opts = OptionParser.new
       opts.banner = _("Usage: %s def.po ref.pot [-o output.pot]") % $0
       #opts.summary_width = 80
@@ -442,24 +461,11 @@ module GetText
         exit(false)
       end
 
-      if output.nil?
-        output = STDOUT
-      else
-        if not FileTest.exist?(output)
-          $stderr.puts(_("File '%s' has already existed.") % out)
-          exit(false)
-        end
-      end
-
-      config = Config.new
-      config.output = output
-      config.defpo = options[0]
-      config.refpot = options[1]
-      config
+      [options, output]
     end
 
     def run(*options)
-      config = check_options(*options)
+      config = check_command_line_options(*options)
 
       if config.defpo.nil?
         raise ArgumentError, _("definition po is not given.")
