@@ -270,6 +270,7 @@ module GetText
 
   # Create a new .po file from initializing .pot file with user's
   # environment and input.
+  # @param [Array<String>] options options for rmsginit.
   # @return [self] self
   def rmsginit(*options)
     rmsginit = RMsgInit.new
