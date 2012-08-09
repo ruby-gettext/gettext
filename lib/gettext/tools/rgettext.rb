@@ -253,11 +253,10 @@ EOH
   #
   # * paths: An Array of target file paths or nil.
   # * out: output IO or output path.
-  # * Returns: self
+  # @return [void]
   def rgettext(paths = nil, out = STDOUT)
     rgettext = RGetText.new
     rgettext.run(paths, out)
-    self
   end
 end
 

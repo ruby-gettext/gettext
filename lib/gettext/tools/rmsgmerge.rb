@@ -496,11 +496,10 @@ module GetText
   # Experimental
   # Merge a po-file inluding translated messages and a new pot-file.
   # @param [Array<String>] options options for rmsgfmt.
-  # @return [self] self
+  # @return [void]
   def rmsgmerge(*options)
     rmsgmerge = RMsgMerge.new
     rmsgmerge.run(*options)
-    self
   end
 end
 
