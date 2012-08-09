@@ -43,6 +43,9 @@ module GetText
           $stderr.puts($!) if $DEBUG
         end
       end
+
+      @input_files = nil
+      @output = nil
     end
 
     # How to add your option parser
@@ -188,7 +191,8 @@ EOH
         exit(false)
       end
 
-      [input_files, output]
+      @input_files = input_files
+      @output = output
     end
 
     def parse_arguments(*options)
@@ -232,16 +236,16 @@ EOH
     end
 
     def run(*options)  # :nodoc:
-      paths, out = check_command_line_options(*options)
+      check_command_line_options(*options)
 
-      if out.is_a?(String)
-        File.open(File.expand_path(out), "w+") do |file|
+      if @output.is_a?(String)
+        File.open(File.expand_path(@output), "w+") do |file|
           file.puts(generate_pot_header)
-          file.puts(generate_pot(paths))
+          file.puts(generate_pot(@input_files))
         end
       else
-        out.puts(generate_pot_header)
-        out.puts(generate_pot(paths))
+        @output.puts(generate_pot_header)
+        @output.puts(generate_pot(@input_files))
       end
       self
     end
