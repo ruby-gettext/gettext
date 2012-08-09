@@ -174,6 +174,25 @@ EOH
     VERSION = GetText::VERSION
 
     def check_command_line_options(*options) # :nodoc:
+      options, output = parse_arguments(*options)
+
+      if output.nil?
+        output = STDOUT
+      elsif File.exist?(output)
+        $stderr.puts(_("File '%s' already exists.") % out)
+        exit(false)
+      end
+
+      options = options.flatten
+      if options.empty?
+        puts(opts.help)
+        exit(false)
+      end
+
+      [options, output]
+    end
+
+    def parse_arguments(*options)
       output = nil
 
       opts = OptionParser.new
@@ -209,19 +228,6 @@ EOH
       end
 
       opts.parse!(options)
-
-      if output.nil?
-        output = STDOUT
-      elsif File.exist?(output)
-        $stderr.puts(_("File '%s' already exists.") % out)
-        exit(false)
-      end
-
-      options = options.flatten
-      if options.empty?
-        puts(opts.help)
-        exit(false)
-      end
 
       [options, output]
     end
