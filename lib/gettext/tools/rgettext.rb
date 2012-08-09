@@ -221,6 +221,11 @@ EOH
         $DEBUG = true
       end
 
+      parser.on("-h", "--help", _("Dispray this help and exit")) do
+        puts(parser.help)
+        exit(true)
+      end
+
       parser.on_tail("--version", _("display version information and exit")) do
         puts("#{$0} #{VERSION}")
         ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
