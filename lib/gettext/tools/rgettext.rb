@@ -179,7 +179,6 @@ EOH
     def check_command_line_options(*options) # :nodoc:
       input_files, output = parse_arguments(*options)
 
-      input_files = input_files.flatten
       if input_files.empty?
         raise ArgumentError, _("no input files")
       end
@@ -187,7 +186,7 @@ EOH
       if output.nil?
         output = STDOUT
       elsif File.exist?(output)
-        $stderr.puts(_("File '%s' already exists.") % out)
+        $stderr.puts(_("File '%s' already exists.") % output)
         exit(false)
       end
 

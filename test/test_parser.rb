@@ -35,9 +35,17 @@ class TestGetTextParser < Test::Unit::TestCase
       assert_match /proper name/, t.comment
       assert_match /Pronunciation/, t.comment
     end
-    assert_target "self explaining", ['testlib/gettext.rb:104'] do |t|
+
+    assert_target("No TRANSLATORS comment", ["testlib/gettext.rb:102"]) do |t|
+      assert_nil(t.comment)
+    end
+
+    assert_target "self explaining", ['testlib/gettext.rb:107'] do |t|
       assert_nil t.comment
     end
+
+    assert_target "This is a # including string.", ["testlib/gettext.rb:111"]
+
     # TODO: assert_target "in_quote", ['testlib/gettext.rb:98']
   end
 

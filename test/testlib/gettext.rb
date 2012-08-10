@@ -99,11 +99,17 @@ EOF
       _("Francois Pinard"))
 
     puts (
+      _("No TRANSLATORS comment"))
+
+    puts (
       # This comment should not be extracted because it does
       # not start with 'TRANSLATORS:'
       _('self explaining'))
   end
 
+  def test_includeing_sharp
+    _("This is a # including string.")
+  end
 end
 
 module ActionController
