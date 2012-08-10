@@ -186,7 +186,7 @@ EOH
       if output.nil?
         output = STDOUT
       elsif File.exist?(output)
-        $stderr.puts(_("File '%s' already exists.") % out)
+        $stderr.puts(_("File '%s' already exists.") % output)
         exit(false)
       end
 
