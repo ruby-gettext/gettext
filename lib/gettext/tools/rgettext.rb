@@ -179,7 +179,6 @@ EOH
     def check_command_line_options(*options) # :nodoc:
       input_files, output = parse_arguments(*options)
 
-      input_files = input_files.flatten
       if input_files.empty?
         raise ArgumentError, _("no input files")
       end
