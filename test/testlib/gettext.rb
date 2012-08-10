@@ -99,6 +99,9 @@ EOF
       _("Francois Pinard"))
 
     puts (
+      _("No TRANSLATORS comment"))
+
+    puts (
       # This comment should not be extracted because it does
       # not start with 'TRANSLATORS:'
       _('self explaining'))
