@@ -38,6 +38,9 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_target "self explaining", ['testlib/gettext.rb:104'] do |t|
       assert_nil t.comment
     end
+
+    assert_target "This is a # including string.", ["testlib/gettext.rb:108"]
+
     # TODO: assert_target "in_quote", ['testlib/gettext.rb:98']
   end
 

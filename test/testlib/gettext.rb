@@ -104,6 +104,9 @@ EOF
       _('self explaining'))
   end
 
+  def test_includeing_sharp
+    _("This is a # including string.")
+  end
 end
 
 module ActionController
