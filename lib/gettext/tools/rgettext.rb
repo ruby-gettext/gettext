@@ -46,6 +46,11 @@ module GetText
 
       @input_files = nil
       @output = nil
+
+      @package_name = "PACKAGE"
+      @package_version = "VERSION"
+      @bugs_addr = ""
+      @copyright = "THE PACKAGE'S COPYRIGHT HOLDER"
     end
 
     # How to add your option parser
@@ -100,18 +105,20 @@ module GetText
 
       <<EOH
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR #@copyright
+# This file is distributed under the same license as the #@package_name package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\\n"
+"Project-Id-Version: #@package_name #@package_version\\n"
+"Report-Msgid-Bugs-To: #@bugs_addr\\n"
 "POT-Creation-Date: #{time}\\n"
 "PO-Revision-Date: #{time}\\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
 "Language-Team: LANGUAGE <LL@li.org>\\n"
+"Language: \\n"
 "MIME-Version: 1.0\\n"
 "Content-Type: text/plain; charset=UTF-8\\n"
 "Content-Transfer-Encoding: 8bit\\n"
@@ -220,9 +227,29 @@ EOH
         $DEBUG = true
       end
 
-      parser.on("-h", "--help", _("Dispray this help and exit")) do
+      parser.on("-h", "--help", _("display this help and exit")) do
         puts(parser.help)
         exit(true)
+      end
+
+      parser.on("--package-name=PACKAGE",
+                _("set package name in output")) do |out|
+        @package_name = out
+      end
+
+      parser.on("--package-version=VERSION",
+                _("set package version in output")) do |out|
+        @package_version = out
+      end
+
+      parser.on("--msgid-bugs-address=EMAIL",
+                _("set report address for msgid bugs")) do |out|
+        @bugs_addr = out
+      end
+
+      parser.on("--copyright-holder=STRING",
+                _("set copyright holder in output")) do |out|
+        @copyright = out
       end
 
       parser.on_tail("--version", _("display version information and exit")) do
