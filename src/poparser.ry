@@ -4,6 +4,7 @@
 #
 #  Copyright (C) 2002-2008 Masao Mutoh <mutomasa at gmail.com>
 #  Copyright (C) 2012 Kouhei Sutou <kou@clear-code.com>
+#  Copyright (C) 2012 Haruka Yoshihara <yoshihara@clear-code.com>
 #
 #  You may redistribute it and/or modify it under the same
 #  license terms as Ruby or LGPL.
@@ -219,10 +220,9 @@ end
   end
 
   def on_message(msgid, msgstr)
-    if msgstr.size > 0
-      @data[msgid] = msgstr
-      @data.set_comment(msgid, @comments.join("\n"))
-    end
+    @data[msgid] = msgstr
+    @data.set_comment(msgid, @comments.join("\n"))
+
     @comments.clear
     @msgctxt = ""
   end
