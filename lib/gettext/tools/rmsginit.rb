@@ -157,8 +157,12 @@ module GetText
 
     def replace_description(pot) #:nodoc:
       language_name = Locale::Info.get_language(@language).name
-      description = "#{language_name} translations for PACKAGE package."
-
+      package_name = ""
+      pot.gsub(/\"Project-Id-Version: (.+?) .+\\n\"/) do
+        package_name = $1
+      end
+      description = "#{language_name} translations " +
+                      "for #{package_name} package."
       pot.gsub(DESCRIPTION_TITLE, "\\1 #{description}")
     end
 
