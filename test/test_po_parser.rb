@@ -3,6 +3,29 @@ require "testlib/helper.rb"
 require "gettext/tools/poparser"
 
 class TestPoParser < Test::Unit::TestCase
+  def test_msgstr_not_existing
+    po_file = create_po_file(<<-EOP)
+msgid "Hello"
+msgstr ""
+EOP
+    messages = parse_po_file(po_file)
+
+    assert_equal("", messages["Hello"])
+  end
+
+  private
+  def create_po_file(content)
+    po_file = Tempfile.new("hello.po")
+    po_file.print(content)
+    po_file.close
+    po_file
+  end
+
+  def parse_po_file(po_file)
+    parser = GetText::PoParser.new
+    parser.parse_file(po_file.path, MoFile.new)
+  end
+
   class FuzzyTest < self
     def setup
       @po = <<-EOP
