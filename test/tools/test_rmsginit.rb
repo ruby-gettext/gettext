@@ -191,6 +191,31 @@ class TestRMsgInit < Test::Unit::TestCase
     end
   end
 
+  def test_package_name_specified_in_project_id_version
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        pot_file_name = "test.pot"
+        package_name = "test-package"
+        File.open(pot_file_name, "w") do |file|
+          file.puts(replace_project_id_version(pot_header, package_name))
+        end
+        locale = current_locale
+        language = current_language
+        po_file_path = "#{locale}.po"
+
+        @rmsginit.run("--input", pot_file_name)
+
+        header = po_header(locale, language)
+        header = replace_project_id_version(header, package_name)
+        expected_po_header = header.gsub(/for PACKAGE package\./,
+                                         "for #{package_name} package.")
+        actual_po_header = normalize_po_header(po_file_path)
+
+        assert_equal(expected_po_header, actual_po_header)
+      end
+    end
+  end
+
   private
   def current_locale
     Locale.current.to_simple.to_s
@@ -210,7 +235,13 @@ class TestRMsgInit < Test::Unit::TestCase
 
   def create_pot_file
     file = File.new("test.pot", "w")
-    file.puts <<EOF
+    file.puts(pot_header)
+    file.close
+    file
+  end
+
+  def pot_header
+<<EOF
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -230,8 +261,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
 EOF
-    file.close
-    file
+  end
+
+  def replace_project_id_version(header, package_name)
+    header.gsub(/(Project-Id-Version:) .+ VERSION/,
+                "\\1 #{package_name} VERSION")
   end
 
   def normalize_po_header(po_file_path)
