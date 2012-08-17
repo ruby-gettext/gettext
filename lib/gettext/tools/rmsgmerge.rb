@@ -46,7 +46,7 @@ module GetText
 
       def []=(msgid, msgstr)
         # Retain the order
-        unless @msgid2msgstr[msgid]
+        if @msgid2msgstr[msgid].nil?
           @msgids << msgid
         end
 
