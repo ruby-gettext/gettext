@@ -92,7 +92,7 @@ module GetText
           str << self.generate_po_entry(id)
         end
 
-        str << @msgid2comment[:last]
+        str << @msgid2comment[:last] unless @msgid2comment[:last].nil?
         str
       end
 
