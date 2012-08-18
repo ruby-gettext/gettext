@@ -25,7 +25,7 @@ Rails / ActiveRecord specific code now lives in locale_rails[http://github.com/m
   returns translated messages of the current thread's locale.
 
 * Tools to find message IDs
-  * Extract message IDs to po-files using rgettext from 
+  * Extract message IDs to po-files using rxgettext from
     * ruby scripts 
     * glade-2 XML file(.glade)
     * ERB file(.rhtml, .erb)
@@ -35,7 +35,7 @@ Rails / ActiveRecord specific code now lives in locale_rails[http://github.com/m
   * rmsgfmt creates a mo-file from a po-file.
     The mo-file is compatible to GNU gettext(msgfmt).
 
-  * Using rgettext/rmsgfmt as Rake tasks
+  * Using rxgettext/rmsgfmt as Rake tasks
 
 * textdomain's scope is adapt to ruby class/module mechanism.
   * A class/module can have plural textdomains.
@@ -154,7 +154,7 @@ LGPL(Lesser General Public License: http://www.gnu.org/licenses/lgpl-3.0.txt).
   * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
   * Copyright (C) 2001,2002 Masahiro Sakai <s01397ms at sfc.keio.ac.jp>
 
-* rgettext 
+* rxgettext
   * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
   * Copyright (C) 2001,2002 Yasushi Shoji <yashi at atmark-techno.com>
 
