@@ -353,13 +353,7 @@ module GetText
           target[""] = def_msg
         end
       end
-    end
-  end
-end
 
-module GetText
-  module Tools
-    class MsgMerge
       class Config #:nodoc:
 
         attr_accessor :defpo, :refpot, :output, :fuzzy, :update
@@ -389,13 +383,7 @@ module GetText
           @input_dirs = ["."]
         end
       end
-    end
-  end
-end
 
-module GetText
-  module Tools
-    class MsgMerge
       include GetText
 
       bindtextdomain("rgettext")
