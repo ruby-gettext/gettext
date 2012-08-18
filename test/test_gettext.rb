@@ -5,7 +5,7 @@ require 'fixtures/_.rb'
 require 'fixtures/sgettext.rb'
 require 'fixtures/nsgettext.rb'
 require 'fixtures/pgettext.rb'
-require 'fixtures/npgettext.rb'
+require 'fixtures/np_.rb'
 
 class TestGetText < Test::Unit::TestCase
 
@@ -103,7 +103,7 @@ DDD
     assert_equal("BBB", test.test_6)
   end
 
-  def test_npgettext
+  def test_np_
     GetText.locale = nil
     test = TestNPGetText.new
     assert_equal(["一つの本", "%{num}の本たち"], test.test_1)
