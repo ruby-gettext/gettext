@@ -218,7 +218,7 @@ module GetText
 
     def prompt(message)
       print(message)
-      STDIN.gets.chomp
+      $stdin.gets.chomp
     end
 
     POT_REVISION_DATE_KEY = /^("PO-Revision-Date:).+\\n"$/
