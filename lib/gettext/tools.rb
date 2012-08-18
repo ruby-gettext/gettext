@@ -202,7 +202,3 @@ module GetText
     File.join(mo_dir, "#{textdomain}.mo")
   end
 end
-
-if __FILE__ == $0
-  GetText.update_pofiles("foo", ARGV, "foo 1.1.0")
-end
