@@ -25,6 +25,12 @@ require "optparse"
 
 module GetText
   class RMsgInit
+    class Error < StandardError
+    end
+
+    class ArgumentError < Error
+    end
+
     class << self
       # Create a new .po file from initializing .pot file with user's
       # environment and input.
@@ -144,8 +150,7 @@ module GetText
       begin
         parser.parse!(arguments)
       rescue OptionParser::ParseError
-        puts($!.message)
-        exit(false)
+        raise(ArgumentError, $!.message)
       end
     end
 

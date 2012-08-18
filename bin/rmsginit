@@ -11,4 +11,9 @@
 
 require "gettext/tools/rmsginit"
 
-GetText.rmsginit(*ARGV)
+begin
+  GetText.rmsginit(*ARGV)
+rescue GetText::RMsgInit::Error
+  puts($!.message)
+  exit(false)
+end
