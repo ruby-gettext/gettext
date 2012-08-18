@@ -16,29 +16,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: testlib/npgettext.rb:10 testlib/npgettext.rb:11 testlib/npgettext.rb:15
-#: testlib/npgettext.rb:16
+#: fixtures/npgettext.rb:10 fixtures/npgettext.rb:11 fixtures/npgettext.rb:15
+#: fixtures/npgettext.rb:16
 msgctxt "Magazine"
 msgid "a book"
 msgid_plural "%{num} books"
 msgstr[0] "一つの本"
 msgstr[1] "%{num}の本たち"
 
-#: testlib/npgettext.rb:20 testlib/npgettext.rb:21
+#: fixtures/npgettext.rb:20 fixtures/npgettext.rb:21
 msgctxt "Hardcover"
 msgid "a book"
 msgid_plural "%{num} books"
 msgstr[0] "一つのハードカバー本"
 msgstr[1] "%{num}のハードカバー本たち"
 
-#: testlib/npgettext.rb:25 testlib/npgettext.rb:26
+#: fixtures/npgettext.rb:25 fixtures/npgettext.rb:26
 msgctxt "Magaine"
 msgid "I have a magazine"
 msgid_plural "I have %{num} magazines"
 msgstr[0] "マガジンを1冊持ってます。"
 msgstr[0] "マガジンたちを%{num}冊持ってます。"
 
-#: testlib/npgettext.rb:30 testlib/npgettext.rb:31
+#: fixtures/npgettext.rb:30 fixtures/npgettext.rb:31
 msgctxt "Hardcover"
 msgid "a picture"
 msgid_plural "%{num} pictures"

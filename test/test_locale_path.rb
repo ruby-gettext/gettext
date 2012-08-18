@@ -1,4 +1,4 @@
-require 'testlib/simple'
+require 'fixtures/simple'
 
 class TestLocalePath < Test::Unit::TestCase
   def setup

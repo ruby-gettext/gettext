@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-require 'testlib/simple.rb'
-require 'testlib/_.rb'
-require 'testlib/sgettext.rb'
-require 'testlib/nsgettext.rb'
-require 'testlib/pgettext.rb'
-require 'testlib/npgettext.rb'
+require 'fixtures/simple.rb'
+require 'fixtures/_.rb'
+require 'fixtures/sgettext.rb'
+require 'fixtures/nsgettext.rb'
+require 'fixtures/pgettext.rb'
+require 'fixtures/npgettext.rb'
 
 class TestGetText < Test::Unit::TestCase
 

@@ -16,26 +16,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: testlib/pgettext.rb:10 testlib/pgettext.rb:14
+#: fixtures/pgettext.rb:10 fixtures/pgettext.rb:14
 msgctxt "AAA"
 msgid "BBB"
 msgstr "えーびー"
 
-#: testlib/pgettext.rb:18
+#: fixtures/pgettext.rb:18
 msgctxt "AAA|BBB"
 msgid "CCC"
 msgstr "えーびーしー"
 
-#: testlib/pgettext.rb:22
+#: fixtures/pgettext.rb:22
 msgctxt "AAA"
 msgid "CCC"
 msgstr ""
 
-#: testlib/pgettext.rb:26
+#: fixtures/pgettext.rb:26
 msgctxt "CCC"
 msgid "BBB"
 msgstr "しーびー"
 
-#: testlib/pgettext.rb:33
+#: fixtures/pgettext.rb:33
 msgid "BBB"
 msgstr "びー"

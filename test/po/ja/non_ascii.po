@@ -16,6 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: test/testlib/non_ascii.rb:10
+#: test/fixtures/non_ascii.rb:10
 msgid "こんにちは"
 msgstr "Hello in Japanese"
