@@ -47,9 +47,9 @@ module GetText
     end
 
     # Create .po file from .pot file, user's inputs and metadata.
-    # @param [Array] options the list of arguments for rmsginit
-    def run(*options)
-      initialize_arguments(*options)
+    # @param [Array] arguments the list of arguments for rmsginit
+    def run(*arguments)
+      initialize_arguments(*arguments)
 
       pot_contents = File.read(@input_file)
       po_contents = replace_pot_header(pot_contents)
@@ -63,8 +63,8 @@ module GetText
 
     # Check whether files specified in arguments exist, and assign
     # default values if files are not specified.
-    def initialize_arguments(*options) #:nodoc:
-      input_file, output_file, locale = parse_command_line_options(*options)
+    def initialize_arguments(*arguments) #:nodoc:
+      input_file, output_file, locale = parse_command_line_arguments(*arguments)
 
       if input_file.nil?
         input_file = Dir.glob("./*.pot").first
@@ -106,8 +106,8 @@ module GetText
 
     VERSION = GetText::VERSION
 
-    # Parse command line options to extract values
-    def parse_command_line_options(*options) #:nodoc:
+    # Parse command line arguments to extract values
+    def parse_command_line_arguments(*arguments) #:nodoc:
       input_file = nil
       output_file = nil
       locale = nil
@@ -152,7 +152,7 @@ module GetText
         exit(true)
       end
 
-      parser.parse!(options)
+      parser.parse!(arguments)
 
       [input_file, output_file, locale]
     end
