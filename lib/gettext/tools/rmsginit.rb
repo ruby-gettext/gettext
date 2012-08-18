@@ -61,11 +61,11 @@ module GetText
       parse(*arguments)
       validate
 
-      pot_contents = File.read(@input_file)
-      po_contents = replace_pot_header(pot_contents)
+      pot_content = File.read(@input_file)
+      po_content = replace_pot_header(pot_content)
 
       File.open(@output_file, "w") do |f|
-        f.puts(po_contents)
+        f.puts(po_content)
       end
 
       self
