@@ -64,24 +64,23 @@ module GetText
     # Check whether files specified in arguments exist, and assign
     # default values if files are not specified.
     def initialize_arguments(*arguments) #:nodoc:
-      input_file, output_file, locale = parse_command_line_arguments(*arguments)
+      parse_command_line_arguments(*arguments)
 
-      if input_file.nil?
-        input_file = Dir.glob("./*.pot").first
-        if input_file.nil?
+      if @input_file.nil?
+        @input_file = Dir.glob("./*.pot").first
+        if @input_file.nil?
           raise(_(".pot file does not exist in the current directory."))
         end
       else
-        unless File.exist?(input_file)
-          raise(_("file #{input_file} does not exist."))
+        unless File.exist?(@input_file)
+          raise(_("file #{@input_file} does not exist."))
         end
       end
-      @input_file = input_file
 
-      if locale.nil?
+      if @locale.nil?
         language_tag = Locale.current
       else
-        language_tag = Locale::Tag.parse(locale)
+        language_tag = Locale::Tag.parse(@locale)
       end
 
       unless valid_locale?(language_tag)
@@ -91,11 +90,10 @@ module GetText
       @locale = language_tag.to_simple.to_s
       @language = language_tag.language
 
-      output_file ||= "#{@locale}.po"
-      if File.exist?(output_file)
-        raise(_("file #{output_file} has already existed."))
+      @output_file ||= "#{@locale}.po"
+      if File.exist?(@output_file)
+        raise(_("file #{@output_file} has already existed."))
       end
-      @output_file = output_file
     end
 
     def valid_locale?(language_tag)
@@ -108,10 +106,6 @@ module GetText
 
     # Parse command line arguments to extract values
     def parse_command_line_arguments(*arguments) #:nodoc:
-      input_file = nil
-      output_file = nil
-      locale = nil
-
       parser = OptionParser.new
       parser.banner = "Usage: #{$0} [OPTION]"
       description = _("Create a new .po file from initializing .pot " +
@@ -124,21 +118,21 @@ module GetText
                               "specified, INPUT is a .pot file existing " +
                               "the current directory.")
       parser.on("-i", "--input=FILE", input_description) do |input|
-        input_file = input
+        @input_file = input
       end
 
       output_description = _("Use OUTPUT as a created .po file. If OUTPUT " +
                                "is not specified, OUTPUT depend on LOCALE " +
                                "or the current locale on your environment.")
       parser.on("-o", "--output=OUTPUT", output_description) do |output|
-        output_file = output
+        @output_file = output
       end
 
       locale_description = _("Use LOCALE as target locale. If LOCALE is " +
                                "not specified, LOCALE is the current " +
                                "locale on your environment.")
       parser.on("-l", "--locale=LOCALE", locale_description) do |loc|
-        locale = loc
+        @locale = loc
       end
 
       parser.on("-h", "--help", _("Dispray this help and exit")) do
@@ -153,8 +147,6 @@ module GetText
       end
 
       parser.parse!(arguments)
-
-      [input_file, output_file, locale]
     end
 
     DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
