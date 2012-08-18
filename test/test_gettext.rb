@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 require 'testlib/simple.rb'
-require 'testlib/gettext.rb'
+require 'testlib/_.rb'
 require 'testlib/sgettext.rb'
 require 'testlib/nsgettext.rb'
 require 'testlib/pgettext.rb'

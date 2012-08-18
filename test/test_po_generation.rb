@@ -26,7 +26,7 @@ require 'gettext/tools/rgettext.rb'
 
 class TestPoGeneration < Test::Unit::TestCase
   def test_extracted_comments
-    input_file = File.join(File.dirname(__FILE__), 'testlib/gettext.rb')
+    input_file = File.join(File.dirname(__FILE__), 'testlib/_.rb')
     res = ""
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do

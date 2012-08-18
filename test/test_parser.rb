@@ -33,40 +33,40 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   def test_ruby
-    @ary = @rgettext.parse(['testlib/gettext.rb'])
+    @ary = @rgettext.parse(['testlib/_.rb'])
 
-    assert_target 'aaa', ['testlib/gettext.rb:10']
-    assert_target 'aaa\n', ['testlib/gettext.rb:14']
-    assert_target 'bbb\nccc', ['testlib/gettext.rb:18']
-    assert_target 'bbb\nccc\nddd\n', ['testlib/gettext.rb:22']
-    assert_target 'eee', ['testlib/gettext.rb:29', 'testlib/gettext.rb:33']
-    assert_target 'fff', ['testlib/gettext.rb:33']
-    assert_target 'ggghhhiii', ['testlib/gettext.rb:37']
-    assert_target 'a"b"c"', ['testlib/gettext.rb:43']
-    assert_target 'd"e"f"', ['testlib/gettext.rb:47']
-    assert_target 'jjj', ['testlib/gettext.rb:51']
-    assert_target 'kkk', ['testlib/gettext.rb:52']
-    assert_target 'lllmmm', ['testlib/gettext.rb:56']
-    assert_target 'nnn\nooo', ['testlib/gettext.rb:64']
-    assert_target "\#", ['testlib/gettext.rb:68', 'testlib/gettext.rb:72']
-    assert_target "\\taaa", ['testlib/gettext.rb:76']
-    assert_target "Here document1\\nHere document2\\n", ['testlib/gettext.rb:80']
-    assert_target "Francois Pinard", ['testlib/gettext.rb:99'] do |t|
+    assert_target 'aaa', ['testlib/_.rb:10']
+    assert_target 'aaa\n', ['testlib/_.rb:14']
+    assert_target 'bbb\nccc', ['testlib/_.rb:18']
+    assert_target 'bbb\nccc\nddd\n', ['testlib/_.rb:22']
+    assert_target 'eee', ['testlib/_.rb:29', 'testlib/_.rb:33']
+    assert_target 'fff', ['testlib/_.rb:33']
+    assert_target 'ggghhhiii', ['testlib/_.rb:37']
+    assert_target 'a"b"c"', ['testlib/_.rb:43']
+    assert_target 'd"e"f"', ['testlib/_.rb:47']
+    assert_target 'jjj', ['testlib/_.rb:51']
+    assert_target 'kkk', ['testlib/_.rb:52']
+    assert_target 'lllmmm', ['testlib/_.rb:56']
+    assert_target 'nnn\nooo', ['testlib/_.rb:64']
+    assert_target "\#", ['testlib/_.rb:68', 'testlib/_.rb:72']
+    assert_target "\\taaa", ['testlib/_.rb:76']
+    assert_target "Here document1\\nHere document2\\n", ['testlib/_.rb:80']
+    assert_target "Francois Pinard", ['testlib/_.rb:99'] do |t|
       assert_match /proper name/, t.comment
       assert_match /Pronunciation/, t.comment
     end
 
-    assert_target("No TRANSLATORS comment", ["testlib/gettext.rb:102"]) do |t|
+    assert_target("No TRANSLATORS comment", ["testlib/_.rb:102"]) do |t|
       assert_nil(t.comment)
     end
 
-    assert_target "self explaining", ['testlib/gettext.rb:107'] do |t|
+    assert_target "self explaining", ['testlib/_.rb:107'] do |t|
       assert_nil t.comment
     end
 
-    assert_target "This is a # including string.", ["testlib/gettext.rb:111"]
+    assert_target "This is a # including string.", ["testlib/_.rb:111"]
 
-    # TODO: assert_target "in_quote", ['testlib/gettext.rb:98']
+    # TODO: assert_target "in_quote", ['testlib/_.rb:98']
   end
 
   def test_ruby_N
