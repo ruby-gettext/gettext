@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
+# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -18,8 +19,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require "gettext/tools/rmsginit"
-require "tmpdir"
-require "rr"
 
 class TestRMsgInit < Test::Unit::TestCase
   def setup
