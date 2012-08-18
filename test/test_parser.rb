@@ -35,38 +35,38 @@ class TestGetTextParser < Test::Unit::TestCase
   def test_ruby
     @ary = @rgettext.parse(['fixtures/_.rb'])
 
-    assert_target 'aaa', ['fixtures/_.rb:10']
-    assert_target 'aaa\n', ['fixtures/_.rb:14']
-    assert_target 'bbb\nccc', ['fixtures/_.rb:18']
-    assert_target 'bbb\nccc\nddd\n', ['fixtures/_.rb:22']
-    assert_target 'eee', ['fixtures/_.rb:29', 'fixtures/_.rb:33']
-    assert_target 'fff', ['fixtures/_.rb:33']
-    assert_target 'ggghhhiii', ['fixtures/_.rb:37']
-    assert_target 'a"b"c"', ['fixtures/_.rb:43']
-    assert_target 'd"e"f"', ['fixtures/_.rb:47']
-    assert_target 'jjj', ['fixtures/_.rb:51']
-    assert_target 'kkk', ['fixtures/_.rb:52']
-    assert_target 'lllmmm', ['fixtures/_.rb:56']
-    assert_target 'nnn\nooo', ['fixtures/_.rb:64']
-    assert_target "\#", ['fixtures/_.rb:68', 'fixtures/_.rb:72']
-    assert_target "\\taaa", ['fixtures/_.rb:76']
-    assert_target "Here document1\\nHere document2\\n", ['fixtures/_.rb:80']
-    assert_target "Francois Pinard", ['fixtures/_.rb:99'] do |t|
+    assert_target 'aaa', ['fixtures/_.rb:30']
+    assert_target 'aaa\n', ['fixtures/_.rb:34']
+    assert_target 'bbb\nccc', ['fixtures/_.rb:38']
+    assert_target 'bbb\nccc\nddd\n', ['fixtures/_.rb:42']
+    assert_target 'eee', ['fixtures/_.rb:49', 'fixtures/_.rb:53']
+    assert_target 'fff', ['fixtures/_.rb:53']
+    assert_target 'ggghhhiii', ['fixtures/_.rb:57']
+    assert_target 'a"b"c"', ['fixtures/_.rb:63']
+    assert_target 'd"e"f"', ['fixtures/_.rb:67']
+    assert_target 'jjj', ['fixtures/_.rb:71']
+    assert_target 'kkk', ['fixtures/_.rb:72']
+    assert_target 'lllmmm', ['fixtures/_.rb:76']
+    assert_target 'nnn\nooo', ['fixtures/_.rb:84']
+    assert_target "\#", ['fixtures/_.rb:88', 'fixtures/_.rb:92']
+    assert_target "\\taaa", ['fixtures/_.rb:96']
+    assert_target "Here document1\\nHere document2\\n", ['fixtures/_.rb:100']
+    assert_target "Francois Pinard", ['fixtures/_.rb:119'] do |t|
       assert_match /proper name/, t.comment
       assert_match /Pronunciation/, t.comment
     end
 
-    assert_target("No TRANSLATORS comment", ["fixtures/_.rb:102"]) do |t|
+    assert_target("No TRANSLATORS comment", ["fixtures/_.rb:122"]) do |t|
       assert_nil(t.comment)
     end
 
-    assert_target "self explaining", ['fixtures/_.rb:107'] do |t|
+    assert_target "self explaining", ['fixtures/_.rb:127'] do |t|
       assert_nil t.comment
     end
 
-    assert_target "This is a # including string.", ["fixtures/_.rb:111"]
+    assert_target "This is a # including string.", ["fixtures/_.rb:131"]
 
-    # TODO: assert_target "in_quote", ['fixtures/_.rb:98']
+    # TODO: assert_target "in_quote", ['fixtures/_.rb:118']
   end
 
   def test_ruby_N
