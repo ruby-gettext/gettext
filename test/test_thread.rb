@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-require 'testlib/helper.rb'
 require 'thread'
 
 class TestThread < Test::Unit::TestCase

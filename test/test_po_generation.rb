@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-require 'testlib/helper.rb'
 require 'gettext'
 require 'gettext/tools/rgettext.rb'
 require "tmpdir"

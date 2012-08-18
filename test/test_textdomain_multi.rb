@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-require 'testlib/helper.rb'
 require 'testlib/multi_textdomain.rb'
 
 class TestGetTextMulti < Test::Unit::TestCase

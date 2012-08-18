@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-require 'testlib/helper.rb'
 require 'gettext/tools/parser/ruby'
 
 # Most functionality of PoMessage is thoroughly tested together

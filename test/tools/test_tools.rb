@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'testlib/helper'
-
 require 'gettext/tools'
 class TestToolsTools < Test::Unit::TestCase
   def setup

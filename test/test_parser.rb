@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-require 'testlib/helper.rb'
 require 'gettext/tools/parser/ruby'
 require 'gettext/tools/parser/glade'
 require 'gettext/tools/parser/erb'

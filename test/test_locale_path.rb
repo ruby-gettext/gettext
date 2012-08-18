@@ -1,4 +1,3 @@
-require 'testlib/helper.rb'
 require 'testlib/simple'
 
 class TestLocalePath < Test::Unit::TestCase

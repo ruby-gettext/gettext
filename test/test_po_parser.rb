@@ -1,5 +1,4 @@
 require "tempfile"
-require "testlib/helper.rb"
 require "gettext/tools/poparser"
 
 class TestPoParser < Test::Unit::TestCase

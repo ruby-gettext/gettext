@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-require 'testlib/helper'
 require 'gettext/tools/rmsgmerge'
 
 class TestRMsgMerge < Test::Unit::TestCase

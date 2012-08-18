@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'testlib/helper.rb'
-
 class Foo
 end
 

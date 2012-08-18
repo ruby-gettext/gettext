@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'testlib/helper.rb'
-
 class TestGetTextString < Test::Unit::TestCase
   class TestFormat < self
     def test_basic

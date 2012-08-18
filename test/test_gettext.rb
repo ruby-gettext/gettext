@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'testlib/helper.rb'
 
 require 'testlib/simple.rb'
 require 'testlib/gettext.rb'
