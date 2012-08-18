@@ -67,8 +67,6 @@ module GetText
       File.open(@output_file, "w") do |f|
         f.puts(po_content)
       end
-
-      self
     end
 
     def validate
