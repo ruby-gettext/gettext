@@ -26,9 +26,9 @@ if /mingw|mswin|mswin32/ =~ RUBY_PLATFORM
 end
 
 require 'gettext/tools/xgettext'
-require 'gettext/tools/rmsgfmt'
-require 'gettext/tools/rmsginit'
-require 'gettext/tools/rmsgmerge'
+require 'gettext/tools/msgfmt'
+require 'gettext/tools/msginit'
+require 'gettext/tools/msgmerge'
 require 'gettext/runtime/mofile'
 require 'fileutils'
 

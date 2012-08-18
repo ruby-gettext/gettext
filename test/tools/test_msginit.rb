@@ -18,13 +18,13 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "gettext/tools/rmsginit"
+require "gettext/tools/msginit"
 
-class TestRMsgInit < Test::Unit::TestCase
+class TestMsgInit < Test::Unit::TestCase
   def setup
-    @rmsginit = GetText::RMsgInit.new
-    stub(@rmsginit).read_translator_full_name {translator_full_name}
-    stub(@rmsginit).read_translator_mail {translator_mail}
+    @msginit = GetText::MsgInit.new
+    stub(@msginit).read_translator_full_name {translator_full_name}
+    stub(@msginit).read_translator_mail {translator_mail}
 
     Locale.current = "ja_JP.UTF-8"
     @time = Time.now.strftime("%Y-%m-%d %H:%M%z")
@@ -37,7 +37,7 @@ class TestRMsgInit < Test::Unit::TestCase
       locale = "en"
       language = locale
 
-      @rmsginit.run("--input", pot_file.path,
+      @msginit.run("--input", pot_file.path,
                     "--output", po_file_path,
                     "--locale", locale)
 
@@ -55,7 +55,7 @@ class TestRMsgInit < Test::Unit::TestCase
         language = locale
         po_file_path = "#{locale}.po"
 
-        @rmsginit.run("--locale", locale)
+        @msginit.run("--locale", locale)
 
         actual_po_header = normalize_po_header(po_file_path)
         expected_po_header = po_header(locale, language)
@@ -72,7 +72,7 @@ class TestRMsgInit < Test::Unit::TestCase
         language = "en"
         po_file_path = "#{locale}.po"
 
-        @rmsginit.run("--locale", locale)
+        @msginit.run("--locale", locale)
 
         actual_po_header = normalize_po_header(po_file_path)
         expected_po_header = po_header(locale, language)
@@ -90,7 +90,7 @@ class TestRMsgInit < Test::Unit::TestCase
         charset = "UTF-8"
         po_file_path = "en_US.po"
 
-        @rmsginit.run("--locale", "#{locale}.#{charset}")
+        @msginit.run("--locale", "#{locale}.#{charset}")
 
         actual_po_header = normalize_po_header(po_file_path)
         expected_po_header = po_header(locale, language)
@@ -106,7 +106,7 @@ class TestRMsgInit < Test::Unit::TestCase
       language = current_language
       po_file_path = File.join(dir, "test.po")
 
-      @rmsginit.run("--input", pot_file.path, "--output", po_file_path)
+      @msginit.run("--input", pot_file.path, "--output", po_file_path)
 
       actual_po_header = normalize_po_header(po_file_path)
       expected_po_header = po_header(locale, language)
@@ -122,7 +122,7 @@ class TestRMsgInit < Test::Unit::TestCase
         language = current_language
         po_file_path = "#{locale}.po"
 
-        @rmsginit.run("--input", pot_file.path)
+        @msginit.run("--input", pot_file.path)
 
         actual_po_header = normalize_po_header(po_file_path)
         expected_po_header = po_header(locale, language)
@@ -139,7 +139,7 @@ class TestRMsgInit < Test::Unit::TestCase
         language = current_language
         po_file_path = "#{locale}.po"
 
-        @rmsginit.run
+        @msginit.run
 
         actual_po_header = normalize_po_header(po_file_path)
         expected_po_header = po_header(locale, language)
@@ -149,8 +149,8 @@ class TestRMsgInit < Test::Unit::TestCase
   end
 
   def test_no_translator
-    stub(@rmsginit).read_translator_full_name {""}
-    stub(@rmsginit).read_translator_mail {""}
+    stub(@msginit).read_translator_full_name {""}
+    stub(@msginit).read_translator_mail {""}
 
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
@@ -159,7 +159,7 @@ class TestRMsgInit < Test::Unit::TestCase
         language = current_language
         po_file_path = "#{locale}.po"
 
-        @rmsginit.run
+        @msginit.run
 
         actual_po_header = normalize_po_header(po_file_path)
         expected_po_header = no_translator_po_header(locale, language)
@@ -169,7 +169,7 @@ class TestRMsgInit < Test::Unit::TestCase
   end
 
   def test_no_translator_full_name
-    stub(@rmsginit).read_translator_full_name {""}
+    stub(@msginit).read_translator_full_name {""}
 
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
@@ -178,7 +178,7 @@ class TestRMsgInit < Test::Unit::TestCase
         language = current_language
         po_file_path = "#{locale}.po"
 
-        @rmsginit.run
+        @msginit.run
 
         actual_po_header = normalize_po_header(po_file_path)
         expected_po_header = no_translator_po_header(locale, language)
@@ -188,7 +188,7 @@ class TestRMsgInit < Test::Unit::TestCase
   end
 
   def test_no_translator_mail
-    stub(@rmsginit).read_translator_mail {""}
+    stub(@msginit).read_translator_mail {""}
 
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
@@ -197,7 +197,7 @@ class TestRMsgInit < Test::Unit::TestCase
         language = current_language
         po_file_path = "#{locale}.po"
 
-        @rmsginit.run
+        @msginit.run
 
         actual_po_header = normalize_po_header(po_file_path)
         expected_po_header = no_translator_po_header(locale, language)
@@ -218,7 +218,7 @@ class TestRMsgInit < Test::Unit::TestCase
         language = current_language
         po_file_path = "#{locale}.po"
 
-        @rmsginit.run("--input", pot_file_name)
+        @msginit.run("--input", pot_file_name)
 
         header = po_header(locale, language)
         header = replace_project_id_version(header, package_name)
@@ -296,7 +296,7 @@ EOF
     full_name = translator_full_name
     mail = translator_mail
     language_name = Locale::Info.get_language(language).name
-    plural_forms = @rmsginit.plural_forms(language)
+    plural_forms = @msginit.plural_forms(language)
 
 <<EOF
 # #{language_name} translations for PACKAGE package.
@@ -321,7 +321,7 @@ EOF
 
   def no_translator_po_header(locale, language)
     language_name = Locale::Info.get_language(language).name
-    plural_forms = @rmsginit.plural_forms(language)
+    plural_forms = @msginit.plural_forms(language)
 
 <<EOF
 # #{language_name} translations for PACKAGE package.

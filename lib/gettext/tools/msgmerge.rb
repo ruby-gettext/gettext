@@ -17,7 +17,7 @@ require "gettext/tools/poparser"
 require "rbconfig"
 
 module GetText
-  class RMsgMerge
+  class MsgMerge
     class PoData  #:nodoc:
 
       attr_reader :msgids
@@ -356,7 +356,7 @@ module GetText
 end
 
 module GetText
-  class RMsgMerge
+  class MsgMerge
     class Config #:nodoc:
 
       attr_accessor :defpo, :refpot, :output, :fuzzy, :update
@@ -390,7 +390,7 @@ module GetText
 end
 
 module GetText
-  class RMsgMerge
+  class MsgMerge
     include GetText
 
     bindtextdomain("rgettext")

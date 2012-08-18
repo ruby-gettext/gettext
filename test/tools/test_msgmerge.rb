@@ -1,12 +1,12 @@
 # encoding: utf-8
 
-require 'gettext/tools/rmsgmerge'
+require 'gettext/tools/msgmerge'
 
-class TestRMsgMerge < Test::Unit::TestCase
+class TestMsgMerge < Test::Unit::TestCase
   def test_po_data_should_generate_msgctxt
     msg_id = "Context\004Translation"
 
-    po_data = GetText::RMsgMerge::PoData.new
+    po_data = GetText::MsgMerge::PoData.new
     po_data[msg_id] = "Translated"
     po_data.set_comment(msg_id, "#no comment")
 

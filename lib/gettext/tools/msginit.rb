@@ -24,7 +24,7 @@ require "rbconfig"
 require "optparse"
 
 module GetText
-  class RMsgInit
+  class MsgInit
     class Error < StandardError
     end
 

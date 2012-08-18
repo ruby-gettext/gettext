@@ -10,6 +10,6 @@
   license terms as Ruby.
 =end
 
-require "gettext/tools/rmsgfmt"
+require "gettext/tools/msgfmt"
 
 GetText.rmsgfmt(*ARGV)

@@ -17,7 +17,7 @@ require "gettext/tools/poparser"
 require "rbconfig"
 
 module GetText
-  class RMsgFmt  #:nodoc:
+  class MsgFmt  #:nodoc:
     include GetText
 
     bindtextdomain("rgettext")
@@ -87,7 +87,7 @@ module GetText
   # @param [Array<String>] options options for rmsgfmt.
   # @return [MoFile] the MoFile object.
   def rmsgfmt(*options)
-    rmsgfmt = RMsgFmt.new
+    rmsgfmt = MsgFmt.new
     rmsgfmt.run(*options)
   end
 
