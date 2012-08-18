@@ -187,12 +187,7 @@ EOH
         raise ArgumentError, _("no input files")
       end
 
-      if output.nil?
-        output = STDOUT
-      elsif File.exist?(output)
-        $stderr.puts(_("File '%s' already exists.") % output)
-        exit(false)
-      end
+      output ||= STDOUT
 
       @input_files = input_files
       @output = output
