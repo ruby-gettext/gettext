@@ -27,6 +27,7 @@ end
 
 require 'gettext/tools/rgettext'
 require 'gettext/tools/rmsgfmt'
+require 'gettext/tools/rmsginit'
 require 'gettext/runtime/mofile'
 require 'fileutils'
 
