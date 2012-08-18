@@ -497,7 +497,3 @@ module GetText
     rmsgmerge.run(*options)
   end
 end
-
-if $0 == __FILE__ then
-  GetText.rmsgmerge
-end
