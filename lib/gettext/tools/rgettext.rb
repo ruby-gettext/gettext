@@ -260,8 +260,3 @@ EOH
     rgettext.run(*options)
   end
 end
-
-if $0 == __FILE__
-  GetText.rgettext
-#  GetText.rgettext($0, "tmp.txt")
-end
