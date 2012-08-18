@@ -141,7 +141,12 @@ module GetText
         exit(true)
       end
 
-      parser.parse!(arguments)
+      begin
+        parser.parse!(arguments)
+      rescue OptionParser::ParseError
+        puts($!.message)
+        exit(false)
+      end
     end
 
     DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
