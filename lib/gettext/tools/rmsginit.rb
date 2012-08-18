@@ -205,7 +205,7 @@ module GetText
     end
 
     def read_translator_full_name #:nodoc:
-      prompt("Please enter your full name.")
+      prompt(_("Please enter your full name: "))
     end
 
     def translator_mail
@@ -213,11 +213,11 @@ module GetText
     end
 
     def read_translator_mail #:nodoc:
-      prompt("Please enter your email address.")
+      prompt(_("Please enter your email address: "))
     end
 
     def prompt(message)
-      puts(message)
+      print(message)
       STDIN.gets.chomp
     end
 
