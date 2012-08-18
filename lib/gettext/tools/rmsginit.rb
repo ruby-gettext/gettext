@@ -283,7 +283,3 @@ module GetText
 
   module_function :rmsginit
 end
-
-if $0 == __FILE__ then
-  GetText.rmsginit
-end
