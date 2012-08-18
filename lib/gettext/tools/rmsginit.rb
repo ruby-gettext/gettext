@@ -187,8 +187,8 @@ module GetText
     LAST_TRANSLATOR_KEY = /^(\"Last-Translator:) FULL NAME <#{EMAIL}>\\n"$/
 
     def replace_translators(pot) #:nodoc:
-      full_name = get_translator_full_name
-      mail = get_translator_mail
+      full_name = translator_full_name
+      mail = translator_mail
       translator = "#{full_name} <#{mail}>"
       year = Time.now.year
 
@@ -200,9 +200,17 @@ module GetText
       pot
     end
 
+    def translator_full_name
+      get_translator_full_name
+    end
+
     def get_translator_full_name #:nodoc:
       puts("Please enter your full name.")
       STDIN.gets.chomp
+    end
+
+    def translator_mail
+      get_translator_mail
     end
 
     def get_translator_mail #:nodoc:
