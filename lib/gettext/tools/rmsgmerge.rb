@@ -378,7 +378,7 @@ module GetText
       # the SIMPLE_BACKUP_SUFFIX environment variable.
 
       def initialize
-        @output = STDOUT
+        @output = nil
         @fuzzy = nil
         @update = nil
         @backup = ENV["VERSION_CONTROL"]
@@ -402,7 +402,7 @@ module GetText
       options, output = parse_arguments(*options)
 
       if output.nil?
-        output = STDOUT
+        output = nil
       else
         if not FileTest.exist?(output)
           $stderr.puts(_("File '%s' has already existed.") % out)
@@ -481,7 +481,7 @@ module GetText
           file.write(result.generate_po)
         end
       else
-        config.output.puts(result.generate_po)
+        puts(result.generate_po)
       end
     end
   end
