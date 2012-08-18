@@ -138,7 +138,7 @@ module GetText
 
     #write found messages to tmp.pot
     temp_pot = "tmp.pot"
-    XGetText.run("-o", temp_pot, *files)
+    Tools::XGetText.run("-o", temp_pot, *files)
 
     #merge tmp.pot and existing pot
     po_root = options.delete(:po_root) || "po"

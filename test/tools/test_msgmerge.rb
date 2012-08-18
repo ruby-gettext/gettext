@@ -2,11 +2,11 @@
 
 require 'gettext/tools/msgmerge'
 
-class TestMsgMerge < Test::Unit::TestCase
+class TestToolsMsgMerge < Test::Unit::TestCase
   def test_po_data_should_generate_msgctxt
     msg_id = "Context\004Translation"
 
-    po_data = GetText::MsgMerge::PoData.new
+    po_data = GetText::Tools::MsgMerge::PoData.new
     po_data[msg_id] = "Translated"
     po_data.set_comment(msg_id, "#no comment")
 

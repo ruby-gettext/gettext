@@ -17,6 +17,7 @@ require "gettext/tools/poparser"
 require "rbconfig"
 
 module GetText
+  module Tools
   class MsgMerge
     class PoData  #:nodoc:
 
@@ -353,9 +354,11 @@ module GetText
       end
     end
   end
+  end
 end
 
 module GetText
+  module Tools
   class MsgMerge
     class Config #:nodoc:
 
@@ -387,9 +390,11 @@ module GetText
       end
     end
   end
+  end
 end
 
 module GetText
+  module Tools
   class MsgMerge
     include GetText
 
@@ -485,6 +490,7 @@ module GetText
       end
     end
   end
+  end
 end
 
 module GetText
@@ -493,7 +499,7 @@ module GetText
   # @param [Array<String>] options options for rmsgfmt.
   # @return [void]
   def rmsgmerge(*options)
-    rmsgmerge = RMsgMerge.new
+    rmsgmerge = Tools::RMsgMerge.new
     rmsgmerge.run(*options)
   end
 end

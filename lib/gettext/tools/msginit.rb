@@ -24,6 +24,7 @@ require "rbconfig"
 require "optparse"
 
 module GetText
+  module Tools
   class MsgInit
     class Error < StandardError
     end
@@ -313,12 +314,13 @@ module GetText
       "nplurals=#{nplural}; plural=#{plural_expression};"
     end
   end
+  end
 
   # Shortcut for {RMsgInit.run}.
   #
   # @see RMsgInit.run
   def rmsginit(*arguments)
-    RMsgInit.run(*arguments)
+    Tools::RMsgInit.run(*arguments)
   end
 
   module_function :rmsginit

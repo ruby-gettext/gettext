@@ -17,6 +17,7 @@ require "gettext/tools/poparser"
 require "rbconfig"
 
 module GetText
+  module Tools
   class MsgFmt  #:nodoc:
     include GetText
 
@@ -79,6 +80,7 @@ module GetText
       [input_file, output_file]
     end
   end
+  end
 
   # Create a mo-file from a target file(po-file).
   # You must specify a path of a target file in options.
@@ -87,7 +89,7 @@ module GetText
   # @param [Array<String>] options options for rmsgfmt.
   # @return [MoFile] the MoFile object.
   def rmsgfmt(*options)
-    rmsgfmt = MsgFmt.new
+    rmsgfmt = Tools::MsgFmt.new
     rmsgfmt.run(*options)
   end
 

@@ -22,7 +22,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'gettext'
-require 'gettext/tools/rgettext.rb'
+require 'gettext/tools/xgettext.rb'
 
 class TestPoGeneration < Test::Unit::TestCase
   def test_extracted_comments
@@ -31,7 +31,7 @@ class TestPoGeneration < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
         out = "comments.pot"
-        GetText::XGetText.run(input_file, "-o", out)
+        GetText::Tools::XGetText.run(input_file, "-o", out)
         res = File.read(out)
       end
     end

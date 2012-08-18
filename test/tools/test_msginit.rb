@@ -20,9 +20,9 @@
 
 require "gettext/tools/msginit"
 
-class TestMsgInit < Test::Unit::TestCase
+class TestToolsMsgInit < Test::Unit::TestCase
   def setup
-    @msginit = GetText::MsgInit.new
+    @msginit = GetText::Tools::MsgInit.new
     stub(@msginit).read_translator_full_name {translator_full_name}
     stub(@msginit).read_translator_mail {translator_mail}
 

@@ -25,11 +25,11 @@ require 'gettext/tools/parser/ruby'
 require 'gettext/tools/parser/glade'
 require 'gettext/tools/parser/erb'
 
-require 'gettext/tools/rgettext'
+require 'gettext/tools/xgettext'
 
 class TestGetTextParser < Test::Unit::TestCase
   def setup
-    @xgettext = GetText::XGetText.new
+    @xgettext = GetText::Tools::XGetText.new
   end
 
   def test_ruby

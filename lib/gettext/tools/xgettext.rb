@@ -25,6 +25,7 @@ require "gettext"
 require "rbconfig"
 
 module GetText
+  module Tools
   class XGetText #:nodoc:
     class << self
       def run(*arguments)
@@ -254,5 +255,6 @@ EOH
       end
       self
     end
+  end
   end
 end
