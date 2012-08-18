@@ -89,18 +89,18 @@ class TestGetTextParser < Test::Unit::TestCase
 
   def test_ruby_n
     @ary = @rgettext.parse(['fixtures/n_.rb'])
-    assert_plural_target "aaa", "aaa2", ['fixtures/n_.rb:10']
-    assert_plural_target "bbb\\n", "ccc2\\nccc2", ['fixtures/n_.rb:14']
-    assert_plural_target "ddd\\nddd", "ddd2\\nddd2", ['fixtures/n_.rb:18']
-    assert_plural_target "eee\\neee\\n", "eee2\\neee2\\n", ['fixtures/n_.rb:23']
-    assert_plural_target "ddd\\neee\\n", "ddd\\neee2", ['fixtures/n_.rb:29']
-    assert_plural_target "fff", "fff2", ['fixtures/n_.rb:36', 'fixtures/n_.rb:40']
-    assert_plural_target "ggg", "ggg2", ['fixtures/n_.rb:40']
-    assert_plural_target "ggghhhiii", "jjjkkklll", ['fixtures/n_.rb:44']
-    assert_plural_target "a\"b\"c\"", "a\"b\"c\"2", ['fixtures/n_.rb:53']
-    assert_plural_target "mmmmmm", "mmm2mmm2", ['fixtures/n_.rb:61']
-    assert_plural_target "nnn", "nnn2", ['fixtures/n_.rb:62']
-    assert_plural_target "comment", "comments", ['fixtures/n_.rb:78'] do |t|
+    assert_plural_target "aaa", "aaa2", ['fixtures/n_.rb:29']
+    assert_plural_target "bbb\\n", "ccc2\\nccc2", ['fixtures/n_.rb:33']
+    assert_plural_target "ddd\\nddd", "ddd2\\nddd2", ['fixtures/n_.rb:37']
+    assert_plural_target "eee\\neee\\n", "eee2\\neee2\\n", ['fixtures/n_.rb:42']
+    assert_plural_target "ddd\\neee\\n", "ddd\\neee2", ['fixtures/n_.rb:48']
+    assert_plural_target "fff", "fff2", ['fixtures/n_.rb:55', 'fixtures/n_.rb:59']
+    assert_plural_target "ggg", "ggg2", ['fixtures/n_.rb:59']
+    assert_plural_target "ggghhhiii", "jjjkkklll", ['fixtures/n_.rb:63']
+    assert_plural_target "a\"b\"c\"", "a\"b\"c\"2", ['fixtures/n_.rb:72']
+    assert_plural_target "mmmmmm", "mmm2mmm2", ['fixtures/n_.rb:80']
+    assert_plural_target "nnn", "nnn2", ['fixtures/n_.rb:81']
+    assert_plural_target "comment", "comments", ['fixtures/n_.rb:97'] do |t|
       assert_equal "please provide translations for all\n the plural forms!", t.comment
     end
   end
@@ -153,8 +153,8 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb.rxml:14']
 
     @ary = @rgettext.parse(['fixtures/n_.rb'])
-    assert_plural_target "ooo", "ppp", ['fixtures/n_.rb:66', 'fixtures/n_.rb:67']
-    assert_plural_target "qqq", "rrr", ['fixtures/n_.rb:71', 'fixtures/n_.rb:72']
+    assert_plural_target "ooo", "ppp", ['fixtures/n_.rb:85', 'fixtures/n_.rb:86']
+    assert_plural_target "qqq", "rrr", ['fixtures/n_.rb:90', 'fixtures/n_.rb:91']
   end
 
   private
