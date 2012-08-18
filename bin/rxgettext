@@ -10,6 +10,6 @@
 
 =end
 
-require "gettext/tools/rgettext"
+require "gettext/tools/xgettext"
 
-GetText.rgettext(*ARGV)
+GetText::XGetText.run(*ARGV)

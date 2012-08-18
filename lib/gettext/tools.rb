@@ -25,7 +25,7 @@ if /mingw|mswin|mswin32/ =~ RUBY_PLATFORM
   }.join('') + ENV['PATH']
 end
 
-require 'gettext/tools/rgettext'
+require 'gettext/tools/xgettext'
 require 'gettext/tools/rmsgfmt'
 require 'gettext/tools/rmsginit'
 require 'gettext/tools/rmsgmerge'
@@ -56,7 +56,7 @@ module GetText
   # but extracted comments and file positions will be discarded.
   #
   # The ref.pot file is the last created PO file with up-to-date source references but
-  # old translations, or a PO Template file (generally created by rgettext);
+  # old translations, or a PO Template file (generally created by rxgettext);
   # any translations or comments in the file will be discarded, however dot
   # comments and file positions will be preserved.  Where an exact match
   # cannot be found, fuzzy matching is used to produce better results.
@@ -112,15 +112,17 @@ module GetText
   end
 
 
-  # At first, this creates the #{po_root}/#{domainname}.pot file using GetText.rgettext.
-  # In the second step, this updates(merges) the #{po_root}/#{domainname}.pot and all of the
-  # #{po_root}/#{lang}/#{domainname}.po files under "po_root" using "msgmerge".
+  # At first, this creates the #{po_root}/#{domainname}.pot file using
+  # GetText::XGetText.run.  In the second step, this updates(merges)
+  # the #{po_root}/#{domainname}.pot and all of the
+  # #{po_root}/#{lang}/#{domainname}.po files under "po_root" using
+  # "msgmerge".
   #
   # *Note* "msgmerge" tool is included in GNU GetText. So you need to install GNU GetText.
   #
   # See <HOWTO maintain po/mo files(http://www.yotabanana.com/hiki/ruby-gettext-howto-manage.html)> for more detals.
   # * domainname: the textdomain name.
-  # * targetfiles: An Array of target files, that should be parsed for messages (See GetText.rgettext for more details).
+  # * targetfiles: An Array of target files, that should be parsed for messages (See GetText::XGetText.run for more details).
   # * app_version: the application information which appears "Project-Id-Version: #{app_version}" in the pot/po-files.
   # * options: a hash with following possible settings
   #     :lang    - update files only for one language - the language specified by this option
@@ -136,7 +138,7 @@ module GetText
 
     #write found messages to tmp.pot
     temp_pot = "tmp.pot"
-    rgettext("-o", temp_pot, *files)
+    XGetText.run("-o", temp_pot, *files)
 
     #merge tmp.pot and existing pot
     po_root = options.delete(:po_root) || "po"

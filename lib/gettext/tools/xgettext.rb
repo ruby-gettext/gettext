@@ -25,7 +25,13 @@ require "gettext"
 require "rbconfig"
 
 module GetText
-  class RGetText #:nodoc:
+  class XGetText #:nodoc:
+    class << self
+      def run(*arguments)
+        new.run(*arguments)
+      end
+    end
+
     include GetText
 
     bindtextdomain("rgettext")
@@ -56,7 +62,7 @@ module GetText
     # The option parser module requires to have target?(file) and
     # parser(file, ary) method.
     #
-    #  require "gettext/tools/rgettext"
+    #  require "gettext/tools/xgettext"
     #  module FooParser
     #    module_function
     #    def target?(file)
@@ -94,7 +100,7 @@ module GetText
     #    end
     #  end
     #
-    #  GetText::RGetText.add_parser(FooParser)
+    #  GetText::XGetText.add_parser(FooParser)
     def add_parser(klass)
       @ex_parsers.insert(0, klass)
     end
@@ -211,7 +217,7 @@ EOH
       end
 
       parser.on("-r", "--require=library",
-                _("require the library before executing rgettext")) do |out|
+                _("require the library before executing xgettext")) do |out|
         require out
       end
 
@@ -248,14 +254,5 @@ EOH
       end
       self
     end
-  end
-
-  # Creates a pot file from target files(ruby-script-files, .rhtml
-  # files, glade-2 XML files).
-  # @param [Array<String>] options options for rgettext.
-  # @return [void]
-  def rgettext(*options)
-    rgettext = RGetText.new
-    rgettext.run(*options)
   end
 end

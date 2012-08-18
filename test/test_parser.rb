@@ -29,11 +29,11 @@ require 'gettext/tools/rgettext'
 
 class TestGetTextParser < Test::Unit::TestCase
   def setup
-    @rgettext = GetText::RGetText.new
+    @xgettext = GetText::XGetText.new
   end
 
   def test_ruby
-    @ary = @rgettext.parse(['fixtures/_.rb'])
+    @ary = @xgettext.parse(['fixtures/_.rb'])
 
     assert_target 'aaa', ['fixtures/_.rb:30']
     assert_target 'aaa\n', ['fixtures/_.rb:34']
@@ -70,7 +70,7 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   def test_ruby_N
-    @ary = @rgettext.parse(['fixtures/N_.rb'])
+    @ary = @xgettext.parse(['fixtures/N_.rb'])
 
     assert_target 'aaa', ['fixtures/N_.rb:10']
     assert_target 'aaa\n', ['fixtures/N_.rb:14']
@@ -88,7 +88,7 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   def test_ruby_n
-    @ary = @rgettext.parse(['fixtures/n_.rb'])
+    @ary = @xgettext.parse(['fixtures/n_.rb'])
     assert_plural_target "aaa", "aaa2", ['fixtures/n_.rb:29']
     assert_plural_target "bbb\\n", "ccc2\\nccc2", ['fixtures/n_.rb:33']
     assert_plural_target "ddd\\nddd", "ddd2\\nddd2", ['fixtures/n_.rb:37']
@@ -106,7 +106,7 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   def test_ruby_p
-    @ary = @rgettext.parse(['fixtures/p_.rb'])
+    @ary = @xgettext.parse(['fixtures/p_.rb'])
     assert_target_in_context "AAA", "BBB", ["fixtures/p_.rb:29", "fixtures/p_.rb:33"]
     assert_target_in_context "AAA|BBB", "CCC", ["fixtures/p_.rb:37"]
     assert_target_in_context "AAA", "CCC", ["fixtures/p_.rb:41"]
@@ -138,21 +138,21 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb.rhtml:13']
   end
 
-  def test_rgettext_parse
+  def test_xgettext_parse
     GetText::ErbParser.init(:extnames => ['.rhtml', '.rxml'])
-    @ary = @rgettext.parse(['fixtures/erb.rhtml'])
+    @ary = @xgettext.parse(['fixtures/erb.rhtml'])
     assert_target 'aaa', ['fixtures/erb.rhtml:8']
     assert_target 'aaa\n', ['fixtures/erb.rhtml:11']
     assert_target 'bbb', ['fixtures/erb.rhtml:12']
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb.rhtml:13']
 
-    @ary = @rgettext.parse(['fixtures/erb.rxml'])
+    @ary = @xgettext.parse(['fixtures/erb.rxml'])
     assert_target 'aaa', ['fixtures/erb.rxml:9']
     assert_target 'aaa\n', ['fixtures/erb.rxml:12']
     assert_target 'bbb', ['fixtures/erb.rxml:13']
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb.rxml:14']
 
-    @ary = @rgettext.parse(['fixtures/n_.rb'])
+    @ary = @xgettext.parse(['fixtures/n_.rb'])
     assert_plural_target "ooo", "ppp", ['fixtures/n_.rb:85', 'fixtures/n_.rb:86']
     assert_plural_target "qqq", "rrr", ['fixtures/n_.rb:90', 'fixtures/n_.rb:91']
   end

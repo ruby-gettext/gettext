@@ -31,7 +31,7 @@ class TestPoGeneration < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
         out = "comments.pot"
-        GetText.rgettext(input_file, "-o", out)
+        GetText::XGetText.run(input_file, "-o", out)
         res = File.read(out)
       end
     end
