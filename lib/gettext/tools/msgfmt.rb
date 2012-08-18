@@ -18,68 +18,68 @@ require "rbconfig"
 
 module GetText
   module Tools
-  class MsgFmt  #:nodoc:
-    include GetText
+    class MsgFmt  #:nodoc:
+      include GetText
 
-    bindtextdomain("rgettext")
+      bindtextdomain("rgettext")
 
-    def initialize
-      @input_file = nil
-      @output_file = nil
-    end
-
-    def run(*options) # :nodoc:
-      initialize_arguments(*options)
-
-      parser = PoParser.new
-      data = MoFile.new
-
-      parser.parse_file(@input_file, data)
-      data.save_to_file(@output_file)
-    end
-
-    def initialize_arguments(*options) # :nodoc:
-      input_file, output_file = parse_commandline_options(*options)
-
-      if input_file.nil?
-        raise(ArgumentError, _("no input files specified."))
+      def initialize
+        @input_file = nil
+        @output_file = nil
       end
 
-      if output_file.nil?
-        output_file = "messages.mo"
+      def run(*options) # :nodoc:
+        initialize_arguments(*options)
+
+        parser = PoParser.new
+        data = MoFile.new
+
+        parser.parse_file(@input_file, data)
+        data.save_to_file(@output_file)
       end
 
-      @input_file = input_file
-      @output_file = output_file
+      def initialize_arguments(*options) # :nodoc:
+        input_file, output_file = parse_commandline_options(*options)
+
+        if input_file.nil?
+          raise(ArgumentError, _("no input files specified."))
+        end
+
+        if output_file.nil?
+          output_file = "messages.mo"
+        end
+
+        @input_file = input_file
+        @output_file = output_file
+      end
+
+      def parse_commandline_options(*options)
+        output_file = nil
+
+        parser = OptionParser.new
+        parser.banner = _("Usage: %s input.po [-o output.mo]" % $0)
+        parser.separator("")
+        description = _("Generate binary message catalog from textual " +
+                          "translation description.")
+        parser.separator(description)
+        parser.separator("")
+        parser.separator(_("Specific options:"))
+
+        parser.on("-o", "--output=FILE",
+                _("write output to specified file")) do |out|
+          output_file = out
+        end
+
+        parser.on_tail("--version", _("display version information and exit")) do
+          puts(VERSION)
+          exit(true)
+        end
+        parser.parse!(options)
+
+        input_file = options[0]
+        [input_file, output_file]
+      end
     end
-
-    def parse_commandline_options(*options)
-      output_file = nil
-
-      parser = OptionParser.new
-      parser.banner = _("Usage: %s input.po [-o output.mo]" % $0)
-      parser.separator("")
-      description = _("Generate binary message catalog from textual " +
-                        "translation description.")
-      parser.separator(description)
-      parser.separator("")
-      parser.separator(_("Specific options:"))
-
-      parser.on("-o", "--output=FILE",
-              _("write output to specified file")) do |out|
-        output_file = out
-      end
-
-      parser.on_tail("--version", _("display version information and exit")) do
-        puts(VERSION)
-        exit(true)
-      end
-      parser.parse!(options)
-
-      input_file = options[0]
-      [input_file, output_file]
-    end
-  end
   end
 
   # Create a mo-file from a target file(po-file).
