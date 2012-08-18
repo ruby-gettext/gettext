@@ -22,7 +22,7 @@
 
 require 'fixtures/simple.rb'
 require 'fixtures/_.rb'
-require 'fixtures/sgettext.rb'
+require 'fixtures/s_.rb'
 require 'fixtures/ns_.rb'
 require 'fixtures/p_.rb'
 require 'fixtures/np_.rb'
@@ -83,7 +83,7 @@ DDD
     assert_equal("test", N_("test"))
   end
 
-  def test_sgettext
+  def test_s_
     test = TestSGetText.new
 
     assert_equal("MATCHED", test.test_1)
