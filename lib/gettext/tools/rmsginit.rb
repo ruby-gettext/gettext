@@ -274,11 +274,11 @@ module GetText
 
   # Create a new .po file from initializing .pot file with user's
   # environment and input.
-  # @param [Array<String>] options options for rmsginit.
+  # @param [Array<String>] arguments arguments for rmsginit.
   # @return [void]
-  def rmsginit(*options)
+  def rmsginit(*arguments)
     rmsginit = RMsgInit.new
-    rmsginit.run(*options)
+    rmsginit.run(*arguments)
   end
 
   module_function :rmsginit
