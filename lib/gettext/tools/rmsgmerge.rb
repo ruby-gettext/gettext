@@ -476,16 +476,12 @@ module GetText
       p result if $DEBUG
       print result.generate_po if $DEBUG
 
-      begin
-        if config.output.is_a?(String)
-          File.open(File.expand_path(config.output), "w+") do |file|
-            file.write(result.generate_po)
-          end
-        else
-          config.output.puts(result.generate_po)
+      if config.output.is_a?(String)
+        File.open(File.expand_path(config.output), "w+") do |file|
+          file.write(result.generate_po)
         end
-      ensure
-        config.output.close
+      else
+        config.output.puts(result.generate_po)
       end
     end
   end
