@@ -158,10 +158,6 @@ LGPL(Lesser General Public License: http://www.gnu.org/licenses/lgpl-3.0.txt).
   * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
   * Copyright (C) 2001,2002 Yasushi Shoji <yashi at atmark-techno.com>
 
-* setup.rb
-  * Copyright (C) 2000-2005 Minero Aoki <aamine at loveruby.net>
-  * This file is released under LGPL. See the top of the install.rb.
-
 * Others
   * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
 
