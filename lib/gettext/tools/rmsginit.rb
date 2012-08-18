@@ -146,15 +146,9 @@ module GetText
         exit(true)
       end
 
-      version_description = _("Display version information and exit")
+      version_description = _("Display version and exit")
       parser.on_tail("-v", "--version", version_description) do
-        ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
-        ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
-        ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
-                             "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) " +
-                             "[#{RUBY_PLATFORM}]"
-        puts("#{$0} #{VERSION}")
-        puts(ruby_description)
+        puts(VERSION)
         exit(true)
       end
 

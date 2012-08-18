@@ -226,13 +226,7 @@ EOH
       end
 
       parser.on_tail("--version", _("display version information and exit")) do
-        puts("#{$0} #{VERSION}")
-        ruby_bin_dir = ::RbConfig::CONFIG["bindir"]
-        ruby_install_name = ::RbConfig::CONFIG["RUBY_INSTALL_NAME"]
-        ruby_description = "#{File.join(ruby_bin_dir, ruby_install_name)} " +
-                             "#{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) " +
-                             "[#{RUBY_PLATFORM}]"
-        puts(ruby_description)
+        puts(VERSION)
         exit(true)
       end
 
