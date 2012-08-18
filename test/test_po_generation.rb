@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
+# Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
+# Copyright (C) 2009  Masao Mutoh
+# Copyright (C) 2009  Vladimir Dobriakov <vladimir@geekq.net>
 #
 # License: Ruby's or LGPL
 #
