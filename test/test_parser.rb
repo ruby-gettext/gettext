@@ -107,11 +107,11 @@ class TestGetTextParser < Test::Unit::TestCase
 
   def test_ruby_p
     @ary = @rgettext.parse(['fixtures/p_.rb'])
-    assert_target_in_context "AAA", "BBB", ["fixtures/p_.rb:10", "fixtures/p_.rb:14"]
-    assert_target_in_context "AAA|BBB", "CCC", ["fixtures/p_.rb:18"]
-    assert_target_in_context "AAA", "CCC", ["fixtures/p_.rb:22"]
-    assert_target_in_context "CCC", "BBB", ["fixtures/p_.rb:26"]
-    assert_target_in_context "program", "name", ['fixtures/p_.rb:36'] do |t|
+    assert_target_in_context "AAA", "BBB", ["fixtures/p_.rb:29", "fixtures/p_.rb:33"]
+    assert_target_in_context "AAA|BBB", "CCC", ["fixtures/p_.rb:37"]
+    assert_target_in_context "AAA", "CCC", ["fixtures/p_.rb:41"]
+    assert_target_in_context "CCC", "BBB", ["fixtures/p_.rb:45"]
+    assert_target_in_context "program", "name", ['fixtures/p_.rb:55'] do |t|
       assert_equal "please translate 'name' in the context of 'program'.\n Hint: the translation should NOT contain the translation of 'program'.", t.comment
     end
   end
