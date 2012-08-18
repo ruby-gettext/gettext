@@ -106,7 +106,7 @@ module GetText
       mo_file = mo_file_from_po_file(po_file,options)
       $stderr.print %Q[#{po_file} -> #{mo_file} ... ] if options[:verbose]
       FileUtils.mkdir_p(File.dirname(mo_file))
-      rmsgfmt(po_file, "-o", mo_file)
+      Tools::MsgFmt.run(po_file, "-o", mo_file)
       $stderr.puts "Done." if options[:verbose]
     end
   end

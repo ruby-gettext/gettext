@@ -21,4 +21,4 @@
 
 require "gettext/tools/msgmerge"
 
-GetText.rmsgmerge(*ARGV)
+GetText::Tools::MsgMerge.run(*ARGV)

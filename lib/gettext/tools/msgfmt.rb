@@ -28,6 +28,18 @@ require "rbconfig"
 module GetText
   module Tools
     class MsgFmt  #:nodoc:
+      # Create a mo-file from a target file(po-file).
+      # You must specify a path of a target file in arguments.
+      # If a path of a mo-file is not specified in arguments, a mo-file is
+      # created as "messages.mo" in the current directory.
+      # @param [Array<String>] arguments arguments for rmsgfmt.
+      # @return [void]
+      class << self
+        def run(*arguments)
+          new.run(*arguments)
+        end
+      end
+
       include GetText
 
       bindtextdomain("rgettext")
@@ -90,17 +102,4 @@ module GetText
       end
     end
   end
-
-  # Create a mo-file from a target file(po-file).
-  # You must specify a path of a target file in options.
-  # If a path of a mo-file is not specified in options, a mo-file is
-  # created as "messages.mo" in the current directory.
-  # @param [Array<String>] options options for rmsgfmt.
-  # @return [MoFile] the MoFile object.
-  def rmsgfmt(*options)
-    rmsgfmt = Tools::MsgFmt.new
-    rmsgfmt.run(*options)
-  end
-
-  module_function :rmsgfmt
 end

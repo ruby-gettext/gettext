@@ -22,8 +22,8 @@
 require "gettext/tools/msginit"
 
 begin
-  GetText.rmsginit(*ARGV)
-rescue GetText::RMsgInit::Error
+  GetText::Tools::MsgInit.run(*ARGV)
+rescue GetText::Tools::MsgInit::Error
   puts($!.message)
   exit(false)
 end

@@ -208,7 +208,7 @@ namespace :test do
         mo_path = "#{mo_directory}/#{mo_base_path}"
         mo_paths << mo_path
         file mo_path => [mo_directory, po_path, poparser_rb_path] do
-          GetText.rmsgfmt(po_path, "-o", mo_path)
+          GetText::Tools::MsgFmt.run(po_path, "-o", mo_path)
         end
       end
     end

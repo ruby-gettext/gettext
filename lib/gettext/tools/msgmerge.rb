@@ -392,6 +392,15 @@ module GetText
         end
       end
 
+      class << self
+        # Merge a po-file inluding translated messages and a new pot-file.
+        # @param [Array<String>] arguments arguments for rmsgfmt.
+        # @return [void]
+        def run(*arguments)
+          new.run(*arguments)
+        end
+      end
+
       include GetText
 
       bindtextdomain("rgettext")
@@ -486,16 +495,5 @@ module GetText
         end
       end
     end
-  end
-end
-
-module GetText
-  # Experimental
-  # Merge a po-file inluding translated messages and a new pot-file.
-  # @param [Array<String>] options options for rmsgfmt.
-  # @return [void]
-  def rmsgmerge(*options)
-    rmsgmerge = Tools::RMsgMerge.new
-    rmsgmerge.run(*options)
   end
 end

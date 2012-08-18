@@ -315,13 +315,4 @@ module GetText
       end
     end
   end
-
-  # Shortcut for {RMsgInit.run}.
-  #
-  # @see RMsgInit.run
-  def rmsginit(*arguments)
-    Tools::RMsgInit.run(*arguments)
-  end
-
-  module_function :rmsginit
 end

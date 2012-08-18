@@ -22,4 +22,4 @@
 
 require "gettext/tools/msgfmt"
 
-GetText.rmsgfmt(*ARGV)
+GetText::Tools::MsgFmt.run(*ARGV)
