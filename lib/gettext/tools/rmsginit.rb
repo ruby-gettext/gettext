@@ -205,7 +205,11 @@ module GetText
     end
 
     def read_translator_full_name #:nodoc:
-      prompt(_("Please enter your full name: "))
+      prompt(_("Please enter your full name"), guess_full_name)
+    end
+
+    def guess_full_name
+      ENV["USERNAME"]
     end
 
     def translator_mail
@@ -213,12 +217,24 @@ module GetText
     end
 
     def read_translator_mail #:nodoc:
-      prompt(_("Please enter your email address: "))
+      prompt(_("Please enter your email address"), guess_mail)
     end
 
-    def prompt(message)
+    def guess_mail
+      ENV["EMAIL"]
+    end
+
+    def prompt(message, default)
       print(message)
-      $stdin.gets.chomp
+      print(" [#{default}]") if default
+      print(": ")
+
+      user_input = $stdin.gets.chomp
+      if user_input.empty?
+        default
+      else
+        user_input
+      end
     end
 
     POT_REVISION_DATE_KEY = /^("PO-Revision-Date:).+\\n"$/
