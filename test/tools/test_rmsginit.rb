@@ -23,8 +23,8 @@ require "gettext/tools/rmsginit"
 class TestRMsgInit < Test::Unit::TestCase
   def setup
     @rmsginit = GetText::RMsgInit.new
-    stub(@rmsginit).get_translator_full_name {translator_full_name}
-    stub(@rmsginit).get_translator_mail {translator_mail}
+    stub(@rmsginit).read_translator_full_name {translator_full_name}
+    stub(@rmsginit).read_translator_mail {translator_mail}
 
     Locale.current = "ja_JP.UTF-8"
     @time = Time.now.strftime("%Y-%m-%d %H:%M%z")
@@ -149,8 +149,8 @@ class TestRMsgInit < Test::Unit::TestCase
   end
 
   def test_no_translator
-    stub(@rmsginit).get_translator_full_name {""}
-    stub(@rmsginit).get_translator_mail {""}
+    stub(@rmsginit).read_translator_full_name {""}
+    stub(@rmsginit).read_translator_mail {""}
 
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
@@ -169,7 +169,7 @@ class TestRMsgInit < Test::Unit::TestCase
   end
 
   def test_no_translator_full_name
-    stub(@rmsginit).get_translator_full_name {""}
+    stub(@rmsginit).read_translator_full_name {""}
 
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
@@ -188,7 +188,7 @@ class TestRMsgInit < Test::Unit::TestCase
   end
 
   def test_no_translator_mail
-    stub(@rmsginit).get_translator_mail {""}
+    stub(@rmsginit).read_translator_mail {""}
 
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do

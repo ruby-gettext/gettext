@@ -201,19 +201,19 @@ module GetText
     end
 
     def translator_full_name
-      get_translator_full_name
+      read_translator_full_name
     end
 
-    def get_translator_full_name #:nodoc:
+    def read_translator_full_name #:nodoc:
       puts("Please enter your full name.")
       STDIN.gets.chomp
     end
 
     def translator_mail
-      get_translator_mail
+      read_translator_mail
     end
 
-    def get_translator_mail #:nodoc:
+    def read_translator_mail #:nodoc:
       puts("Please enter your email address.")
       STDIN.gets.chomp
     end
