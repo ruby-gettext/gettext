@@ -24,7 +24,7 @@ require 'fixtures/simple.rb'
 require 'fixtures/_.rb'
 require 'fixtures/sgettext.rb'
 require 'fixtures/ns_.rb'
-require 'fixtures/pgettext.rb'
+require 'fixtures/p_.rb'
 require 'fixtures/np_.rb'
 
 class TestGetText < Test::Unit::TestCase
@@ -101,7 +101,7 @@ DDD
     assert_equal "AAA|BBB", s_("AAA|BBB", nil)
   end
 
-  def test_pgettext
+  def test_p_
     GetText.locale = nil
     test = TestPGetText.new
 
