@@ -16,6 +16,16 @@ require "optparse"
 
 module GetText
   class RMsgInit
+    class << self
+      # Create a new .po file from initializing .pot file with user's
+      # environment and input.
+      # @param [Array<String>] arguments arguments for rmsginit.
+      # @return [void]
+      def run(*arguments)
+        new.run(*arguments)
+      end
+    end
+
     include GetText
 
     bindtextdomain("rgettext")
@@ -272,13 +282,11 @@ module GetText
     end
   end
 
-  # Create a new .po file from initializing .pot file with user's
-  # environment and input.
-  # @param [Array<String>] arguments arguments for rmsginit.
-  # @return [void]
+  # Shortcut for {RMsgInit.run}.
+  #
+  # @see RMsgInit.run
   def rmsginit(*arguments)
-    rmsginit = RMsgInit.new
-    rmsginit.run(*arguments)
+    RMsgInit.run(*arguments)
   end
 
   module_function :rmsginit
