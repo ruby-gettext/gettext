@@ -49,7 +49,8 @@ module GetText
     # Create .po file from .pot file, user's inputs and metadata.
     # @param [Array] arguments the list of arguments for rmsginit
     def run(*arguments)
-      initialize_arguments(*arguments)
+      parse(*arguments)
+      validate
 
       pot_contents = File.read(@input_file)
       po_contents = replace_pot_header(pot_contents)
@@ -61,11 +62,7 @@ module GetText
       self
     end
 
-    # Check whether files specified in arguments exist, and assign
-    # default values if files are not specified.
-    def initialize_arguments(*arguments) #:nodoc:
-      parse_command_line_arguments(*arguments)
-
+    def validate
       if @input_file.nil?
         @input_file = Dir.glob("./*.pot").first
         if @input_file.nil?
@@ -104,8 +101,7 @@ module GetText
 
     VERSION = GetText::VERSION
 
-    # Parse command line arguments to extract values
-    def parse_command_line_arguments(*arguments) #:nodoc:
+    def parse(*arguments) #:nodoc:
       parser = OptionParser.new
       parser.banner = "Usage: #{$0} [OPTION]"
       description = _("Create a new .po file from initializing .pot " +
