@@ -103,7 +103,6 @@ module GetText
 
     def parse(*arguments) #:nodoc:
       parser = OptionParser.new
-      parser.banner = "Usage: #{$0} [OPTION]"
       description = _("Create a new .po file from initializing .pot " +
                         "file with user's environment and input.")
       parser.separator(description)
