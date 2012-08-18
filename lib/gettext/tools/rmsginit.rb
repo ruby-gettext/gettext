@@ -31,6 +31,9 @@ module GetText
     class ArgumentError < Error
     end
 
+    class ValidationError < Error
+    end
+
     class << self
       # Create a new .po file from initializing .pot file with user's
       # environment and input.
@@ -72,11 +75,13 @@ module GetText
       if @input_file.nil?
         @input_file = Dir.glob("./*.pot").first
         if @input_file.nil?
-          raise(_(".pot file does not exist in the current directory."))
+          raise(ValidationError,
+                _(".pot file does not exist in the current directory."))
         end
       else
         unless File.exist?(@input_file)
-          raise(_("file #{@input_file} does not exist."))
+          raise(ValidationError,
+                _("file #{@input_file} does not exist."))
         end
       end
 
@@ -87,7 +92,8 @@ module GetText
       end
 
       unless valid_locale?(language_tag)
-        raise(_("Locale '#{language_tag}' is invalid. " +
+        raise(ValidationError,
+              _("Locale '#{language_tag}' is invalid. " +
                   "Please check if your specified locale is usable."))
       end
       @locale = language_tag.to_simple.to_s
@@ -95,7 +101,8 @@ module GetText
 
       @output_file ||= "#{@locale}.po"
       if File.exist?(@output_file)
-        raise(_("file #{@output_file} has already existed."))
+        raise(ValidationError,
+              _("file #{@output_file} has already existed."))
       end
     end
 
