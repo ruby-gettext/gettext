@@ -93,7 +93,3 @@ module GetText
 
   module_function :rmsgfmt
 end
-
-if $0 == __FILE__ then
-  GetText.rmsgfmt
-end
