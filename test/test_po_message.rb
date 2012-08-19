@@ -108,5 +108,11 @@ class TestPoMessage < Test::Unit::TestCase
       assert_equal("You should escape '\\\\' as '\\\\\\\\'.",
                    @message.escaped(:msgid))
     end
+
+    def test_new_line
+      @message.msgid = "First\nSecond\nThird"
+      assert_equal("First\\nSecond\\nThird",
+                   @message.escaped(:msgid))
+    end
   end
 end

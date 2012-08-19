@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-08-19 17:42+0900\n"
+"POT-Creation-Date: 2012-08-19 23:15+0900\n"
 "PO-Revision-Date: 2012-08-19 17:43+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,19 +14,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: test/fixtures/_.rb:30
+#: ../fixtures/_.rb:30
 msgid "aaa"
 msgstr "AAA"
 
-#: test/fixtures/_.rb:34
+#: ../fixtures/_.rb:34
 msgid "aaa\n"
 msgstr "AAA\n"
 
-#: test/fixtures/_.rb:38
+#: ../fixtures/_.rb:38
 msgid "bbb\nccc"
 msgstr "BBB\nCCC"
 
-#: test/fixtures/_.rb:42
+#: ../fixtures/_.rb:42
 msgid ""
 "bbb\n"
 "ccc\n"
@@ -36,51 +36,51 @@ msgstr ""
 "CCC\n"
 "DDD\n"
 
-#: test/fixtures/_.rb:49 test/fixtures/_.rb:53
+#: ../fixtures/_.rb:49 ../fixtures/_.rb:53
 msgid "eee"
 msgstr "EEE"
 
-#: test/fixtures/_.rb:53
+#: ../fixtures/_.rb:53
 msgid "fff"
 msgstr "FFF"
 
-#: test/fixtures/_.rb:57
+#: ../fixtures/_.rb:57
 msgid "ggghhhiii"
 msgstr "GGGHHHIII"
 
-#: test/fixtures/_.rb:63
-msgid "a"b"c""
+#: ../fixtures/_.rb:63
+msgid "a\"b\"c\""
 msgstr ""
 
-#: test/fixtures/_.rb:67
-msgid "d"e"f""
+#: ../fixtures/_.rb:67
+msgid "d\"e\"f\""
 msgstr ""
 
-#: test/fixtures/_.rb:71
+#: ../fixtures/_.rb:71
 msgid "jjj"
 msgstr ""
 
-#: test/fixtures/_.rb:72
+#: ../fixtures/_.rb:72
 msgid "kkk"
 msgstr ""
 
-#: test/fixtures/_.rb:76
+#: ../fixtures/_.rb:76
 msgid "lllmmm"
 msgstr ""
 
-#: test/fixtures/_.rb:84
+#: ../fixtures/_.rb:84
 msgid "nnn\nooo"
 msgstr ""
 
-#: test/fixtures/_.rb:88 test/fixtures/_.rb:92
+#: ../fixtures/_.rb:88 ../fixtures/_.rb:92
 msgid "#"
 msgstr ""
 
-#: test/fixtures/_.rb:96
+#: ../fixtures/_.rb:96
 msgid "	aaa"
 msgstr ""
 
-#: test/fixtures/_.rb:100
+#: ../fixtures/_.rb:100
 msgid ""
 "Here document1\n"
 "Here document2\n"
@@ -92,23 +92,23 @@ msgstr ""
 #. "Fran\u00e7ois" or (with HTML entities) "Fran&ccedil;ois".
 #. Pronunciation is like "fraa-swa pee-nar".
 #. This is an example from GNU gettext documentation.
-#: test/fixtures/_.rb:119
+#: ../fixtures/_.rb:119
 msgid "Francois Pinard"
 msgstr ""
 
-#: test/fixtures/_.rb:122
+#: ../fixtures/_.rb:122
 msgid "No TRANSLATORS comment"
 msgstr ""
 
-#: test/fixtures/_.rb:127
+#: ../fixtures/_.rb:127
 msgid "self explaining"
 msgstr ""
 
-#: test/fixtures/_.rb:131
+#: ../fixtures/_.rb:131
 msgid "This is a # including string."
 msgstr ""
 
-#: test/fixtures/_/one_line.rb:28
+#: ../fixtures/_/one_line.rb:28
 msgid "one line"
 msgstr "ONE LINE"
 

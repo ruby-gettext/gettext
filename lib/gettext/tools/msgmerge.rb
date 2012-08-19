@@ -22,6 +22,7 @@
 require "optparse"
 require "gettext"
 require "gettext/tools/poparser"
+require "gettext/tools/pomessage"
 
 module GetText
   module Tools
@@ -125,8 +126,8 @@ module GetText
             str << "\n"
           end
 
-          id = msgid.gsub(/"/, "\"").gsub(/\r/, "")
-          msgstr = @msgid2msgstr[msgid].gsub(/"/, '\"').gsub(/\r/, "")
+          id = msgid.gsub(/\r/, "")
+          msgstr = @msgid2msgstr[msgid].gsub(/\r/, "")
 
           if id.include?("\004")
             ids = id.split(/\004/)
@@ -159,7 +160,9 @@ module GetText
 
           if str.count("\n") > 1
             s << '""' << "\n"
-            s << escape(str).gsub(/^(.*)$/, '"\1\n"')
+            str.each_line do |line|
+              s << '"' << escape(line) << '"' << "\n"
+            end
           else
             s << '"' << escape(str) << '"'
           end
