@@ -296,7 +296,7 @@ EOF
     full_name = translator_full_name
     mail = translator_mail
     language_name = Locale::Info.get_language(language).name
-    plural_forms = @msginit.plural_forms(language)
+    plural_forms = @msginit.send(:plural_forms, language)
 
 <<EOF
 # #{language_name} translations for PACKAGE package.
@@ -321,7 +321,7 @@ EOF
 
   def no_translator_po_header(locale, language)
     language_name = Locale::Info.get_language(language).name
-    plural_forms = @msginit.plural_forms(language)
+    plural_forms = @msginit.send(:plural_forms, language)
 
 <<EOF
 # #{language_name} translations for PACKAGE package.

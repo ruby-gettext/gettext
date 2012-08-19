@@ -70,6 +70,7 @@ module GetText
         end
       end
 
+      private
       def validate
         if @input_file.nil?
           @input_file = Dir.glob("./*.pot").first
