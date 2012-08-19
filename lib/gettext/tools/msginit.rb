@@ -59,7 +59,7 @@ module GetText
       # Create .po file from .pot file, user's inputs and metadata.
       # @param [Array] arguments the list of arguments for rmsginit
       def run(*arguments)
-        parse(*arguments)
+        parse_arguments(*arguments)
         validate
 
         pot_content = File.read(@input_file)
@@ -113,7 +113,7 @@ module GetText
 
       VERSION = GetText::VERSION
 
-      def parse(*arguments) #:nodoc:
+      def parse_arguments(*arguments) #:nodoc:
         parser = OptionParser.new
         description = _("Create a new .po file from initializing .pot " +
                           "file with user's environment and input.")
