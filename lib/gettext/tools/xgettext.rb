@@ -20,6 +20,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "pathname"
 require "optparse"
 require "gettext"
 require "rbconfig"
@@ -107,7 +108,7 @@ module GetText
       end
 
       def generate_pot_header # :nodoc:
-        time = Time.now.strftime("%Y-%m-%d %H:%M%z")
+        time = now.strftime("%Y-%m-%d %H:%M%z")
 
         <<EOH
 # SOME DESCRIPTIVE TITLE.
@@ -157,6 +158,20 @@ EOH
               targets.each do |pomessage|
                 if pomessage.kind_of?(Array)
                   pomessage = PoMessage.new_from_ary(pomessage)
+                end
+
+                if @output.is_a?(String)
+                  base_path = Pathname.new(@output).dirname.expand_path
+                  pomessage.sources = pomessage.sources.collect do |source|
+                    path, line, = source.split(/:(\d+)\z/, 2)
+                    absolute_path = Pathname.new(path).expand_path
+                    begin
+                      path = absolute_path.relative_path_from(base_path).to_s
+                    rescue ArgumentError
+                      raise # Should we ignore it?
+                    end
+                    "#{path}:#{line}"
+                  end
                 end
 
                 # Save the previous target
@@ -254,6 +269,11 @@ EOH
           @output.puts(generate_pot(@input_files))
         end
         self
+      end
+
+      private
+      def now
+        Time.now
       end
     end
   end

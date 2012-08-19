@@ -20,6 +20,7 @@
 require "fileutils"
 require "tmpdir"
 require "tempfile"
+require "time"
 
 module GetTextTestUtils
   module_function
@@ -29,5 +30,13 @@ module GetTextTestUtils
 
   def locale_path
     File.join(File.dirname(__FILE__), "locale")
+  end
+
+  def setup_tmpdir
+    @tmpdir = Dir.mktmpdir
+  end
+
+  def teardown_tmpdir
+    FileUtils.rm_rf(@tmpdir, :secure => true) if @tmpdir
   end
 end
