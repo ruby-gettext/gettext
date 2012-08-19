@@ -134,13 +134,19 @@ end
   task "test:gettext" => "test:#{domain}:gettext"
 end
 
-["plural"].each do |domain|
+po_only_domains = [
+  "plural", "plural_error", "rubyparser", "test1", "test2", "test3"
+]
+po_only_domains.each do |domain|
   GetText::Task.new(spec) do |task|
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
     task.po_base_directory = "test/po"
     task.mo_base_directory = "test"
     task.files = []
+    task.locales = Dir.glob("test/po/*/#{domain}.po").collect do |po|
+      File.basename(File.dirname(po))
+    end
   end
   task "test:gettext" => "test:#{domain}:gettext"
 end
