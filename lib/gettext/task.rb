@@ -175,7 +175,7 @@ module GetText
       Dir.open(po_base_directory) do |dir|
         dir.each do |entry|
           next unless /\A[a-z]{2}(?:_[A-Z]{2})?\z/ =~ entry
-          next unless File.directory?(File.join(dir, entry))
+          next unless File.directory?(File.join(dir.path, entry))
           locales << entry
         end
       end
