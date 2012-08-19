@@ -12,7 +12,8 @@
 # Copyright(c) 2012 Haruka Yoshihara <yoshihara@clear-code.com>
 # This program is licenced under the same licence as Ruby.
 
-$:.unshift "./lib"
+base_dir = File.expand_path(File.dirname(__FILE__))
+$LOAD_PATH.unshift(File.join(base_dir, 'lib'))
 
 require "tempfile"
 require "rake"
@@ -20,6 +21,7 @@ require "rubygems"
 require "yard"
 require "gettext/version"
 require "gettext/tools"
+require "gettext/task"
 require "bundler/gem_helper"
 
 class Bundler::GemHelper
@@ -28,7 +30,10 @@ class Bundler::GemHelper
     version
   end
 end
-Bundler::GemHelper.install_tasks
+
+helper = Bundler::GemHelper.new(base_dir)
+helper.install
+spec = helper.gemspec
 
 PKG_VERSION = GetText::VERSION
 
@@ -69,97 +74,66 @@ EOH
 end
 
 
-desc "Create *.mo"
-task :mo => ["mo:gettext", "mo:samples", "mo:test"]
-namespace :mo do
-  desc "Create *.mo for gettext gem"
-  task :gettext do
-    GetText.create_mofiles
+GetText::Task.new(spec)
+Dir.glob("samples/*.rb") do |target|
+  domain = File.basename(target, ".*")
+  GetText::Task.new(spec) do |task|
+    task.domain = domain
+    task.namespace_prefix = "samples:#{domain}"
+    task.po_base_directory = "samples/po"
+    task.mo_base_directory = "samples"
+    task.files = Dir.glob(target.gsub(/\.*+\z/, ".*"))
   end
+  task "samples:gettext" => "samples:#{domain}:gettext"
+end
+desc "Update *.mo for samples"
+task "samples:gettext"
 
-  desc "Create *.mo for samples"
-  task :samples do
-    GetText.create_mofiles(:po_root => "samples/po",
-                           :mo_root => "samples/locale")
-    GetText.create_mofiles(:po_root => "samples/cgi/po",
-                           :mo_root => "samples/cgi/locale")
+[
+  ["main", Dir.glob("samples/cgi/{index.cgi,cookie.cgi}")],
+  ["helloerb1", Dir.glob("samples/cgi/helloerb1.cgi")],
+  ["helloerb2", Dir.glob("samples/cgi/helloerb2.cgi")],
+  ["hellolib", Dir.glob("samples/cgi/hellolib.rb")],
+].each do |domain, files|
+  GetText::Task.new(spec) do |task|
+    task.domain = domain
+    task.namespace_prefix = "samples:cgi:#{domain}"
+    task.po_base_directory = "samples/cgi/po"
+    task.mo_base_directory = "samples/cgi"
+    task.files = files
   end
+  task "samples:cgi:gettext" => "samples:cgi:#{domain}:gettext"
+end
+desc "Updates *.mo for CGI samples"
+task "samples:cgi:gettext"
 
-  desc "Create *.mo for tests"
-  task :test => ["test:mo:update"]
+task "samples:gettext" => "samples:cgi:gettext"
+
+# ["backslash", "non_ascii", "np_", "ns_", "p_", "s_"].each do |domain|
+["s_"].each do |domain|
+  GetText::Task.new(spec) do |task|
+    task.domain = domain
+    task.namespace_prefix = "test:#{domain}"
+    task.po_base_directory = "test/po"
+    task.mo_base_directory = "test"
+    task.files = ["test/fixtures/#{domain}.rb"]
+    task.locales = ["ja"]
+  end
+  task "test:gettext" => "test:#{domain}:gettext"
 end
 
-desc "Update pot/po files to match new version."
-task :updatepo do
-  begin
-    require "gettext"
-    require "gettext/tools/poparser"
-  rescue LoadError
-    puts "gettext/tools/poparser was not found."
+["plural"].each do |domain|
+  GetText::Task.new(spec) do |task|
+    task.domain = domain
+    task.namespace_prefix = "test:#{domain}"
+    task.po_base_directory = "test/po"
+    task.mo_base_directory = "test"
+    task.files = []
   end
-
-  #lib/gettext/*.rb -> rgettext.po
-  GetText.update_pofiles("rgettext",
-                         Dir.glob("lib/**/*.rb") + ["src/poparser.ry"],
-                         "ruby-gettext #{GetText::VERSION}")
+  task "test:gettext" => "test:#{domain}:gettext"
 end
-
-desc "Gather the newest po files. (for me)"
-task :gatherpo => [:updatepo] do
-  mkdir_p "pofiles/original" unless FileTest.exist? "pofiles/original"
-  Dir.glob("**/*.pot").each do |f|
-    unless /^(pofiles|test)/ =~ f
-      copy f, "pofiles/original/"
-    end
-  end
-  Dir.glob("**/*.po").each do |f|
-    unless /^(pofiles|test)/ =~ f
-      lang = /po\/([^\/]*)\/(.*.po)/.match(f).to_a[1]
-      mkdir_p "pofiles/#{lang}" unless FileTest.exist? "pofiles/#{lang}"
-      copy f, "pofiles/#{lang}/"
-      Dir.glob("pofiles/original/*.pot").each do |f|
-        newpo = "pofiles/#{lang}/#{File.basename(f, ".pot")}.po"
-        copy f, newpo unless FileTest.exist? newpo
-      end
-    end
-  end
-end
-
-def mv_pofiles(src_dir, target_dir, lang)
-   target = File.join(target_dir, lang)
-   unless File.exist?(target)
-     mkdir_p target
-     sh "cvs add #{target}"
-   end
-   cvs_add_targets = ""
-   Dir.glob(File.join(target_dir, "ja/*.po")).sort.each do |f|
-     srcfile = File.join(src_dir, File.basename(f))
-     if File.exist?(srcfile)
-       unless File.exist?(File.join(target, File.basename(f)))
-         cvs_add_targets << File.join(target, File.basename(f)) + " "
-       end
-       mv srcfile, target, :verbose => true
-     else
-       puts "mv #{srcfile} #{target}/ -- skipped"
-     end
-   end
-   sh "cvs add #{cvs_add_targets}" if cvs_add_targets.size > 0
-end
-
-desc "Deploy localized pofiles to current source tree. (for me)"
-task :deploypo do
-     srcdir = ENV["SRCDIR"] ||= File.join(ENV["HOME"], "pofiles")
-     lang = ENV["LOCALE"]
-     unless lang
-       puts "USAGE: rake deploypo [SRCDIR=#{ENV["HOME"]}/pofiles] LOCALE=ja"
-       exit
-    end
-    puts "SRCDIR = #{srcdir}, LOCALE = #{lang}"
-
-    mv_pofiles(srcdir, "po", lang)
-    mv_pofiles(srcdir, "samples/cgi/po", lang)
-    mv_pofiles(srcdir, "samples/po", lang)
-end
+desc "Update *.mo for test"
+task "test:gettext"
 
 
 task :package => [:makemo]
@@ -171,54 +145,8 @@ task :test => "test:prepare" do
 end
 
 namespace :test do
-  namespace :pot do
-    pot_base_dir = "test/pot"
-    directory pot_base_dir
-
-    pot_paths = []
-    ruby_base_paths = [
-      "non_ascii", "npgettext", "nsgettext",
-      "pgettext", "backslash",
-    ]
-    ruby_paths = Dir.glob("test/testlib/{#{ruby_base_paths.join(",")}}.rb")
-    ruby_paths.each do |ruby_path|
-      pot_base_path = File.basename(ruby_path).sub(/\.rb\z/, ".pot")
-      pot_path = "#{pot_base_dir}/#{pot_base_path}"
-      pot_paths << pot_path
-      file pot_path => [pot_base_dir, ruby_path] do
-        GetText.rgettext(ruby_path, pot_path)
-      end
-    end
-
-    desc "Update pot files for testing"
-    task :update => pot_paths
-  end
-
-  namespace :mo do
-    mo_paths = []
-    language_paths = Dir.glob("test/po/*")
-    language_paths.each do |language_path|
-      language = File.basename(language_path)
-      po_paths = Dir.glob("#{language_path}/*.po")
-      po_paths.each do |po_path|
-        mo_directory = "test/locale/#{language}/LC_MESSAGES"
-        directory mo_directory
-
-        mo_base_path = File.basename(po_path).sub(/\.po\z/, ".mo")
-        mo_path = "#{mo_directory}/#{mo_base_path}"
-        mo_paths << mo_path
-        file mo_path => [mo_directory, po_path, poparser_rb_path] do
-          GetText::Tools::MsgFmt.run(po_path, "-o", mo_path)
-        end
-      end
-    end
-
-    desc "Update mo files for testing"
-    task :update => mo_paths
-  end
-
   desc "Prepare test environment"
-  task :prepare => ["test:mo:update", "mo:samples"]
+  task :prepare => ["test:gettext", "samples:gettext"]
 end
 
 YARD::Rake::YardocTask.new do |t|
