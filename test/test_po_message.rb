@@ -97,4 +97,16 @@ class TestPoMessage < Test::Unit::TestCase
     po.sources = ["file1:1", "file2:10"]
     assert_raise(RuntimeError){ po.to_po_str }
   end
+
+  class TestEscape < self
+    def setup
+      @message = GetText::PoMessage.new(:normal)
+    end
+
+    def test_backslash
+      @message.msgid = "You should escape '\\' as '\\\\'."
+      assert_equal("You should escape '\\\\' as '\\\\\\\\'.",
+                   @message.escaped(:msgid))
+    end
+  end
 end

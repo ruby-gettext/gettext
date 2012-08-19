@@ -159,12 +159,16 @@ module GetText
 
           if str.count("\n") > 1
             s << '""' << "\n"
-            s << str.gsub(/^(.*)$/, '"\1\n"')
+            s << escape(str).gsub(/^(.*)$/, '"\1\n"')
           else
-            s << '"' << str.sub("\n", "\\n") << '"'
+            s << '"' << escape(str) << '"'
           end
 
           s.rstrip
+        end
+
+        def escape(string)
+          PoMessage.escape(string)
         end
       end
 

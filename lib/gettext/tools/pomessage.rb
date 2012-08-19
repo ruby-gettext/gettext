@@ -33,6 +33,15 @@ module GetText
       :msgctxt_plural => [:msgctxt, :msgid, :msgid_plural]
     }
 
+    class << self
+      def escape(string)
+        string.gsub(/([\\"])/) do
+          special_character = $1
+          "\\#{special_character}"
+        end
+      end
+    end
+
     @@max_line_length = 70
 
     # Sets the max line length.
@@ -76,7 +85,7 @@ module GetText
     # and other purposes.
     def escaped(param_name)
       orig = self.send param_name
-      orig.gsub(/"/, '\"').gsub(/\r/, '')
+      self.class.escape(orig.gsub(/\r/, ""))
     end
 
     # Checks if the other translation target is mergeable with
