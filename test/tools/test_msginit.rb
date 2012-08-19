@@ -32,12 +32,13 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
   def test_all_options
     Dir.mktmpdir do |dir|
-      pot_file = create_pot_file
+      pot_file_path = File.join(dir, "test.pot")
+      create_pot_file(pot_file_path)
       po_file_path = File.join(dir, "test.po")
       locale = "en"
       language = locale
 
-      @msginit.run("--input", pot_file.path,
+      @msginit.run("--input", pot_file_path,
                    "--output", po_file_path,
                    "--locale", locale)
 
@@ -50,7 +51,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
   def test_locale_including_language
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
-        create_pot_file
+        create_pot_file("test.pot")
         locale = "en"
         language = locale
         po_file_path = "#{locale}.po"
@@ -67,7 +68,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
   def test_locale_including_language_and_region
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
-        create_pot_file
+        create_pot_file("test.pot")
         locale = "en_US"
         language = "en"
         po_file_path = "#{locale}.po"
@@ -84,7 +85,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
   def test_locale_including_language_and_region_with_charset
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
-        create_pot_file
+        create_pot_file("test.pot")
         locale = "en_US"
         language = "en"
         charset = "UTF-8"
@@ -101,12 +102,13 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
   def test_pot_file_and_po_file
     Dir.mktmpdir do |dir|
-      pot_file = create_pot_file
+      pot_file_path = File.join(dir, "test.pot")
+      create_pot_file(pot_file_path)
       locale = current_locale
       language = current_language
       po_file_path = File.join(dir, "test.po")
 
-      @msginit.run("--input", pot_file.path, "--output", po_file_path)
+      @msginit.run("--input", pot_file_path, "--output", po_file_path)
 
       actual_po_header = normalize_po_header(po_file_path)
       expected_po_header = po_header(locale, language)
@@ -117,12 +119,13 @@ class TestToolsMsgInit < Test::Unit::TestCase
   def test_pot_file
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
-        pot_file = create_pot_file
+        pot_file_path = "test.pot"
+        create_pot_file(pot_file_path)
         locale = current_locale
         language = current_language
         po_file_path = "#{locale}.po"
 
-        @msginit.run("--input", pot_file.path)
+        @msginit.run("--input", pot_file_path)
 
         actual_po_header = normalize_po_header(po_file_path)
         expected_po_header = po_header(locale, language)
@@ -134,7 +137,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
   def test_no_options
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
-        create_pot_file
+        create_pot_file("test.pot")
         locale = current_locale
         language = current_language
         po_file_path = "#{locale}.po"
@@ -154,7 +157,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
-        create_pot_file
+        create_pot_file("test.pot")
         locale = current_locale
         language = current_language
         po_file_path = "#{locale}.po"
@@ -173,7 +176,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
-        create_pot_file
+        create_pot_file("test.pot")
         locale = current_locale
         language = current_language
         po_file_path = "#{locale}.po"
@@ -192,7 +195,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
-        create_pot_file
+        create_pot_file("test.pot")
         locale = current_locale
         language = current_language
         po_file_path = "#{locale}.po"
@@ -248,11 +251,10 @@ class TestToolsMsgInit < Test::Unit::TestCase
     "me@example.com"
   end
 
-  def create_pot_file
-    file = File.new("test.pot", "w")
-    file.puts(pot_header)
-    file.close
-    file
+  def create_pot_file(path)
+    File.open(path, "w") do |pot_file|
+      pot_file.puts(pot_header)
+    end
   end
 
   def pot_header
