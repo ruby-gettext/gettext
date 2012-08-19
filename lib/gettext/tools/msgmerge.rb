@@ -142,7 +142,7 @@ module GetText
               str << "msgid_plural " << __conv(single_id) << "\n"
             end
 
-            msgstr.split("\000").each_with_index do |m, n|
+            msgstr.split("\000", -1).each_with_index do |m, n|
               str << "msgstr[#{n}] " << __conv(m) << "\n"
             end
           else
@@ -201,7 +201,7 @@ module GetText
               merge_fuzzy_message(msgid, result, other_msgid, definition)
             elsif msgid.index("\000") and (reference.msgstr(msgid).gsub("\000", "").empty?)
               # plural
-              result[msgid] = "\000" * definition.nplurals
+              result[msgid] = ([""] * definition.nplurals).join("\000")
             else
               change_reference_comment(msgid, result)
             end
@@ -236,12 +236,11 @@ module GetText
               target[msgid] = def_msgstr
             else
               # NG
-              s = ""
-              definition.nplural.times do
-                s << def_msgstr
-                s << "\000"
+              strings = []
+              definition.nplurals.times do
+                strings << def_msgstr
               end
-              target[msgid] = s
+              target[msgid] = strings.join("\000")
             end
           else
             if def_msgstr.index("\000")
