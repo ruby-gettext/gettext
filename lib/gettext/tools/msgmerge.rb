@@ -82,10 +82,10 @@ module GetText
           nil
         end
 
-        def nplural
+        def nplurals
           return 0 if @msgid2msgstr[""].nil?
 
-          if /\s*nplural\s*=\s*(\d+)/ =~ @msgid2msgstr[""]
+          if /\s*nplurals\s*=\s*(\d+)/ =~ @msgid2msgstr[""]
             return $1.to_i
           else
             return 0
@@ -201,7 +201,7 @@ module GetText
               merge_fuzzy_message(msgid, result, other_msgid, definition)
             elsif msgid.index("\000") and (reference.msgstr(msgid).gsub("\000", "").empty?)
               # plural
-              result[msgid] = "\000" * definition.nplural
+              result[msgid] = "\000" * definition.nplurals
             else
               change_reference_comment(msgid, result)
             end
