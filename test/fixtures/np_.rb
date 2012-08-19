@@ -22,7 +22,7 @@ require 'gettext'
 
 class TestNPGetText
   include GetText
-  bindtextdomain("npgettext", :path => "locale")
+  bindtextdomain("np_", :path => "locale")
 
   def test_1
     [np_("Magazine", "a book", "%{num} books", 1),

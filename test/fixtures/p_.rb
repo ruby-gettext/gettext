@@ -23,7 +23,7 @@ require 'gettext'
 
 class TestPGetText
   include GetText
-  bindtextdomain("pgettext", :path => "locale")
+  bindtextdomain("p_", :path => "locale")
 
   def test_1
     p_("AAA", "BBB")
