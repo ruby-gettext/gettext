@@ -82,7 +82,7 @@ Dir.glob("samples/*.rb") do |target|
     task.namespace_prefix = "samples:#{domain}"
     task.po_base_directory = "samples/po"
     task.mo_base_directory = "samples"
-    task.files = Dir.glob(target.gsub(/\.*+\z/, ".*"))
+    task.files = Dir.glob(target.gsub(/\..*\z/, ".*"))
   end
   task "samples:gettext" => "samples:#{domain}:gettext"
 end
