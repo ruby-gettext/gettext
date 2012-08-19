@@ -21,16 +21,24 @@
 require 'gettext/tools/msgmerge'
 
 class TestToolsMsgMerge < Test::Unit::TestCase
-  def test_po_data_should_generate_msgctxt
-    msg_id = "Context\004Translation"
+  class TestPoData < self
+    def setup
+      @po_data = GetText::Tools::MsgMerge::PoData.new
+    end
 
-    po_data = GetText::Tools::MsgMerge::PoData.new
-    po_data[msg_id] = "Translated"
-    po_data.set_comment(msg_id, "#no comment")
+    def test_msgctxt
+      msg_id = "Context\004Translation"
+      @po_data[msg_id] = "Translated"
+      @po_data.set_comment(msg_id, "#no comment")
 
-    result = po_data.generate_po_entry(msg_id)
+      entry = @po_data.generate_po_entry(msg_id)
+      assert_equal(<<-'EOE', entry)
+#no comment
+msgctxt "Context"
+msgid "Translation"
+msgstr "Translated"
 
-    expected = "#no comment\nmsgctxt \"Context\"\nmsgid \"Translation\"\nmsgstr \"Translated\"\n\n"
-    assert_equal expected, result
+EOE
+    end
   end
 end
