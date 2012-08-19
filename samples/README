@@ -1,6 +1,6 @@
 Sample scripts for Ruby-GetText-Package.
 
-$ruby makemo.rb
+$rake sample:gettext
 $ruby sample_script.rb
 
 hello.rb        - Basic sample
@@ -10,7 +10,5 @@ hello_plural.rb - n_ sample
 hello_gtk.rb     - Ruby/GTK2 sample
 hello_tk.rb      - Ruby/TK sample
 hello_glade2.rb  - Ruby/Glade2 sample
-
-makemo.rb       - Create mo files from po files.
 
 cgi/* - CGI/ERB sample (See cgi/README)
