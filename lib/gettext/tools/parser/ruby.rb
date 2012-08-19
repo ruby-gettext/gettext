@@ -135,8 +135,11 @@ module GetText
       line_no = nil
       last_comment = ''
       reset_comment = false
+      ignore_next_comma = false
       rl.parse do |tk|
         begin
+          ignore_current_comma = ignore_next_comma
+          ignore_next_comma = false
           case tk
           when RubyToken::TkIDENTIFIER, RubyToken::TkCONSTANT
             store_pomessage(pomessages, pomessage, path, line_no, last_comment)
@@ -156,8 +159,12 @@ module GetText
             pomessage.set_current_attribute tk.value if pomessage
           when RubyToken::TkPLUS, RubyToken::TkNL
             #do nothing
+          when RubyToken::TkINTEGER
+            ignore_next_comma = true
           when RubyToken::TkCOMMA
-            pomessage.advance_to_next_attribute if pomessage
+            unless ignore_current_comma
+              pomessage.advance_to_next_attribute if pomessage
+            end
           else
             if store_pomessage(pomessages, pomessage, path, line_no, last_comment)
               pomessage = nil

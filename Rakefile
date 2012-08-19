@@ -109,7 +109,7 @@ task "samples:cgi:gettext"
 
 task "samples:gettext" => "samples:cgi:gettext"
 
-["backslash", "non_ascii", "np_", "ns_", "p_", "s_"].each do |domain|
+["backslash", "non_ascii", "np_", "p_"].each do |domain|
   GetText::Task.new(spec) do |task|
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
@@ -121,7 +121,7 @@ task "samples:gettext" => "samples:cgi:gettext"
   task "test:gettext" => "test:#{domain}:gettext"
 end
 
-["_"].each do |domain|
+["_", "s_", "ns_"].each do |domain|
   GetText::Task.new(spec) do |task|
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"

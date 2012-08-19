@@ -27,10 +27,6 @@ class TestRubyParserXXX < Test::Unit::TestCase
   include GetTextTestUtils
 
   private
-  def fixture_path(*components)
-    super("_", *components)
-  end
-
   def parse(file)
     GetText::RubyParser.parse(fixture_path(file))
   end
@@ -41,14 +37,24 @@ class TestRubyParserXXX < Test::Unit::TestCase
   end
 
   def normalize_expected(messages)
-    messages
+    messages.collect do |message|
+      default = {
+        :msgid        => nil,
+        :msgid_plural => nil,
+        :separator    => nil,
+        :sources      => nil,
+      }
+      default.merge(message)
+    end
   end
 
   def normalize_actual(po_messages)
     po_messages.collect do |po_message|
       {
-        :msgid => po_message.msgid,
-        :sources => normalize_sources(po_message.sources),
+        :msgid        => po_message.msgid,
+        :msgid_plural => po_message.msgid_plural,
+        :separator    => po_message.separator,
+        :sources      => normalize_sources(po_message.sources),
       }
     end
   end
@@ -68,6 +74,48 @@ class TestRubyParserXXX < Test::Unit::TestCase
                      }
                    ],
                    "one_line.rb")
+    end
+
+    private
+    def fixture_path(*components)
+      super("_", *components)
+    end
+  end
+
+  class Tests_ < self
+    def test_custom
+      assert_parse([
+                     {
+                       :msgid     => "context|context$message",
+                       :separator => "$",
+                       :sources   => ["custom.rb:28"],
+                     }
+                   ],
+                   "custom.rb")
+    end
+
+    private
+    def fixture_path(*components)
+      super("s_", *components)
+    end
+  end
+
+  class Testns_ < self
+    def test_custom
+      assert_parse([
+                     {
+                       :msgid        => "context|context$message",
+                       :msgid_plural => "context|context$messages",
+                       :separator    => "$",
+                       :sources      => ["custom.rb:28"],
+                     }
+                   ],
+                   "custom.rb")
+    end
+
+    private
+    def fixture_path(*components)
+      super("ns_", *components)
     end
   end
 end

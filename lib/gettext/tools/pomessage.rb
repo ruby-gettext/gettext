@@ -27,8 +27,8 @@ module GetText
   # is to be translated.
   class PoMessage
     PARAMS = {
-      :normal => [:msgid],
-      :plural => [:msgid, :msgid_plural],
+      :normal => [:msgid, :separator],
+      :plural => [:msgid, :msgid_plural, :separator],
       :msgctxt => [:msgctxt, :msgid],
       :msgctxt_plural => [:msgctxt, :msgid, :msgid_plural]
     }
@@ -50,6 +50,7 @@ module GetText
     attr_accessor :msgid
     # Options
     attr_accessor :msgid_plural
+    attr_accessor :separator
     attr_accessor :msgctxt
     attr_accessor :sources    # ["file1:line1", "file2:line2", ...]
     attr_accessor :comment
