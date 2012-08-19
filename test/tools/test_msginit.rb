@@ -256,7 +256,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
   end
 
   def pot_header
-<<EOF
+    <<EOF
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -298,7 +298,7 @@ EOF
     language_name = Locale::Info.get_language(language).name
     plural_forms = @msginit.send(:plural_forms, language)
 
-<<EOF
+    <<EOF
 # #{language_name} translations for PACKAGE package.
 # Copyright (C) YYYY THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -323,7 +323,7 @@ EOF
     language_name = Locale::Info.get_language(language).name
     plural_forms = @msginit.send(:plural_forms, language)
 
-<<EOF
+    <<EOF
 # #{language_name} translations for PACKAGE package.
 # Copyright (C) YYYY THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
