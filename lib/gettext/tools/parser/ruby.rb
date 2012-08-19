@@ -1,4 +1,3 @@
-#!/usr/bin/ruby
 =begin
   parser/ruby.rb - parser for ruby script
 
@@ -212,16 +211,4 @@ module GetText
       end
     end
   end
-end
-
-if __FILE__ == $0
-  require 'pp'
-  ARGV.each do |path|
-    pp GetText::RubyParser.parse(path)
-  end
-
-  #rl = GetText::RubyLexX.new; rl.set_input(ARGF)
-  #rl.parse do |tk|
-  #p tk
-  #end
 end
