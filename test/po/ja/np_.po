@@ -36,7 +36,7 @@ msgctxt "Magaine"
 msgid "I have a magazine"
 msgid_plural "I have %{num} magazines"
 msgstr[0] "マガジンを1冊持ってます。"
-msgstr[0] "マガジンたちを%{num}冊持ってます。"
+msgstr[1] "マガジンたちを%{num}冊持ってます。"
 
 #: fixtures/npgettext.rb:30 fixtures/npgettext.rb:31
 msgctxt "Hardcover"
