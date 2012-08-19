@@ -11,7 +11,7 @@ require 'gtk2'
 class LocalizedWindow < Gtk::Window
   include GetText
 
-  bindtextdomain("hello_gtk", :path => "locale", :output_charset => "utf-8")
+  bindtextdomain("hello_gtk2", :path => "locale", :output_charset => "utf-8")
 
   def initialize
     super
