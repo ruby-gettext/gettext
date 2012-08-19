@@ -280,7 +280,7 @@ module GetText
             elsif SEMICOLON_COMMENT_RE =~ l
               semi_comment << l
             elsif FUZZY_RE =~ l
-              is_fuzzy = true
+              is_fuzzy = true if msgid != ""
             end
           end
 
