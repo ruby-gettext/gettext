@@ -1,8 +1,11 @@
 /pkg/
 /data/
+/test/po/*.pot
 /test/locale/
-/test/pot/
+/samples/cgi/po/*.pot
 /samples/cgi/locale/
+/samples/po/*.pot
 /samples/locale/
 /doc/reference/
 /.yardoc/
+/Gemfile.lock
