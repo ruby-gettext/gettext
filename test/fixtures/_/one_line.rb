@@ -17,17 +17,16 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "fileutils"
-require "tmpdir"
-require "tempfile"
+module Fixtures
+  module Method_
+    class OneLine
+      include GetText
 
-module GetTextTestUtils
-  module_function
-  def fixture_path(*components)
-    File.join(File.dirname(__FILE__), "fixtures", *components)
-  end
+      bindtextdomain("_", :path => GetTextTestUtils.locale_path)
 
-  def locale_path
-    File.join(File.dirname(__FILE__), "locale")
+      def message
+        _("one line")
+      end
+    end
   end
 end

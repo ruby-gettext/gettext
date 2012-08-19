@@ -109,14 +109,26 @@ task "samples:cgi:gettext"
 
 task "samples:gettext" => "samples:cgi:gettext"
 
-# ["backslash", "non_ascii", "np_", "ns_", "p_", "s_"].each do |domain|
-["s_"].each do |domain|
+["backslash", "non_ascii", "np_", "ns_", "p_", "s_"].each do |domain|
   GetText::Task.new(spec) do |task|
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
     task.po_base_directory = "test/po"
     task.mo_base_directory = "test"
     task.files = ["test/fixtures/#{domain}.rb"]
+    task.locales = ["ja"]
+  end
+  task "test:gettext" => "test:#{domain}:gettext"
+end
+
+["_"].each do |domain|
+  GetText::Task.new(spec) do |task|
+    task.domain = domain
+    task.namespace_prefix = "test:#{domain}"
+    task.po_base_directory = "test/po"
+    task.mo_base_directory = "test"
+    task.files = ["test/fixtures/#{domain}.rb"]
+    task.files += Dir.glob("test/fixtures/#{domain}/*.rb")
     task.locales = ["ja"]
   end
   task "test:gettext" => "test:#{domain}:gettext"

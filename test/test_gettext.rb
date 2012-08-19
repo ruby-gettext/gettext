@@ -22,6 +22,7 @@
 
 require 'fixtures/simple.rb'
 require 'fixtures/_.rb'
+require "fixtures/_/one_line"
 require 'fixtures/s_.rb'
 require 'fixtures/ns_.rb'
 require 'fixtures/p_.rb'
@@ -77,6 +78,13 @@ DDD
     assert_equal("EEE", test.test_5)
     assert_equal("EEEfooFFF", test.test_6)
     assert_equal("GGGHHHIII", test.test_7)
+  end
+
+  class Test_ < self
+    def test_one_line
+      target = Fixtures::Method_::OneLine.new
+      assert_equal("ONE LINE", target.message)
+    end
   end
 
   def test_N_
