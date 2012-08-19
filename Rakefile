@@ -73,6 +73,16 @@ EOH
   $stderr.puts "Create #{poparser_rb_path}."
 end
 
+desc "Run all tests"
+task :test => "test:prepare" do
+  options = ARGV - Rake.application.top_level_tasks
+  ruby "test/run-test.rb", *options
+end
+
+namespace :test do
+  desc "Prepare test environment"
+  task :prepare => ["test:gettext", "samples:gettext"]
+end
 
 GetText::Task.new(spec)
 Dir.glob("samples/*.rb") do |target|
@@ -155,17 +165,6 @@ task "test:gettext"
 
 
 task :package => [:makemo]
-
-desc "Run all tests"
-task :test => "test:prepare" do
-  options = ARGV - Rake.application.top_level_tasks
-  ruby "test/run-test.rb", *options
-end
-
-namespace :test do
-  desc "Prepare test environment"
-  task :prepare => ["test:gettext", "samples:gettext"]
-end
 
 YARD::Rake::YardocTask.new do |t|
 end
