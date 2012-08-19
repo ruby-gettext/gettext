@@ -23,7 +23,6 @@
 require "pathname"
 require "optparse"
 require "gettext"
-require "rbconfig"
 
 module GetText
   module Tools

@@ -23,7 +23,6 @@ require "optparse"
 require "fileutils"
 require "gettext"
 require "gettext/tools/poparser"
-require "rbconfig"
 
 module GetText
   module Tools

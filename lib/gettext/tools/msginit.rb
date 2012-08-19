@@ -20,7 +20,6 @@
 
 require "gettext"
 require "locale/info"
-require "rbconfig"
 require "optparse"
 
 module GetText
