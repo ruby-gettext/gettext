@@ -38,8 +38,8 @@ class TestToolsMsgInit < Test::Unit::TestCase
       language = locale
 
       @msginit.run("--input", pot_file.path,
-                    "--output", po_file_path,
-                    "--locale", locale)
+                   "--output", po_file_path,
+                   "--locale", locale)
 
       actual_po_header = normalize_po_header(po_file_path)
       expected_po_header = po_header(locale, language)
