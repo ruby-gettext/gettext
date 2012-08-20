@@ -4,8 +4,8 @@ rvm:
   - 1.9.3
   - rbx
   - ree
-#  - jruby
-#  - ruby-head
+  - jruby
+  - ruby-head
 notifications:
   recipients:
     - travis@clear-code.com
