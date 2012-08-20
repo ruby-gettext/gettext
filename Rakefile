@@ -35,8 +35,6 @@ helper = Bundler::GemHelper.new(base_dir)
 helper.install
 spec = helper.gemspec
 
-PKG_VERSION = GetText::VERSION
-
 task :default => :test
 
 ############################################################
