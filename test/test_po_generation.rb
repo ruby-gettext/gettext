@@ -25,6 +25,47 @@ require 'gettext'
 require 'gettext/tools/xgettext.rb'
 
 class TestPoGeneration < Test::Unit::TestCase
+  def test_obsolute_comment
+    po_content = <<'EOP'
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-01-01 02:24:56+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: test.rb:10
+msgid "Hello"
+msgstr "Bonjour"
+
+#. #: test.rb:10
+#. msgid "Hello"
+#. msgstr "Salut"
+EOP
+    input_file = Tempfile.new("comment.po")
+    input_file.print(po_content)
+    input_file.close
+
+    parsed_po = GetText::Tools::MsgMerge::PoData.new
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        parser = GetText::PoParser.new
+        parser.parse_file(input_file, parsed_po)
+      end
+    end
+
+    assert_equal(po_content, parsed_po.generate_po)
+  end
+
   def test_extracted_comments
     input_file = File.join(File.dirname(__FILE__), 'fixtures/_.rb')
     res = ""
