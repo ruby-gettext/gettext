@@ -59,7 +59,7 @@ EOP
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
         parser = GetText::PoParser.new
-        parser.parse_file(input_file, parsed_po)
+        parser.parse_file(input_file.path, parsed_po)
       end
     end
 
