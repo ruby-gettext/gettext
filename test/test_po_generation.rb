@@ -25,32 +25,6 @@ require 'gettext'
 require 'gettext/tools/xgettext.rb'
 
 class TestPoGeneration < Test::Unit::TestCase
-  def test_obsolete_comment
-    obsolete_comment = <<EOC
-#. #: test.rb:10
-#. msgid \"Hello\"
-#. msgstr \"Salut\"
-EOC
-    obsolete_comment = obsolete_comment.chomp
-
-    header_entry_comment = "# header entry comment."
-    header_entry = "header entry"
-    expected_po = <<EOP
-#{header_entry_comment}
-msgid \"\"
-msgstr \"\"
-\"#{header_entry}\\n\"
-#{obsolete_comment}
-EOP
-
-    po = GetText::Tools::MsgMerge::PoData.new
-    po.set_comment("", header_entry_comment)
-    po[""] = header_entry
-    po.set_comment(:last, obsolete_comment)
-
-    assert_equal(expected_po, po.generate_po)
-  end
-
   def test_extracted_comments
     input_file = File.join(File.dirname(__FILE__), 'fixtures/_.rb')
     res = ""
