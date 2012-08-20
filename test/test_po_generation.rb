@@ -26,40 +26,29 @@ require 'gettext/tools/xgettext.rb'
 
 class TestPoGeneration < Test::Unit::TestCase
   def test_obsolute_comment
-    po_content = <<'EOP'
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR ORGANIZATION
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
-msgid ""
-msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-01-01 02:24:56+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: ENCODING\n"
-
-#: test.rb:10
-msgid "Hello"
-msgstr "Bonjour"
-
+    obsolute_comment = <<EOC
 #. #: test.rb:10
-#. msgid "Hello"
-#. msgstr "Salut"
+#. msgid \"Hello\"
+#. msgstr \"Salut\"
+EOC
+    obsolute_comment = obsolute_comment.chomp
+
+    header_entry_comment = "# header entry comment."
+    header_entry = "header entry"
+    expected_po = <<EOP
+#{header_entry_comment}
+msgid \"\"
+msgstr \"\"
+\"#{header_entry}\\n\"
+#{obsolute_comment}
 EOP
-    input_file = Tempfile.new("comment.po")
-    input_file.print(po_content)
-    input_file.close
 
-    parsed_po = GetText::Tools::MsgMerge::PoData.new
-    parser = GetText::PoParser.new
-    parser.parse_file(input_file.path, parsed_po)
+    po = GetText::Tools::MsgMerge::PoData.new
+    po.set_comment("", header_entry_comment)
+    po[""] = header_entry
+    po.set_comment(:last, obsolute_comment)
 
-    assert_equal(po_content, parsed_po.generate_po)
+    assert_equal(expected_po, po.generate_po)
   end
 
   def test_extracted_comments
