@@ -37,7 +37,6 @@ class TestToolsMsgMerge < Test::Unit::TestCase
 msgctxt "Context"
 msgid "Translation"
 msgstr "Translated"
-
 EOE
     end
   end
@@ -145,7 +144,6 @@ msgstr ""
 #: hello.rb:2
 msgid "World"
 msgstr "Translated World"
-
 EOP
       end
     end

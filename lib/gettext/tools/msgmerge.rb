@@ -99,10 +99,12 @@ module GetText
           str = ""
           str << generate_po_header
 
+          po_entries = []
           self.each_msgid do |id|
-            str << self.generate_po_entry(id)
+            po_entries << self.generate_po_entry(id)
           end
 
+          str << po_entries.join("\n")
           str << @msgid2comment[:last] unless @msgid2comment[:last].nil?
           str
         end
@@ -153,7 +155,6 @@ module GetText
             str << "msgstr " << __conv(msgstr) << "\n"
           end
 
-          str << "\n"
           str
         end
 
