@@ -213,20 +213,15 @@ class TestToolsMsgInit < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
         pot_file_name = "test.pot"
-        package_name = "test-package"
-        File.open(pot_file_name, "w") do |file|
-          file.puts(replace_project_id_version(pot_header, package_name))
-        end
+        options = {:package_name => "test-package"}
+        pot_file = create_pot_file(pot_file_name, options)
         locale = current_locale
         language = current_language
         po_file_path = "#{locale}.po"
 
         @msginit.run("--input", pot_file_name)
 
-        header = po_header(locale, language)
-        header = replace_project_id_version(header, package_name)
-        expected_po_header = header.gsub(/for PACKAGE package\./,
-                                         "for #{package_name} package.")
+        expected_po_header = po_header(locale, language, options)
         actual_po_header = normalize_po_header(po_file_path)
 
         assert_equal(expected_po_header, actual_po_header)
@@ -251,13 +246,15 @@ class TestToolsMsgInit < Test::Unit::TestCase
     "me@example.com"
   end
 
-  def create_pot_file(path)
+  def create_pot_file(path, options=nil)
+    options ||= {}
     File.open(path, "w") do |pot_file|
-      pot_file.puts(pot_header)
+      pot_file.puts(pot_header(options))
     end
   end
 
-  def pot_header
+  def pot_header(options)
+    package_name = options[:package_name] || default_package_name
     <<EOF
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -267,7 +264,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\\n"
+"Project-Id-Version: #{package_name} VERSION\\n"
 "POT-Creation-Date: #{@time}\\n"
 "PO-Revision-Date: #{@time}\\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
@@ -280,11 +277,6 @@ msgstr ""
 EOF
   end
 
-  def replace_project_id_version(header, package_name)
-    header.gsub(/(Project-Id-Version:) .+ VERSION/,
-                "\\1 #{package_name} VERSION")
-  end
-
   def normalize_po_header(po_file_path)
     po_file = ""
     File.open(po_file_path) do |file|
@@ -294,21 +286,23 @@ EOF
     po_file.gsub(/#{Time.now.year}/, "YYYY")
   end
 
-  def po_header(locale, language)
+  def po_header(locale, language, options=nil)
+    options ||= {}
+    package_name = options[:package_name] || default_package_name
     full_name = translator_full_name
     mail = translator_mail
     language_name = Locale::Info.get_language(language).name
     plural_forms = @msginit.send(:plural_forms, language)
 
     <<EOF
-# #{language_name} translations for PACKAGE package.
+# #{language_name} translations for #{package_name} package.
 # Copyright (C) YYYY THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # #{full_name} <#{mail}>, YYYY.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\\n"
+"Project-Id-Version: #{package_name} VERSION\\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n"
 "Last-Translator: #{full_name} <#{mail}>\\n"
@@ -319,6 +313,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\\n"
 "Plural-Forms: #{plural_forms}\\n"
 EOF
+  end
+
+  def default_package_name
+    "PACKAGE"
   end
 
   def no_translator_po_header(locale, language)
