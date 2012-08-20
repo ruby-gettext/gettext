@@ -56,12 +56,8 @@ EOP
     input_file.close
 
     parsed_po = GetText::Tools::MsgMerge::PoData.new
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
-        parser = GetText::PoParser.new
-        parser.parse_file(input_file.path, parsed_po)
-      end
-    end
+    parser = GetText::PoParser.new
+    parser.parse_file(input_file.path, parsed_po)
 
     assert_equal(po_content, parsed_po.generate_po)
   end
