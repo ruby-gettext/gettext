@@ -25,13 +25,13 @@ require 'gettext'
 require 'gettext/tools/xgettext.rb'
 
 class TestPoGeneration < Test::Unit::TestCase
-  def test_obsolute_comment
-    obsolute_comment = <<EOC
+  def test_obsolete_comment
+    obsolete_comment = <<EOC
 #. #: test.rb:10
 #. msgid \"Hello\"
 #. msgstr \"Salut\"
 EOC
-    obsolute_comment = obsolute_comment.chomp
+    obsolete_comment = obsolete_comment.chomp
 
     header_entry_comment = "# header entry comment."
     header_entry = "header entry"
@@ -40,13 +40,13 @@ EOC
 msgid \"\"
 msgstr \"\"
 \"#{header_entry}\\n\"
-#{obsolute_comment}
+#{obsolete_comment}
 EOP
 
     po = GetText::Tools::MsgMerge::PoData.new
     po.set_comment("", header_entry_comment)
     po[""] = header_entry
-    po.set_comment(:last, obsolute_comment)
+    po.set_comment(:last, obsolete_comment)
 
     assert_equal(expected_po, po.generate_po)
   end
