@@ -24,6 +24,8 @@ require "gettext"
 require "gettext/tools/poparser"
 require "gettext/tools/pomessage"
 
+# TODO: MsgMerge should use PoMessage to generate PO content.
+
 module GetText
   module Tools
     class MsgMerge
