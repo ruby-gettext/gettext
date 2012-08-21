@@ -247,7 +247,7 @@ EOH
           $DEBUG = true
         end
 
-        parser.on("-h", "--help", _("Dispray this help and exit")) do
+        parser.on("-h", "--help", _("display this help and exit")) do
           puts(parser.help)
           exit(true)
         end
