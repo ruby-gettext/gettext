@@ -56,10 +56,11 @@ module GetText
         load_path.map!{|v| v.match(/(.*?)(\/lib)*?$/); $1}
         load_path.each {|path|
           default_path_rules += [
-                                 "#{path}/data/locale/%{lang}/LC_MESSAGES/%{name}.mo",
-                                 "#{path}/data/locale/%{lang}/%{name}.mo",
-                                 "#{path}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
-                                 "#{path}/locale/%{lang}/%{name}.mo"]
+            "#{path}/data/locale/%{lang}/LC_MESSAGES/%{name}.mo",
+            "#{path}/data/locale/%{lang}/%{name}.mo",
+            "#{path}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
+            "#{path}/locale/%{lang}/%{name}.mo",
+          ]
         }
         # paths existed only.
         default_path_rules = default_path_rules.select{|path|
