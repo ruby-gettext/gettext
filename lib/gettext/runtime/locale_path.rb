@@ -58,6 +58,7 @@ module GetText
           default_path_rules += [
                                  "#{path}/data/locale/%{lang}/LC_MESSAGES/%{name}.mo",
                                  "#{path}/data/locale/%{lang}/%{name}.mo",
+                                 "#{path}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
                                  "#{path}/locale/%{lang}/%{name}.mo"]
         }
         # paths existed only.
