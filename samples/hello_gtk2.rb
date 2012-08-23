@@ -2,7 +2,7 @@
 # hello_gtk2.rb - sample for Ruby/GTK2
 #
 # Copyright (C) 2001-2006 Masao Mutoh
-# This file is distributed under the same license as Ruby-GetText-Package.
+# This file is distributed under the same license as gettext.
 
 require 'rubygems'
 require 'gettext'

@@ -1,9 +1,9 @@
 # translation of rgettext.po to Croatian
 #
-# a po-file for Ruby-GetText-Package
+# a po-file for gettext
 #
 # Copyright (C) 2004-2006 Masao Mutoh
-# This file is distributed under the same license as the Ruby-GetText-Package.
+# This file is distributed under the same license as the gettext.
 #
 # Sanjin Sehic <saserr@gmail.com>, 2007.
 msgid ""

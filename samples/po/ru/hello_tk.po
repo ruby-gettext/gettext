@@ -1,7 +1,7 @@
 # translation of hello_tk.po to Russian
 # hello_tk.po - sample for Ruby/TK
 # Copyright (C) 2004 Masao Mutoh#
-# This file is distributed under the same license as the Ruby-GetText-Package.#
+# This file is distributed under the same license as the gettext.#
 # Yuri Kozlov <kozlov.y@gmail.com>, 2006.
 #
 msgid ""

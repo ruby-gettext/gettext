@@ -1,7 +1,7 @@
 # translation of hellolib.po to Bosnian
-# CGI/ERB sample for Ruby-GetText-Package.
+# CGI/ERB sample for gettext.
 # Copyright (C) 2005,2006 Masao Mutoh
-# This file is distributed under the same license as the Ruby-GetText-Package.
+# This file is distributed under the same license as the gettext.
 #
 # Sanjin Sehic <saserr@gmail.com>, 2007.
 msgid ""

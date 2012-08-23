@@ -1,7 +1,11 @@
-= gettext - Ruby-GetText-Package
+= gettext - gettext for Ruby
 
-Ruby-GetText-Package is a Localization(L10n) library and tool  
+Gettext gem is a pure Ruby Localization(L10n) library and tool
 which is modeled after the GNU gettext package.
+
+This library was called as "Ruby-GetText-Package". Since 2.3.0, this
+library is called just "gettext". You can call this library as
+"gettext gem" or "Ruby gettext" to distinguish from GNU gettext.
 
 This library translates original messages to localized  
 messages using client-side locale information(environment  

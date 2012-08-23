@@ -1,8 +1,8 @@
-# CGI/ERB sample for Ruby-GetText-Package.
+# CGI/ERB sample for gettext.
 #
 # Copyright (C) 2005,2006 Masao Mutoh
 #
-# This file is distributed under the same license as the Ruby-GetText-Package.
+# This file is distributed under the same license as the gettext.
 #
 # LIN CHUNG-YI <xmarsh at gmail.com>, 2006.
 #
@@ -25,8 +25,8 @@ msgid "Sample script for CGI/ERB (Auto-Detect charset)."
 msgstr "CGI/ERB 範例 (自動偵測字集)"
 
 #: helloerb.rhtml:5
-msgid "Sample script for CGI/ERB and Ruby-GetText-Package"
-msgstr "CGI/ERB 與 Ruby-GetText-Package 範例"
+msgid "Sample script for CGI/ERB and gettext"
+msgstr "CGI/ERB 與 gettext 範例"
 
 #: helloerb.rhtml:12
 msgid "Hello World"

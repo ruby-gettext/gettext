@@ -1,4 +1,4 @@
-Sample script for CGI/ERB and Ruby-GetText-Package.
+Sample script for CGI/ERB and gettext.
 
 At first, create mo file once:
 $ rake 

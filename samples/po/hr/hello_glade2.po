@@ -1,7 +1,7 @@
 # translation of hello_glade2.po to Croatian
 # hello_glade2.po - sample for Ruby/Libglade2
 # Copyright (C) 2005,2006 Masao Mutoh
-# This file is distributed under the same license as the Ruby-GetText-Package.
+# This file is distributed under the same license as the gettext.
 #
 # Sanjin Sehic <saserr@gmail.com>, 2007.
 msgid ""

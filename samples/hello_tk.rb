@@ -2,7 +2,7 @@
 # hello_tk.rb - sample for Ruby/TK
 #
 # Copyright (C) 2004 Masao Mutoh
-# This file is distributed under the same license as Ruby-GetText-Package.
+# This file is distributed under the same license as gettext.
 
 require 'rubygems'
 require 'gettext'

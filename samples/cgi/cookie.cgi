@@ -43,7 +43,7 @@ puts %Q[
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" type="text/css" href="gettext.css" media="all">
   <title>]
-puts _("Sample script for CGI/ERB and Ruby-GetText-Package")
+puts _("Sample script for CGI/ERB and gettext")
 puts %Q[</title>
 </head>
 <body>

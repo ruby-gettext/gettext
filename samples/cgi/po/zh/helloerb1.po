@@ -1,8 +1,8 @@
-# CGI/ERB sample for Ruby-GetText-Package.
+# CGI/ERB sample for gettext.
 #
 # Copyright (C) 2005,2006 Masao Mutoh
 #
-# This file is distributed under the same license as the Ruby-GetText-Package.
+# This file is distributed under the same license as the gettext.
 #
 # Yingfeng <blogyingfeng at gmail.com>, 2006.
 #
@@ -24,8 +24,8 @@ msgid "Sample script for CGI/ERB (UTF-8)."
 msgstr "用于CGI/ERB的示例脚本(UTF-8)"
 
 #: helloerb.rhtml:5 other.rhtml:5
-msgid "Sample script for CGI/ERB and Ruby-GetText-Package"
-msgstr "用于CGI/ERB和Ruby-GetText-Package的示例脚本"
+msgid "Sample script for CGI/ERB and gettext"
+msgstr "用于CGI/ERB和gettext的示例脚本"
 
 #: helloerb.rhtml:12
 msgid "Hello World"

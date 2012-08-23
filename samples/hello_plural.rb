@@ -2,7 +2,7 @@
 # hello_plural.po - sample for n_() and class.
 #
 # Copyright (C) 2002-2006 Masao Mutoh
-# This file is distributed under the same license as Ruby-GetText-Package.
+# This file is distributed under the same license as gettext.
 
 require 'rubygems'
 require 'gettext'

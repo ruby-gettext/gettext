@@ -1,7 +1,7 @@
 # translation of hello_glade2.po to Russian
 # hello_glade2.po - sample for Ruby/Libglade2
 # Copyright (C) 2005,2006 Masao Mutoh#
-# This file is distributed under the same license as the Ruby-GetText-Package.#
+# This file is distributed under the same license as the gettext.#
 # Yuri Kozlov <kozlov.y@gmail.com>, 2006.
 #
 msgid ""

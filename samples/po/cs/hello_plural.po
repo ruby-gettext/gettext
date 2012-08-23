@@ -1,4 +1,4 @@
-# Hello World plural -- a sample for Ruby-GetText-Package
+# Hello World plural -- a sample for gettext
 #
 # Copyright (C) 2005,2006 Masao Mutoh
 #

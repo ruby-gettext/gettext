@@ -1,7 +1,7 @@
 # translation of helloerb2.po to Croatian
-# CGI/ERB sample for Ruby-GetText-Package.
+# CGI/ERB sample for gettext.
 # Copyright (C) 2005,2006 Masao Mutoh
-# This file is distributed under the same license as the Ruby-GetText-Package.
+# This file is distributed under the same license as the gettext.
 #
 # Sanjin Sehic <saserr@gmail.com>, 2007.
 msgid ""
@@ -22,7 +22,7 @@ msgid "Sample script for CGI/ERB (Auto-Detect charset)."
 msgstr "Primjer skripte za CGI/ERB (Auto-Detektovanje skupakaraktera)"
 
 #: helloerb.rhtml:5
-msgid "Sample script for CGI/ERB and Ruby-GetText-Package"
+msgid "Sample script for CGI/ERB and gettext"
 msgstr "Primjer skripte za CGI/ERB i Ruby on Rails GetText Paket"
 
 #: helloerb.rhtml:12

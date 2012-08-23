@@ -1,7 +1,7 @@
 # translation of hello_plural.po to Croatian
 # hello_plural.po - sample for plural messages
 # Copyright (C) 2002-2006 Masao Mutoh
-# This file is distributed under the same license as the Ruby-GetText-Package.
+# This file is distributed under the same license as the gettext.
 #
 # Sanjin Sehic <saserr@gmail.com>, 2007.
 msgid ""

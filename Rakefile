@@ -1,8 +1,8 @@
 # -*- ruby -*-
 #
-# Rakefile for Ruby-GetText-Package
+# Rakefile for gettext
 #
-# This file maintains Ruby-GetText-Package.
+# This file maintains gettext.
 #
 # Use setup.rb or gem for installation.
 # You don't need to use this file directly.

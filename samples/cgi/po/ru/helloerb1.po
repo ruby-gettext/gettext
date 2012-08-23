@@ -1,7 +1,7 @@
 # translation of helloerb1.po to Russian
-# CGI/ERB sample for Ruby-GetText-Package.
+# CGI/ERB sample for gettext.
 # Copyright (C) 2005,2006 Masao Mutoh#
-# This file is distributed under the same license as the Ruby-GetText-Package.#
+# This file is distributed under the same license as the gettext.#
 # Yuri Kozlov <kozlov.y@gmail.com>, 2006.
 #
 msgid ""
@@ -21,8 +21,8 @@ msgid "Sample script for CGI/ERB (UTF-8)."
 msgstr "Пример сценария CGI/ERB (UTF-8)."
 
 #: helloerb.rhtml:5 other.rhtml:5
-msgid "Sample script for CGI/ERB and Ruby-GetText-Package"
-msgstr "Пример сценария CGI/ERB и Ruby-GetText-Package"
+msgid "Sample script for CGI/ERB and gettext"
+msgstr "Пример сценария CGI/ERB и gettext"
 
 #: helloerb.rhtml:12
 msgid "Hello World"

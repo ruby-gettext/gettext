@@ -2,7 +2,7 @@
 # hello_glade2.rb - sample for Ruby/Libglade2
 #
 # Copyright (C) 2004-2008 Masao Mutoh
-# This file is distributed under the same license as Ruby-GetText-Package.
+# This file is distributed under the same license as gettext.
 
 require 'rubygems'
 require 'libglade2'

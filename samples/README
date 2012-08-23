@@ -1,4 +1,4 @@
-Sample scripts for Ruby-GetText-Package.
+Sample scripts for gettext.
 
 $rake sample:gettext
 $ruby sample_script.rb

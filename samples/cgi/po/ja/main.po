@@ -1,8 +1,8 @@
-# CGI/ERB sample for Ruby-GetText-Package.
+# CGI/ERB sample for gettext.
 #
 # Copyright (C) 2005,2006 Masao Mutoh
 #
-# This file is distributed under the same license as the Ruby-GetText-Package.
+# This file is distributed under the same license as the gettext.
 #
 # Masao Mutoh <mutomasa at gmail.com>, 2005.
 #
@@ -36,7 +36,7 @@ msgid "an ERB/CGI sample (Auto-Detect charset)."
 msgstr "ERB/CGIサンプル（文字コード自動判別）"
 
 #: index.cgi:50 cookie.cgi:44
-msgid "Sample script for CGI/ERB and Ruby-GetText-Package"
+msgid "Sample script for CGI/ERB and gettext"
 msgstr "Ruby-GetText-PacakgeのCGI/ERB向けサンプルスクリプト"
 
 #: index.cgi:55

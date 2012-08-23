@@ -1,9 +1,9 @@
 #
-# a po-file for Ruby-GetText-Package
+# a po-file for gettext
 #
 # Copyright (C) 2004-2008 Masao Mutoh
 #
-# This file is distributed under the same license as the Ruby-GetText-Package.
+# This file is distributed under the same license as the gettext.
 #
 # Ngoc DAO Thanh <ngocdaothanh at gmail.com>, 2007,2008.
 #

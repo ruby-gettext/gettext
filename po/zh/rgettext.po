@@ -1,10 +1,10 @@
 # translation of rgettext.po to Simplified Chinese
 #
-# a po-file for Ruby-GetText-Package
+# a po-file for gettext
 #
 # Copyright (C) 2006-2008 Masao Mutoh
 #
-# This file is distributed under the same license as the Ruby-GetText-Package.
+# This file is distributed under the same license as the gettext.
 #
 # Yang Bob <bob.yang.dev at gmail.com>, 2006-2008.
 # Yingfeng <blogyingfeng at gmail.com>, 2006.

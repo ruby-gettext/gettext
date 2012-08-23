@@ -7,11 +7,11 @@ require "gettext/version"
 Gem::Specification.new do |s|
   s.name = "gettext"
   s.version = GetText::VERSION
-  s.summary = 'Ruby-GetText-Package is a libary and tools to localize messages.'
+  s.summary = 'Gettext is a pure Ruby libary and tools to localize messages.'
   s.description = <<-EOD
-Ruby-GetText-Package is a GNU GetText-like program for Ruby.
-The catalog file(po-file) is same format with GNU GetText.
-So you can use GNU GetText tools for maintaining.
+Gettext is a GNU gettext-like program for Ruby.
+The catalog file(po-file) is same format with GNU gettext.
+So you can use GNU gettext tools for maintaining.
   EOD
   s.authors = ["Kouhei Sutou", "Masao Mutoh"]
   s.email = ["kou@clear-code.com", "mutomasa at gmail.com"]

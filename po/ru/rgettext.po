@@ -1,9 +1,9 @@
 # translation of rgettext.po to Russian
-# a po-file for Ruby-GetText-Package
+# a po-file for gettext
 #
 # Copyright (C) 2004-2008 Masao Mutoh
 #
-# This file is distributed under the same license as the Ruby-GetText-Package.
+# This file is distributed under the same license as the gettext.
 #
 # Yuri Kozlov <kozlov.y@gmail.com>, 2006-2008.
 msgid ""

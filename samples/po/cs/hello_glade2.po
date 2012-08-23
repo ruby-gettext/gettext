@@ -1,4 +1,4 @@
-# Hello World Glade2 -- a sample for Ruby-GetText-Package
+# Hello World Glade2 -- a sample for gettext
 #
 # Copyright (C) 2005 Masao Mutoh
 #

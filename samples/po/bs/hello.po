@@ -1,7 +1,7 @@
 # translation of hello.po to Bosnian
-# Hello World -- a sample for Ruby-GetText-Package
+# Hello World -- a sample for gettext
 # Copyright (C) 2001-2006 Masao Mutoh
-# This file is distributed under the same license as the Ruby-GetText-Package.
+# This file is distributed under the same license as the gettext.
 #
 # Sanjin Sehic <saserr@gmail.com>, 2007.
 msgid ""
