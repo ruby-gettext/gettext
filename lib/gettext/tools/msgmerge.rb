@@ -104,7 +104,7 @@ module GetText
             po_entries << self.generate_po_entry(id)
           end
 
-          unless @msgid2comment[:last].empty?
+          unless @msgid2comment[:last].nil?
             po_entries << "#{@msgid2comment[:last]}\n"
           end
 

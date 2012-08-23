@@ -26,7 +26,32 @@ class TestToolsMsgMerge < Test::Unit::TestCase
       @po_data = GetText::Tools::MsgMerge::PoData.new
     end
 
-    def test_obsolete_comment
+    def test_generate_po
+      header_entry_comment = "# header entry comment."
+      header_entry = "header entry"
+      comment = "#: test.rb:10"
+      msgid = "Hello"
+      msgstr = "Salut"
+      expected_po = <<EOP
+#{header_entry_comment}
+msgid \"\"
+msgstr \"\"
+\"#{header_entry}\\n\"
+#{comment}
+msgid \"#{msgid}\"
+msgstr \"#{msgstr}\"
+EOP
+
+      po = GetText::Tools::MsgMerge::PoData.new
+      po.set_comment("", header_entry_comment)
+      po[""] = header_entry
+      po[msgid] = msgstr
+      po.set_comment(msgid, comment)
+
+      assert_equal(expected_po, po.generate_po)
+    end
+
+    def test_generate_po_including_obsolete_comment
       obsolete_comment = <<EOC
 #. #: test.rb:10
 #. msgid \"Hello\"
