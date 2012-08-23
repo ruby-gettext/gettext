@@ -166,6 +166,3 @@ task :package => [:makemo]
 
 YARD::Rake::YardocTask.new do |t|
 end
-
-desc "Setup Ruby-GetText-Package. (for setup.rb)"
-task :setup => [:makemo]
