@@ -61,7 +61,7 @@ module GetText
         @package_name = nil
         @package_version = nil
         @msgid_bugs_address = nil
-        @copyright = nil
+        @copyright_holder = nil
       end
 
       # How to add your option parser
@@ -116,7 +116,7 @@ module GetText
 
         <<EOH
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR #{@copyright}
+# Copyright (C) YEAR #{@copyright_holder}
 # This file is distributed under the same license as the #{@package_name} package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -223,7 +223,7 @@ EOH
         @package_name ||= "PACKAGE"
         @package_version ||= "VERSION"
         @msgid_bugs_address ||= ""
-        @copyright ||= "THE PACKAGE'S COPYRIGHT HOLDER"
+        @copyright_holder ||= "THE PACKAGE'S COPYRIGHT HOLDER"
       end
 
       def parse_arguments(*options) #:nodoc:
@@ -274,7 +274,7 @@ EOH
 
         parser.on("--copyright-holder=STRING",
                   _("set copyright holder in output")) do |out|
-          @copyright = out
+          @copyright_holder = out
         end
 
         parser.on_tail("--version", _("display version information and exit")) do
