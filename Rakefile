@@ -162,7 +162,7 @@ desc "Update *.mo for test"
 task "test:gettext"
 
 
-task :package => [:makemo]
+task :package => [:gettext]
 
 YARD::Rake::YardocTask.new do |t|
 end
