@@ -116,15 +116,15 @@ module GetText
 
         <<EOH
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR #@copyright
-# This file is distributed under the same license as the #@package_name package.
+# Copyright (C) YEAR #{@copyright}
+# This file is distributed under the same license as the #{@package_name} package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: #@package_name #@package_version\\n"
-"Report-Msgid-Bugs-To: #@bugs_addr\\n"
+"Project-Id-Version: #{@package_name} #{@package_version}\\n"
+"Report-Msgid-Bugs-To: #{@bugs_addr}\\n"
 "POT-Creation-Date: #{time}\\n"
 "PO-Revision-Date: #{time}\\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
