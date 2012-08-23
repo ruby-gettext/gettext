@@ -60,7 +60,7 @@ module GetText
 
         @package_name = nil
         @package_version = nil
-        @bugs_addr = nil
+        @msgid_bugs_address = nil
         @copyright = nil
       end
 
@@ -124,7 +124,7 @@ module GetText
 msgid ""
 msgstr ""
 "Project-Id-Version: #{@package_name} #{@package_version}\\n"
-"Report-Msgid-Bugs-To: #{@bugs_addr}\\n"
+"Report-Msgid-Bugs-To: #{@msgid_bugs_address}\\n"
 "POT-Creation-Date: #{time}\\n"
 "PO-Revision-Date: #{time}\\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
@@ -222,7 +222,7 @@ EOH
 
         @package_name ||= "PACKAGE"
         @package_version ||= "VERSION"
-        @bugs_addr ||= ""
+        @msgid_bugs_address ||= ""
         @copyright ||= "THE PACKAGE'S COPYRIGHT HOLDER"
       end
 
@@ -269,7 +269,7 @@ EOH
 
         parser.on("--msgid-bugs-address=EMAIL",
                   _("set report address for msgid bugs")) do |out|
-          @bugs_addr = out
+          @msgid_bugs_address = out
         end
 
         parser.on("--copyright-holder=STRING",
