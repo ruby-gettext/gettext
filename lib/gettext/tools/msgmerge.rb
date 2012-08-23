@@ -231,7 +231,7 @@ module GetText
               last_comment << "\n"
             end
           end
-          result.set_comment(:last, last_comment)
+          result.set_comment(:last, last_comment) unless last_comment.empty?
 
           result
         end
