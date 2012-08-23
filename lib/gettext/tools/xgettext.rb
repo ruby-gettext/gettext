@@ -58,10 +58,10 @@ module GetText
         @input_files = nil
         @output = nil
 
-        @package_name = "PACKAGE"
-        @package_version = "VERSION"
-        @bugs_addr = ""
-        @copyright = "THE PACKAGE'S COPYRIGHT HOLDER"
+        @package_name = nil
+        @package_version = nil
+        @bugs_addr = nil
+        @copyright = nil
       end
 
       # How to add your option parser
@@ -219,6 +219,11 @@ EOH
 
         @input_files = input_files
         @output = output
+
+        @package_name ||= "PACKAGE"
+        @package_version ||= "VERSION"
+        @bugs_addr ||= ""
+        @copyright ||= "THE PACKAGE'S COPYRIGHT HOLDER"
       end
 
       def parse_arguments(*options) #:nodoc:
