@@ -243,20 +243,6 @@ EOH
           output = out
         end
 
-        parser.on("-r", "--require=library",
-                  _("require the library before executing xgettext")) do |out|
-          require out
-        end
-
-        parser.on("-d", "--debug", _("run in debugging mode")) do
-          $DEBUG = true
-        end
-
-        parser.on("-h", "--help", _("display this help and exit")) do
-          puts(parser.help)
-          exit(true)
-        end
-
         parser.on("--package-name=PACKAGE",
                   _("set package name in output")) do |out|
           @package_name = out
@@ -275,6 +261,20 @@ EOH
         parser.on("--copyright-holder=STRING",
                   _("set copyright holder in output")) do |out|
           @copyright_holder = out
+        end
+
+        parser.on("-r", "--require=library",
+                  _("require the library before executing xgettext")) do |out|
+          require out
+        end
+
+        parser.on("-d", "--debug", _("run in debugging mode")) do
+          $DEBUG = true
+        end
+
+        parser.on("-h", "--help", _("display this help and exit")) do
+          puts(parser.help)
+          exit(true)
         end
 
         parser.on_tail("--version", _("display version information and exit")) do
