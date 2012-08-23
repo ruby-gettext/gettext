@@ -61,11 +61,14 @@ module GetText
         parse_arguments(*arguments)
         validate
 
-        pot_content = File.read(@input_file)
-        po_content = replace_pot_header(pot_content)
+        parser = PoParser.new
+        parser.ignore_fuzzy = false
+        pot = parser.parse_file(@input_file,
+                                GetText::Tools::MsgMerge::PoData.new)
+        po = replace_pot_header(pot)
 
         File.open(@output_file, "w") do |f|
-          f.puts(po_content)
+          f.puts(po.generate_po)
         end
       end
 
@@ -163,42 +166,49 @@ module GetText
       DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
 
       def replace_pot_header(pot) #:nodoc:
-        pot = replace_description(pot)
-        pot = replace_translators(pot)
-        pot = replace_date(pot)
-        pot = replace_language(pot)
-        pot = replace_plural_forms(pot)
-        pot.gsub(/#, fuzzy\n/, "")
+        header = pot[""]
+        comment = pot.comment("")
+
+        comment = replace_description(header, comment)
+        header, comment = replace_translators(header, comment)
+        header, comment = replace_date(header, comment)
+        header = replace_language(header)
+        header = replace_plural_forms(header)
+        comment = comment.gsub(/#, fuzzy/, "")
+
+        pot[""] = header.chomp
+        pot.set_comment("", comment)
+        pot
       end
 
-      def replace_description(pot) #:nodoc:
+      def replace_description(header, comment) #:nodoc:
         language_name = Locale::Info.get_language(@language).name
         package_name = ""
-        pot.gsub(/\"Project-Id-Version: (.+?) .+\\n\"/) do
+        header.gsub(/Project-Id-Version: (.+?) .+/) do
           package_name = $1
         end
         description = "#{language_name} translations " +
                         "for #{package_name} package."
-        pot.gsub(DESCRIPTION_TITLE, "\\1 #{description}")
+        comment.gsub(DESCRIPTION_TITLE, "\\1 #{description}")
       end
 
       EMAIL = "EMAIL@ADDRESS"
       YEAR_KEY = /^(\s*#\s* FIRST AUTHOR <#{EMAIL}>,) YEAR\.$/
       FIRST_AUTHOR_KEY = /^(\s*#\s*) FIRST AUTHOR <#{EMAIL}>, (\d+\.)$/
-      LAST_TRANSLATOR_KEY = /^(\"Last-Translator:) FULL NAME <#{EMAIL}>\\n"$/
+      LAST_TRANSLATOR_KEY = /^(Last-Translator:) FULL NAME <#{EMAIL}>$/
 
-      def replace_translators(pot) #:nodoc:
+      def replace_translators(header, comment) #:nodoc:
         full_name = translator_full_name
         mail = translator_mail
         translator = "#{full_name} <#{mail}>"
         year = Time.now.year
 
-        pot = pot.gsub(YEAR_KEY, "\\1 #{year}.")
+        comment = comment.gsub(YEAR_KEY, "\\1 #{year}.")
         if not full_name.empty? and not mail.empty?
-          pot = pot.gsub(FIRST_AUTHOR_KEY, "\\1 #{translator}, \\2")
-          pot = pot.gsub(LAST_TRANSLATOR_KEY, "\\1 #{translator}\\n\"")
+          comment = comment.gsub(FIRST_AUTHOR_KEY, "\\1 #{translator}, \\2")
+          header = header.gsub(LAST_TRANSLATOR_KEY, "\\1 #{translator}")
         end
-        pot
+        [header, comment]
       end
 
       def translator_full_name
@@ -239,30 +249,32 @@ module GetText
       end
 
       POT_REVISION_DATE_KEY = /^("PO-Revision-Date:).+\\n"$/
-      COPYRIGHT_KEY = /(# Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
+      COPYRIGHT_KEY = /(\s*#\s* Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
 
-      def replace_date(pot) #:nodoc:
+      def replace_date(header, comment) #:nodoc:
         date = Time.now
         revision_date = date.strftime("%Y-%m-%d %H:%M%z")
 
-        pot = pot.gsub(POT_REVISION_DATE_KEY, "\\1 #{revision_date}\\n\"")
-        pot.gsub(COPYRIGHT_KEY, "\\1 #{date.year} \\2")
+        header = header.gsub(POT_REVISION_DATE_KEY, "\\1 #{revision_date}\\n\"")
+        comment = comment.gsub(COPYRIGHT_KEY, "\\1 #{date.year} \\2")
+
+        [header, comment]
       end
 
-      LANGUAGE_KEY = /^("Language:).+\\n"$/
-      LANGUAGE_TEAM_KEY = /^("Language-Team:).+\\n"$/
+      LANGUAGE_KEY = /^(Language:).+/
+      LANGUAGE_TEAM_KEY = /^(Language-Team:).+/
 
-      def replace_language(pot) #:nodoc:
+      def replace_language(header) #:nodoc:
         language_name = Locale::Info.get_language(@language).name
-        pot = pot.gsub(LANGUAGE_KEY, "\\1 #{@locale}\\n\"")
-        pot.gsub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}\\n\"")
+        header = header.gsub(LANGUAGE_KEY, "\\1 #{@locale}")
+        header.gsub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}")
       end
 
       PLURAL_FORMS =
-        /^(\"Plural-Forms:) nplurals=INTEGER; plural=EXPRESSION;\\n\"$/
+        /^(Plural-Forms:) nplurals=INTEGER; plural=EXPRESSION;$/
 
-      def replace_plural_forms(pot) #:nodoc:
-        pot.gsub(PLURAL_FORMS, "\\1 #{plural_forms(@language)}\\n\"")
+      def replace_plural_forms(header) #:nodoc:
+        header.gsub(PLURAL_FORMS, "\\1 #{plural_forms(@language)}")
       end
 
       def plural_forms(language) #:nodoc:
