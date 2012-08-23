@@ -53,6 +53,7 @@ module GetText
         @output_file = nil
         @locale = nil
         @language = nil
+        @translator = nil
       end
 
       # Create .po file from .pot file, user's inputs and metadata.
@@ -169,9 +170,17 @@ module GetText
         header = pot[""]
         comment = pot.comment("")
 
+        full_name = translator_full_name
+        mail = translator_mail
+        if not full_name.empty? and not mail.empty?
+          @translator = "#{full_name} <#{mail}>"
+        end
+
         comment = replace_description(header, comment)
-        header, comment = replace_translators(header, comment)
-        header, comment = replace_date(header, comment)
+        header = replace_last_translator(header)
+        comment = replace_first_author(comment)
+        header = replace_pot_revision_date(header)
+        comment = replace_copyright_year(comment)
         header = replace_language(header)
         header = replace_plural_forms(header)
         comment = comment.gsub(/#, fuzzy/, "")
@@ -197,18 +206,21 @@ module GetText
       FIRST_AUTHOR_KEY = /^(\s*#\s*) FIRST AUTHOR <#{EMAIL}>, (\d+\.)$/
       LAST_TRANSLATOR_KEY = /^(Last-Translator:) FULL NAME <#{EMAIL}>$/
 
-      def replace_translators(header, comment) #:nodoc:
-        full_name = translator_full_name
-        mail = translator_mail
-        translator = "#{full_name} <#{mail}>"
+      def replace_last_translator(header) #:nodoc:
+        unless @translator.nil?
+          header = header.gsub(LAST_TRANSLATOR_KEY, "\\1 #{@translator}")
+        end
+        header
+      end
+
+      def replace_first_author(comment) #:nodoc:
         year = Time.now.year
 
         comment = comment.gsub(YEAR_KEY, "\\1 #{year}.")
-        if not full_name.empty? and not mail.empty?
-          comment = comment.gsub(FIRST_AUTHOR_KEY, "\\1 #{translator}, \\2")
-          header = header.gsub(LAST_TRANSLATOR_KEY, "\\1 #{translator}")
+        unless @translator.nil?
+          comment = comment.gsub(FIRST_AUTHOR_KEY, "\\1 #{@translator}, \\2")
         end
-        [header, comment]
+        comment
       end
 
       def translator_full_name
@@ -251,14 +263,17 @@ module GetText
       POT_REVISION_DATE_KEY = /^("PO-Revision-Date:).+\\n"$/
       COPYRIGHT_KEY = /(\s*#\s* Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
 
-      def replace_date(header, comment) #:nodoc:
+      def replace_pot_revision_date(header) #:nodoc:
         date = Time.now
         revision_date = date.strftime("%Y-%m-%d %H:%M%z")
 
-        header = header.gsub(POT_REVISION_DATE_KEY, "\\1 #{revision_date}\\n\"")
-        comment = comment.gsub(COPYRIGHT_KEY, "\\1 #{date.year} \\2")
+        header.gsub(POT_REVISION_DATE_KEY, "\\1 #{revision_date}\\n\"")
+      end
 
-        [header, comment]
+      def replace_copyright_year(comment) #:nodoc:
+        date = Time.now
+
+        comment.gsub(COPYRIGHT_KEY, "\\1 #{date.year} \\2")
       end
 
       LANGUAGE_KEY = /^(Language:).+/
