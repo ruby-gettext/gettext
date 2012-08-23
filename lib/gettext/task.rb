@@ -60,7 +60,10 @@ module GetText
           pot_dependencies << po_base_directory
         end
         file pot_file => pot_dependencies do
-          GetText::Tools::XGetText.run("--output", pot_file, *files)
+          GetText::Tools::XGetText.run("--package-name", @spec.name,
+                                       "--package-version", @spec.version.to_s,
+                                       "--output", pot_file,
+                                       *files)
         end
       end
 
