@@ -53,6 +53,8 @@ module GetText
         @output_file = nil
         @locale = nil
         @language = nil
+        @entry = nil
+        @comment = nil
         @translator = nil
       end
 
@@ -167,8 +169,8 @@ module GetText
       DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
 
       def replace_pot_header(pot) #:nodoc:
-        entry = pot[""]
-        comment = pot.comment("")
+        @entry = pot[""]
+        @comment = pot.comment("")
 
         full_name = translator_full_name
         mail = translator_mail
@@ -176,29 +178,29 @@ module GetText
           @translator = "#{full_name} <#{mail}>"
         end
 
-        comment = replace_description(entry, comment)
-        entry = replace_last_translator(entry)
-        comment = replace_first_author(comment)
-        entry = replace_pot_revision_date(entry)
-        comment = replace_copyright_year(comment)
-        entry = replace_language(entry)
-        entry = replace_plural_forms(entry)
-        comment = comment.gsub(/#, fuzzy/, "")
+        replace_description
+        replace_last_translator
+        replace_first_author
+        replace_pot_revision_date
+        replace_copyright_year
+        replace_language
+        replace_plural_forms
+        @comment = @comment.gsub(/#, fuzzy/, "")
 
-        pot[""] = entry.chomp
-        pot.set_comment("", comment)
+        pot[""] = @entry.chomp
+        pot.set_comment("", @comment)
         pot
       end
 
-      def replace_description(entry, comment) #:nodoc:
+      def replace_description #:nodoc:
         language_name = Locale::Info.get_language(@language).name
         package_name = ""
-        entry.gsub(/Project-Id-Version: (.+?) .+/) do
+        @entry.gsub(/Project-Id-Version: (.+?) .+/) do
           package_name = $1
         end
         description = "#{language_name} translations " +
                         "for #{package_name} package."
-        comment.gsub(DESCRIPTION_TITLE, "\\1 #{description}")
+        @comment = @comment.gsub(DESCRIPTION_TITLE, "\\1 #{description}")
       end
 
       EMAIL = "EMAIL@ADDRESS"
@@ -206,21 +208,20 @@ module GetText
       FIRST_AUTHOR_KEY = /^(\s*#\s*) FIRST AUTHOR <#{EMAIL}>, (\d+\.)$/
       LAST_TRANSLATOR_KEY = /^(Last-Translator:) FULL NAME <#{EMAIL}>$/
 
-      def replace_last_translator(entry) #:nodoc:
+      def replace_last_translator #:nodoc:
         unless @translator.nil?
-          entry = entry.gsub(LAST_TRANSLATOR_KEY, "\\1 #{@translator}")
+          @entry = @entry.gsub(LAST_TRANSLATOR_KEY, "\\1 #{@translator}")
         end
-        entry
       end
 
-      def replace_first_author(comment) #:nodoc:
+      def replace_first_author #:nodoc:
         year = Time.now.year
 
-        comment = comment.gsub(YEAR_KEY, "\\1 #{year}.")
+        @comment = @comment.gsub(YEAR_KEY, "\\1 #{year}.")
         unless @translator.nil?
-          comment = comment.gsub(FIRST_AUTHOR_KEY, "\\1 #{@translator}, \\2")
+          @comment = @comment.gsub(FIRST_AUTHOR_KEY,
+                                   "\\1 #{@translator}, \\2")
         end
-        comment
       end
 
       def translator_full_name
@@ -263,33 +264,34 @@ module GetText
       POT_REVISION_DATE_KEY = /^("PO-Revision-Date:).+\\n"$/
       COPYRIGHT_KEY = /(\s*#\s* Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
 
-      def replace_pot_revision_date(entry) #:nodoc:
+      def replace_pot_revision_date #:nodoc:
         date = Time.now
         revision_date = date.strftime("%Y-%m-%d %H:%M%z")
 
-        entry.gsub(POT_REVISION_DATE_KEY, "\\1 #{revision_date}\\n\"")
+        @entry = @entry.gsub(POT_REVISION_DATE_KEY,
+                             "\\1 #{revision_date}\\n\"")
       end
 
-      def replace_copyright_year(comment) #:nodoc:
+      def replace_copyright_year #:nodoc:
         date = Time.now
 
-        comment.gsub(COPYRIGHT_KEY, "\\1 #{date.year} \\2")
+        @comment = @comment.gsub(COPYRIGHT_KEY, "\\1 #{date.year} \\2")
       end
 
       LANGUAGE_KEY = /^(Language:).+/
       LANGUAGE_TEAM_KEY = /^(Language-Team:).+/
 
-      def replace_language(entry) #:nodoc:
+      def replace_language #:nodoc:
         language_name = Locale::Info.get_language(@language).name
-        entry = entry.gsub(LANGUAGE_KEY, "\\1 #{@locale}")
-        entry.gsub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}")
+        @entry = @entry.gsub(LANGUAGE_KEY, "\\1 #{@locale}")
+        @entry = @entry.gsub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}")
       end
 
       PLURAL_FORMS =
         /^(Plural-Forms:) nplurals=INTEGER; plural=EXPRESSION;$/
 
-      def replace_plural_forms(entry) #:nodoc:
-        entry.gsub(PLURAL_FORMS, "\\1 #{plural_forms(@language)}")
+      def replace_plural_forms #:nodoc:
+        @entry = @entry.gsub(PLURAL_FORMS, "\\1 #{plural_forms(@language)}")
       end
 
       def plural_forms(language) #:nodoc:
