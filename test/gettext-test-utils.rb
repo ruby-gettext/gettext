@@ -22,6 +22,8 @@ require "tmpdir"
 require "tempfile"
 require "time"
 
+require "gettext"
+
 module GetTextTestUtils
   module_function
   def fixture_path(*components)
