@@ -173,18 +173,23 @@ module GetText
         @comment = pot.comment("")
         @translator = translator_info
 
-        replace_description
         replace_last_translator
-        replace_first_author
         replace_pot_revision_date
-        replace_copyright_year
         replace_language
         replace_plural_forms
-        @comment = @comment.gsub(/#, fuzzy/, "")
+
+        replace_comment
 
         pot[""] = @entry.chomp
         pot.set_comment("", @comment)
         pot
+      end
+
+      def replace_comment
+        replace_description
+        replace_first_author
+        replace_copyright_year
+        @comment = @comment.gsub(/#, fuzzy/, "")
       end
 
       def replace_description #:nodoc:
