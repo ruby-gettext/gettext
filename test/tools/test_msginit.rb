@@ -27,7 +27,8 @@ class TestToolsMsgInit < Test::Unit::TestCase
     stub(@msginit).read_translator_mail {translator_mail}
 
     Locale.current = "ja_JP.UTF-8"
-    @time = Time.now.strftime("%Y-%m-%d %H:%M%z")
+    @pot_create_date = "2012-08-24 11:35+0900"
+    @po_revision_date = Time.now.strftime("%Y-%m-%d %H:%M%z")
   end
 
   def test_all_options
@@ -265,8 +266,8 @@ class TestToolsMsgInit < Test::Unit::TestCase
 msgid ""
 msgstr ""
 "Project-Id-Version: #{package_name} VERSION\\n"
-"POT-Creation-Date: #{@time}\\n"
-"PO-Revision-Date: #{@time}\\n"
+"POT-Creation-Date: #{@pot_create_date}\\n"
+"PO-Revision-Date: #{@pot_create_date}\\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
 "Language: \\n"
 "Language-Team: LANGUAGE <LL@li.org>\\n"
@@ -282,8 +283,12 @@ EOF
     File.open(po_file_path) do |file|
       po_file = file.read
     end
-    po_file = po_file.gsub(/#{Regexp.escape(@time)}/, "YEAR-MO-DA HO:MI+ZONE")
-    po_file.gsub(/#{Time.now.year}/, "YYYY")
+
+    po_file = po_file.gsub(/#{Regexp.escape(@pot_create_date)}/,
+                           "XXXX-XX-XX XX:XX+XXXX")
+    po_file = po_file.gsub(/#{Regexp.escape(@po_revision_date)}/,
+                           "YYYY-YY-YY YY:YY+YYYY")
+    po_file.gsub(/#{Time.now.year}/, "YEAR")
   end
 
   def po_header(locale, language, options=nil)
@@ -296,15 +301,15 @@ EOF
 
     <<EOF
 # #{language_name} translations for #{package_name} package.
-# Copyright (C) YYYY THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# #{full_name} <#{mail}>, YYYY.
+# #{full_name} <#{mail}>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: #{package_name} VERSION\\n"
-"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n"
+"POT-Creation-Date: XXXX-XX-XX XX:XX+XXXX\\n"
+"PO-Revision-Date: YYYY-YY-YY YY:YY+YYYY\\n"
 "Last-Translator: #{full_name} <#{mail}>\\n"
 "Language: #{locale}\\n"
 "Language-Team: #{language_name}\\n"
@@ -325,15 +330,15 @@ EOF
 
     <<EOF
 # #{language_name} translations for PACKAGE package.
-# Copyright (C) YYYY THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YYYY.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\\n"
-"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n"
+"POT-Creation-Date: XXXX-XX-XX XX:XX+XXXX\\n"
+"PO-Revision-Date: YYYY-YY-YY YY:YY+YYYY\\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
 "Language: #{locale}\\n"
 "Language-Team: #{language_name}\\n"
