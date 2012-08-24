@@ -261,7 +261,7 @@ module GetText
         end
       end
 
-      POT_REVISION_DATE_KEY = /^("PO-Revision-Date:).+\\n"$/
+      POT_REVISION_DATE_KEY = /^(PO-Revision-Date:).+/
       COPYRIGHT_KEY = /(\s*#\s* Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
 
       def replace_pot_revision_date #:nodoc:
@@ -269,7 +269,7 @@ module GetText
         revision_date = date.strftime("%Y-%m-%d %H:%M%z")
 
         @entry = @entry.gsub(POT_REVISION_DATE_KEY,
-                             "\\1 #{revision_date}\\n\"")
+                             "\\1 #{revision_date}")
       end
 
       def replace_copyright_year #:nodoc:
