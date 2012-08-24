@@ -173,16 +173,19 @@ module GetText
         @comment = pot.comment("")
         @translator = translator_info
 
-        replace_last_translator
-        replace_pot_revision_date
-        replace_language
-        replace_plural_forms
-
+        replace_entry
         replace_comment
 
         pot[""] = @entry.chomp
         pot.set_comment("", @comment)
         pot
+      end
+
+      def replace_entry
+        replace_last_translator
+        replace_pot_revision_date
+        replace_language
+        replace_plural_forms
       end
 
       def replace_comment
