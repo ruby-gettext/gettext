@@ -76,47 +76,6 @@ module GetText
       end
 
       private
-      def validate
-        if @input_file.nil?
-          @input_file = Dir.glob("./*.pot").first
-          if @input_file.nil?
-            raise(ValidationError,
-                  _(".pot file does not exist in the current directory."))
-          end
-        else
-          unless File.exist?(@input_file)
-            raise(ValidationError,
-                  _("file #{@input_file} does not exist."))
-          end
-        end
-
-        if @locale.nil?
-          language_tag = Locale.current
-        else
-          language_tag = Locale::Tag.parse(@locale)
-        end
-
-        unless valid_locale?(language_tag)
-          raise(ValidationError,
-                _("Locale '#{language_tag}' is invalid. " +
-                    "Please check if your specified locale is usable."))
-        end
-        @locale = language_tag.to_simple.to_s
-        @language = language_tag.language
-
-        @output_file ||= "#{@locale}.po"
-        if File.exist?(@output_file)
-          raise(ValidationError,
-                _("file #{@output_file} has already existed."))
-        end
-      end
-
-      def valid_locale?(language_tag)
-        return false if language_tag.instance_of?(Locale::Tag::Irregular)
-
-        Locale::Info.language_code?(language_tag.language)
-      end
-
       VERSION = GetText::VERSION
 
       def parse_arguments(*arguments) #:nodoc:
@@ -166,7 +125,46 @@ module GetText
         end
       end
 
-      DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
+      def validate
+        if @input_file.nil?
+          @input_file = Dir.glob("./*.pot").first
+          if @input_file.nil?
+            raise(ValidationError,
+                  _(".pot file does not exist in the current directory."))
+          end
+        else
+          unless File.exist?(@input_file)
+            raise(ValidationError,
+                  _("file #{@input_file} does not exist."))
+          end
+        end
+
+        if @locale.nil?
+          language_tag = Locale.current
+        else
+          language_tag = Locale::Tag.parse(@locale)
+        end
+
+        unless valid_locale?(language_tag)
+          raise(ValidationError,
+                _("Locale '#{language_tag}' is invalid. " +
+                    "Please check if your specified locale is usable."))
+        end
+        @locale = language_tag.to_simple.to_s
+        @language = language_tag.language
+
+        @output_file ||= "#{@locale}.po"
+        if File.exist?(@output_file)
+          raise(ValidationError,
+                _("file #{@output_file} has already existed."))
+        end
+      end
+
+      def valid_locale?(language_tag)
+        return false if language_tag.instance_of?(Locale::Tag::Irregular)
+
+        Locale::Info.language_code?(language_tag.language)
+      end
 
       def replace_pot_header(pot) #:nodoc:
         @entry = pot[""]
@@ -179,52 +177,6 @@ module GetText
         pot[""] = @entry.chomp
         pot.set_comment("", @comment)
         pot
-      end
-
-      def replace_entry
-        replace_last_translator
-        replace_pot_revision_date
-        replace_language
-        replace_plural_forms
-      end
-
-      def replace_comment
-        replace_description
-        replace_first_author
-        replace_copyright_year
-        @comment = @comment.gsub(/#, fuzzy/, "")
-      end
-
-      def replace_description #:nodoc:
-        language_name = Locale::Info.get_language(@language).name
-        package_name = ""
-        @entry.gsub(/Project-Id-Version: (.+?) .+/) do
-          package_name = $1
-        end
-        description = "#{language_name} translations " +
-                        "for #{package_name} package."
-        @comment = @comment.gsub(DESCRIPTION_TITLE, "\\1 #{description}")
-      end
-
-      EMAIL = "EMAIL@ADDRESS"
-      YEAR_KEY = /^(\s*#\s* FIRST AUTHOR <#{EMAIL}>,) YEAR\.$/
-      FIRST_AUTHOR_KEY = /^(\s*#\s*) FIRST AUTHOR <#{EMAIL}>, (\d+\.)$/
-      LAST_TRANSLATOR_KEY = /^(Last-Translator:) FULL NAME <#{EMAIL}>$/
-
-      def replace_last_translator #:nodoc:
-        unless @translator.nil?
-          @entry = @entry.gsub(LAST_TRANSLATOR_KEY, "\\1 #{@translator}")
-        end
-      end
-
-      def replace_first_author #:nodoc:
-        year = Time.now.year
-
-        @comment = @comment.gsub(YEAR_KEY, "\\1 #{year}.")
-        unless @translator.nil?
-          @comment = @comment.gsub(FIRST_AUTHOR_KEY,
-                                   "\\1 #{@translator}, \\2")
-        end
       end
 
       def translator_info
@@ -274,8 +226,30 @@ module GetText
         end
       end
 
+      def replace_entry
+        replace_last_translator
+        replace_pot_revision_date
+        replace_language
+        replace_plural_forms
+      end
+
+      def replace_comment
+        replace_description
+        replace_first_author
+        replace_copyright_year
+        @comment = @comment.gsub(/#, fuzzy/, "")
+      end
+
+      EMAIL = "EMAIL@ADDRESS"
+      FIRST_AUTHOR_KEY = /^(\s*#\s*) FIRST AUTHOR <#{EMAIL}>, (\d+\.)$/
+
+      def replace_last_translator #:nodoc:
+        unless @translator.nil?
+          @entry = @entry.gsub(LAST_TRANSLATOR_KEY, "\\1 #{@translator}")
+        end
+      end
+
       POT_REVISION_DATE_KEY = /^(PO-Revision-Date:).+/
-      COPYRIGHT_KEY = /(\s*#\s* Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
 
       def replace_pot_revision_date #:nodoc:
         date = Time.now
@@ -283,12 +257,6 @@ module GetText
 
         @entry = @entry.gsub(POT_REVISION_DATE_KEY,
                              "\\1 #{revision_date}")
-      end
-
-      def replace_copyright_year #:nodoc:
-        date = Time.now
-
-        @comment = @comment.gsub(COPYRIGHT_KEY, "\\1 #{date.year} \\2")
       end
 
       LANGUAGE_KEY = /^(Language:).+/
@@ -354,6 +322,39 @@ module GetText
         end
 
         "nplurals=#{nplural}; plural=#{plural_expression};"
+      end
+
+      DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
+
+      def replace_description #:nodoc:
+        language_name = Locale::Info.get_language(@language).name
+        package_name = ""
+        @entry.gsub(/Project-Id-Version: (.+?) .+/) do
+          package_name = $1
+        end
+        description = "#{language_name} translations " +
+                        "for #{package_name} package."
+        @comment = @comment.gsub(DESCRIPTION_TITLE, "\\1 #{description}")
+      end
+
+      YEAR_KEY = /^(\s*#\s* FIRST AUTHOR <#{EMAIL}>,) YEAR\.$/
+      LAST_TRANSLATOR_KEY = /^(Last-Translator:) FULL NAME <#{EMAIL}>$/
+
+      def replace_first_author #:nodoc:
+        year = Time.now.year
+
+        @comment = @comment.gsub(YEAR_KEY, "\\1 #{year}.")
+        unless @translator.nil?
+          @comment = @comment.gsub(FIRST_AUTHOR_KEY,
+                                   "\\1 #{@translator}, \\2")
+        end
+      end
+
+      COPYRIGHT_KEY = /(\s*#\s* Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
+      def replace_copyright_year #:nodoc:
+        date = Time.now
+
+        @comment = @comment.gsub(COPYRIGHT_KEY, "\\1 #{date.year} \\2")
       end
     end
   end
