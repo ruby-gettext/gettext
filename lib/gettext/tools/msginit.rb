@@ -171,12 +171,7 @@ module GetText
       def replace_pot_header(pot) #:nodoc:
         @entry = pot[""]
         @comment = pot.comment("")
-
-        full_name = translator_full_name
-        mail = translator_mail
-        if not full_name.empty? and not mail.empty?
-          @translator = "#{full_name} <#{mail}>"
-        end
+        @translator = translator_info
 
         replace_description
         replace_last_translator
@@ -221,6 +216,16 @@ module GetText
         unless @translator.nil?
           @comment = @comment.gsub(FIRST_AUTHOR_KEY,
                                    "\\1 #{@translator}, \\2")
+        end
+      end
+
+      def translator_info
+        full_name = translator_full_name
+        mail = translator_mail
+        if not full_name.empty? and not mail.empty?
+          "#{full_name} <#{mail}>"
+        else
+          nil
         end
       end
 
