@@ -167,7 +167,7 @@ module GetText
       DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
 
       def replace_pot_header(pot) #:nodoc:
-        header = pot[""]
+        entry = pot[""]
         comment = pot.comment("")
 
         full_name = translator_full_name
@@ -176,24 +176,24 @@ module GetText
           @translator = "#{full_name} <#{mail}>"
         end
 
-        comment = replace_description(header, comment)
-        header = replace_last_translator(header)
+        comment = replace_description(entry, comment)
+        entry = replace_last_translator(entry)
         comment = replace_first_author(comment)
-        header = replace_pot_revision_date(header)
+        entry = replace_pot_revision_date(entry)
         comment = replace_copyright_year(comment)
-        header = replace_language(header)
-        header = replace_plural_forms(header)
+        entry = replace_language(entry)
+        entry = replace_plural_forms(entry)
         comment = comment.gsub(/#, fuzzy/, "")
 
-        pot[""] = header.chomp
+        pot[""] = entry.chomp
         pot.set_comment("", comment)
         pot
       end
 
-      def replace_description(header, comment) #:nodoc:
+      def replace_description(entry, comment) #:nodoc:
         language_name = Locale::Info.get_language(@language).name
         package_name = ""
-        header.gsub(/Project-Id-Version: (.+?) .+/) do
+        entry.gsub(/Project-Id-Version: (.+?) .+/) do
           package_name = $1
         end
         description = "#{language_name} translations " +
@@ -206,11 +206,11 @@ module GetText
       FIRST_AUTHOR_KEY = /^(\s*#\s*) FIRST AUTHOR <#{EMAIL}>, (\d+\.)$/
       LAST_TRANSLATOR_KEY = /^(Last-Translator:) FULL NAME <#{EMAIL}>$/
 
-      def replace_last_translator(header) #:nodoc:
+      def replace_last_translator(entry) #:nodoc:
         unless @translator.nil?
-          header = header.gsub(LAST_TRANSLATOR_KEY, "\\1 #{@translator}")
+          entry = entry.gsub(LAST_TRANSLATOR_KEY, "\\1 #{@translator}")
         end
-        header
+        entry
       end
 
       def replace_first_author(comment) #:nodoc:
@@ -263,11 +263,11 @@ module GetText
       POT_REVISION_DATE_KEY = /^("PO-Revision-Date:).+\\n"$/
       COPYRIGHT_KEY = /(\s*#\s* Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
 
-      def replace_pot_revision_date(header) #:nodoc:
+      def replace_pot_revision_date(entry) #:nodoc:
         date = Time.now
         revision_date = date.strftime("%Y-%m-%d %H:%M%z")
 
-        header.gsub(POT_REVISION_DATE_KEY, "\\1 #{revision_date}\\n\"")
+        entry.gsub(POT_REVISION_DATE_KEY, "\\1 #{revision_date}\\n\"")
       end
 
       def replace_copyright_year(comment) #:nodoc:
@@ -279,17 +279,17 @@ module GetText
       LANGUAGE_KEY = /^(Language:).+/
       LANGUAGE_TEAM_KEY = /^(Language-Team:).+/
 
-      def replace_language(header) #:nodoc:
+      def replace_language(entry) #:nodoc:
         language_name = Locale::Info.get_language(@language).name
-        header = header.gsub(LANGUAGE_KEY, "\\1 #{@locale}")
-        header.gsub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}")
+        entry = entry.gsub(LANGUAGE_KEY, "\\1 #{@locale}")
+        entry.gsub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}")
       end
 
       PLURAL_FORMS =
         /^(Plural-Forms:) nplurals=INTEGER; plural=EXPRESSION;$/
 
-      def replace_plural_forms(header) #:nodoc:
-        header.gsub(PLURAL_FORMS, "\\1 #{plural_forms(@language)}")
+      def replace_plural_forms(entry) #:nodoc:
+        entry.gsub(PLURAL_FORMS, "\\1 #{plural_forms(@language)}")
       end
 
       def plural_forms(language) #:nodoc:
