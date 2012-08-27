@@ -1,4 +1,65 @@
 # News
+## <a id="2-3-0">2.3.0</a>: 2012-08-28
+
+Various improvements, changes and fixes release.
+
+### Improvements
+
+  * Improved TextDomain#translate\_singluar\_message performance.
+    [Base idea is provided by @angelf]
+  * Added msginit command.
+  * [xgettext] Added command line options for package name, version,
+    copyright holder and msgid bugs address.[Github#8]
+    [Reported by Francesco Poli (wintermute) and 375gnu, and patch by 375gnu]
+  * [xgettext] Supported s\_ and ns\_ with parameter.
+  * [poparser] Reported warnings when fuzzy message is used.
+    [Reported by Michael Grosser]
+  * Used %{...} to check String#% + hash availablity and
+    raise Error if this syntax isn't supported.
+  * Searched locale under LC_MESSAGES/ directory.
+  * Updated documents for tools.
+
+### Changes
+
+  * Renamed the package name from "Ruby-GetText-Package" to "gettext".
+  * Renamed RGetText to XGetText, RMsgMerge to MsgMerge, RMsgFmt to MsgFmt.
+  * Renamed rgettext to rxgettext, rmsgmerge to msgmerge, rmsgfmt to msgfmt.
+  * Defined tools(xGetText, MsgMerge, MsgFmt) as Class instead of Module
+    and under GetText::Tools module.
+  * Removed shortcuts for tools in GetText module and changed parameters.
+    Please use GetText::Tools:XXX.run instead of GetText.xxx.
+  * Changed API of tools.
+    e.g.) Before: GetText.rsmgfmt(targetfile, output\_path)
+          Now: GetText::Tools::MsgFmt.run(targetfile, "-o", output\_path)
+  * [xgettext] Used relative path for source path.
+    This path appears in generated pot file.
+  * [xgettext] Returned the pot header instead of "" as the translation of
+    "" msgid.
+  * Renamed Xgettext to X_ (e.g. npgettext -> np_).
+  * [poparser] Treated not translated msgid when parsing po file.
+    A translation of no translated msgid is msgid itself even now.
+  * [xgettext] Removed descriptions of ruby in information by "-v" option.
+
+### Fixes
+
+  * Included msgctxt when generating .po file. [Patch by 3dd13]
+  * Fixed a typo in msgmerge. [Patch by Yves-Eric Martin]
+  * [msgmerge] Followed PoParser API change.
+  * [ruby-parser] Reseted the last comment when po message is stored.[Github#6]
+    [Reported by 375gnu and Francesco Poli (wintermute), and Patch by 375gnu]
+  * [ruby-parser] Processed RubyToken::TkDSTRING too.[Github#6]
+    [Reported by 375gnu and Francesco Poli (wintermute), and Patch by 375gnu]
+  * [msgmerge] Don't add fuzzy to header message.
+  * [msgmerge] Escaped backslash and "\n".
+
+### Thanks
+
+  * @angelf
+  * Francesco Poli (wintermute)
+  * 375gnu
+  * Michael Grosser
+  * 3dd13
+  * Yves-Eric Martin
 
 ## <a id="2-2-0">2.2.0</a>: 2012-03-11
 
