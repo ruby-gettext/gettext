@@ -153,8 +153,8 @@ class TestToolsMsgInit < Test::Unit::TestCase
   end
 
   def test_no_translator
-    stub(@msginit).read_translator_full_name {""}
-    stub(@msginit).read_translator_mail {""}
+    stub(@msginit).read_translator_full_name {nil}
+    stub(@msginit).read_translator_mail {nil}
 
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
@@ -173,7 +173,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
   end
 
   def test_no_translator_full_name
-    stub(@msginit).read_translator_full_name {""}
+    stub(@msginit).read_translator_full_name {nil}
 
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
@@ -192,7 +192,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
   end
 
   def test_no_translator_mail
-    stub(@msginit).read_translator_mail {""}
+    stub(@msginit).read_translator_mail {nil}
 
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
