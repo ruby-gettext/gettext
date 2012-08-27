@@ -19,6 +19,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require "gettext"
+require "gettext/tools/poparser"
+require "gettext/tools/msgmerge"
 require "locale/info"
 require "optparse"
 
