@@ -95,14 +95,14 @@ module GetText
     # * div: separator or nil.
     # * Returns: the localized text by msgid. If there are no localized text,
     #   it returns a last part of msgid separeted "div".
-    def translate_singluar_message(klass, msgid, div = nil)
+    def translate_singular_message(klass, msgid, div = nil)
       klass = ClassInfo.normalize_class(klass)
       key = [Locale.current, klass, msgid, div].hash
       msg = @@singular_message_cache[key]
       return msg if msg and @@cached
       # Find messages from related classes.
       each_textdomains(klass) do |textdomain, lang|
-        msg = textdomain.translate_singluar_message(lang, msgid)
+        msg = textdomain.translate_singular_message(lang, msgid)
         break if msg
       end
 
@@ -116,7 +116,7 @@ module GetText
       @@singular_message_cache[key] = msg
     end
 
-    # This function is similar to the get_singluar_message function
+    # This function is similar to the get_singular_message function
     # as it finds the message catalogs in the same way.
     # But it takes two extra arguments for plural form.
     # The msgid parameter must contain the singular form of the string to be converted.

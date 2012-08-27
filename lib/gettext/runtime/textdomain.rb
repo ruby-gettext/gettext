@@ -67,7 +67,7 @@ module GetText
     # * lang: Locale::Tag::Simple's subclass.
     # * msgid: the original message.
     # * Returns: the translated string or nil.
-    def translate_singluar_message(lang, msgid)
+    def translate_singular_message(lang, msgid)
       return "" if msgid.nil?
 
       lang_key = lang.to_s
@@ -92,7 +92,7 @@ module GetText
           msgstr
         end
       elsif msgid.include?("\000")
-        # Check "aaa\000bbb" and show warning but return the singluar part.
+        # Check "aaa\000bbb" and show warning but return the singular part.
         ret = nil
         msgid_single = msgid.split("\000")[0]
         msgid_single_prefix_re = /^#{Regexp.quote(msgid_single)}\000/
@@ -128,7 +128,7 @@ module GetText
     # * Returns: the translated string as an Array ([[msgstr1, msgstr2, ...], cond]) or nil.
     def translate_plural_message(lang, msgid, msgid_plural)   #:nodoc:
       key = msgid + "\000" + msgid_plural
-      msg = translate_singluar_message(lang, key)
+      msg = translate_singular_message(lang, key)
       ret = nil
       if ! msg
         ret = nil

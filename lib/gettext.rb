@@ -127,7 +127,7 @@ module GetText
   # * msgid: the message id.
   # * Returns: localized text by msgid. If there are not binded mo-file, it will return msgid.
   def gettext(msgid)
-    TextDomainManager.translate_singluar_message(self, msgid)
+    TextDomainManager.translate_singular_message(self, msgid)
   end
 
   # call-seq:
@@ -144,7 +144,7 @@ module GetText
   #   <tt>Movie|Location -> Location</tt>
   # See: http://www.gnu.org/software/gettext/manual/html_mono/gettext.html#SEC151
   def sgettext(msgid, seperator = "|")
-    TextDomainManager.translate_singluar_message(self, msgid, seperator)
+    TextDomainManager.translate_singular_message(self, msgid, seperator)
   end
 
   # call-seq:
@@ -161,7 +161,7 @@ module GetText
   #   it returns msgid.
   # See: http://www.gnu.org/software/autoconf/manual/gettext/Contexts.html
   def pgettext(msgctxt, msgid)
-    TextDomainManager.translate_singluar_message(self, "#{msgctxt}\004#{msgid}", "\004")
+    TextDomainManager.translate_singular_message(self, "#{msgctxt}\004#{msgid}", "\004")
   end
 
   # call-seq:

@@ -16,9 +16,9 @@ end
 text_domain.mofiles["ja"] = texts
 
 Benchmark.bmbm do |benchmark|
-  benchmark.report("singluar: no hit") do
+  benchmark.report("singular: no hit") do
     10.times do
-      text_domain.translate_singluar_message("ja", " never hit")
+      text_domain.translate_singular_message("ja", " never hit")
     end
   end
 end
