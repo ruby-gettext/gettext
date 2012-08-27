@@ -68,7 +68,7 @@ module GetText
     # * msgid: the original message.
     # * Returns: the translated string or nil.
     def translate_singluar_message(lang, msgid)
-      return "" if msgid == "" or msgid.nil?
+      return "" if msgid.nil?
 
       lang_key = lang.to_s
 

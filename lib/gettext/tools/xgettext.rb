@@ -166,6 +166,22 @@ EOH
                   pomessage = PoMessage.new_from_ary(pomessage)
                 end
 
+                if pomessage.msgid.empty?
+                  warn _("Warning: The empty \"\" msgid is reserved by " +
+                           "gettext. So gettext(\"\") doesn't returns " +
+                           "empty string but the header entry in po file.")
+                  # TODO: add pommesage.source to the pot header as below:
+                  # # SOME DESCRIPTIVE TITLE.
+                  # # Copyright (C) YEAR THE COPYRIGHT HOLDER
+                  # # This file is distributed under the same license as the PACKAGE package.
+                  # # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+                  # #
+                  # #: test/test_gettext.rb:65
+                  # #, fuzzy
+                  # "#: test/test_gettext.rb:65" line is added.
+                  next
+                end
+
                 if @output.is_a?(String)
                   base_path = Pathname.new(@output).dirname.expand_path
                   pomessage.sources = pomessage.sources.collect do |source|
