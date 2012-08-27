@@ -35,7 +35,6 @@ Various improvements, changes and fixes release.
     This path appears in generated pot file.
   * [xgettext] Returned the pot header instead of "" as the translation of
     "" msgid.
-  * Renamed Xgettext to X_ (e.g. npgettext -> np_).
   * [poparser] Treated not translated msgid when parsing po file.
     A translation of no translated msgid is msgid itself even now.
   * [xgettext] Removed descriptions of ruby in information by "-v" option.
