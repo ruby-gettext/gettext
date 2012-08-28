@@ -48,7 +48,7 @@ Various improvements, changes and fixes release.
     [Reported by 375gnu and Francesco Poli (wintermute), and Patch by 375gnu]
   * [ruby-parser] Processed RubyToken::TkDSTRING too.[Github#6]
     [Reported by 375gnu and Francesco Poli (wintermute), and Patch by 375gnu]
-  * [msgmerge] Don't add fuzzy to header message.
+  * [msgmerge] Fixed not to add fuzzy to header message.
   * [msgmerge] Escaped backslash and "\n".
 
 ### Thanks
