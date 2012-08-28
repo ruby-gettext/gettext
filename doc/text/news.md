@@ -16,7 +16,7 @@ Various improvements, changes and fixes release.
     [Reported by Michael Grosser]
   * Used %{...} to check String#% + hash availablity and
     raise Error if this syntax isn't supported.
-  * Searched locale under LC_MESSAGES/ directory.
+  * Searched mo files under LC_MESSAGES/ directory.
   * Updated documents for tools.
 
 ### Changes
