@@ -128,10 +128,10 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_equal(['duplicated', 'fixtures/gladeparser.glade:137', 'fixtures/gladeparser.glade:158'], ary[6])
   end
 
-  def fixtures_erb
+  def test_erb
     @ary = GetText::ErbParser.parse('fixtures/erb.rhtml')
 
-    assert_target 'aaa', ['fixtures/erb.rhtml:8']
+    assert_target 'こんにちは', ['fixtures/erb.rhtml:8']
     assert_target 'aaa\n', ['fixtures/erb.rhtml:11']
     assert_target 'bbb', ['fixtures/erb.rhtml:12']
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb.rhtml:13']
