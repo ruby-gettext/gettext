@@ -26,7 +26,7 @@ Various improvements, changes and fixes release.
   * Renamed rgettext to rxgettext, rmsgmerge to msgmerge, rmsgfmt to msgfmt.
   * Defined tools(XGetText, MsgMerge, MsgFmt) as Class under GetText::Tools
     module.
-  * Removed shortcuts for tools in GetText module and changed parameters.
+  * Removed shortcuts for tools in GetText module.
     Please use GetText::Tools:XXX.run instead of GetText.xxx.
   * Changed API of tools.
     e.g.) Before: GetText.rsmgfmt(targetfile, output\_path)
