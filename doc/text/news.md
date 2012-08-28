@@ -14,7 +14,7 @@ Various improvements, changes and fixes release.
   * [xgettext] Supported s\_ and ns\_ with parameter.
   * [poparser] Reported warnings when fuzzy message is used.
     [Reported by Michael Grosser]
-  * Used %{...} to check String#% + hash availablity and
+  * Used %{...} to check the availability of String#% with hash and
     raise Error if this syntax isn't supported.
   * Searched mo files under LC_MESSAGES/ directory.
   * Updated documents for tools.
@@ -24,8 +24,8 @@ Various improvements, changes and fixes release.
   * Renamed the package name from "Ruby-GetText-Package" to "gettext".
   * Renamed RGetText to XGetText, RMsgMerge to MsgMerge, RMsgFmt to MsgFmt.
   * Renamed rgettext to rxgettext, rmsgmerge to msgmerge, rmsgfmt to msgfmt.
-  * Defined tools(xGetText, MsgMerge, MsgFmt) as Class instead of Module
-    and under GetText::Tools module.
+  * Defined tools(XGetText, MsgMerge, MsgFmt) as Class under GetText::Tools
+    module.
   * Removed shortcuts for tools in GetText module and changed parameters.
     Please use GetText::Tools:XXX.run instead of GetText.xxx.
   * Changed API of tools.
