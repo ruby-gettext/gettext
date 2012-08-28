@@ -140,13 +140,13 @@ class TestGetTextParser < Test::Unit::TestCase
   def test_xgettext_parse
     GetText::ErbParser.init(:extnames => ['.rhtml', '.rxml'])
     @ary = @xgettext.parse(['fixtures/erb.rhtml'])
-    assert_target 'aaa', ['fixtures/erb.rhtml:8']
+    assert_target 'こんにちは', ['fixtures/erb.rhtml:8']
     assert_target 'aaa\n', ['fixtures/erb.rhtml:11']
     assert_target 'bbb', ['fixtures/erb.rhtml:12']
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb.rhtml:13']
 
     @ary = @xgettext.parse(['fixtures/erb.rxml'])
-    assert_target 'aaa', ['fixtures/erb.rxml:9']
+    assert_target 'こんにちは', ['fixtures/erb.rxml:9']
     assert_target 'aaa\n', ['fixtures/erb.rxml:12']
     assert_target 'bbb', ['fixtures/erb.rxml:13']
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb.rxml:14']
