@@ -57,7 +57,7 @@ Various improvements, changes and fixes release.
   * Francesco Poli (wintermute)
   * 375gnu
   * Michael Grosser
-  * 3dd13
+  * Eddie Lau
   * Yves-Eric Martin
 
 ## <a id="2-2-0">2.2.0</a>: 2012-03-11
