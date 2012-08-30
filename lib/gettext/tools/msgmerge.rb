@@ -98,6 +98,7 @@ module GetText
         def generate_po
           str = ""
           str << generate_po_header
+          str << "\n"
 
           po_entries = []
           self.each_msgid do |id|
@@ -120,7 +121,7 @@ module GetText
           str << 'msgstr ""' << "\n"
           msgstr = @msgid2msgstr[""].gsub(/"/, '\"').gsub(/\r/, "")
           msgstr = msgstr.gsub(/^(.*)$/, '"\1\n"')
-          str << msgstr
+          str << msgstr.chomp
           str << "\n"
 
           str

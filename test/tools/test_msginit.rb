@@ -339,6 +339,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\\n"
 "Content-Transfer-Encoding: 8bit\\n"
 "Plural-Forms: #{plural_forms}\\n"
+
 EOF
   end
 
@@ -368,6 +369,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\\n"
 "Content-Transfer-Encoding: 8bit\\n"
 "Plural-Forms: #{plural_forms}\\n"
+
 EOF
   end
 end

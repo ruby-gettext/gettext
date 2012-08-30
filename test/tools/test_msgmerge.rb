@@ -37,6 +37,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
 msgid \"\"
 msgstr \"\"
 \"#{header_entry}\\n\"
+
 #{comment}
 msgid \"#{msgid}\"
 msgstr \"#{msgstr}\"
@@ -66,6 +67,7 @@ EOC
 msgid \"\"
 msgstr \"\"
 \"#{header_entry}\\n\"
+
 #{obsolete_comment}
 EOP
 
@@ -177,6 +179,7 @@ EOH
     def po_content
       <<-EOP
 #{po_header(@po_formatted_time, @po_formatted_time)}
+
 #: hello.rb:1
 msgid "World"
 msgstr "Translated World"
