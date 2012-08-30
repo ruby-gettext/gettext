@@ -274,7 +274,12 @@ module GetText
         /^(Plural-Forms:) nplurals=INTEGER; plural=EXPRESSION;$/
 
       def replace_plural_forms #:nodoc:
-        @entry = @entry.gsub(PLURAL_FORMS, "\\1 #{plural_forms(@language)}")
+        plural_entry = plural_forms(@language)
+        if PLURAL_FORMS =~ @entry
+          @entry = @entry.gsub(PLURAL_FORMS, "\\1 #{plural_entry}")
+        else
+          @entry << "Plural-Forms: #{plural_entry}"
+        end
       end
 
       def plural_forms(language) #:nodoc:

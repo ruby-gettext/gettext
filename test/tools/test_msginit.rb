@@ -228,6 +228,24 @@ class TestToolsMsgInit < Test::Unit::TestCase
         assert_equal(expected_po_header, actual_po_header)
       end
     end
+
+    def test_no_plural_forms
+      Dir.mktmpdir do |dir|
+        Dir.chdir(dir) do
+          options = {:have_plural_forms => false}
+          create_pot_file("test.pot", options)
+          locale = current_locale
+          language = current_language
+          po_file_path = "#{locale}.po"
+
+          @msginit.run
+
+          actual_po_header = normalize_po_header(po_file_path)
+          expected_po_header = po_header(locale, language)
+          assert_equal(expected_po_header, actual_po_header)
+        end
+      end
+    end
   end
 
   private
@@ -256,7 +274,8 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
   def pot_header(options)
     package_name = options[:package_name] || default_package_name
-    <<EOF
+    have_plural_forms = options[:have_plural_forms] || true
+    header = <<EOF
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -274,8 +293,11 @@ msgstr ""
 "MIME-Version: 1.0\\n"
 "Content-Type: text/plain; charset=UTF-8\\n"
 "Content-Transfer-Encoding: 8bit\\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
 EOF
+    if have_plural_forms
+      header << "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
+    end
+    header
   end
 
   def normalize_po_header(po_file_path)
