@@ -23,7 +23,7 @@ Various improvements, changes and fixes release.
 
   * Renamed the package name from "Ruby-GetText-Package" to "gettext".
   * Renamed RGetText to XGetText, RMsgMerge to MsgMerge, RMsgFmt to MsgFmt.
-  * Renamed rgettext to rxgettext, rmsgmerge to msgmerge, rmsgfmt to msgfmt.
+  * Renamed rgettext to rxgettext.
   * Defined tools(XGetText, MsgMerge, MsgFmt) as Class under GetText::Tools
     module.
   * Removed shortcuts for tools in GetText module.
