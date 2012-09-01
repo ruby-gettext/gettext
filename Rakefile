@@ -66,7 +66,6 @@ EOH
 
     poparser_rb.puts(tempfile.read)
   end
-  $stderr.puts "Create #{poparser_rb_path}."
 end
 
 desc "Run all tests"
