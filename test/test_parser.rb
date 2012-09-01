@@ -51,8 +51,8 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_target "\\taaa", ['fixtures/_.rb:96']
     assert_target "Here document1\\nHere document2\\n", ['fixtures/_.rb:100']
     assert_target "Francois Pinard", ['fixtures/_.rb:119'] do |t|
-      assert_match /proper name/, t.comment
-      assert_match /Pronunciation/, t.comment
+      assert_match(/proper name/, t.comment)
+      assert_match(/Pronunciation/, t.comment)
     end
 
     assert_target("No TRANSLATORS comment", ["fixtures/_.rb:122"]) do |t|
