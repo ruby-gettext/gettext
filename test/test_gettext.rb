@@ -52,7 +52,7 @@ class TestGetText < Test::Unit::TestCase
     set_locale("ja")
     assert_equal("JAPANESE", _("LANGUAGE")) # influence of previous line
     assert_equal("japanese", test.test)
- end
+  end
 
   def test_no_msgstr
     bindtextdomain("test1", :path => "locale")
