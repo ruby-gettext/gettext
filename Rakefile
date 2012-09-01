@@ -48,9 +48,7 @@ poparser_ry_path = "src/poparser.ry"
 file poparser_rb_path => poparser_ry_path do
   racc = File.join(Gem.bindir, "racc")
   tempfile = Tempfile.new("gettext-poparser")
-  command_line = "#{racc} -g #{poparser_ry_path} -o #{tempfile.path}"
-  ruby(command_line)
-  $stderr.puts("ruby #{command_line}")
+  ruby(racc, "-g", poparser_ry_path, "-o", tempfile.path)
 
   File.open(poparser_rb_path, "w") do |poparser_rb|
     poparser_rb.puts(<<-EOH)
