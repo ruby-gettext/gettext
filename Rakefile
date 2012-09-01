@@ -44,6 +44,10 @@ poparser_rb_path = "lib/gettext/tools/poparser.rb"
 desc "Create #{poparser_rb_path}"
 task :poparser => poparser_rb_path
 
+def fix_racc_output_indent(racc_output)
+  racc_output.gsub(/^  (end\s*\# module GetText)$/, '\1')
+end
+
 poparser_ry_path = "src/poparser.ry"
 file poparser_rb_path => poparser_ry_path do
   racc = File.join(Gem.bindir, "racc")
@@ -64,7 +68,7 @@ file poparser_rb_path => poparser_ry_path do
 
 EOH
 
-    poparser_rb.puts(tempfile.read)
+    poparser_rb.puts(fix_racc_output_indent(tempfile.read))
   end
 end
 
