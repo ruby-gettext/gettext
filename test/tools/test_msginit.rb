@@ -215,7 +215,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
       Dir.chdir(dir) do
         pot_file_name = "test.pot"
         options = {:package_name => "test-package"}
-        pot_file = create_pot_file(pot_file_name, options)
+        create_pot_file(pot_file_name, options)
         locale = current_locale
         language = current_language
         po_file_path = "#{locale}.po"
