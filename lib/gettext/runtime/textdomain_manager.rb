@@ -79,7 +79,6 @@ module GetText
     def each_textdomains(klass) #:nodoc:
       lang = Locale.candidates[0]
       ClassInfo.related_classes(klass, @@gettext_classes).each do |target|
-        msg = nil
         if group = @@textdomain_group_pool[target]
           group.textdomains.each do |textdomain|
             yield textdomain, lang
