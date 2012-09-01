@@ -100,7 +100,6 @@ module GetText
     # * lang: a Locale::Tag.
     def current_path(lang)
       lang_candidates = lang.to_posix.candidates
-      search_files = []
 
       lang_candidates.each do |tag|
         path = @locale_paths[tag.to_s]
