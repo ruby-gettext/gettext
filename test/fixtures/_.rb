@@ -109,7 +109,7 @@ EOF
   end
 
   def about
-    puts (
+    puts(
       # TRANSLATORS: This is a proper name.  See the gettext
       # manual, section Names.  Note this is actually a non-ASCII
       # name: The first name is (with Unicode escapes)
@@ -118,10 +118,10 @@ EOF
       # This is an example from GNU gettext documentation.
       _("Francois Pinard"))
 
-    puts (
+    puts(
       _("No TRANSLATORS comment"))
 
-    puts (
+    puts(
       # This comment should not be extracted because it does
       # not start with 'TRANSLATORS:'
       _('self explaining'))
