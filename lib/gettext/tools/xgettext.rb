@@ -77,17 +77,17 @@ module GetText
         @copyright_holder = nil
       end
 
-      # The option parser module requires to have target?(file) and
-      # parse(file) method.
+      # The option parser module requires to have target?(path) and
+      # parse(path) method.
       #
       # @example How to add your option parser
       #   require "gettext/tools/xgettext"
       #   module FooParser
       #     module_function
-      #     def target?(file)
-      #       File.extname(file) == ".foo"  # *.foo file only.
+      #     def target?(path)
+      #       File.extname(path) == ".foo"  # *.foo file only.
       #     end
-      #     def parse(file)
+      #     def parse(path)
       #       ary = []
       #       # Simple message
       #       po = PoMessage.new(:normal)
