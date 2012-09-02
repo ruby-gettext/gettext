@@ -281,62 +281,62 @@ EOH
       end
 
       def parse_path(path, pomessages)
-            @parsers.each do |parser|
-              next unless parser.target?(path)
+        @parsers.each do |parser|
+          next unless parser.target?(path)
 
-              extracted_po_messages = parser.parse(path)
-              extracted_po_messages.each do |pomessage|
-                if pomessage.kind_of?(Array)
-                  pomessage = PoMessage.new_from_ary(pomessage)
-                end
-
-                if pomessage.msgid.empty?
-                  warn _("Warning: The empty \"\" msgid is reserved by " +
-                           "gettext. So gettext(\"\") doesn't returns " +
-                           "empty string but the header entry in po file.")
-                  # TODO: add pommesage.source to the pot header as below:
-                  # # SOME DESCRIPTIVE TITLE.
-                  # # Copyright (C) YEAR THE COPYRIGHT HOLDER
-                  # # This file is distributed under the same license as the PACKAGE package.
-                  # # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-                  # #
-                  # #: test/test_gettext.rb:65
-                  # #, fuzzy
-                  # "#: test/test_gettext.rb:65" line is added.
-                  next
-                end
-
-                if @output.is_a?(String)
-                  base_path = Pathname.new(@output).dirname.expand_path
-                  pomessage.sources = pomessage.sources.collect do |source|
-                    path, line, = source.split(/:(\d+)\z/, 2)
-                    absolute_path = Pathname.new(path).expand_path
-                    begin
-                      path = absolute_path.relative_path_from(base_path).to_s
-                    rescue ArgumentError
-                      raise # Should we ignore it?
-                    end
-                    "#{path}:#{line}"
-                  end
-                end
-
-                # Save the previous target
-                if pomessages.empty?
-                  existing = nil
-                else
-                  message = pomessages.find {|t| t == pomessage}
-                  existing = pomessages.index(message)
-                end
-
-                if existing
-                  pomessage = pomessages[existing].merge(pomessage)
-                  pomessages[existing] = pomessage
-                else
-                  pomessages << pomessage
-                end
-              end
-              break
+          extracted_po_messages = parser.parse(path)
+          extracted_po_messages.each do |pomessage|
+            if pomessage.kind_of?(Array)
+              pomessage = PoMessage.new_from_ary(pomessage)
             end
+
+            if pomessage.msgid.empty?
+              warn _("Warning: The empty \"\" msgid is reserved by " +
+                       "gettext. So gettext(\"\") doesn't returns " +
+                       "empty string but the header entry in po file.")
+              # TODO: add pommesage.source to the pot header as below:
+              # # SOME DESCRIPTIVE TITLE.
+              # # Copyright (C) YEAR THE COPYRIGHT HOLDER
+              # # This file is distributed under the same license as the PACKAGE package.
+              # # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+              # #
+              # #: test/test_gettext.rb:65
+              # #, fuzzy
+              # "#: test/test_gettext.rb:65" line is added.
+              next
+            end
+
+            if @output.is_a?(String)
+              base_path = Pathname.new(@output).dirname.expand_path
+              pomessage.sources = pomessage.sources.collect do |source|
+                path, line, = source.split(/:(\d+)\z/, 2)
+                absolute_path = Pathname.new(path).expand_path
+                begin
+                  path = absolute_path.relative_path_from(base_path).to_s
+                rescue ArgumentError
+                  raise # Should we ignore it?
+                end
+                "#{path}:#{line}"
+              end
+            end
+
+            # Save the previous target
+            if pomessages.empty?
+              existing = nil
+            else
+              message = pomessages.find {|t| t == pomessage}
+              existing = pomessages.index(message)
+            end
+
+            if existing
+              pomessage = pomessages[existing].merge(pomessage)
+              pomessages[existing] = pomessage
+            else
+              pomessages << pomessage
+            end
+          end
+          break
+        end
       end
     end
   end
