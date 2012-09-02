@@ -39,10 +39,10 @@ module GetText
 
       @@default_parsers = []
       builtin_parser_info_list = [
-        ["glade.rb", "GladeParser"],
-        ["erb.rb", "ErbParser"],
-        # ["ripper.rb", "RipperParser"],
-        ["ruby.rb", "RubyParser"] # Default parser.
+        ["glade", "GladeParser"],
+        ["erb", "ErbParser"],
+        # ["ripper", "RipperParser"],
+        ["ruby", "RubyParser"] # Default parser.
       ]
       builtin_parser_info_list.each do |f, klass|
         begin
