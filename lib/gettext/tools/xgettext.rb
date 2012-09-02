@@ -178,9 +178,6 @@ EOH
         po_messages
       end
 
-      # constant values
-      VERSION = GetText::VERSION
-
       def check_command_line_options(*options) # :nodoc:
         input_files, output = parse_arguments(*options)
 
@@ -251,7 +248,7 @@ EOH
         end
 
         parser.on_tail("--version", _("display version information and exit")) do
-          puts(VERSION)
+          puts(GetText::VERSION)
           exit(true)
         end
 
