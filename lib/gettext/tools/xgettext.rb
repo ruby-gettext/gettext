@@ -285,12 +285,12 @@ EOH
           next unless parser.target?(path)
 
           extracted_po_messages = parser.parse(path)
-          extracted_po_messages.each do |pomessage|
-            if pomessage.kind_of?(Array)
-              pomessage = PoMessage.new_from_ary(pomessage)
+          extracted_po_messages.each do |po_message|
+            if po_message.kind_of?(Array)
+              po_message = PoMessage.new_from_ary(po_message)
             end
 
-            if pomessage.msgid.empty?
+            if po_message.msgid.empty?
               warn _("Warning: The empty \"\" msgid is reserved by " +
                        "gettext. So gettext(\"\") doesn't returns " +
                        "empty string but the header entry in po file.")
@@ -308,7 +308,7 @@ EOH
 
             if @output.is_a?(String)
               base_path = Pathname.new(@output).dirname.expand_path
-              pomessage.sources = pomessage.sources.collect do |source|
+              po_message.sources = po_message.sources.collect do |source|
                 path, line, = source.split(/:(\d+)\z/, 2)
                 absolute_path = Pathname.new(path).expand_path
                 begin
@@ -324,15 +324,15 @@ EOH
             if po_messages.empty?
               existing = nil
             else
-              message = po_messages.find {|t| t == pomessage}
+              message = po_messages.find {|t| t == po_message}
               existing = po_messages.index(message)
             end
 
             if existing
-              pomessage = po_messages[existing].merge(pomessage)
-              po_messages[existing] = pomessage
+              po_message = po_messages[existing].merge(po_message)
+              po_messages[existing] = po_message
             else
-              po_messages << pomessage
+              po_messages << po_message
             end
           end
           break
