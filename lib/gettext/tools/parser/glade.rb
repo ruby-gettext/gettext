@@ -22,13 +22,14 @@ module GetText
     TARGET1 = /<property.*translatable="yes">(.*)/
     TARGET2 = /(.*)<\/property>/
 
-    def parse(file, targets = []) # :nodoc:
+    def parse(file) # :nodoc:
       lines = IO.readlines(file)
-      parse_lines(file, lines, targets)
+      parse_lines(file, lines)
     end
 
     #from ary of lines.
-    def parse_lines(file, lines, targets) # :nodoc:
+    def parse_lines(file, lines) # :nodoc:
+      targets = []
       cnt = 0
       target = false
       line_no = 0

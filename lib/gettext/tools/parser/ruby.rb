@@ -118,13 +118,13 @@ module GetText
     # (and ignored here).
     # And You don't need to keep the pomessages as unique.
 
-    def parse(path, deprecated = [])  # :nodoc:
+    def parse(path)  # :nodoc:
       lines = IO.readlines(path)
-      parse_lines(path, lines, deprecated)
+      parse_lines(path, lines)
     end
 
-    def parse_lines(path, lines, deprecated = [])  # :nodoc:
-      pomessages = deprecated
+    def parse_lines(path, lines)  # :nodoc:
+      pomessages = []
       file = StringIO.new(lines.join + "\n")
       rl = RubyLexX.new
       rl.set_input(file)

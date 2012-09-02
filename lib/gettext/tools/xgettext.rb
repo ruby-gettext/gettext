@@ -78,7 +78,7 @@ module GetText
       end
 
       # The option parser module requires to have target?(file) and
-      # parser(file, ary) method.
+      # parser(file) method.
       #
       # @example How to add your option parser
       #   require "gettext/tools/xgettext"
@@ -172,14 +172,7 @@ EOH
             @parsers.each do |klass|
               next unless klass.target?(path)
 
-              parse_method = klass.method(:parse)
-              if parse_method.arity == 1 or parse_method.arity == -1
-                targets = klass.parse(path)
-              else
-                # For backward compatibility
-                targets = klass.parse(path, [])
-              end
-
+              targets = klass.parse(path)
               targets.each do |pomessage|
                 if pomessage.kind_of?(Array)
                   pomessage = PoMessage.new_from_ary(pomessage)
