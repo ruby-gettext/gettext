@@ -88,7 +88,6 @@ module GetText
       #      File.extname(file) == ".foo"  # *.foo file only.
       #    end
       #    def parse(file)
-      #      :
       #      ary = []
       #      # Simple message
       #      po = PoMessage.new(:normal)
