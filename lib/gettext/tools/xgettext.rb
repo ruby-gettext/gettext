@@ -78,7 +78,7 @@ module GetText
       end
 
       # The option parser module requires to have target?(file) and
-      # parser(file) method.
+      # parse(file) method.
       #
       # @example How to add your option parser
       #   require "gettext/tools/xgettext"
