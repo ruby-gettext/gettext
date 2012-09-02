@@ -26,7 +26,7 @@ require "gettext"
 
 module GetText
   module Tools
-    class XGetText #:nodoc:
+    class XGetText
       class << self
         def run(*arguments)
           new.run(*arguments)
