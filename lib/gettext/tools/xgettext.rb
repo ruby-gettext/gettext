@@ -126,7 +126,7 @@ module GetText
       #   called multiple times.
       # @return [void]
       def add_parser(parser)
-        @parsers.insert(0, parser)
+        @parsers.unshift(parser)
       end
 
       def generate_pot_header # :nodoc:
