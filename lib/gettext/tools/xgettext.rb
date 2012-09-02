@@ -82,8 +82,7 @@ module GetText
       #
       # @example How to add your parser
       #   require "gettext/tools/xgettext"
-      #   module FooParser
-      #     module_function
+      #   class FooParser
       #     def target?(path)
       #       File.extname(path) == ".foo"  # *.foo file only.
       #     end
@@ -118,7 +117,7 @@ module GetText
       #     end
       #   end
       #
-      #   GetText::XGetText.add_parser(FooParser)
+      #   GetText::XGetText.add_parser(FooParser.new)
       #
       # @param [#target?, #parse] parser
       #   It parses target file and extracts translate target messages from the
