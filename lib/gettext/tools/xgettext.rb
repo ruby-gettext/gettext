@@ -169,10 +169,10 @@ EOH
         paths = [paths] if paths.kind_of?(String)
         paths.each do |path|
           begin
-            @parsers.each do |klass|
-              next unless klass.target?(path)
+            @parsers.each do |parser|
+              next unless parser.target?(path)
 
-              targets = klass.parse(path)
+              targets = parser.parse(path)
               targets.each do |pomessage|
                 if pomessage.kind_of?(Array)
                   pomessage = PoMessage.new_from_ary(pomessage)
