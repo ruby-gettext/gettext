@@ -81,44 +81,44 @@ module GetText
       # parser(file, ary) method.
       #
       # @example How to add your option parser
-      #  require "gettext/tools/xgettext"
-      #  module FooParser
-      #    module_function
-      #    def target?(file)
-      #      File.extname(file) == ".foo"  # *.foo file only.
-      #    end
-      #    def parse(file)
-      #      ary = []
-      #      # Simple message
-      #      po = PoMessage.new(:normal)
-      #      po.msgid = "hello"
-      #      po.sources = ["foo.rb:200", "bar.rb:300"]
-      #      po.add_comment("Comment for the message")
-      #      ary << po
-      #      # Plural message
-      #      po = PoMessage.new(:plural)
-      #      po.msgid = "An apple"
-      #      po.msgid_plural = "Apples"
-      #      po.sources = ["foo.rb:200", "bar.rb:300"]
-      #      ary << po
-      #      # Simple message with the message context
-      #      po = PoMessage.new(:msgctxt)
-      #      po.msgctxt = "context"
-      #      po.msgid = "hello"
-      #      po.sources = ["foo.rb:200", "bar.rb:300"]
-      #      ary << po
-      #      # Plural message with the message context.
-      #      po = PoMessage.new(:msgctxt_plural)
-      #      po.msgctxt = "context"
-      #      po.msgid = "An apple"
-      #      po.msgid_plural = "Apples"
-      #      po.sources = ["foo.rb:200", "bar.rb:300"]
-      #      ary << po
-      #      return ary
-      #    end
-      #  end
+      #   require "gettext/tools/xgettext"
+      #   module FooParser
+      #     module_function
+      #     def target?(file)
+      #       File.extname(file) == ".foo"  # *.foo file only.
+      #     end
+      #     def parse(file)
+      #       ary = []
+      #       # Simple message
+      #       po = PoMessage.new(:normal)
+      #       po.msgid = "hello"
+      #       po.sources = ["foo.rb:200", "bar.rb:300"]
+      #       po.add_comment("Comment for the message")
+      #       ary << po
+      #       # Plural message
+      #       po = PoMessage.new(:plural)
+      #       po.msgid = "An apple"
+      #       po.msgid_plural = "Apples"
+      #       po.sources = ["foo.rb:200", "bar.rb:300"]
+      #       ary << po
+      #       # Simple message with the message context
+      #       po = PoMessage.new(:msgctxt)
+      #       po.msgctxt = "context"
+      #       po.msgid = "hello"
+      #       po.sources = ["foo.rb:200", "bar.rb:300"]
+      #       ary << po
+      #       # Plural message with the message context.
+      #       po = PoMessage.new(:msgctxt_plural)
+      #       po.msgctxt = "context"
+      #       po.msgid = "An apple"
+      #       po.msgid_plural = "Apples"
+      #       po.sources = ["foo.rb:200", "bar.rb:300"]
+      #       ary << po
+      #       return ary
+      #     end
+      #   end
       #
-      #  GetText::XGetText.add_parser(FooParser)
+      #   GetText::XGetText.add_parser(FooParser)
       #
       # @param [#target?, #parse] parser
       #   It parses target file and extracts translate target messages from the
