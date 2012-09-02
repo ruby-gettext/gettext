@@ -89,30 +89,30 @@ module GetText
       #     def parse(path)
       #       po_messages = []
       #       # Simple message
-      #       po = PoMessage.new(:normal)
-      #       po.msgid = "hello"
-      #       po.sources = ["foo.rb:200", "bar.rb:300"]
-      #       po.add_comment("Comment for the message")
-      #       po_messages << po
+      #       message = PoMessage.new(:normal)
+      #       message.msgid = "hello"
+      #       message.sources = ["foo.rb:200", "bar.rb:300"]
+      #       message.add_comment("Comment for the message")
+      #       po_messages << message
       #       # Plural message
-      #       po = PoMessage.new(:plural)
-      #       po.msgid = "An apple"
-      #       po.msgid_plural = "Apples"
-      #       po.sources = ["foo.rb:200", "bar.rb:300"]
-      #       po_messages << po
+      #       message = PoMessage.new(:plural)
+      #       message.msgid = "An apple"
+      #       message.msgid_plural = "Apples"
+      #       message.sources = ["foo.rb:200", "bar.rb:300"]
+      #       po_messages << message
       #       # Simple message with the message context
-      #       po = PoMessage.new(:msgctxt)
-      #       po.msgctxt = "context"
-      #       po.msgid = "hello"
-      #       po.sources = ["foo.rb:200", "bar.rb:300"]
-      #       po_messages << po
+      #       message = PoMessage.new(:msgctxt)
+      #       message.msgctxt = "context"
+      #       message.msgid = "hello"
+      #       message.sources = ["foo.rb:200", "bar.rb:300"]
+      #       po_messages << message
       #       # Plural message with the message context.
-      #       po = PoMessage.new(:msgctxt_plural)
-      #       po.msgctxt = "context"
-      #       po.msgid = "An apple"
-      #       po.msgid_plural = "Apples"
-      #       po.sources = ["foo.rb:200", "bar.rb:300"]
-      #       po_messages << po
+      #       message = PoMessage.new(:msgctxt_plural)
+      #       message.msgctxt = "context"
+      #       message.msgid = "An apple"
+      #       message.msgid_plural = "Apples"
+      #       message.sources = ["foo.rb:200", "bar.rb:300"]
+      #       po_messages << message
       #       return po_messages
       #     end
       #   end
