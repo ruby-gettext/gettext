@@ -1,6 +1,6 @@
 --protected
 --no-private
---output doc/reference
+--output doc/reference/en
 --title "gettext API Reference"
 -
 doc/text/*
