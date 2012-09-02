@@ -172,8 +172,8 @@ EOH
             @parsers.each do |parser|
               next unless parser.target?(path)
 
-              targets = parser.parse(path)
-              targets.each do |pomessage|
+              extracted_po_messages = parser.parse(path)
+              extracted_po_messages.each do |pomessage|
                 if pomessage.kind_of?(Array)
                   pomessage = PoMessage.new_from_ary(pomessage)
                 end
