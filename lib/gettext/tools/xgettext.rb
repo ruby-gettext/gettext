@@ -156,26 +156,26 @@ EOH
       end
 
       def generate_pot(paths) # :nodoc:
-        pomessages = parse(paths)
+        po_messages = parse(paths)
         str = ""
-        pomessages.each do |target|
+        po_messages.each do |target|
           str << target.to_po_str
         end
         str
       end
 
       def parse(paths) # :nodoc:
-        pomessages = []
+        po_messages = []
         paths = [paths] if paths.kind_of?(String)
         paths.each do |path|
           begin
-            parse_path(path, pomessages)
+            parse_path(path, po_messages)
           rescue
             puts(_("Error parsing %{path}") % {:path => path})
             raise
           end
         end
-        pomessages
+        po_messages
       end
 
       # constant values
@@ -280,7 +280,7 @@ EOH
         Time.now
       end
 
-      def parse_path(path, pomessages)
+      def parse_path(path, po_messages)
         @parsers.each do |parser|
           next unless parser.target?(path)
 
@@ -321,18 +321,18 @@ EOH
             end
 
             # Save the previous target
-            if pomessages.empty?
+            if po_messages.empty?
               existing = nil
             else
-              message = pomessages.find {|t| t == pomessage}
-              existing = pomessages.index(message)
+              message = po_messages.find {|t| t == pomessage}
+              existing = po_messages.index(message)
             end
 
             if existing
-              pomessage = pomessages[existing].merge(pomessage)
-              pomessages[existing] = pomessage
+              pomessage = po_messages[existing].merge(pomessage)
+              po_messages[existing] = pomessage
             else
-              pomessages << pomessage
+              po_messages << pomessage
             end
           end
           break
