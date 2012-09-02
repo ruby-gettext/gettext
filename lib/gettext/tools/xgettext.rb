@@ -31,12 +31,23 @@ module GetText
         def run(*arguments)
           new.run(*arguments)
         end
+
+        # Adds a parser to the default parser list.
+        #
+        # @param (see #add_parser)
+        # @return [void]
+        #
+        # @see #add_parser
+        def add_parser(parser)
+          @@default_parsers.unshift(parser)
+        end
       end
 
       include GetText
 
       bindtextdomain("rgettext")
 
+      # @api private
       @@default_parsers = []
       builtin_parser_info_list = [
         ["glade", "GladeParser"],
@@ -66,10 +77,10 @@ module GetText
         @copyright_holder = nil
       end
 
-      # How to add your option parser
       # The option parser module requires to have target?(file) and
       # parser(file, ary) method.
       #
+      # @example How to add your option parser
       #  require "gettext/tools/xgettext"
       #  module FooParser
       #    module_function
@@ -109,8 +120,14 @@ module GetText
       #  end
       #
       #  GetText::XGetText.add_parser(FooParser)
-      def add_parser(klass)
-        @parsers.insert(0, klass)
+      #
+      # @param [#target?, #parse] parser
+      #   It parses target file and extracts translate target messages from the
+      #   target file. If there are multiple target files, parser.parse is
+      #   called multiple times.
+      # @return [void]
+      def add_parser(parser)
+        @parsers.insert(0, parser)
       end
 
       def generate_pot_header # :nodoc:
@@ -156,7 +173,8 @@ EOH
             @parsers.each do |klass|
               next unless klass.target?(path)
 
-              if klass.method(:parse).arity == 1
+              parse_method = klass.method(:parse)
+              if parse_method.arity == 1 or parse_method.arity == -1
                 targets = klass.parse(path)
               else
                 # For backward compatibility

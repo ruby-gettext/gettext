@@ -119,6 +119,41 @@ EOP
     end
   end
 
+  class TestAddParser < self
+    setup
+    def setup_default_parsers
+      @default_parsers = default_parsers.dup
+    end
+
+    teardown
+    def teardown_default_parsers
+      default_parsers.replace(@default_parsers)
+    end
+
+    def test_class_method
+      GetText::Tools::XGetText.add_parser(mock_html_parser)
+      xgettext = GetText::Tools::XGetText.new
+      xgettext.parse(["index.html"])
+    end
+
+    def test_instance_method
+      @xgettext.add_parser(mock_html_parser)
+      @xgettext.parse(["index.html"])
+    end
+
+    private
+    def default_parsers
+      GetText::Tools::XGetText.module_eval("@@default_parsers")
+    end
+
+    def mock_html_parser
+      html_parser = Object.new
+      mock(html_parser).target?("index.html") {true}
+      mock(html_parser).parse("index.html") {[]}
+      html_parser
+    end
+  end
+
   private
   def header(options=nil)
     options ||= {}
