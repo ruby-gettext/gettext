@@ -38,7 +38,7 @@ module GetText
       bindtextdomain("rgettext")
 
       def initialize #:nodoc:
-        @ex_parsers = []
+        @parsers = []
         parsers = [
           ["glade.rb", "GladeParser"],
           ["erb.rb", "ErbParser"],
@@ -48,7 +48,7 @@ module GetText
         parsers.each do |f, klass|
           begin
             require "gettext/tools/parser/#{f}"
-            @ex_parsers << GetText.const_get(klass)
+            @parsers << GetText.const_get(klass)
           rescue
             $stderr.puts(_("'%{klass}' is ignored.") % {:klass => klass})
             $stderr.puts($!) if $DEBUG
@@ -108,7 +108,7 @@ module GetText
       #
       #  GetText::XGetText.add_parser(FooParser)
       def add_parser(klass)
-        @ex_parsers.insert(0, klass)
+        @parsers.insert(0, klass)
       end
 
       def generate_pot_header # :nodoc:
@@ -151,7 +151,7 @@ EOH
         paths = [paths] if paths.kind_of?(String)
         paths.each do |path|
           begin
-            @ex_parsers.each do |klass|
+            @parsers.each do |klass|
               next unless klass.target?(path)
 
               if klass.method(:parse).arity == 1
