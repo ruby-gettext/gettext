@@ -77,10 +77,10 @@ module GetText
         @copyright_holder = nil
       end
 
-      # The option parser module requires to have target?(path) and
+      # The parser object requires to have target?(path) and
       # parse(path) method.
       #
-      # @example How to add your option parser
+      # @example How to add your parser
       #   require "gettext/tools/xgettext"
       #   module FooParser
       #     module_function
