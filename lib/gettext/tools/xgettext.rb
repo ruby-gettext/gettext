@@ -37,23 +37,25 @@ module GetText
 
       bindtextdomain("rgettext")
 
-      def initialize #:nodoc:
-        @parsers = []
-        parsers = [
-          ["glade.rb", "GladeParser"],
-          ["erb.rb", "ErbParser"],
-          # ["ripper.rb", "RipperParser"],
-          ["ruby.rb", "RubyParser"] # Default parser.
-        ]
-        parsers.each do |f, klass|
-          begin
-            require "gettext/tools/parser/#{f}"
-            @parsers << GetText.const_get(klass)
-          rescue
-            $stderr.puts(_("'%{klass}' is ignored.") % {:klass => klass})
-            $stderr.puts($!) if $DEBUG
-          end
+      @@default_parsers = []
+      builtin_parser_info_list = [
+        ["glade.rb", "GladeParser"],
+        ["erb.rb", "ErbParser"],
+        # ["ripper.rb", "RipperParser"],
+        ["ruby.rb", "RubyParser"] # Default parser.
+      ]
+      builtin_parser_info_list.each do |f, klass|
+        begin
+          require "gettext/tools/parser/#{f}"
+          @@default_parsers << GetText.const_get(klass)
+        rescue
+          $stderr.puts(_("'%{klass}' is ignored.") % {:klass => klass})
+          $stderr.puts($!) if $DEBUG
         end
+      end
+
+      def initialize #:nodoc:
+        @parsers = @@default_parsers
 
         @input_files = nil
         @output = nil
