@@ -337,3 +337,20 @@ EOH
     end
   end
 end
+
+# This is the module for backward compatibility,
+# but GetText::Tools::XGetText.run should be used.
+module GetText
+  module RGetText
+    def run(paths = nil, out = STDOUT)
+      warn("Warning: This method is obsolete. Please use" +
+             "GetText::Tools::XGetText.run.")
+      if out == STDOUT
+        GetText::Tools::XGetText.run(paths)
+      else
+        GetText::Tools::XGetText.run("-o", out, paths)
+      end
+    end
+    module_function :run
+  end
+end
