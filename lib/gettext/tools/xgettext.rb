@@ -346,7 +346,7 @@ module GetText
       warn("Warning: This method is obsolete. " +
              "Please use GetText::Tools::XGetText.run.")
       if paths.nil?
-        GetText::Tools::XGetText.run(ARGV)
+        GetText::Tools::XGetText.run(*ARGV)
       elsif out == STDOUT
         GetText::Tools::XGetText.run(paths)
       else

@@ -154,6 +154,47 @@ EOP
     end
   end
 
+  class TestRGetText < self
+    def setup
+      stub(GetText::RGetText).warn {""}
+      @now = Time.now
+    end
+
+    def test_arguments
+      File.open(@rb_file_path, "w") do |rb_file|
+        rb_file.puts(<<-EOR)
+_("Hello")
+EOR
+      end
+      GetText::RGetText.run(@rb_file_path, @pot_file_path)
+
+      assert_equal(expected_pot_content, File.read(@pot_file_path))
+    end
+
+    def test_argv_as_arguments
+      File.open(@rb_file_path, "w") do |rb_file|
+        rb_file.puts(<<-EOR)
+_("Hello")
+EOR
+      end
+
+      ARGV.replace([@rb_file_path, "--output",  @pot_file_path])
+      GetText::RGetText.run
+
+      assert_equal(expected_pot_content, File.read(@pot_file_path))
+    end
+
+    private
+    def expected_pot_content
+      <<-EOP
+#{header}
+#: ../lib/xgettext.rb:1
+msgid "Hello"
+msgstr ""
+EOP
+    end
+  end
+
   private
   def header(options=nil)
     options ||= {}
