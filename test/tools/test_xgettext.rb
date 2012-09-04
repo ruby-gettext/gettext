@@ -156,11 +156,14 @@ EOP
 
   class TestRGetText < self
     def setup
-      stub(GetText::RGetText).warn {""}
       @now = Time.now
+      @warning_message = "Warning: This method is obsolete. " +
+                           "Please use GetText::Tools::XGetText.run."
     end
 
     def test_arguments
+      mock(GetText::RGetText).warn(@warning_message) {""}
+
       File.open(@rb_file_path, "w") do |rb_file|
         rb_file.puts(<<-EOR)
 _("Hello")
@@ -172,6 +175,8 @@ EOR
     end
 
     def test_argv_as_arguments
+      mock(GetText::RGetText).warn(@warning_message) {""}
+
       File.open(@rb_file_path, "w") do |rb_file|
         rb_file.puts(<<-EOR)
 _("Hello")
