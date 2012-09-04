@@ -169,7 +169,8 @@ EOP
       GetText::RGetText.run(@rb_file_path, @pot_file_path)
     end
 
-    def test_arguments
+    class TestArguments < self
+    def test_input_file_and_output_file
       stub(GetText::RGetText).warn(@warning_message) {}
 
       File.open(@rb_file_path, "w") do |rb_file|
@@ -182,7 +183,7 @@ EOR
       assert_equal(expected_pot_content, File.read(@pot_file_path))
     end
 
-    def test_argv_as_arguments
+    def test_argv
       stub(GetText::RGetText).warn(@warning_message) {}
 
       File.open(@rb_file_path, "w") do |rb_file|
@@ -206,6 +207,7 @@ msgid "Hello"
 msgstr ""
 EOP
     end
+  end
   end
 
   private
