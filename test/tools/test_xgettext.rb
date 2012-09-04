@@ -170,44 +170,44 @@ EOP
     end
 
     class TestArguments < self
-    def test_input_file_and_output_file
-      stub(GetText::RGetText).warn(@warning_message) {}
+      def test_input_file_and_output_file
+        stub(GetText::RGetText).warn(@warning_message) {}
 
-      File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(<<-EOR)
+        File.open(@rb_file_path, "w") do |rb_file|
+          rb_file.puts(<<-EOR)
 _("Hello")
 EOR
+        end
+        GetText::RGetText.run(@rb_file_path, @pot_file_path)
+
+        assert_equal(expected_pot_content, File.read(@pot_file_path))
       end
-      GetText::RGetText.run(@rb_file_path, @pot_file_path)
 
-      assert_equal(expected_pot_content, File.read(@pot_file_path))
-    end
+      def test_argv
+        stub(GetText::RGetText).warn(@warning_message) {}
 
-    def test_argv
-      stub(GetText::RGetText).warn(@warning_message) {}
-
-      File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(<<-EOR)
+        File.open(@rb_file_path, "w") do |rb_file|
+          rb_file.puts(<<-EOR)
 _("Hello")
 EOR
+        end
+
+        ARGV.replace([@rb_file_path, "--output",  @pot_file_path])
+        GetText::RGetText.run
+
+        assert_equal(expected_pot_content, File.read(@pot_file_path))
       end
 
-      ARGV.replace([@rb_file_path, "--output",  @pot_file_path])
-      GetText::RGetText.run
-
-      assert_equal(expected_pot_content, File.read(@pot_file_path))
-    end
-
-    private
-    def expected_pot_content
-      <<-EOP
+      private
+      def expected_pot_content
+        <<-EOP
 #{header}
 #: ../lib/xgettext.rb:1
 msgid "Hello"
 msgstr ""
 EOP
+      end
     end
-  end
   end
 
   private
