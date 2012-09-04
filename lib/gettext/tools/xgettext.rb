@@ -345,7 +345,9 @@ module GetText
     def run(paths=nil, out=STDOUT)
       warn("Warning: This method is obsolete. Please use " +
              "GetText::Tools::XGetText.run.")
-      if out == STDOUT
+      if paths.nil?
+        GetText::Tools::XGetText.run(ARGV)
+      elsif out == STDOUT
         GetText::Tools::XGetText.run(paths)
       else
         GetText::Tools::XGetText.run("-o", out, paths)
