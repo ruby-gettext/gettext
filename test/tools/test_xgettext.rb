@@ -161,8 +161,16 @@ EOP
                            "Please use GetText::Tools::XGetText.run."
     end
 
-    def test_arguments
+    def test_warning
       mock(GetText::RGetText).warn(@warning_message) {}
+
+      File.open(@rb_file_path, "w") do |rb_file|
+      end
+      GetText::RGetText.run(@rb_file_path, @pot_file_path)
+    end
+
+    def test_arguments
+      stub(GetText::RGetText).warn(@warning_message) {}
 
       File.open(@rb_file_path, "w") do |rb_file|
         rb_file.puts(<<-EOR)
@@ -175,7 +183,7 @@ EOR
     end
 
     def test_argv_as_arguments
-      mock(GetText::RGetText).warn(@warning_message) {}
+      stub(GetText::RGetText).warn(@warning_message) {}
 
       File.open(@rb_file_path, "w") do |rb_file|
         rb_file.puts(<<-EOR)
