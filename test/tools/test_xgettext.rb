@@ -162,7 +162,7 @@ EOP
     end
 
     def test_arguments
-      mock(GetText::RGetText).warn(@warning_message) {""}
+      mock(GetText::RGetText).warn(@warning_message) {}
 
       File.open(@rb_file_path, "w") do |rb_file|
         rb_file.puts(<<-EOR)
@@ -175,7 +175,7 @@ EOR
     end
 
     def test_argv_as_arguments
-      mock(GetText::RGetText).warn(@warning_message) {""}
+      mock(GetText::RGetText).warn(@warning_message) {}
 
       File.open(@rb_file_path, "w") do |rb_file|
         rb_file.puts(<<-EOR)
