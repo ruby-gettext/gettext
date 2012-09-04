@@ -343,7 +343,7 @@ end
 module GetText
   module RGetText
     def run(paths=nil, out=STDOUT)
-      warn("Warning: This method is obsolete. Please use" +
+      warn("Warning: This method is obsolete. Please use " +
              "GetText::Tools::XGetText.run.")
       if out == STDOUT
         GetText::Tools::XGetText.run(paths)
