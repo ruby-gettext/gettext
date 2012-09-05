@@ -35,7 +35,7 @@ module GetText
       if src.respond_to?(:encode)
         # Remove magic comment prepended by erb in Ruby 1.9.
         encoding = nil
-        src = src.gsub(/\s*#.*?coding[:=]\s*(.*?)\n/) do
+        src = src.gsub(/\A#.*?coding[:=](.*?)\n/) do
           encoding = $1
           ""
         end
