@@ -34,9 +34,14 @@ module GetText
       src = ERB.new(content).src
       if src.respond_to?(:encode)
         # Remove magic comment prepended by erb in Ruby 1.9.
-        src.sub!(/\A#.*?coding[:=].*?\n/, '')
+        encoding = nil
+        src = src.gsub(/\s*#.*?coding[:=]\s*(.*?)\n/) do
+          encoding = $1
+          ""
+        end
+        encoding = content.encoding if encoding.nil?
         # Force the src encoding back to the original content encoding.
-        src.force_encoding(content.encoding)
+        src.force_encoding(encoding)
       end
 
       erb = src.split(/$/)
