@@ -129,24 +129,24 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   class TestErbParser < self
-  def test_erb
-    @ary = GetText::ErbParser.parse('fixtures/erb.rhtml')
+    def test_erb
+      @ary = GetText::ErbParser.parse('fixtures/erb.rhtml')
 
-    assert_target 'こんにちは', ['fixtures/erb.rhtml:8']
-    assert_target 'aaa\n', ['fixtures/erb.rhtml:11']
-    assert_target 'bbb', ['fixtures/erb.rhtml:12']
-    assert_plural_target "ccc1", "ccc2", ['fixtures/erb.rhtml:13']
-  end
+      assert_target 'こんにちは', ['fixtures/erb.rhtml:8']
+      assert_target 'aaa\n', ['fixtures/erb.rhtml:11']
+      assert_target 'bbb', ['fixtures/erb.rhtml:12']
+      assert_plural_target "ccc1", "ccc2", ['fixtures/erb.rhtml:13']
+    end
 
-  def test_erb_including_unicode
-    fixture_path = "fixtures/erb_including_unicode.rhtml"
-    @ary = GetText::ErbParser.parse(fixture_path)
+    def test_erb_including_unicode
+      fixture_path = "fixtures/erb_including_unicode.rhtml"
+      @ary = GetText::ErbParser.parse(fixture_path)
 
-    assert_target('わたし', ["#{fixture_path}:8"])
-    assert_target('わたし\n', ["#{fixture_path}:11"])
-    assert_target('あなた', ["#{fixture_path}:12"])
-    assert_plural_target('彼', '彼ら', ["#{fixture_path}:13"])
-  end
+      assert_target('わたし', ["#{fixture_path}:8"])
+      assert_target('わたし\n', ["#{fixture_path}:11"])
+      assert_target('あなた', ["#{fixture_path}:12"])
+      assert_plural_target('彼', '彼ら', ["#{fixture_path}:13"])
+    end
   end
 
   def test_xgettext_parse
