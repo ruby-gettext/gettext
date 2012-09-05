@@ -137,6 +137,16 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb.rhtml:13']
   end
 
+  def test_erb_including_unicode
+    fixture_path = "fixtures/erb_including_unicode.rhtml"
+    @ary = GetText::ErbParser.parse(fixture_path)
+
+    assert_target('わたし', ["#{fixture_path}:8"])
+    assert_target('わたし\n', ["#{fixture_path}:11"])
+    assert_target('あなた', ["#{fixture_path}:12"])
+    assert_plural_target('彼', '彼ら', ["#{fixture_path}:13"])
+  end
+
   def test_xgettext_parse
     GetText::ErbParser.init(:extnames => ['.rhtml', '.rxml'])
     @ary = @xgettext.parse(['fixtures/erb.rhtml'])
