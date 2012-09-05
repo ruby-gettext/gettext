@@ -6,7 +6,7 @@
 %>
 <html>
 <head>
-<title><%= _("aaa") %></title>
+<title><%= _("こんにちは") %></title>
 </head>
 <body>
 <h1><%= _("aaa\n") %></h1>
