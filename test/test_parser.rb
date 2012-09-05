@@ -129,7 +129,7 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   class TestErbParser < self
-    def test_erb
+    def test_ascii
       @ary = GetText::ErbParser.parse('fixtures/erb/ascii.rhtml')
 
       assert_target 'こんにちは', ['fixtures/erb/ascii.rhtml:8']
@@ -138,7 +138,7 @@ class TestGetTextParser < Test::Unit::TestCase
       assert_plural_target "ccc1", "ccc2", ['fixtures/erb/ascii.rhtml:13']
     end
 
-    def test_erb_including_unicode
+    def test_non_ascii
       fixture_path = "fixtures/erb/non_ascii.rhtml"
       @ary = GetText::ErbParser.parse(fixture_path)
 
