@@ -132,7 +132,7 @@ class TestGetTextParser < Test::Unit::TestCase
     def test_ascii
       @ary = GetText::ErbParser.parse('fixtures/erb/ascii.rhtml')
 
-      assert_target 'こんにちは', ['fixtures/erb/ascii.rhtml:8']
+      assert_target 'aaa', ['fixtures/erb/ascii.rhtml:8']
       assert_target 'aaa\n', ['fixtures/erb/ascii.rhtml:11']
       assert_target 'bbb', ['fixtures/erb/ascii.rhtml:12']
       assert_plural_target "ccc1", "ccc2", ['fixtures/erb/ascii.rhtml:13']
@@ -149,13 +149,13 @@ class TestGetTextParser < Test::Unit::TestCase
   def test_xgettext_parse
     GetText::ErbParser.init(:extnames => ['.rhtml', '.rxml'])
     @ary = @xgettext.parse(['fixtures/erb/ascii.rhtml'])
-    assert_target 'こんにちは', ['fixtures/erb/ascii.rhtml:8']
+    assert_target 'aaa', ['fixtures/erb/ascii.rhtml:8']
     assert_target 'aaa\n', ['fixtures/erb/ascii.rhtml:11']
     assert_target 'bbb', ['fixtures/erb/ascii.rhtml:12']
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb/ascii.rhtml:13']
 
     @ary = @xgettext.parse(['fixtures/erb/ascii.rxml'])
-    assert_target 'こんにちは', ['fixtures/erb/ascii.rxml:9']
+    assert_target 'aaa', ['fixtures/erb/ascii.rxml:9']
     assert_target 'aaa\n', ['fixtures/erb/ascii.rxml:12']
     assert_target 'bbb', ['fixtures/erb/ascii.rxml:13']
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb/ascii.rxml:14']
