@@ -30,7 +30,6 @@ module GetText
     end
 
     MAGIC_COMMENT = /\A#.*?coding[:=].*?\n/
-    ENCODING_IN_MAGIC_COMMENT = /\A#.*?coding[:=](.*?)\n/
 
     def parse(file) # :nodoc:
       content = IO.read(file)
@@ -52,11 +51,11 @@ module GetText
     end
 
     def find_encoding(erb_source)
-      source_encoding = nil
-      erb_source.scan(ENCODING_IN_MAGIC_COMMENT) do |encoding|
-        source_encoding = encoding.first
+      if /\A#.*?coding[:=](.*?)\n/ =~ erb_source
+        encoding = $1
+      else
+        encoding = nil
       end
-      source_encoding
     end
 
     def target?(file) # :nodoc:
