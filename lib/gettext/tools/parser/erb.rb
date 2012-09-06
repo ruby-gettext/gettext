@@ -29,23 +29,34 @@ module GetText
       }
     end
 
+    MAGIC_COMMENT = /\A#.*?coding[:=].*?\n/
+    ENCODING_IN_MAGIC_COMMENT = /\A#.*?coding[:=](.*?)\n/
+
     def parse(file) # :nodoc:
       content = IO.read(file)
       src = ERB.new(content).src
+
       if src.respond_to?(:encode)
-        # Remove magic comment prepended by erb in Ruby 1.9.
-        encoding = nil
-        src = src.gsub(/\A#.*?coding[:=](.*?)\n/) do
-          encoding = $1
-          ""
-        end
+        # Force the src encoding back to the encoding in magic comment
+        # or original content.
+        encoding = find_encoding(src)
         encoding = content.encoding if encoding.nil?
-        # Force the src encoding back to the original content encoding.
         src.force_encoding(encoding)
+
+        # Remove magic comment prepended by erb in Ruby 1.9.
+        src = src.gsub(MAGIC_COMMENT, "")
       end
 
       erb = src.split(/$/)
       RubyParser.parse_lines(file, erb)
+    end
+
+    def find_encoding(erb_source)
+      encoding = nil
+      erb_source.gsub(ENCODING_IN_MAGIC_COMMENT) do
+        encoding = $1
+      end
+      encoding
     end
 
     def target?(file) # :nodoc:

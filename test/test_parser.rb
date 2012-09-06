@@ -21,6 +21,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "tempfile"
 require 'gettext/tools/parser/ruby'
 require 'gettext/tools/parser/glade'
 require 'gettext/tools/parser/erb'
@@ -129,6 +130,18 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   class TestErbParser < self
+    def test_find_encoding
+      euc_file = Tempfile.new("euc-jp.rhtml")
+      euc_file.open
+      euc_file.puts("<%#-*- coding: euc-jp -*-%>")
+      euc_file.close
+
+      erb_source = ERB.new(File.read(euc_file.path)).src
+      encoding = GetText::ErbParser.find_encoding(erb_source)
+
+      assert_equal("EUC-JP", encoding)
+    end
+
     def test_ascii
       @ary = GetText::ErbParser.parse('fixtures/erb/ascii.rhtml')
 
