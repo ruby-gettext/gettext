@@ -38,7 +38,7 @@ module GetText
       if src.respond_to?(:encode)
         # Force the src encoding back to the encoding in magic comment
         # or original content.
-        encoding = find_encoding(src)
+        encoding = detect_encoding(src)
         encoding = content.encoding if encoding.nil?
         src.force_encoding(encoding)
 
@@ -50,7 +50,7 @@ module GetText
       RubyParser.parse_lines(file, erb)
     end
 
-    def find_encoding(erb_source)
+    def detect_encoding(erb_source)
       if /\A#coding:(.*)\n/ =~ erb_source
         $1
       else

@@ -130,7 +130,7 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   class TestErbParser < self
-    def test_find_encoding
+    def test_detect_encoding
       if RUBY_VERSION < "1.9"
         omit("ERB in Ruby 1.9 is needed for this test.")
       end
@@ -141,7 +141,7 @@ class TestGetTextParser < Test::Unit::TestCase
       euc_file.close
 
       erb_source = ERB.new(File.read(euc_file.path)).src
-      encoding = GetText::ErbParser.find_encoding(erb_source)
+      encoding = GetText::ErbParser.detect_encoding(erb_source)
 
       assert_equal("EUC-JP", encoding)
     end
