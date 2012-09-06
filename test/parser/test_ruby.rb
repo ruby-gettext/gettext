@@ -26,6 +26,45 @@ require "gettext/tools/parser/ruby"
 class TestRubyParserXXX < Test::Unit::TestCase
   include GetTextTestUtils
 
+  private
+  def parse(file)
+    GetText::RubyParser.parse(fixture_path(file))
+  end
+
+  def assert_parse(expected, file)
+    assert_equal(normalize_expected(expected),
+                 normalize_actual(parse(file)))
+  end
+
+  def normalize_expected(messages)
+    messages.collect do |message|
+      default = {
+        :msgid        => nil,
+        :msgid_plural => nil,
+        :separator    => nil,
+        :sources      => nil,
+      }
+      default.merge(message)
+    end
+  end
+
+  def normalize_actual(po_messages)
+    po_messages.collect do |po_message|
+      {
+        :msgid        => po_message.msgid,
+        :msgid_plural => po_message.msgid_plural,
+        :separator    => po_message.separator,
+        :sources      => normalize_sources(po_message.sources),
+      }
+    end
+  end
+
+  def normalize_sources(sources)
+    sources.collect do |source|
+      source.sub(/\A#{Regexp.escape(fixture_path)}\//, "")
+    end
+  end
+
   class Test_ < self
     def test_one_line
       assert_parse([
@@ -77,45 +116,6 @@ class TestRubyParserXXX < Test::Unit::TestCase
     private
     def fixture_path(*components)
       super("ns_", *components)
-    end
-  end
-
-  private
-  def parse(file)
-    GetText::RubyParser.parse(fixture_path(file))
-  end
-
-  def assert_parse(expected, file)
-    assert_equal(normalize_expected(expected),
-                 normalize_actual(parse(file)))
-  end
-
-  def normalize_expected(messages)
-    messages.collect do |message|
-      default = {
-        :msgid        => nil,
-        :msgid_plural => nil,
-        :separator    => nil,
-        :sources      => nil,
-      }
-      default.merge(message)
-    end
-  end
-
-  def normalize_actual(po_messages)
-    po_messages.collect do |po_message|
-      {
-        :msgid        => po_message.msgid,
-        :msgid_plural => po_message.msgid_plural,
-        :separator    => po_message.separator,
-        :sources      => normalize_sources(po_message.sources),
-      }
-    end
-  end
-
-  def normalize_sources(sources)
-    sources.collect do |source|
-      source.sub(/\A#{Regexp.escape(fixture_path)}\//, "")
     end
   end
 end
