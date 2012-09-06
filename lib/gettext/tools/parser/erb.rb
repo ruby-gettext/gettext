@@ -51,7 +51,7 @@ module GetText
     end
 
     def find_encoding(erb_source)
-      if /\A#.*?coding[:=](.*?)\n/ =~ erb_source
+      if /\A#coding:(.*)\n/ =~ erb_source
         encoding = $1
       else
         encoding = nil
