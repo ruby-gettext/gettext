@@ -131,6 +131,10 @@ class TestGetTextParser < Test::Unit::TestCase
 
   class TestErbParser < self
     def test_find_encoding
+      if RUBY_VERSION < "1.9"
+        omit("ERB in Ruby 1.9 is needed for this test.")
+      end
+
       euc_file = Tempfile.new("euc-jp.rhtml")
       euc_file.open
       euc_file.puts("<%#-*- coding: euc-jp -*-%>")
