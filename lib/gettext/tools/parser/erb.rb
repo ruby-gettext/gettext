@@ -52,11 +52,11 @@ module GetText
     end
 
     def find_encoding(erb_source)
-      encoding = nil
-      erb_source.gsub(ENCODING_IN_MAGIC_COMMENT) do
-        encoding = $1
+      source_encoding = nil
+      erb_source.scan(ENCODING_IN_MAGIC_COMMENT) do |encoding|
+        source_encoding = encoding.first
       end
-      encoding
+      source_encoding
     end
 
     def target?(file) # :nodoc:
