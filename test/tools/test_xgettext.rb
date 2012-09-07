@@ -43,6 +43,16 @@ class TestToolsXGetText < Test::Unit::TestCase
     FileUtils.mkdir_p(File.dirname(@rhtml_file_path))
   end
 
+  setup
+  def setup_locale
+    Locale.current = "ja_JP.EUC-JP"
+  end
+
+  teardown
+  def teardown_locale
+    Locale.clear
+  end
+
   def test_relative_source
     File.open(@rb_file_path, "w") do |rb_file|
       rb_file.puts(<<-EOR)
@@ -61,8 +71,6 @@ EOP
   end
 
   def test_different_encoding_from_current_locale
-    Locale.current = "ja_JP.UTF-8"
-
     content = <<-EOR
 <%#-*- coding: sjis -*-%>
 <html>
@@ -91,8 +99,6 @@ msgstr ""
 EOP
     expected_content = expected_content.encode(encoding)
     assert_equal(expected_content, pot_content)
-
-    Locale.clear
   end
 
   class TestCommandLineOption < self
@@ -275,7 +281,7 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\\n"
 "Language: \\n"
 "MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=UTF-8\\n"
+"Content-Type: text/plain; charset=#{Locale.current.charset}\\n"
 "Content-Transfer-Encoding: 8bit\\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
 EOH

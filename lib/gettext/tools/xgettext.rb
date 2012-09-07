@@ -260,7 +260,7 @@ EOH
       def run(*options)  # :nodoc:
         check_command_line_options(*options)
 
-        encoding = Locale.charset
+        encoding = Locale.current.charset || Locale.charset
 
         pot_header = generate_pot_header(encoding)
         pot_messages = generate_pot(@input_files)
