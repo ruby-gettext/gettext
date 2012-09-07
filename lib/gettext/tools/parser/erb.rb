@@ -29,7 +29,7 @@ module GetText
       }
     end
 
-    MAGIC_COMMENT = /\A#.*?coding[:=].*?\n/
+    MAGIC_COMMENT = /\A#coding:.*\n/
 
     def parse(file) # :nodoc:
       content = IO.read(file)
