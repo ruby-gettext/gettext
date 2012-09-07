@@ -18,6 +18,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "iconv"
 require "locale"
 require "gettext/tools/xgettext"
 
@@ -83,22 +84,27 @@ EOP
 </html>
 EOR
     File.open(@rhtml_file_path, "w") do |rb_file|
-      rb_file.puts(content.encode("sjis"))
+      rb_file.puts(encode(content, "sjis"))
     end
 
     @xgettext.run("--output", @pot_file_path, @rhtml_file_path)
 
     encoding = Locale.current.charset
     pot_content = File.read(@pot_file_path)
-    pot_content.force_encoding(encoding)
+    pot_content.force_encoding(encoding) if ruby19?
     expected_content = <<-EOP
 #{header}
 #: ../templates/xgettext.rhtml:7
 msgid "わたし"
 msgstr ""
 EOP
-    expected_content = expected_content.encode(encoding)
+    expected_content = encode(expected_content, encoding)
     assert_equal(expected_content, pot_content)
+  end
+
+  private
+  def encode(string, encoding)
+    @xgettext.send(:encode, string, encoding)
   end
 
   class TestCommandLineOption < self

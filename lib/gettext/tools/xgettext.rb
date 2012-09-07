@@ -20,6 +20,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "kconv"
 require "pathname"
 require "optparse"
 require "locale"
@@ -265,8 +266,8 @@ EOH
         pot_header = generate_pot_header(encoding)
         pot_messages = generate_pot(@input_files)
 
-        pot_header = pot_header.encode(encoding)
-        pot_messages = pot_messages.encode(encoding)
+        pot_header = encode(pot_header, encoding)
+        pot_messages = encode(pot_messages, encoding)
 
         if @output.is_a?(String)
           File.open(File.expand_path(@output), "w+") do |file|
@@ -341,6 +342,30 @@ EOH
             end
           end
           break
+        end
+      end
+
+      def encode(string, encoding)
+        if RUBY_VERSION >= "1.9"
+          string.encode(encoding)
+        else
+          case encoding
+          when /sjis/i
+            encoding = NKF::SJIS
+          when /jis/i
+            encoding = NKF::JIS
+          when /euc-.+/i
+            encoding = NKF::EUC
+          when /ascii/i
+            encoding = NKF::ASCII
+          when /utf-8/i
+            encoding = NKF::UTF8
+          when /utf-16/i
+            encoding = NKF::UTF16
+          else
+            encoding = NKF::UNKNOWN
+          end
+          string.kconv(encoding)
         end
       end
     end
