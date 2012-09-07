@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 =begin
   parser/ruby.rb - parser for ruby script
 
@@ -119,8 +120,24 @@ module GetText
     # And You don't need to keep the pomessages as unique.
 
     def parse(path)  # :nodoc:
-      lines = IO.readlines(path)
-      parse_lines(path, lines)
+      source = IO.read(path)
+
+      if source.respond_to?(:encode)
+        encoding = detect_encoding(source)
+        encoding = source.encoding if encoding.nil?
+
+        source.force_encoding(encoding)
+      end
+
+      parse_lines(path, source.each_line.to_a)
+    end
+
+    def detect_encoding(source)
+      if /\A\s*#.*coding\s*[=:]\s*([\w\-]+).*\n/ =~ source
+        $1
+      else
+        nil
+      end
     end
 
     def parse_lines(path, lines)  # :nodoc:

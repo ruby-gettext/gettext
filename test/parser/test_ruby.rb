@@ -26,6 +26,18 @@ require "gettext/tools/parser/ruby"
 class TestRubyParserXXX < Test::Unit::TestCase
   include GetTextTestUtils
 
+  def test_detect_encoding
+    rb_file = Tempfile.new("euc-jp.rb")
+    rb_file.open
+    rb_file.puts("#-*- coding: euc-jp -*-")
+    rb_file.close
+
+    content = (File.read(rb_file.path))
+    encoding = GetText::RubyParser.detect_encoding(content)
+
+    assert_equal("euc-jp", encoding)
+  end
+
   private
   def parse(file)
     GetText::RubyParser.parse(fixture_path(file))
