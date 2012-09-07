@@ -18,6 +18,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "locale"
 require "gettext/tools/xgettext"
 
 class TestToolsXGetText < Test::Unit::TestCase
@@ -36,8 +37,10 @@ class TestToolsXGetText < Test::Unit::TestCase
   def setup_paths
     @rb_file_path = File.join(@tmpdir, "lib", "xgettext.rb")
     @pot_file_path = File.join(@tmpdir, "po", "xgettext.pot")
+    @rhtml_file_path = File.join(@tmpdir, "templates", "xgettext.rhtml")
     FileUtils.mkdir_p(File.dirname(@rb_file_path))
     FileUtils.mkdir_p(File.dirname(@pot_file_path))
+    FileUtils.mkdir_p(File.dirname(@rhtml_file_path))
   end
 
   def test_relative_source
@@ -55,6 +58,38 @@ EOR
 msgid "Hello"
 msgstr ""
 EOP
+  end
+
+  def test_different_encoding_from_current_locale
+    Locale.current = "ja_JP.UTF-8"
+    default_encoding = "UTF-8"
+
+    content = <<-EOR
+<%#-*- coding: sjis -*-%>
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<h1><%= _("hello") %></h1>
+</body>
+</html>
+EOR
+    File.open(@rhtml_file_path, "w") do |rb_file|
+      rb_file.puts(content.encode("sjis"))
+    end
+
+    @xgettext.run("--output", @pot_file_path, @rhtml_file_path)
+
+    pot_content = File.read(@pot_file_path)
+    pot_encoding = nil
+    if /\"Content-Type: text\/plain; charset=(.+)\\n\"/ =~ pot_content
+      pot_encoding = $1
+    end
+
+    assert_equal(default_encoding, pot_encoding)
+
+    Locale.clear
   end
 
   class TestCommandLineOption < self

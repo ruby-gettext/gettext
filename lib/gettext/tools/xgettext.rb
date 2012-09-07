@@ -22,6 +22,7 @@
 
 require "pathname"
 require "optparse"
+require "locale"
 require "gettext"
 
 module GetText
@@ -128,7 +129,7 @@ module GetText
         @parsers.unshift(parser)
       end
 
-      def generate_pot_header # :nodoc:
+      def generate_pot_header(encoding) # :nodoc:
         time = now.strftime("%Y-%m-%d %H:%M%z")
 
         <<EOH
@@ -148,7 +149,7 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\\n"
 "Language: \\n"
 "MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=UTF-8\\n"
+"Content-Type: text/plain; charset=#{encoding}\\n"
 "Content-Transfer-Encoding: 8bit\\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
 EOH
@@ -259,14 +260,22 @@ EOH
       def run(*options)  # :nodoc:
         check_command_line_options(*options)
 
+        encoding = Locale.charset
+
+        pot_header = generate_pot_header(encoding)
+        pot_messages = generate_pot(@input_files)
+
+        pot_header = pot_header.encode(encoding)
+        pot_messages = pot_messages.encode(encoding)
+
         if @output.is_a?(String)
           File.open(File.expand_path(@output), "w+") do |file|
-            file.puts(generate_pot_header)
-            file.puts(generate_pot(@input_files))
+            file.puts(pot_header)
+            file.puts(pot_messages)
           end
         else
-          @output.puts(generate_pot_header)
-          @output.puts(generate_pot(@input_files))
+          @output.puts(pot_header)
+          @output.puts(pot_messages)
         end
         self
       end
