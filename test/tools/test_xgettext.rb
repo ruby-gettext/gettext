@@ -62,7 +62,6 @@ EOP
 
   def test_different_encoding_from_current_locale
     Locale.current = "ja_JP.UTF-8"
-    default_encoding = "UTF-8"
 
     content = <<-EOR
 <%#-*- coding: sjis -*-%>
@@ -71,7 +70,7 @@ EOP
 <title></title>
 </head>
 <body>
-<h1><%= _("hello") %></h1>
+<h1><%= _("わたし") %></h1>
 </body>
 </html>
 EOR
@@ -81,13 +80,17 @@ EOR
 
     @xgettext.run("--output", @pot_file_path, @rhtml_file_path)
 
+    encoding = Locale.current.charset
     pot_content = File.read(@pot_file_path)
-    pot_encoding = nil
-    if /\"Content-Type: text\/plain; charset=(.+)\\n\"/ =~ pot_content
-      pot_encoding = $1
-    end
-
-    assert_equal(default_encoding, pot_encoding)
+    pot_content.force_encoding(encoding)
+    expected_content = <<-EOP
+#{header}
+#: ../templates/xgettext.rhtml:7
+msgid "わたし"
+msgstr ""
+EOP
+    expected_content = expected_content.encode(encoding)
+    assert_equal(expected_content, pot_content)
 
     Locale.clear
   end
