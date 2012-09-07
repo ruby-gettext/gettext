@@ -130,10 +130,10 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   class TestErbParser < self
+    include GetTextTestUtils
+
     def test_detect_encoding
-      if RUBY_VERSION < "1.9"
-        omit("ERB in Ruby 1.9 is needed for this test.")
-      end
+      omit("ERB in Ruby 1.9 is needed for this test.") unless ruby19?
 
       euc_file = Tempfile.new("euc-jp.rhtml")
       euc_file.open

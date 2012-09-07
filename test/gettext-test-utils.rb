@@ -41,4 +41,8 @@ module GetTextTestUtils
   def teardown_tmpdir
     FileUtils.rm_rf(@tmpdir, :secure => true) if @tmpdir
   end
+
+  def ruby19?
+    RUBY_VERSION >= "1.9"
+  end
 end
