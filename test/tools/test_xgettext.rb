@@ -145,7 +145,7 @@ EOP
   class TestCommandLineOption < self
     def test_package_name
       File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(header)
+        rb_file.puts(":hello")
       end
 
       package_name = "test-package"
@@ -160,7 +160,7 @@ EOP
 
     def test_package_version
       File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(header)
+        rb_file.puts(":hello")
       end
 
       package_version = "1.2.3"
@@ -175,7 +175,7 @@ EOP
 
     def test_report_msgid_bugs_to
       File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(header)
+        rb_file.puts(":hello")
       end
 
       msgid_bugs_address = "me@example.com"
@@ -190,7 +190,7 @@ EOP
 
     def test_copyright_holder
       File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(header)
+        rb_file.puts(":hello")
       end
 
       copyright_holder = "me"
