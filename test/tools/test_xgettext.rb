@@ -104,6 +104,42 @@ EOP
       expected_content = encode(expected_content, encoding)
       assert_equal(expected_content, pot_content)
     end
+
+    def test_multiple_encodings
+      need_encoding
+
+      File.open(@rb_file_path, "w") do |rb_file|
+        rb_file.puts(encode(<<-EOR, "euc-jp"))
+# -*- coding: euc-jp -*-
+_("こんにちは")
+EOR
+      end
+
+      File.open(@rhtml_file_path, "w") do |rhtml_file|
+        rhtml_file.puts(encode(<<-EOR, "cp932"))
+<%# -*- coding: cp932 -*-%>
+<h1><%= _("わたし") %></h1>
+EOR
+      end
+
+      @xgettext.run("--output", @pot_file_path, @rb_file_path, @rhtml_file_path)
+
+      encoding = Locale.current.charset
+      pot_content = File.read(@pot_file_path)
+      set_encoding(pot_content, encoding)
+      expected_content = <<-EOP
+#{header}
+#: ../lib/xgettext.rb:2
+msgid "こんにちは"
+msgstr ""
+
+#: ../templates/xgettext.rhtml:2
+msgid "わたし"
+msgstr ""
+EOP
+      expected_content = encode(expected_content, encoding)
+      assert_equal(expected_content, pot_content)
+    end
   end
 
   class TestCommandLineOption < self

@@ -160,7 +160,7 @@ EOH
         po_messages = parse(paths)
         str = ""
         po_messages.each do |target|
-          str << target.to_po_str
+          str << encode(target.to_po_str)
         end
         str
       end
@@ -270,9 +270,6 @@ EOH
 
         pot_header = generate_pot_header
         pot_messages = generate_pot(@input_files)
-
-        pot_header = encode(pot_header)
-        pot_messages = encode(pot_messages)
 
         if @output.is_a?(String)
           File.open(File.expand_path(@output), "w+") do |file|
