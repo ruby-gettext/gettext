@@ -75,7 +75,7 @@ EOP
     def test_different_encoding_from_current_locale
       need_encoding
 
-      content = <<-EOR
+      rhtml = <<-EOR
 <%#-*- coding: sjis -*-%>
 <html>
 <head>
