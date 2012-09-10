@@ -123,8 +123,7 @@ module GetText
       source = IO.read(path)
 
       if source.respond_to?(:encode)
-        encoding = detect_encoding(source)
-        encoding = source.encoding if encoding.nil?
+        encoding = detect_encoding(source) || source.encoding
 
         source.force_encoding(encoding)
       end

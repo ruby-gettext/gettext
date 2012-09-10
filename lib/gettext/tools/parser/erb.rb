@@ -38,8 +38,7 @@ module GetText
       if src.respond_to?(:encode)
         # Force the src encoding back to the encoding in magic comment
         # or original content.
-        encoding = detect_encoding(src)
-        encoding = content.encoding if encoding.nil?
+        encoding = detect_encoding(src) || content.encoding
         src.force_encoding(encoding)
 
         # Remove magic comment prepended by erb in Ruby 1.9.
