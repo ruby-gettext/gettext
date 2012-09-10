@@ -72,10 +72,10 @@ EOP
   end
 
   class TestEncoding < self
-  def test_different_encoding_from_current_locale
-    need_encoding
+    def test_different_encoding_from_current_locale
+      need_encoding
 
-    content = <<-EOR
+      content = <<-EOR
 <%#-*- coding: sjis -*-%>
 <html>
 <head>
@@ -86,24 +86,24 @@ EOP
 </body>
 </html>
 EOR
-    File.open(@rhtml_file_path, "w") do |rb_file|
-      rb_file.puts(encode(content, "sjis"))
-    end
+      File.open(@rhtml_file_path, "w") do |rb_file|
+        rb_file.puts(encode(content, "sjis"))
+      end
 
-    @xgettext.run("--output", @pot_file_path, @rhtml_file_path)
+      @xgettext.run("--output", @pot_file_path, @rhtml_file_path)
 
-    encoding = Locale.current.charset
-    pot_content = File.read(@pot_file_path)
-    set_encoding(pot_content, encoding)
-    expected_content = <<-EOP
+      encoding = Locale.current.charset
+      pot_content = File.read(@pot_file_path)
+      set_encoding(pot_content, encoding)
+      expected_content = <<-EOP
 #{header}
 #: ../templates/xgettext.rhtml:7
 msgid "わたし"
 msgstr ""
 EOP
-    expected_content = encode(expected_content, encoding)
-    assert_equal(expected_content, pot_content)
-  end
+      expected_content = encode(expected_content, encoding)
+      assert_equal(expected_content, pot_content)
+    end
   end
 
   class TestCommandLineOption < self
