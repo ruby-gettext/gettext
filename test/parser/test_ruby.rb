@@ -23,7 +23,7 @@
 
 require "gettext/tools/parser/ruby"
 
-class TestRubyParserXXX < Test::Unit::TestCase
+class TestRubyParser < Test::Unit::TestCase
   include GetTextTestUtils
 
   def test_detect_encoding
