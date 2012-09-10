@@ -43,6 +43,6 @@ module GetTextTestUtils
   end
 
   def ruby19?
-    RUBY_VERSION >= "1.9"
+    defined?(Encoding)
   end
 end
