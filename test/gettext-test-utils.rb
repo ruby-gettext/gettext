@@ -42,8 +42,10 @@ module GetTextTestUtils
     FileUtils.rm_rf(@tmpdir, :secure => true) if @tmpdir
   end
 
-  def ruby19?
-    defined?(Encoding)
+  def need_encoding
+    unless defined?(Encoding)
+      omit("This test needs encoding.")
+    end
   end
 
   def set_encoding(string, encoding)
