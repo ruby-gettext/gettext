@@ -129,7 +129,7 @@ module GetText
         @parsers.unshift(parser)
       end
 
-      def generate_pot_header(encoding) # :nodoc:
+      def generate_pot_header # :nodoc:
         time = now.strftime("%Y-%m-%d %H:%M%z")
 
         <<EOH
@@ -149,7 +149,7 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\\n"
 "Language: \\n"
 "MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=#{encoding}\\n"
+"Content-Type: text/plain; charset=#{@output_encoding}\\n"
 "Content-Transfer-Encoding: 8bit\\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
 EOH
@@ -260,13 +260,13 @@ EOH
       def run(*options)  # :nodoc:
         check_command_line_options(*options)
 
-        encoding = Locale.current.charset || Locale.charset
+        @output_encoding = Locale.current.charset || Locale.charset
 
-        pot_header = generate_pot_header(encoding)
+        pot_header = generate_pot_header
         pot_messages = generate_pot(@input_files)
 
-        pot_header = encode(pot_header, encoding)
-        pot_messages = encode(pot_messages, encoding)
+        pot_header = encode(pot_header)
+        pot_messages = encode(pot_messages)
 
         if @output.is_a?(String)
           File.open(File.expand_path(@output), "w+") do |file|
@@ -344,9 +344,9 @@ EOH
         end
       end
 
-      def encode(string, encoding)
+      def encode(string)
         if string.respond_to?(:encode)
-          string.encode(encoding)
+          string.encode(@output_encoding)
         else
           string # don't support
         end
