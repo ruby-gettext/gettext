@@ -20,7 +20,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "kconv"
 require "pathname"
 require "optparse"
 require "locale"
@@ -349,23 +348,7 @@ EOH
         if string.respond_to?(:encode)
           string.encode(encoding)
         else
-          case encoding
-          when /sjis/i
-            encoding = NKF::SJIS
-          when /jis/i
-            encoding = NKF::JIS
-          when /euc-.+/i
-            encoding = NKF::EUC
-          when /ascii/i
-            encoding = NKF::ASCII
-          when /utf-8/i
-            encoding = NKF::UTF8
-          when /utf-16/i
-            encoding = NKF::UTF16
-          else
-            encoding = NKF::UNKNOWN
-          end
-          string.kconv(encoding)
+          string # don't support
         end
       end
     end
