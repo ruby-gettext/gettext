@@ -346,7 +346,7 @@ EOH
       end
 
       def encode(string, encoding)
-        if RUBY_VERSION >= "1.9"
+        if defined?(Encoding)
           string.encode(encoding)
         else
           case encoding
