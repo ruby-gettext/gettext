@@ -204,9 +204,9 @@ _("わたし")
 EOR
       end
 
-      output_encoding = "euc-jp"
+      output_encoding = "EUC-JP"
       @xgettext.run("--output", @pot_file_path,
-                    "--output-charset", output_encoding,
+                    "--output-encoding", output_encoding,
                     @rb_file_path)
 
       actual_pot = File.read(@pot_file_path)

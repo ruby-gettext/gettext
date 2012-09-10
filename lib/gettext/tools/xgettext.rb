@@ -76,7 +76,7 @@ module GetText
         @package_version = nil
         @msgid_bugs_address = nil
         @copyright_holder = nil
-        @output_charset = nil
+        @output_encoding = nil
       end
 
       # The parser object requires to have target?(path) and
@@ -234,9 +234,9 @@ EOH
           @copyright_holder = out
         end
 
-        parser.on("--output-charset=CHARSET",
-                  _("set charset for output")) do |charset|
-          @output_charset = charset
+        parser.on("--output-encoding=ENCODING",
+                  _("set encoding for output")) do |encoding|
+          @output_encoding = encoding
         end
 
         parser.on("-r", "--require=library",
@@ -266,7 +266,7 @@ EOH
       def run(*options)  # :nodoc:
         check_command_line_options(*options)
 
-        @output_encoding = @output_charset || "UTF-8"
+        @output_encoding ||= "UTF-8"
 
         pot_header = generate_pot_header
         pot_messages = generate_pot(@input_files)
