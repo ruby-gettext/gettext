@@ -77,7 +77,7 @@ EOH
   end
 
   def test_gettext
-    test = TestRubyParser.new
+    test = MessageFixture.new
     assert_equal("AAA", test.test_1)
     assert_equal("AAA\n", test.test_2)
     assert_equal("BBB\nCCC", test.test_3)

@@ -23,7 +23,7 @@
 require 'gettext'
 include GetText
 
-class TestRubyParser
+class MessageFixture
   bindtextdomain("rubyparser", :path => "locale")
 
   def test_1
