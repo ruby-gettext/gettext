@@ -346,7 +346,7 @@ EOH
       end
 
       def encode(string, encoding)
-        if defined?(Encoding)
+        if string.respond_to?(:encode)
           string.encode(encoding)
         else
           case encoding
