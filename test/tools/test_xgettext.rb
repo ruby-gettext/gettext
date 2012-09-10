@@ -204,6 +204,8 @@ EOP
     end
 
     def test_to_code
+      need_encoding
+
       File.open(@rb_file_path, "w") do |rb_file|
         rb_file.puts(<<-EOR)
 # -*- coding: utf-8 -*-
