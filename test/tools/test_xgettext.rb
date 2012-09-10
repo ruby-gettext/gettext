@@ -71,6 +71,7 @@ msgstr ""
 EOP
   end
 
+  class TestEncoding < self
   def test_different_encoding_from_current_locale
     need_encoding
 
@@ -102,6 +103,7 @@ msgstr ""
 EOP
     expected_content = encode(expected_content, encoding)
     assert_equal(expected_content, pot_content)
+  end
   end
 
   class TestCommandLineOption < self
