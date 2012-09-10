@@ -91,7 +91,7 @@ EOR
 
     encoding = Locale.current.charset
     pot_content = File.read(@pot_file_path)
-    pot_content.force_encoding(encoding) if ruby19?
+    pot_content.force_encoding(encoding) if pot_content.respond_to?(:force_encoding)
     expected_content = <<-EOP
 #{header}
 #: ../templates/xgettext.rhtml:7
