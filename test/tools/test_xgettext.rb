@@ -166,6 +166,35 @@ EOP
       expected_header = "#{header(options)}\n"
       assert_equal(expected_header, File.read(@pot_file_path))
     end
+
+    def test_to_code
+      File.open(@rb_file_path, "w") do |rb_file|
+        rb_file.puts(<<-EOR)
+# -*- coding: utf-8 -*-
+
+_("わたし")
+EOR
+      end
+
+      output_encoding = "euc-jp"
+      @xgettext.run("--output", @pot_file_path,
+                    "--to-code", output_encoding,
+                    @rb_file_path)
+
+      actual_pot = File.read(@pot_file_path)
+      set_encoding(actual_pot, output_encoding)
+
+      options = {:to_code => output_encoding}
+      expected_pot = <<-EOP
+#{header(options)}
+#: ../lib/xgettext.rb:3
+msgid "わたし"
+msgstr ""
+EOP
+      expected_pot = encode(expected_pot, output_encoding)
+
+      assert_equal(expected_pot, actual_pot)
+    end
   end
 
   class TestAddParser < self
@@ -267,6 +296,7 @@ EOP
     msgid_bugs_address = options[:msgid_bugs_address] || ""
     copyright_holder = options[:copyright_holder] ||
                          "THE PACKAGE'S COPYRIGHT HOLDER"
+    output_encoding = options[:to_code] || Locale.current.charset
 
     time = @now.strftime("%Y-%m-%d %H:%M%z")
     <<-"EOH"
@@ -286,7 +316,7 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\\n"
 "Language: \\n"
 "MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=#{Locale.current.charset}\\n"
+"Content-Type: text/plain; charset=#{output_encoding}\\n"
 "Content-Transfer-Encoding: 8bit\\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
 EOH

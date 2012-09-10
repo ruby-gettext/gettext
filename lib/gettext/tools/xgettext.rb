@@ -76,6 +76,7 @@ module GetText
         @package_version = nil
         @msgid_bugs_address = nil
         @copyright_holder = nil
+        @to_code = nil
       end
 
       # The parser object requires to have target?(path) and
@@ -233,6 +234,11 @@ EOH
           @copyright_holder = out
         end
 
+        parser.on("--to-code=ENCODING",
+                  _("set encoding for output")) do |encoding|
+          @to_code = encoding
+        end
+
         parser.on("-r", "--require=library",
                   _("require the library before executing xgettext")) do |out|
           require out
@@ -260,7 +266,7 @@ EOH
       def run(*options)  # :nodoc:
         check_command_line_options(*options)
 
-        @output_encoding = Locale.current.charset || Locale.charset
+        @output_encoding = @to_code || Locale.current.charset || Locale.charset
 
         pot_header = generate_pot_header
         pot_messages = generate_pot(@input_files)
