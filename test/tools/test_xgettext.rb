@@ -214,7 +214,7 @@ EOR
 
       output_encoding = "euc-jp"
       @xgettext.run("--output", @pot_file_path,
-                    "--to-code", output_encoding,
+                    "--output-charset", output_encoding,
                     @rb_file_path)
 
       actual_pot = File.read(@pot_file_path)
