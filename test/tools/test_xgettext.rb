@@ -44,16 +44,6 @@ class TestToolsXGetText < Test::Unit::TestCase
     FileUtils.mkdir_p(File.dirname(@rhtml_file_path))
   end
 
-  setup
-  def setup_locale
-    Locale.current = "ja_JP.EUC-JP"
-  end
-
-  teardown
-  def teardown_locale
-    Locale.clear
-  end
-
   def test_relative_source
     File.open(@rb_file_path, "w") do |rb_file|
       rb_file.puts(<<-EOR)
@@ -92,7 +82,7 @@ EOR
 
       @xgettext.run("--output", @pot_file_path, @rhtml_file_path)
 
-      encoding = Locale.current.charset
+      encoding = "UTF-8"
       pot_content = File.read(@pot_file_path)
       set_encoding(pot_content, encoding)
       expected_content = <<-EOP
@@ -124,7 +114,7 @@ EOR
 
       @xgettext.run("--output", @pot_file_path, @rb_file_path, @rhtml_file_path)
 
-      encoding = Locale.current.charset
+      encoding = "UTF-8"
       pot_content = File.read(@pot_file_path)
       set_encoding(pot_content, encoding)
       expected_content = <<-EOP
@@ -334,7 +324,7 @@ EOP
     msgid_bugs_address = options[:msgid_bugs_address] || ""
     copyright_holder = options[:copyright_holder] ||
                          "THE PACKAGE'S COPYRIGHT HOLDER"
-    output_encoding = options[:to_code] || Locale.current.charset
+    output_encoding = options[:to_code] || "UTF-8"
 
     time = @now.strftime("%Y-%m-%d %H:%M%z")
     <<-"EOH"
