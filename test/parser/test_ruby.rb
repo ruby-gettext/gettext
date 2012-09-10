@@ -26,18 +26,6 @@ require "gettext/tools/parser/ruby"
 class TestRubyParser < Test::Unit::TestCase
   include GetTextTestUtils
 
-  def test_detect_encoding
-    rb_file = Tempfile.new("euc-jp.rb")
-    rb_file.open
-    rb_file.puts("#-*- coding: euc-jp -*-")
-    rb_file.close
-
-    content = (File.read(rb_file.path))
-    encoding = GetText::RubyParser.detect_encoding(content)
-
-    assert_equal("euc-jp", encoding)
-  end
-
   private
   def parse(file)
     GetText::RubyParser.parse(fixture_path(file))
@@ -74,6 +62,53 @@ class TestRubyParser < Test::Unit::TestCase
   def normalize_sources(sources)
     sources.collect do |source|
       source.sub(/\A#{Regexp.escape(fixture_path)}\//, "")
+    end
+  end
+
+  class TestDetectEncoding < self
+    setup :need_encoding
+
+    def test_ascii_and_hyphen
+      assert_equal("euc-jp", detect_encoding("# coding: euc-jp"))
+    end
+
+    def test_number
+      assert_equal("cp932", detect_encoding("#coding: cp932"))
+    end
+
+    def test_under_bar
+      assert_equal("Shift_JIS", detect_encoding("# coding: Shift_JIS"))
+    end
+
+    def test_emacs_style
+      assert_equal("utf-8", detect_encoding("# -*- coding: utf-8 -*-"))
+    end
+
+    def test_encoding
+      assert_equal("utf-8", detect_encoding("# encoding: utf-8"))
+    end
+
+    def test_equal
+      assert_equal("utf-8", detect_encoding("# encoding = utf-8"))
+    end
+
+    private
+    def detect_encoding(content)
+      GetText::RubyParser.detect_encoding(content)
+    end
+
+    class NewLineStyle < self
+      def test_unix
+        assert_equal("utf-8", detect_encoding("# -*- coding: utf-8-unix -*-"))
+      end
+
+      def test_mac
+        assert_equal("utf-8", detect_encoding("# -*- coding: utf-8-mac -*-"))
+      end
+
+      def test_dos
+        assert_equal("utf-8", detect_encoding("# -*- coding: utf-8-dos -*-"))
+      end
     end
   end
 

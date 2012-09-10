@@ -132,8 +132,10 @@ module GetText
     end
 
     def detect_encoding(source)
-      if /\A\s*#.*coding\s*[=:]\s*([\w\-]+).*\n/ =~ source
-        $1
+      return nil unless source.respond_to?(:force_encoding)
+      binary_source = source.dup.force_encoding("ASCII-8BIT")
+      if /\A.*coding\s*[=:]\s*([[:alnum:]\-_]+)/ =~ binary_source
+        $1.gsub(/-(?:unix|mac|dos)\z/, "")
       else
         nil
       end
