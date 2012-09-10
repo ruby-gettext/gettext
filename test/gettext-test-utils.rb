@@ -45,4 +45,9 @@ module GetTextTestUtils
   def ruby19?
     defined?(Encoding)
   end
+
+  def set_encoding(string, encoding)
+    return unless string.respond_to?(:force_encoding)
+    string.force_encoding(encoding)
+  end
 end
