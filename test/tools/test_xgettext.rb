@@ -87,7 +87,7 @@ EOP
 </html>
 EOR
       File.open(@rhtml_file_path, "w") do |rhtml_file|
-        rhtml_file.puts(encode(content, "sjis"))
+        rhtml_file.puts(encode(rhtml, "sjis"))
       end
 
       @xgettext.run("--output", @pot_file_path, @rhtml_file_path)
