@@ -102,11 +102,6 @@ EOP
     assert_equal(expected_content, pot_content)
   end
 
-  private
-  def encode(string, encoding)
-    @xgettext.send(:encode, string, encoding)
-  end
-
   class TestCommandLineOption < self
     def test_package_name
       File.open(@rb_file_path, "w") do |rb_file|

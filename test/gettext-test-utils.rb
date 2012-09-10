@@ -22,6 +22,10 @@ require "tmpdir"
 require "tempfile"
 require "time"
 
+unless String.method_defined?(:encode)
+  require "iconv"
+end
+
 require "gettext"
 
 module GetTextTestUtils
@@ -51,5 +55,13 @@ module GetTextTestUtils
   def set_encoding(string, encoding)
     return unless string.respond_to?(:force_encoding)
     string.force_encoding(encoding)
+  end
+
+  def encode(string, encoding)
+    if string.respond_to?(:encode)
+      string.encode(encoding)
+    else
+      Iconv.iconv(encoding, "UTF-8", string).join("")
+    end
   end
 end
