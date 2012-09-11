@@ -92,7 +92,7 @@ module GetText
         msgid_single = msgid.split("\000")[0]
         msgid_single_prefix_re = /^#{Regexp.quote(msgid_single)}\000/
         mofile.each do |key, val|
-          if key =~ msgid_single_prefix_re
+          if msgid_single_prefix_re =~ key
             # Usually, this is not caused to make po-files from rgettext.
             warn %Q[Warning: n_("#{msgid_single}", "#{msgid.split("\000")[1]}") and n_("#{key.gsub(/\000/, '", "')}") are duplicated.]
             ret = val
@@ -104,7 +104,7 @@ module GetText
         ret = nil
         msgid_prefix_re = /^#{Regexp.quote(msgid)}\000/
         mofile.each do |key, val|
-          if key =~ msgid_prefix_re
+          if msgid_prefix_re =~ key
             ret = val.split("\000")[0]
             break
           end
