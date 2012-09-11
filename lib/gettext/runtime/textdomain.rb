@@ -94,7 +94,12 @@ module GetText
         mofile.each do |key, val|
           if msgid_single_prefix_re =~ key
             # Usually, this is not caused to make po-files from rgettext.
-            warn %Q[Warning: n_("#{msgid_single}", "#{msgid.split("\000")[1]}") and n_("#{key.gsub(/\000/, '", "')}") are duplicated.]
+            separated_msgid = msgid.gsub(/\000/, '", "')
+            duplicated_msgid = key.gsub(/\000/, '", "')
+            warn("Warning: " +
+                  "n_(\"#{separated_msgid}\") and " +
+                  "n_(\"#{duplicated_msgid}\") " +
+                  "are duplicated.")
             ret = val
             break
           end
