@@ -4,8 +4,8 @@ require 'gettext/runtime/mofile'
 
 class TestMoFile < Test::Unit::TestCase
   def test_not_exist_msgid
-    mo = load_mo("not_existed_msgid.mo")
-    assert_equal(nil, mo["notexist"])
+    mo = load_mo("_.mo")
+    assert_equal(nil, mo["notexistent"])
   end
 
   def test_non_ascii
