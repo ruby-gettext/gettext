@@ -86,9 +86,9 @@ module GetText
 
       return mofile[msgid] if mofile.has_key?(msgid)
 
+      ret = nil
       if msgid.include?("\000")
         # Check "aaa\000bbb" and show warning but return the singular part.
-        ret = nil
         msgid_single = msgid.split("\000")[0]
         msgid_single_prefix_re = /^#{Regexp.quote(msgid_single)}\000/
         mofile.each do |key, val|
@@ -101,7 +101,6 @@ module GetText
         end
         ret
       else
-        ret = nil
         msgid_prefix_re = /^#{Regexp.quote(msgid)}\000/
         mofile.each do |key, val|
           if msgid_prefix_re =~ key
