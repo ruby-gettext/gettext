@@ -8,6 +8,11 @@ class TestMoFile < Test::Unit::TestCase
     assert_equal(nil, mo["notexistent"])
   end
 
+  def test_untranslated
+    mo = load_mo("untranslated.mo")
+    assert_equal(nil, mo["untranslated"])
+  end
+
   def test_non_ascii
     mo = load_mo("non_ascii.mo")
     assert_equal("Hello in Japanese", mo["こんにちは"])
