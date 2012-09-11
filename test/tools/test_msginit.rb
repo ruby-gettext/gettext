@@ -26,9 +26,14 @@ class TestToolsMsgInit < Test::Unit::TestCase
     stub(@msginit).read_translator_full_name {translator_full_name}
     stub(@msginit).read_translator_mail {translator_mail}
 
+    @year             = "2012"
+    @po_revision_date = "2012-09-11 13:19+0900"
+    @pot_create_date  = "2012-08-24 11:35+0900"
+
+    stub(@msginit).year          {@year}
+    stub(@msginit).revision_date {@po_revision_date}
+
     Locale.current = "ja_JP.UTF-8"
-    @pot_create_date = "2012-08-24 11:35+0900"
-    @po_revision_date = Time.now.strftime("%Y-%m-%d %H:%M%z")
   end
 
   def test_all_options
@@ -43,7 +48,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
                    "--output", po_file_path,
                    "--locale", locale)
 
-      actual_po_header = normalize_po_header(po_file_path)
+      actual_po_header = File.read(po_file_path)
       expected_po_header = po_header(locale, language)
       assert_equal(expected_po_header, actual_po_header)
     end
@@ -59,7 +64,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
         @msginit.run("--locale", locale)
 
-        actual_po_header = normalize_po_header(po_file_path)
+        actual_po_header = File.read(po_file_path)
         expected_po_header = po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
       end
@@ -76,7 +81,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
         @msginit.run("--locale", locale)
 
-        actual_po_header = normalize_po_header(po_file_path)
+        actual_po_header = File.read(po_file_path)
         expected_po_header = po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
       end
@@ -94,7 +99,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
         @msginit.run("--locale", "#{locale}.#{charset}")
 
-        actual_po_header = normalize_po_header(po_file_path)
+        actual_po_header = File.read(po_file_path)
         expected_po_header = po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
       end
@@ -111,7 +116,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
       @msginit.run("--input", pot_file_path, "--output", po_file_path)
 
-      actual_po_header = normalize_po_header(po_file_path)
+      actual_po_header = File.read(po_file_path)
       expected_po_header = po_header(locale, language)
       assert_equal(expected_po_header, actual_po_header)
     end
@@ -128,7 +133,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
         @msginit.run("--input", pot_file_path)
 
-        actual_po_header = normalize_po_header(po_file_path)
+        actual_po_header = File.read(po_file_path)
         expected_po_header = po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
       end
@@ -145,7 +150,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
         @msginit.run
 
-        actual_po_header = normalize_po_header(po_file_path)
+        actual_po_header = File.read(po_file_path)
         expected_po_header = po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
       end
@@ -165,7 +170,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
         @msginit.run
 
-        actual_po_header = normalize_po_header(po_file_path)
+        actual_po_header = File.read(po_file_path)
         expected_po_header = no_translator_po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
       end
@@ -184,7 +189,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
         @msginit.run
 
-        actual_po_header = normalize_po_header(po_file_path)
+        actual_po_header = File.read(po_file_path)
         expected_po_header = no_translator_po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
       end
@@ -203,7 +208,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
         @msginit.run
 
-        actual_po_header = normalize_po_header(po_file_path)
+        actual_po_header = File.read(po_file_path)
         expected_po_header = no_translator_po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
       end
@@ -223,7 +228,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
         @msginit.run("--input", pot_file_name)
 
         expected_po_header = po_header(locale, language, options)
-        actual_po_header = normalize_po_header(po_file_path)
+        actual_po_header = File.read(po_file_path)
 
         assert_equal(expected_po_header, actual_po_header)
       end
@@ -240,7 +245,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
           @msginit.run
 
-          actual_po_header = normalize_po_header(po_file_path)
+          actual_po_header = File.read(po_file_path)
           expected_po_header = po_header(locale, language)
           assert_equal(expected_po_header, actual_po_header)
         end
@@ -300,19 +305,6 @@ EOF
     header
   end
 
-  def normalize_po_header(po_file_path)
-    po_file = ""
-    File.open(po_file_path) do |file|
-      po_file = file.read
-    end
-
-    po_file = po_file.gsub(/#{Regexp.escape(@pot_create_date)}/,
-                           "XXXX-XX-XX XX:XX+XXXX")
-    po_file = po_file.gsub(/#{Regexp.escape(@po_revision_date)}/,
-                           "YYYY-YY-YY YY:YY+YYYY")
-    po_file.gsub(/#{Time.now.year}/, "YEAR")
-  end
-
   def po_header(locale, language, options=nil)
     options ||= {}
     package_name = options[:package_name] || default_package_name
@@ -323,15 +315,15 @@ EOF
 
     <<EOF
 # #{language_name} translations for #{package_name} package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) #{@year} THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# #{full_name} <#{mail}>, YEAR.
+# #{full_name} <#{mail}>, #{@year}.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: #{package_name} VERSION\\n"
-"POT-Creation-Date: XXXX-XX-XX XX:XX+XXXX\\n"
-"PO-Revision-Date: YYYY-YY-YY YY:YY+YYYY\\n"
+"POT-Creation-Date: #{@pot_create_date}\\n"
+"PO-Revision-Date: #{@po_revision_date}\\n"
 "Last-Translator: #{full_name} <#{mail}>\\n"
 "Language: #{locale}\\n"
 "Language-Team: #{language_name}\\n"
@@ -353,15 +345,15 @@ EOF
 
     <<EOF
 # #{language_name} translations for PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) #{@year} THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR <EMAIL@ADDRESS>, #{@year}.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\\n"
-"POT-Creation-Date: XXXX-XX-XX XX:XX+XXXX\\n"
-"PO-Revision-Date: YYYY-YY-YY YY:YY+YYYY\\n"
+"POT-Creation-Date: #{@pot_create_date}\\n"
+"PO-Revision-Date: #{@po_revision_date}\\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
 "Language: #{locale}\\n"
 "Language-Team: #{language_name}\\n"

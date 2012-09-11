@@ -254,9 +254,6 @@ module GetText
       POT_REVISION_DATE_KEY = /^(PO-Revision-Date:).+/
 
       def replace_pot_revision_date #:nodoc:
-        date = Time.now
-        revision_date = date.strftime("%Y-%m-%d %H:%M%z")
-
         @entry = @entry.gsub(POT_REVISION_DATE_KEY,
                              "\\1 #{revision_date}")
       end
@@ -348,8 +345,6 @@ module GetText
       LAST_TRANSLATOR_KEY = /^(Last-Translator:) FULL NAME <#{EMAIL}>$/
 
       def replace_first_author #:nodoc:
-        year = Time.now.year
-
         @comment = @comment.gsub(YEAR_KEY, "\\1 #{year}.")
         unless @translator.nil?
           @comment = @comment.gsub(FIRST_AUTHOR_KEY,
@@ -359,9 +354,19 @@ module GetText
 
       COPYRIGHT_KEY = /(\s*#\s* Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
       def replace_copyright_year #:nodoc:
-        date = Time.now
+        @comment = @comment.gsub(COPYRIGHT_KEY, "\\1 #{year} \\2")
+      end
 
-        @comment = @comment.gsub(COPYRIGHT_KEY, "\\1 #{date.year} \\2")
+      def now
+        @now ||= Time.now
+      end
+
+      def revision_date
+        now.strftime("%Y-%m-%d %H:%M%z")
+      end
+
+      def year
+        now.year
       end
     end
   end
