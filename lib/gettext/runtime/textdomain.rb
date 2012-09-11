@@ -85,9 +85,9 @@ module GetText
       end
 
       msgstr = mofile[msgid]
-      if not msgstr.nil?
-        msgstr
-      elsif msgid.include?("\000")
+      return msgstr if mofile.has_key?(msgid)
+
+      if msgid.include?("\000")
         # Check "aaa\000bbb" and show warning but return the singular part.
         ret = nil
         msgid_single = msgid.split("\000")[0]
