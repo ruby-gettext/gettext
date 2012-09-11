@@ -113,8 +113,8 @@ module GetText
       end
     end
 
-    DEFAULT_PLURAL_CALC = Proc.new{|n| n != 1}
-    DEFAULT_SINGLE_CALC = Proc.new{|n| 0}
+    DEFAULT_PLURAL_CALC = Proc.new {|n| n != 1}
+    DEFAULT_SINGLE_CALC = Proc.new {|n| 0}
 
     # Translates the translated string.
     # * lang: Locale::Tag::Simple's subclass.
