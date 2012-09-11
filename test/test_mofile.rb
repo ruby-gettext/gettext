@@ -3,6 +3,11 @@
 require 'gettext/runtime/mofile'
 
 class TestMoFile < Test::Unit::TestCase
+  def test_not_exist_msgid
+    mo = load_mo("not_existed_msgid.mo")
+    assert_equal(nil, mo["notexist"])
+  end
+
   def test_non_ascii
     mo = load_mo("non_ascii.mo")
     assert_equal("Hello in Japanese", mo["こんにちは"])

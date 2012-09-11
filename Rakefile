@@ -118,7 +118,7 @@ task "samples:cgi:gettext"
 
 task "samples:gettext" => "samples:cgi:gettext"
 
-["backslash", "non_ascii", "np_", "p_"].each do |domain|
+["not_existed_msgid", "backslash", "non_ascii", "np_", "p_"].each do |domain|
   GetText::Task.new(spec) do |task|
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
