@@ -104,7 +104,6 @@ module GetText
             break
           end
         end
-        ret
       else
         msgid_prefix_re = /^#{Regexp.quote(msgid)}\000/
         mofile.each do |key, val|
@@ -113,8 +112,8 @@ module GetText
             break
           end
         end
-        ret
       end
+      ret
     end
 
     DEFAULT_PLURAL_CALC = Proc.new {|n| n != 1}
