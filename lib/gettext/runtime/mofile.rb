@@ -64,11 +64,6 @@ module GetText
       super()
     end
 
-    def []=(msgid, msgstr)
-      msgstr = nil if msgstr.empty?
-      super(msgid, msgstr)
-    end
-
     def update!
       if FileTest.exist?(@filename)
         st = File.stat(@filename)
@@ -157,6 +152,7 @@ module GetText
             @plural = "0" unless @plural
           end
         else
+          msgstr = nil if msgstr.empty?
           unless msgstr.nil?
             msgstr = convert_encoding(msgstr, msgid)
           end
