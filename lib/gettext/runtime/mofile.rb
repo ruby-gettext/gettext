@@ -64,10 +64,9 @@ module GetText
       super()
     end
 
-    alias :original_assign :[]=
     def []=(msgid, msgstr)
       msgstr = nil if msgstr.empty?
-      original_assign(msgid, msgstr)
+      super(msgid, msgstr)
     end
 
     def update!
