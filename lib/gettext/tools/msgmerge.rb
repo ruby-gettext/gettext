@@ -211,6 +211,16 @@ module GetText
         POT_DATE_RE = /POT-Creation-Date:.*?$/
 
         def merge(definition, reference)
+          definition.each_msgid do |msgid|
+            msgstr = definition[msgid] || ""
+            definition[msgid] = msgstr
+          end
+
+          reference.each_msgid do |msgid|
+            msgstr = reference[msgid] || ""
+            reference[msgid] = msgstr
+          end
+
           # deep copy
           result = Marshal.load( Marshal.dump(reference) )
 
@@ -503,16 +513,6 @@ module GetText
         parser.ignore_fuzzy = false
         defpo = parser.parse_file(config.defpo, PoData.new)
         refpot = parser.parse_file(config.refpot, PoData.new)
-
-        defpo.each_msgid do |msgid|
-          msgstr = defpo[msgid] || ""
-          defpo[msgid] = msgstr
-        end
-
-        refpot.each_msgid do |msgid|
-          msgstr = refpot[msgid] || ""
-          refpot[msgid] = msgstr
-        end
 
         merger = Merger.new
         result = merger.merge(defpo, refpot)
