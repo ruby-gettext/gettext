@@ -94,7 +94,6 @@ msgstr[0] "Singular translation"
 msgstr[1] "Plural translation"
 EOE
         assert_equal(expected_po, actual_po)
-
       end
 
       def test_msgctxt
