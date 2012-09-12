@@ -225,6 +225,10 @@ module GetText
       io.write(header.to_a.pack('a4V*'))
 
       ary = to_a
+      ary = ary.collect do |msgid, msgstr|
+        msgstr ||= ""
+        [msgid, msgstr]
+      end
       ary.sort!{|a, b| a[0] <=> b[0]} # sort by original string
 
       pos = header.hash_table_size * 4 + header.hash_table_offset
