@@ -156,8 +156,14 @@ module GetText
               str << "msgid_plural " << __conv(single_id) << "\n"
             end
 
-            msgstr.split("\000", -1).each_with_index do |m, n|
-              str << "msgstr[#{n}] " << __conv(m) << "\n"
+            if msgstr.empty?
+              nplurals.times do |id_count|
+                str << "msgstr[#{id_count}] " << '""' << "\n"
+              end
+            else
+              msgstr.split("\000", -1).each_with_index do |m, n|
+                str << "msgstr[#{n}] " << __conv(m) << "\n"
+              end
             end
           else
             str << "msgid "  << __conv(id) << "\n"

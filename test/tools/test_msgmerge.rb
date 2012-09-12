@@ -79,6 +79,23 @@ EOP
       assert_equal(expected_po, po.generate_po)
     end
 
+    def test_generate_po_msgid_plural_and_empty_msgstr
+      msgid = "Singular message\000Plural message"
+
+      @po_data[""] = "Plural-Forms: nplurals=2; plural=n != 1;\\n"
+      @po_data[msgid] = ""
+      @po_data.set_comment(msgid, "# plural message")
+      actual_po = @po_data.generate_po_entry(msgid)
+      expected_po = <<'EOE'
+# plural message
+msgid "Singular message"
+msgid_plural "Plural message"
+msgstr[0] ""
+msgstr[1] ""
+EOE
+      assert_equal(expected_po, actual_po)
+    end
+
     class TestGeneratePoEntry < self
       def test_msgid_plural
         msgid = "Singular message\000Plural message"
