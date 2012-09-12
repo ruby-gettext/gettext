@@ -28,7 +28,7 @@ msgstr ""
 EOP
     messages = parse_po_file(po_file)
 
-    assert_equal("", messages["Hello"])
+    assert_equal(nil, messages["Hello"])
   end
 
   private
