@@ -79,6 +79,23 @@ EOP
       assert_equal(expected_po, po.generate_po)
     end
 
+    def test_msgid_plural
+      msgid = "Singular message\000Plural message"
+
+      @po_data[msgid] = "Singular translation\000Plural translation"
+      @po_data.set_comment(msgid, "#plural message")
+      actual_po = @po_data.generate_po_entry(msgid)
+      expected_po = <<'EOE'
+#plural message
+msgid "Singular message"
+msgid_plural "Plural message"
+msgstr[0] "Singular translation"
+msgstr[1] "Plural translation"
+EOE
+      assert_equal(expected_po, actual_po)
+
+    end
+
     def test_msgctxt
       msg_id = "Context\004Translation"
       @po_data[msg_id] = "Translated"
