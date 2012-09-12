@@ -57,7 +57,7 @@ module GetText
 
         def []=(msgid, msgstr)
           # Retain the order
-          if @msgid2msgstr[msgid].nil?
+          unless @msgids.include?(msgid)
             @msgids << msgid
           end
 
@@ -135,7 +135,12 @@ module GetText
           end
 
           id = msgid.gsub(/\r/, "")
-          msgstr = @msgid2msgstr[msgid].gsub(/\r/, "")
+          msgstr = @msgid2msgstr[msgid]
+          if msgstr.nil?
+            msgstr = ""
+          else
+            msgstr = msgstr.gsub(/\r/, "")
+          end
 
           if id.include?("\004")
             ids = id.split(/\004/)

@@ -123,6 +123,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 119)
   end
 
   def on_message(msgid, msgstr)
+    msgstr = nil if msgstr.empty?
     @data[msgid] = msgstr
     @data.set_comment(msgid, @comments.join("\n"))
 
