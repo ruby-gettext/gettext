@@ -504,6 +504,16 @@ module GetText
         defpo = parser.parse_file(config.defpo, PoData.new)
         refpot = parser.parse_file(config.refpot, PoData.new)
 
+        defpo.each_msgid do |msgid|
+          msgstr = defpo[msgid] || ""
+          defpo[msgid] = msgstr
+        end
+
+        refpot.each_msgid do |msgid|
+          msgstr = refpot[msgid] || ""
+          refpot[msgid] = msgstr
+        end
+
         merger = Merger.new
         result = merger.merge(defpo, refpot)
         p result if $DEBUG
