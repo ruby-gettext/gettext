@@ -31,6 +31,19 @@ EOP
     assert_equal(nil, messages["Hello"])
   end
 
+  def test_empty_msgstr_for_msgid_plural
+    po_file = create_po_file(<<-EOP)
+msgid "He"
+msgid_plural "They"
+msgstr[0] ""
+msgstr[1] ""
+EOP
+    messages = parse_po_file(po_file)
+
+    assert_true(messages.has_key?("He\000They"))
+    assert_equal(nil, messages["He\000They"])
+  end
+
   private
   def create_po_file(content)
     po_file = Tempfile.new("hello.po")
