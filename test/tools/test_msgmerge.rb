@@ -80,37 +80,37 @@ EOP
     end
 
     class TestGeneratePoEntry < self
-    def test_msgid_plural
-      msgid = "Singular message\000Plural message"
+      def test_msgid_plural
+        msgid = "Singular message\000Plural message"
 
-      @po_data[msgid] = "Singular translation\000Plural translation"
-      @po_data.set_comment(msgid, "#plural message")
-      actual_po = @po_data.generate_po_entry(msgid)
-      expected_po = <<'EOE'
+        @po_data[msgid] = "Singular translation\000Plural translation"
+        @po_data.set_comment(msgid, "#plural message")
+        actual_po = @po_data.generate_po_entry(msgid)
+        expected_po = <<'EOE'
 #plural message
 msgid "Singular message"
 msgid_plural "Plural message"
 msgstr[0] "Singular translation"
 msgstr[1] "Plural translation"
 EOE
-      assert_equal(expected_po, actual_po)
+        assert_equal(expected_po, actual_po)
 
-    end
+      end
 
-    def test_msgctxt
-      msg_id = "Context\004Translation"
-      @po_data[msg_id] = "Translated"
-      @po_data.set_comment(msg_id, "#no comment")
+      def test_msgctxt
+        msg_id = "Context\004Translation"
+        @po_data[msg_id] = "Translated"
+        @po_data.set_comment(msg_id, "#no comment")
 
-      entry = @po_data.generate_po_entry(msg_id)
-      assert_equal(<<-'EOE', entry)
+        entry = @po_data.generate_po_entry(msg_id)
+        assert_equal(<<-'EOE', entry)
 #no comment
 msgctxt "Context"
 msgid "Translation"
 msgstr "Translated"
 EOE
+      end
     end
-  end
   end
 
   class TestMerge < self
