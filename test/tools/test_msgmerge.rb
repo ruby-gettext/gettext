@@ -79,6 +79,7 @@ EOP
       assert_equal(expected_po, po.generate_po)
     end
 
+    class TestGeneratePoEntry < self
     def test_msgid_plural
       msgid = "Singular message\000Plural message"
 
@@ -109,6 +110,7 @@ msgid "Translation"
 msgstr "Translated"
 EOE
     end
+  end
   end
 
   class TestMerge < self
