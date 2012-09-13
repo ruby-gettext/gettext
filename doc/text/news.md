@@ -1,4 +1,53 @@
 # News
+## <a id="2-3-1">2.3.1</a>: 2012-09-13
+
+Bug and package fixes release.
+And encoding support release, only if you use Ruby 1.9.
+
+### Improvements
+
+  * [xgettext] Added backword compatibility method
+    (GetText::RGetText.run).
+    [Suggested by Fotos Georgiadis]
+  * [xgettext] Removed deprecated parse argument support.
+  * [erb parer] Assumed the encoding in the magic comment of the
+    input file as the encoding of it.
+  * [ruby parser] Assumed the encoding in the magic comment of the
+    input file as the encoding of it.
+  * [xgettext] Added the "--output-encoding" option to set encoding of
+    output pot file.
+  * [xgettext] Used UTF-8 as the default encoding of output pot file.
+  * [xgettext] Supported multiple encoding sources.
+
+### Changes
+
+  * [MoFile] Returned nil instead of "" as msgstr when its msgid isn't
+    translated (when this msgstr is "").
+  * [PoParser] Converted msgstr from "" to nil when parsing.
+
+### Fixes
+
+  * Added missing .yardopts file. [Reported by Takahiro Kambe]
+  * [news] Fixed Eddie Lau name instead of github name.
+  * [msginit] Added the "Plural-Forms:" entry to the header even if a
+    pot file doesn't have it.
+  * [msgmerge] Fixed the bug the new line between a header and
+    contents doesn't exist.
+  * [msginit] Fixed the bug that msgstr with msgid_plural aren't
+    generated in output po file.
+  * [xgettext] Supported class based xgettext parser add API.
+    [GitHub #10] [Suggested by Michael Grosser]
+  * [erb parer] Fixed erb parser bug with unicode msgid in Ruby 1.9
+    ERB templates.
+    [Github #9] [Patch by Fotos Georgiadis]
+  * Added missing documents for GetText::Tools::XGetText.
+
+### Thanks
+
+  * Takahiro Kambe
+  * Michael Grosser
+  * Fotos Georgiadis
+
 ## <a id="2-3-0">2.3.0</a>: 2012-08-28
 
 Various improvements, changes and fixes release.
