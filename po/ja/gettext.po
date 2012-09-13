@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 2.3.0\n"
+"Project-Id-Version: gettext 2.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-27 12:45+0900\n"
-"PO-Revision-Date: 2012-08-27 15:38+0900\n"
+"POT-Creation-Date: 2012-09-13 14:30+0900\n"
+"PO-Revision-Date: 2012-09-13 14:38+0900\n"
 "Last-Translator: Haruka Yoshihara <yoshihara@clear-code.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
 #: ../lib/gettext/tools.rb:81
 msgid "Failed to merge with %{defpo}"
 msgstr "%{defpo}のマージに失敗しました。"
@@ -30,9 +31,7 @@ msgstr "po/potファイルをチェックしてください。文法エラーも
 
 #: ../lib/gettext/tools.rb:188
 msgid "`%{cmd}' can not be found. \nInstall GNU Gettext then set PATH or MSGMERGE_PATH correctly."
-msgstr ""
-"`%{cmd}'は見つかりませんでした。\n"
-"GNU Gettextをインストールし、環境変数PATHかMSGMERGE_PATHを正しく設定してください。"
+msgstr "`%{cmd}'は見つかりませんでした。\nGNU Gettextをインストールし、環境変数PATHかMSGMERGE_PATHを正しく設定してください。"
 
 #: ../lib/gettext/tools/msgfmt.rb:65
 msgid "no input files specified."
@@ -47,17 +46,17 @@ msgid "Generate binary message catalog from textual translation description."
 msgstr "poファイルからバイナリのメッセージカタログファイル（moファイル）を生成します。"
 
 #: ../lib/gettext/tools/msgfmt.rb:86 ../lib/gettext/tools/msginit.rb:89
-#: ../lib/gettext/tools/msgmerge.rb:461 ../lib/gettext/tools/xgettext.rb:255
+#: ../lib/gettext/tools/msgmerge.rb:474 ../lib/gettext/tools/xgettext.rb:210
 msgid "Specific options:"
 msgstr "オプション："
 
-#: ../lib/gettext/tools/msgfmt.rb:89 ../lib/gettext/tools/msgmerge.rb:466
-#: ../lib/gettext/tools/xgettext.rb:258
+#: ../lib/gettext/tools/msgfmt.rb:89 ../lib/gettext/tools/msgmerge.rb:479
+#: ../lib/gettext/tools/xgettext.rb:213
 msgid "write output to specified file"
 msgstr "出力ファイルを指定します"
 
-#: ../lib/gettext/tools/msgfmt.rb:93 ../lib/gettext/tools/msgmerge.rb:477
-#: ../lib/gettext/tools/xgettext.rb:296
+#: ../lib/gettext/tools/msgfmt.rb:93 ../lib/gettext/tools/msgmerge.rb:490
+#: ../lib/gettext/tools/xgettext.rb:256
 msgid "display version information and exit"
 msgstr "バージョンを表示します"
 
@@ -77,8 +76,8 @@ msgstr "OUTPUTとして指定されたファイルをpoファイルとして扱�
 msgid "Use LOCALE as target locale. If LOCALE is not specified, LOCALE is the current locale on your environment."
 msgstr "LOCALEとして指定された値をターゲットのロケールとして扱います。ロケールが指定されていない場合は、ユーザの現在のロケールを使用します。"
 
-#: ../lib/gettext/tools/msginit.rb:112 ../lib/gettext/tools/msgmerge.rb:472
-msgid "Dispray this help and exit"
+#: ../lib/gettext/tools/msginit.rb:112 ../lib/gettext/tools/msgmerge.rb:485
+msgid "Display this help and exit"
 msgstr "このヘルプを表示します"
 
 #: ../lib/gettext/tools/msginit.rb:117
@@ -95,7 +94,7 @@ msgstr "ファイルが存在しません。"
 
 #: ../lib/gettext/tools/msginit.rb:152
 msgid "\"Locale '#{language_tag}' is invalid. \"Please check if your specified locale is usable."
-msgstr "'#{language_tag}というロケールは正しくありません。指定したロケールが使用可能かどうか確認してください。"
+msgstr "'#{language_tag}'というロケールは正しくありません。指定したロケールが使用可能かどうか確認してください。"
 
 #: ../lib/gettext/tools/msginit.rb:161
 msgid "file  has already existed."
@@ -109,87 +108,87 @@ msgstr "あなたのフルネームを入力してください"
 msgid "Please enter your email address"
 msgstr "あなたのメールアドレスを入力してください"
 
-#: ../lib/gettext/tools/msgmerge.rb:429
-msgid "File '%s' has already existed."
-msgstr "'%s'というファイルはすでに存在しています。"
-
-#: ../lib/gettext/tools/msgmerge.rb:440
+#: ../lib/gettext/tools/msgmerge.rb:453
 msgid "definition po is not given."
 msgstr "poファイルが指定されていません。"
 
-#: ../lib/gettext/tools/msgmerge.rb:442
+#: ../lib/gettext/tools/msgmerge.rb:455
 msgid "reference pot is not given."
 msgstr "potファイルが指定されていません。"
 
-#: ../lib/gettext/tools/msgmerge.rb:450
+#: ../lib/gettext/tools/msgmerge.rb:463
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "使用法: %s def.po ref.pot [-o output.pot]"
 
-#: ../lib/gettext/tools/msgmerge.rb:453
+#: ../lib/gettext/tools/msgmerge.rb:466
 msgid "Merges two Uniforum style .po files together. The def.po file is an existing PO file with translations. The ref.pot file is the last created PO file with up-to-date source references. ref.pot is generally created by rgettext."
 msgstr "2つの.poファイルをマージします。def.poファイルはすでにある翻訳済みのPOファイルです。ref.potは最新のPOファイルです。ref.potは通常xgettextから新たに生成されたものです。"
 
-#: ../lib/gettext/tools/xgettext.rb:53
+#: ../lib/gettext/tools/xgettext.rb:64
 msgid "'%{klass}' is ignored."
 msgstr "'%{klass}'は無視されました。"
 
-#: ../lib/gettext/tools/xgettext.rb:170
-msgid "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't returns empty string but the header entry in po file."
-msgstr "\"\"というmsgidはgettextによって予約されています。したがって、gettext(\"\")は作成されるpoファイルのヘッダエントリを返しますが、空の文字列は返しません。"
-
-#: ../lib/gettext/tools/xgettext.rb:217
+#: ../lib/gettext/tools/xgettext.rb:175
 msgid "Error parsing %{path}"
 msgstr "%{path}をパース中にエラーが発生しました。"
 
-#: ../lib/gettext/tools/xgettext.rb:231
+#: ../lib/gettext/tools/xgettext.rb:186
 msgid "no input files"
 msgstr "入力ファイルが指定されていません。"
 
-#: ../lib/gettext/tools/xgettext.rb:249
+#: ../lib/gettext/tools/xgettext.rb:204
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "使用法: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#: ../lib/gettext/tools/xgettext.rb:252
+#: ../lib/gettext/tools/xgettext.rb:207
 msgid "Extract translatable strings from given input files."
 msgstr "与えられた入力ファイルから翻訳可能な文字列を抜き出します。"
 
-#: ../lib/gettext/tools/xgettext.rb:263
+#: ../lib/gettext/tools/xgettext.rb:218
 msgid "set package name in output"
 msgstr "出力に含めるパッケージ名を指定します"
 
-#: ../lib/gettext/tools/xgettext.rb:268
+#: ../lib/gettext/tools/xgettext.rb:223
 msgid "set package version in output"
 msgstr "出力に含めるパッケージのバージョンを指定します"
 
-#: ../lib/gettext/tools/xgettext.rb:273
+#: ../lib/gettext/tools/xgettext.rb:228
 msgid "set report address for msgid bugs"
 msgstr "msgidのバグを報告するアドレスを指定します"
 
-#: ../lib/gettext/tools/xgettext.rb:278
+#: ../lib/gettext/tools/xgettext.rb:233
 msgid "set copyright holder in output"
 msgstr "出力に含める著作権の保持者を指定します"
 
-#: ../lib/gettext/tools/xgettext.rb:283
+#: ../lib/gettext/tools/xgettext.rb:238
+msgid "set encoding for output"
+msgstr "出力ファイルのエンコーディングを設定します"
+
+#: ../lib/gettext/tools/xgettext.rb:243
 msgid "require the library before executing xgettext"
 msgstr "xgettextを実行する前に読み込むライブラリを指定します"
 
-#: ../lib/gettext/tools/xgettext.rb:287
+#: ../lib/gettext/tools/xgettext.rb:247
 msgid "run in debugging mode"
 msgstr "デバッグモードで実行します"
 
-#: ../lib/gettext/tools/xgettext.rb:291
+#: ../lib/gettext/tools/xgettext.rb:251
 msgid "display this help and exit"
 msgstr "このヘルプを表示します"
 
-#: ../lib/gettext/tools/parser/glade.rb:75
+#: ../lib/gettext/tools/xgettext.rb:302
+msgid "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't returns empty string but the header entry in po file."
+msgstr "\"\"というmsgidはgettextによって予約されています。したがって、gettext(\"\")は作成されるpoファイルのヘッダエントリを返しますが、空の文字列は返しません。"
+
+#: ../lib/gettext/tools/parser/glade.rb:76
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "ファイル'%{file}'はglade-2.0のフォーマットではありません。"
 
-#: ../lib/gettext/runtime/textdomain_manager.rb:149
+#: ../lib/gettext/runtime/textdomain_manager.rb:148
 msgid "ngettext: 3rd parmeter is wrong: value = %{number}"
 msgstr "ngettext: 3番目のパラメータが不正です。: value = %{number}"
 
-#: ../lib/gettext/runtime/textdomain_manager.rb:155
+#: ../lib/gettext/runtime/textdomain_manager.rb:154
 msgid "ngettext: 3rd parameter should be a number, not nil."
 msgstr "ngettext: 3番目のパラメータがnilです。数値にしてください。"
 
@@ -219,6 +218,7 @@ msgstr ""
 #: ../samples/hello_plural.rb:19
 msgid "There is an apple.\n"
 msgid_plural "There are %{num} apples.\n"
+msgstr[0] ""
 
 #: ../samples/hello_noop.rb:13
 msgid "Hello World"
@@ -283,14 +283,17 @@ msgstr ""
 #: ../test/test_gettext.rb:155 ../test/test_gettext.rb:159
 msgid "aaa"
 msgid_plural "aaa2"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:33
 msgid "bbb\n"
 msgid_plural "ccc2\nccc2"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:37
 msgid "ddd\nddd"
 msgid_plural "ddd2\nddd2"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:42
 msgid ""
@@ -299,59 +302,72 @@ msgid ""
 msgid_plural ""
 "eee2\n"
 "eee2\n"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:48
 msgid ""
 "ddd\n"
 "eee\n"
 msgid_plural "ddd\neee2"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:55 ../test/fixtures/n_.rb:59 ../test/fixtures/_.rb:53
 #: ../test/fixtures/N_.rb:33
 msgid "fff"
 msgid_plural "fff2"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:59
 msgid "ggg"
 msgid_plural "ggg2"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:63 ../test/fixtures/_.rb:57 ../test/fixtures/N_.rb:37
 msgid "ggghhhiii"
 msgid_plural "jjjkkklll"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:72 ../test/fixtures/_.rb:63 ../test/fixtures/N_.rb:43
 msgid "a\"b\"c\""
 msgid_plural "a\"b\"c\"2"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:76 ../test/fixtures/_.rb:67 ../test/fixtures/N_.rb:47
 msgid "d\"e\"f\""
 msgid_plural "d\"e\"f\"2"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:80
 msgid "mmmmmm"
 msgid_plural "mmm2mmm2"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:81
 msgid "nnn"
 msgid_plural "nnn2"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:86 ../test/fixtures/n_.rb:85
 msgid "ooo"
 msgid_plural "ppp"
+msgstr[0] ""
 
 #: ../test/fixtures/n_.rb:90 ../test/fixtures/n_.rb:91
 msgid "qqq"
 msgid_plural "rrr"
+msgstr[0] ""
 
 #. please provide translations for all
 #. the plural forms!
 #: ../test/fixtures/n_.rb:97
 msgid "comment"
 msgid_plural "comments"
+msgstr[0] ""
 
 #: ../test/fixtures/ns_/custom.rb:28 ../test/fixtures/s_/custom.rb:28
 msgid "context|context$message"
 msgid_plural "context|context$messages"
+msgstr[0] ""
 
 #: ../test/fixtures/multi_textdomain.rb:11 ../test/fixtures/multi_textdomain.rb:24
 #: ../test/fixtures/multi_textdomain.rb:43 ../test/fixtures/multi_textdomain.rb:50
@@ -383,21 +399,25 @@ msgstr ""
 msgctxt "Magazine"
 msgid "a book"
 msgid_plural "%{num} books"
+msgstr[0] ""
 
 #: ../test/fixtures/np_.rb:38 ../test/fixtures/np_.rb:39
 msgctxt "Hardcover"
 msgid "a book"
 msgid_plural "%{num} books"
+msgstr[0] ""
 
 #: ../test/fixtures/np_.rb:43 ../test/fixtures/np_.rb:44
 msgctxt "Magaine"
 msgid "I have a magazine"
 msgid_plural "I have %{num} magazines"
+msgstr[0] ""
 
 #: ../test/fixtures/np_.rb:48 ../test/fixtures/np_.rb:49
 msgctxt "Hardcover"
 msgid "a picture"
 msgid_plural "%{num} pictures"
+msgstr[0] ""
 
 #: ../test/fixtures/_/one_line.rb:28
 msgid "one line"
@@ -405,6 +425,10 @@ msgstr ""
 
 #: ../test/fixtures/non_ascii.rb:10
 msgid "こんにちは"
+msgstr ""
+
+#: ../test/fixtures/untranslated.rb:10
+msgid "untranslated"
 msgstr ""
 
 #: ../test/fixtures/_.rb:34 ../test/fixtures/N_.rb:14
@@ -483,34 +507,42 @@ msgstr ""
 #: ../test/fixtures/ns_.rb:32 ../test/test_gettext.rb:119
 msgid "AAA|BBB"
 msgid_plural "CCC"
+msgstr[0] ""
 
 #: ../test/fixtures/ns_.rb:36 ../test/fixtures/s_.rb:36
 msgid "AAA"
 msgid_plural "BBB"
+msgstr[0] ""
 
 #: ../test/fixtures/ns_.rb:40 ../test/fixtures/s_.rb:40
 msgid "AAA|CCC"
 msgid_plural "DDD"
+msgstr[0] ""
 
 #: ../test/fixtures/ns_.rb:44 ../test/fixtures/s_.rb:44
 msgid "AAA|BBB|CCC"
 msgid_plural "DDD"
+msgstr[0] ""
 
 #: ../test/fixtures/ns_.rb:48 ../test/fixtures/s_.rb:48
 msgid "AAA$BBB"
 msgid_plural "CCC"
+msgstr[0] ""
 
 #: ../test/fixtures/ns_.rb:52 ../test/fixtures/s_.rb:52
 msgid "AAA$B|BB"
 msgid_plural "CCC"
+msgstr[0] ""
 
 #: ../test/fixtures/ns_.rb:56 ../test/fixtures/s_.rb:56
 msgid "AAA$B|CC"
 msgid_plural "DDD"
+msgstr[0] ""
 
 #: ../test/fixtures/ns_.rb:60 ../test/fixtures/s_.rb:60
 msgid "AAA|CCC|BBB"
 msgid_plural "DDD"
+msgstr[0] ""
 
 #: ../test/fixtures/backslash.rb:27
 msgid "You should escape '\\' as '\\\\'."
@@ -576,6 +608,7 @@ msgstr ""
 #: ../test/test_gettext.rb:283 ../test/test_gettext.rb:292
 msgid "one"
 msgid_plural "two"
+msgstr[0] ""
 
 #: ../test/test_gettext.rb:231 ../test/test_gettext.rb:232 ../test/test_gettext.rb:233
 #: ../test/test_gettext.rb:236 ../test/test_gettext.rb:237 ../test/test_gettext.rb:238
@@ -584,8 +617,16 @@ msgid_plural "two"
 #: ../test/test_gettext.rb:249 ../test/test_gettext.rb:250 ../test/test_gettext.rb:251
 msgid "first"
 msgid_plural "second"
+msgstr[0] ""
 
 #: ../test/test_gettext.rb:269 ../test/test_gettext.rb:268 ../test/test_gettext.rb:270
 #: ../test/test_gettext.rb:278 ../test/test_gettext.rb:279 ../test/test_gettext.rb:280
 msgid "single"
 msgid_plural "plural"
+msgstr[0] ""
+
+
+#. #: ../lib/gettext/tools/msginit.rb:112 ../lib/gettext/tools/msgmerge.rb:485
+#. msgid "Dispray this help and exit"
+#. msgstr "このヘルプを表示します"
+
