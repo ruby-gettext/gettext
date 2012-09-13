@@ -447,7 +447,7 @@ module GetText
         if output.nil?
           output = nil
         else
-          if not FileTest.exist?(output)
+          if FileTest.exist?(output)
             $stderr.puts(_("File '%s' has already existed.") % output)
             exit(false)
           end
