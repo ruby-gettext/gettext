@@ -1,8 +1,8 @@
 # News
 ## <a id="2-3-1">2.3.1</a>: 2012-09-13
 
-Bug and package fixes release.
-And encoding support release, only if you use Ruby 1.9.
+It's a Bug and package fix release.
+Then, it's also encoding support release, only if you use Ruby 1.9.
 
 ### Improvements
 
