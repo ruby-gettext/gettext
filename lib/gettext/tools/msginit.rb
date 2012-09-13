@@ -109,7 +109,7 @@ module GetText
           @locale = loc
         end
 
-        parser.on("-h", "--help", _("Dispray this help and exit")) do
+        parser.on("-h", "--help", _("Display this help and exit")) do
           puts(parser.help)
           exit(true)
         end
