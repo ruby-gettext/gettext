@@ -444,15 +444,6 @@ module GetText
       def check_command_line_options(*options) #:nodoc:
         options, output = parse_arguments(*options)
 
-        if output.nil?
-          output = nil
-        else
-          if FileTest.exist?(output)
-            $stderr.puts(_("File '%s' has already existed.") % output)
-            exit(false)
-          end
-        end
-
         config = Config.new
         config.output = output
         config.defpo = options[0]
