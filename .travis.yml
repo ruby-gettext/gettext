@@ -5,7 +5,7 @@ rvm:
   - rbx
   - ree
 #  - jruby
-  - ruby-head
+#  - ruby-head
 notifications:
   recipients:
     - travis@clear-code.com
