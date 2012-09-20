@@ -203,7 +203,7 @@ module GetText
     #Save data as little endian format.
     def save_to_stream(io)
       # remove untranslated message
-      mo = self.delete_if do |msgid, msgstr|
+      mo = self.reject do |msgid, msgstr|
         msgstr.nil?
       end
 
