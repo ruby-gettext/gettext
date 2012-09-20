@@ -152,7 +152,6 @@ module GetText
             @plural = "0" unless @plural
           end
         else
-          msgstr = nil if msgstr.empty?
           unless msgstr.nil?
             msgstr = convert_encoding(msgstr, msgid)
           end
