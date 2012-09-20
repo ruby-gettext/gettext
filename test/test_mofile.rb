@@ -10,6 +10,7 @@ class TestMoFile < Test::Unit::TestCase
 
   def test_untranslated
     mo = load_mo("untranslated.mo")
+    assert_false(mo.has_key?("untranslated"))
     assert_equal(nil, mo["untranslated"])
   end
 
