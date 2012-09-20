@@ -1,4 +1,13 @@
 # News
+## <a id="2-3-2">2.3.2</a>: 2012-09-20
+
+It's a bug fix release.
+
+### Fixes
+
+  * Fixed the bug that untranslated messages are included in a .mo file.
+    [Github #11][Reported by Ramón Cahenzli]
+
 ## <a id="2-3-1">2.3.1</a>: 2012-09-13
 
 It's a Bug and package fix release.
