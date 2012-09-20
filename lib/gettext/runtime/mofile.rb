@@ -203,11 +203,11 @@ module GetText
     #Save data as little endian format.
     def save_to_stream(io)
       # remove untranslated message
-      mo = reject do |msgid, msgstr|
+      translated_messages = reject do |msgid, msgstr|
         msgstr.nil?
       end
 
-      size = mo.size
+      size = translated_messages.size
       header_size = 4 * 7
       table_size  = 4 * 2 * size
 
@@ -224,7 +224,7 @@ module GetText
                           )
       io.write(header.to_a.pack('a4V*'))
 
-      ary = mo.to_a
+      ary = translated_messages.to_a
       ary.sort!{|a, b| a[0] <=> b[0]} # sort by original string
 
       pos = header.hash_table_size * 4 + header.hash_table_offset
