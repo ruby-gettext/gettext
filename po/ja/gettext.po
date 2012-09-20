@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 2.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-13 14:30+0900\n"
+"POT-Creation-Date: 2012-09-20 14:51+0900\n"
 "PO-Revision-Date: 2012-09-13 14:38+0900\n"
 "Last-Translator: Haruka Yoshihara <yoshihara@clear-code.com>\n"
 "Language-Team: Japanese\n"
@@ -624,9 +624,3 @@ msgstr[0] ""
 msgid "single"
 msgid_plural "plural"
 msgstr[0] ""
-
-
-#. #: ../lib/gettext/tools/msginit.rb:112 ../lib/gettext/tools/msgmerge.rb:485
-#. msgid "Dispray this help and exit"
-#. msgstr "このヘルプを表示します"
-
