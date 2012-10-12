@@ -17,7 +17,7 @@ module GetText
     extend GetText
     extend self
 
-    bindtextdomain("rgettext")
+    bindtextdomain("gettext")
 
     TARGET1 = /<property.*translatable="yes">(.*)/
     TARGET2 = /(.*)<\/property>/

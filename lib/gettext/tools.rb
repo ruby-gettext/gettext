@@ -33,7 +33,7 @@ require 'gettext/runtime/mofile'
 require 'fileutils'
 
 module GetText
-  bindtextdomain "rgettext"
+  bindtextdomain "gettext"
 
   BOM_UTF8 = [0xef, 0xbb, 0xbf].pack("c3")
 

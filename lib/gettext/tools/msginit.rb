@@ -48,7 +48,7 @@ module GetText
 
       include GetText
 
-      bindtextdomain("rgettext")
+      bindtextdomain("gettext")
 
       def initialize #:nodoc:
         @input_file = nil

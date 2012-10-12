@@ -436,7 +436,7 @@ module GetText
 
       include GetText
 
-      bindtextdomain("rgettext")
+      bindtextdomain("gettext")
 
       # constant values
       VERSION = GetText::VERSION

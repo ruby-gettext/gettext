@@ -118,7 +118,7 @@ end
 ---- inner
   if GetText.respond_to?(:bindtextdomain)
     include GetText
-    GetText.bindtextdomain("rgettext")
+    GetText.bindtextdomain("gettext")
   else
     def _(message_id)
       message_id

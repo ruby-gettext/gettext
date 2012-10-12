@@ -21,7 +21,7 @@ module GetText
 module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 119)
   if GetText.respond_to?(:bindtextdomain)
     include GetText
-    GetText.bindtextdomain("rgettext")
+    GetText.bindtextdomain("gettext")
   else
     def _(message_id)
       message_id

@@ -46,7 +46,7 @@ module GetText
 
       include GetText
 
-      bindtextdomain("rgettext")
+      bindtextdomain("gettext")
 
       # @api private
       @@default_parsers = []

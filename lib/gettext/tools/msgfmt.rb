@@ -41,7 +41,7 @@ module GetText
 
       include GetText
 
-      bindtextdomain("rgettext")
+      bindtextdomain("gettext")
 
       def initialize
         @input_file = nil
