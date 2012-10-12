@@ -281,7 +281,7 @@ module GetText
 
       def plural_forms(language) #:nodoc:
         case language
-        when "ja", "vi", "ko"
+        when "ja", "vi", "ko", /zh.*/
           nplural = "1"
           plural_expression = "0"
         when "en", "de", "nl", "sv", "da", "no", "fo", "es", "pt",
