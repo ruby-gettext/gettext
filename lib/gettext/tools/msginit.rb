@@ -286,7 +286,7 @@ module GetText
           plural_expression = "0"
         when "en", "de", "nl", "sv", "da", "no", "fo", "es", "pt",
              "it", "bg", "el", "fi", "et", "he", "eo", "hu", "tr",
-             "ca"
+             "ca", "nb"
           nplural = "2"
           plural_expression = "n != 1"
         when "pt_BR", "fr"
