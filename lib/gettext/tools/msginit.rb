@@ -301,7 +301,7 @@ module GetText
           nplural = "3"
           plural_expression = "n==1 ? 0 : " +
                                 "(n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2"
-        when "lt"
+        when "lt", "bs"
           nplural = "3"
           plural_expression = "n%10==1 && n%100!=11 ? 0 : " +
                                 "n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2"
