@@ -137,7 +137,7 @@ module GetText
         else
           unless File.exist?(@input_file)
             raise(ValidationError,
-                  _("file #{@input_file} does not exist."))
+                  _("file '%s' does not exist." % @input_file))
           end
         end
 
@@ -158,7 +158,7 @@ module GetText
         @output_file ||= "#{@locale}.po"
         if File.exist?(@output_file)
           raise(ValidationError,
-                _("file #{@output_file} has already existed."))
+                _("file '%s' has already existed." % @output_file))
         end
       end
 
