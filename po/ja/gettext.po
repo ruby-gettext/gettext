@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gettext 2.3.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-20 14:51+0900\n"
-"PO-Revision-Date: 2012-09-13 14:38+0900\n"
+"PO-Revision-Date: 2012-10-16 16:20+0900\n"
 "Last-Translator: Haruka Yoshihara <yoshihara@clear-code.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -89,16 +89,16 @@ msgid ".pot file does not exist in the current directory."
 msgstr "現在のカレントディレクトリにpotファイルが存在しません。"
 
 #: ../lib/gettext/tools/msginit.rb:140
-msgid "file  does not exist."
-msgstr "ファイルが存在しません。"
+msgid "file '%s' does not exist."
+msgstr "ファイル'%s'は存在しません。"
 
 #: ../lib/gettext/tools/msginit.rb:152
 msgid "\"Locale '#{language_tag}' is invalid. \"Please check if your specified locale is usable."
 msgstr "'#{language_tag}'というロケールは正しくありません。指定したロケールが使用可能かどうか確認してください。"
 
 #: ../lib/gettext/tools/msginit.rb:161
-msgid "file  has already existed."
-msgstr "ファイルはすでに存在しています。"
+msgid "file '%s' has already existed."
+msgstr "ファイル'%s'はすでに存在します。"
 
 #: ../lib/gettext/tools/msginit.rb:199
 msgid "Please enter your full name"
