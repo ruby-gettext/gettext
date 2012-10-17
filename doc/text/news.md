@@ -3,6 +3,11 @@
 
 It's a package fix and msginit improvement release.
 
+### Improvements
+
+  * [msginit] Supported plural forms for Bosnian, Catalan, Norwegian
+    Bokmal and Chinese.
+
 ### Fixes
 
   * Fixed the bug that messages (i.e. the help message for rmsgfmt)
@@ -11,11 +16,6 @@ It's a package fix and msginit improvement release.
     help us to translate or resolve them.
     [Github #12][Reported by mtasaka]
   * Used String#% to localize some messages.
-
-### Improvements
-
-  * [msginit] Supported plural forms for Bosnian, Catalan, Norwegian
-    Bokmal and Chinese.
 
 ## <a id="2-3-2">2.3.2</a>: 2012-09-20
 
