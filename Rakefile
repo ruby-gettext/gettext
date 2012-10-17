@@ -165,5 +165,7 @@ task "test:gettext"
 
 task :package => [:gettext]
 
+task :build => [:gettext]
+
 YARD::Rake::YardocTask.new do |t|
 end
