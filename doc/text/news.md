@@ -1,4 +1,22 @@
 # News
+## <a id="2-3-3">2.3.3</a>: 2012-10-18
+
+It's a package fix and msginit improvement release.
+
+### Fixes
+
+  * Fixed the bug that messages (i.e. the help message for rmsgfmt)
+    aren't localized in each environment. However, some
+    messages aren't tranlated or resolved fuzzy. Please
+    help us to translate or resolve them.
+    [Github #12][Reported by mtasaka]
+  * Used String#% to localize some messages.
+
+### Improvements
+
+  * [msginit] Supported plural forms for Bosnian, Catalan, Norwegian
+    Bokmal and Chinese.
+
 ## <a id="2-3-2">2.3.2</a>: 2012-09-20
 
 It's a bug fix release.
