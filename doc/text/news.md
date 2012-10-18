@@ -17,6 +17,10 @@ It's a package fix and msginit improvement release.
     [Github #12][Reported by mtasaka]
   * Used String#% to localize some messages.
 
+### Thanks
+
+  * mtasaka
+
 ## <a id="2-3-2">2.3.2</a>: 2012-09-20
 
 It's a bug fix release.
