@@ -49,14 +49,14 @@ class TestRubyParser < Test::Unit::TestCase
     end
   end
 
-  def normalize_actual(po_messages)
-    po_messages.collect do |po_message|
+  def normalize_actual(po_entries)
+    po_entries.collect do |po_entry|
       {
-        :msgid        => po_message.msgid,
-        :msgid_plural => po_message.msgid_plural,
-        :msgstr       => po_message.msgstr,
-        :separator    => po_message.separator,
-        :sources      => normalize_sources(po_message.sources),
+        :msgid        => po_entry.msgid,
+        :msgid_plural => po_entry.msgid_plural,
+        :msgstr       => po_entry.msgstr,
+        :separator    => po_entry.separator,
+        :sources      => normalize_sources(po_entry.sources),
       }
     end
   end

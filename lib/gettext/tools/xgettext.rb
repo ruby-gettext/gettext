@@ -89,40 +89,40 @@ module GetText
       #       File.extname(path) == ".foo"  # *.foo file only.
       #     end
       #     def parse(path)
-      #       po_messages = []
-      #       # Simple message
-      #       message = PoEntry.new(:normal)
-      #       message.msgid = "hello"
-      #       message.sources = ["foo.rb:200", "bar.rb:300"]
-      #       message.add_comment("Comment for the message")
-      #       po_messages << message
-      #       # Plural message
-      #       message = PoEntry.new(:plural)
-      #       message.msgid = "An apple"
-      #       message.msgid_plural = "Apples"
-      #       message.sources = ["foo.rb:200", "bar.rb:300"]
-      #       po_messages << message
-      #       # Simple message with the message context
-      #       message = PoEntry.new(:msgctxt)
-      #       message.msgctxt = "context"
-      #       message.msgid = "hello"
-      #       message.sources = ["foo.rb:200", "bar.rb:300"]
-      #       po_messages << message
-      #       # Plural message with the message context.
-      #       message = PoEntry.new(:msgctxt_plural)
-      #       message.msgctxt = "context"
-      #       message.msgid = "An apple"
-      #       message.msgid_plural = "Apples"
-      #       message.sources = ["foo.rb:200", "bar.rb:300"]
-      #       po_messages << message
-      #       return po_messages
+      #       po_entries = []
+      #       # Simple entry
+      #       entry = PoEntry.new(:normal)
+      #       entry.msgid = "hello"
+      #       entry.sources = ["foo.rb:200", "bar.rb:300"]
+      #       entry.add_comment("Comment for the entry")
+      #       po_entries << entry
+      #       # Plural entry
+      #       entry = PoEntry.new(:plural)
+      #       entry.msgid = "An apple"
+      #       entry.msgid_plural = "Apples"
+      #       entry.sources = ["foo.rb:200", "bar.rb:300"]
+      #       po_entries << entry
+      #       # Simple entry with the entry context
+      #       entry = PoEntry.new(:msgctxt)
+      #       entry.msgctxt = "context"
+      #       entry.msgid = "hello"
+      #       entry.sources = ["foo.rb:200", "bar.rb:300"]
+      #       po_entries << entry
+      #       # Plural entry with the message context.
+      #       entry = PoEntry.new(:msgctxt_plural)
+      #       entry.msgctxt = "context"
+      #       entry.msgid = "An apple"
+      #       entry.msgid_plural = "Apples"
+      #       entry.sources = ["foo.rb:200", "bar.rb:300"]
+      #       po_entries << entry
+      #       return po_entries
       #     end
       #   end
       #
       #   GetText::XGetText.add_parser(FooParser.new)
       #
       # @param [#target?, #parse] parser
-      #   It parses target file and extracts translate target messages from the
+      #   It parses target file and extracts translate target entries from the
       #   target file. If there are multiple target files, parser.parse is
       #   called multiple times.
       # @return [void]
@@ -157,26 +157,26 @@ EOH
       end
 
       def generate_pot(paths) # :nodoc:
-        po_messages = parse(paths)
+        po_entries = parse(paths)
         str = ""
-        po_messages.each do |target|
+        po_entries.each do |target|
           str << encode(target.to_po_str)
         end
         str
       end
 
       def parse(paths) # :nodoc:
-        po_messages = []
+        po_entries = []
         paths = [paths] if paths.kind_of?(String)
         paths.each do |path|
           begin
-            parse_path(path, po_messages)
+            parse_path(path, po_entries)
           rescue
             puts(_("Error parsing %{path}") % {:path => path})
             raise
           end
         end
-        po_messages
+        po_entries
       end
 
       def check_command_line_options(*options) # :nodoc:
@@ -269,16 +269,16 @@ EOH
         @output_encoding ||= "UTF-8"
 
         pot_header = generate_pot_header
-        pot_messages = generate_pot(@input_files)
+        pot_entries = generate_pot(@input_files)
 
         if @output.is_a?(String)
           File.open(File.expand_path(@output), "w+") do |file|
             file.puts(pot_header)
-            file.puts(pot_messages)
+            file.puts(pot_entries)
           end
         else
           @output.puts(pot_header)
-          @output.puts(pot_messages)
+          @output.puts(pot_entries)
         end
         self
       end
@@ -288,17 +288,17 @@ EOH
         Time.now
       end
 
-      def parse_path(path, po_messages)
+      def parse_path(path, po_entries)
         @parsers.each do |parser|
           next unless parser.target?(path)
 
-          extracted_po_messages = parser.parse(path)
-          extracted_po_messages.each do |po_message|
-            if po_message.kind_of?(Array)
-              po_message = PoEntry.new_from_ary(po_message)
+          extracted_po_entries = parser.parse(path)
+          extracted_po_entries.each do |po_entry|
+            if po_entry.kind_of?(Array)
+              po_entry = PoEntry.new_from_ary(po_entry)
             end
 
-            if po_message.msgid.empty?
+            if po_entry.msgid.empty?
               warn _("Warning: The empty \"\" msgid is reserved by " +
                        "gettext. So gettext(\"\") doesn't returns " +
                        "empty string but the header entry in po file.")
@@ -316,7 +316,7 @@ EOH
 
             if @output.is_a?(String)
               base_path = Pathname.new(@output).dirname.expand_path
-              po_message.sources = po_message.sources.collect do |source|
+              po_entry.sources = po_entry.sources.collect do |source|
                 path, line, = source.split(/:(\d+)\z/, 2)
                 absolute_path = Pathname.new(path).expand_path
                 begin
@@ -329,18 +329,18 @@ EOH
             end
 
             # Save the previous target
-            if po_messages.empty?
+            if po_entries.empty?
               existing = nil
             else
-              message = po_messages.find {|t| t == po_message}
-              existing = po_messages.index(message)
+              entry = po_entries.find {|t| t == po_entry}
+              existing = po_entries.index(entry)
             end
 
             if existing
-              po_message = po_messages[existing].merge(po_message)
-              po_messages[existing] = po_message
+              po_entry = po_entries[existing].merge(po_entry)
+              po_entries[existing] = po_entry
             else
-              po_messages << po_message
+              po_entries << po_entry
             end
           end
           break
