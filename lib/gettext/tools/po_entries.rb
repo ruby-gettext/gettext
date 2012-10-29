@@ -20,21 +20,21 @@
 require "gettext/tools/po_entry"
 
 module GetText
-class PoEntries < Hash
-  def [](msgid)
-    super(msgid)
-  end
-
-  def []=(msgid, msgstr)
-    if has_key?(msgid)
-      entry = self[msgid]
-    else
-      entry = PoEntry.new(:normal)
-      super(msgid, entry)
+  class PoEntries < Hash
+    def [](msgid)
+      super(msgid)
     end
-    entry.msgid = msgid
-    entry.msgstr = msgstr
-    entry
+
+    def []=(msgid, msgstr)
+      if has_key?(msgid)
+        entry = self[msgid]
+      else
+        entry = PoEntry.new(:normal)
+        super(msgid, entry)
+      end
+      entry.msgid = msgid
+      entry.msgstr = msgstr
+      entry
+    end
   end
-end
 end
