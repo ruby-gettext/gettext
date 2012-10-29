@@ -41,6 +41,7 @@ class TestRubyParser < Test::Unit::TestCase
       default = {
         :msgid        => nil,
         :msgid_plural => nil,
+        :msgstr       => nil,
         :separator    => nil,
         :sources      => nil,
       }
@@ -53,6 +54,7 @@ class TestRubyParser < Test::Unit::TestCase
       {
         :msgid        => po_message.msgid,
         :msgid_plural => po_message.msgid_plural,
+        :msgstr       => po_message.msgstr,
         :separator    => po_message.separator,
         :sources      => normalize_sources(po_message.sources),
       }
@@ -134,6 +136,7 @@ class TestRubyParser < Test::Unit::TestCase
       assert_parse([
                      {
                        :msgid     => "context|context$message",
+                       :msgstr    => nil,
                        :separator => "$",
                        :sources   => ["custom.rb:28"],
                      }
@@ -153,6 +156,7 @@ class TestRubyParser < Test::Unit::TestCase
                      {
                        :msgid        => "context|context$message",
                        :msgid_plural => "context|context$messages",
+                       :msgstr       => nil,
                        :separator    => "$",
                        :sources      => ["custom.rb:28"],
                      }

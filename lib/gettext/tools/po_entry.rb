@@ -27,10 +27,10 @@ module GetText
   # is to be translated.
   class PoEntry
     PARAMS = {
-      :normal => [:msgid, :separator],
-      :plural => [:msgid, :msgid_plural, :separator],
-      :msgctxt => [:msgctxt, :msgid],
-      :msgctxt_plural => [:msgctxt, :msgid, :msgid_plural]
+      :normal => [:msgid, :separator, :msgstr],
+      :plural => [:msgid, :msgid_plural, :separator, :msgstr],
+      :msgctxt => [:msgctxt, :msgid, :msgstr],
+      :msgctxt_plural => [:msgctxt, :msgid, :msgid_plural, :msgstr]
     }
 
     class << self
@@ -61,6 +61,7 @@ module GetText
     # Required
     attr_accessor :type          # :normal, :plural, :msgctxt, :msgctxt_plural
     attr_accessor :msgid
+    attr_accessor :msgstr
     # Options
     attr_accessor :msgid_plural
     attr_accessor :separator
@@ -73,6 +74,7 @@ module GetText
       @type = type
       @sources = []
       @param_type = PARAMS[@type]
+      @msgstr = nil
     end
 
     # Support for extracted comments. Explanation s.
