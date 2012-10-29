@@ -21,7 +21,7 @@ require "gettext/tools/po_entry"
 
 class PoEntries < Hash
   def [](msgid)
-    super(msgid) || nil
+    super(msgid)
   end
 
   def []=(msgid, msgstr)
