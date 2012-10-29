@@ -91,25 +91,25 @@ module GetText
       #     def parse(path)
       #       po_messages = []
       #       # Simple message
-      #       message = PoMessage.new(:normal)
+      #       message = PoEntry.new(:normal)
       #       message.msgid = "hello"
       #       message.sources = ["foo.rb:200", "bar.rb:300"]
       #       message.add_comment("Comment for the message")
       #       po_messages << message
       #       # Plural message
-      #       message = PoMessage.new(:plural)
+      #       message = PoEntry.new(:plural)
       #       message.msgid = "An apple"
       #       message.msgid_plural = "Apples"
       #       message.sources = ["foo.rb:200", "bar.rb:300"]
       #       po_messages << message
       #       # Simple message with the message context
-      #       message = PoMessage.new(:msgctxt)
+      #       message = PoEntry.new(:msgctxt)
       #       message.msgctxt = "context"
       #       message.msgid = "hello"
       #       message.sources = ["foo.rb:200", "bar.rb:300"]
       #       po_messages << message
       #       # Plural message with the message context.
-      #       message = PoMessage.new(:msgctxt_plural)
+      #       message = PoEntry.new(:msgctxt_plural)
       #       message.msgctxt = "context"
       #       message.msgid = "An apple"
       #       message.msgid_plural = "Apples"
@@ -295,7 +295,7 @@ EOH
           extracted_po_messages = parser.parse(path)
           extracted_po_messages.each do |po_message|
             if po_message.kind_of?(Array)
-              po_message = PoMessage.new_from_ary(po_message)
+              po_message = PoEntry.new_from_ary(po_message)
             end
 
             if po_message.msgid.empty?

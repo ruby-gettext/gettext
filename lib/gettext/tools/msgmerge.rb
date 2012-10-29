@@ -22,9 +22,9 @@
 require "optparse"
 require "gettext"
 require "gettext/tools/poparser"
-require "gettext/tools/pomessage"
+require "gettext/tools/po_entry"
 
-# TODO: MsgMerge should use PoMessage to generate PO content.
+# TODO: MsgMerge should use PoEntry to generate PO content.
 
 module GetText
   module Tools
@@ -189,7 +189,7 @@ module GetText
         end
 
         def escape(string)
-          PoMessage.escape(string)
+          PoEntry.escape(string)
         end
       end
 

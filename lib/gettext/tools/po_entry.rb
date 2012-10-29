@@ -25,7 +25,7 @@ module GetText
 
   # Contains data related to the expression or sentence that
   # is to be translated.
-  class PoMessage
+  class PoEntry
     PARAMS = {
       :normal => [:msgid, :separator],
       :plural => [:msgid, :msgid_plural, :separator],
@@ -164,7 +164,7 @@ module GetText
     # is nil, then raise an RuntimeException.
     def msgctxt?
       if [:msgctxt, :msgctxt_plural].include? @type
-        raise "This PoMessage is a kind of msgctxt but the msgctxt property is nil. msgid: #{msgid}" unless @msgctxt
+        raise "This PoEntry is a kind of msgctxt but the msgctxt property is nil. msgid: #{msgid}" unless @msgctxt
         true
       end
     end
@@ -174,7 +174,7 @@ module GetText
     # is nil, then raise an RuntimeException.
     def plural?
       if [:plural, :msgctxt_plural].include? @type
-        raise "This PoMessage is a kind of plural but the msgid_plural property is nil. msgid: #{msgid}" unless @msgid_plural
+        raise "This PoEntry is a kind of plural but the msgid_plural property is nil. msgid: #{msgid}" unless @msgid_plural
         true
       end
     end

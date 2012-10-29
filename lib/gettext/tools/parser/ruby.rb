@@ -13,7 +13,7 @@
 
 require 'irb/ruby-lex.rb'
 require 'stringio'
-require 'gettext/tools/pomessage'
+require 'gettext/tools/po_entry'
 
 module GetText
   class RubyLexX < RubyLex  # :nodoc: all
@@ -79,9 +79,9 @@ module GetText
 
   end
 
-  # Extends PoMessage for RubyParser.
+  # Extends PoEntry for RubyParser.
   # Implements a sort of state machine to assist the parser.
-  module PoMessageForRubyParser
+  module PoEntryForRubyParser
     # Supports parsing by setting attributes by and by.
     def set_current_attribute(str)
       param = @param_type[@param_number]
@@ -98,8 +98,8 @@ module GetText
       @param_number += 1
     end
   end
-  class PoMessage
-    include PoMessageForRubyParser
+  class PoEntry
+    include PoEntryForRubyParser
     alias :initialize_old :initialize
     def initialize(type)
       initialize_old(type)
@@ -117,7 +117,7 @@ module GetText
 
     # (Since 2.1.0) the 2nd parameter is deprecated
     # (and ignored here).
-    # And You don't need to keep the pomessages as unique.
+    # And You don't need to keep the poentries as unique.
 
     def parse(path)  # :nodoc:
       source = IO.read(path)
@@ -142,14 +142,14 @@ module GetText
     end
 
     def parse_lines(path, lines)  # :nodoc:
-      pomessages = []
+      po_entries = []
       file = StringIO.new(lines.join + "\n")
       rl = RubyLexX.new
       rl.set_input(file)
       rl.skip_space = true
       #rl.readed_auto_clean_up = true
 
-      pomessage = nil
+      po_entry = nil
       line_no = nil
       last_comment = ''
       reset_comment = false
@@ -160,32 +160,32 @@ module GetText
           ignore_next_comma = false
           case tk
           when RubyToken::TkIDENTIFIER, RubyToken::TkCONSTANT
-            store_pomessage(pomessages, pomessage, path, line_no, last_comment)
+            store_po_entry(po_entries, po_entry, path, line_no, last_comment)
             if ID.include?(tk.name)
-              pomessage = PoMessage.new(:normal)
+              po_entry = PoEntry.new(:normal)
             elsif PLURAL_ID.include?(tk.name)
-              pomessage = PoMessage.new(:plural)
+              po_entry = PoEntry.new(:plural)
             elsif MSGCTXT_ID.include?(tk.name)
-              pomessage = PoMessage.new(:msgctxt)
+              po_entry = PoEntry.new(:msgctxt)
             elsif MSGCTXT_PLURAL_ID.include?(tk.name)
-              pomessage = PoMessage.new(:msgctxt_plural)
+              po_entry = PoEntry.new(:msgctxt_plural)
             else
-              pomessage = nil
+              po_entry = nil
             end
             line_no = tk.line_no.to_s
           when RubyToken::TkSTRING, RubyToken::TkDSTRING
-            pomessage.set_current_attribute tk.value if pomessage
+            po_entry.set_current_attribute tk.value if po_entry
           when RubyToken::TkPLUS, RubyToken::TkNL
             #do nothing
           when RubyToken::TkINTEGER
             ignore_next_comma = true
           when RubyToken::TkCOMMA
             unless ignore_current_comma
-              pomessage.advance_to_next_attribute if pomessage
+              po_entry.advance_to_next_attribute if po_entry
             end
           else
-            if store_pomessage(pomessages, pomessage, path, line_no, last_comment)
-              pomessage = nil
+            if store_po_entry(po_entries, po_entry, path, line_no, last_comment)
+              po_entry = nil
               last_comment = ""
             end
           end
@@ -217,7 +217,7 @@ module GetText
           reset_comment = true
         end
       end
-      pomessages
+      po_entries
     end
 
     def target?(file)  # :nodoc:
@@ -225,11 +225,11 @@ module GetText
     end
 
     private
-    def store_pomessage(pomessages, pomessage, file_name, line_no, last_comment) #:nodoc:
-      if pomessage && pomessage.msgid
-        pomessage.sources << file_name + ":" + line_no
-        pomessage.add_comment(last_comment) unless last_comment.empty?
-        pomessages << pomessage
+    def store_po_entry(po_entries, po_entry, file_name, line_no, last_comment) #:nodoc:
+      if po_entry && po_entry.msgid
+        po_entry.sources << file_name + ":" + line_no
+        po_entry.add_comment(last_comment) unless last_comment.empty?
+        po_entries << po_entry
         true
       else
         false
