@@ -158,7 +158,7 @@ module GetText
           str << "msgstr[0] \"\"\n"
           str << "msgstr[1] \"\"\n"
         else
-          msgstrs = self.msgstr.split("\000", -1)
+          msgstrs = msgstr.split("\000", -1)
           msgstrs.each_with_index do |msgstr, index|
             str << "msgstr[#{index}] \"#{msgstr}\"\n"
           end
