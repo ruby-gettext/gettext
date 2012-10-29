@@ -27,10 +27,7 @@ module GetText
     end
 
     def []=(msgid, msgstr)
-      if /\000/ =~ msgid
-        msgid = $PREMATCH
-        msgid_plural = $POSTMATCH
-      end
+      msgid, msgid_plural = msgid.split("\000", 2)
       if has_key?(msgid)
         entry = self[msgid]
       else
