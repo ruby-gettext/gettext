@@ -20,25 +20,21 @@
 require "gettext/tools/po_entry"
 
 class PoEntries < Hash
-  def initialize
-    @entries = {}
-  end
-
   def [](msgid)
-    @entries[msgid] || nil
+    super(msgid) || nil
   end
 
   def []=(msgid, msgstr)
     entry = nil
-    if @entries.has_key?(msgid)
-      entry = @entries[msgid]
+    if has_key?(msgid)
+      entry = self[msgid]
       entry.msgid = msgid
       entry.msgstr = msgstr
     else
       entry = PoEntry.new(:normal)
       entry.msgid = msgid
       entry.msgstr = msgstr
-      @entries[msgid] = entry
+      super(msgid, entry)
     end
     entry
   end
