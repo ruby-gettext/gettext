@@ -153,8 +153,16 @@ module GetText
       str << "\nmsgid \"" << escaped(:msgid) << "\"\n"
       if plural?
         str << "msgid_plural \"" << escaped(:msgid_plural) << "\"\n"
-        str << "msgstr[0] \"\"\n"
-        str << "msgstr[1] \"\"\n"
+
+        if msgstr.nil?
+          str << "msgstr[0] \"\"\n"
+          str << "msgstr[1] \"\"\n"
+        else
+          msgstrs = self.msgstr.split("\000", -1)
+          msgstrs.each_with_index do |msgstr, index|
+            str << "msgstr[#{index}] \"#{msgstr}\"\n"
+          end
+        end
       else
         str << "msgstr \"#{escaped(:msgstr)}\"\n"
       end

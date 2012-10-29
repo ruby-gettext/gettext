@@ -112,6 +112,23 @@ EOE
     assert_equal(expected_entry, po.to_po_str)
   end
 
+  def test_msgstr_with_msgid_plural
+    po = GetText::PoEntry.new(:plural)
+    po.msgid = "he"
+    po.msgid_plural = "them"
+    po.msgstr = "il\000ils"
+    po.sources = ["file1:1", "file2:10"]
+    expected_entry = <<-EOE
+
+#: file1:1 file2:10
+msgid "he"
+msgid_plural "them"
+msgstr[0] "il"
+msgstr[1] "ils"
+EOE
+    assert_equal(expected_entry, po.to_po_str)
+  end
+
   class TestEscape < self
     def setup
       @message = GetText::PoEntry.new(:normal)
