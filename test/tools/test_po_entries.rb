@@ -78,4 +78,18 @@ class TestPoEntries < Test::Unit::TestCase
     entry.comment = comment
     assert_equal(entry, @entries[msgid])
   end
+
+  def test_msgid_plural
+    msgid = "msgid"
+    msgid_plural = "msgid_plural"
+    msgstr = "msgstr"
+
+    @entries = GetText::PoEntries.new
+    @entries["#{msgid}\000#{msgid_plural}"] = msgstr
+
+    entry = PoEntry.new(:plural)
+    entry.msgid = msgid
+    entry.msgstr = msgstr
+    assert_equal(entry, @entries[msgid])
+  end
 end

@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "English"
 require "gettext/tools/po_entry"
 
 module GetText
@@ -26,13 +27,23 @@ module GetText
     end
 
     def []=(msgid, msgstr)
+      if /\000/ =~ msgid
+        msgid = $PREMATCH
+        msgid_plural = $POSTMATCH
+      end
       if has_key?(msgid)
         entry = self[msgid]
       else
-        entry = PoEntry.new(:normal)
+        if msgid_plural.nil?
+          type = :normal
+        else
+          type = :plural
+        end
+        entry = PoEntry.new(type)
         super(msgid, entry)
       end
       entry.msgid = msgid
+      entry.msgid_plural = msgid_plural
       entry.msgstr = msgstr
       entry
     end
