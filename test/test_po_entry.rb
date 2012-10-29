@@ -112,6 +112,20 @@ EOE
     assert_equal(expected_entry, po.to_po_str)
   end
 
+  def test_escaped_msgstr
+    po = GetText::PoEntry.new(:normal)
+    po.msgid = "He said \"hello.\""
+    po.msgstr = "Il a dit \"bonjour.\""
+    po.sources = ["file1:1", "file2:10"]
+    expected_entry = <<-EOE
+
+#: file1:1 file2:10
+msgid "He said \\\"hello.\\\""
+msgstr "Il a dit \\\"bonjour.\\\""
+EOE
+    assert_equal(expected_entry, po.to_po_str)
+  end
+
   def test_msgstr_with_msgid_plural
     po = GetText::PoEntry.new(:plural)
     po.msgid = "he"

@@ -90,7 +90,7 @@ module GetText
     # Returns a parameter representation suitable for po-files
     # and other purposes.
     def escaped(param_name)
-      orig = self.send(param_name)
+      orig = self.send(param_name) || ""
       self.class.escape(orig.gsub(/\r/, ""))
     end
 
@@ -160,11 +160,11 @@ module GetText
         else
           msgstrs = msgstr.split("\000", -1)
           msgstrs.each_with_index do |msgstr, index|
-            str << "msgstr[#{index}] \"#{msgstr}\"\n"
+            str << "msgstr[#{index}] \"#{escaped(:msgstr)}\"\n"
           end
         end
       else
-        str << "msgstr \"#{msgstr}\"\n"
+        str << "msgstr \"#{escaped(:msgstr)}\"\n"
       end
       str
     end
