@@ -19,6 +19,7 @@
 
 require "gettext/tools/po_entry"
 
+module GetText
 class PoEntries < Hash
   def [](msgid)
     super(msgid)
@@ -35,4 +36,5 @@ class PoEntries < Hash
     entry.msgstr = msgstr
     entry
   end
+end
 end

@@ -28,7 +28,7 @@ class TestPoEntries < Test::Unit::TestCase
     msgid = "msgid"
     msgstr = "msgstr"
 
-    @entries = PoEntries.new
+    @entries = GetText::PoEntries.new
     @entries[msgid] = msgstr
 
     entry = PoEntry.new(:normal)
