@@ -61,6 +61,7 @@ class TestPoEntries < Test::Unit::TestCase
     entry.msgid = msgid
     entry.comment = comment
     assert_equal(entry, @entries[msgid])
+    assert_equal(nil, @entries[msgid].msgstr)
   end
 
   def test_add_comment_to_existing_entry
