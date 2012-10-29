@@ -17,29 +17,36 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "gettext/tools/po_entry"
+require "gettext/tools/po_entries"
 
-class PoEntries < Hash
-  def initialize
-    @entries = {}
+class TestPoEntries < Test::Unit::TestCase
+  def setup
+    @entries = nil
   end
 
-  def [](msgid)
-    @entries[msgid] || nil
+  def test_add_new_entry
+    msgid = "msgid"
+    msgstr = "msgstr"
+
+    @entries = PoEntries.new
+    @entries[msgid] = msgstr
+
+    entry = PoEntry.new(:normal)
+    entry.msgid = msgid
+    entry.msgstr = msgstr
+    assert_equal(entry, @entries[msgid])
   end
 
-  def []=(msgid, msgstr)
-    entry = nil
-    if @entries.has_key?(msgid)
-      entry = @entries[msgid]
-      entry.msgid = msgid
-      entry.msgstr = msgstr
-    else
-      entry = PoEntry.new(:normal)
-      entry.msgid = msgid
-      entry.msgstr = msgstr
-      @entries[msgid] = entry
-    end
-    entry
+  def test_update_existed_entry
+    test_add_new_entry
+
+    msgid = "msgid"
+    new_msgstr = "new_msgstr"
+    @entries[msgid] = new_msgstr
+
+    entry = PoEntry.new(:normal)
+    entry.msgid = msgid
+    entry.msgstr = new_msgstr
+    assert_equal(entry, @entries[msgid])
   end
 end
