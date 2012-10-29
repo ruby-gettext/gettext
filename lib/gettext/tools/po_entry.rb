@@ -90,8 +90,7 @@ module GetText
     # Returns a parameter representation suitable for po-files
     # and other purposes.
     def escaped(param_name)
-      orig = self.send(param_name) || ""
-      self.class.escape(orig.gsub(/\r/, ""))
+      escape(send(param_name))
     end
 
     # Checks if the other translation target is mergeable with
@@ -160,8 +159,7 @@ module GetText
         else
           msgstrs = msgstr.split("\000", -1)
           msgstrs.each_with_index do |msgstr, index|
-            msgstr = self.class.escape(msgstr.gsub(/\r/, ""))
-            str << "msgstr[#{index}] \"#{msgstr}\"\n"
+            str << "msgstr[#{index}] \"#{escape(msgstr)}\"\n"
           end
         end
       else
@@ -198,6 +196,10 @@ module GetText
     #   value - new value
     def set_value(param, value)
       send "#{param}=", (send(param) || '') + value.gsub(/\n/, '\n')
+    end
+
+    def escape(value)
+      self.class.escape((value || "").gsub(/\r/, ""))
     end
 
     public
