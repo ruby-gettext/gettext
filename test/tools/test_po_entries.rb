@@ -64,6 +64,21 @@ class TestPoEntries < Test::Unit::TestCase
     assert_equal(nil, @entries[msgid].msgstr)
   end
 
+  def test_add_sources
+    msgid = "msgid"
+    sources = ["comment:10", "comment: 12"]
+    comment = "#: #{sources.join("\n#: ")}"
+
+    @entries = GetText::PoEntries.new
+    @entries.set_comment(msgid, comment)
+
+    entry = PoEntry.new(:normal)
+    entry.msgid = msgid
+    entry.comment = comment
+    assert_equal(entry, @entries[msgid])
+    assert_equal(sources, @entries[msgid].sources)
+  end
+
   def test_add_comment_to_existing_entry
     test_add_new_entry
 
