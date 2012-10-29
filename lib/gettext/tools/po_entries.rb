@@ -25,17 +25,14 @@ class PoEntries < Hash
   end
 
   def []=(msgid, msgstr)
-    entry = nil
     if has_key?(msgid)
       entry = self[msgid]
-      entry.msgid = msgid
-      entry.msgstr = msgstr
     else
       entry = PoEntry.new(:normal)
-      entry.msgid = msgid
-      entry.msgstr = msgstr
       super(msgid, entry)
     end
+    entry.msgid = msgid
+    entry.msgstr = msgstr
     entry
   end
 end
