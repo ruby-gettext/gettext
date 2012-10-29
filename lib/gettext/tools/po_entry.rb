@@ -160,7 +160,8 @@ module GetText
         else
           msgstrs = msgstr.split("\000", -1)
           msgstrs.each_with_index do |msgstr, index|
-            str << "msgstr[#{index}] \"#{escaped(:msgstr)}\"\n"
+            msgstr = self.class.escape(msgstr.gsub(/\r/, ""))
+            str << "msgstr[#{index}] \"#{msgstr}\"\n"
           end
         end
       else
