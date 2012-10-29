@@ -98,6 +98,20 @@ class TestPoEntry < Test::Unit::TestCase
     assert_raise(RuntimeError){ po.to_po_str }
   end
 
+  def test_msgstr
+    po = GetText::PoEntry.new(:normal)
+    po.msgid = "hello"
+    po.msgstr = "Bonjour"
+    po.sources = ["file1:1", "file2:10"]
+    expected_entry = <<-EOE
+
+#: file1:1 file2:10
+msgid "hello"
+msgstr "Bonjour"
+EOE
+    assert_equal(expected_entry, po.to_po_str)
+  end
+
   class TestEscape < self
     def setup
       @message = GetText::PoEntry.new(:normal)
