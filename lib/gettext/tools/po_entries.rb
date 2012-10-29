@@ -36,5 +36,15 @@ module GetText
       entry.msgstr = msgstr
       entry
     end
+
+    def set_comment(msgid, comment)
+      if has_key?(msgid)
+        self[msgid].comment = comment
+      else
+        entry = PoEntry.new(:normal)
+        entry.comment = comment
+        self[msgid] = entry
+      end
+    end
   end
 end

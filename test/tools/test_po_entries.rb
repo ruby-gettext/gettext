@@ -49,4 +49,33 @@ class TestPoEntries < Test::Unit::TestCase
     entry.msgstr = new_msgstr
     assert_equal(entry, @entries[msgid])
   end
+
+  def test_add_comment
+    msgid = "msgid"
+    comment = "comment"
+
+    @entries = GetText::PoEntries.new
+    @entries.set_comment(msgid, comment)
+
+    entry = PoEntry.new(:normal)
+    entry.msgid = msgid
+    entry.comment = comment
+    assert_equal(entry, @entries[msgid])
+  end
+
+  def test_add_comment_to_existing_entry
+    test_add_new_entry
+
+    msgid = "msgid"
+    msgstr = "msgstr"
+    comment = "comment"
+
+    @entries[msgid] = msgstr
+
+    entry = PoEntry.new(:normal)
+    entry.msgid = msgid
+    entry.msgstr = msgstr
+    entry.comment = comment
+    assert_equal(entry, @entries[msgid])
+  end
 end
