@@ -38,7 +38,6 @@ class TestPoEntries < Test::Unit::TestCase
     assert_equal(entry, @entries[msgid])
   end
 
-
   def test_msgctxt
     msgctxt = "msgctxt"
     msgid = "msgid"
