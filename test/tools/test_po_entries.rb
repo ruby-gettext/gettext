@@ -73,7 +73,7 @@ class TestPoEntries < Test::Unit::TestCase
       msgstr = "msgstr"
       comment = "comment"
 
-      @entries[msgid] = msgstr
+      @entries.set_comment(msgid, comment)
 
       entry = PoEntry.new(:normal)
       entry.msgid = msgid
