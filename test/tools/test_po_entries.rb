@@ -38,6 +38,39 @@ class TestPoEntries < Test::Unit::TestCase
     assert_equal(entry, @entries[msgid])
   end
 
+
+  def test_msgctxt
+    msgctxt = "msgctxt"
+    msgid = "msgid"
+    msgstr = "msgstr"
+
+    @entries = GetText::PoEntries.new
+    @entries["#{msgctxt}\004#{msgid}"] = msgstr
+
+    entry = PoEntry.new(:msgctxt)
+    entry.msgctxt = msgctxt
+    entry.msgid = msgid
+    entry.msgstr = msgstr
+    assert_equal(entry, @entries[msgid])
+  end
+
+  def test_msgctxt_plural
+    msgctxt = "msgctxt"
+    msgid = "msgid"
+    msgid_plural = "msgid_plural"
+    msgstr = "msgstr"
+
+    @entries = GetText::PoEntries.new
+    @entries["#{msgctxt}\004#{msgid}\000#{msgid_plural}"] = msgstr
+
+    entry = PoEntry.new(:msgctxt_plural)
+    entry.msgctxt = msgctxt
+    entry.msgid = msgid
+    entry.msgid_plural = msgid_plural
+    entry.msgstr = msgstr
+    assert_equal(entry, @entries[msgid])
+  end
+
   def test_update_existed_entry
     test_add_new_entry
 
