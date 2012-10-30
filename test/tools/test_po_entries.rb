@@ -97,7 +97,7 @@ class TestPoEntries < Test::Unit::TestCase
 
       entry = PoEntry.new(:normal)
       entry.msgid = msgid
-      entry.comment = comment
+      entry.sources = sources
       assert_equal(entry, @entries[msgid])
       assert_equal(sources, @entries[msgid].sources)
     end
@@ -115,7 +115,7 @@ class TestPoEntries < Test::Unit::TestCase
 
       entry = PoEntry.new(:normal)
       entry.msgid = msgid
-      entry.comment = comment
+      entry.sources = sources
       assert_equal(entry, @entries[msgid])
       assert_equal(sources, @entries[msgid].sources)
     end
