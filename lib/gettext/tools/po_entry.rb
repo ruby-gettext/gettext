@@ -135,8 +135,8 @@ module GetText
       res
     end
 
-    # Output the po message for the po-file.
-    def to_po_str
+    # Output the po entry for the po-file.
+    def to_s
       raise "msgid is nil." unless @msgid
       raise "sources is nil." unless @sources
 

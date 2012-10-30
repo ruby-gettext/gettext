@@ -160,7 +160,7 @@ EOH
         po_entries = parse(paths)
         str = ""
         po_entries.each do |target|
-          str << encode(target.to_po_str)
+          str << encode(target.to_s)
         end
         str
       end
