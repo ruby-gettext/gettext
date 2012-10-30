@@ -84,41 +84,41 @@ class TestPoEntries < Test::Unit::TestCase
   end
 
   class TestSources < self
-  def test_add
-    msgid = "msgid"
-    sources = ["comment:10", "comment: 12"]
-    source_comments = sources.collect do |source|
-      "#: #{source}"
+    def test_add
+      msgid = "msgid"
+      sources = ["comment:10", "comment: 12"]
+      source_comments = sources.collect do |source|
+        "#: #{source}"
+      end
+      comment = source_comments.join("\n")
+
+      @entries = GetText::PoEntries.new
+      @entries.set_comment(msgid, comment)
+
+      entry = PoEntry.new(:normal)
+      entry.msgid = msgid
+      entry.comment = comment
+      assert_equal(entry, @entries[msgid])
+      assert_equal(sources, @entries[msgid].sources)
     end
-    comment = source_comments.join("\n")
 
-    @entries = GetText::PoEntries.new
-    @entries.set_comment(msgid, comment)
+    def test_in_comment
+      msgid = "msgid"
+      sources = ["dir/\#: /file:10", "comment:12"]
+      source_comments = sources.collect do |source|
+        "#: #{source}"
+      end
+      comment = source_comments.join("\n")
 
-    entry = PoEntry.new(:normal)
-    entry.msgid = msgid
-    entry.comment = comment
-    assert_equal(entry, @entries[msgid])
-    assert_equal(sources, @entries[msgid].sources)
-  end
+      @entries = GetText::PoEntries.new
+      @entries.set_comment(msgid, comment)
 
-  def test_in_comment
-    msgid = "msgid"
-    sources = ["dir/\#: /file:10", "comment:12"]
-    source_comments = sources.collect do |source|
-      "#: #{source}"
+      entry = PoEntry.new(:normal)
+      entry.msgid = msgid
+      entry.comment = comment
+      assert_equal(entry, @entries[msgid])
+      assert_equal(sources, @entries[msgid].sources)
     end
-    comment = source_comments.join("\n")
-
-    @entries = GetText::PoEntries.new
-    @entries.set_comment(msgid, comment)
-
-    entry = PoEntry.new(:normal)
-    entry.msgid = msgid
-    entry.comment = comment
-    assert_equal(entry, @entries[msgid])
-    assert_equal(sources, @entries[msgid].sources)
-  end
   end
 
   def test_msgid_plural
