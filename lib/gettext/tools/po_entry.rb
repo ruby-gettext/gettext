@@ -95,7 +95,7 @@ module GetText
 
     # Checks if the other translation target is mergeable with
     # the current one. Relevant are msgid and translation context (msgctxt).
-    def ==(other)
+    def mergeable?(other)
       other && other.msgid == self.msgid && other.msgctxt == self.msgctxt
     end
 
@@ -105,7 +105,7 @@ module GetText
     def merge(other)
       return self unless other
       raise ParseError, "Translation targets do not match: \n" \
-      "  self: #{self.inspect}\n  other: '#{other.inspect}'" unless self == other
+      "  self: #{self.inspect}\n  other: '#{other.inspect}'" unless self.mergeable?(other)
       if other.msgid_plural && !self.msgid_plural
         res = other
         unless (res.sources.include? self.sources[0])

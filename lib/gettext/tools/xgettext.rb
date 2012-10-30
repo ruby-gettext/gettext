@@ -332,7 +332,7 @@ EOH
             if po_entries.empty?
               existing = nil
             else
-              entry = po_entries.find {|t| t == po_entry}
+              entry = po_entries.find {|t| t.mergeable?(po_entry)}
               existing = po_entries.index(entry)
             end
 
