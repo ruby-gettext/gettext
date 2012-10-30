@@ -83,7 +83,8 @@ class TestPoEntries < Test::Unit::TestCase
     end
   end
 
-  def test_add_sources
+  class TestSources < self
+  def test_add
     msgid = "msgid"
     sources = ["comment:10", "comment: 12"]
     source_comments = sources.collect do |source|
@@ -101,7 +102,7 @@ class TestPoEntries < Test::Unit::TestCase
     assert_equal(sources, @entries[msgid].sources)
   end
 
-  def test_source_mark_in_comment
+  def test_in_comment
     msgid = "msgid"
     sources = ["dir/\#: /file:10", "comment:12"]
     source_comments = sources.collect do |source|
@@ -117,6 +118,7 @@ class TestPoEntries < Test::Unit::TestCase
     entry.comment = comment
     assert_equal(entry, @entries[msgid])
     assert_equal(sources, @entries[msgid].sources)
+  end
   end
 
   def test_msgid_plural
