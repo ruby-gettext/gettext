@@ -116,12 +116,12 @@ class TestPoEntries < Test::Unit::TestCase
     end
 
     def test_add_to_existing_entry
-      test_add_new_entry
-
       msgid = "msgid"
       msgstr = "msgstr"
-      comment = "comment"
+      @entries = GetText::PoEntries.new
+      @entries[msgid] = msgstr
 
+      comment = "comment"
       @entries.set_comment(msgid, comment)
 
       entry = PoEntry.new(:normal)
