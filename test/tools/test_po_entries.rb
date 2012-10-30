@@ -86,18 +86,18 @@ class TestPoEntries < Test::Unit::TestCase
       assert_equal(entry, @entries[msgid])
     end
 
-  def test_update_existed_entry
-    test_normal
+    def test_update_existed_entry
+      test_normal
 
-    msgid = "msgid"
-    new_msgstr = "new_msgstr"
-    @entries[msgid] = new_msgstr
+      msgid = "msgid"
+      new_msgstr = "new_msgstr"
+      @entries[msgid] = new_msgstr
 
-    entry = PoEntry.new(:normal)
-    entry.msgid = msgid
-    entry.msgstr = new_msgstr
-    assert_equal(entry, @entries[msgid])
-  end
+      entry = PoEntry.new(:normal)
+      entry.msgid = msgid
+      entry.msgstr = new_msgstr
+      assert_equal(entry, @entries[msgid])
+    end
   end
 
   class TestComment < self
