@@ -51,7 +51,8 @@ class TestPoEntries < Test::Unit::TestCase
     assert_equal(entry, @entries[msgid])
   end
 
-  def test_add_comment
+  class TestComment < self
+  def test_add
     msgid = "msgid"
     comment = "comment"
 
@@ -63,6 +64,23 @@ class TestPoEntries < Test::Unit::TestCase
     entry.comment = comment
     assert_equal(entry, @entries[msgid])
     assert_equal(nil, @entries[msgid].msgstr)
+  end
+
+  def test_add_to_existing_entry
+    test_add_new_entry
+
+    msgid = "msgid"
+    msgstr = "msgstr"
+    comment = "comment"
+
+    @entries[msgid] = msgstr
+
+    entry = PoEntry.new(:normal)
+    entry.msgid = msgid
+    entry.msgstr = msgstr
+    entry.comment = comment
+    assert_equal(entry, @entries[msgid])
+  end
   end
 
   def test_add_sources
@@ -99,22 +117,6 @@ class TestPoEntries < Test::Unit::TestCase
     entry.comment = comment
     assert_equal(entry, @entries[msgid])
     assert_equal(sources, @entries[msgid].sources)
-  end
-
-  def test_add_comment_to_existing_entry
-    test_add_new_entry
-
-    msgid = "msgid"
-    msgstr = "msgstr"
-    comment = "comment"
-
-    @entries[msgid] = msgstr
-
-    entry = PoEntry.new(:normal)
-    entry.msgid = msgid
-    entry.msgstr = msgstr
-    entry.comment = comment
-    assert_equal(entry, @entries[msgid])
   end
 
   def test_msgid_plural
