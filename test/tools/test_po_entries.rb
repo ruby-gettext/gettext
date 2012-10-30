@@ -102,7 +102,7 @@ class TestPoEntries < Test::Unit::TestCase
       assert_equal(sources, @entries[msgid].sources)
     end
 
-    def test_in_comment
+    def test_mark_in_source
       msgid = "msgid"
       sources = ["dir/\#: /file:10", "comment:12"]
       source_comments = sources.collect do |source|
