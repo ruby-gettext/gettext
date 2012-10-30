@@ -41,8 +41,8 @@ module GetText
         super(msgid, entry)
       end
       entry.msgid = msgid
-      entry.msgctxt = msgctxt unless msgctxt.nil?
-      entry.msgid_plural = msgid_plural unless msgid_plural.nil?
+      entry.msgctxt = msgctxt
+      entry.msgid_plural = msgid_plural
       entry.msgstr = msgstr
       entry
     end
