@@ -39,7 +39,7 @@ module GetText
         super(msgid, entry)
       end
       entry.msgid = msgid
-      entry.msgid_plural = msgid_plural
+      entry.msgid_plural = msgid_plural unless msgid_plural.nil?
       entry.msgstr = msgstr
       entry
     end
