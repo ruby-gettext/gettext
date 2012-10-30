@@ -25,7 +25,8 @@ class TestPoEntries < Test::Unit::TestCase
     @entries = nil
   end
 
-  def test_add_new_entry
+  class TestAddNewEntry < self
+  def test_normal
     msgid = "msgid"
     msgstr = "msgstr"
 
@@ -53,6 +54,21 @@ class TestPoEntries < Test::Unit::TestCase
     assert_equal(entry, @entries[msgid])
   end
 
+  def test_msgid_plural
+    msgid = "msgid"
+    msgid_plural = "msgid_plural"
+    msgstr = "msgstr"
+
+    @entries = GetText::PoEntries.new
+    @entries["#{msgid}\000#{msgid_plural}"] = msgstr
+
+    entry = PoEntry.new(:plural)
+    entry.msgid = msgid
+    entry.msgid_plural = msgid_plural
+    entry.msgstr = msgstr
+    assert_equal(entry, @entries[msgid])
+  end
+
   def test_msgctxt_plural
     msgctxt = "msgctxt"
     msgid = "msgid"
@@ -68,6 +84,7 @@ class TestPoEntries < Test::Unit::TestCase
     entry.msgid_plural = msgid_plural
     entry.msgstr = msgstr
     assert_equal(entry, @entries[msgid])
+  end
   end
 
   def test_update_existed_entry
@@ -151,20 +168,5 @@ class TestPoEntries < Test::Unit::TestCase
       assert_equal(entry, @entries[msgid])
       assert_equal(sources, @entries[msgid].sources)
     end
-  end
-
-  def test_msgid_plural
-    msgid = "msgid"
-    msgid_plural = "msgid_plural"
-    msgstr = "msgstr"
-
-    @entries = GetText::PoEntries.new
-    @entries["#{msgid}\000#{msgid_plural}"] = msgstr
-
-    entry = PoEntry.new(:plural)
-    entry.msgid = msgid
-    entry.msgid_plural = msgid_plural
-    entry.msgstr = msgstr
-    assert_equal(entry, @entries[msgid])
   end
 end
