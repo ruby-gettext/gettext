@@ -25,7 +25,7 @@ class TestPoEntries < Test::Unit::TestCase
     @entries = nil
   end
 
-  class TestAddNewEntry < self
+  class TestSetEntry < self
     def test_normal
       msgid = "msgid"
       msgstr = "msgstr"
