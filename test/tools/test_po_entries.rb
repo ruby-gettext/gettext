@@ -52,35 +52,35 @@ class TestPoEntries < Test::Unit::TestCase
   end
 
   class TestComment < self
-  def test_add
-    msgid = "msgid"
-    comment = "comment"
+    def test_add
+      msgid = "msgid"
+      comment = "comment"
 
-    @entries = GetText::PoEntries.new
-    @entries.set_comment(msgid, comment)
+      @entries = GetText::PoEntries.new
+      @entries.set_comment(msgid, comment)
 
-    entry = PoEntry.new(:normal)
-    entry.msgid = msgid
-    entry.comment = comment
-    assert_equal(entry, @entries[msgid])
-    assert_equal(nil, @entries[msgid].msgstr)
-  end
+      entry = PoEntry.new(:normal)
+      entry.msgid = msgid
+      entry.comment = comment
+      assert_equal(entry, @entries[msgid])
+      assert_equal(nil, @entries[msgid].msgstr)
+    end
 
-  def test_add_to_existing_entry
-    test_add_new_entry
+    def test_add_to_existing_entry
+      test_add_new_entry
 
-    msgid = "msgid"
-    msgstr = "msgstr"
-    comment = "comment"
+      msgid = "msgid"
+      msgstr = "msgstr"
+      comment = "comment"
 
-    @entries[msgid] = msgstr
+      @entries[msgid] = msgstr
 
-    entry = PoEntry.new(:normal)
-    entry.msgid = msgid
-    entry.msgstr = msgstr
-    entry.comment = comment
-    assert_equal(entry, @entries[msgid])
-  end
+      entry = PoEntry.new(:normal)
+      entry.msgid = msgid
+      entry.msgstr = msgstr
+      entry.comment = comment
+      assert_equal(entry, @entries[msgid])
+    end
   end
 
   def test_add_sources
