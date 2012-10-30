@@ -131,6 +131,7 @@ class TestPoEntries < Test::Unit::TestCase
 
     entry = PoEntry.new(:plural)
     entry.msgid = msgid
+    entry.msgid_plural = msgid_plural
     entry.msgstr = msgstr
     assert_equal(entry, @entries[msgid])
   end
