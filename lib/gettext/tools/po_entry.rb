@@ -93,6 +93,19 @@ module GetText
       escape(send(param_name))
     end
 
+    # Checks if the self has same attributes as other.
+    def ==(other)
+      not other.nil? and
+        type == other.type and
+        msgid == other.msgid and
+        msgstr == other.msgstr and
+        msgid_plural == other.msgid_plural and
+        separator == other.separator and
+        msgctxt == other.msgctxt and
+        sources == other.sources and
+        comment == other.comment
+    end
+
     # Checks if the other translation target is mergeable with
     # the current one. Relevant are msgid and translation context (msgctxt).
     def mergeable?(other)
