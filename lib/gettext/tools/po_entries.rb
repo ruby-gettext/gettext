@@ -48,7 +48,7 @@ module GetText
       self[msgid] = nil unless has_key?(msgid)
       if comment.start_with?("#:")
         sources = comment.lines.collect do |source|
-          source.gsub(/#: /, "").strip
+          source.gsub(/\A#: /, "").strip
         end
         self[msgid].sources = sources
       else

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
+# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -67,6 +68,24 @@ class TestPoEntries < Test::Unit::TestCase
   def test_add_sources
     msgid = "msgid"
     sources = ["comment:10", "comment: 12"]
+    source_comments = sources.collect do |source|
+      "#: #{source}"
+    end
+    comment = source_comments.join("\n")
+
+    @entries = GetText::PoEntries.new
+    @entries.set_comment(msgid, comment)
+
+    entry = PoEntry.new(:normal)
+    entry.msgid = msgid
+    entry.comment = comment
+    assert_equal(entry, @entries[msgid])
+    assert_equal(sources, @entries[msgid].sources)
+  end
+
+  def test_source_mark_in_comment
+    msgid = "msgid"
+    sources = ["dir/\#: /file:10", "comment:12"]
     source_comments = sources.collect do |source|
       "#: #{source}"
     end
