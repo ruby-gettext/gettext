@@ -85,10 +85,9 @@ class TestPoEntries < Test::Unit::TestCase
       entry.msgstr = msgstr
       assert_equal(entry, @entries[msgid])
     end
-  end
 
   def test_update_existed_entry
-    test_add_new_entry
+    test_normal
 
     msgid = "msgid"
     new_msgstr = "new_msgstr"
@@ -98,6 +97,7 @@ class TestPoEntries < Test::Unit::TestCase
     entry.msgid = msgid
     entry.msgstr = new_msgstr
     assert_equal(entry, @entries[msgid])
+  end
   end
 
   class TestComment < self
