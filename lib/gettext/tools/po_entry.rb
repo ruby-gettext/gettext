@@ -142,11 +142,7 @@ module GetText
 
       str = ""
       # extracted comments
-      if comment
-        comment.split("\n").each do |comment_line|
-          str << "\n#. #{comment_line.strip}"
-        end
-      end
+      str << format_comment(comment)
 
       # references
       curr_pos = @@max_line_length
@@ -180,6 +176,19 @@ module GetText
         str << format_message(msgstr)
       end
       str
+    end
+
+    def format_comment(comment)
+      return "" if comment.nil?
+
+      comment_lines = comment.each_line.collect do |comment_line|
+        if /\A#/ =~ comment_line
+          comment_line.strip
+        else
+          "#. #{comment_line.strip}"
+        end
+      end
+      comment_lines.join("\n")
     end
 
     def format_message(message)

@@ -198,4 +198,22 @@ EOE
       assert_equal(escaped_message, @entry.format_message(message))
     end
   end
+
+  class TestFormatComment < self
+    def setup
+      @entry = GetText::PoEntry.new(:normal)
+    end
+
+    def test_unformatted_comment
+      comment = "comment"
+      expected_comment = "#. #{comment}"
+      assert_equal(expected_comment, @entry.format_comment(comment))
+    end
+
+    def test_expected_comment
+      comment = "# comment"
+      expected_comment = comment
+      assert_equal(expected_comment, @entry.format_comment(comment))
+    end
+  end
 end
