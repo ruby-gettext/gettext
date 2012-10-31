@@ -62,7 +62,6 @@ module GetText
         content_entries = self
       else
         po_string << header_entry.to_s
-        po_string << "\n"
 
         content_entries = reject do |msgid, _|
           msgid.empty?

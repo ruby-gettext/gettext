@@ -187,11 +187,10 @@ module GetText
       if not message.nil? and message.include?("\n")
         formatted_message << "\"\"\n"
         escaped_lines = message.each_line.collect do |line|
-          "\"#{escape(line)}"
+          "\"#{escape(line)}\"\n"
         end
 
-        formatted_message << escaped_lines.join("\"\n")
-        formatted_message << "\""
+        formatted_message << escaped_lines.join
       else
         formatted_message << "\"#{escape(message)}\"\n"
       end

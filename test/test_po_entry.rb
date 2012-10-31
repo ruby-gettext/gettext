@@ -188,7 +188,7 @@ EOE
                   "line 2"
       escaped_message = "\"\"\n" +
                           "\"line 1\\n\"\n" +
-                          "\"line 2\""
+                          "\"line 2\"\n"
       assert_equal(escaped_message, @entry.format_message(message))
     end
 
