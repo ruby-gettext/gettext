@@ -68,10 +68,11 @@ module GetText
         end
       end
 
-      content_string = content_entries.collect do |msgid, entry|
-        entry.to_s
+      content_entries.each do |msgid, entry|
+        po_string << entry.to_s
       end
-      po_string << content_string.join
+
+      po_string
     end
 
     private
