@@ -176,9 +176,26 @@ module GetText
           end
         end
       else
-        str << "msgstr \"#{escaped(:msgstr)}\"\n"
+        str << "msgstr "
+        str << format_message(msgstr)
       end
       str
+    end
+
+    def format_message(message)
+      formatted_message = ""
+      if not message.nil? and message.include?("\n")
+        formatted_message << "\"\"\n"
+        escaped_lines = message.each_line.collect do |line|
+          "\"#{escape(line)}"
+        end
+
+        formatted_message << escaped_lines.join("\"\n")
+        formatted_message << "\""
+      else
+        formatted_message << "\"#{escape(message)}\"\n"
+      end
+      formatted_message
     end
 
     # Returns true if the type is kind of msgctxt.

@@ -177,4 +177,27 @@ EOE
                    @entry.escaped(:msgid))
     end
   end
+
+  class TestFormatMessage < self
+    def setup
+      @entry = GetText::PoEntry.new(:normal)
+    end
+
+    def test_including_newline
+      message = "line 1\n" +
+                  "line 2"
+      escaped_message = "\"\"\n" +
+                          "\"line 1\\n\"\n" +
+                          "\"line 2\""
+      assert_equal(escaped_message, @entry.format_message(message))
+    end
+
+    def test_not_existed_newline
+      @entries = GetText::PoEntries.new
+
+      message = "line 1"
+      escaped_message = "\"line 1\"\n"
+      assert_equal(escaped_message, @entry.format_message(message))
+    end
+  end
 end
