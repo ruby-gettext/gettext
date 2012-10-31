@@ -26,7 +26,7 @@ module GetText
     end
 
     def []=(msgid, msgstr)
-      msgctxt, msgid, msgid_plural = split_msgid(msgid)
+      msgctxt, msgid, msgid_plural = split_msgid(msgid) unless msgid.empty?
 
       if has_key?(msgid)
         entry = self[msgid]
@@ -52,6 +52,27 @@ module GetText
       else
         self[msgid].comment = comment
       end
+    end
+
+    def to_s
+      po_string = ""
+
+      header_entry = self[""]
+      if header_entry.nil?
+        content_entries = self
+      else
+        po_string << header_entry.to_s
+        po_string << "\n"
+
+        content_entries = reject do |msgid, _|
+          msgid.empty?
+        end
+      end
+
+      content_string = content_entries.collect do |msgid, entry|
+        entry.to_s
+      end
+      po_string << content_string.join
     end
 
     private

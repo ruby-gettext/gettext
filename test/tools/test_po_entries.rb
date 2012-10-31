@@ -208,4 +208,63 @@ class TestPoEntries < Test::Unit::TestCase
       entries.send(:split_msgid, msgid)
     end
   end
+
+  def test_to_s
+    @entries = GetText::PoEntries.new
+    header = <<EOH
+Project-Id-Version: test 1.0.0
+POT-Creation-Date: 2012-10-31 12:40+0900
+PO-Revision-Date: 2012-11-01 17:46+0900
+Last-Translator: FULLNAME <MAIL@ADDRESS>
+Language-Team: Japanese
+Language: 
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Plural-Forms: nplurals=2; plural=(n != 1)
+EOH
+    header_comment = <<EOC
+# Japanese translations for test package.
+# Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FULLNAME <MAIL@ADDRESS>, 2012.
+#
+EOC
+    hello = "hello"
+    hello_translation = "こんにちは"
+    hello_comment = "#: file.rb:10"
+    bye = "bye"
+    bye_translation = "さようなら"
+    bye_comment = "#: file.rb:20"
+
+    @entries[""] = header
+    @entries.set_comment("", header_comment)
+
+    @entries[hello] = hello_translation
+    @entries.set_comment(hello, hello_comment)
+
+    @entries[bye] = bye_translation
+    @entries.set_comment(bye, bye_comment)
+
+    expected_header = header.split("\n").collect do |line|
+      "\"#{line}\\n\""
+    end
+    expected_header = expected_header.join("\n")
+
+    expected_po =<<EOP
+#{header_comment.chomp}
+msgid ""
+msgstr ""
+#{expected_header}
+
+#{hello_comment}
+msgid "#{hello}"
+msgstr "#{hello_translation}"
+
+#{bye_comment}
+msgid "#{bye}"
+msgstr "#{bye_translation}"
+EOP
+    assert_equal(expected_po, @entries.to_s)
+  end
 end
