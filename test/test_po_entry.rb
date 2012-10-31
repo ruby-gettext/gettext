@@ -193,8 +193,6 @@ EOE
     end
 
     def test_not_existed_newline
-      @entries = GetText::PoEntries.new
-
       message = "line 1"
       escaped_message = "\"line 1\"\n"
       assert_equal(escaped_message, @entry.format_message(message))
