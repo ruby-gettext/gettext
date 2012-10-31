@@ -186,16 +186,16 @@ EOE
     def test_including_newline
       message = "line 1\n" +
                   "line 2"
-      escaped_message = "\"\"\n" +
+      expected_message = "\"\"\n" +
                           "\"line 1\\n\"\n" +
                           "\"line 2\"\n"
-      assert_equal(escaped_message, @entry.format_message(message))
+      assert_equal(expected_message, @entry.format_message(message))
     end
 
     def test_not_existed_newline
       message = "line 1"
-      escaped_message = "\"line 1\"\n"
-      assert_equal(escaped_message, @entry.format_message(message))
+      expected_message = "\"line 1\"\n"
+      assert_equal(expected_message, @entry.format_message(message))
     end
   end
 
