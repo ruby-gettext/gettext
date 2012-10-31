@@ -202,6 +202,12 @@ class TestPoEntries < Test::Unit::TestCase
       assert_equal([nil, msgid, nil], split_msgid(msgid))
     end
 
+    def test_empty_msgid
+      msgid = ""
+
+      assert_equal([nil, msgid, nil], split_msgid(msgid))
+    end
+
     private
     def split_msgid(msgid)
       entries = GetText::PoEntries.new

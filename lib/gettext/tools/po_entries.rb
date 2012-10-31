@@ -26,7 +26,7 @@ module GetText
     end
 
     def []=(msgid, msgstr)
-      msgctxt, msgid, msgid_plural = split_msgid(msgid) unless msgid.empty?
+      msgctxt, msgid, msgid_plural = split_msgid(msgid)
 
       if has_key?(msgid)
         entry = self[msgid]
@@ -77,6 +77,7 @@ module GetText
 
     private
     def split_msgid(msgid)
+      return [nil, "", nil] if msgid.empty?
       msgctxt, msgid = msgid.split("\004", 2)
       if msgid.nil?
         msgid = msgctxt
