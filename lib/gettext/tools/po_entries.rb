@@ -26,12 +26,7 @@ module GetText
     end
 
     def []=(msgid, msgstr)
-      msgctxt, msgid = msgid.split("\004", 2)
-      if msgid.nil?
-        msgid = msgctxt
-        msgctxt = nil
-      end
-      msgid, msgid_plural = msgid.split("\000", 2)
+      msgctxt, msgid, msgid_plural = split_msgid(msgid)
 
       if has_key?(msgid)
         entry = self[msgid]
@@ -60,6 +55,16 @@ module GetText
     end
 
     private
+    def split_msgid(msgid)
+      msgctxt, msgid = msgid.split("\004", 2)
+      if msgid.nil?
+        msgid = msgctxt
+        msgctxt = nil
+      end
+      msgid, msgid_plural = msgid.split("\000", 2)
+      [msgctxt, msgid, msgid_plural]
+    end
+
     def detect_entry_type(msgctxt, msgid_plural)
       if msgctxt.nil?
         if msgid_plural.nil?
