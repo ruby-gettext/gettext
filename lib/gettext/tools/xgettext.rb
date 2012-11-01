@@ -158,11 +158,11 @@ EOH
 
       def generate_pot(paths) # :nodoc:
         po_entries = parse(paths)
-        str = ""
+        entries = []
         po_entries.each do |target|
-          str << encode(target.to_s)
+          entries << encode(target.to_s)
         end
-        str
+        entries.join("\n")
       end
 
       def parse(paths) # :nodoc:
@@ -267,18 +267,16 @@ EOH
         check_command_line_options(*options)
 
         @output_encoding ||= "UTF-8"
-
-        pot_header = generate_pot_header
-        pot_entries = generate_pot(@input_files)
+        pot = generate_pot_header
+        pot << "\n"
+        pot << generate_pot(@input_files)
 
         if @output.is_a?(String)
           File.open(File.expand_path(@output), "w+") do |file|
-            file.puts(pot_header)
-            file.puts(pot_entries)
+            file.puts(pot)
           end
         else
-          @output.puts(pot_header)
-          @output.puts(pot_entries)
+          @output.puts(pot)
         end
         self
       end
