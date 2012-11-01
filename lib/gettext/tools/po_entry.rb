@@ -138,7 +138,7 @@ module GetText
     # Output the po entry for the po-file.
     def to_s
       raise "msgid is nil." unless @msgid
-      raise "sources is nil." unless @sources
+      raise "sources is nil." if @sources.nil? and not msgid.empty?
 
       str = ""
       # extracted comments
@@ -147,7 +147,7 @@ module GetText
       # references
       max_line_length = 70
 
-      unless sources.empty?
+      if not sources.nil? and not sources.empty?
         str << "#:"
         line_size = 2
         sources.each do |source|

@@ -98,6 +98,13 @@ class TestPoEntry < Test::Unit::TestCase
     assert_raise(RuntimeError){ po.to_s }
   end
 
+  def test_header_to_s_exception
+    po = GetText::PoEntry.new(:normal)
+    po.msgid = ""
+    po.sources = nil
+    assert_nothing_raised(RuntimeError){ po.to_s }
+  end
+
   def test_msgstr
     po = GetText::PoEntry.new(:normal)
     po.msgid = "hello"
