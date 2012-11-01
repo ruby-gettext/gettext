@@ -206,13 +206,15 @@ EOE
 
     def test_unformatted_comment
       comment = "comment"
-      expected_comment = "#. #{comment}"
+      @entry.msgid = "msgid"
+      expected_comment = "#. #{comment}\n"
       assert_equal(expected_comment, @entry.format_comment(comment))
     end
 
-    def test_expected_comment
-      comment = "# comment"
-      expected_comment = comment
+    def test_header_comment
+      comment = "comment"
+      @entry.msgid = ""
+      expected_comment = "# #{comment}\n"
       assert_equal(expected_comment, @entry.format_comment(comment))
     end
   end

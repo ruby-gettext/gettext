@@ -181,14 +181,20 @@ module GetText
     def format_comment(comment)
       return "" if comment.nil?
 
-      comment_lines = comment.each_line.collect do |comment_line|
-        if /\A#/ =~ comment_line
-          comment_line.strip
+      formatted_comment = ""
+      if not msgid.empty?
+        comment_mark = "#."
+      else
+        comment_mark = "#"
+      end
+      comment.each_line do |comment_line|
+        if comment_line == "\n"
+          formatted_comment << "#{comment_mark}\n"
         else
-          "#. #{comment_line.strip}"
+          formatted_comment << "#{comment_mark} #{comment_line.strip}\n"
         end
       end
-      comment_lines.join("\n")
+      formatted_comment
     end
 
     def format_message(message)
