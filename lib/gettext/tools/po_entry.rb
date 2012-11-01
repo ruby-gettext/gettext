@@ -145,20 +145,28 @@ module GetText
       str << format_comment(comment)
 
       # references
-      curr_pos = @@max_line_length
-      sources.each do |e|
-        if curr_pos + e.size > @@max_line_length
-          str << "\n#:"
-          curr_pos = 3
-        else
-          curr_pos += (e.size + 1)
+      max_line_length = 70
+
+      unless sources.empty?
+        str << "#:"
+        line_size = 2
+        sources.each do |source|
+          if line_size + source.size > max_line_length
+            str << "\n"
+            str <<  "#: #{source}"
+            line_size = 3 + source.size
+          else
+            str << " #{source}"
+            line_size += 1 + source.size
+          end
         end
-        str << " " << e
+
+        str << "\n"
       end
 
       # msgctxt, msgid, msgstr
-      str << "\nmsgctxt \"" << msgctxt << "\"" if msgctxt?
-      str << "\nmsgid \"" << escaped(:msgid) << "\"\n"
+      str << "msgctxt \"" << msgctxt << "\"\n" if msgctxt?
+      str << "msgid \"" << escaped(:msgid) << "\"\n"
       if plural?
         str << "msgid_plural \"" << escaped(:msgid_plural) << "\"\n"
 

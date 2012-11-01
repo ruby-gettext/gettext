@@ -32,12 +32,12 @@ class TestPoEntry < Test::Unit::TestCase
     po = GetText::PoEntry.new(:normal)
     po.msgid = 'hello'
     po.sources = ["file1:1", "file2:10"]
-    assert_equal "\n#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
+    assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
 
     po.msgctxt = 'context'
     po.msgid_plural = 'hello2'
     # Ignore these properties.
-    assert_equal "\n#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
+    assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
   end
 
   def test_to_s_plural
@@ -45,11 +45,11 @@ class TestPoEntry < Test::Unit::TestCase
     po.msgid = 'hello'
     po.msgid_plural = 'hello2'
     po.sources = ["file1:1", "file2:10"]
-    assert_equal "\n#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
+    assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
 
     po.msgctxt = 'context'
     # Ignore this property
-    assert_equal "\n#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
+    assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
   end
 
   def test_to_s_msgctxt
@@ -57,7 +57,7 @@ class TestPoEntry < Test::Unit::TestCase
     po.msgctxt = 'context'
     po.msgid = 'hello'
     po.sources = ["file1:1", "file2:10"]
-    assert_equal "\n#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
+    assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
   end
 
   def test_to_s_msgctxt_plural
@@ -66,7 +66,7 @@ class TestPoEntry < Test::Unit::TestCase
     po.msgid = 'hello'
     po.msgid_plural = 'hello2'
     po.sources = ["file1:1", "file2:10"]
-    assert_equal "\n#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
+    assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
   end
 
   def test_to_s_exception
@@ -104,7 +104,6 @@ class TestPoEntry < Test::Unit::TestCase
     po.msgstr = "Bonjour"
     po.sources = ["file1:1", "file2:10"]
     expected_entry = <<-EOE
-
 #: file1:1 file2:10
 msgid "hello"
 msgstr "Bonjour"
@@ -118,7 +117,6 @@ EOE
     po.msgstr = "Il a dit \"bonjour.\""
     po.sources = ["file1:1", "file2:10"]
     expected_entry = <<-EOE
-
 #: file1:1 file2:10
 msgid "He said \\\"hello.\\\""
 msgstr "Il a dit \\\"bonjour.\\\""
@@ -133,7 +131,6 @@ EOE
     po.msgstr = "Il a dit \"bonjour.\"\000Ils ont dit \"bonjour.\""
     po.sources = ["file1:1", "file2:10"]
     expected_entry = <<-EOE
-
 #: file1:1 file2:10
 msgid "He said \\\"hello.\\\""
 msgid_plural "They said \\\"hello.\\\""
@@ -150,7 +147,6 @@ EOE
     po.msgstr = "il\000ils"
     po.sources = ["file1:1", "file2:10"]
     expected_entry = <<-EOE
-
 #: file1:1 file2:10
 msgid "he"
 msgid_plural "them"
