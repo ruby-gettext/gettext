@@ -132,44 +132,6 @@ class TestPoEntries < Test::Unit::TestCase
     end
   end
 
-  class TestSources < self
-    def test_add
-      msgid = "msgid"
-      sources = ["comment:10", "comment: 12"]
-      source_comments = sources.collect do |source|
-        "#: #{source}"
-      end
-      comment = source_comments.join("\n")
-
-      @entries = GetText::PoEntries.new
-      @entries.set_comment(msgid, comment)
-
-      entry = PoEntry.new(:normal)
-      entry.msgid = msgid
-      entry.sources = sources
-      assert_equal(entry, @entries[msgid])
-      assert_equal(sources, @entries[msgid].sources)
-    end
-
-    def test_mark_in_source
-      msgid = "msgid"
-      sources = ["dir/\#: /file:10", "comment:12"]
-      source_comments = sources.collect do |source|
-        "#: #{source}"
-      end
-      comment = source_comments.join("\n")
-
-      @entries = GetText::PoEntries.new
-      @entries.set_comment(msgid, comment)
-
-      entry = PoEntry.new(:normal)
-      entry.msgid = msgid
-      entry.sources = sources
-      assert_equal(entry, @entries[msgid])
-      assert_equal(sources, @entries[msgid].sources)
-    end
-  end
-
   class TestSplitMsgid < self
     def test_existed_msgctxt_and_msgid_plural
       msgctxt = "msgctxt"
@@ -230,35 +192,41 @@ Content-Transfer-Encoding: 8bit
 Plural-Forms: nplurals=2; plural=(n != 1)
 EOH
     header_comment = <<EOC
-# Japanese translations for test package.
-# Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FULLNAME <MAIL@ADDRESS>, 2012.
-#
+Japanese translations for test package.
+Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
+This file is distributed under the same license as the PACKAGE package.
+FULLNAME <MAIL@ADDRESS>, 2012.
+
 EOC
     hello = "hello"
     hello_translation = "こんにちは"
+    hello_sources = ["file.rb:10"]
     hello_comment = "#: file.rb:10"
     bye = "bye"
     bye_translation = "さようなら"
+    bye_sources = ["file.rb:20"]
     bye_comment = "#: file.rb:20"
 
     @entries[""] = header
     @entries.set_comment("", header_comment)
 
     @entries[hello] = hello_translation
-    @entries.set_comment(hello, hello_comment)
+    @entries[hello].sources = hello_sources
 
     @entries[bye] = bye_translation
-    @entries.set_comment(bye, bye_comment)
+    @entries[bye].sources = bye_sources
 
     expected_header = header.split("\n").collect do |line|
       "\"#{line}\\n\""
     end
     expected_header = expected_header.join("\n")
-
+    expected_header_comment = header_comment.split("\n").collect do |line|
+      "# #{line}"
+    end
+    expected_header_comment = expected_header_comment.join("\n")
     expected_po =<<EOP
-#{header_comment.chomp}
+#{expected_header_comment}
+#
 msgid ""
 msgstr ""
 #{expected_header}

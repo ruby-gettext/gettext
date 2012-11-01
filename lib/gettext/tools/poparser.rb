@@ -59,6 +59,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 119)
 
   def parse(str, data)
     @comments = []
+    @sources = []
     @data = data
     @fuzzy = false
     @msgctxt = ""
@@ -126,14 +127,32 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 119)
     msgstr = nil if msgstr.empty?
     @data[msgid] = msgstr
     @data.set_comment(msgid, @comments.join("\n"))
-
+    @data.set_sources(msgid, @sources) if @data.respond_to?(:set_sources)
     @comments.clear
+    @sources = []
     @msgctxt = ""
   end
 
+  COMMENT_MARK = "#"
+  SOURCE_COMMENT_MARK = "#:"
   def on_comment(comment)
     @fuzzy = true if (/fuzzy/ =~ comment)
-    @comments << comment
+
+    if @data.respond_to?(:set_sources)
+      if comment.start_with?(SOURCE_COMMENT_MARK)
+        comment.lines.each do |source|
+          comment_content =
+            source.gsub(/\A#{Regexp.escape(SOURCE_COMMENT_MARK)}/, "")
+          @sources << comment_content.strip
+        end
+      elsif comment.start_with?(COMMENT_MARK)
+        comment.lines.each do |line|
+          @comments << line.gsub(/\A#{Regexp.escape(COMMENT_MARK)}/, "").strip
+        end
+      end
+    else
+      @comments << comment
+    end
   end
 
   def parse_file(po_file, data)

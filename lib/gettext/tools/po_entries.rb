@@ -42,25 +42,16 @@ module GetText
       entry
     end
 
-    COMMENT_MARK = "#"
-    SOURCE_COMMENT_MARK = "#:"
     def set_comment(msgid, comment)
       self[msgid] = nil unless has_key?(msgid)
-      if comment.start_with?(SOURCE_COMMENT_MARK)
-        sources = comment.lines.collect do |source|
-          source.gsub(/\A#{Regexp.escape(SOURCE_COMMENT_MARK)}/, "").strip
-        end
-        self[msgid].sources = sources
-      elsif comment.start_with?(COMMENT_MARK)
-        comment_lines = ""
-        comment.lines.each do |line|
-          content = line.gsub(/\A#{Regexp.escape(COMMENT_MARK)}/, "").strip
-          comment_lines << content << "\n"
-        end
-        self[msgid].comment = comment_lines
-      else
-        self[msgid].comment = comment
+      self[msgid].comment = comment
+    end
+
+    def set_sources(msgid, sources)
+      unless has_key?(msgid)
+        raise("the entry of \"%s\" does not exist." % msgid)
       end
+      self[msgid].sources = sources
     end
 
     def to_s

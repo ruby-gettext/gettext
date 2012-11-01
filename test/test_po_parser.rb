@@ -26,7 +26,7 @@ class TestPoParser < Test::Unit::TestCase
 msgid "Hello"
 msgstr ""
 EOP
-    messages = parse_po_file(po_file)
+    messages = parse_po_file(po_file, MoFile.new)
 
     assert_equal(nil, messages["Hello"])
   end
@@ -38,10 +38,48 @@ msgid_plural "They"
 msgstr[0] ""
 msgstr[1] ""
 EOP
-    messages = parse_po_file(po_file)
+    messages = parse_po_file(po_file, MoFile.new)
 
     assert_true(messages.has_key?("He\000They"))
     assert_equal(nil, messages["He\000They"])
+  end
+
+  class TestPoEntries < self
+    def test_msgstr
+      po_file = create_po_file(<<-EOP)
+# This is the comment.
+#: file.rb:10
+msgid "hello"
+msgstr "bonjour"
+EOP
+      entries = parse_po_file(po_file, PoEntries.new)
+      assert_true(entries.has_key?("hello"))
+      assert_equal("bonjour", entries["hello"].msgstr)
+    end
+
+    def test_sources
+      po_file = create_po_file(<<-EOP)
+# This is the comment.
+#: file.rb:10
+msgid "hello"
+msgstr "bonjour"
+EOP
+      entries = parse_po_file(po_file, PoEntries.new)
+      assert_true(entries.has_key?("hello"))
+      assert_equal(["file.rb:10"], entries["hello"].sources)
+    end
+
+    def test_comment
+      po_file = create_po_file(<<-EOP)
+# This is the comment.
+#: file.rb:10
+msgid "hello"
+msgstr "bonjour"
+EOP
+      entries = parse_po_file(po_file, PoEntries.new)
+      assert_true(entries.has_key?("hello"))
+      assert_equal("This is the comment.", entries["hello"].comment)
+    end
   end
 
   private
@@ -52,9 +90,9 @@ EOP
     po_file
   end
 
-  def parse_po_file(po_file)
+  def parse_po_file(po_file, parsed_entries)
     parser = GetText::PoParser.new
-    parser.parse_file(po_file.path, MoFile.new)
+    parser.parse_file(po_file.path, parsed_entries)
   end
 
   class FuzzyTest < self
