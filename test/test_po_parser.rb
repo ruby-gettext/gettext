@@ -80,6 +80,51 @@ EOP
       assert_true(entries.has_key?("hello"))
       assert_equal("This is the comment.", entries["hello"].comment)
     end
+
+    def test_msgid_plural
+      po_file = create_po_file(<<-EOP)
+# This is the comment.
+#: file.rb:10
+msgid "he"
+msgid_plural "them"
+msgstr[0] "il"
+msgstr[1] "ils"
+EOP
+      entries = parse_po_file(po_file, PoEntries.new)
+      assert_true(entries.has_key?("he"))
+      assert_equal("them", entries["he"].msgid_plural)
+      assert_equal("il\000ils", entries["he"].msgstr)
+    end
+
+    def test_msgctxt
+      po_file = create_po_file(<<-EOP)
+# This is the comment.
+#: file.rb:10
+msgctxt "pronoun"
+msgid "he"
+msgstr "il"
+EOP
+      entries = parse_po_file(po_file, PoEntries.new)
+      assert_true(entries.has_key?("he"))
+      assert_equal("pronoun", entries["he"].msgctxt)
+    end
+
+    def test_msgctxt_with_msgid_plural
+      po_file = create_po_file(<<-EOP)
+# This is the comment.
+#: file.rb:10
+msgctxt "pronoun"
+msgid "he"
+msgid_plural "them"
+msgstr[0] "il"
+msgstr[1] "ils"
+EOP
+      entries = parse_po_file(po_file, PoEntries.new)
+      assert_true(entries.has_key?("he"))
+      assert_equal("pronoun", entries["he"].msgctxt)
+      assert_equal("them", entries["he"].msgid_plural)
+      assert_equal("il\000ils", entries["he"].msgstr)
+    end
   end
 
   private

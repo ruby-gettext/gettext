@@ -43,11 +43,13 @@ module GetText
     end
 
     def set_comment(msgid, comment)
+      _, msgid, _ = split_msgid(msgid)
       self[msgid] = nil unless has_key?(msgid)
       self[msgid].comment = comment
     end
 
     def set_sources(msgid, sources)
+      _, msgid, _ = split_msgid(msgid)
       unless has_key?(msgid)
         raise("the entry of \"%s\" does not exist." % msgid)
       end
