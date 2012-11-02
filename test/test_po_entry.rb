@@ -82,10 +82,6 @@ class TestPoEntry < Test::Unit::TestCase
     po.sources = ["file1:1", "file2:10"]
     assert_raise(GetText::PoEntry::NoMsgidPluralError) {po.to_s}
 
-    po.msgid_plural = 'hello2'
-    po.sources = nil
-    assert_raise(GetText::PoEntry::NoSourcesError) {po.to_s}
-
     po = GetText::PoEntry.new(:msgctxt)
     po.msgid = 'hello'
     po.sources = ["file1:1", "file2:10"]

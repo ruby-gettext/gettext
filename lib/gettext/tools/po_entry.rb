@@ -30,9 +30,6 @@ module GetText
     class NoMsgidError < StandardError
     end
 
-    class NoSourcesError < StandardError
-    end
-
     class NoMsgctxtError < StandardError
     end
 
@@ -151,10 +148,6 @@ module GetText
     # Output the po entry for the po-file.
     def to_s
       raise(NoMsgidError, "msgid is nil.") unless @msgid
-
-      if @sources.nil? and not msgid.empty?
-        raise(NoSourcesError, "sources is nil.")
-      end
 
       str = ""
       # extracted comments
