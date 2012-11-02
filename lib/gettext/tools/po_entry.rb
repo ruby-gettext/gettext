@@ -33,6 +33,9 @@ module GetText
     class NoSourcesError < StandardError
     end
 
+    class NoMsgctxtError < StandardError
+    end
+
     PARAMS = {
       :normal => [:msgid, :separator, :msgstr],
       :plural => [:msgid, :msgid_plural, :separator, :msgstr],
@@ -230,10 +233,13 @@ module GetText
 
     # Returns true if the type is kind of msgctxt.
     # And if this is a kind of msgctxt and msgctxt property
-    # is nil, then raise an RuntimeException.
+    # is nil, then raise an NoMsgctxtError.
     def msgctxt?
       if [:msgctxt, :msgctxt_plural].include? @type
-        raise "This PoEntry is a kind of msgctxt but the msgctxt property is nil. msgid: #{msgid}" unless @msgctxt
+        unless @msgctxt
+          no_msgctxt_message = "This PoEntry is a kind of msgctxt but the msgctxt property is nil. msgid: #{msgid}"
+          raise(NoMsgctxtError, no_msgctxt_message)
+        end
         true
       end
     end

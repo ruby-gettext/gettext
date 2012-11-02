@@ -89,7 +89,7 @@ class TestPoEntry < Test::Unit::TestCase
     po = GetText::PoEntry.new(:msgctxt)
     po.msgid = 'hello'
     po.sources = ["file1:1", "file2:10"]
-    assert_raise(RuntimeError) {po.to_s}
+    assert_raise(GetText::PoEntry::NoMsgctxtError) {po.to_s}
 
     po = GetText::PoEntry.new(:msgctxt_plural)
     po.msgctxt = 'context'
