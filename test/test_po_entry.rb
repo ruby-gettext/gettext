@@ -29,141 +29,141 @@ class TestPoEntry < Test::Unit::TestCase
   end
 
   class TestToS < self
-  def test_normal
-    po = GetText::PoEntry.new(:normal)
-    po.msgid = 'hello'
-    po.sources = ["file1:1", "file2:10"]
-    assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
+    def test_normal
+      po = GetText::PoEntry.new(:normal)
+      po.msgid = 'hello'
+      po.sources = ["file1:1", "file2:10"]
+      assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
 
-    po.msgctxt = 'context'
-    po.msgid_plural = 'hello2'
-    # Ignore these properties.
-    assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
-  end
+      po.msgctxt = 'context'
+      po.msgid_plural = 'hello2'
+      # Ignore these properties.
+      assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
+    end
 
-  def test_plural
-    po = GetText::PoEntry.new(:plural)
-    po.msgid = 'hello'
-    po.msgid_plural = 'hello2'
-    po.sources = ["file1:1", "file2:10"]
-    assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
+    def test_plural
+      po = GetText::PoEntry.new(:plural)
+      po.msgid = 'hello'
+      po.msgid_plural = 'hello2'
+      po.sources = ["file1:1", "file2:10"]
+      assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
 
-    po.msgctxt = 'context'
-    # Ignore this property
-    assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
-  end
+      po.msgctxt = 'context'
+      # Ignore this property
+      assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
+    end
 
-  def test_msgctxt
-    po = GetText::PoEntry.new(:msgctxt)
-    po.msgctxt = 'context'
-    po.msgid = 'hello'
-    po.sources = ["file1:1", "file2:10"]
-    assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
-  end
+    def test_msgctxt
+      po = GetText::PoEntry.new(:msgctxt)
+      po.msgctxt = 'context'
+      po.msgid = 'hello'
+      po.sources = ["file1:1", "file2:10"]
+      assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
+    end
 
-  def test_msgctxt_plural
-    po = GetText::PoEntry.new(:msgctxt_plural)
-    po.msgctxt = 'context'
-    po.msgid = 'hello'
-    po.msgid_plural = 'hello2'
-    po.sources = ["file1:1", "file2:10"]
-    assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
-  end
+    def test_msgctxt_plural
+      po = GetText::PoEntry.new(:msgctxt_plural)
+      po.msgctxt = 'context'
+      po.msgid = 'hello'
+      po.msgid_plural = 'hello2'
+      po.sources = ["file1:1", "file2:10"]
+      assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
+    end
 
-  def test_exception
-    po = GetText::PoEntry.new(:normal)
-    po.sources = ["file1:1", "file2:10"]
-    assert_raise(GetText::PoEntry::NoMsgidError) {po.to_s}
+    def test_exception
+      po = GetText::PoEntry.new(:normal)
+      po.sources = ["file1:1", "file2:10"]
+      assert_raise(GetText::PoEntry::NoMsgidError) {po.to_s}
 
-    po.sources = nil
-    assert_raise(GetText::PoEntry::NoMsgidError) {po.to_s}
+      po.sources = nil
+      assert_raise(GetText::PoEntry::NoMsgidError) {po.to_s}
 
-    po = GetText::PoEntry.new(:plural)
-    po.msgid = 'hello'
-    po.sources = ["file1:1", "file2:10"]
-    assert_raise(GetText::PoEntry::NoMsgidPluralError) {po.to_s}
+      po = GetText::PoEntry.new(:plural)
+      po.msgid = 'hello'
+      po.sources = ["file1:1", "file2:10"]
+      assert_raise(GetText::PoEntry::NoMsgidPluralError) {po.to_s}
 
-    po = GetText::PoEntry.new(:msgctxt)
-    po.msgid = 'hello'
-    po.sources = ["file1:1", "file2:10"]
-    assert_raise(GetText::PoEntry::NoMsgctxtError) {po.to_s}
+      po = GetText::PoEntry.new(:msgctxt)
+      po.msgid = 'hello'
+      po.sources = ["file1:1", "file2:10"]
+      assert_raise(GetText::PoEntry::NoMsgctxtError) {po.to_s}
 
-    po = GetText::PoEntry.new(:msgctxt_plural)
-    po.msgctxt = 'context'
-    po.msgid = 'hello'
-    po.sources = ["file1:1", "file2:10"]
-    assert_raise(GetText::PoEntry::NoMsgidPluralError) {po.to_s}
-  end
+      po = GetText::PoEntry.new(:msgctxt_plural)
+      po.msgctxt = 'context'
+      po.msgid = 'hello'
+      po.sources = ["file1:1", "file2:10"]
+      assert_raise(GetText::PoEntry::NoMsgidPluralError) {po.to_s}
+    end
 
-  def test_header
-    po = GetText::PoEntry.new(:normal)
-    po.msgid = ""
-    po.msgstr = "This is the header entry."
-    po.sources = nil
-    expected_header = <<EOH
+    def test_header
+      po = GetText::PoEntry.new(:normal)
+      po.msgid = ""
+      po.msgstr = "This is the header entry."
+      po.sources = nil
+      expected_header = <<EOH
 msgid ""
 msgstr "This is the header entry."
 EOH
-    assert_equal(expected_header, po.to_s)
-  end
+      assert_equal(expected_header, po.to_s)
+    end
 
-  def test_msgstr
-    po = GetText::PoEntry.new(:normal)
-    po.msgid = "hello"
-    po.msgstr = "Bonjour"
-    po.sources = ["file1:1", "file2:10"]
-    expected_entry = <<-EOE
+    def test_msgstr
+      po = GetText::PoEntry.new(:normal)
+      po.msgid = "hello"
+      po.msgstr = "Bonjour"
+      po.sources = ["file1:1", "file2:10"]
+      expected_entry = <<-EOE
 #: file1:1 file2:10
 msgid "hello"
 msgstr "Bonjour"
 EOE
-    assert_equal(expected_entry, po.to_s)
-  end
+      assert_equal(expected_entry, po.to_s)
+    end
 
-  def test_escaped_msgstr
-    po = GetText::PoEntry.new(:normal)
-    po.msgid = "He said \"hello.\""
-    po.msgstr = "Il a dit \"bonjour.\""
-    po.sources = ["file1:1", "file2:10"]
-    expected_entry = <<-EOE
+    def test_escaped_msgstr
+      po = GetText::PoEntry.new(:normal)
+      po.msgid = "He said \"hello.\""
+      po.msgstr = "Il a dit \"bonjour.\""
+      po.sources = ["file1:1", "file2:10"]
+      expected_entry = <<-EOE
 #: file1:1 file2:10
 msgid "He said \\\"hello.\\\""
 msgstr "Il a dit \\\"bonjour.\\\""
 EOE
-    assert_equal(expected_entry, po.to_s)
-  end
+      assert_equal(expected_entry, po.to_s)
+    end
 
-  def test_escaped_msgstr_with_msgid_plural
-    po = GetText::PoEntry.new(:plural)
-    po.msgid = "He said \"hello.\""
-    po.msgid_plural = "They said \"hello.\""
-    po.msgstr = "Il a dit \"bonjour.\"\000Ils ont dit \"bonjour.\""
-    po.sources = ["file1:1", "file2:10"]
-    expected_entry = <<-EOE
+    def test_escaped_msgstr_with_msgid_plural
+      po = GetText::PoEntry.new(:plural)
+      po.msgid = "He said \"hello.\""
+      po.msgid_plural = "They said \"hello.\""
+      po.msgstr = "Il a dit \"bonjour.\"\000Ils ont dit \"bonjour.\""
+      po.sources = ["file1:1", "file2:10"]
+      expected_entry = <<-EOE
 #: file1:1 file2:10
 msgid "He said \\\"hello.\\\""
 msgid_plural "They said \\\"hello.\\\""
 msgstr[0] "Il a dit \\\"bonjour.\\\""
 msgstr[1] "Ils ont dit \\\"bonjour.\\\""
 EOE
-    assert_equal(expected_entry, po.to_s)
-  end
+      assert_equal(expected_entry, po.to_s)
+    end
 
-  def test_msgstr_with_msgid_plural
-    po = GetText::PoEntry.new(:plural)
-    po.msgid = "he"
-    po.msgid_plural = "them"
-    po.msgstr = "il\000ils"
-    po.sources = ["file1:1", "file2:10"]
-    expected_entry = <<-EOE
+    def test_msgstr_with_msgid_plural
+      po = GetText::PoEntry.new(:plural)
+      po.msgid = "he"
+      po.msgid_plural = "them"
+      po.msgstr = "il\000ils"
+      po.sources = ["file1:1", "file2:10"]
+      expected_entry = <<-EOE
 #: file1:1 file2:10
 msgid "he"
 msgid_plural "them"
 msgstr[0] "il"
 msgstr[1] "ils"
 EOE
-    assert_equal(expected_entry, po.to_s)
-  end
+      assert_equal(expected_entry, po.to_s)
+    end
   end
 
   class TestEscape < self
