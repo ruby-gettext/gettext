@@ -178,7 +178,17 @@ module GetText
       end
 
       # msgctxt, msgid, msgstr
-      str << "msgctxt \"" << msgctxt << "\"\n" if msgctxt?
+      if msgctxt?
+        if @msgctxt.nil?
+          no_msgctxt_message = "This PoEntry is a kind of msgctxt " +
+                                 "but the msgctxt property is nil. " +
+                                 "msgid: #{msgid}"
+          raise(NoMsgctxtError, no_msgctxt_message)
+        else
+          str << "msgctxt \"" << msgctxt << "\"\n"
+        end
+      end
+
       str << "msgid \"" << escaped(:msgid) << "\"\n"
       if plural?
         str << "msgid_plural \"" << escaped(:msgid_plural) << "\"\n"
@@ -232,16 +242,8 @@ module GetText
     end
 
     # Returns true if the type is kind of msgctxt.
-    # And if this is a kind of msgctxt and msgctxt property
-    # is nil, then raise an NoMsgctxtError.
     def msgctxt?
-      if [:msgctxt, :msgctxt_plural].include? @type
-        unless @msgctxt
-          no_msgctxt_message = "This PoEntry is a kind of msgctxt but the msgctxt property is nil. msgid: #{msgid}"
-          raise(NoMsgctxtError, no_msgctxt_message)
-        end
-        true
-      end
+      [:msgctxt, :msgctxt_plural].include? @type
     end
 
     # Returns true if the type is kind of plural.
