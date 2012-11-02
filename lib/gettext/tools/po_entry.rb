@@ -184,9 +184,8 @@ module GetText
                                  "but the msgctxt property is nil. " +
                                  "msgid: #{msgid}"
           raise(NoMsgctxtError, no_msgctxt_message)
-        else
-          str << "msgctxt \"" << msgctxt << "\"\n"
         end
+        str << "msgctxt \"" << msgctxt << "\"\n"
       end
 
       str << "msgid \"" << escaped(:msgid) << "\"\n"
