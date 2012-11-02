@@ -85,6 +85,30 @@ class TestPoEntries < Test::Unit::TestCase
     end
   end
 
+  class TestSetMsgidPlurals < self
+    def test_add
+      msgid = "msgid"
+      msgid_plural = "msgid_plural"
+      msgstr = "msgstr"
+
+      @entries = GetText::PoEntries.new
+      @entries[msgid] = msgstr
+      @entries.set_msgid_plural(msgid, msgid_plural)
+
+      assert_equal(msgid_plural, @entries[msgid].msgid_plural)
+    end
+
+    def test_add_to_non_existent_entry
+      msgid = "msgid"
+      msgid_plural = "msgid_plural"
+
+      @entries = GetText::PoEntries.new
+      assert_raise(GetText::PoEntries::NonExistentEntryError) do
+        @entries.set_msgid_plural(msgid, msgid_plural)
+      end
+    end
+  end
+
   class TestSetSources < self
     def test_add
       msgid = "msgid"
