@@ -72,30 +72,30 @@ class TestPoEntry < Test::Unit::TestCase
   def test_to_s_exception
     po = GetText::PoEntry.new(:normal)
     po.sources = ["file1:1", "file2:10"]
-    assert_raise(RuntimeError){ po.to_s }
+    assert_raise(RuntimeError) {po.to_s}
 
     po.sources = nil
-    assert_raise(RuntimeError){ po.to_s }
+    assert_raise(RuntimeError) {po.to_s}
 
     po = GetText::PoEntry.new(:plural)
     po.msgid = 'hello'
     po.sources = ["file1:1", "file2:10"]
-    assert_raise(RuntimeError){ po.to_s }
+    assert_raise(RuntimeError) {po.to_s}
 
     po.msgid_plural = 'hello2'
     po.sources = nil
-    assert_raise(RuntimeError){ po.to_s }
+    assert_raise(RuntimeError) {po.to_s}
 
     po = GetText::PoEntry.new(:msgctxt)
     po.msgid = 'hello'
     po.sources = ["file1:1", "file2:10"]
-    assert_raise(RuntimeError){ po.to_s }
+    assert_raise(RuntimeError) {po.to_s}
 
     po = GetText::PoEntry.new(:msgctxt_plural)
     po.msgctxt = 'context'
     po.msgid = 'hello'
     po.sources = ["file1:1", "file2:10"]
-    assert_raise(RuntimeError){ po.to_s }
+    assert_raise(RuntimeError) {po.to_s}
   end
 
   def test_to_s_header
