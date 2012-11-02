@@ -252,12 +252,12 @@ module GetText
 
     # Returns true if the type is kind of msgctxt.
     def msgctxt?
-      [:msgctxt, :msgctxt_plural].include? @type
+      [:msgctxt, :msgctxt_plural].include?(@type)
     end
 
     # Returns true if the type is kind of plural.
     def plural?
-      [:plural, :msgctxt_plural].include? @type
+      [:plural, :msgctxt_plural].include?(@type)
     end
 
     private
