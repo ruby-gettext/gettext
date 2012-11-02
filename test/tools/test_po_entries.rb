@@ -39,7 +39,7 @@ class TestPoEntries < Test::Unit::TestCase
       assert_equal(entry, @entries[msgid])
     end
 
-    def test_update_existed_entry
+    def test_update_existing_entry
       test_normal
 
       msgid = "msgid"
