@@ -85,6 +85,30 @@ class TestPoEntries < Test::Unit::TestCase
     end
   end
 
+  class TestSetMsgctxt < self
+    def test_add
+      msgctxt = "msgctxt"
+      msgid = "msgid"
+      msgstr = "msgstr"
+
+      @entries = GetText::PoEntries.new
+      @entries[msgid] = msgstr
+      @entries.set_msgctxt(msgid, msgctxt)
+
+      assert_equal(msgctxt, @entries[msgid].msgctxt)
+    end
+
+    def test_add_to_non_existent_entry
+      msgctxt = "msgctxt"
+      msgid = "msgid"
+
+      @entries = GetText::PoEntries.new
+      assert_raise(GetText::PoEntries::NonExistentEntryError) do
+        @entries.set_msgctxt(msgid, msgctxt)
+      end
+    end
+  end
+
   class TestSetMsgidPlurals < self
     def test_add
       msgid = "msgid"

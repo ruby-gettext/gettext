@@ -45,6 +45,14 @@ module GetText
       self[msgid].comment = comment
     end
 
+    def set_msgctxt(msgid, msgctxt)
+      unless has_key?(msgid)
+        raise(NonExistentEntryError,
+              "the entry of \"%s\" does not exist." % msgid)
+      end
+      self[msgid].msgctxt = msgctxt
+    end
+
     def set_msgid_plural(msgid, msgid_plural)
       unless has_key?(msgid)
         raise(NonExistentEntryError,
