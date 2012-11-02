@@ -85,6 +85,30 @@ class TestPoEntries < Test::Unit::TestCase
     end
   end
 
+  class TestSetSources < self
+    def test_add
+      msgid = "msgid"
+      msgstr = "msgstr"
+      sources = ["file.rb:10"]
+
+      @entries = GetText::PoEntries.new
+      @entries[msgid] = msgstr
+      @entries.set_sources(msgid, sources)
+
+      assert_equal(sources, @entries[msgid].sources)
+    end
+
+    def test_add_to_not_existed_entry
+      msgid = "msgid"
+      sources = ["file.rb:10"]
+
+      @entries = GetText::PoEntries.new
+      assert_raise(GetText::PoEntries::NonExistentEntryError) do
+        @entries.set_sources(msgid, sources)
+      end
+    end
+  end
+
   def test_to_s
     @entries = GetText::PoEntries.new
     header = <<EOH

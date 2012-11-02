@@ -21,6 +21,9 @@ require "gettext/tools/po_entry"
 
 module GetText
   class PoEntries < Hash
+    class NonExistentEntryError < StandardError
+    end
+
     def [](msgid)
       super(msgid)
     end
@@ -44,7 +47,8 @@ module GetText
 
     def set_sources(msgid, sources)
       unless has_key?(msgid)
-        raise("the entry of \"%s\" does not exist." % msgid)
+        raise(NonExistentEntryError,
+              "the entry of \"%s\" does not exist." % msgid)
       end
       self[msgid].sources = sources
     end
