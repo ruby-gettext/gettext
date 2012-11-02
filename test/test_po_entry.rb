@@ -98,11 +98,16 @@ class TestPoEntry < Test::Unit::TestCase
     assert_raise(RuntimeError){ po.to_s }
   end
 
-  def test_header_to_s_exception
+  def test_to_s_header
     po = GetText::PoEntry.new(:normal)
     po.msgid = ""
+    po.msgstr = "This is the header entry."
     po.sources = nil
-    assert_nothing_raised(RuntimeError){ po.to_s }
+    expected_header = <<EOH
+msgid ""
+msgstr "This is the header entry."
+EOH
+    assert_equal(expected_header, po.to_s)
   end
 
   def test_msgstr
