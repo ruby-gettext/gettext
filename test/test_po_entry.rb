@@ -28,7 +28,8 @@ class TestPoEntry < Test::Unit::TestCase
     assert_equal 'long tails', tt.msgid_plural
   end
 
-  def test_to_s_normal
+  class TestToS < self
+  def test_normal
     po = GetText::PoEntry.new(:normal)
     po.msgid = 'hello'
     po.sources = ["file1:1", "file2:10"]
@@ -40,7 +41,7 @@ class TestPoEntry < Test::Unit::TestCase
     assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
   end
 
-  def test_to_s_plural
+  def test_plural
     po = GetText::PoEntry.new(:plural)
     po.msgid = 'hello'
     po.msgid_plural = 'hello2'
@@ -52,7 +53,7 @@ class TestPoEntry < Test::Unit::TestCase
     assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
   end
 
-  def test_to_s_msgctxt
+  def test_msgctxt
     po = GetText::PoEntry.new(:msgctxt)
     po.msgctxt = 'context'
     po.msgid = 'hello'
@@ -60,7 +61,7 @@ class TestPoEntry < Test::Unit::TestCase
     assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
   end
 
-  def test_to_s_msgctxt_plural
+  def test_msgctxt_plural
     po = GetText::PoEntry.new(:msgctxt_plural)
     po.msgctxt = 'context'
     po.msgid = 'hello'
@@ -69,7 +70,7 @@ class TestPoEntry < Test::Unit::TestCase
     assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
   end
 
-  def test_to_s_exception
+  def test_exception
     po = GetText::PoEntry.new(:normal)
     po.sources = ["file1:1", "file2:10"]
     assert_raise(GetText::PoEntry::NoMsgidError) {po.to_s}
@@ -94,7 +95,7 @@ class TestPoEntry < Test::Unit::TestCase
     assert_raise(GetText::PoEntry::NoMsgidPluralError) {po.to_s}
   end
 
-  def test_to_s_header
+  def test_header
     po = GetText::PoEntry.new(:normal)
     po.msgid = ""
     po.msgstr = "This is the header entry."
@@ -162,6 +163,7 @@ msgstr[0] "il"
 msgstr[1] "ils"
 EOE
     assert_equal(expected_entry, po.to_s)
+  end
   end
 
   class TestEscape < self
