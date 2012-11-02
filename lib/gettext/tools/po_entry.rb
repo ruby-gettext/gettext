@@ -36,6 +36,9 @@ module GetText
     class NoMsgctxtError < StandardError
     end
 
+    class NoMsgidPluralError < StandardError
+    end
+
     PARAMS = {
       :normal => [:msgid, :separator, :msgstr],
       :plural => [:msgid, :msgid_plural, :separator, :msgstr],
@@ -190,6 +193,13 @@ module GetText
 
       str << "msgid \"" << escaped(:msgid) << "\"\n"
       if plural?
+        if @msgid_plural.nil?
+          no_plural_message = "This PoEntry is a kind of plural " +
+                                "but the msgid_plural property is nil. " +
+                                "msgid: #{msgid}"
+          raise(NoMsgidPluralError, no_plural_message)
+        end
+
         str << "msgid_plural \"" << escaped(:msgid_plural) << "\"\n"
 
         if msgstr.nil?
@@ -246,13 +256,8 @@ module GetText
     end
 
     # Returns true if the type is kind of plural.
-    # And if this is a kind of plural and msgid_plural property
-    # is nil, then raise an RuntimeException.
     def plural?
-      if [:plural, :msgctxt_plural].include? @type
-        raise "This PoEntry is a kind of plural but the msgid_plural property is nil. msgid: #{msgid}" unless @msgid_plural
-        true
-      end
+      [:plural, :msgctxt_plural].include? @type
     end
 
     private
