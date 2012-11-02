@@ -131,9 +131,9 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 119)
       @data[msgid] = msgstr
 
       type = detect_entry_type(msgctxt, msgid_plural)
-      @data[msgid].type = type
-      @data[msgid].msgctxt = msgctxt
-      @data[msgid].msgid_plural = msgid_plural
+      @data.set_type(msgid, type)
+      @data.set_msgctxt(msgid, msgctxt)
+      @data.set_msgid_plural(msgid, msgid_plural)
       @data.set_sources(msgid, @sources)
     else
       @data[msgid] = msgstr
