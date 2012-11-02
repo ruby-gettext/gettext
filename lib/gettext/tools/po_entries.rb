@@ -26,30 +26,23 @@ module GetText
     end
 
     def []=(msgid, msgstr)
-      msgctxt, msgid, msgid_plural = split_msgid(msgid)
-
       if has_key?(msgid)
         entry = self[msgid]
       else
-        type = detect_entry_type(msgctxt, msgid_plural)
-        entry = PoEntry.new(type)
+        entry = PoEntry.new(:normal)
         super(msgid, entry)
       end
       entry.msgid = msgid
-      entry.msgctxt = msgctxt
-      entry.msgid_plural = msgid_plural
       entry.msgstr = msgstr
       entry
     end
 
     def set_comment(msgid, comment)
-      _, msgid, _ = split_msgid(msgid)
       self[msgid] = nil unless has_key?(msgid)
       self[msgid].comment = comment
     end
 
     def set_sources(msgid, sources)
-      _, msgid, _ = split_msgid(msgid)
       unless has_key?(msgid)
         raise("the entry of \"%s\" does not exist." % msgid)
       end
@@ -75,34 +68,6 @@ module GetText
       end
 
       po_entries.join("\n")
-    end
-
-    private
-    def split_msgid(msgid)
-      return [nil, "", nil] if msgid.empty?
-      msgctxt, msgid = msgid.split("\004", 2)
-      if msgid.nil?
-        msgid = msgctxt
-        msgctxt = nil
-      end
-      msgid, msgid_plural = msgid.split("\000", 2)
-      [msgctxt, msgid, msgid_plural]
-    end
-
-    def detect_entry_type(msgctxt, msgid_plural)
-      if msgctxt.nil?
-        if msgid_plural.nil?
-          :normal
-        else
-          :plural
-        end
-      else
-        if msgid_plural.nil?
-          :msgctxt
-        else
-          :msgctxt_plural
-        end
-      end
     end
   end
 end

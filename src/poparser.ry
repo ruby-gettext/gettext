@@ -222,9 +222,21 @@ end
 
   def on_message(msgid, msgstr)
     msgstr = nil if msgstr.empty?
-    @data[msgid] = msgstr
+
+    if @data.respond_to?(:set_sources)
+      msgctxt, msgid, msgid_plural = split_msgid(msgid)
+      @data[msgid] = msgstr
+
+      type = detect_entry_type(msgctxt, msgid_plural)
+      @data[msgid].type = type
+      @data[msgid].msgctxt = msgctxt
+      @data[msgid].msgid_plural = msgid_plural
+      @data.set_sources(msgid, @sources)
+    else
+      @data[msgid] = msgstr
+    end
     @data.set_comment(msgid, @comments.join("\n"))
-    @data.set_sources(msgid, @sources) if @data.respond_to?(:set_sources)
+
     @comments.clear
     @sources = []
     @msgctxt = ""
@@ -270,6 +282,33 @@ end
       end
     end
     Encoding.default_external
+  end
+
+  def split_msgid(msgid)
+    return [nil, "", nil] if msgid.empty?
+    msgctxt, msgid = msgid.split("\004", 2)
+    if msgid.nil?
+      msgid = msgctxt
+      msgctxt = nil
+    end
+    msgid, msgid_plural = msgid.split("\000", 2)
+    [msgctxt, msgid, msgid_plural]
+  end
+
+  def detect_entry_type(msgctxt, msgid_plural)
+    if msgctxt.nil?
+      if msgid_plural.nil?
+        :normal
+      else
+        :plural
+      end
+    else
+      if msgid_plural.nil?
+        :msgctxt
+      else
+        :msgctxt_plural
+      end
+    end
   end
   private :detect_file_encoding
 ---- footer

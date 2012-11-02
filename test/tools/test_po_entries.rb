@@ -39,53 +39,6 @@ class TestPoEntries < Test::Unit::TestCase
       assert_equal(entry, @entries[msgid])
     end
 
-    def test_msgctxt
-      msgctxt = "msgctxt"
-      msgid = "msgid"
-      msgstr = "msgstr"
-
-      @entries = GetText::PoEntries.new
-      @entries["#{msgctxt}\004#{msgid}"] = msgstr
-
-      entry = PoEntry.new(:msgctxt)
-      entry.msgctxt = msgctxt
-      entry.msgid = msgid
-      entry.msgstr = msgstr
-      assert_equal(entry, @entries[msgid])
-    end
-
-    def test_msgid_plural
-      msgid = "msgid"
-      msgid_plural = "msgid_plural"
-      msgstr = "msgstr"
-
-      @entries = GetText::PoEntries.new
-      @entries["#{msgid}\000#{msgid_plural}"] = msgstr
-
-      entry = PoEntry.new(:plural)
-      entry.msgid = msgid
-      entry.msgid_plural = msgid_plural
-      entry.msgstr = msgstr
-      assert_equal(entry, @entries[msgid])
-    end
-
-    def test_msgctxt_plural
-      msgctxt = "msgctxt"
-      msgid = "msgid"
-      msgid_plural = "msgid_plural"
-      msgstr = "msgstr"
-
-      @entries = GetText::PoEntries.new
-      @entries["#{msgctxt}\004#{msgid}\000#{msgid_plural}"] = msgstr
-
-      entry = PoEntry.new(:msgctxt_plural)
-      entry.msgctxt = msgctxt
-      entry.msgid = msgid
-      entry.msgid_plural = msgid_plural
-      entry.msgstr = msgstr
-      assert_equal(entry, @entries[msgid])
-    end
-
     def test_update_existed_entry
       test_normal
 
@@ -129,51 +82,6 @@ class TestPoEntries < Test::Unit::TestCase
       entry.msgstr = msgstr
       entry.comment = comment
       assert_equal(entry, @entries[msgid])
-    end
-  end
-
-  class TestSplitMsgid < self
-    def test_existed_msgctxt_and_msgid_plural
-      msgctxt = "msgctxt"
-      msgid = "msgid"
-      msgid_plural = "msgid_plural"
-
-      assert_equal([msgctxt, msgid, msgid_plural],
-                   split_msgid("#{msgctxt}\004#{msgid}\000#{msgid_plural}"))
-    end
-
-    def test_existed_msgctxt_only
-      msgctxt = "msgctxt"
-      msgid = "msgid"
-
-      assert_equal([msgctxt, msgid, nil],
-                   split_msgid("#{msgctxt}\004#{msgid}"))
-    end
-
-    def test_existed_msgid_plural_only
-      msgid = "msgid"
-      msgid_plural = "msgid_plural"
-
-      assert_equal([nil, msgid, msgid_plural],
-                   split_msgid("#{msgid}\000#{msgid_plural}"))
-    end
-
-    def test_not_existed
-      msgid = "msgid"
-
-      assert_equal([nil, msgid, nil], split_msgid(msgid))
-    end
-
-    def test_empty_msgid
-      msgid = ""
-
-      assert_equal([nil, msgid, nil], split_msgid(msgid))
-    end
-
-    private
-    def split_msgid(msgid)
-      entries = GetText::PoEntries.new
-      entries.send(:split_msgid, msgid)
     end
   end
 
