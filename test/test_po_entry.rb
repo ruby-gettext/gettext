@@ -28,6 +28,24 @@ class TestPoEntry < Test::Unit::TestCase
     assert_equal 'long tails', tt.msgid_plural
   end
 
+  class TestSetType < self
+    def test_varid_type
+      entry = GetText::PoEntry.new(:normal)
+      type = :plural
+      entry.type = type
+      assert_equal(type, entry.type)
+    end
+
+    def test_invalid_type
+      entry = GetText::PoEntry.new(:normal)
+      type = :invalid
+      assert_raise(GetText::PoEntry::InvalidTypeError) do
+        entry.type = type
+      end
+      assert_equal(:normal, entry.type)
+    end
+  end
+
   class TestToS < self
     def test_normal
       po = GetText::PoEntry.new(:normal)

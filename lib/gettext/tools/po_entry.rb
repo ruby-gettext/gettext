@@ -26,6 +26,8 @@ module GetText
   # Contains data related to the expression or sentence that
   # is to be translated.
   class PoEntry
+    class InvalidTypeError < StandardError
+    end
 
     class NoMsgidError < StandardError
     end
@@ -114,6 +116,14 @@ module GetText
         msgctxt == other.msgctxt and
         sources == other.sources and
         comment == other.comment
+    end
+
+    def type=(type)
+      unless PARAMS.keys.include?(type)
+        raise(InvalidTypeError, "\"%s\" is invalid type." % type)
+      end
+      @type = type
+      @param_type = PARAMS[@type]
     end
 
     # Checks if the other translation target is mergeable with
