@@ -122,7 +122,7 @@ class TestPoEntries < Test::Unit::TestCase
       assert_equal(sources, @entries[msgid].sources)
     end
 
-    def test_add_to_not_existed_entry
+    def test_add_to_non_existent_entry
       msgid = "msgid"
       sources = ["file.rb:10"]
 
