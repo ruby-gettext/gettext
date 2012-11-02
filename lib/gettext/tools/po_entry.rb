@@ -26,6 +26,10 @@ module GetText
   # Contains data related to the expression or sentence that
   # is to be translated.
   class PoEntry
+
+    class NoMsgidError < StandardError
+    end
+
     PARAMS = {
       :normal => [:msgid, :separator, :msgstr],
       :plural => [:msgid, :msgid_plural, :separator, :msgstr],
@@ -137,7 +141,7 @@ module GetText
 
     # Output the po entry for the po-file.
     def to_s
-      raise "msgid is nil." unless @msgid
+      raise(NoMsgidError, "msgid is nil.") unless @msgid
       raise "sources is nil." if @sources.nil? and not msgid.empty?
 
       str = ""
