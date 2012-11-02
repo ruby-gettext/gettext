@@ -30,6 +30,9 @@ module GetText
     class NoMsgidError < StandardError
     end
 
+    class NoSourcesError < StandardError
+    end
+
     PARAMS = {
       :normal => [:msgid, :separator, :msgstr],
       :plural => [:msgid, :msgid_plural, :separator, :msgstr],
@@ -142,7 +145,10 @@ module GetText
     # Output the po entry for the po-file.
     def to_s
       raise(NoMsgidError, "msgid is nil.") unless @msgid
-      raise "sources is nil." if @sources.nil? and not msgid.empty?
+
+      if @sources.nil? and not msgid.empty?
+        raise(NoSourcesError, "sources is nil.")
+      end
 
       str = ""
       # extracted comments

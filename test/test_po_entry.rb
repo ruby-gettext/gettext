@@ -84,7 +84,7 @@ class TestPoEntry < Test::Unit::TestCase
 
     po.msgid_plural = 'hello2'
     po.sources = nil
-    assert_raise(RuntimeError) {po.to_s}
+    assert_raise(GetText::PoEntry::NoSourcesError) {po.to_s}
 
     po = GetText::PoEntry.new(:msgctxt)
     po.msgid = 'hello'
