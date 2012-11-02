@@ -85,6 +85,30 @@ class TestPoEntries < Test::Unit::TestCase
     end
   end
 
+  class TestSetType < self
+    def test_add
+      type = :normal
+      msgid = "msgid"
+      msgstr = "msgstr"
+
+      @entries = GetText::PoEntries.new
+      @entries[msgid] = msgstr
+      @entries.set_type(msgid, type)
+
+      assert_equal(type, @entries[msgid].type)
+    end
+
+    def test_add_to_non_existent_entry
+      type = :normal
+      msgid = "msgid"
+
+      @entries = GetText::PoEntries.new
+      assert_raise(GetText::PoEntries::NonExistentEntryError) do
+        @entries.set_type(msgid, type)
+      end
+    end
+  end
+
   class TestSetMsgctxt < self
     def test_add
       msgctxt = "msgctxt"

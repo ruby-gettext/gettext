@@ -40,6 +40,14 @@ module GetText
       entry
     end
 
+    def set_type(msgid, type)
+      unless has_key?(msgid)
+        raise(NonExistentEntryError,
+              "the entry of \"%s\" does not exist." % msgid)
+      end
+      self[msgid].type = type
+    end
+
     def set_comment(msgid, comment)
       self[msgid] = nil unless has_key?(msgid)
       self[msgid].comment = comment
