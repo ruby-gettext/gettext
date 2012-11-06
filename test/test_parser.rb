@@ -184,11 +184,11 @@ class TestGetTextParser < Test::Unit::TestCase
 
   private
 
-  def assert_target(msgid, sources = nil)
+  def assert_target(msgid, references = nil)
     t = @ary.detect {|elem| elem.msgid == msgid}
     if t
-      if sources
-        assert_equal sources.sort, t.sources.sort, 'Translation target sources do not match.'
+      if references
+        assert_equal references.sort, t.references.sort, 'Translation target references do not match.'
       end
       yield t if block_given?
     else
@@ -196,18 +196,18 @@ class TestGetTextParser < Test::Unit::TestCase
     end
   end
 
-  def assert_plural_target(msgid, plural, sources = nil)
-    assert_target msgid, sources do |t|
+  def assert_plural_target(msgid, plural, references = nil)
+    assert_target msgid, references do |t|
       assert_equal plural, t.msgid_plural, 'Expected plural form'
       yield t if block_given?
     end
   end
 
-  def assert_target_in_context(msgctxt, msgid, sources = nil)
+  def assert_target_in_context(msgctxt, msgid, references = nil)
     t = @ary.detect {|elem| elem.msgid == msgid && elem.msgctxt == msgctxt}
     if t
-      if sources
-        assert_equal sources.sort, t.sources.sort, 'Translation target sources do not match.'
+      if references
+        assert_equal references.sort, t.references.sort, 'Translation target references do not match.'
       end
       yield t if block_given?
     else

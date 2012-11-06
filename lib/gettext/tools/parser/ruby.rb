@@ -227,7 +227,7 @@ module GetText
     private
     def store_po_entry(po_entries, po_entry, file_name, line_no, last_comment) #:nodoc:
       if po_entry && po_entry.msgid
-        po_entry.sources << file_name + ":" + line_no
+        po_entry.references << file_name + ":" + line_no
         po_entry.add_comment(last_comment) unless last_comment.empty?
         po_entries << po_entry
         true

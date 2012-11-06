@@ -57,7 +57,7 @@ EOP
       assert_equal("bonjour", entries["hello"].msgstr)
     end
 
-    def test_sources
+    def test_references
       po_file = create_po_file(<<-EOP)
 # This is the comment.
 #: file.rb:10
@@ -66,7 +66,7 @@ msgstr "bonjour"
 EOP
       entries = parse_po_file(po_file, PoEntries.new)
       assert_true(entries.has_key?("hello"))
-      assert_equal(["file.rb:10"], entries["hello"].sources)
+      assert_equal(["file.rb:10"], entries["hello"].references)
     end
 
     def test_comment

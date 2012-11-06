@@ -78,13 +78,13 @@ module GetText
     attr_accessor :msgid_plural
     attr_accessor :separator
     attr_accessor :msgctxt
-    attr_accessor :sources    # ["file1:line1", "file2:line2", ...]
+    attr_accessor :references    # ["file1:line1", "file2:line2", ...]
     attr_accessor :comment
 
     # Create the object. +type+ should be :normal, :plural, :msgctxt or :msgctxt_plural.
     def initialize(type)
       @type = type
-      @sources = []
+      @references = []
       @param_type = PARAMS[@type]
       @msgstr = nil
     end
@@ -114,7 +114,7 @@ module GetText
         msgid_plural == other.msgid_plural and
         separator == other.separator and
         msgctxt == other.msgctxt and
-        sources == other.sources and
+        references == other.references and
         comment == other.comment
     end
 
@@ -141,14 +141,14 @@ module GetText
       "  self: #{self.inspect}\n  other: '#{other.inspect}'" unless self.mergeable?(other)
       if other.msgid_plural && !self.msgid_plural
         res = other
-        unless (res.sources.include? self.sources[0])
-          res.sources += self.sources
+        unless (res.references.include? self.references[0])
+          res.references += self.references
           res.add_comment(self.comment)
         end
       else
         res = self
-        unless (res.sources.include? other.sources[0])
-          res.sources += other.sources
+        unless (res.references.include? other.references[0])
+          res.references += other.references
           res.add_comment(other.comment)
         end
       end
@@ -166,17 +166,17 @@ module GetText
       # references
       max_line_length = 70
 
-      if not sources.nil? and not sources.empty?
+      if not references.nil? and not references.empty?
         str << "#:"
         line_size = 2
-        sources.each do |source|
-          if line_size + source.size > max_line_length
+        references.each do |reference|
+          if line_size + reference.size > max_line_length
             str << "\n"
-            str <<  "#: #{source}"
-            line_size = 3 + source.size
+            str <<  "#: #{reference}"
+            line_size = 3 + reference.size
           else
-            str << " #{source}"
-            line_size += 1 + source.size
+            str << " #{reference}"
+            line_size += 1 + reference.size
           end
         end
 
@@ -283,7 +283,7 @@ module GetText
     def self.new_from_ary(ary)
       ary = ary.dup
       msgid = ary.shift
-      sources = ary
+      references = ary
       type = :normal
       msgctxt = nil
       msgid_plural = nil
@@ -304,7 +304,7 @@ module GetText
       end
       ret = self.new(type)
       ret.msgid = msgid
-      ret.sources = sources
+      ret.references = references
       ret.msgctxt = msgctxt
       ret.msgid_plural = msgid_plural
       ret

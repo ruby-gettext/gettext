@@ -93,27 +93,27 @@ module GetText
       #       # Simple entry
       #       entry = PoEntry.new(:normal)
       #       entry.msgid = "hello"
-      #       entry.sources = ["foo.rb:200", "bar.rb:300"]
+      #       entry.references = ["foo.rb:200", "bar.rb:300"]
       #       entry.add_comment("Comment for the entry")
       #       po_entries << entry
       #       # Plural entry
       #       entry = PoEntry.new(:plural)
       #       entry.msgid = "An apple"
       #       entry.msgid_plural = "Apples"
-      #       entry.sources = ["foo.rb:200", "bar.rb:300"]
+      #       entry.references = ["foo.rb:200", "bar.rb:300"]
       #       po_entries << entry
       #       # Simple entry with the entry context
       #       entry = PoEntry.new(:msgctxt)
       #       entry.msgctxt = "context"
       #       entry.msgid = "hello"
-      #       entry.sources = ["foo.rb:200", "bar.rb:300"]
+      #       entry.references = ["foo.rb:200", "bar.rb:300"]
       #       po_entries << entry
       #       # Plural entry with the message context.
       #       entry = PoEntry.new(:msgctxt_plural)
       #       entry.msgctxt = "context"
       #       entry.msgid = "An apple"
       #       entry.msgid_plural = "Apples"
-      #       entry.sources = ["foo.rb:200", "bar.rb:300"]
+      #       entry.references = ["foo.rb:200", "bar.rb:300"]
       #       po_entries << entry
       #       return po_entries
       #     end
@@ -300,7 +300,7 @@ EOH
               warn _("Warning: The empty \"\" msgid is reserved by " +
                        "gettext. So gettext(\"\") doesn't returns " +
                        "empty string but the header entry in po file.")
-              # TODO: add pommesage.source to the pot header as below:
+              # TODO: add pommesage.reference to the pot header as below:
               # # SOME DESCRIPTIVE TITLE.
               # # Copyright (C) YEAR THE COPYRIGHT HOLDER
               # # This file is distributed under the same license as the PACKAGE package.
@@ -314,8 +314,8 @@ EOH
 
             if @output.is_a?(String)
               base_path = Pathname.new(@output).dirname.expand_path
-              po_entry.sources = po_entry.sources.collect do |source|
-                path, line, = source.split(/:(\d+)\z/, 2)
+              po_entry.references = po_entry.references.collect do |reference|
+                path, line, = reference.split(/:(\d+)\z/, 2)
                 absolute_path = Pathname.new(path).expand_path
                 begin
                   path = absolute_path.relative_path_from(base_path).to_s

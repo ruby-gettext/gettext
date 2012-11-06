@@ -43,7 +43,7 @@ class TestRubyParser < Test::Unit::TestCase
         :msgid_plural => nil,
         :msgstr       => nil,
         :separator    => nil,
-        :sources      => nil,
+        :references      => nil,
       }
       default.merge(message)
     end
@@ -56,14 +56,14 @@ class TestRubyParser < Test::Unit::TestCase
         :msgid_plural => po_entry.msgid_plural,
         :msgstr       => po_entry.msgstr,
         :separator    => po_entry.separator,
-        :sources      => normalize_sources(po_entry.sources),
+        :references      => normalize_references(po_entry.references),
       }
     end
   end
 
-  def normalize_sources(sources)
-    sources.collect do |source|
-      source.sub(/\A#{Regexp.escape(fixture_path)}\//, "")
+  def normalize_references(references)
+    references.collect do |reference|
+      reference.sub(/\A#{Regexp.escape(fixture_path)}\//, "")
     end
   end
 
@@ -119,7 +119,7 @@ class TestRubyParser < Test::Unit::TestCase
       assert_parse([
                      {
                        :msgid => "one line",
-                       :sources => ["one_line.rb:28"],
+                       :references => ["one_line.rb:28"],
                      }
                    ],
                    "one_line.rb")
@@ -138,7 +138,7 @@ class TestRubyParser < Test::Unit::TestCase
                        :msgid     => "context|context$message",
                        :msgstr    => nil,
                        :separator => "$",
-                       :sources   => ["custom.rb:28"],
+                       :references   => ["custom.rb:28"],
                      }
                    ],
                    "custom.rb")
@@ -158,7 +158,7 @@ class TestRubyParser < Test::Unit::TestCase
                        :msgid_plural => "context|context$messages",
                        :msgstr       => nil,
                        :separator    => "$",
-                       :sources      => ["custom.rb:28"],
+                       :references      => ["custom.rb:28"],
                      }
                    ],
                    "custom.rb")

@@ -44,7 +44,7 @@ class TestToolsXGetText < Test::Unit::TestCase
     FileUtils.mkdir_p(File.dirname(@rhtml_file_path))
   end
 
-  def test_relative_source
+  def test_relative_reference
     File.open(@rb_file_path, "w") do |rb_file|
       rb_file.puts(<<-EOR)
 _("Hello")

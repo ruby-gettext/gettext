@@ -74,12 +74,12 @@ module GetText
       self[msgid].msgid_plural = msgid_plural
     end
 
-    def set_sources(msgid, sources)
+    def set_references(msgid, references)
       unless has_key?(msgid)
         raise(NonExistentEntryError,
               "the entry of \"%s\" does not exist." % msgid)
       end
-      self[msgid].sources = sources
+      self[msgid].references = references
     end
 
     def to_s
@@ -118,14 +118,14 @@ module GetText
     def sort_by_references(entries)
       entries.each do |msgid, entry|
          #TODO: sort by each filename and line_number.
-        entry.sources = entry.sources.sort
+        entry.references = entry.references.sort
       end
 
       entries.sort do |entry, other|
-        entry_sources = entry[1].sources
-        entry_source, entry_line_number = split_reference(entry_sources.first)
-        other_sources = other[1].sources
-        other_source, other_line_number = split_reference(other_sources.first)
+        entry_references = entry[1].references.first
+        entry_source, entry_line_number = split_reference(entry_references)
+        other_references = other[1].references.first
+        other_source, other_line_number = split_reference(other_references)
 
         if entry_source != other_source
           entry_source <=> other_source

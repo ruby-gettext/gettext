@@ -59,7 +59,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 119)
 
   def parse(str, data)
     @comments = []
-    @sources = []
+    @references = []
     @data = data
     @fuzzy = false
     @msgctxt = ""
@@ -126,7 +126,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 119)
   def on_message(msgid, msgstr)
     msgstr = nil if msgstr.empty?
 
-    if @data.respond_to?(:set_sources)
+    if @data.respond_to?(:set_references)
       msgctxt, msgid, msgid_plural = split_msgid(msgid)
       @data[msgid] = msgstr
 
@@ -134,28 +134,28 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 119)
       @data.set_type(msgid, type)
       @data.set_msgctxt(msgid, msgctxt)
       @data.set_msgid_plural(msgid, msgid_plural)
-      @data.set_sources(msgid, @sources)
+      @data.set_references(msgid, @references)
     else
       @data[msgid] = msgstr
     end
     @data.set_comment(msgid, @comments.join("\n"))
 
     @comments.clear
-    @sources = []
+    @references = []
     @msgctxt = ""
   end
 
   COMMENT_MARK = "#"
-  SOURCE_COMMENT_MARK = "#:"
+  REFERENCE_COMMENT_MARK = "#:"
   def on_comment(comment)
     @fuzzy = true if (/fuzzy/ =~ comment)
 
-    if @data.respond_to?(:set_sources)
-      if comment.start_with?(SOURCE_COMMENT_MARK)
-        comment.lines.each do |source|
+    if @data.respond_to?(:set_references)
+      if comment.start_with?(REFERENCE_COMMENT_MARK)
+        comment.lines.each do |reference|
           comment_content =
-            source.gsub(/\A#{Regexp.escape(SOURCE_COMMENT_MARK)}/, "")
-          @sources << comment_content.strip
+            reference.gsub(/\A#{Regexp.escape(REFERENCE_COMMENT_MARK)}/, "")
+          @references << comment_content.strip
         end
       elsif comment.start_with?(COMMENT_MARK)
         comment.lines.each do |line|

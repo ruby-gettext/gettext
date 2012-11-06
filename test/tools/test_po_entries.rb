@@ -157,26 +157,26 @@ class TestPoEntries < Test::Unit::TestCase
     end
   end
 
-  class TestSetSources < self
+  class TestSetReferences < self
     def test_add
       msgid = "msgid"
       msgstr = "msgstr"
-      sources = ["file.rb:10"]
+      references = ["file.rb:10"]
 
       @entries = GetText::PoEntries.new
       @entries[msgid] = msgstr
-      @entries.set_sources(msgid, sources)
+      @entries.set_references(msgid, references)
 
-      assert_equal(sources, @entries[msgid].sources)
+      assert_equal(references, @entries[msgid].references)
     end
 
     def test_add_to_non_existent_entry
       msgid = "msgid"
-      sources = ["file.rb:10"]
+      references = ["file.rb:10"]
 
       @entries = GetText::PoEntries.new
       assert_raise(GetText::PoEntries::NonExistentEntryError) do
-        @entries.set_sources(msgid, sources)
+        @entries.set_references(msgid, references)
       end
     end
   end
@@ -191,18 +191,18 @@ class TestPoEntries < Test::Unit::TestCase
     def test_same_filename
       hello = "hello"
       hello_translation = "こんにちは"
-      hello_sources = ["file.rb:10"]
+      hello_references = ["file.rb:10"]
       hello_comment = "#: file.rb:10"
       bye = "bye"
       bye_translation = "さようなら"
-      bye_sources = ["file.rb:20"]
+      bye_references = ["file.rb:20"]
       bye_comment = "#: file.rb:20"
 
       @entries[hello] = hello_translation
-      @entries[hello].sources = hello_sources
+      @entries[hello].references = hello_references
 
       @entries[bye] = bye_translation
-      @entries[bye].sources = bye_sources
+      @entries[bye].references = bye_references
 
       expected_po =<<EOP
 #{expected_header_comment}
@@ -225,18 +225,18 @@ EOP
     def test_different_filename
       hello = "hello"
       hello_translation = "こんにちは"
-      hello_sources = ["file.rb:10"]
+      hello_references = ["file.rb:10"]
       hello_comment = "#: file.rb:10"
       bye = "bye"
       bye_translation = "さようなら"
-      bye_sources = ["test.rb:10"]
+      bye_references = ["test.rb:10"]
       bye_comment = "#: test.rb:10"
 
       @entries[hello] = hello_translation
-      @entries[hello].sources = hello_sources
+      @entries[hello].references = hello_references
 
       @entries[bye] = bye_translation
-      @entries[bye].sources = bye_sources
+      @entries[bye].references = bye_references
 
       expected_po =<<EOP
 #{expected_header_comment}
@@ -259,18 +259,18 @@ EOP
     def test_including_colon_filename
       hello = "hello"
       hello_translation = "こんにちは"
-      hello_sources = ["file.rb:10"]
+      hello_references = ["file.rb:10"]
       hello_comment = "#: file.rb:10"
       bye = "bye"
       bye_translation = "さようなら"
-      bye_sources = ["file:2.rb:10"]
+      bye_references = ["file:2.rb:10"]
       bye_comment = "#: file:2.rb:10"
 
       @entries[hello] = hello_translation
-      @entries[hello].sources = hello_sources
+      @entries[hello].references = hello_references
 
       @entries[bye] = bye_translation
-      @entries[bye].sources = bye_sources
+      @entries[bye].references = bye_references
 
       expected_po =<<EOP
 #{expected_header_comment}
@@ -293,18 +293,18 @@ EOP
     def test_no_fileno
       hello = "hello"
       hello_translation = "こんにちは"
-      hello_sources = ["file.rb"]
+      hello_references = ["file.rb"]
       hello_comment = "#: file.rb"
       bye = "bye"
       bye_translation = "さようなら"
-      bye_sources = ["test.rb"]
+      bye_references = ["test.rb"]
       bye_comment = "#: test.rb"
 
       @entries[hello] = hello_translation
-      @entries[hello].sources = hello_sources
+      @entries[hello].references = hello_references
 
       @entries[bye] = bye_translation
-      @entries[bye].sources = bye_sources
+      @entries[bye].references = bye_references
 
       expected_po =<<EOP
 #{expected_header_comment}
