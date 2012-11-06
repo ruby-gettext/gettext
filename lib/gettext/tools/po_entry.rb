@@ -71,7 +71,7 @@ module GetText
     end
 
     # Required
-    attr_accessor :type          # :normal, :plural, :msgctxt, :msgctxt_plural
+    attr_reader :type          # :normal, :plural, :msgctxt, :msgctxt_plural
     attr_accessor :msgid
     attr_accessor :msgstr
     # Options
