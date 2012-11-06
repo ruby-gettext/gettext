@@ -119,7 +119,7 @@ module GetText
     end
 
     def type=(type)
-      unless PARAMS.keys.include?(type)
+      unless PARAMS.has_key?(type)
         raise(InvalidTypeError, "\"%s\" is invalid type." % type)
       end
       @type = type
