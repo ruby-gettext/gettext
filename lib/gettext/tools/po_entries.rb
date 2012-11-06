@@ -83,13 +83,13 @@ module GetText
     end
 
     def to_s
-      po_entries = []
+      po_string = ""
 
       header_entry = self[""]
       if header_entry.nil?
         content_entries = self
       else
-        po_entries << header_entry.to_s
+        po_string << header_entry.to_s
 
         content_entries = reject do |msgid, _|
           msgid.empty?
@@ -97,10 +97,10 @@ module GetText
       end
 
       sort_by_order(content_entries).each do |msgid, entry|
-        po_entries << entry.to_s
+        po_string << "\n" << entry.to_s
       end
 
-      po_entries.join("\n")
+      po_string
     end
 
     private
