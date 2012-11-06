@@ -116,22 +116,28 @@ module GetText
     end
 
     def sort_by_references(entries)
-      entries.each do |msgid, entry|
-         #TODO: sort by each filename and line_number.
-        entry.references = entry.references.sort
+      entries.each do |_, entry|
+        entry.references = entry.references.sort do |reference, other|
+          compare_references(reference, other)
+        end
       end
 
-      entries.sort do |entry, other|
-        entry_references = entry[1].references.first
-        entry_source, entry_line_number = split_reference(entry_references)
-        other_references = other[1].references.first
-        other_source, other_line_number = split_reference(other_references)
+      entries.sort do |msgid_entry, other_msgid_entry|
+        # msgid_entry = [msgid, PoEntry]
+        entry_first_reference = msgid_entry[1].references.first
+        other_first_reference = other_msgid_entry[1].references.first
+        compare_references(entry_first_reference, other_first_reference)
+      end
+    end
 
-        if entry_source != other_source
-          entry_source <=> other_source
-        else
-          entry_line_number <=> other_line_number
-        end
+    def compare_references(reference, other)
+      entry_source, entry_line_number = split_reference(reference)
+      other_source, other_line_number = split_reference(other)
+
+      if entry_source != other_source
+        entry_source <=> other_source
+      else
+        entry_line_number <=> other_line_number
       end
     end
 

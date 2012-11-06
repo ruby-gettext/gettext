@@ -324,6 +324,40 @@ EOP
       assert_equal(expected_po, @entries.to_s)
     end
 
+    def test_multiple_filename
+      hello = "hello"
+      hello_translation = "こんにちは"
+      hello_references = ["file.rb:10"]
+      hello_comment = "#: file.rb:10"
+      bye = "bye"
+      bye_translation = "さようなら"
+      bye_references = ["test.rb:10", "file.rb:110", "file.rb:20"]
+      bye_comment = "#: file.rb:20 file.rb:110 test.rb:10"
+
+      @entries[hello] = hello_translation
+      @entries[hello].references = hello_references
+
+      @entries[bye] = bye_translation
+      @entries[bye].references = bye_references
+
+      expected_po =<<EOP
+#{expected_header_comment}
+#
+msgid ""
+msgstr ""
+#{expected_header}
+
+#{hello_comment}
+msgid "#{hello}"
+msgstr "#{hello_translation}"
+
+#{bye_comment}
+msgid "#{bye}"
+msgstr "#{bye_translation}"
+EOP
+      assert_equal(expected_po, @entries.to_s)
+    end
+
     private
     def header
       <<EOH
