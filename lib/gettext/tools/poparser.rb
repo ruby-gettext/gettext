@@ -15,10 +15,12 @@
 #
 
 require 'racc/parser.rb'
+
+require "gettext/tools/po_entries"
 module GetText
   class PoParser < Racc::Parser
 
-module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 119)
+module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 121)
   if GetText.respond_to?(:bindtextdomain)
     include GetText
     GetText.bindtextdomain("gettext")
@@ -220,33 +222,33 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 119)
 ##### State transition tables begin ###
 
 racc_action_table = [
-     3,    13,     5,     7,     9,    15,    16,    17,    20,    17,
-    13,    17,    13,    13,    11,    17,    23,    20,    13,    17 ]
+     2,    13,    10,     9,     6,    17,    16,    15,    22,    15,
+    15,    13,    13,    13,    15,    11,    22,    24,    13,    15 ]
 
 racc_action_check = [
-     1,    16,     1,     1,     1,    12,    12,    12,    18,    18,
-     7,    14,    15,     9,     3,    19,    20,    21,    23,    25 ]
+     1,    17,     1,     1,     1,    14,    14,    14,    19,    19,
+    12,     6,    16,     9,    18,     2,    20,    22,    24,    25 ]
 
 racc_action_pointer = [
-   nil,     0,   nil,    14,   nil,   nil,   nil,     3,   nil,     6,
-   nil,   nil,     0,   nil,     4,     5,    -6,   nil,     2,     8,
-     8,    11,   nil,    11,   nil,    12 ]
+   nil,     0,    15,   nil,   nil,   nil,     4,   nil,   nil,     6,
+   nil,   nil,     3,   nil,     0,   nil,     5,    -6,     7,     2,
+    10,   nil,     9,   nil,    11,    12 ]
 
 racc_action_default = [
-    -1,   -16,    -2,   -16,    -3,   -13,    -4,   -16,    -6,   -16,
-    -7,    26,   -16,   -15,    -5,   -16,   -16,   -14,   -16,    -8,
-   -16,    -9,   -11,   -16,   -10,   -12 ]
+    -1,   -16,   -16,    -2,    -3,    -4,   -16,    -6,    -7,   -16,
+   -13,    26,    -5,   -15,   -16,   -14,   -16,   -16,    -8,   -16,
+    -9,   -11,   -16,   -10,   -16,   -12 ]
 
 racc_goto_table = [
-    12,    22,    14,     4,    24,     6,     2,     8,    18,    19,
-    10,    21,     1,   nil,   nil,   nil,    25 ]
+    12,    21,    23,    14,     4,     5,     3,     7,     8,    20,
+    18,    19,     1,   nil,   nil,   nil,   nil,   nil,    25 ]
 
 racc_goto_check = [
-     5,     9,     5,     3,     9,     4,     2,     6,     5,     5,
-     7,     8,     1,   nil,   nil,   nil,     5 ]
+     5,     9,     9,     5,     3,     4,     2,     6,     7,     8,
+     5,     5,     1,   nil,   nil,   nil,   nil,   nil,     5 ]
 
 racc_goto_pointer = [
-   nil,    12,     5,     2,     4,    -7,     6,     9,    -7,   -17 ]
+   nil,    12,     5,     3,     4,    -6,     6,     7,   -10,   -18 ]
 
 racc_goto_default = [
    nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil ]

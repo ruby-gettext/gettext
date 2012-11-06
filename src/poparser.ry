@@ -115,6 +115,8 @@ class GetText::PoParser
   ;
 end
 
+---- header
+require "gettext/tools/po_entries"
 ---- inner
   if GetText.respond_to?(:bindtextdomain)
     include GetText
