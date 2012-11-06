@@ -24,6 +24,11 @@ module GetText
     class NonExistentEntryError < StandardError
     end
 
+    attr_accessor :order
+    def initialize(order=nil)
+      @order = order || :references
+    end
+
     def [](msgid)
       super(msgid)
     end
@@ -91,11 +96,51 @@ module GetText
         end
       end
 
-      content_entries.each do |msgid, entry|
-        po_entries << entry.to_s
+      sort_by_order(content_entries).each do |entry|
+        po_entries << entry[1].to_s
       end
 
       po_entries.join("\n")
+    end
+
+    private
+    def sort_by_order(entries)
+      case @order
+      when :references
+        sorted_entries = sort_by_references(entries)
+      when :msgid
+        # TODO: sort by msgid alphabetically.
+      else
+        sorted_entries = entries.to_a
+      end
+    end
+
+    def sort_by_references(entries)
+      entries.each do |msgid, entry|
+         #TODO: sort by each filename and line_number.
+        entry.sources = entry.sources.sort
+      end
+
+      entries.sort do |entry, other|
+        entry_sources = entry[1].sources
+        entry_source, entry_line_number = split_reference(entry_sources.first)
+        other_sources = other[1].sources
+        other_source, other_line_number = split_reference(other_sources.first)
+
+        if entry_source != other_source
+          entry_source <=> other_source
+        else
+          entry_line_number <=> other_line_number
+        end
+      end
+    end
+
+    def split_reference(reference)
+      if /\A(.+):(\d+?)\z/ =~ reference
+        [$1, $2.to_i]
+      else
+        [reference, nil]
+      end
     end
   end
 end
