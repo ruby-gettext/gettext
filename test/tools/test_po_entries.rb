@@ -51,6 +51,20 @@ class TestPoEntries < Test::Unit::TestCase
       entry.msgstr = new_msgstr
       assert_equal(entry, @entries[msgid])
     end
+
+    def test_po_entry
+      @entries = GetText::PoEntries.new
+
+      msgid = "msgid"
+      msgstr = "msgstr"
+      entry = PoEntry.new(:normal)
+      entry.msgid = msgid
+      entry.msgstr = msgstr
+
+      @entries[msgid] = entry
+      assert_true(@entries.has_key?(msgid))
+      assert_equal(msgstr, @entries[msgid].msgstr)
+    end
   end
 
   class TestComment < self
