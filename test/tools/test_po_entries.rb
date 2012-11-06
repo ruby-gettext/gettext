@@ -182,8 +182,13 @@ class TestPoEntries < Test::Unit::TestCase
   end
 
   class TestToS < self
-    def test_same_filename
+    def setup
       @entries = GetText::PoEntries.new
+      @entries[""] = header
+      @entries.set_comment("", header_comment)
+    end
+
+    def test_same_filename
       hello = "hello"
       hello_translation = "こんにちは"
       hello_sources = ["file.rb:10"]
@@ -192,9 +197,6 @@ class TestPoEntries < Test::Unit::TestCase
       bye_translation = "さようなら"
       bye_sources = ["file.rb:20"]
       bye_comment = "#: file.rb:20"
-
-      @entries[""] = header
-      @entries.set_comment("", header_comment)
 
       @entries[hello] = hello_translation
       @entries[hello].sources = hello_sources
@@ -221,7 +223,6 @@ EOP
     end
 
     def test_different_filename
-      @entries = GetText::PoEntries.new
       hello = "hello"
       hello_translation = "こんにちは"
       hello_sources = ["file.rb:10"]
@@ -230,9 +231,6 @@ EOP
       bye_translation = "さようなら"
       bye_sources = ["test.rb:10"]
       bye_comment = "#: test.rb:10"
-
-      @entries[""] = header
-      @entries.set_comment("", header_comment)
 
       @entries[hello] = hello_translation
       @entries[hello].sources = hello_sources
@@ -259,7 +257,6 @@ EOP
     end
 
     def test_including_colon_filename
-      @entries = GetText::PoEntries.new
       hello = "hello"
       hello_translation = "こんにちは"
       hello_sources = ["file.rb:10"]
@@ -268,9 +265,6 @@ EOP
       bye_translation = "さようなら"
       bye_sources = ["file:2.rb:10"]
       bye_comment = "#: file:2.rb:10"
-
-      @entries[""] = header
-      @entries.set_comment("", header_comment)
 
       @entries[hello] = hello_translation
       @entries[hello].sources = hello_sources
@@ -297,7 +291,6 @@ EOP
     end
 
     def test_no_fileno
-      @entries = GetText::PoEntries.new
       hello = "hello"
       hello_translation = "こんにちは"
       hello_sources = ["file.rb"]
@@ -306,9 +299,6 @@ EOP
       bye_translation = "さようなら"
       bye_sources = ["test.rb"]
       bye_comment = "#: test.rb"
-
-      @entries[""] = header
-      @entries.set_comment("", header_comment)
 
       @entries[hello] = hello_translation
       @entries[hello].sources = hello_sources
