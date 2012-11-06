@@ -290,7 +290,7 @@ EOP
       assert_equal(expected_po, @entries.to_s)
     end
 
-    def test_no_fileno
+    def test_no_file_number
       hello = "hello"
       hello_translation = "こんにちは"
       hello_references = ["file.rb"]
