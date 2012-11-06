@@ -96,8 +96,8 @@ module GetText
         end
       end
 
-      sort_by_order(content_entries).each do |entry|
-        po_entries << entry[1].to_s
+      sort_by_order(content_entries).each do |msgid, entry|
+        po_entries << entry.to_s
       end
 
       po_entries.join("\n")
