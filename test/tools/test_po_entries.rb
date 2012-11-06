@@ -182,27 +182,27 @@ class TestPoEntries < Test::Unit::TestCase
   end
 
   class TestToS < self
-  def test_same_filename
-    @entries = GetText::PoEntries.new
-    hello = "hello"
-    hello_translation = "こんにちは"
-    hello_sources = ["file.rb:10"]
-    hello_comment = "#: file.rb:10"
-    bye = "bye"
-    bye_translation = "さようなら"
-    bye_sources = ["file.rb:20"]
-    bye_comment = "#: file.rb:20"
+    def test_same_filename
+      @entries = GetText::PoEntries.new
+      hello = "hello"
+      hello_translation = "こんにちは"
+      hello_sources = ["file.rb:10"]
+      hello_comment = "#: file.rb:10"
+      bye = "bye"
+      bye_translation = "さようなら"
+      bye_sources = ["file.rb:20"]
+      bye_comment = "#: file.rb:20"
 
-    @entries[""] = header
-    @entries.set_comment("", header_comment)
+      @entries[""] = header
+      @entries.set_comment("", header_comment)
 
-    @entries[hello] = hello_translation
-    @entries[hello].sources = hello_sources
+      @entries[hello] = hello_translation
+      @entries[hello].sources = hello_sources
 
-    @entries[bye] = bye_translation
-    @entries[bye].sources = bye_sources
+      @entries[bye] = bye_translation
+      @entries[bye].sources = bye_sources
 
-    expected_po =<<EOP
+      expected_po =<<EOP
 #{expected_header_comment}
 #
 msgid ""
@@ -217,30 +217,30 @@ msgstr "#{hello_translation}"
 msgid "#{bye}"
 msgstr "#{bye_translation}"
 EOP
-    assert_equal(expected_po, @entries.to_s)
-  end
+      assert_equal(expected_po, @entries.to_s)
+    end
 
-  def test_different_filename
-    @entries = GetText::PoEntries.new
-    hello = "hello"
-    hello_translation = "こんにちは"
-    hello_sources = ["file.rb:10"]
-    hello_comment = "#: file.rb:10"
-    bye = "bye"
-    bye_translation = "さようなら"
-    bye_sources = ["test.rb:10"]
-    bye_comment = "#: test.rb:10"
+    def test_different_filename
+      @entries = GetText::PoEntries.new
+      hello = "hello"
+      hello_translation = "こんにちは"
+      hello_sources = ["file.rb:10"]
+      hello_comment = "#: file.rb:10"
+      bye = "bye"
+      bye_translation = "さようなら"
+      bye_sources = ["test.rb:10"]
+      bye_comment = "#: test.rb:10"
 
-    @entries[""] = header
-    @entries.set_comment("", header_comment)
+      @entries[""] = header
+      @entries.set_comment("", header_comment)
 
-    @entries[hello] = hello_translation
-    @entries[hello].sources = hello_sources
+      @entries[hello] = hello_translation
+      @entries[hello].sources = hello_sources
 
-    @entries[bye] = bye_translation
-    @entries[bye].sources = bye_sources
+      @entries[bye] = bye_translation
+      @entries[bye].sources = bye_sources
 
-    expected_po =<<EOP
+      expected_po =<<EOP
 #{expected_header_comment}
 #
 msgid ""
@@ -255,30 +255,30 @@ msgstr "#{hello_translation}"
 msgid "#{bye}"
 msgstr "#{bye_translation}"
 EOP
-    assert_equal(expected_po, @entries.to_s)
-  end
+      assert_equal(expected_po, @entries.to_s)
+    end
 
-  def test_including_colon_filename
-    @entries = GetText::PoEntries.new
-    hello = "hello"
-    hello_translation = "こんにちは"
-    hello_sources = ["file.rb:10"]
-    hello_comment = "#: file.rb:10"
-    bye = "bye"
-    bye_translation = "さようなら"
-    bye_sources = ["file:2.rb:10"]
-    bye_comment = "#: file:2.rb:10"
+    def test_including_colon_filename
+      @entries = GetText::PoEntries.new
+      hello = "hello"
+      hello_translation = "こんにちは"
+      hello_sources = ["file.rb:10"]
+      hello_comment = "#: file.rb:10"
+      bye = "bye"
+      bye_translation = "さようなら"
+      bye_sources = ["file:2.rb:10"]
+      bye_comment = "#: file:2.rb:10"
 
-    @entries[""] = header
-    @entries.set_comment("", header_comment)
+      @entries[""] = header
+      @entries.set_comment("", header_comment)
 
-    @entries[hello] = hello_translation
-    @entries[hello].sources = hello_sources
+      @entries[hello] = hello_translation
+      @entries[hello].sources = hello_sources
 
-    @entries[bye] = bye_translation
-    @entries[bye].sources = bye_sources
+      @entries[bye] = bye_translation
+      @entries[bye].sources = bye_sources
 
-    expected_po =<<EOP
+      expected_po =<<EOP
 #{expected_header_comment}
 #
 msgid ""
@@ -293,30 +293,30 @@ msgstr "#{hello_translation}"
 msgid "#{bye}"
 msgstr "#{bye_translation}"
 EOP
-    assert_equal(expected_po, @entries.to_s)
-  end
+      assert_equal(expected_po, @entries.to_s)
+    end
 
-  def test_no_fileno
-    @entries = GetText::PoEntries.new
-    hello = "hello"
-    hello_translation = "こんにちは"
-    hello_sources = ["file.rb"]
-    hello_comment = "#: file.rb"
-    bye = "bye"
-    bye_translation = "さようなら"
-    bye_sources = ["test.rb"]
-    bye_comment = "#: test.rb"
+    def test_no_fileno
+      @entries = GetText::PoEntries.new
+      hello = "hello"
+      hello_translation = "こんにちは"
+      hello_sources = ["file.rb"]
+      hello_comment = "#: file.rb"
+      bye = "bye"
+      bye_translation = "さようなら"
+      bye_sources = ["test.rb"]
+      bye_comment = "#: test.rb"
 
-    @entries[""] = header
-    @entries.set_comment("", header_comment)
+      @entries[""] = header
+      @entries.set_comment("", header_comment)
 
-    @entries[hello] = hello_translation
-    @entries[hello].sources = hello_sources
+      @entries[hello] = hello_translation
+      @entries[hello].sources = hello_sources
 
-    @entries[bye] = bye_translation
-    @entries[bye].sources = bye_sources
+      @entries[bye] = bye_translation
+      @entries[bye].sources = bye_sources
 
-    expected_po =<<EOP
+      expected_po =<<EOP
 #{expected_header_comment}
 #
 msgid ""
@@ -331,12 +331,12 @@ msgstr "#{hello_translation}"
 msgid "#{bye}"
 msgstr "#{bye_translation}"
 EOP
-    assert_equal(expected_po, @entries.to_s)
-  end
+      assert_equal(expected_po, @entries.to_s)
+    end
 
-  private
-  def header
-    <<EOH
+    private
+    def header
+      <<EOH
 Project-Id-Version: test 1.0.0
 POT-Creation-Date: 2012-10-31 12:40+0900
 PO-Revision-Date: 2012-11-01 17:46+0900
@@ -348,30 +348,30 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Plural-Forms: nplurals=2; plural=(n != 1)
 EOH
-  end
+    end
 
-  def header_comment
-    <<EOC
+    def header_comment
+      <<EOC
 Japanese translations for test package.
 Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
 This file is distributed under the same license as the PACKAGE package.
 FULLNAME <MAIL@ADDRESS>, 2012.
 
 EOC
-  end
-
-  def expected_header
-    expected_header = header.split("\n").collect do |line|
-      "\"#{line}\\n\""
     end
-    expected_header.join("\n")
-  end
 
-  def expected_header_comment
-    expected_header_comment = header_comment.split("\n").collect do |line|
-      "# #{line}"
+    def expected_header
+      expected_header = header.split("\n").collect do |line|
+        "\"#{line}\\n\""
+      end
+      expected_header.join("\n")
     end
-    expected_header_comment.join("\n")
+
+    def expected_header_comment
+      expected_header_comment = header_comment.split("\n").collect do |line|
+        "# #{line}"
+      end
+      expected_header_comment.join("\n")
+    end
   end
-end
 end
