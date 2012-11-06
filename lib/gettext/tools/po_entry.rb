@@ -85,7 +85,6 @@ module GetText
     def initialize(type)
       self.type = type
       @references = []
-      @param_type = PARAMS[@type]
       @msgstr = nil
     end
 
