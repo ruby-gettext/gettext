@@ -181,7 +181,8 @@ class TestPoEntries < Test::Unit::TestCase
     end
   end
 
-  def test_to_s_same_filename
+  class TestToS < self
+  def test_same_filename
     @entries = GetText::PoEntries.new
     hello = "hello"
     hello_translation = "こんにちは"
@@ -219,7 +220,7 @@ EOP
     assert_equal(expected_po, @entries.to_s)
   end
 
-  def test_to_s_different_filename
+  def test_different_filename
     @entries = GetText::PoEntries.new
     hello = "hello"
     hello_translation = "こんにちは"
@@ -257,7 +258,7 @@ EOP
     assert_equal(expected_po, @entries.to_s)
   end
 
-  def test_to_s_including_colon_filename
+  def test_including_colon_filename
     @entries = GetText::PoEntries.new
     hello = "hello"
     hello_translation = "こんにちは"
@@ -295,7 +296,7 @@ EOP
     assert_equal(expected_po, @entries.to_s)
   end
 
-  def test_to_s_no_fileno
+  def test_no_fileno
     @entries = GetText::PoEntries.new
     hello = "hello"
     hello_translation = "こんにちは"
@@ -372,4 +373,5 @@ EOC
     end
     expected_header_comment.join("\n")
   end
+end
 end
