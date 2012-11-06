@@ -83,7 +83,7 @@ module GetText
 
     # Create the object. +type+ should be :normal, :plural, :msgctxt or :msgctxt_plural.
     def initialize(type)
-      @type = type
+      self.type = type
       @references = []
       @param_type = PARAMS[@type]
       @msgstr = nil

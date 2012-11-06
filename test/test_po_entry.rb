@@ -44,6 +44,12 @@ class TestPoEntry < Test::Unit::TestCase
       end
       assert_equal(:normal, entry.type)
     end
+
+    def test_invalid_type_for_initializing
+      assert_raise(GetText::PoEntry::InvalidTypeError) do
+        GetText::PoEntry.new(:invalid)
+      end
+    end
   end
 
   class TestToS < self
