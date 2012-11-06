@@ -223,15 +223,17 @@ end
   def on_message(msgid, msgstr)
     msgstr = nil if msgstr.empty?
 
-    if @data.respond_to?(:set_references)
+    if @data.instance_of?(PoEntries)
       msgctxt, msgid, msgid_plural = split_msgid(msgid)
-      @data[msgid] = msgstr
-
       type = detect_entry_type(msgctxt, msgid_plural)
-      @data.set_type(msgid, type)
-      @data.set_msgctxt(msgid, msgctxt)
-      @data.set_msgid_plural(msgid, msgid_plural)
-      @data.set_references(msgid, @references)
+
+      entry = PoEntry.new(type)
+      entry.references = @references
+      entry.msgctxt = msgctxt
+      entry.msgid = msgid
+      entry.msgid_plural = msgid_plural
+      entry.msgstr = msgstr
+      @data[msgid] = entry
     else
       @data[msgid] = msgstr
     end

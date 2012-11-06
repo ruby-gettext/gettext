@@ -33,7 +33,13 @@ module GetText
       super(msgid)
     end
 
-    def []=(msgid, msgstr)
+    def []=(msgid, value)
+      if value.instance_of?(PoEntry)
+        super(msgid, value)
+        return(value)
+      end
+
+      msgstr = value
       if has_key?(msgid)
         entry = self[msgid]
       else
