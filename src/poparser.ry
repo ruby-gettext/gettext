@@ -248,6 +248,7 @@ require "gettext/tools/po"
       string << msgid
       string << "\000#{@msgid_plural}" unless @msgid_plural.nil?
       @data[string] = msgstr
+      msgid = string
     end
     @data.set_comment(msgid, @comments.join("\n"))
 
