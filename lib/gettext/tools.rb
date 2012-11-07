@@ -29,7 +29,7 @@ require 'gettext/tools/xgettext'
 require 'gettext/tools/msgfmt'
 require 'gettext/tools/msginit'
 require 'gettext/tools/msgmerge'
-require 'gettext/runtime/mofile'
+require 'gettext/runtime/mo'
 require 'fileutils'
 
 module GetText

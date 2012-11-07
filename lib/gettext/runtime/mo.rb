@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 =begin
-    mofile.rb - A simple class for operating GNU MO file.
+    mo.rb - A simple class for operating GNU MO file.
 
     Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
     Copyright (C) 2003-2009  Masao Mutoh
@@ -20,7 +20,7 @@
 require 'stringio'
 
 module GetText
-  class MoFile < Hash
+  class MO < Hash
     class InvalidFormat < RuntimeError; end;
 
     attr_reader :filename
@@ -341,7 +341,7 @@ module GetText
   end
 
   # Just for backward compatibility.
-  MOFile = MoFile
+  MOFile = MO
 end
 
 # Test
@@ -353,7 +353,7 @@ if $0 == __FILE__
   end
 
   ARGV.each{ |item|
-    mo = GetText::MoFile.open(item)
+    mo = GetText::MO.open(item)
     puts "------------------------------------------------------------------"
     puts "charset  = \"#{mo.charset}\""
     puts "nplurals = \"#{mo.nplurals}\""

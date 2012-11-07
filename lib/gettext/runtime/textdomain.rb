@@ -14,7 +14,7 @@
 =end
 
 require 'gettext/core_ext/string'
-require 'gettext/runtime/mofile'
+require 'gettext/runtime/mo'
 require 'gettext/runtime/locale_path'
 
 module GetText
@@ -72,26 +72,26 @@ module GetText
 
       lang_key = lang.to_s
 
-      mofile = nil
+      mo = nil
       if self.class.cached?
-        mofile = @mofiles[lang_key]
+        mo = @mofiles[lang_key]
       end
-      unless mofile
-        mofile = load_mo(lang)
+      unless mo
+        mo = load_mo(lang)
       end
 
-      if (! mofile) or (mofile ==:empty)
+      if (! mo) or (mo ==:empty)
         return nil
       end
 
-      return mofile[msgid] if mofile.has_key?(msgid)
+      return mo[msgid] if mo.has_key?(msgid)
 
       ret = nil
       if msgid.include?("\000")
         # Check "aaa\000bbb" and show warning but return the singular part.
         msgid_single = msgid.split("\000")[0]
         msgid_single_prefix_re = /^#{Regexp.quote(msgid_single)}\000/
-        mofile.each do |key, val|
+        mo.each do |key, val|
           if msgid_single_prefix_re =~ key
             # Usually, this is not caused to make po-files from rgettext.
             separated_msgid = msgid.gsub(/\000/, '", "')
@@ -106,7 +106,7 @@ module GetText
         end
       else
         msgid_prefix_re = /^#{Regexp.quote(msgid)}\000/
-        mofile.each do |key, val|
+        mo.each do |key, val|
           if msgid_prefix_re =~ key
             ret = val.split("\000")[0]
             break
@@ -132,8 +132,8 @@ module GetText
         ret = nil
       elsif msg.include?("\000")
         # [[msgstr[0], msgstr[1], msgstr[2],...], cond]
-        mofile = @mofiles[lang.to_posix.to_s]
-        cond = (mofile and mofile != :empty) ? mofile.plural_as_proc : DEFAULT_PLURAL_CALC
+        mo = @mofiles[lang.to_posix.to_s]
+        cond = (mo and mo != :empty) ? mo.plural_as_proc : DEFAULT_PLURAL_CALC
         ret = [msg.split("\000"), cond]
       else
         ret = [[msg], DEFAULT_SINGLE_CALC]
@@ -160,21 +160,21 @@ module GetText
       lang = lang.to_posix unless lang.kind_of? Locale::Tag::Posix
       lang_key = lang.to_s
 
-      mofile = @mofiles[lang_key]
-      if mofile
-        if mofile == :empty
+      mo = @mofiles[lang_key]
+      if mo
+        if mo == :empty
           return :empty
         elsif ! self.class.cached?
-          mofile.update!
+          mo.update!
         end
-        return mofile
+        return mo
       end
 
       path = @locale_path.current_path(lang)
 
       if path
         charset = @output_charset || lang.charset || Locale.charset || "UTF-8"
-        @mofiles[lang_key] = MoFile.open(path, charset)
+        @mofiles[lang_key] = MO.open(path, charset)
       else
         @mofiles[lang_key] = :empty
       end

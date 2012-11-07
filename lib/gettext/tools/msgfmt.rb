@@ -52,7 +52,7 @@ module GetText
         initialize_arguments(*options)
 
         parser = PoParser.new
-        data = MoFile.new
+        data = MO.new
 
         parser.parse_file(@input_file, data)
         data.save_to_file(@output_file)

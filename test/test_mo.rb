@@ -1,8 +1,8 @@
 # encoding: utf-8
 
-require 'gettext/runtime/mofile'
+require 'gettext/runtime/mo'
 
-class TestMoFile < Test::Unit::TestCase
+class TestMo < Test::Unit::TestCase
   def test_not_exist_msgid
     mo = load_mo("_.mo")
     assert_equal(nil, mo["notexistent"])
@@ -26,6 +26,6 @@ class TestMoFile < Test::Unit::TestCase
   end
 
   def load_mo(file)
-    GetText::MoFile.open("locale/ja/LC_MESSAGES/#{file}", "UTF-8")
+    GetText::MO.open("locale/ja/LC_MESSAGES/#{file}", "UTF-8")
   end
 end

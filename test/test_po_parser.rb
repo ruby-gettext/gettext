@@ -26,7 +26,7 @@ class TestPoParser < Test::Unit::TestCase
 msgid "Hello"
 msgstr ""
 EOP
-    messages = parse_po_file(po_file, MoFile.new)
+    messages = parse_po_file(po_file, MO.new)
 
     assert_equal(nil, messages["Hello"])
   end
@@ -38,7 +38,7 @@ msgid_plural "They"
 msgstr[0] ""
 msgstr[1] ""
 EOP
-    messages = parse_po_file(po_file, MoFile.new)
+    messages = parse_po_file(po_file, MO.new)
 
     assert_true(messages.has_key?("He\000They"))
     assert_equal(nil, messages["He\000They"])
@@ -204,7 +204,7 @@ EOP
           message_id
         end
       end
-      messages = MoFile.new
+      messages = MO.new
       yield parser
       parser.parse_file(@po_file.path, messages)
       messages
