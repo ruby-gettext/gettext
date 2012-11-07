@@ -18,9 +18,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "gettext/tools/po_entries"
+require "gettext/tools/po"
 
-class TestPoEntries < Test::Unit::TestCase
+class TestPO < Test::Unit::TestCase
   def setup
     @entries = nil
   end
@@ -30,7 +30,7 @@ class TestPoEntries < Test::Unit::TestCase
       msgid = "msgid"
       msgstr = "msgstr"
 
-      @entries = GetText::PoEntries.new
+      @entries = GetText::PO.new
       @entries[msgid] = msgstr
 
       entry = PoEntry.new(:normal)
@@ -53,7 +53,7 @@ class TestPoEntries < Test::Unit::TestCase
     end
 
     def test_po_entry
-      @entries = GetText::PoEntries.new
+      @entries = GetText::PO.new
 
       msgid = "msgid"
       msgstr = "msgstr"
@@ -72,7 +72,7 @@ class TestPoEntries < Test::Unit::TestCase
       msgid = "msgid"
       comment = "comment"
 
-      @entries = GetText::PoEntries.new
+      @entries = GetText::PO.new
       @entries.set_comment(msgid, comment)
 
       entry = PoEntry.new(:normal)
@@ -85,7 +85,7 @@ class TestPoEntries < Test::Unit::TestCase
     def test_add_to_existing_entry
       msgid = "msgid"
       msgstr = "msgstr"
-      @entries = GetText::PoEntries.new
+      @entries = GetText::PO.new
       @entries[msgid] = msgstr
 
       comment = "comment"
@@ -105,7 +105,7 @@ class TestPoEntries < Test::Unit::TestCase
       msgid = "msgid"
       msgstr = "msgstr"
 
-      @entries = GetText::PoEntries.new
+      @entries = GetText::PO.new
       @entries[msgid] = msgstr
       @entries.set_type(msgid, type)
 
@@ -116,8 +116,8 @@ class TestPoEntries < Test::Unit::TestCase
       type = :normal
       msgid = "msgid"
 
-      @entries = GetText::PoEntries.new
-      assert_raise(GetText::PoEntries::NonExistentEntryError) do
+      @entries = GetText::PO.new
+      assert_raise(GetText::PO::NonExistentEntryError) do
         @entries.set_type(msgid, type)
       end
     end
@@ -129,7 +129,7 @@ class TestPoEntries < Test::Unit::TestCase
       msgid = "msgid"
       msgstr = "msgstr"
 
-      @entries = GetText::PoEntries.new
+      @entries = GetText::PO.new
       @entries[msgid] = msgstr
       @entries.set_msgctxt(msgid, msgctxt)
 
@@ -140,8 +140,8 @@ class TestPoEntries < Test::Unit::TestCase
       msgctxt = "msgctxt"
       msgid = "msgid"
 
-      @entries = GetText::PoEntries.new
-      assert_raise(GetText::PoEntries::NonExistentEntryError) do
+      @entries = GetText::PO.new
+      assert_raise(GetText::PO::NonExistentEntryError) do
         @entries.set_msgctxt(msgid, msgctxt)
       end
     end
@@ -153,7 +153,7 @@ class TestPoEntries < Test::Unit::TestCase
       msgid_plural = "msgid_plural"
       msgstr = "msgstr"
 
-      @entries = GetText::PoEntries.new
+      @entries = GetText::PO.new
       @entries[msgid] = msgstr
       @entries.set_msgid_plural(msgid, msgid_plural)
 
@@ -164,8 +164,8 @@ class TestPoEntries < Test::Unit::TestCase
       msgid = "msgid"
       msgid_plural = "msgid_plural"
 
-      @entries = GetText::PoEntries.new
-      assert_raise(GetText::PoEntries::NonExistentEntryError) do
+      @entries = GetText::PO.new
+      assert_raise(GetText::PO::NonExistentEntryError) do
         @entries.set_msgid_plural(msgid, msgid_plural)
       end
     end
@@ -177,7 +177,7 @@ class TestPoEntries < Test::Unit::TestCase
       msgstr = "msgstr"
       references = ["file.rb:10"]
 
-      @entries = GetText::PoEntries.new
+      @entries = GetText::PO.new
       @entries[msgid] = msgstr
       @entries.set_references(msgid, references)
 
@@ -188,8 +188,8 @@ class TestPoEntries < Test::Unit::TestCase
       msgid = "msgid"
       references = ["file.rb:10"]
 
-      @entries = GetText::PoEntries.new
-      assert_raise(GetText::PoEntries::NonExistentEntryError) do
+      @entries = GetText::PO.new
+      assert_raise(GetText::PO::NonExistentEntryError) do
         @entries.set_references(msgid, references)
       end
     end
@@ -197,7 +197,7 @@ class TestPoEntries < Test::Unit::TestCase
 
   class TestToS < self
     def setup
-      @entries = GetText::PoEntries.new
+      @entries = GetText::PO.new
       @entries[""] = header
       @entries.set_comment("", header_comment)
     end

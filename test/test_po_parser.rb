@@ -44,7 +44,7 @@ EOP
     assert_equal(nil, messages["He\000They"])
   end
 
-  class TestPoEntries < self
+  class TestPO < self
     def test_msgstr
       po_file = create_po_file(<<-EOP)
 # This is the comment.
@@ -52,7 +52,7 @@ EOP
 msgid "hello"
 msgstr "bonjour"
 EOP
-      entries = parse_po_file(po_file, PoEntries.new)
+      entries = parse_po_file(po_file, PO.new)
       assert_true(entries.has_key?("hello"))
       assert_equal("bonjour", entries["hello"].msgstr)
     end
@@ -64,7 +64,7 @@ EOP
 msgid "hello"
 msgstr "bonjour"
 EOP
-      entries = parse_po_file(po_file, PoEntries.new)
+      entries = parse_po_file(po_file, PO.new)
       assert_true(entries.has_key?("hello"))
       assert_equal(["file.rb:10"], entries["hello"].references)
     end
@@ -76,7 +76,7 @@ EOP
 msgid "hello"
 msgstr "bonjour"
 EOP
-      entries = parse_po_file(po_file, PoEntries.new)
+      entries = parse_po_file(po_file, PO.new)
       assert_true(entries.has_key?("hello"))
       assert_equal("This is the comment.", entries["hello"].comment)
     end
@@ -90,7 +90,7 @@ msgid_plural "them"
 msgstr[0] "il"
 msgstr[1] "ils"
 EOP
-      entries = parse_po_file(po_file, PoEntries.new)
+      entries = parse_po_file(po_file, PO.new)
       assert_true(entries.has_key?("he"))
       assert_equal("them", entries["he"].msgid_plural)
       assert_equal("il\000ils", entries["he"].msgstr)
@@ -104,7 +104,7 @@ msgctxt "pronoun"
 msgid "he"
 msgstr "il"
 EOP
-      entries = parse_po_file(po_file, PoEntries.new)
+      entries = parse_po_file(po_file, PO.new)
       assert_true(entries.has_key?("he"))
       assert_equal("pronoun", entries["he"].msgctxt)
     end
@@ -119,7 +119,7 @@ msgid_plural "them"
 msgstr[0] "il"
 msgstr[1] "ils"
 EOP
-      entries = parse_po_file(po_file, PoEntries.new)
+      entries = parse_po_file(po_file, PO.new)
       assert_true(entries.has_key?("he"))
       assert_equal("pronoun", entries["he"].msgctxt)
       assert_equal("them", entries["he"].msgid_plural)

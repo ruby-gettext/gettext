@@ -16,7 +16,7 @@
 
 require 'racc/parser.rb'
 
-require "gettext/tools/po_entries"
+require "gettext/tools/po"
 module GetText
   class PoParser < Racc::Parser
 
@@ -128,7 +128,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 121)
   def on_message(msgid, msgstr)
     msgstr = nil if msgstr.empty?
 
-    if @data.instance_of?(PoEntries)
+    if @data.instance_of?(PO)
       msgctxt, msgid, msgid_plural = split_msgid(msgid)
       type = detect_entry_type(msgctxt, msgid_plural)
 

@@ -116,7 +116,7 @@ class GetText::PoParser
 end
 
 ---- header
-require "gettext/tools/po_entries"
+require "gettext/tools/po"
 ---- inner
   if GetText.respond_to?(:bindtextdomain)
     include GetText
@@ -225,7 +225,7 @@ require "gettext/tools/po_entries"
   def on_message(msgid, msgstr)
     msgstr = nil if msgstr.empty?
 
-    if @data.instance_of?(PoEntries)
+    if @data.instance_of?(PO)
       msgctxt, msgid, msgid_plural = split_msgid(msgid)
       type = detect_entry_type(msgctxt, msgid_plural)
 

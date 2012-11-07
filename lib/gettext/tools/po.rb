@@ -20,7 +20,7 @@
 require "gettext/tools/po_entry"
 
 module GetText
-  class PoEntries < Hash
+  class PO < Hash
     class NonExistentEntryError < StandardError
     end
 

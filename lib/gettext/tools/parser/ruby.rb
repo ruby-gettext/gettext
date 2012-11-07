@@ -142,7 +142,7 @@ module GetText
     end
 
     def parse_lines(path, lines)  # :nodoc:
-      po_entries = []
+      po = []
       file = StringIO.new(lines.join + "\n")
       rl = RubyLexX.new
       rl.set_input(file)
@@ -160,7 +160,7 @@ module GetText
           ignore_next_comma = false
           case tk
           when RubyToken::TkIDENTIFIER, RubyToken::TkCONSTANT
-            store_po_entry(po_entries, po_entry, path, line_no, last_comment)
+            store_po_entry(po, po_entry, path, line_no, last_comment)
             if ID.include?(tk.name)
               po_entry = PoEntry.new(:normal)
             elsif PLURAL_ID.include?(tk.name)
@@ -184,7 +184,7 @@ module GetText
               po_entry.advance_to_next_attribute if po_entry
             end
           else
-            if store_po_entry(po_entries, po_entry, path, line_no, last_comment)
+            if store_po_entry(po, po_entry, path, line_no, last_comment)
               po_entry = nil
               last_comment = ""
             end
@@ -217,7 +217,7 @@ module GetText
           reset_comment = true
         end
       end
-      po_entries
+      po
     end
 
     def target?(file)  # :nodoc:
@@ -225,11 +225,11 @@ module GetText
     end
 
     private
-    def store_po_entry(po_entries, po_entry, file_name, line_no, last_comment) #:nodoc:
+    def store_po_entry(po, po_entry, file_name, line_no, last_comment) #:nodoc:
       if po_entry && po_entry.msgid
         po_entry.references << file_name + ":" + line_no
         po_entry.add_comment(last_comment) unless last_comment.empty?
-        po_entries << po_entry
+        po << po_entry
         true
       else
         false

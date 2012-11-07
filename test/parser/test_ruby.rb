@@ -49,8 +49,8 @@ class TestRubyParser < Test::Unit::TestCase
     end
   end
 
-  def normalize_actual(po_entries)
-    po_entries.collect do |po_entry|
+  def normalize_actual(po)
+    po.collect do |po_entry|
       {
         :msgid        => po_entry.msgid,
         :msgid_plural => po_entry.msgid_plural,

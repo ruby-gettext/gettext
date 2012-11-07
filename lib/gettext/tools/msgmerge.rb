@@ -100,16 +100,16 @@ module GetText
           str << generate_po_header
           str << "\n"
 
-          po_entries = []
+          po = []
           self.each_msgid do |id|
-            po_entries << self.generate_po_entry(id)
+            po << self.generate_po_entry(id)
           end
 
           unless @msgid2comment[:last].nil?
-            po_entries << "#{@msgid2comment[:last]}\n"
+            po << "#{@msgid2comment[:last]}\n"
           end
 
-          str << po_entries.join("\n")
+          str << po.join("\n")
           str
         end
 

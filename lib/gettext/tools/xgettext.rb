@@ -89,33 +89,33 @@ module GetText
       #       File.extname(path) == ".foo"  # *.foo file only.
       #     end
       #     def parse(path)
-      #       po_entries = []
+      #       po = []
       #       # Simple entry
       #       entry = PoEntry.new(:normal)
       #       entry.msgid = "hello"
       #       entry.references = ["foo.rb:200", "bar.rb:300"]
       #       entry.add_comment("Comment for the entry")
-      #       po_entries << entry
+      #       po << entry
       #       # Plural entry
       #       entry = PoEntry.new(:plural)
       #       entry.msgid = "An apple"
       #       entry.msgid_plural = "Apples"
       #       entry.references = ["foo.rb:200", "bar.rb:300"]
-      #       po_entries << entry
+      #       po << entry
       #       # Simple entry with the entry context
       #       entry = PoEntry.new(:msgctxt)
       #       entry.msgctxt = "context"
       #       entry.msgid = "hello"
       #       entry.references = ["foo.rb:200", "bar.rb:300"]
-      #       po_entries << entry
+      #       po << entry
       #       # Plural entry with the message context.
       #       entry = PoEntry.new(:msgctxt_plural)
       #       entry.msgctxt = "context"
       #       entry.msgid = "An apple"
       #       entry.msgid_plural = "Apples"
       #       entry.references = ["foo.rb:200", "bar.rb:300"]
-      #       po_entries << entry
-      #       return po_entries
+      #       po << entry
+      #       return po
       #     end
       #   end
       #
@@ -157,26 +157,26 @@ EOH
       end
 
       def generate_pot(paths) # :nodoc:
-        po_entries = parse(paths)
+        po = parse(paths)
         entries = []
-        po_entries.each do |target|
+        po.each do |target|
           entries << encode(target.to_s)
         end
         entries.join("\n")
       end
 
       def parse(paths) # :nodoc:
-        po_entries = []
+        po = []
         paths = [paths] if paths.kind_of?(String)
         paths.each do |path|
           begin
-            parse_path(path, po_entries)
+            parse_path(path, po)
           rescue
             puts(_("Error parsing %{path}") % {:path => path})
             raise
           end
         end
-        po_entries
+        po
       end
 
       def check_command_line_options(*options) # :nodoc:
@@ -286,12 +286,12 @@ EOH
         Time.now
       end
 
-      def parse_path(path, po_entries)
+      def parse_path(path, po)
         @parsers.each do |parser|
           next unless parser.target?(path)
 
-          extracted_po_entries = parser.parse(path)
-          extracted_po_entries.each do |po_entry|
+          extracted_po = parser.parse(path)
+          extracted_po.each do |po_entry|
             if po_entry.kind_of?(Array)
               po_entry = PoEntry.new_from_ary(po_entry)
             end
@@ -327,18 +327,18 @@ EOH
             end
 
             # Save the previous target
-            if po_entries.empty?
+            if po.empty?
               existing = nil
             else
-              entry = po_entries.find {|t| t.mergeable?(po_entry)}
-              existing = po_entries.index(entry)
+              entry = po.find {|t| t.mergeable?(po_entry)}
+              existing = po.index(entry)
             end
 
             if existing
-              po_entry = po_entries[existing].merge(po_entry)
-              po_entries[existing] = po_entry
+              po_entry = po[existing].merge(po_entry)
+              po[existing] = po_entry
             else
-              po_entries << po_entry
+              po << po_entry
             end
           end
           break
