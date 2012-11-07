@@ -64,6 +64,11 @@ module GetText
       super()
     end
 
+    def store(msgid, msgstr, options)
+      string = generate_original_string(msgid, options)
+      self[string] = msgstr
+    end
+
     def update!
       if FileTest.exist?(@filename)
         st = File.stat(@filename)
@@ -337,6 +342,18 @@ module GetText
           end
         end
       end
+    end
+
+    def generate_original_string(msgid, options)
+      string = ""
+
+      msgctxt = options.delete(:msgctxt)
+      msgid_plural = options.delete(:msgid_plural)
+
+      string << msgctxt << "\004" unless msgctxt.nil?
+      string << msgid
+      string << "\000" << msgid_plural unless msgid_plural.nil?
+      string
     end
   end
 end

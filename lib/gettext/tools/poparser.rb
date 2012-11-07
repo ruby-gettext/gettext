@@ -20,7 +20,7 @@ require "gettext/tools/po"
 module GetText
   class PoParser < Racc::Parser
 
-module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 121)
+module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
   if GetText.respond_to?(:bindtextdomain)
     include GetText
     GetText.bindtextdomain("gettext")
@@ -64,7 +64,8 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 121)
     @references = []
     @data = data
     @fuzzy = false
-    @msgctxt = ""
+    @msgctxt = nil
+    @msgid_plural = nil
 
     str.strip!
     @q = []
@@ -129,24 +130,33 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 121)
     msgstr = nil if msgstr.empty?
 
     if @data.instance_of?(PO)
-      msgctxt, msgid, msgid_plural = split_msgid(msgid)
-      type = detect_entry_type(msgctxt, msgid_plural)
+      type = detect_entry_type
 
       entry = PoEntry.new(type)
       entry.references = @references
-      entry.msgctxt = msgctxt
+      entry.msgctxt = @msgctxt
       entry.msgid = msgid
-      entry.msgid_plural = msgid_plural
+      entry.msgid_plural = @msgid_plural
       entry.msgstr = msgstr
       @data[msgid] = entry
-    else
-      @data[msgid] = msgstr
+    elsif @data.instance_of?(MO)
+      options = {}
+      options[:msgctxt] = @msgctxt
+      options[:msgid_plural] = @msgid_plural
+      @data.store(msgid, msgstr, options)
+    else # For PoData.
+      string = ""
+      string << "#{@msgctxt}\004" unless @msgctxt.nil?
+      string << msgid
+      string << "\000#{@msgid_plural}" unless @msgid_plural.nil?
+      @data[string] = msgstr
     end
     @data.set_comment(msgid, @comments.join("\n"))
 
     @comments.clear
     @references = []
-    @msgctxt = ""
+    @msgctxt = nil
+    @msgid_plural = nil
   end
 
   COMMENT_MARK = "#"
@@ -191,26 +201,15 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 121)
     Encoding.default_external
   end
 
-  def split_msgid(msgid)
-    return [nil, "", nil] if msgid.empty?
-    msgctxt, msgid = msgid.split("\004", 2)
-    if msgid.nil?
-      msgid = msgctxt
-      msgctxt = nil
-    end
-    msgid, msgid_plural = msgid.split("\000", 2)
-    [msgctxt, msgid, msgid_plural]
-  end
-
-  def detect_entry_type(msgctxt, msgid_plural)
-    if msgctxt.nil?
-      if msgid_plural.nil?
+  def detect_entry_type
+    if @msgctxt.nil?
+      if @msgid_plural.nil?
         :normal
       else
         :plural
       end
     else
-      if msgid_plural.nil?
+      if @msgid_plural.nil?
         :msgctxt
       else
         :msgctxt_plural
@@ -343,7 +342,7 @@ Racc_debug_parser = true
 
 module_eval(<<'.,.,', 'poparser.ry', 26)
   def _reduce_5(val, _values, result)
-        @msgctxt = unescape(val[1]) + "\004"
+        @msgctxt = unescape(val[1])
   
     result
   end
@@ -371,7 +370,7 @@ module_eval(<<'.,.,', 'poparser.ry', 38)
       end
     end
     @fuzzy = false
-    on_message(@msgctxt + msgid, msgstr) if use_message_p
+    on_message(msgid, msgstr) if use_message_p
     result = ""
   
     result
@@ -391,7 +390,8 @@ module_eval(<<'.,.,', 'poparser.ry', 61)
       end
       @fuzzy = false
     else
-      on_message(@msgctxt + unescape(val[1]) + "\000" + unescape(val[3]), unescape(val[4]))
+      @msgid_plural = unescape(val[3])
+      on_message(unescape(val[1]), unescape(val[4]))
     end
     result = ""
   
@@ -399,7 +399,7 @@ module_eval(<<'.,.,', 'poparser.ry', 61)
   end
 .,.,
 
-module_eval(<<'.,.,', 'poparser.ry', 81)
+module_eval(<<'.,.,', 'poparser.ry', 82)
   def _reduce_10(val, _values, result)
         if val[0].size > 0
       result = val[0] + "\000" + val[1]
@@ -413,7 +413,7 @@ module_eval(<<'.,.,', 'poparser.ry', 81)
 
 # reduce 11 omitted
 
-module_eval(<<'.,.,', 'poparser.ry', 93)
+module_eval(<<'.,.,', 'poparser.ry', 94)
   def _reduce_12(val, _values, result)
         result = val[2]
   
@@ -421,7 +421,7 @@ module_eval(<<'.,.,', 'poparser.ry', 93)
   end
 .,.,
 
-module_eval(<<'.,.,', 'poparser.ry', 100)
+module_eval(<<'.,.,', 'poparser.ry', 101)
   def _reduce_13(val, _values, result)
         on_comment(val[0])
   
@@ -429,7 +429,7 @@ module_eval(<<'.,.,', 'poparser.ry', 100)
   end
 .,.,
 
-module_eval(<<'.,.,', 'poparser.ry', 108)
+module_eval(<<'.,.,', 'poparser.ry', 109)
   def _reduce_14(val, _values, result)
         result = val.delete_if{|item| item == ""}.join
   
@@ -437,7 +437,7 @@ module_eval(<<'.,.,', 'poparser.ry', 108)
   end
 .,.,
 
-module_eval(<<'.,.,', 'poparser.ry', 112)
+module_eval(<<'.,.,', 'poparser.ry', 113)
   def _reduce_15(val, _values, result)
         result = val[0]
   

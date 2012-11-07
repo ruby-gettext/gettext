@@ -44,6 +44,62 @@ EOP
     assert_equal(nil, messages["He\000They"])
   end
 
+  class TestPoData < self
+    def test_comment
+      po_file = create_po_file(<<-EOP)
+#: file.rb:10
+msgid "hello"
+msgstr "bonjour"
+EOP
+      entries = parse_po_file(po_file)
+      assert_true(entries.msgids.include?("hello"))
+      assert_equal("bonjour", entries["hello"])
+      assert_equal("#: file.rb:10", entries.comment("hello"))
+    end
+
+    def test_msgctxt
+      po_file = create_po_file(<<-EOP)
+msgctxt "pronoun"
+msgid "he"
+msgstr "il"
+EOP
+      entries = parse_po_file(po_file)
+      assert_true(entries.msgids.include?("pronoun\004he"))
+      assert_equal("il", entries["pronoun\004he"])
+    end
+
+    def test_msgid_plural
+      po_file = create_po_file(<<-EOP)
+msgid "he"
+msgid_plural "they"
+msgstr[0] "il"
+msgstr[1] "ils"
+EOP
+      entries = parse_po_file(po_file)
+
+      assert_true(entries.msgids.include?("he\000they"))
+      assert_equal("il\000ils", entries["he\000they"])
+    end
+
+    def test_msgctxt_and_msgid_plural
+      po_file = create_po_file(<<-EOP)
+msgctxt "pronoun"
+msgid "he"
+msgid_plural "them"
+msgstr[0] "il"
+msgstr[1] "ils"
+EOP
+      entries = parse_po_file(po_file)
+      assert_true(entries.msgids.include?("pronoun\004he\000them"))
+      assert_equal("il\000ils", entries["pronoun\004he\000them"])
+    end
+
+    private
+    def parse_po_file(po_file)
+      super(po_file, GetText::Tools::MsgMerge::PoData.new)
+    end
+  end
+
   class TestPO < self
     def test_msgstr
       po_file = create_po_file(<<-EOP)
@@ -208,51 +264,6 @@ EOP
       yield parser
       parser.parse_file(@po_file.path, messages)
       messages
-    end
-  end
-
-  class TestSplitMsgid < self
-    def test_existed_msgctxt_and_msgid_plural
-      msgctxt = "msgctxt"
-      msgid = "msgid"
-      msgid_plural = "msgid_plural"
-
-      assert_equal([msgctxt, msgid, msgid_plural],
-                   split_msgid("#{msgctxt}\004#{msgid}\000#{msgid_plural}"))
-    end
-
-    def test_existed_msgctxt_only
-      msgctxt = "msgctxt"
-      msgid = "msgid"
-
-      assert_equal([msgctxt, msgid, nil],
-                   split_msgid("#{msgctxt}\004#{msgid}"))
-    end
-
-    def test_existed_msgid_plural_only
-      msgid = "msgid"
-      msgid_plural = "msgid_plural"
-
-      assert_equal([nil, msgid, msgid_plural],
-                   split_msgid("#{msgid}\000#{msgid_plural}"))
-    end
-
-    def test_not_existed
-      msgid = "msgid"
-
-      assert_equal([nil, msgid, nil], split_msgid(msgid))
-    end
-
-    def test_empty_msgid
-      msgid = ""
-
-      assert_equal([nil, msgid, nil], split_msgid(msgid))
-    end
-
-    private
-    def split_msgid(msgid)
-      entries = GetText::PoParser.new
-      entries.send(:split_msgid, msgid)
     end
   end
 end
