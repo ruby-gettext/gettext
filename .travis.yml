@@ -9,4 +9,4 @@ rvm:
 notifications:
   recipients:
     - travis@clear-code.com
-script: bundle exec rake
+script: bundle exec rake --trace
