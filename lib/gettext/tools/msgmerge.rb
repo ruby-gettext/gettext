@@ -96,9 +96,9 @@ module GetText
         end
 
         def generate_po
-          str = ""
-          str << generate_po_header
-          str << "\n"
+          po = ""
+          po << generate_po_header
+          po << "\n"
 
           po_entries = []
           self.each_msgid do |id|
@@ -109,8 +109,8 @@ module GetText
             po_entries << "#{@msgid2comment[:last]}\n"
           end
 
-          str << po_entries.join("\n")
-          str
+          po << po_entries.join("\n")
+          po
         end
 
         def generate_po_header
