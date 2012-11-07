@@ -341,6 +341,7 @@ module GetText
   end
 
   # Just for backward compatibility.
+  MoFile = MO
   MOFile = MO
 end
 
