@@ -18,3 +18,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require "gettext/runtime/mo"
+
+# Just for backward compatibility.
+module GetText
+  MoFile = MO
+  MOFile = MO
+end

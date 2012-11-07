@@ -339,10 +339,6 @@ module GetText
       end
     end
   end
-
-  # Just for backward compatibility.
-  MoFile = MO
-  MOFile = MO
 end
 
 # Test
