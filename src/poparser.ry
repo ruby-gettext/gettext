@@ -227,7 +227,7 @@ require "gettext/tools/po"
   def on_message(msgid, msgstr)
     msgstr = nil if msgstr.empty?
 
-    if @data.instance_of?(PO)
+    if @data.instance_of?(PO) or @data.instance_of?(GetText::Tools::MsgMerge::PoData)
       type = detect_entry_type
 
       entry = PoEntry.new(type)
@@ -237,18 +237,11 @@ require "gettext/tools/po"
       entry.msgid_plural = @msgid_plural
       entry.msgstr = msgstr
       @data[msgid] = entry
-    elsif @data.instance_of?(MO)
+    else
       options = {}
       options[:msgctxt] = @msgctxt
       options[:msgid_plural] = @msgid_plural
       @data.store(msgid, msgstr, options)
-    else # For PoData.
-      string = ""
-      string << "#{@msgctxt}\004" unless @msgctxt.nil?
-      string << msgid
-      string << "\000#{@msgid_plural}" unless @msgid_plural.nil?
-      @data[string] = msgstr
-      msgid = string
     end
     @data.set_comment(msgid, @comments.join("\n"))
 

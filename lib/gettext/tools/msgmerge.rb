@@ -22,7 +22,7 @@
 require "optparse"
 require "gettext"
 require "gettext/tools/poparser"
-require "gettext/tools/po_entry"
+require "gettext/tools/po"
 
 # TODO: MsgMerge should use PoEntry to generate PO content.
 
@@ -31,9 +31,11 @@ module GetText
     class MsgMerge
       class PoData  #:nodoc:
 
+        attr_reader :po
         attr_reader :msgids
 
         def initialize
+          @po = PO.new
           @msgid2msgstr = {}
           @msgid2comment = {}
           @msgids = []
@@ -55,13 +57,22 @@ module GetText
           @msgid2msgstr[msgid]
         end
 
-        def []=(msgid, msgstr)
-          # Retain the order
-          unless @msgid2msgstr.has_key?(msgid)
-            @msgids << msgid
+        def []=(msgid, value)
+          if value.instance_of?(PoEntry)
+            @po[msgid] = value
+            value
+          else
+            msgstr = value
+            msgctxt, msgid, msgid_plural = split_msgid(msgid)
+            type = detect_entry_type(msgctxt, msgid_plural)
+            entry = PoEntry.new(type)
+            entry.msgctxt = msgctxt
+            entry.msgid = msgid
+            entry.msgid_plural = msgid_plural
+            entry.msgstr = msgstr
+            @po[msgid] = entry
+            entry
           end
-
-          @msgid2msgstr[msgid] = msgstr
         end
 
         def each_msgid
@@ -190,6 +201,34 @@ module GetText
 
         def escape(string)
           PoEntry.escape(string)
+        end
+
+        def split_msgid(msgid)
+          return [nil, "", nil] if msgid.empty?
+          return [nil, msgid, nil] if msgid.instance_of?(Symbol)
+          msgctxt, msgid = msgid.split("\004", 2)
+          if msgid.nil?
+            msgid = msgctxt
+            msgctxt = nil
+          end
+          msgid, msgid_plural = msgid.split("\000", 2)
+          [msgctxt, msgid, msgid_plural]
+        end
+
+        def detect_entry_type(msgctxt, msgid_plural)
+          if msgctxt.nil?
+            if msgid_plural.nil?
+              :normal
+            else
+              :plural
+            end
+          else
+            if msgid_plural.nil?
+              :msgctxt
+            else
+              :msgctxt_plural
+            end
+          end
         end
       end
 
