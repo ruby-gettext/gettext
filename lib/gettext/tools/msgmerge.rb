@@ -58,12 +58,17 @@ module GetText
         end
 
         def []=(msgid, value)
+          msgctxt, msgid, msgid_plural = split_msgid(msgid)
+
           if value.instance_of?(PoEntry)
             @po[msgid] = value
-            value
+            return value
+          end
+
+          msgstr = value
+          if @po.has_key?(msgid)
+            @po[msgid] = msgstr
           else
-            msgstr = value
-            msgctxt, msgid, msgid_plural = split_msgid(msgid)
             type = detect_entry_type(msgctxt, msgid_plural)
             entry = PoEntry.new(type)
             entry.msgctxt = msgctxt
