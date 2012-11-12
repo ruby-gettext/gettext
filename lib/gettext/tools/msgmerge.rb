@@ -41,8 +41,26 @@ module GetText
           @msgids = []
         end
 
-        def set_comment(msgid_or_sym, comment)
-          @msgid2comment[msgid_or_sym] = comment
+        REFERENCES_SEPARATOR = " "
+
+        def set_comment(msgid, comments)
+          references = []
+          comment_content = ""
+          comments.each_line do |comment|
+            case comment
+            when /\A#:\s*(.+)/
+              references += $1.split(REFERENCES_SEPARATOR)
+            when /\A#\s*\n*?\z/
+              comment_content << "\n"
+            else
+              comment_content << comment.gsub(/\A#\.*?\s*/, "")
+            end
+          end
+
+          _, msgid, _ = split_msgid(msgid)
+          @po[msgid] = nil unless @po.has_key?(msgid)
+          @po.set_references(msgid, references)
+          @po.set_comment(msgid, comment_content)
         end
 
         def msgstr(msgid)
