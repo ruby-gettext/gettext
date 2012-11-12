@@ -46,7 +46,7 @@ module GetText
         end
 
         def msgstr(msgid)
-          @msgid2msgstr[msgid]
+          self[msgid]
         end
 
         def comment(msgid)
@@ -54,7 +54,8 @@ module GetText
         end
 
         def [](msgid)
-          @msgid2msgstr[msgid]
+          _, msgid, _ = split_msgid(msgid)
+          @po[msgid].msgstr
         end
 
         def []=(msgid, value)
