@@ -251,21 +251,21 @@ require "gettext/tools/po"
     @msgid_plural = nil
   end
 
-  COMMENT_MARK = "#"
-  REFERENCE_COMMENT_MARK = "#:"
+  COMMENT_MARK = /\A#[\.,\|]*/
+  REFERENCE_COMMENT_MARK = /\A#:/
   def on_comment(comment)
     @fuzzy = true if (/fuzzy/ =~ comment)
 
     if @data.respond_to?(:set_references)
-      if comment.start_with?(REFERENCE_COMMENT_MARK)
+      if REFERENCE_COMMENT_MARK =~ comment
         comment.lines.each do |reference|
           comment_content =
-            reference.gsub(/\A#{Regexp.escape(REFERENCE_COMMENT_MARK)}/, "")
+            reference.gsub(REFERENCE_COMMENT_MARK, "")
           @references << comment_content.strip
         end
-      elsif comment.start_with?(COMMENT_MARK)
+      elsif comment =~ COMMENT_MARK
         comment.lines.each do |line|
-          @comments << line.gsub(/\A#{Regexp.escape(COMMENT_MARK)}/, "").strip
+          @comments << line.gsub(COMMENT_MARK, "").strip
         end
       end
     else
