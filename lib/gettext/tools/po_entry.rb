@@ -250,7 +250,7 @@ module GetText
       formatted_message = ""
       if not message.nil? and message.include?("\n")
         formatted_message << "\"\"\n"
-        message.each_line.collect do |line|
+        message.each_line.each do |line|
           formatted_message << "\"#{escape(line)}\"\n"
         end
       else
