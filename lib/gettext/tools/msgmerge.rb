@@ -113,9 +113,9 @@ module GetText
         end
 
         def nplurals
-          return 0 if @msgid2msgstr[""].nil?
+          return 0 if @po[""].msgstr.nil?
 
-          if /\s*nplurals\s*=\s*(\d+)/ =~ @msgid2msgstr[""]
+          if /\s*nplurals\s*=\s*(\d+)/ =~ @po[""].msgstr
             return $1.to_i
           else
             return 0
