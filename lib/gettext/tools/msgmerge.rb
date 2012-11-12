@@ -44,6 +44,11 @@ module GetText
         REFERENCES_SEPARATOR = " "
 
         def set_comment(msgid, comments)
+          if msgid == :last
+            @po.set_comment(msgid, comments)
+            return comments
+          end
+
           references = []
           comment_content = ""
           comments.each_line do |comment|

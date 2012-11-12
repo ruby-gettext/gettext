@@ -106,7 +106,7 @@ module GetText
         po_string << "\n" << entry.to_s
       end
 
-      po_string << self[:last].to_s if has_key?(:last)
+      po_string << "\n" << self[:last].to_s if has_key?(:last)
 
       po_string
     end

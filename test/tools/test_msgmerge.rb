@@ -53,22 +53,24 @@ EOP
     end
 
     def test_generate_po_including_obsolete_comment
-      obsolete_comment = <<EOC
-#. #: test.rb:10
-#. msgid \"Hello\"
-#. msgstr \"Salut\"
+      obsolete_comment =<<EOC
+# test.rb:10
+msgid \"Hello\"
+msgstr \"Salut\"
 EOC
-      obsolete_comment = obsolete_comment.chomp
-
       header_entry_comment = "# header entry comment."
       header_entry = "header entry"
+      expected_obsolete_comment = ""
+      obsolete_comment.each_line do |line|
+        expected_obsolete_comment << "#~ #{line}"
+      end
+      expected_obsolete_comment = expected_obsolete_comment.chomp
       expected_po = <<EOP
 #{header_entry_comment}
 msgid \"\"
-msgstr \"\"
-\"#{header_entry}\\n\"
+msgstr \"#{header_entry}\"
 
-#{obsolete_comment}
+#{expected_obsolete_comment}
 EOP
 
       po = GetText::Tools::MsgMerge::PoData.new
