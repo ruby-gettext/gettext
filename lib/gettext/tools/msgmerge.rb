@@ -186,8 +186,8 @@ module GetText
         end
 
         def split_msgid(msgid)
+          return [nil, msgid, nil] if msgid == :last
           return [nil, "", nil] if msgid.empty?
-          return [nil, msgid, nil] if msgid.instance_of?(Symbol)
           msgctxt, msgid = msgid.split("\004", 2)
           if msgid.nil?
             msgid = msgctxt

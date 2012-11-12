@@ -98,7 +98,7 @@ module GetText
         po_string << header_entry.to_s
 
         content_entries = reject do |msgid, _|
-          msgid.empty? or msgid == :last
+          msgid == :last or msgid.empty?
         end
       end
 
