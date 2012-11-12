@@ -95,7 +95,10 @@ module GetText
         def msgid?(msgid)
           return false if msgid.kind_of?(Symbol)
           return true if msgid.empty?
-          @msgid2msgstr.has_key?(msgid)
+          msgctxt, msgid, msgid_plural = split_msgid(msgid)
+          @po.has_key?(msgid) and
+            @po[msgid].msgctxt == msgctxt and
+            @po[msgid].msgid_plural == msgid_plural
         end
 
         # Is it necessary to implement this method?
