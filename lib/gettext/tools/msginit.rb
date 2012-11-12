@@ -69,11 +69,11 @@ module GetText
         parser = PoParser.new
         parser.ignore_fuzzy = false
         pot = parser.parse_file(@input_file,
-                                GetText::Tools::MsgMerge::PoData.new)
+                                GetText::PO.new)
         po = replace_pot_header(pot)
 
         File.open(@output_file, "w") do |f|
-          f.puts(po.generate_po)
+          f.puts(po.to_s)
         end
       end
 
@@ -169,14 +169,14 @@ module GetText
       end
 
       def replace_pot_header(pot) #:nodoc:
-        @entry = pot[""]
-        @comment = pot.comment("")
+        @entry = pot[""].msgstr
+        @comment = pot[""].comment
         @translator = translator_info
 
         replace_entry
         replace_comment
 
-        pot[""] = @entry.chomp
+        pot[""] = @entry
         pot.set_comment("", @comment)
         pot
       end
@@ -239,11 +239,11 @@ module GetText
         replace_description
         replace_first_author
         replace_copyright_year
-        @comment = @comment.gsub(/#, fuzzy/, "")
+        @comment = @comment.gsub(/^fuzzy$/, "")
       end
 
       EMAIL = "EMAIL@ADDRESS"
-      FIRST_AUTHOR_KEY = /^(\s*#\s*) FIRST AUTHOR <#{EMAIL}>, (\d+\.)$/
+      FIRST_AUTHOR_KEY = /^FIRST AUTHOR <#{EMAIL}>, (\d+\.)$/
 
       def replace_last_translator #:nodoc:
         unless @translator.nil?
@@ -273,9 +273,9 @@ module GetText
       def replace_plural_forms #:nodoc:
         plural_entry = plural_forms(@language)
         if PLURAL_FORMS =~ @entry
-          @entry = @entry.gsub(PLURAL_FORMS, "\\1 #{plural_entry}")
+          @entry = @entry.gsub(PLURAL_FORMS, "\\1 #{plural_entry}\n")
         else
-          @entry << "Plural-Forms: #{plural_entry}"
+          @entry << "Plural-Forms: #{plural_entry}\n"
         end
       end
 
@@ -329,7 +329,7 @@ module GetText
         "nplurals=#{nplural}; plural=#{plural_expression};"
       end
 
-      DESCRIPTION_TITLE = /^(\s*#\s*) SOME DESCRIPTIVE TITLE\.$/
+      DESCRIPTION_TITLE = /^SOME DESCRIPTIVE TITLE\.$/
 
       def replace_description #:nodoc:
         language_name = Locale::Info.get_language(@language).name
@@ -342,18 +342,18 @@ module GetText
         @comment = @comment.gsub(DESCRIPTION_TITLE, "\\1 #{description}")
       end
 
-      YEAR_KEY = /^(\s*#\s* FIRST AUTHOR <#{EMAIL}>,) YEAR\.$/
+      YEAR_KEY = /^(FIRST AUTHOR <#{EMAIL}>,) YEAR\.$/
       LAST_TRANSLATOR_KEY = /^(Last-Translator:) FULL NAME <#{EMAIL}>$/
 
       def replace_first_author #:nodoc:
         @comment = @comment.gsub(YEAR_KEY, "\\1 #{year}.")
         unless @translator.nil?
           @comment = @comment.gsub(FIRST_AUTHOR_KEY,
-                                   "\\1 #{@translator}, \\2")
+                                   "#{@translator}, \\1")
         end
       end
 
-      COPYRIGHT_KEY = /(\s*#\s* Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
+      COPYRIGHT_KEY = /^(Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
       def replace_copyright_year #:nodoc:
         @comment = @comment.gsub(COPYRIGHT_KEY, "\\1 #{year} \\2")
       end
