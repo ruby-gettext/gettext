@@ -229,7 +229,9 @@ module GetText
       return "" if comment.nil?
 
       formatted_comment = ""
-      if not msgid.empty?
+      if msgid == :last
+        comment_mark = "#~"
+      elsif not msgid.empty?
         comment_mark = "#."
       else
         comment_mark = "#"
