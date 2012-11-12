@@ -160,7 +160,12 @@ module GetText
 
       str = ""
       # extracted comments
-      str << format_comment(comment)
+      formatted_comment = format_comment(comment)
+      if @msgid == :last
+        return formatted_comment
+      else
+        str << formatted_comment
+      end
 
       # references
       max_line_length = 70

@@ -98,13 +98,15 @@ module GetText
         po_string << header_entry.to_s
 
         content_entries = reject do |msgid, _|
-          msgid.empty?
+          msgid.empty? or msgid == :last
         end
       end
 
       sort_by_order(content_entries).each do |msgid, entry|
         po_string << "\n" << entry.to_s
       end
+
+      po_string << self[:last].to_s if has_key?(:last)
 
       po_string
     end
