@@ -82,12 +82,13 @@ module GetText
         end
 
         def each_msgid
-          msgids = @msgids.delete_if do |msgid|
+          msgids = @po.keys
+          msgids = msgids.delete_if do |msgid|
             msgid.kind_of?(Symbol) or msgid.empty?
           end
 
           msgids.each do |msgid|
-            yield(msgid)
+            yield(generate_original_string(msgid))
           end
         end
 
@@ -219,6 +220,16 @@ module GetText
           end
           msgid, msgid_plural = msgid.split("\000", 2)
           [msgctxt, msgid, msgid_plural]
+        end
+
+        def generate_original_string(msgid)
+          original_string = ""
+          msgctxt = @po[msgid].msgctxt
+          msgid_plural = @po[msgid].msgid_plural
+          original_string << "#{msgctxt}\004" unless msgctxt.nil?
+          original_string << msgid
+          original_string << "\000#{msgid_plural}" unless msgid_plural.nil?
+          original_string
         end
 
         def detect_entry_type(msgctxt, msgid_plural)
