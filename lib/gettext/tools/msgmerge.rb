@@ -126,20 +126,6 @@ module GetText
           @po.to_s
         end
 
-        def generate_po_header
-          str = ""
-
-          str << @msgid2comment[""].strip << "\n"
-          str << 'msgid ""'  << "\n"
-          str << 'msgstr ""' << "\n"
-          msgstr = @msgid2msgstr[""].gsub(/"/, '\"').gsub(/\r/, "")
-          msgstr = msgstr.gsub(/^(.*)$/, '"\1\n"')
-          str << msgstr.chomp
-          str << "\n"
-
-          str
-        end
-
         def generate_po_entry(msgid)
           str = ""
           str << @msgid2comment[msgid]
