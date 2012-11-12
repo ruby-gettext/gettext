@@ -28,15 +28,21 @@ class TestToolsMsgMerge < Test::Unit::TestCase
 
     def test_generate_po
       header_entry_comment = "# header entry comment."
-      header_entry = "header entry"
+      header_entry = "header\nentry\n"
       comment = "#: test.rb:10"
       msgid = "Hello"
       msgstr = "Salut"
+
+      expected_header_entry = ""
+      header_entry.each_line do |line|
+        expected_header_entry << "\"#{line.chomp}\\n\"\n"
+      end
+      expected_header_entry = expected_header_entry.chomp
       expected_po = <<EOP
 #{header_entry_comment}
 msgid \"\"
 msgstr \"\"
-\"#{header_entry}\\n\"
+#{expected_header_entry}
 
 #{comment}
 msgid \"#{msgid}\"
