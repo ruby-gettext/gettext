@@ -93,7 +93,7 @@ module GetText
         end
 
         def msgids
-          msgids = @po.keys.collect do |msgid|
+          @po.keys.collect do |msgid|
             generate_original_string(msgid)
           end
         end
