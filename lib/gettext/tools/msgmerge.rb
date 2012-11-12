@@ -68,7 +68,24 @@ module GetText
         end
 
         def comment(msgid)
-          @msgid2comment[msgid]
+          _, msgid, _ = split_msgid(msgid)
+          return nil if @po[msgid].nil?
+
+          formatted_comments = []
+          unless @po[msgid].comment.nil?
+            @po[msgid].comment.each_line do |comment|
+              formatted_comments << "# #{comment}"
+            end
+          end
+
+          formatted_references = []
+          unless @po[msgid].references.nil?
+            @po[msgid].references.each do |reference|
+              formatted_references << "#: #{reference}"
+            end
+          end
+          formatted_comments << formatted_references.join(REFERENCES_SEPARATOR)
+          formatted_comments.join("\n")
         end
 
         def [](msgid)
