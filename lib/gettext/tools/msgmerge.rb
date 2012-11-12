@@ -127,49 +127,8 @@ module GetText
         end
 
         def generate_po_entry(msgid)
-          str = ""
-          str << @msgid2comment[msgid]
-          if str[-1] != "\n"[0]
-            str << "\n"
-          end
-
-          id = msgid.gsub(/\r/, "")
-          msgstr = @msgid2msgstr[msgid]
-          if msgstr.nil?
-            msgstr = ""
-          else
-            msgstr = msgstr.gsub(/\r/, "")
-          end
-
-          if id.include?("\004")
-            ids = id.split(/\004/)
-            context = ids[0]
-            id      = ids[1]
-            str << "msgctxt "  << __conv(context) << "\n"
-          end
-
-          if id.include?("\000")
-            ids = id.split(/\000/)
-            str << "msgid " << __conv(ids[0]) << "\n"
-            ids[1..-1].each do |single_id|
-              str << "msgid_plural " << __conv(single_id) << "\n"
-            end
-
-            if msgstr.empty?
-              nplurals.times do |id_count|
-                str << "msgstr[#{id_count}] " << '""' << "\n"
-              end
-            else
-              msgstr.split("\000", -1).each_with_index do |m, n|
-                str << "msgstr[#{n}] " << __conv(m) << "\n"
-              end
-            end
-          else
-            str << "msgid "  << __conv(id) << "\n"
-            str << "msgstr " << __conv(msgstr) << "\n"
-          end
-
-          str
+          _, msgid, _ = split_msgid(msgid)
+          @po[msgid].to_s
         end
 
         def __conv(str)
