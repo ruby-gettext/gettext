@@ -92,6 +92,12 @@ module GetText
           end
         end
 
+        def msgids
+          msgids = @po.keys.collect do |msgid|
+            generate_original_string(msgid)
+          end
+        end
+
         def msgid?(msgid)
           return false if msgid.kind_of?(Symbol)
           return true if msgid.empty?
