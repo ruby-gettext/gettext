@@ -123,21 +123,7 @@ module GetText
         end
 
         def generate_po
-          po = ""
-          po << generate_po_header
-          po << "\n"
-
-          po_entries = []
-          self.each_msgid do |id|
-            po_entries << self.generate_po_entry(id)
-          end
-
-          unless @msgid2comment[:last].nil?
-            po_entries << "#{@msgid2comment[:last]}\n"
-          end
-
-          po << po_entries.join("\n")
-          po
+          @po.to_s
         end
 
         def generate_po_header
