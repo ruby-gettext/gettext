@@ -33,6 +33,12 @@ class TestToolsMsgMerge < Test::Unit::TestCase
       msgid = "Hello"
       msgstr = "Salut"
 
+      po = GetText::Tools::MsgMerge::PoData.new
+      po.set_comment("", header_entry_comment)
+      po[""] = header_entry
+      po[msgid] = msgstr
+      po.set_comment(msgid, comment)
+
       expected_header_entry = ""
       header_entry.each_line do |line|
         expected_header_entry << "\"#{line.chomp}\\n\"\n"
@@ -48,13 +54,6 @@ msgstr \"\"
 msgid \"#{msgid}\"
 msgstr \"#{msgstr}\"
 EOP
-
-      po = GetText::Tools::MsgMerge::PoData.new
-      po.set_comment("", header_entry_comment)
-      po[""] = header_entry
-      po[msgid] = msgstr
-      po.set_comment(msgid, comment)
-
       assert_equal(expected_po, po.generate_po)
     end
 
@@ -66,10 +65,17 @@ msgstr \"Salut\"
 EOC
       header_entry_comment = "# header entry comment."
       header_entry = "header entry"
+
+      po = GetText::Tools::MsgMerge::PoData.new
+      po.set_comment("", header_entry_comment)
+      po[""] = header_entry
+      po.set_comment(:last, obsolete_comment)
+
       expected_obsolete_comment = ""
       obsolete_comment.each_line do |line|
         expected_obsolete_comment << "#~ #{line}"
       end
+
       expected_obsolete_comment = expected_obsolete_comment.chomp
       expected_po = <<EOP
 #{header_entry_comment}
@@ -78,12 +84,6 @@ msgstr \"#{header_entry}\"
 
 #{expected_obsolete_comment}
 EOP
-
-      po = GetText::Tools::MsgMerge::PoData.new
-      po.set_comment("", header_entry_comment)
-      po[""] = header_entry
-      po.set_comment(:last, obsolete_comment)
-
       assert_equal(expected_po, po.generate_po)
     end
 
