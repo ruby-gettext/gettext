@@ -372,6 +372,39 @@ EOP
       assert_equal(expected_po, @entries.to_s)
     end
 
+    def test_obsolete_comment
+      hello = "hello"
+      hello_translation = "こんにちは"
+      hello_references = ["file.rb:10"]
+
+      @entries[hello] = hello_translation
+      @entries[hello].references = hello_references
+
+      obsolete_comment =<<EOC
+# test.rb:10
+msgid \"hello\"
+msgstr \"Salut\"
+EOC
+      @entries.set_comment(:last, obsolete_comment)
+
+      hello_comment = "#: file.rb:10"
+      expected_obsolete_comment = obsolete_comment.gsub(/^/, "#~ ").chomp
+      expected_po =<<EOP
+#{expected_header_comment}
+#
+msgid ""
+msgstr ""
+#{expected_header}
+
+#{hello_comment}
+msgid "#{hello}"
+msgstr "#{hello_translation}"
+
+#{expected_obsolete_comment}
+EOP
+      assert_equal(expected_po, @entries.to_s)
+    end
+
     private
     def header
       <<EOH
