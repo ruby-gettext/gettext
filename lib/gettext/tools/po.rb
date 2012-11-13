@@ -153,7 +153,7 @@ module GetText
       if /\A(.+):(\d+?)\z/ =~ reference
         [$1, $2.to_i]
       else
-        [reference, nil]
+        [reference, -1]
       end
     end
   end
