@@ -68,7 +68,8 @@ class TestToolsMsgMerge < Test::Unit::TestCase
       end
     end
 
-    def test_generate_po
+    class TestGeneratePo < self
+    def test_comment_and_msgid_and_msgstr
       header_entry_comment = "# header entry comment."
       header_entry = "header\nentry\n"
       comment = "#: test.rb:10"
@@ -99,7 +100,7 @@ EOP
       assert_equal(expected_po, po.generate_po)
     end
 
-    def test_generate_po_including_obsolete_comment
+    def test_obsolete_comment
       obsolete_comment =<<EOC
 # test.rb:10
 msgid \"Hello\"
@@ -124,7 +125,7 @@ EOP
       assert_equal(expected_po, po.generate_po)
     end
 
-    def test_generate_po_msgid_plural_and_empty_msgstr
+    def test_msgid_plural_and_empty_msgstr
       msgid = "Singular message\000Plural message"
 
       @po_data[""] = "Plural-Forms: nplurals=2; plural=n != 1;\\n"
@@ -139,6 +140,7 @@ msgstr[0] ""
 msgstr[1] ""
 EOE
       assert_equal(expected_po, actual_po)
+    end
     end
 
     class TestGeneratePoEntry < self
