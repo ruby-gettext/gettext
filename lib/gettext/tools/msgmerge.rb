@@ -190,6 +190,7 @@ module GetText
           PoEntry.escape(string)
         end
 
+        private
         def split_msgid(msgid)
           return [nil, msgid, nil] if msgid == :last
           return [nil, "", nil] if msgid.empty?

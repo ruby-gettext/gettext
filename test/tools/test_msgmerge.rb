@@ -132,6 +132,57 @@ EOE
     end
   end
 
+  class TestSplitMsgid < self
+    def test_existed_msgctxt_and_msgid_plural
+      msgctxt = "msgctxt"
+      msgid = "msgid"
+      msgid_plural = "msgid_plural"
+
+      assert_equal([msgctxt, msgid, msgid_plural],
+                   split_msgid("#{msgctxt}\004#{msgid}\000#{msgid_plural}"))
+    end
+
+    def test_existed_msgctxt_only
+      msgctxt = "msgctxt"
+      msgid = "msgid"
+
+      assert_equal([msgctxt, msgid, nil],
+                   split_msgid("#{msgctxt}\004#{msgid}"))
+    end
+
+    def test_existed_msgid_plural_only
+      msgid = "msgid"
+      msgid_plural = "msgid_plural"
+
+      assert_equal([nil, msgid, msgid_plural],
+                   split_msgid("#{msgid}\000#{msgid_plural}"))
+    end
+
+    def test_not_existed
+      msgid = "msgid"
+
+      assert_equal([nil, msgid, nil], split_msgid(msgid))
+    end
+
+    def test_empty_msgid
+      msgid = ""
+
+      assert_equal([nil, msgid, nil], split_msgid(msgid))
+    end
+
+    def test_last_symbol_msgid
+      msgid = :last
+
+      assert_equal([nil, msgid, nil], split_msgid(msgid))
+    end
+
+    private
+    def split_msgid(msgid)
+      po_data = GetText::Tools::MsgMerge::PoData.new
+      po_data.send(:split_msgid, msgid)
+    end
+  end
+
   class TestMerge < self
     include GetTextTestUtils
 
