@@ -188,6 +188,20 @@ msgstr[1] "ils"
 EOE
       assert_equal(expected_entry, po.to_s)
     end
+
+    def test_obsolete_comment
+      po = GetText::PoEntry.new(:normal)
+      po.msgid = :last
+      obsolete_comment =<<EOC
+# test.rb:10
+msgid \"hello\"
+msgstr \"Salut\"
+EOC
+      po.comment = obsolete_comment
+
+      expected_obsolete_comment = obsolete_comment.gsub(/^/, "#~ ")
+      assert_equal(expected_obsolete_comment, po.to_s)
+    end
   end
 
   class TestEscape < self
