@@ -26,6 +26,48 @@ class TestToolsMsgMerge < Test::Unit::TestCase
       @po_data = GetText::Tools::MsgMerge::PoData.new
     end
 
+    class TestAddToExistingEntry < self
+      def test_msgctxt
+        msgctxt = "msgctxt"
+        msgid = "msgid"
+        original_string = "#{msgctxt}\004#{msgid}"
+        msgstr = "msgstr"
+
+        po_data = GetText::Tools::MsgMerge::PoData.new
+        po_data[original_string] = msgstr
+
+        assert_equal(msgctxt, po_data.po[msgid].msgctxt)
+      end
+
+      def test_msgid_plural
+        msgid = "msgid"
+        msgid_plural = "msgid_plural"
+        original_string = "#{msgid}\000#{msgid_plural}"
+        msgstr = "msgstr"
+
+        po_data = GetText::Tools::MsgMerge::PoData.new
+        po_data[msgid] = msgstr
+        assert_equal(nil, po_data.po[msgid].msgid_plural)
+
+        po_data[original_string] = msgstr
+        assert_equal(msgid_plural, po_data.po[msgid].msgid_plural)
+      end
+
+      def test_msgctxt_and_msgid_plural
+        msgctxt = "msgctxt"
+        msgid = "msgid"
+        msgid_plural = "msgid_plural"
+        original_string = "#{msgctxt}\004#{msgid}\000#{msgid_plural}"
+        msgstr = "msgstr"
+
+        po_data = GetText::Tools::MsgMerge::PoData.new
+        po_data[original_string] = msgstr
+
+        assert_equal(msgctxt, po_data.po[msgid].msgctxt)
+        assert_equal(msgid_plural, po_data.po[msgid].msgid_plural)
+      end
+    end
+
     def test_generate_po
       header_entry_comment = "# header entry comment."
       header_entry = "header\nentry\n"

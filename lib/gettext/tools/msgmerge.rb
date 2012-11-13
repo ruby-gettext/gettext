@@ -109,6 +109,8 @@ module GetText
           msgstr = value
           if @po.has_key?(msgid)
             @po[msgid] = msgstr
+            @po[msgid].msgctxt = msgctxt
+            @po[msgid].msgid_plural = msgid_plural
           else
             type = detect_entry_type(msgctxt, msgid_plural)
             entry = PoEntry.new(type)
