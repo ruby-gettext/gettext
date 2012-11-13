@@ -69,25 +69,25 @@ class TestToolsMsgMerge < Test::Unit::TestCase
     end
 
     class TestGeneratePo < self
-    def test_comment_and_msgid_and_msgstr
-      header_entry_comment = "# header entry comment."
-      header_entry = "header\nentry\n"
-      comment = "#: test.rb:10"
-      msgid = "Hello"
-      msgstr = "Salut"
+      def test_comment_and_msgid_and_msgstr
+        header_entry_comment = "# header entry comment."
+        header_entry = "header\nentry\n"
+        comment = "#: test.rb:10"
+        msgid = "Hello"
+        msgstr = "Salut"
 
-      po = GetText::Tools::MsgMerge::PoData.new
-      po.set_comment("", header_entry_comment)
-      po[""] = header_entry
-      po[msgid] = msgstr
-      po.set_comment(msgid, comment)
+        po = GetText::Tools::MsgMerge::PoData.new
+        po.set_comment("", header_entry_comment)
+        po[""] = header_entry
+        po[msgid] = msgstr
+        po.set_comment(msgid, comment)
 
-      expected_header_entry = ""
-      header_entry.each_line do |line|
-        expected_header_entry << "\"#{line.chomp}\\n\"\n"
-      end
-      expected_header_entry = expected_header_entry.chomp
-      expected_po = <<EOP
+        expected_header_entry = ""
+        header_entry.each_line do |line|
+          expected_header_entry << "\"#{line.chomp}\\n\"\n"
+        end
+        expected_header_entry = expected_header_entry.chomp
+        expected_po = <<EOP
 #{header_entry_comment}
 msgid \"\"
 msgstr \"\"
@@ -97,50 +97,50 @@ msgstr \"\"
 msgid \"#{msgid}\"
 msgstr \"#{msgstr}\"
 EOP
-      assert_equal(expected_po, po.generate_po)
-    end
+        assert_equal(expected_po, po.generate_po)
+      end
 
-    def test_obsolete_comment
-      obsolete_comment =<<EOC
+      def test_obsolete_comment
+        obsolete_comment =<<EOC
 # test.rb:10
 msgid \"Hello\"
 msgstr \"Salut\"
 EOC
-      header_entry_comment = "# header entry comment."
-      header_entry = "header entry"
+        header_entry_comment = "# header entry comment."
+        header_entry = "header entry"
 
-      po = GetText::Tools::MsgMerge::PoData.new
-      po.set_comment("", header_entry_comment)
-      po[""] = header_entry
-      po.set_comment(:last, obsolete_comment)
+        po = GetText::Tools::MsgMerge::PoData.new
+        po.set_comment("", header_entry_comment)
+        po[""] = header_entry
+        po.set_comment(:last, obsolete_comment)
 
-      expected_obsolete_comment = obsolete_comment.gsub(/^/, "#~ ").chomp
-      expected_po = <<EOP
+        expected_obsolete_comment = obsolete_comment.gsub(/^/, "#~ ").chomp
+        expected_po = <<EOP
 #{header_entry_comment}
 msgid \"\"
 msgstr \"#{header_entry}\"
 
 #{expected_obsolete_comment}
 EOP
-      assert_equal(expected_po, po.generate_po)
-    end
+        assert_equal(expected_po, po.generate_po)
+      end
 
-    def test_msgid_plural_and_empty_msgstr
-      msgid = "Singular message\000Plural message"
+      def test_msgid_plural_and_empty_msgstr
+        msgid = "Singular message\000Plural message"
 
-      @po_data[""] = "Plural-Forms: nplurals=2; plural=n != 1;\\n"
-      @po_data[msgid] = ""
-      @po_data.set_comment(msgid, "# plural message")
-      actual_po = @po_data.generate_po_entry(msgid)
-      expected_po = <<'EOE'
+        @po_data[""] = "Plural-Forms: nplurals=2; plural=n != 1;\\n"
+        @po_data[msgid] = ""
+        @po_data.set_comment(msgid, "# plural message")
+        actual_po = @po_data.generate_po_entry(msgid)
+        expected_po = <<'EOE'
 # plural message
 msgid "Singular message"
 msgid_plural "Plural message"
 msgstr[0] ""
 msgstr[1] ""
 EOE
-      assert_equal(expected_po, actual_po)
-    end
+        assert_equal(expected_po, actual_po)
+      end
     end
 
     class TestGeneratePoEntry < self
