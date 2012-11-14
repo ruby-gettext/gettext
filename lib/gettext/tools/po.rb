@@ -51,33 +51,9 @@ module GetText
       entry
     end
 
-    def set_type(msgid, type)
-      unless has_key?(msgid)
-        raise(NonExistentEntryError,
-              "the entry of \"%s\" does not exist." % msgid)
-      end
-      self[msgid].type = type
-    end
-
     def set_comment(msgid, comment)
       self[msgid] = nil unless has_key?(msgid)
       self[msgid].comment = comment
-    end
-
-    def set_msgctxt(msgid, msgctxt)
-      unless has_key?(msgid)
-        raise(NonExistentEntryError,
-              "the entry of \"%s\" does not exist." % msgid)
-      end
-      self[msgid].msgctxt = msgctxt
-    end
-
-    def set_msgid_plural(msgid, msgid_plural)
-      unless has_key?(msgid)
-        raise(NonExistentEntryError,
-              "the entry of \"%s\" does not exist." % msgid)
-      end
-      self[msgid].msgid_plural = msgid_plural
     end
 
     def set_references(msgid, references)
