@@ -153,7 +153,7 @@ class TestPO < Test::Unit::TestCase
     def setup
       @entries = GetText::PO.new
       @entries[""] = header
-      @entries.set_comment("", header_comment)
+      @entries[""].translator_comment = header_comment
     end
 
     def test_same_filename
