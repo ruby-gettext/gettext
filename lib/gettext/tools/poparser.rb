@@ -178,7 +178,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
         comment.lines.each do |reference|
           comment_content =
             reference.gsub(REFERENCE_COMMENT_MARK, "")
-p          @references << comment_content.strip
+          @references << comment_content.strip
         end
       elsif comment =~ COMMENT_MARK
         comment.each_line do |line|
