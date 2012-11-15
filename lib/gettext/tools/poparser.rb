@@ -137,8 +137,8 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
         @data.instance_of?(GetText::Tools::MsgMerge::PoData)
       type = detect_entry_type
       entry = PoEntry.new(type)
-      entry.translator_comments = format_comment(@translator_comments)
-      entry.extracted_comments = format_comment(@extracted_comments)
+      entry.translator_comment = format_comment(@translator_comments)
+      entry.extracted_comment = format_comment(@extracted_comments)
       entry.flag = format_comment(@flag)
       entry.previous_msgid = format_comment(@previous_msgid)
       entry.references = @references
