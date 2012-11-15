@@ -125,16 +125,50 @@ EOP
       assert_equal(["file.rb:10"], entries["hello"].references)
     end
 
-    def test_comment
+    def test_translator_comment
       po_file = create_po_file(<<-EOP)
-# This is the comment.
-#: file.rb:10
+# This is the translator comment.
 msgid "hello"
 msgstr "bonjour"
 EOP
       entries = parse_po_file(po_file)
       assert_true(entries.has_key?([nil, "hello"]))
-      assert_equal("This is the comment.", entries["hello"].comment)
+      entry = entries["hello"]
+      assert_equal("This is the translator comment.", entry.translator_comment)
+    end
+
+    def test_extracted_comment
+      po_file = create_po_file(<<-EOP)
+#. This is the extracted comment.
+msgid "hello"
+msgstr "bonjour"
+EOP
+      entries = parse_po_file(po_file)
+      assert_true(entries.has_key?([nil, "hello"]))
+      entry = entries["hello"]
+      assert_equal("This is the extracted comment.", entry.extracted_comment)
+    end
+
+    def test_flag
+      po_file = create_po_file(<<-EOP)
+#, flag
+msgid "hello"
+msgstr "bonjour"
+EOP
+      entries = parse_po_file(po_file)
+      assert_true(entries.has_key?([nil, "hello"]))
+      assert_equal("flag", entries["hello"].flag)
+    end
+
+    def test_previous_msgid
+      po_file = create_po_file(<<-EOP)
+#| msgid hi
+msgid "hello"
+msgstr "bonjour"
+EOP
+      entries = parse_po_file(po_file)
+      assert_true(entries.has_key?([nil, "hello"]))
+      assert_equal("hi", entries["hello"].previous_msgid)
     end
 
     def test_msgid_plural

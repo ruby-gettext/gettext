@@ -60,8 +60,12 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
   private :unescape_string
 
   def parse(str, data)
-    @comments = []
+    @translator_comment = []
+    @extracted_comment = []
     @references = []
+    @flag = []
+    @previous_msgid = []
+    @comments = []
     @data = data
     @fuzzy = false
     @msgctxt = nil
@@ -129,17 +133,14 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
   def on_message(msgid, msgstr)
     msgstr = nil if msgstr.empty?
 
-    if @data.instance_of?(PO) or @data.instance_of?(GetText::Tools::MsgMerge::PoData)
-      if not @comments.empty?
-        comment = @comments.join("\n")
-        comment << "\n" if @comments.last.empty?
-      else
-        comment = ""
-      end
-
+    if @data.instance_of?(PO) or
+        @data.instance_of?(GetText::Tools::MsgMerge::PoData)
       type = detect_entry_type
       entry = PoEntry.new(type)
-      entry.comment = comment
+      entry.translator_comment = format_comment(@translator_comment)
+      entry.extracted_comment = format_comment(@extracted_comment)
+      entry.flag = format_comment(@flag)
+      entry.previous_msgid = format_comment(@previous_msgid)
       entry.references = @references
       entry.msgctxt = @msgctxt
       entry.msgid = msgid
@@ -160,29 +161,55 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
       options[:msgctxt] = @msgctxt
       options[:msgid_plural] = @msgid_plural
       @data.store(msgid, msgstr, options)
-      @data.set_comment(msgid, comment)
+      @data.set_comment(msgid, format_comment(@comments))
     end
 
-    @comments.clear
+    @translator_comment = []
+    @extracted_comment = []
     @references = []
+    @flag = []
+    @previous_msgid = []
+    @references = []
+    @comments.clear
     @msgctxt = nil
     @msgid_plural = nil
   end
 
-  COMMENT_MARK = /\A#[\.,\|]*/
-  REFERENCE_COMMENT_MARK = /\A#:/
+  def format_comment(comments)
+    return "" if comments.empty?
+
+    comment = comments.join("\n")
+    comment << "\n" if comments.last.empty?
+    comment
+  end
+
+  TRANSLATOR_COMMENT_MARK = "# "
+  EXTRACTED_COMMENT_MARK = "#."
+  FLAG_MARK = "#,"
+  PREVIOUS_MSGID_COMMENT_MARK = "#|"
+  REFERENCE_COMMENT_MARK = "#:"
   def on_comment(comment)
     @fuzzy = true if (/fuzzy/ =~ comment)
-    if @data.instance_of?(PO) or @data.instance_of?(GetText::Tools::MsgMerge::PoData)
-      if REFERENCE_COMMENT_MARK =~ comment
-        comment.lines.each do |reference|
-          comment_content =
-            reference.gsub(REFERENCE_COMMENT_MARK, "")
-          @references << comment_content.strip
-        end
-      elsif comment =~ COMMENT_MARK
-        comment.each_line do |line|
-          @comments << line.gsub(COMMENT_MARK, "").strip
+    if @data.instance_of?(PO) or
+        @data.instance_of?(GetText::Tools::MsgMerge::PoData)
+      if comment == "#"
+        @translator_comment << ""
+      elsif /\A(#.)\s*(.*)\z/ =~ comment
+        mark = $1
+        content = $2
+        case mark
+        when TRANSLATOR_COMMENT_MARK
+          @translator_comment << content
+        when EXTRACTED_COMMENT_MARK
+          @extracted_comment << content
+        when REFERENCE_COMMENT_MARK
+          @references << content
+        when FLAG_MARK
+          @flag << content
+        when PREVIOUS_MSGID_COMMENT_MARK
+          @previous_msgid << content.gsub(/\Amsgid\s+/, "")
+        else
+          @comments << comment
         end
       end
     else
