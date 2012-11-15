@@ -292,7 +292,7 @@ module GetText
       File.open(filename, 'wb'){|f| save_to_stream(f)}
     end
 
-    def set_comment(msgid_or_sym, comment, msgctxt=nil)
+    def set_comment(msgid_or_sym, comment)
       #Do nothing
     end
 

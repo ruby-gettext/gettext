@@ -160,7 +160,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
       options[:msgctxt] = @msgctxt
       options[:msgid_plural] = @msgid_plural
       @data.store(msgid, msgstr, options)
-      @data.set_comment(msgid, comment, @msgctxt)
+      @data.set_comment(msgid, comment)
     end
 
     @comments.clear
