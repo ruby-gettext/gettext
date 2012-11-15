@@ -60,8 +60,8 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
   private :unescape_string
 
   def parse(str, data)
-    @translator_comment = []
-    @extracted_comment = []
+    @translator_comments = []
+    @extracted_comments = []
     @references = []
     @flag = []
     @previous_msgid = []
@@ -137,8 +137,8 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
         @data.instance_of?(GetText::Tools::MsgMerge::PoData)
       type = detect_entry_type
       entry = PoEntry.new(type)
-      entry.translator_comment = format_comment(@translator_comment)
-      entry.extracted_comment = format_comment(@extracted_comment)
+      entry.translator_comments = format_comment(@translator_comments)
+      entry.extracted_comments = format_comment(@extracted_comments)
       entry.flag = format_comment(@flag)
       entry.previous_msgid = format_comment(@previous_msgid)
       entry.references = @references
@@ -164,8 +164,8 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
       @data.set_comment(msgid, format_comment(@comments))
     end
 
-    @translator_comment = []
-    @extracted_comment = []
+    @translator_comments = []
+    @extracted_comments = []
     @references = []
     @flag = []
     @previous_msgid = []
@@ -193,15 +193,15 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
     if @data.instance_of?(PO) or
         @data.instance_of?(GetText::Tools::MsgMerge::PoData)
       if comment == "#"
-        @translator_comment << ""
+        @translator_comments << ""
       elsif /\A(#.)\s*(.*)\z/ =~ comment
         mark = $1
         content = $2
         case mark
         when TRANSLATOR_COMMENT_MARK
-          @translator_comment << content
+          @translator_comments << content
         when EXTRACTED_COMMENT_MARK
-          @extracted_comment << content
+          @extracted_comments << content
         when REFERENCE_COMMENT_MARK
           @references << content
         when FLAG_MARK

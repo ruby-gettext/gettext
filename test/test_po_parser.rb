@@ -125,7 +125,7 @@ EOP
       assert_equal(["file.rb:10"], entries["hello"].references)
     end
 
-    def test_translator_comment
+    def test_translator_comments
       po_file = create_po_file(<<-EOP)
 # This is the translator comment.
 msgid "hello"
@@ -134,10 +134,10 @@ EOP
       entries = parse_po_file(po_file)
       assert_true(entries.has_key?([nil, "hello"]))
       entry = entries["hello"]
-      assert_equal("This is the translator comment.", entry.translator_comment)
+      assert_equal("This is the translator comment.", entry.translator_comments)
     end
 
-    def test_extracted_comment
+    def test_extracted_comments
       po_file = create_po_file(<<-EOP)
 #. This is the extracted comment.
 msgid "hello"
@@ -146,7 +146,7 @@ EOP
       entries = parse_po_file(po_file)
       assert_true(entries.has_key?([nil, "hello"]))
       entry = entries["hello"]
-      assert_equal("This is the extracted comment.", entry.extracted_comment)
+      assert_equal("This is the extracted comment.", entry.extracted_comments)
     end
 
     def test_flag
