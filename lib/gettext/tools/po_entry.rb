@@ -79,6 +79,10 @@ module GetText
     attr_accessor :separator
     attr_accessor :msgctxt
     attr_accessor :references    # ["file1:line1", "file2:line2", ...]
+    attr_accessor :translator_comment
+    attr_accessor :extracted_comment
+    attr_accessor :flag
+    attr_accessor :previous_msgid
     attr_accessor :comment
 
     # Create the object. +type+ should be :normal, :plural, :msgctxt or :msgctxt_plural.
@@ -113,7 +117,11 @@ module GetText
         msgid_plural == other.msgid_plural and
         separator == other.separator and
         msgctxt == other.msgctxt and
+        comment == other.translator_comment and
+        comment == other.extracted_comment and
         references == other.references and
+        comment == other.flag and
+        comment == other.previous_msgid and
         comment == other.comment
     end
 
