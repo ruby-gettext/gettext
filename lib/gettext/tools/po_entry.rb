@@ -96,8 +96,8 @@ module GetText
     # http://www.gnu.org/software/gettext/manual/gettext.html#Names
     def add_comment(new_comment)
       if (new_comment and ! new_comment.empty?)
-        @comment ||= ""
-        @comment += new_comment
+        @extracted_comment ||= ""
+        @extracted_comment += new_comment
       end
       to_s
     end
@@ -150,13 +150,13 @@ module GetText
         res = other
         unless (res.references.include? self.references[0])
           res.references += self.references
-          res.add_comment(self.comment)
+          res.add_comment(self.extracted_comment)
         end
       else
         res = self
         unless (res.references.include? other.references[0])
           res.references += other.references
-          res.add_comment(other.comment)
+          res.add_comment(other.extracted_comment)
         end
       end
       res
