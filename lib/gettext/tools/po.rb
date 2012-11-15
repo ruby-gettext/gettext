@@ -38,11 +38,19 @@ module GetText
       super([msgctxt, msgid])
     end
 
-    def []=(msgctxt, msgid, value=(not_specified=true))
-      if not_specified
-        value = msgid
-        msgid = msgctxt
+    def []=(*arguments)
+      case arguments.size
+      when 2
         msgctxt = nil
+        msgid = arguments[0]
+        value = arguments[1]
+      when 3
+        msgctxt = arguments[0]
+        msgid = arguments[1]
+        value = arguments[2]
+      else
+        raise(ArgumentError,
+              "[]=: wrong number of arguments(#{arguments.size} for 2..3)")
       end
 
       id = [msgctxt, msgid]

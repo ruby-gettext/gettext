@@ -39,6 +39,32 @@ class TestPO < Test::Unit::TestCase
       assert_equal(entry, @entries[msgid])
     end
 
+    def test_msgctxt
+      msgctxt = "msgctxt"
+      msgid = "msgid"
+      msgstr = "msgstr"
+
+      @entries = GetText::PO.new
+      @entries[msgctxt, msgid] = msgstr
+
+      entry = PoEntry.new(:msgctxt)
+      entry.msgctxt = msgctxt
+      entry.msgid = msgid
+      entry.msgstr = msgstr
+      assert_equal(entry, @entries[msgctxt, msgid])
+    end
+
+    def test_wrong_arguments
+      msgctxt = "msgctxt"
+      msgid = "msgid"
+      msgstr = "msgstr"
+
+      @entries = GetText::PO.new
+      assert_raise(ArgumentError) do
+        @entries[msgctxt, msgid, "wrong argument"] = msgstr
+      end
+    end
+
     def test_update_existing_entry
       test_normal
 
