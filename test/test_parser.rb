@@ -52,8 +52,8 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_target "\\taaa", ['fixtures/_.rb:96']
     assert_target "Here document1\\nHere document2\\n", ['fixtures/_.rb:100']
     assert_target "Francois Pinard", ['fixtures/_.rb:119'] do |t|
-      assert_match(/proper name/, t.comment)
-      assert_match(/Pronunciation/, t.comment)
+      assert_match(/proper name/, t.extracted_comment)
+      assert_match(/Pronunciation/, t.extracted_comment)
     end
 
     assert_target("No TRANSLATORS comment", ["fixtures/_.rb:122"]) do |t|
@@ -101,7 +101,8 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_plural_target "mmmmmm", "mmm2mmm2", ['fixtures/n_.rb:80']
     assert_plural_target "nnn", "nnn2", ['fixtures/n_.rb:81']
     assert_plural_target "comment", "comments", ['fixtures/n_.rb:97'] do |t|
-      assert_equal "please provide translations for all\n the plural forms!", t.comment
+      assert_equal "please provide translations for all\n the plural forms!",
+                     t.extracted_comment
     end
   end
 
@@ -112,7 +113,7 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_target_in_context "AAA", "CCC", ["fixtures/p_.rb:41"]
     assert_target_in_context "CCC", "BBB", ["fixtures/p_.rb:45"]
     assert_target_in_context "program", "name", ['fixtures/p_.rb:55'] do |t|
-      assert_equal "please translate 'name' in the context of 'program'.\n Hint: the translation should NOT contain the translation of 'program'.", t.comment
+      assert_equal "please translate 'name' in the context of 'program'.\n Hint: the translation should NOT contain the translation of 'program'.", t.extracted_comment
     end
   end
 
