@@ -202,6 +202,62 @@ EOC
       expected_obsolete_comment = obsolete_comment.gsub(/^/, "#~ ")
       assert_equal(expected_obsolete_comment, po.to_s)
     end
+
+    def test_translator_comment
+      po = GetText::PoEntry.new(:normal)
+      po.msgid = "msgid"
+      po.msgstr = "msgstr"
+      po.translator_comment = "It's the translator comment."
+
+      expected_po =<<EOP
+# It's the translator comment.
+msgid \"msgid\"
+msgstr \"msgstr\"
+EOP
+      assert_equal(expected_po, po.to_s)
+    end
+
+    def test_extracted_comment
+      po = GetText::PoEntry.new(:normal)
+      po.msgid = "msgid"
+      po.msgstr = "msgstr"
+      po.extracted_comment = "It's the extracted comment."
+
+      expected_po =<<EOP
+#. It's the extracted comment.
+msgid \"msgid\"
+msgstr \"msgstr\"
+EOP
+      assert_equal(expected_po, po.to_s)
+    end
+
+    def test_flag
+      po = GetText::PoEntry.new(:normal)
+      po.msgid = "msgid"
+      po.msgstr = "msgstr"
+      po.flag = "It's the flag."
+
+      expected_po =<<EOP
+#, It's the flag.
+msgid \"msgid\"
+msgstr \"msgstr\"
+EOP
+      assert_equal(expected_po, po.to_s)
+    end
+
+    def test_previous_msgid
+      po = GetText::PoEntry.new(:normal)
+      po.msgid = "msgid"
+      po.msgstr = "msgstr"
+      po.previous_msgid = "previous_msgid"
+
+      expected_po =<<EOP
+#| msgid previous_msgid
+msgid \"msgid\"
+msgstr \"msgstr\"
+EOP
+      assert_equal(expected_po, po.to_s)
+    end
   end
 
   class TestEscape < self
@@ -248,18 +304,20 @@ EOC
       @entry = GetText::PoEntry.new(:normal)
     end
 
-    def test_unformatted_comment
+    def test_one_line_comment
       comment = "comment"
+      mark = "#"
       @entry.msgid = "msgid"
-      expected_comment = "#. #{comment}\n"
-      assert_equal(expected_comment, @entry.format_comment(comment))
+      expected_comment = "# #{comment}\n"
+      assert_equal(expected_comment, @entry.format_comment(mark, comment))
     end
 
-    def test_header_comment
-      comment = "comment"
+    def test_multiline_comment
+      comment = "comment1\ncomment2"
+      mark = "#"
       @entry.msgid = ""
-      expected_comment = "# #{comment}\n"
-      assert_equal(expected_comment, @entry.format_comment(comment))
+      expected_comment = "#{comment.gsub(/^/, "#{mark} ")}\n"
+      assert_equal(expected_comment, @entry.format_comment(mark, comment))
     end
   end
 end

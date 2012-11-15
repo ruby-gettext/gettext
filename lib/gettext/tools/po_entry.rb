@@ -168,13 +168,12 @@ module GetText
 
       str = ""
       # extracted comments
-      formatted_comment = format_comment(comment)
-
       if @msgid == :last
-        return formatted_comment
+        return format_comment("#~", comment)
       end
 
-      str << formatted_comment
+      str << format_translator_comment
+      str << format_extracted_comment
 
       # references
       max_line_length = 70
@@ -195,6 +194,9 @@ module GetText
 
         str << "\n"
       end
+
+      str << format_flag_comment
+      str << format_previous_msgid_comment
 
       # msgctxt, msgid, msgstr
       if msgctxt?
@@ -234,22 +236,31 @@ module GetText
       str
     end
 
-    def format_comment(comment)
+    def format_translator_comment
+      format_comment("#", translator_comment)
+    end
+
+    def format_extracted_comment
+      format_comment("#.", extracted_comment)
+    end
+
+    def format_flag_comment
+      format_comment("#,", flag)
+    end
+
+    def format_previous_msgid_comment
+      format_comment("#| msgid", previous_msgid)
+    end
+
+    def format_comment(mark, comment)
       return "" if comment.nil?
 
       formatted_comment = ""
-      if msgid == :last
-        comment_mark = "#~"
-      elsif not msgid.empty?
-        comment_mark = "#."
-      else
-        comment_mark = "#"
-      end
       comment.each_line do |comment_line|
         if comment_line == "\n"
-          formatted_comment << "#{comment_mark}\n"
+          formatted_comment << "#{mark}\n"
         else
-          formatted_comment << "#{comment_mark} #{comment_line.strip}\n"
+          formatted_comment << "#{mark} #{comment_line.strip}\n"
         end
       end
       formatted_comment
