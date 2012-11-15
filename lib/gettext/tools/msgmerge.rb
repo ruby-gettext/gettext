@@ -78,11 +78,9 @@ module GetText
           entry = @po[*id]
           return nil if entry.nil?
 
-          formatted_comments = []
+          formatted_comments = ""
           unless entry.comment.nil?
-            entry.comment.each_line do |comment|
-              formatted_comments << "# #{comment}"
-            end
+            formatted_comments = entry.format_comment(entry.comment)
           end
 
           formatted_references = []
@@ -92,7 +90,7 @@ module GetText
             end
           end
           formatted_comments << formatted_references.join(REFERENCES_SEPARATOR)
-          formatted_comments.join("\n")
+          formatted_comments
         end
 
         def [](msgid)
