@@ -170,14 +170,15 @@ module GetText
 
       def replace_pot_header(pot) #:nodoc:
         @entry = pot[""].msgstr
-        @comment = pot[""].comment
+        @comment = pot[""].translator_comment
         @translator = translator_info
 
         replace_entry
         replace_comment
 
         pot[""] = @entry
-        pot.set_comment("", @comment)
+        pot[""].translator_comment = @comment
+        pot[""].flag = pot[""].flag.gsub(/\Afuzzy\z/, "")
         pot
       end
 
