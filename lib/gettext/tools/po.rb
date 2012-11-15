@@ -63,7 +63,11 @@ module GetText
       if has_key?(id)
         entry = self[msgctxt, msgid]
       else
-        entry = PoEntry.new(:normal)
+        if msgctxt.nil?
+          entry = PoEntry.new(:normal)
+        else
+          entry = PoEntry.new(:msgctxt)
+        end
         super(id, entry)
       end
       entry.msgctxt = msgctxt
