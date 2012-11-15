@@ -117,11 +117,11 @@ module GetText
         msgid_plural == other.msgid_plural and
         separator == other.separator and
         msgctxt == other.msgctxt and
-        comment == other.translator_comment and
-        comment == other.extracted_comment and
+        translator_comment == other.translator_comment and
+        extracted_comment == other.extracted_comment and
         references == other.references and
-        comment == other.flag and
-        comment == other.previous_msgid and
+        flag == other.flag and
+        previous_msgid == other.previous_msgid and
         comment == other.comment
     end
 
