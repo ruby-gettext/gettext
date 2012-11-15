@@ -43,7 +43,7 @@ module GetText
 
         REFERENCES_SEPARATOR = " "
 
-        def set_comment(msgid, comments)
+        def set_comment(msgid, comments, msgctxt=nil)
           if msgid == :last
             @po.set_comment(msgid, comments)
             return comments
@@ -62,10 +62,10 @@ module GetText
             end
           end
 
-          _, msgid, _ = split_msgid(msgid)
-          @po[msgid] = nil unless @po.has_key?(msgid)
-          @po.set_references(msgid, references)
-          @po.set_comment(msgid, comment_content)
+          msgctxt, msgid, _ = split_msgid(msgid)
+          @po[msgctxt, msgid] = nil unless @po.has_key?([msgctxt, msgid])
+          @po.set_references(msgid, references, msgctxt)
+          @po.set_comment(msgid, comment_content, msgctxt)
         end
 
         def msgstr(msgid)
@@ -73,19 +73,21 @@ module GetText
         end
 
         def comment(msgid)
-          _, msgid, _ = split_msgid(msgid)
-          return nil if @po[msgid].nil?
+          msgctxt, msgid, _ = split_msgid(msgid)
+          id = [msgctxt, msgid]
+          entry = @po[*id]
+          return nil if entry.nil?
 
           formatted_comments = []
-          unless @po[msgid].comment.nil?
-            @po[msgid].comment.each_line do |comment|
+          unless entry.comment.nil?
+            entry.comment.each_line do |comment|
               formatted_comments << "# #{comment}"
             end
           end
 
           formatted_references = []
-          unless @po[msgid].references.nil?
-            @po[msgid].references.each do |reference|
+          unless entry.references.nil?
+            entry.references.each do |reference|
               formatted_references << "#: #{reference}"
             end
           end
@@ -94,23 +96,24 @@ module GetText
         end
 
         def [](msgid)
-          _, msgid, _ = split_msgid(msgid)
-          @po[msgid].msgstr
+          msgctxt, msgid, _ = split_msgid(msgid)
+          @po[msgctxt, msgid].msgstr
         end
 
         def []=(msgid, value)
           msgctxt, msgid, msgid_plural = split_msgid(msgid)
+          id = [msgctxt, msgid]
 
           if value.instance_of?(PoEntry)
-            @po[msgid] = value
+            @po[*id] = value
             return value
           end
 
           msgstr = value
-          if @po.has_key?(msgid)
-            @po[msgid] = msgstr
-            @po[msgid].msgctxt = msgctxt
-            @po[msgid].msgid_plural = msgid_plural
+          if @po.has_key?(id)
+            @po[*id] = msgstr
+            @po[*id].msgctxt = msgctxt
+            @po[*id].msgid_plural = msgid_plural
           else
             type = detect_entry_type(msgctxt, msgid_plural)
             entry = PoEntry.new(type)
@@ -118,35 +121,33 @@ module GetText
             entry.msgid = msgid
             entry.msgid_plural = msgid_plural
             entry.msgstr = msgstr
-            @po[msgid] = entry
+            @po[*id] = entry
             entry
           end
         end
 
         def each_msgid
           msgids = @po.keys
-          msgids = msgids.delete_if do |msgid|
+          msgids = msgids.delete_if do |msgctxt, msgid|
             msgid.kind_of?(Symbol) or msgid.empty?
           end
 
-          msgids.each do |msgid|
-            yield(generate_original_string(msgid))
+          msgids.each do |msgctxt, msgid|
+            yield(generate_original_string(msgctxt, msgid))
           end
         end
 
         def msgids
-          @po.keys.collect do |msgid|
-            generate_original_string(msgid)
+          @po.keys.collect do |msgctxt, msgid|
+            generate_original_string(msgctxt, msgid)
           end
         end
 
         def msgid?(msgid)
           return false if msgid.kind_of?(Symbol)
           return true if msgid.empty?
-          msgctxt, msgid, msgid_plural = split_msgid(msgid)
-          @po.has_key?(msgid) and
-            @po[msgid].msgctxt == msgctxt and
-            @po[msgid].msgid_plural == msgid_plural
+          msgctxt, msgid, _ = split_msgid(msgid)
+          @po.has_key?([msgctxt, msgid])
         end
 
         # Is it necessary to implement this method?
@@ -169,8 +170,8 @@ module GetText
         end
 
         def generate_po_entry(msgid)
-          _, msgid, _ = split_msgid(msgid)
-          @po[msgid].to_s
+          msgctxt, msgid, _ = split_msgid(msgid)
+          @po[msgctxt, msgid].to_s
         end
 
         def __conv(str)
@@ -205,10 +206,9 @@ module GetText
           [msgctxt, msgid, msgid_plural]
         end
 
-        def generate_original_string(msgid)
+        def generate_original_string(msgctxt, msgid)
           original_string = ""
-          msgctxt = @po[msgid].msgctxt
-          msgid_plural = @po[msgid].msgid_plural
+          msgid_plural = @po[msgctxt, msgid].msgid_plural
           original_string << "#{msgctxt}\004" unless msgctxt.nil?
           original_string << msgid
           original_string << "\000#{msgid_plural}" unless msgid_plural.nil?

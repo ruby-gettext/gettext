@@ -36,7 +36,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
         po_data = GetText::Tools::MsgMerge::PoData.new
         po_data[original_string] = msgstr
 
-        assert_equal(msgctxt, po_data.po[msgid].msgctxt)
+        assert_equal(msgctxt, po_data.po[msgctxt, msgid].msgctxt)
       end
 
       def test_msgid_plural
@@ -63,8 +63,8 @@ class TestToolsMsgMerge < Test::Unit::TestCase
         po_data = GetText::Tools::MsgMerge::PoData.new
         po_data[original_string] = msgstr
 
-        assert_equal(msgctxt, po_data.po[msgid].msgctxt)
-        assert_equal(msgid_plural, po_data.po[msgid].msgid_plural)
+        assert_equal(msgctxt, po_data.po[msgctxt, msgid].msgctxt)
+        assert_equal(msgid_plural, po_data.po[msgctxt, msgid].msgid_plural)
       end
     end
 
@@ -129,7 +129,7 @@ EOP
         msgid = "Singular message\000Plural message"
 
         @po_data[""] = "Plural-Forms: nplurals=2; plural=n != 1;\\n"
-        @po_data[msgid] = ""
+        @po_data[msgid] = "\000"
         @po_data.set_comment(msgid, "# plural message")
         actual_po = @po_data.generate_po_entry(msgid)
         expected_po = <<'EOE'

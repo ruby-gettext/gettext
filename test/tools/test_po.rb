@@ -62,7 +62,7 @@ class TestPO < Test::Unit::TestCase
       entry.msgstr = msgstr
 
       @entries[msgid] = entry
-      assert_true(@entries.has_key?(msgid))
+      assert_true(@entries.has_key?([nil, msgid]))
       assert_equal(msgstr, @entries[msgid].msgstr)
     end
   end

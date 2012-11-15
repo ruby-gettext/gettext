@@ -29,39 +29,54 @@ module GetText
       @order = order || :references
     end
 
-    def [](msgid)
-      super(msgid)
+    def [](msgctxt, msgid=nil)
+      if msgid.nil?
+        msgid = msgctxt
+        msgctxt = nil
+      end
+
+      super([msgctxt, msgid])
     end
 
-    def []=(msgid, value)
+    def []=(msgctxt, msgid, value=(not_specified=true))
+      if not_specified
+        value = msgid
+        msgid = msgctxt
+        msgctxt = nil
+      end
+
+      id = [msgctxt, msgid]
       if value.instance_of?(PoEntry)
-        super(msgid, value)
+        super(id, value)
         return(value)
       end
 
       msgstr = value
-      if has_key?(msgid)
-        entry = self[msgid]
+      if has_key?(id)
+        entry = self[msgctxt, msgid]
       else
         entry = PoEntry.new(:normal)
-        super(msgid, entry)
+        super(id, entry)
       end
+      entry.msgctxt = msgctxt
       entry.msgid = msgid
       entry.msgstr = msgstr
       entry
     end
 
-    def set_comment(msgid, comment)
-      self[msgid] = nil unless has_key?(msgid)
-      self[msgid].comment = comment
+    def set_comment(msgid, comment, msgctxt=nil)
+      id = [msgctxt, msgid]
+      self[*id] = nil unless has_key?(id)
+      self[*id].comment = comment
     end
 
-    def set_references(msgid, references)
-      unless has_key?(msgid)
+    def set_references(msgid, references, msgctxt=nil)
+      id = [msgctxt, msgid]
+      unless has_key?(id)
         raise(NonExistentEntryError,
               "the entry of \"%s\" does not exist." % msgid)
       end
-      self[msgid].references = references
+      self[*id].references = references
     end
 
     def to_s
@@ -73,7 +88,8 @@ module GetText
       else
         po_string << header_entry.to_s
 
-        content_entries = reject do |msgid, _|
+        content_entries = reject do |id, _|
+          msgid = id.last # id = [msgctxt, msgid]
           msgid == :last or msgid.empty?
         end
       end
@@ -82,7 +98,7 @@ module GetText
         po_string << "\n" << entry.to_s
       end
 
-      po_string << "\n" << self[:last].to_s if has_key?(:last)
+      po_string << "\n" << self[:last].to_s if has_key?([nil, :last])
 
       po_string
     end
@@ -107,7 +123,7 @@ module GetText
       end
 
       entries.sort do |msgid_entry, other_msgid_entry|
-        # msgid_entry = [msgid, PoEntry]
+        # msgid_entry = [[msgctxt, msgid], PoEntry]
         entry_first_reference = msgid_entry[1].references.first
         other_first_reference = other_msgid_entry[1].references.first
         compare_references(entry_first_reference, other_first_reference)
@@ -126,6 +142,7 @@ module GetText
     end
 
     def split_reference(reference)
+      return ["", -1] if reference.nil?
       if /\A(.+):(\d+?)\z/ =~ reference
         [$1, $2.to_i]
       else

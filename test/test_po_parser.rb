@@ -109,7 +109,7 @@ msgid "hello"
 msgstr "bonjour"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?("hello"))
+      assert_true(entries.has_key?([nil, "hello"]))
       assert_equal("bonjour", entries["hello"].msgstr)
     end
 
@@ -121,7 +121,7 @@ msgid "hello"
 msgstr "bonjour"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?("hello"))
+      assert_true(entries.has_key?([nil, "hello"]))
       assert_equal(["file.rb:10"], entries["hello"].references)
     end
 
@@ -133,7 +133,7 @@ msgid "hello"
 msgstr "bonjour"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?("hello"))
+      assert_true(entries.has_key?([nil, "hello"]))
       assert_equal("This is the comment.", entries["hello"].comment)
     end
 
@@ -147,7 +147,7 @@ msgstr[0] "il"
 msgstr[1] "ils"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?("he"))
+      assert_true(entries.has_key?([nil, "he"]))
       assert_equal("them", entries["he"].msgid_plural)
       assert_equal("il\000ils", entries["he"].msgstr)
     end
@@ -161,8 +161,8 @@ msgid "he"
 msgstr "il"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?("he"))
-      assert_equal("pronoun", entries["he"].msgctxt)
+      assert_true(entries.has_key?(["pronoun", "he"]))
+      assert_equal("pronoun", entries["pronoun", "he"].msgctxt)
     end
 
     def test_msgctxt_with_msgid_plural
@@ -176,10 +176,10 @@ msgstr[0] "il"
 msgstr[1] "ils"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?("he"))
-      assert_equal("pronoun", entries["he"].msgctxt)
-      assert_equal("them", entries["he"].msgid_plural)
-      assert_equal("il\000ils", entries["he"].msgstr)
+      assert_true(entries.has_key?(["pronoun", "he"]))
+      assert_equal("pronoun", entries["pronoun", "he"].msgctxt)
+      assert_equal("them", entries["pronoun", "he"].msgid_plural)
+      assert_equal("il\000ils", entries["pronoun", "he"].msgstr)
     end
 
     private

@@ -132,20 +132,37 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
     if @data.instance_of?(PO) or @data.instance_of?(GetText::Tools::MsgMerge::PoData)
       type = detect_entry_type
 
+      if not @comments.empty?
+        comment = @comments.join("\n")
+        comment << "\n" if @comments.last.empty?
+      else
+        comment = ""
+      end
+
       entry = PoEntry.new(type)
+      entry.comment = comment
       entry.references = @references
       entry.msgctxt = @msgctxt
       entry.msgid = msgid
       entry.msgid_plural = @msgid_plural
       entry.msgstr = msgstr
-      @data[msgid] = entry
+
+      if @data.instance_of?(PO)
+        @data[@msgctxt, msgid] = entry
+      elsif @data.instance_of?(GetText::Tools::MsgMerge::PoData)
+        id = ""
+        id << "#{@msgctxt}\004" unless @msgctxt.nil?
+        id << msgid
+        id << "\000#{@msgid_plural}" unless @msgid_plural.nil?
+        @data[id] = entry
+      end
     else
       options = {}
       options[:msgctxt] = @msgctxt
       options[:msgid_plural] = @msgid_plural
       @data.store(msgid, msgstr, options)
+      @data.set_comment(msgid, comment, @msgctxt)
     end
-    @data.set_comment(msgid, @comments.join("\n"))
 
     @comments.clear
     @references = []
@@ -157,8 +174,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
   REFERENCE_COMMENT_MARK = /\A#:/
   def on_comment(comment)
     @fuzzy = true if (/fuzzy/ =~ comment)
-
-    if @data.respond_to?(:set_references)
+    if @data.instance_of?(PO) or @data.instance_of?(GetText::Tools::MsgMerge::PoData)
       if REFERENCE_COMMENT_MARK =~ comment
         comment.lines.each do |reference|
           comment_content =
@@ -166,7 +182,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
           @references << comment_content.strip
         end
       elsif comment =~ COMMENT_MARK
-        comment.lines.each do |line|
+        comment.each_line do |line|
           @comments << line.gsub(COMMENT_MARK, "").strip
         end
       end
