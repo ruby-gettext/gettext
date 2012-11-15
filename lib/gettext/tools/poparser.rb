@@ -130,8 +130,6 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
     msgstr = nil if msgstr.empty?
 
     if @data.instance_of?(PO) or @data.instance_of?(GetText::Tools::MsgMerge::PoData)
-      type = detect_entry_type
-
       if not @comments.empty?
         comment = @comments.join("\n")
         comment << "\n" if @comments.last.empty?
@@ -139,6 +137,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
         comment = ""
       end
 
+      type = detect_entry_type
       entry = PoEntry.new(type)
       entry.comment = comment
       entry.references = @references
@@ -179,7 +178,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
         comment.lines.each do |reference|
           comment_content =
             reference.gsub(REFERENCE_COMMENT_MARK, "")
-          @references << comment_content.strip
+p          @references << comment_content.strip
         end
       elsif comment =~ COMMENT_MARK
         comment.each_line do |line|
