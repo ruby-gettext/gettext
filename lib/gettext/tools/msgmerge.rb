@@ -32,7 +32,6 @@ module GetText
       class PoData  #:nodoc:
 
         attr_reader :po
-        attr_reader :msgids
 
         def initialize
           @po = PO.new
