@@ -42,14 +42,13 @@ module GetText
 
           if msgid == :last
             entry.comment = comments
-            return comments
+            return
           end
 
           comments.each_line do |_line|
             line = _line.chomp
             entry = parse_comment(line, entry)
           end
-          comments
         end
 
         def msgstr(msgid)
