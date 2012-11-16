@@ -35,9 +35,6 @@ module GetText
 
         def initialize
           @po = PO.new
-          @msgid2msgstr = {}
-          @msgid2comment = {}
-          @msgids = []
         end
 
         def set_comment(msgid, comments, msgctxt=nil)
