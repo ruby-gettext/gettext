@@ -20,13 +20,14 @@
 require "gettext/tools/po_entry"
 
 module GetText
-  class PO < Hash
+  class PO
     class NonExistentEntryError < StandardError
     end
 
     attr_accessor :order
     def initialize(order=nil)
       @order = order || :references
+      @entries = {}
     end
 
     def [](msgctxt, msgid=nil)
@@ -35,7 +36,7 @@ module GetText
         msgctxt = nil
       end
 
-      super([msgctxt, msgid])
+      @entries[[msgctxt, msgid]]
     end
 
     def []=(*arguments)
@@ -55,20 +56,20 @@ module GetText
 
       id = [msgctxt, msgid]
       if value.instance_of?(POEntry)
-        super(id, value)
+        @entries[id] = value
         return(value)
       end
 
       msgstr = value
-      if has_key?(id)
-        entry = self[msgctxt, msgid]
+      if @entries.has_key?(id)
+        entry = @entries[id]
       else
         if msgctxt.nil?
           entry = POEntry.new(:normal)
         else
           entry = POEntry.new(:msgctxt)
         end
-        super(id, entry)
+        @entries[id] = entry
       end
       entry.msgctxt = msgctxt
       entry.msgid = msgid
@@ -76,15 +77,23 @@ module GetText
       entry
     end
 
+    def keys
+      @entries.keys
+    end
+
+    def has_key?(id)
+      @entries.has_key?(id)
+    end
+
     def set_comment(msgid, comment, msgctxt=nil)
       id = [msgctxt, msgid]
-      self[*id] = nil unless has_key?(id)
+      self[*id] = nil unless @entries.has_key?(id)
       self[*id].comment = comment
     end
 
     def set_references(msgid, references, msgctxt=nil)
       id = [msgctxt, msgid]
-      unless has_key?(id)
+      unless @entries.has_key?(id)
         raise(NonExistentEntryError,
               "the entry of \"%s\" does not exist." % msgid)
       end
@@ -96,11 +105,11 @@ module GetText
 
       header_entry = self[""]
       if header_entry.nil?
-        content_entries = self
+        content_entries = @entries
       else
         po_string << header_entry.to_s
 
-        content_entries = reject do |id, _|
+        content_entries = @entries.reject do |id, _|
           msgid = id.last # id = [msgctxt, msgid]
           msgid == :last or msgid.empty?
         end
@@ -110,7 +119,9 @@ module GetText
         po_string << "\n" << entry.to_s
       end
 
-      po_string << "\n" << self[:last].to_s if has_key?([nil, :last])
+      if @entries.has_key?([nil, :last])
+        po_string << "\n" << @entries[[nil, :last]].to_s
+      end
 
       po_string
     end
