@@ -88,7 +88,11 @@ module GetText
     # Create the object. +type+ should be :normal, :plural, :msgctxt or :msgctxt_plural.
     def initialize(type)
       self.type = type
+      @translator_comment = nil
+      @extracted_comment = nil
       @references = []
+      @flag = nil
+      @previous_msgid = nil
       @msgstr = nil
     end
 
