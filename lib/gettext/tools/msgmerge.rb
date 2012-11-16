@@ -48,7 +48,7 @@ module GetText
             return comments
           end
 
-          entry = initialize_entry(msgid)
+          entry = generate_entry(msgid)
 
           comments.each_line do |_line|
             line = _line.chomp
@@ -216,7 +216,7 @@ module GetText
           end
         end
 
-        def initialize_entry(msgid)
+        def generate_entry(msgid)
           msgctxt, msgid, _ = split_msgid(msgid)
           @po[msgctxt, msgid] = nil unless @po.has_key?([msgctxt, msgid])
           entry = @po[msgctxt, msgid]

@@ -230,7 +230,7 @@ EOE
   class TestParseComment < self
     def setup
       @po_data = GetText::Tools::MsgMerge::PoData.new
-      @entry = @po_data.send(:initialize_entry, "test")
+      @entry = @po_data.send(:generate_entry, "test")
     end
 
     def test_translator_comment
