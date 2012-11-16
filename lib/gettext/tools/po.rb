@@ -84,8 +84,12 @@ module GetText
     end
 
     def each
-      @entries.each do |_, entry|
-        yield(entry) if block_given?
+      if block_given?
+        @entries.each do |_, entry|
+          yield(entry)
+        end
+      else
+        @entries.values.each
       end
     end
 
