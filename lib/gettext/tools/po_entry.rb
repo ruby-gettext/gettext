@@ -93,6 +93,9 @@ module GetText
       @references = []
       @flag = nil
       @previous_msgid = nil
+      @msgctxt = nil
+      @msgid = nil
+      @msgid_plural = nil
       @msgstr = nil
     end
 
