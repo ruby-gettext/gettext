@@ -106,18 +106,16 @@ module GetText
         end
 
         def each_msgid
-          msgids = @po.keys
-          msgids = msgids.delete_if do |msgctxt, msgid|
-            msgid.kind_of?(Symbol) or msgid.empty?
-          end
-
-          msgids.each do |msgctxt, msgid|
-            yield(generate_original_string(msgctxt, msgid))
+          msgids.each do |id|
+            next if id.kind_of?(Symbol) or id.empty?
+            yield(id)
           end
         end
 
         def msgids
-          @po.keys.collect do |msgctxt, msgid|
+          @po.collect do |entry|
+            msgctxt = entry.msgctxt
+            msgid = entry.msgid
             generate_original_string(msgctxt, msgid)
           end
         end
@@ -186,6 +184,7 @@ module GetText
         end
 
         def generate_original_string(msgctxt, msgid)
+          return msgid if msgid == :last
           original_string = ""
           msgid_plural = @po[msgctxt, msgid].msgid_plural
           original_string << "#{msgctxt}\004" unless msgctxt.nil?

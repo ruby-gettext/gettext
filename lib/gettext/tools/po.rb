@@ -21,6 +21,8 @@ require "gettext/tools/po_entry"
 
 module GetText
   class PO
+    include Enumerable
+
     class NonExistentEntryError < StandardError
     end
 
@@ -77,12 +79,14 @@ module GetText
       entry
     end
 
-    def keys
-      @entries.keys
-    end
-
     def has_key?(id)
       @entries.has_key?(id)
+    end
+
+    def each
+      @entries.each do |_, entry|
+        yield(entry) if block_given?
+      end
     end
 
     def set_comment(msgid, comment, msgctxt=nil)

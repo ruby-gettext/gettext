@@ -26,6 +26,26 @@ class TestToolsMsgMerge < Test::Unit::TestCase
       @po_data = GetText::Tools::MsgMerge::PoData.new
     end
 
+    def test_msgids
+      @po_data["hello"] = "bonjour"
+      @po_data["he"] = "il"
+
+      assert_equal(["he", "hello"], @po_data.msgids.sort)
+    end
+
+    def test_each_msgids
+      @po_data["hello"] = "bonjour"
+      @po_data["he"] = "il"
+      @po_data[""] = "header"
+      @po_data[:last] = ""
+
+      msgids = []
+      @po_data.each_msgid do |msgid|
+        msgids << msgid
+      end
+      assert_equal(["he", "hello"], msgids.sort)
+    end
+
     class TestAddToExistingEntry < self
       def test_msgctxt
         msgctxt = "msgctxt"
