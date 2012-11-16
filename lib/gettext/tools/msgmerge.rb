@@ -38,13 +38,12 @@ module GetText
         end
 
         def set_comment(msgid, comments, msgctxt=nil)
+          entry = generate_entry(msgid)
+
           if msgid == :last
-            @po[msgid] ||= nil
-            @po[msgid].comment = comments
+            entry.comment = comments
             return comments
           end
-
-          entry = generate_entry(msgid)
 
           comments.each_line do |_line|
             line = _line.chomp
