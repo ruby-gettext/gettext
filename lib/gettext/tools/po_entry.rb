@@ -174,27 +174,7 @@ module GetText
 
       str << format_translator_comment
       str << format_extracted_comment
-
-      # references
-      max_line_length = 70
-
-      if not references.nil? and not references.empty?
-        str << "#:"
-        line_size = 2
-        references.each do |reference|
-          if line_size + reference.size > max_line_length
-            str << "\n"
-            str <<  "#: #{reference}"
-            line_size = 3 + reference.size
-          else
-            str << " #{reference}"
-            line_size += 1 + reference.size
-          end
-        end
-
-        str << "\n"
-      end
-
+      str << format_reference_comment
       str << format_flag_comment
       str << format_previous_msgid_comment
 
@@ -242,6 +222,28 @@ module GetText
 
     def format_extracted_comment
       format_comment("#.", extracted_comment)
+    end
+
+    def format_reference_comment
+      max_line_length = 70
+      formatted_reference = ""
+      if not references.nil? and not references.empty?
+        formatted_reference << "#:"
+        line_size = 2
+        references.each do |reference|
+          if line_size + reference.size > max_line_length
+            formatted_reference << "\n"
+            formatted_reference <<  "#: #{reference}"
+            line_size = 3 + reference.size
+          else
+            formatted_reference << " #{reference}"
+            line_size += 1 + reference.size
+          end
+        end
+
+        formatted_reference << "\n"
+      end
+      formatted_reference
     end
 
     def format_flag_comment
