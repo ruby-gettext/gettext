@@ -89,7 +89,7 @@ module GetText
           yield(entry)
         end
       else
-        @entries.each_values
+        @entries.each_value
       end
     end
 
