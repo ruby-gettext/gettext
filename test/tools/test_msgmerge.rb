@@ -148,10 +148,10 @@ EOE
         msgid = "Singular message\000Plural message"
 
         @po_data[msgid] = "Singular translation\000Plural translation"
-        @po_data.set_comment(msgid, "#plural message")
+        @po_data.set_comment(msgid, "# plural message")
         actual_po = @po_data.generate_po_entry(msgid)
         expected_po = <<'EOE'
-#plural message
+# plural message
 msgid "Singular message"
 msgid_plural "Plural message"
 msgstr[0] "Singular translation"
@@ -163,11 +163,11 @@ EOE
       def test_msgctxt
         msg_id = "Context\004Translation"
         @po_data[msg_id] = "Translated"
-        @po_data.set_comment(msg_id, "#no comment")
+        @po_data.set_comment(msg_id, "# no comment")
 
         entry = @po_data.generate_po_entry(msg_id)
         assert_equal(<<-'EOE', entry)
-#no comment
+# no comment
 msgctxt "Context"
 msgid "Translation"
 msgstr "Translated"
@@ -224,6 +224,48 @@ EOE
     def split_msgid(msgid)
       po_data = GetText::Tools::MsgMerge::PoData.new
       po_data.send(:split_msgid, msgid)
+    end
+  end
+
+  class TestParseComment < self
+    def setup
+      @po_data = GetText::Tools::MsgMerge::PoData.new
+      @entry = @po_data.send(:initialize_entry, "test")
+    end
+
+    def test_translator_comment
+      comment = "# translator comment"
+      parsed_comment = parse_comment(comment).translator_comment
+      assert_equal("translator comment\n", parsed_comment)
+    end
+
+    def test_extracted_comment
+      comment = "#. extracted comment"
+      parsed_comment = parse_comment(comment).extracted_comment
+      assert_equal("extracted comment\n", parsed_comment)
+    end
+
+    def test_references
+      comment = "#: reference.rb:10"
+      parsed_comment = parse_comment(comment).references
+      assert_equal(["reference.rb:10"], parsed_comment)
+    end
+
+    def test_flag
+      comment = "#, fuzzy"
+      parsed_comment = parse_comment(comment).flag
+      assert_equal("fuzzy\n", parsed_comment)
+    end
+
+    def test_previous_msgid
+      comment = "#| msgid the previous msgid"
+      parsed_comment = parse_comment(comment).previous_msgid
+      assert_equal("the previous msgid\n", parsed_comment)
+    end
+
+    private
+    def parse_comment(comment)
+      @po_data.send(:parse_comment, comment, @entry)
     end
   end
 

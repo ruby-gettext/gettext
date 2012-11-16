@@ -41,31 +41,19 @@ module GetText
           @msgids = []
         end
 
-        REFERENCES_SEPARATOR = " "
-
         def set_comment(msgid, comments, msgctxt=nil)
           if msgid == :last
             @po.set_comment(msgid, comments)
             return comments
           end
 
-          references = []
-          comment_content = ""
-          comments.each_line do |comment|
-            case comment
-            when /\A#:\s*(.+)/
-              references += $1.split(REFERENCES_SEPARATOR)
-            when /\A#\s*\n*?\z/
-              comment_content << "\n"
-            else
-              comment_content << comment.gsub(/\A#\.*?\s*/, "")
-            end
-          end
+          entry = initialize_entry(msgid)
 
-          msgctxt, msgid, _ = split_msgid(msgid)
-          @po[msgctxt, msgid] = nil unless @po.has_key?([msgctxt, msgid])
-          @po.set_references(msgid, references, msgctxt)
-          @po.set_comment(msgid, comment_content, msgctxt)
+          comments.each_line do |_line|
+            line = _line.chomp
+            entry = parse_comment(line, entry)
+          end
+          comments
         end
 
         def msgstr(msgid)
@@ -225,6 +213,43 @@ module GetText
               :msgctxt_plural
             end
           end
+        end
+
+        def initialize_entry(msgid)
+          msgctxt, msgid, _ = split_msgid(msgid)
+          @po[msgctxt, msgid] = nil unless @po.has_key?([msgctxt, msgid])
+          entry = @po[msgctxt, msgid]
+
+          entry.translator_comment = ""
+          entry.extracted_comment = ""
+          entry.references = []
+          entry.flag = ""
+          entry.previous_msgid = ""
+          entry
+        end
+
+        def parse_comment(line, entry)
+          if line == "#"
+            entry.translator_comment << ""
+          elsif /\A(#.)\s*(.*)\z/ =~ line
+            mark = $1
+            content = $2
+            case mark
+            when PoParser::TRANSLATOR_COMMENT_MARK
+              entry.translator_comment << "#{content}\n"
+            when PoParser::EXTRACTED_COMMENT_MARK
+              entry.extracted_comment << "#{content}\n"
+            when PoParser::REFERENCE_COMMENT_MARK
+              entry.references << content
+            when PoParser::FLAG_MARK
+              entry.flag << "#{content}\n"
+            when PoParser::PREVIOUS_MSGID_COMMENT_MARK
+              entry.previous_msgid << "#{content.gsub(/\Amsgid\s+/, "")}\n"
+            else
+              entry.comment << line
+            end
+          end
+          entry
         end
       end
 
