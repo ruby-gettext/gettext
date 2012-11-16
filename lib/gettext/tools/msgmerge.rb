@@ -42,7 +42,11 @@ module GetText
         end
 
         def set_comment(msgid, comments, msgctxt=nil)
-          return @po.set_comment(msgid, comments) if msgid == :last
+          if msgid == :last
+            @po[msgid] ||= nil
+            @po[msgid].comment = comments
+            return comments
+          end
 
           entry = initialize_entry(msgid)
 
