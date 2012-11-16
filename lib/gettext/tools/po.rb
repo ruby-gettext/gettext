@@ -54,7 +54,7 @@ module GetText
       end
 
       id = [msgctxt, msgid]
-      if value.instance_of?(PoEntry)
+      if value.instance_of?(POEntry)
         super(id, value)
         return(value)
       end
@@ -64,9 +64,9 @@ module GetText
         entry = self[msgctxt, msgid]
       else
         if msgctxt.nil?
-          entry = PoEntry.new(:normal)
+          entry = POEntry.new(:normal)
         else
-          entry = PoEntry.new(:msgctxt)
+          entry = POEntry.new(:msgctxt)
         end
         super(id, entry)
       end
@@ -135,7 +135,7 @@ module GetText
       end
 
       entries.sort do |msgid_entry, other_msgid_entry|
-        # msgid_entry = [[msgctxt, msgid], PoEntry]
+        # msgid_entry = [[msgctxt, msgid], POEntry]
         entry_first_reference = msgid_entry[1].references.first
         other_first_reference = other_msgid_entry[1].references.first
         compare_references(entry_first_reference, other_first_reference)

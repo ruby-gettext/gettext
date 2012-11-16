@@ -33,7 +33,7 @@ class TestPO < Test::Unit::TestCase
       @entries = GetText::PO.new
       @entries[msgid] = msgstr
 
-      entry = PoEntry.new(:normal)
+      entry = POEntry.new(:normal)
       entry.msgid = msgid
       entry.msgstr = msgstr
       assert_equal(entry, @entries[msgid])
@@ -47,7 +47,7 @@ class TestPO < Test::Unit::TestCase
       @entries = GetText::PO.new
       @entries[msgctxt, msgid] = msgstr
 
-      entry = PoEntry.new(:msgctxt)
+      entry = POEntry.new(:msgctxt)
       entry.msgctxt = msgctxt
       entry.msgid = msgid
       entry.msgstr = msgstr
@@ -72,7 +72,7 @@ class TestPO < Test::Unit::TestCase
       new_msgstr = "new_msgstr"
       @entries[msgid] = new_msgstr
 
-      entry = PoEntry.new(:normal)
+      entry = POEntry.new(:normal)
       entry.msgid = msgid
       entry.msgstr = new_msgstr
       assert_equal(entry, @entries[msgid])
@@ -83,7 +83,7 @@ class TestPO < Test::Unit::TestCase
 
       msgid = "msgid"
       msgstr = "msgstr"
-      entry = PoEntry.new(:normal)
+      entry = POEntry.new(:normal)
       entry.msgid = msgid
       entry.msgstr = msgstr
 
@@ -101,7 +101,7 @@ class TestPO < Test::Unit::TestCase
       @entries = GetText::PO.new
       @entries.set_comment(msgid, comment)
 
-      entry = PoEntry.new(:normal)
+      entry = POEntry.new(:normal)
       entry.msgid = msgid
       entry.comment = comment
       assert_equal(entry, @entries[msgid])
@@ -117,7 +117,7 @@ class TestPO < Test::Unit::TestCase
       comment = "comment"
       @entries.set_comment(msgid, comment)
 
-      entry = PoEntry.new(:normal)
+      entry = POEntry.new(:normal)
       entry.msgid = msgid
       entry.msgstr = msgstr
       entry.comment = comment

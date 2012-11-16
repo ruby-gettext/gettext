@@ -136,7 +136,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
     if @data.instance_of?(PO) or
         @data.instance_of?(GetText::Tools::MsgMerge::PoData)
       type = detect_entry_type
-      entry = PoEntry.new(type)
+      entry = POEntry.new(type)
       entry.translator_comment = format_comment(@translator_comments)
       entry.extracted_comment = format_comment(@extracted_comments)
       entry.flag = format_comment(@flag)

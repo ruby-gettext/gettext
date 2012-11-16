@@ -91,25 +91,25 @@ module GetText
       #     def parse(path)
       #       po = []
       #       # Simple entry
-      #       entry = PoEntry.new(:normal)
+      #       entry = POEntry.new(:normal)
       #       entry.msgid = "hello"
       #       entry.references = ["foo.rb:200", "bar.rb:300"]
       #       entry.add_comment("Comment for the entry")
       #       po << entry
       #       # Plural entry
-      #       entry = PoEntry.new(:plural)
+      #       entry = POEntry.new(:plural)
       #       entry.msgid = "An apple"
       #       entry.msgid_plural = "Apples"
       #       entry.references = ["foo.rb:200", "bar.rb:300"]
       #       po << entry
       #       # Simple entry with the entry context
-      #       entry = PoEntry.new(:msgctxt)
+      #       entry = POEntry.new(:msgctxt)
       #       entry.msgctxt = "context"
       #       entry.msgid = "hello"
       #       entry.references = ["foo.rb:200", "bar.rb:300"]
       #       po << entry
       #       # Plural entry with the message context.
-      #       entry = PoEntry.new(:msgctxt_plural)
+      #       entry = POEntry.new(:msgctxt_plural)
       #       entry.msgctxt = "context"
       #       entry.msgid = "An apple"
       #       entry.msgid_plural = "Apples"
@@ -293,7 +293,7 @@ EOH
           extracted_po = parser.parse(path)
           extracted_po.each do |po_entry|
             if po_entry.kind_of?(Array)
-              po_entry = PoEntry.new_from_ary(po_entry)
+              po_entry = POEntry.new_from_ary(po_entry)
             end
 
             if po_entry.msgid.empty?

@@ -5,13 +5,13 @@ require 'gettext/tools/parser/ruby'
 # Most functionality of PoMessage is thoroughly tested together
 # with the parser and po file generator. Here only tests for some special
 # functionality.
-class TestPoEntry < Test::Unit::TestCase
+class TestPOEntry < Test::Unit::TestCase
 
   def test_context_match
-    tt1 = GetText::PoEntry.new(:msgctxt)
+    tt1 = GetText::POEntry.new(:msgctxt)
     tt1.msgid = 'hello'
     tt1.msgctxt = 'world'
-    tt2 = GetText::PoEntry.new(:normal)
+    tt2 = GetText::POEntry.new(:normal)
     tt2.msgid = 'hello'
     assert_raise GetText::ParseError do
       tt1.merge tt2
@@ -19,7 +19,7 @@ class TestPoEntry < Test::Unit::TestCase
   end
 
   def test_attribute_accumulation
-    tt = GetText::PoEntry.new(:plural)
+    tt = GetText::POEntry.new(:plural)
     tt.set_current_attribute 'long'
     tt.set_current_attribute ' tail'
     tt.advance_to_next_attribute
@@ -30,31 +30,31 @@ class TestPoEntry < Test::Unit::TestCase
 
   class TestSetType < self
     def test_varid_type
-      entry = GetText::PoEntry.new(:normal)
+      entry = GetText::POEntry.new(:normal)
       type = :plural
       entry.type = type
       assert_equal(type, entry.type)
     end
 
     def test_invalid_type
-      entry = GetText::PoEntry.new(:normal)
+      entry = GetText::POEntry.new(:normal)
       type = :invalid
-      assert_raise(GetText::PoEntry::InvalidTypeError) do
+      assert_raise(GetText::POEntry::InvalidTypeError) do
         entry.type = type
       end
       assert_equal(:normal, entry.type)
     end
 
     def test_invalid_type_for_initializing
-      assert_raise(GetText::PoEntry::InvalidTypeError) do
-        GetText::PoEntry.new(:invalid)
+      assert_raise(GetText::POEntry::InvalidTypeError) do
+        GetText::POEntry.new(:invalid)
       end
     end
   end
 
   class TestToS < self
     def test_normal
-      po = GetText::PoEntry.new(:normal)
+      po = GetText::POEntry.new(:normal)
       po.msgid = 'hello'
       po.references = ["file1:1", "file2:10"]
       assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
@@ -66,7 +66,7 @@ class TestPoEntry < Test::Unit::TestCase
     end
 
     def test_plural
-      po = GetText::PoEntry.new(:plural)
+      po = GetText::POEntry.new(:plural)
       po.msgid = 'hello'
       po.msgid_plural = 'hello2'
       po.references = ["file1:1", "file2:10"]
@@ -78,7 +78,7 @@ class TestPoEntry < Test::Unit::TestCase
     end
 
     def test_msgctxt
-      po = GetText::PoEntry.new(:msgctxt)
+      po = GetText::POEntry.new(:msgctxt)
       po.msgctxt = 'context'
       po.msgid = 'hello'
       po.references = ["file1:1", "file2:10"]
@@ -86,7 +86,7 @@ class TestPoEntry < Test::Unit::TestCase
     end
 
     def test_msgctxt_plural
-      po = GetText::PoEntry.new(:msgctxt_plural)
+      po = GetText::POEntry.new(:msgctxt_plural)
       po.msgctxt = 'context'
       po.msgid = 'hello'
       po.msgid_plural = 'hello2'
@@ -95,32 +95,32 @@ class TestPoEntry < Test::Unit::TestCase
     end
 
     def test_exception
-      po = GetText::PoEntry.new(:normal)
+      po = GetText::POEntry.new(:normal)
       po.references = ["file1:1", "file2:10"]
-      assert_raise(GetText::PoEntry::NoMsgidError) {po.to_s}
+      assert_raise(GetText::POEntry::NoMsgidError) {po.to_s}
 
       po.references = nil
-      assert_raise(GetText::PoEntry::NoMsgidError) {po.to_s}
+      assert_raise(GetText::POEntry::NoMsgidError) {po.to_s}
 
-      po = GetText::PoEntry.new(:plural)
+      po = GetText::POEntry.new(:plural)
       po.msgid = 'hello'
       po.references = ["file1:1", "file2:10"]
-      assert_raise(GetText::PoEntry::NoMsgidPluralError) {po.to_s}
+      assert_raise(GetText::POEntry::NoMsgidPluralError) {po.to_s}
 
-      po = GetText::PoEntry.new(:msgctxt)
+      po = GetText::POEntry.new(:msgctxt)
       po.msgid = 'hello'
       po.references = ["file1:1", "file2:10"]
-      assert_raise(GetText::PoEntry::NoMsgctxtError) {po.to_s}
+      assert_raise(GetText::POEntry::NoMsgctxtError) {po.to_s}
 
-      po = GetText::PoEntry.new(:msgctxt_plural)
+      po = GetText::POEntry.new(:msgctxt_plural)
       po.msgctxt = 'context'
       po.msgid = 'hello'
       po.references = ["file1:1", "file2:10"]
-      assert_raise(GetText::PoEntry::NoMsgidPluralError) {po.to_s}
+      assert_raise(GetText::POEntry::NoMsgidPluralError) {po.to_s}
     end
 
     def test_header
-      po = GetText::PoEntry.new(:normal)
+      po = GetText::POEntry.new(:normal)
       po.msgid = ""
       po.msgstr = "This is the header entry."
       po.references = nil
@@ -132,7 +132,7 @@ EOH
     end
 
     def test_msgstr
-      po = GetText::PoEntry.new(:normal)
+      po = GetText::POEntry.new(:normal)
       po.msgid = "hello"
       po.msgstr = "Bonjour"
       po.references = ["file1:1", "file2:10"]
@@ -145,7 +145,7 @@ EOE
     end
 
     def test_escaped_msgstr
-      po = GetText::PoEntry.new(:normal)
+      po = GetText::POEntry.new(:normal)
       po.msgid = "He said \"hello.\""
       po.msgstr = "Il a dit \"bonjour.\""
       po.references = ["file1:1", "file2:10"]
@@ -158,7 +158,7 @@ EOE
     end
 
     def test_escaped_msgstr_with_msgid_plural
-      po = GetText::PoEntry.new(:plural)
+      po = GetText::POEntry.new(:plural)
       po.msgid = "He said \"hello.\""
       po.msgid_plural = "They said \"hello.\""
       po.msgstr = "Il a dit \"bonjour.\"\000Ils ont dit \"bonjour.\""
@@ -174,7 +174,7 @@ EOE
     end
 
     def test_msgstr_with_msgid_plural
-      po = GetText::PoEntry.new(:plural)
+      po = GetText::POEntry.new(:plural)
       po.msgid = "he"
       po.msgid_plural = "them"
       po.msgstr = "il\000ils"
@@ -190,7 +190,7 @@ EOE
     end
 
     def test_obsolete_comment
-      po = GetText::PoEntry.new(:normal)
+      po = GetText::POEntry.new(:normal)
       po.msgid = :last
       obsolete_comment =<<EOC
 # test.rb:10
@@ -204,7 +204,7 @@ EOC
     end
 
     def test_translator_comment
-      po = GetText::PoEntry.new(:normal)
+      po = GetText::POEntry.new(:normal)
       po.msgid = "msgid"
       po.msgstr = "msgstr"
       po.translator_comment = "It's the translator comment."
@@ -218,7 +218,7 @@ EOP
     end
 
     def test_extracted_comment
-      po = GetText::PoEntry.new(:normal)
+      po = GetText::POEntry.new(:normal)
       po.msgid = "msgid"
       po.msgstr = "msgstr"
       po.extracted_comment = "It's the extracted comment."
@@ -232,7 +232,7 @@ EOP
     end
 
     def test_flag
-      po = GetText::PoEntry.new(:normal)
+      po = GetText::POEntry.new(:normal)
       po.msgid = "msgid"
       po.msgstr = "msgstr"
       po.flag = "It's the flag."
@@ -246,7 +246,7 @@ EOP
     end
 
     def test_previous_msgid
-      po = GetText::PoEntry.new(:normal)
+      po = GetText::POEntry.new(:normal)
       po.msgid = "msgid"
       po.msgstr = "msgstr"
       po.previous_msgid = "previous_msgid"
@@ -262,7 +262,7 @@ EOP
 
   class TestEscape < self
     def setup
-      @entry = GetText::PoEntry.new(:normal)
+      @entry = GetText::POEntry.new(:normal)
     end
 
     def test_backslash
@@ -280,7 +280,7 @@ EOP
 
   class TestFormatMessage < self
     def setup
-      @entry = GetText::PoEntry.new(:normal)
+      @entry = GetText::POEntry.new(:normal)
     end
 
     def test_including_newline
@@ -301,7 +301,7 @@ EOP
 
   class TestFormatComment < self
     def setup
-      @entry = GetText::PoEntry.new(:normal)
+      @entry = GetText::POEntry.new(:normal)
     end
 
     def test_one_line_comment

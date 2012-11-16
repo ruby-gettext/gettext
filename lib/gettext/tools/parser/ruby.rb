@@ -79,9 +79,9 @@ module GetText
 
   end
 
-  # Extends PoEntry for RubyParser.
+  # Extends POEntry for RubyParser.
   # Implements a sort of state machine to assist the parser.
-  module PoEntryForRubyParser
+  module POEntryForRubyParser
     # Supports parsing by setting attributes by and by.
     def set_current_attribute(str)
       param = @param_type[@param_number]
@@ -98,8 +98,8 @@ module GetText
       @param_number += 1
     end
   end
-  class PoEntry
-    include PoEntryForRubyParser
+  class POEntry
+    include POEntryForRubyParser
     alias :initialize_old :initialize
     def initialize(type)
       initialize_old(type)
@@ -162,13 +162,13 @@ module GetText
           when RubyToken::TkIDENTIFIER, RubyToken::TkCONSTANT
             store_po_entry(po, po_entry, path, line_no, last_comment)
             if ID.include?(tk.name)
-              po_entry = PoEntry.new(:normal)
+              po_entry = POEntry.new(:normal)
             elsif PLURAL_ID.include?(tk.name)
-              po_entry = PoEntry.new(:plural)
+              po_entry = POEntry.new(:plural)
             elsif MSGCTXT_ID.include?(tk.name)
-              po_entry = PoEntry.new(:msgctxt)
+              po_entry = POEntry.new(:msgctxt)
             elsif MSGCTXT_PLURAL_ID.include?(tk.name)
-              po_entry = PoEntry.new(:msgctxt_plural)
+              po_entry = POEntry.new(:msgctxt_plural)
             else
               po_entry = nil
             end

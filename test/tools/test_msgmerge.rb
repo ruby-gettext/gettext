@@ -143,7 +143,7 @@ EOE
       end
     end
 
-    class TestGeneratePoEntry < self
+    class TestGeneratePOEntry < self
       def test_msgid_plural
         msgid = "Singular message\000Plural message"
 

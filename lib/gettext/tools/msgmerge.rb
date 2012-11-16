@@ -24,7 +24,7 @@ require "gettext"
 require "gettext/tools/poparser"
 require "gettext/tools/po"
 
-# TODO: MsgMerge should use PoEntry to generate PO content.
+# TODO: MsgMerge should use POEntry to generate PO content.
 
 module GetText
   module Tools
@@ -83,7 +83,7 @@ module GetText
           msgctxt, msgid, msgid_plural = split_msgid(msgid)
           id = [msgctxt, msgid]
 
-          if value.instance_of?(PoEntry)
+          if value.instance_of?(POEntry)
             @po[*id] = value
             return value
           end
@@ -95,7 +95,7 @@ module GetText
             @po[*id].msgid_plural = msgid_plural
           else
             type = detect_entry_type(msgctxt, msgid_plural)
-            entry = PoEntry.new(type)
+            entry = POEntry.new(type)
             entry.msgctxt = msgctxt
             entry.msgid = msgid
             entry.msgid_plural = msgid_plural
@@ -169,7 +169,7 @@ module GetText
         end
 
         def escape(string)
-          PoEntry.escape(string)
+          POEntry.escape(string)
         end
 
         private

@@ -25,7 +25,7 @@ module GetText
 
   # Contains data related to the expression or sentence that
   # is to be translated.
-  class PoEntry
+  class POEntry
     class InvalidTypeError < StandardError
     end
 
@@ -185,7 +185,7 @@ module GetText
       # msgctxt, msgid, msgstr
       if msgctxt?
         if @msgctxt.nil?
-          no_msgctxt_message = "This PoEntry is a kind of msgctxt " +
+          no_msgctxt_message = "This POEntry is a kind of msgctxt " +
                                  "but the msgctxt property is nil. " +
                                  "msgid: #{msgid}"
           raise(NoMsgctxtError, no_msgctxt_message)
@@ -196,7 +196,7 @@ module GetText
       str << "msgid \"" << escaped(:msgid) << "\"\n"
       if plural?
         if @msgid_plural.nil?
-          no_plural_message = "This PoEntry is a kind of plural " +
+          no_plural_message = "This POEntry is a kind of plural " +
                                 "but the msgid_plural property is nil. " +
                                 "msgid: #{msgid}"
           raise(NoMsgidPluralError, no_plural_message)
