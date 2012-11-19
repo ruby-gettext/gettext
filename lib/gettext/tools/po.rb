@@ -130,10 +130,11 @@ module GetText
       else
         po_string << header_entry.to_s
 
-        content_entries = @entries.reject do |id, _|
-          msgid = id.last # id = [msgctxt, msgid]
-          msgid == :last or msgid.empty?
-        end
+      end
+
+      content_entries = @entries.reject do |id, _|
+        msgid = id.last # id = [msgctxt, msgid]
+        msgid == :last or msgid.empty?
       end
 
       sort_by_order(content_entries).each do |msgid, entry|

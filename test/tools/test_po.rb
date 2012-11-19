@@ -413,21 +413,39 @@ EOP
       @po[hello] = hello_translation
       @po[hello].references = hello_references
 
-      obsolete_comment =<<EOC
-# test.rb:10
-msgid \"hello\"
-msgstr \"Salut\"
-EOC
       @po.set_comment(:last, obsolete_comment)
 
       hello_comment = "#: file.rb:10"
-      expected_obsolete_comment = obsolete_comment.gsub(/^/, "#~ ").chomp
       expected_po =<<EOP
 #{expected_header_comment}
 #
 msgid ""
 msgstr ""
 #{expected_header}
+
+#{hello_comment}
+msgid "#{hello}"
+msgstr "#{hello_translation}"
+
+#{expected_obsolete_comment}
+EOP
+      assert_equal(expected_po, @po.to_s)
+    end
+
+    def test_obsolete_comment_without_header
+      @po = GetText::PO.new
+
+      hello = "hello"
+      hello_translation = "こんにちは"
+      hello_references = ["file.rb:10"]
+
+      @po[hello] = hello_translation
+      @po[hello].references = hello_references
+
+      @po.set_comment(:last, obsolete_comment)
+
+      hello_comment = "#: file.rb:10"
+      expected_po =<<EOP
 
 #{hello_comment}
 msgid "#{hello}"
@@ -476,6 +494,18 @@ EOC
         "# #{line}"
       end
       expected_header_comment.join("\n")
+    end
+
+    def obsolete_comment
+      <<EOC
+# test.rb:10
+msgid \"hello\"
+msgstr \"Salut\"
+EOC
+    end
+
+    def expected_obsolete_comment
+      obsolete_comment.gsub(/^/, "#~ ").chomp
     end
   end
 end
