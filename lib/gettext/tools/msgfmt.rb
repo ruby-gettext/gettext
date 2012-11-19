@@ -51,7 +51,7 @@ module GetText
       def run(*options) # :nodoc:
         initialize_arguments(*options)
 
-        parser = PoParser.new
+        parser = POParser.new
         data = MO.new
 
         parser.parse_file(@input_file, data)

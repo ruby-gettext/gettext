@@ -9,7 +9,7 @@
 #  You may redistribute it and/or modify it under the same
 #  license terms as Ruby or LGPL.
 
-class GetText::PoParser
+class GetText::POParser
   token COMMENT MSGID MSGCTXT MSGID_PLURAL MSGSTR STRING PLURAL_NUM
 
   rule
@@ -119,6 +119,9 @@ end
 ---- header
 require "gettext/tools/po"
 ---- inner
+  # for backward compatibility.
+  PoParser = POParser
+
   if GetText.respond_to?(:bindtextdomain)
     include GetText
     GetText.bindtextdomain("gettext")

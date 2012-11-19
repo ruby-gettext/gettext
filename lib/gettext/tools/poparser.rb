@@ -18,9 +18,12 @@ require 'racc/parser.rb'
 
 require "gettext/tools/po"
 module GetText
-  class PoParser < Racc::Parser
+  class POParser < Racc::Parser
 
 module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
+  # for backward compatibility.
+  PoParser = POParser
+
   if GetText.respond_to?(:bindtextdomain)
     include GetText
     GetText.bindtextdomain("gettext")
@@ -485,7 +488,7 @@ def _reduce_none(val, _values, result)
   val[0]
 end
 
-  end   # class PoParser
+  end   # class POParser
 end   # module GetText
 
 

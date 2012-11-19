@@ -20,7 +20,7 @@
 
 require "gettext/tools/poparser"
 
-class TestPoParser < Test::Unit::TestCase
+class TestPOParser < Test::Unit::TestCase
   def test_msgstr_not_existing
     po_file = create_po_file(<<-EOP)
 msgid "Hello"
@@ -232,7 +232,7 @@ EOP
     private
     def parse_po_file(po_file, options={:ignore_fuzzy => true})
       ignore_fuzzy = options[:ignore_fuzzy]
-      parser = GetText::PoParser.new
+      parser = GetText::POParser.new
       parser.ignore_fuzzy = ignore_fuzzy
       parser.parse_file(po_file.path, PO.new)
     end
@@ -247,7 +247,7 @@ EOP
   end
 
   def parse_po_file(po_file, parsed_entries)
-    parser = GetText::PoParser.new
+    parser = GetText::POParser.new
     parser.parse_file(po_file.path, parsed_entries)
   end
 
@@ -309,7 +309,7 @@ EOP
 
     private
     def parse
-      parser = GetText::PoParser.new
+      parser = GetText::POParser.new
       class << parser
         def _(message_id)
           message_id

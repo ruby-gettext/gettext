@@ -230,15 +230,15 @@ module GetText
             mark = $1
             content = $2
             case mark
-            when PoParser::TRANSLATOR_COMMENT_MARK
+            when POParser::TRANSLATOR_COMMENT_MARK
               entry.translator_comment << "#{content}\n"
-            when PoParser::EXTRACTED_COMMENT_MARK
+            when POParser::EXTRACTED_COMMENT_MARK
               entry.extracted_comment << "#{content}\n"
-            when PoParser::REFERENCE_COMMENT_MARK
+            when POParser::REFERENCE_COMMENT_MARK
               entry.references << content
-            when PoParser::FLAG_MARK
+            when POParser::FLAG_MARK
               entry.flag << "#{content}\n"
-            when PoParser::PREVIOUS_MSGID_COMMENT_MARK
+            when POParser::PREVIOUS_MSGID_COMMENT_MARK
               entry.previous_msgid << "#{content.gsub(/\Amsgid\s+/, "")}\n"
             else
               entry.comment << line
@@ -555,7 +555,7 @@ module GetText
       def run(*options) #:nodoc:
         config = check_command_line_options(*options)
 
-        parser = PoParser.new
+        parser = POParser.new
         parser.ignore_fuzzy = false
         defpo = parser.parse_file(config.defpo, PoData.new)
         refpot = parser.parse_file(config.refpot, PoData.new)

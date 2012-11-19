@@ -66,7 +66,7 @@ module GetText
         parse_arguments(*arguments)
         validate
 
-        parser = PoParser.new
+        parser = POParser.new
         parser.ignore_fuzzy = false
         pot = parser.parse_file(@input_file,
                                 GetText::PO.new)
