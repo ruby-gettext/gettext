@@ -89,7 +89,7 @@ module GetText
           end
 
           msgstr = value
-          if @po.has_key?(id)
+          if @po.has_key?(*id)
             @po[*id] = msgstr
             @po[*id].msgctxt = msgctxt
             @po[*id].msgid_plural = msgid_plural
@@ -124,7 +124,7 @@ module GetText
           return false if msgid.kind_of?(Symbol)
           return true if msgid.empty?
           msgctxt, msgid, _ = split_msgid(msgid)
-          @po.has_key?([msgctxt, msgid])
+          @po.has_key?(msgctxt, msgid)
         end
 
         # Is it necessary to implement this method?
@@ -211,8 +211,9 @@ module GetText
 
         def generate_entry(msgid)
           msgctxt, msgid, _ = split_msgid(msgid)
-          @po[msgctxt, msgid] = nil unless @po.has_key?([msgctxt, msgid])
-          entry = @po[msgctxt, msgid]
+          id = [msgctxt, msgid]
+          @po[*id] = nil unless @po.has_key?(*id)
+          entry = @po[*id]
 
           entry.translator_comment = ""
           entry.extracted_comment = ""

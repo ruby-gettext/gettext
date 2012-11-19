@@ -25,6 +25,39 @@ class TestPO < Test::Unit::TestCase
     @po = nil
   end
 
+  class TestHasKey < self
+    def setup
+      @po = GetText::PO.new
+    end
+
+    def test_msgid_exist
+      @po["msgid"] = "msgstr"
+
+      assert_true(@po.has_key?("msgid"))
+      assert_true(@po.has_key?(nil, "msgid"))
+    end
+
+    def test_msgid_notexistent
+      assert_false(@po.has_key?("msgid"))
+      assert_false(@po.has_key?(nil, "msgid"))
+    end
+
+    def test_msgctxt_and_msgid_exist
+      @po["msgctxt", "msgid"] = "msgstr"
+
+      assert_false(@po.has_key?("msgid"))
+      assert_true(@po.has_key?("msgctxt", "msgid"))
+    end
+
+    def test_wrong_arguments
+      @po["msgctxt", "msgid"] = "msgstr"
+
+      assert_raise(ArgumentError) do
+        @po.has_key?("msgctxt", "msgid", "wrong_argument")
+      end
+    end
+  end
+
   class TestEach < self
     def setup
       @hello = "hello"
@@ -134,7 +167,7 @@ class TestPO < Test::Unit::TestCase
       entry.msgstr = msgstr
 
       @po[msgid] = entry
-      assert_true(@po.has_key?([nil, msgid]))
+      assert_true(@po.has_key?(nil, msgid))
       assert_equal(msgstr, @po[msgid].msgstr)
     end
   end

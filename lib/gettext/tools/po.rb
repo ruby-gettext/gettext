@@ -79,7 +79,20 @@ module GetText
       entry
     end
 
-    def has_key?(id)
+    def has_key?(*arguments)
+      case arguments.size
+      when 1
+        msgctxt = nil
+        msgid = arguments[0]
+      when 2
+        msgctxt = arguments[0]
+        msgid = arguments[1]
+      else
+        message = "has_key?: wrong number of arguments " +
+                    "(#{arguments.size} for 1..2)"
+        raise(ArgumentError, message)
+      end
+      id = [msgctxt, msgid]
       @entries.has_key?(id)
     end
 

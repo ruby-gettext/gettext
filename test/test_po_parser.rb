@@ -109,7 +109,7 @@ msgid "hello"
 msgstr "bonjour"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?([nil, "hello"]))
+      assert_true(entries.has_key?(nil, "hello"))
       assert_equal("bonjour", entries["hello"].msgstr)
     end
 
@@ -121,7 +121,7 @@ msgid "hello"
 msgstr "bonjour"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?([nil, "hello"]))
+      assert_true(entries.has_key?(nil, "hello"))
       assert_equal(["file.rb:10"], entries["hello"].references)
     end
 
@@ -132,7 +132,7 @@ msgid "hello"
 msgstr "bonjour"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?([nil, "hello"]))
+      assert_true(entries.has_key?(nil, "hello"))
       entry = entries["hello"]
       assert_equal("This is the translator comment.", entry.translator_comment)
     end
@@ -144,7 +144,7 @@ msgid "hello"
 msgstr "bonjour"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?([nil, "hello"]))
+      assert_true(entries.has_key?(nil, "hello"))
       entry = entries["hello"]
       assert_equal("This is the extracted comment.", entry.extracted_comment)
     end
@@ -156,7 +156,7 @@ msgid "hello"
 msgstr "bonjour"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?([nil, "hello"]))
+      assert_true(entries.has_key?(nil, "hello"))
       assert_equal("flag", entries["hello"].flag)
     end
 
@@ -167,7 +167,7 @@ msgid "hello"
 msgstr "bonjour"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?([nil, "hello"]))
+      assert_true(entries.has_key?(nil, "hello"))
       assert_equal("hi", entries["hello"].previous_msgid)
     end
 
@@ -181,7 +181,7 @@ msgstr[0] "il"
 msgstr[1] "ils"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?([nil, "he"]))
+      assert_true(entries.has_key?(nil, "he"))
       assert_equal("them", entries["he"].msgid_plural)
       assert_equal("il\000ils", entries["he"].msgstr)
     end
@@ -195,7 +195,7 @@ msgid "he"
 msgstr "il"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?(["pronoun", "he"]))
+      assert_true(entries.has_key?("pronoun", "he"))
       assert_equal("pronoun", entries["pronoun", "he"].msgctxt)
     end
 
@@ -210,7 +210,7 @@ msgstr[0] "il"
 msgstr[1] "ils"
 EOP
       entries = parse_po_file(po_file)
-      assert_true(entries.has_key?(["pronoun", "he"]))
+      assert_true(entries.has_key?("pronoun", "he"))
       assert_equal("pronoun", entries["pronoun", "he"].msgctxt)
       assert_equal("them", entries["pronoun", "he"].msgid_plural)
       assert_equal("il\000ils", entries["pronoun", "he"].msgstr)
