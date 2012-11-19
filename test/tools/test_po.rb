@@ -25,6 +25,52 @@ class TestPO < Test::Unit::TestCase
     @entries = nil
   end
 
+  class TestEach < self
+    def setup
+      @hello = "hello"
+      @hello_translation = "bonjour"
+      @he = "he"
+      @he_translation = "il"
+
+      @po = GetText::PO.new
+      @po[@hello] = @hello_translation
+      @po[@he] = @he_translation
+    end
+
+    def test_block_given
+      entries = []
+      @po.each do |entry|
+        entries << entry
+      end
+
+      entries = entries.sort_by do |entry|
+        entry.msgid
+      end
+
+      assert_equal(expected_entries, entries)
+    end
+
+    def test_no_block_given
+      entries = @po.each.sort_by do |entry|
+        entry.msgid
+      end
+
+      assert_equal(expected_entries, entries)
+    end
+
+    private
+    def expected_entries
+      he_entry = POEntry.new(:normal)
+      he_entry.msgid = @he
+      he_entry.msgstr = @he_translation
+      hello_entry = POEntry.new(:normal)
+      hello_entry.msgid = @hello
+      hello_entry.msgstr = @hello_translation
+
+      [he_entry, hello_entry]
+    end
+  end
+
   class TestSetEntry < self
     def test_normal
       msgid = "msgid"
