@@ -132,8 +132,7 @@ module GetText
 
       end
 
-      content_entries = @entries.reject do |id, _|
-        msgid = id.last # id = [msgctxt, msgid]
+      content_entries = @entries.reject do |(msgctxt, msgid), _|
         msgid == :last or msgid.empty?
       end
 
