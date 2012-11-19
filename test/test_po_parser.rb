@@ -216,9 +216,25 @@ EOP
       assert_equal("il\000ils", entries["pronoun", "he"].msgstr)
     end
 
+    def test_fuzzy
+      po_file = create_po_file(<<-EOP)
+#, fuzzy
+#: file.rb:10
+msgid "hello"
+msgstr "bonjour"
+EOP
+      entries = parse_po_file(po_file, :ignore_fuzzy => false)
+
+      assert_true(entries.has_key?("hello"))
+      assert_equal("fuzzy", entries["hello"].flag)
+    end
+
     private
-    def parse_po_file(po_file)
-      super(po_file, PO.new)
+    def parse_po_file(po_file, options={:ignore_fuzzy => true})
+      ignore_fuzzy = options[:ignore_fuzzy]
+      parser = GetText::PoParser.new
+      parser.ignore_fuzzy = ignore_fuzzy
+      parser.parse_file(po_file.path, PO.new)
     end
   end
 
