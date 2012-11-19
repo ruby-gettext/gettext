@@ -22,7 +22,7 @@ require "gettext/tools/po"
 
 class TestPO < Test::Unit::TestCase
   def setup
-    @entries = nil
+    @po = nil
   end
 
   class TestEach < self
@@ -76,13 +76,13 @@ class TestPO < Test::Unit::TestCase
       msgid = "msgid"
       msgstr = "msgstr"
 
-      @entries = GetText::PO.new
-      @entries[msgid] = msgstr
+      @po = GetText::PO.new
+      @po[msgid] = msgstr
 
       entry = POEntry.new(:normal)
       entry.msgid = msgid
       entry.msgstr = msgstr
-      assert_equal(entry, @entries[msgid])
+      assert_equal(entry, @po[msgid])
     end
 
     def test_msgctxt
@@ -90,14 +90,14 @@ class TestPO < Test::Unit::TestCase
       msgid = "msgid"
       msgstr = "msgstr"
 
-      @entries = GetText::PO.new
-      @entries[msgctxt, msgid] = msgstr
+      @po = GetText::PO.new
+      @po[msgctxt, msgid] = msgstr
 
       entry = POEntry.new(:msgctxt)
       entry.msgctxt = msgctxt
       entry.msgid = msgid
       entry.msgstr = msgstr
-      assert_equal(entry, @entries[msgctxt, msgid])
+      assert_equal(entry, @po[msgctxt, msgid])
     end
 
     def test_wrong_arguments
@@ -105,9 +105,9 @@ class TestPO < Test::Unit::TestCase
       msgid = "msgid"
       msgstr = "msgstr"
 
-      @entries = GetText::PO.new
+      @po = GetText::PO.new
       assert_raise(ArgumentError) do
-        @entries[msgctxt, msgid, "wrong argument"] = msgstr
+        @po[msgctxt, msgid, "wrong argument"] = msgstr
       end
     end
 
@@ -116,16 +116,16 @@ class TestPO < Test::Unit::TestCase
 
       msgid = "msgid"
       new_msgstr = "new_msgstr"
-      @entries[msgid] = new_msgstr
+      @po[msgid] = new_msgstr
 
       entry = POEntry.new(:normal)
       entry.msgid = msgid
       entry.msgstr = new_msgstr
-      assert_equal(entry, @entries[msgid])
+      assert_equal(entry, @po[msgid])
     end
 
     def test_po_entry
-      @entries = GetText::PO.new
+      @po = GetText::PO.new
 
       msgid = "msgid"
       msgstr = "msgstr"
@@ -133,9 +133,9 @@ class TestPO < Test::Unit::TestCase
       entry.msgid = msgid
       entry.msgstr = msgstr
 
-      @entries[msgid] = entry
-      assert_true(@entries.has_key?([nil, msgid]))
-      assert_equal(msgstr, @entries[msgid].msgstr)
+      @po[msgid] = entry
+      assert_true(@po.has_key?([nil, msgid]))
+      assert_equal(msgstr, @po[msgid].msgstr)
     end
   end
 
@@ -144,30 +144,30 @@ class TestPO < Test::Unit::TestCase
       msgid = "msgid"
       comment = "comment"
 
-      @entries = GetText::PO.new
-      @entries.set_comment(msgid, comment)
+      @po = GetText::PO.new
+      @po.set_comment(msgid, comment)
 
       entry = POEntry.new(:normal)
       entry.msgid = msgid
       entry.comment = comment
-      assert_equal(entry, @entries[msgid])
-      assert_equal(nil, @entries[msgid].msgstr)
+      assert_equal(entry, @po[msgid])
+      assert_equal(nil, @po[msgid].msgstr)
     end
 
     def test_add_to_existing_entry
       msgid = "msgid"
       msgstr = "msgstr"
-      @entries = GetText::PO.new
-      @entries[msgid] = msgstr
+      @po = GetText::PO.new
+      @po[msgid] = msgstr
 
       comment = "comment"
-      @entries.set_comment(msgid, comment)
+      @po.set_comment(msgid, comment)
 
       entry = POEntry.new(:normal)
       entry.msgid = msgid
       entry.msgstr = msgstr
       entry.comment = comment
-      assert_equal(entry, @entries[msgid])
+      assert_equal(entry, @po[msgid])
     end
   end
 
@@ -177,29 +177,29 @@ class TestPO < Test::Unit::TestCase
       msgstr = "msgstr"
       references = ["file.rb:10"]
 
-      @entries = GetText::PO.new
-      @entries[msgid] = msgstr
-      @entries.set_references(msgid, references)
+      @po = GetText::PO.new
+      @po[msgid] = msgstr
+      @po.set_references(msgid, references)
 
-      assert_equal(references, @entries[msgid].references)
+      assert_equal(references, @po[msgid].references)
     end
 
     def test_add_to_non_existent_entry
       msgid = "msgid"
       references = ["file.rb:10"]
 
-      @entries = GetText::PO.new
+      @po = GetText::PO.new
       assert_raise(GetText::PO::NonExistentEntryError) do
-        @entries.set_references(msgid, references)
+        @po.set_references(msgid, references)
       end
     end
   end
 
   class TestToS < self
     def setup
-      @entries = GetText::PO.new
-      @entries[""] = header
-      @entries[""].translator_comment = header_comment
+      @po = GetText::PO.new
+      @po[""] = header
+      @po[""].translator_comment = header_comment
     end
 
     def test_same_filename
@@ -212,11 +212,11 @@ class TestPO < Test::Unit::TestCase
       bye_references = ["file.rb:20"]
       bye_comment = "#: file.rb:20"
 
-      @entries[hello] = hello_translation
-      @entries[hello].references = hello_references
+      @po[hello] = hello_translation
+      @po[hello].references = hello_references
 
-      @entries[bye] = bye_translation
-      @entries[bye].references = bye_references
+      @po[bye] = bye_translation
+      @po[bye].references = bye_references
 
       expected_po =<<EOP
 #{expected_header_comment}
@@ -233,7 +233,7 @@ msgstr "#{hello_translation}"
 msgid "#{bye}"
 msgstr "#{bye_translation}"
 EOP
-      assert_equal(expected_po, @entries.to_s)
+      assert_equal(expected_po, @po.to_s)
     end
 
     def test_different_filename
@@ -246,11 +246,11 @@ EOP
       bye_references = ["test.rb:10"]
       bye_comment = "#: test.rb:10"
 
-      @entries[hello] = hello_translation
-      @entries[hello].references = hello_references
+      @po[hello] = hello_translation
+      @po[hello].references = hello_references
 
-      @entries[bye] = bye_translation
-      @entries[bye].references = bye_references
+      @po[bye] = bye_translation
+      @po[bye].references = bye_references
 
       expected_po =<<EOP
 #{expected_header_comment}
@@ -267,7 +267,7 @@ msgstr "#{hello_translation}"
 msgid "#{bye}"
 msgstr "#{bye_translation}"
 EOP
-      assert_equal(expected_po, @entries.to_s)
+      assert_equal(expected_po, @po.to_s)
     end
 
     def test_including_colon_filename
@@ -280,11 +280,11 @@ EOP
       bye_references = ["file:2.rb:10"]
       bye_comment = "#: file:2.rb:10"
 
-      @entries[hello] = hello_translation
-      @entries[hello].references = hello_references
+      @po[hello] = hello_translation
+      @po[hello].references = hello_references
 
-      @entries[bye] = bye_translation
-      @entries[bye].references = bye_references
+      @po[bye] = bye_translation
+      @po[bye].references = bye_references
 
       expected_po =<<EOP
 #{expected_header_comment}
@@ -301,7 +301,7 @@ msgstr "#{hello_translation}"
 msgid "#{bye}"
 msgstr "#{bye_translation}"
 EOP
-      assert_equal(expected_po, @entries.to_s)
+      assert_equal(expected_po, @po.to_s)
     end
 
     def test_no_file_number
@@ -314,11 +314,11 @@ EOP
       bye_references = ["test.rb"]
       bye_comment = "#: test.rb"
 
-      @entries[hello] = hello_translation
-      @entries[hello].references = hello_references
+      @po[hello] = hello_translation
+      @po[hello].references = hello_references
 
-      @entries[bye] = bye_translation
-      @entries[bye].references = bye_references
+      @po[bye] = bye_translation
+      @po[bye].references = bye_references
 
       expected_po =<<EOP
 #{expected_header_comment}
@@ -335,7 +335,7 @@ msgstr "#{hello_translation}"
 msgid "#{bye}"
 msgstr "#{bye_translation}"
 EOP
-      assert_equal(expected_po, @entries.to_s)
+      assert_equal(expected_po, @po.to_s)
     end
 
     def test_multiple_filename
@@ -348,11 +348,11 @@ EOP
       bye_references = ["test.rb:10", "file.rb:110", "file.rb:20"]
       bye_comment = "#: file.rb:20 file.rb:110 test.rb:10"
 
-      @entries[hello] = hello_translation
-      @entries[hello].references = hello_references
+      @po[hello] = hello_translation
+      @po[hello].references = hello_references
 
-      @entries[bye] = bye_translation
-      @entries[bye].references = bye_references
+      @po[bye] = bye_translation
+      @po[bye].references = bye_references
 
       expected_po =<<EOP
 #{expected_header_comment}
@@ -369,7 +369,7 @@ msgstr "#{hello_translation}"
 msgid "#{bye}"
 msgstr "#{bye_translation}"
 EOP
-      assert_equal(expected_po, @entries.to_s)
+      assert_equal(expected_po, @po.to_s)
     end
 
     def test_obsolete_comment
@@ -377,15 +377,15 @@ EOP
       hello_translation = "こんにちは"
       hello_references = ["file.rb:10"]
 
-      @entries[hello] = hello_translation
-      @entries[hello].references = hello_references
+      @po[hello] = hello_translation
+      @po[hello].references = hello_references
 
       obsolete_comment =<<EOC
 # test.rb:10
 msgid \"hello\"
 msgstr \"Salut\"
 EOC
-      @entries.set_comment(:last, obsolete_comment)
+      @po.set_comment(:last, obsolete_comment)
 
       hello_comment = "#: file.rb:10"
       expected_obsolete_comment = obsolete_comment.gsub(/^/, "#~ ").chomp
@@ -402,7 +402,7 @@ msgstr "#{hello_translation}"
 
 #{expected_obsolete_comment}
 EOP
-      assert_equal(expected_po, @entries.to_s)
+      assert_equal(expected_po, @po.to_s)
     end
 
     private
