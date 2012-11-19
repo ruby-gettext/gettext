@@ -124,13 +124,8 @@ module GetText
     def to_s
       po_string = ""
 
-      header_entry = self[""]
-      if header_entry.nil?
-        content_entries = @entries
-      else
-        po_string << header_entry.to_s
-
-      end
+      header_entry = @entries[[nil, ""]]
+      po_string << header_entry.to_s unless header_entry.nil?
 
       content_entries = @entries.reject do |(msgctxt, msgid), _|
         msgid == :last or msgid.empty?
