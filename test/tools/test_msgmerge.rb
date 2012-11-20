@@ -297,6 +297,16 @@ EOE
       @pot = GetText::PO.new
     end
 
+    def test_add_entry
+      @po["hello"] = "bonjour"
+      @pot["hello"] = "bonjour"
+      @pot["he"] = "il"
+      merged_po = @merger.merge(@po, @pot)
+
+      assert_equal("bonjour", merged_po["hello"].msgstr)
+      assert_equal("il", merged_po["he"].msgstr)
+    end
+
     def test_different_msgstr
       @po["hello"] = "salut"
       @pot["hello"] = "bonjour"
