@@ -469,6 +469,7 @@ EOC
       entry = GetText::POEntry.new(type)
       entry.translator_comment = options[:translator_comment]
       entry.extracted_comment = options[:extracted_comment]
+      entry.references = options[:references] || []
       entry.flag = options[:flag]
       entry.previous_msgid = options[:previous_msgid]
       entry.msgctxt = msgctxt
