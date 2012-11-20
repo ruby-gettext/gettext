@@ -316,17 +316,17 @@ EOE
       assert_equal("fuzzy", merged_po["hello"].flag)
     end
 
-    def test_msgctxt
-      @po["hello"] = generate_entry(:msgctxt => "normal",
-                                    :msgid => "hello",
-                                    :msgstr => "salut")
-
+    def test_nonexistent_msgctxt
+      @po["normal", "hello"] = generate_entry(:msgctxt => "normal",
+                                              :msgid => "hello",
+                                              :msgstr => "salut")
       @pot["hello"] = generate_entry(:msgctxt => "frank",
                                      :msgid => "hello",
                                      :msgstr => "")
       merged_po = @merger.merge(@po, @pot)
 
-      assert_equal("frank", merged_po["hello"].msgctxt)
+      assert_false(merged_po.has_key?("normal", "hello"))
+      assert_true(merged_po.has_key?("hello"))
       assert_equal("salut", merged_po["hello"].msgstr)
       assert_equal("fuzzy", merged_po["hello"].flag)
     end
