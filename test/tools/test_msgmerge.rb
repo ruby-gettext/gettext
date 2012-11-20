@@ -289,6 +289,196 @@ EOE
     end
   end
 
+  class TestMerger < self
+    def setup
+      @merger = GetText::Tools::MsgMerge::Merger.new
+      @po_data = GetText::Tools::MsgMerge::PoData.new
+      @po = GetText::PO.new
+      @pot = GetText::PO.new
+    end
+
+    def test_different_msgstr
+      @po["hello"] = "salut"
+      @pot["hello"] = "bonjour"
+      merged_po = @merger.merge(@po, @pot)
+
+      assert_equal("bonjour", merged_po["hello"].msgstr)
+    end
+
+    def test_similar_msgstr_for_fuzzy
+      @po["helol"] = "bonjour"
+      @pot["hello"] = ""
+      merged_po = @merger.merge(@po, @pot)
+
+      assert_false(merged_po.has_key?("helol"))
+      assert_true(merged_po.has_key?("hello"))
+      assert_equal("boujuor", merged_po["hello"].msgstr)
+      assert_equal("fuzzy", merged_po["hello"].flag)
+    end
+
+    def test_msgctxt
+      @po["hello"] = generate_entry(:msgctxt => "normal",
+                                    :msgid => "hello",
+                                    :msgstr => "salut")
+
+      @pot["hello"] = generate_entry(:msgctxt => "frank",
+                                     :msgid => "hello",
+                                     :msgstr => "")
+      merged_po = @merger.merge(@po, @pot)
+
+      assert_equal("frank", merged_po["hello"].msgctxt)
+      assert_equal("salut", merged_po["hello"].msgstr)
+      assert_equal("fuzzy", merged_po["hello"].flag)
+    end
+
+    def test_msgid_plural
+      @po["he"] = generate_entry(:msgid => "he",
+                                 :msgid_plural => "thye",
+                                 :msgstr => "il\000ils")
+      @pot["he"] = generate_entry(:msgid => "he",
+                                  :msgid_plural => "they",
+                                  :msgstr => "")
+      merged_po = @merger.merge(@po, @pot)
+
+      assert_equal("il\000ils", merged_po["he"].msgstr)
+      assert_equal("they", merged_po["he"].msgid_plural)
+      assert_equal("fuzzy", merged_po["he"].flag)
+    end
+
+    def test_translator_comment
+      @po["hello"] = generate_entry(:msgid => "hello",
+                                    :msgstr => "bonjour",
+                                    :translator_comment => "comment")
+
+      @pot["hello"] = generate_entry(:msgid => "hello",
+                                     :msgstr => "",
+                                     :translator_comment => "It's comments")
+
+      merged_po = @merger.merge(@po, @pot)
+      assert_equal("bonjour", merged_po["hello"].msgstr)
+      assert_equal("comment", merged_po["hello"].translator_comment)
+    end
+
+    def test_extracted_comment
+      @po["hello"] = generate_entry(:msgid => "hello",
+                                    :msgstr => "bonjour",
+                                    :extracted_comment => "comment")
+
+      @pot["hello"] = generate_entry(:msgid => "hello",
+                                     :msgstr => "",
+                                     :extracted_comment => "extracted comments")
+
+      merged_po = @merger.merge(@po, @pot)
+      assert_equal("bonjour", merged_po["hello"].msgstr)
+      assert_equal("extracted_comment", merged_po["hello"].extracted_comment)
+    end
+
+    def test_references
+      references = ["file.rb:10", "helper.rb:10"]
+      pot_references = ["file.rb:10", "test.rb:25"]
+      @po["hello"] = generate_entry(:msgid => "hello",
+                                    :msgstr => "bonjour",
+                                    :references => references)
+
+      @pot["hello"] = generate_entry(:msgid => "hello",
+                                     :msgstr => "",
+                                     :references => pot_references)
+
+      merged_po = @merger.merge(@po, @pot)
+      assert_equal("bonjour", merged_po["hello"].msgstr)
+      assert_equal(pot_references, merged_po["hello"].references)
+    end
+
+    def test_flag
+      @po["hello"] = generate_entry(:msgid => "hello",
+                                    :msgstr => "bonjour",
+                                    :flag => "c-format")
+
+      @pot["hello"] = generate_entry(:msgid => "hello",
+                                     :msgstr => "",
+                                     :flag => "no-c-format")
+
+      merged_po = @merger.merge(@po, @pot)
+      assert_equal("bonjour", merged_po["hello"].msgstr)
+      assert_equal("no-c-format", merged_po["hello"].flag)
+    end
+
+    def test_fuzzy_flag
+      @po["hello"] = generate_entry(:msgid => "hello",
+                                    :msgstr => "bonjuor",
+                                    :flag => "fuzzy")
+
+      @pot["hello"] = generate_entry(:msgid => "hello",
+                                     :msgstr => "")
+
+      merged_po = @merger.merge(@po, @pot)
+      assert_equal("bonjuor", merged_po["hello"].msgstr)
+      assert_equal("fuzzy", merged_po["hello"].flag)
+    end
+
+    def test_previous_msgid
+      @po["hello"] = generate_entry(:msgid => "hello",
+                                    :msgstr => "bonjour",
+                                    :previous_msgid => "hi")
+
+      @pot["hello"] = generate_entry(:msgid => "hello",
+                                     :msgstr => "")
+
+      merged_po = @merger.merge(@po, @pot)
+      assert_equal("bonjour", merged_po["hello"].msgstr)
+      assert_equal(nil, merged_po["hello"].previous_msgid)
+    end
+
+    def test_fuzzy_header
+      @po[""] = generate_entry(:msgid => "",
+                               :msgstr => "header\nentry",
+                               :translator_comment => "header comment")
+
+      @pot[""] = generate_entry(:msgid => "",
+                                :msgstr => "uninitialized\ncomment",
+                                :translator_comment => "uninitialized comment",
+                                :flag => "fuzzy")
+
+      merged_po = @merger.merge(@po, @pot)
+      assert_equal("header\nentry", merged_po[""].msgstr)
+      assert_equal("header comment", merged_po[""].translator_comment)
+      assert_equal(nil, merged_po[""].flag)
+    end
+
+    def test_obsolete_entry
+      @po["hello"] = "bonjour"
+      @pot["hi"] = "salut"
+      merged_po = @merger.merge(@po, @pot)
+
+      assert_equal("salut", merged_po["hi"].msgstr)
+      assert_false(merged_po.has_key?("hello"))
+
+      obsolete_comment = <<-EOC
+#~ msgid "hello"
+#~ msgstr "bonjour"
+EOC
+      assert_equal(obsolete_comment, merged_po[:last].comment)
+    end
+
+    private
+    def generate_entry(options)
+      msgctxt = options[:msgctxt]
+      msgid_plural = options[:msgid_plural]
+      type = @po_data.send(:detect_entry_type, msgctxt, msgid_plural)
+
+      entry = GetText::POEntry.new(type)
+      entry.translator_comment = options[:translator_comment]
+      entry.extracted_comment = options[:extracted_comment]
+      entry.flag = options[:flag]
+      entry.previous_msgid = options[:previous_msgid]
+      entry.msgctxt = msgctxt
+      entry.msgid = options[:msgid]
+      entry.msgid_plural = msgid_plural
+      entry.msgstr = options[:msgstr]
+      entry
+    end
+  end
+
   class TestMerge < self
     include GetTextTestUtils
 
