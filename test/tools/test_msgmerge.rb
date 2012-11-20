@@ -454,8 +454,8 @@ EOE
       assert_false(merged_po.has_key?("hello"))
 
       obsolete_comment = <<-EOC
-#~ msgid "hello"
-#~ msgstr "bonjour"
+msgid "hello"
+msgstr "bonjour"
 EOC
       assert_equal(obsolete_comment, merged_po[:last].comment)
     end
