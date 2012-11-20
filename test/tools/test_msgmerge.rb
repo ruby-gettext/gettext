@@ -302,7 +302,7 @@ EOE
       @pot["hello"] = "bonjour"
       merged_po = @merger.merge(@po, @pot)
 
-      assert_equal("bonjour", merged_po["hello"].msgstr)
+      assert_equal("salut", merged_po["hello"].msgstr)
     end
 
     def test_similar_msgstr_for_fuzzy
