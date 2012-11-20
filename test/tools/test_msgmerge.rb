@@ -370,7 +370,7 @@ EOE
 
       merged_po = @merger.merge(@po, @pot)
       assert_equal("bonjour", merged_po["hello"].msgstr)
-      assert_equal("extracted_comment", merged_po["hello"].extracted_comment)
+      assert_equal("extracted comments", merged_po["hello"].extracted_comment)
     end
 
     def test_references
