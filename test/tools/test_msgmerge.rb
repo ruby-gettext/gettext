@@ -330,8 +330,7 @@ EOE
       @po["normal", "hello"] = generate_entry(:msgctxt => "normal",
                                               :msgid => "hello",
                                               :msgstr => "salut")
-      @pot["hello"] = generate_entry(:msgctxt => "frank",
-                                     :msgid => "hello",
+      @pot["hello"] = generate_entry(:msgid => "hello",
                                      :msgstr => "")
       merged_po = @merger.merge(@po, @pot)
 
