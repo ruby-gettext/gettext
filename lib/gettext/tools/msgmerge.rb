@@ -249,8 +249,6 @@ module GetText
       end
 
       class Merger #:nodoc:
-        # From GNU gettext source.
-        #
         # Merge the reference with the definition: take the #. and
         #  #: comments from the reference, take the # comments from
         # the definition, take the msgstr from the definition.  Add
@@ -348,129 +346,6 @@ module GetText
             end
           end
           obsolete_entries
-        end
-
-        def merge_message(msgid, target, def_msgid, definition)
-          merge_comment(msgid, target, def_msgid, definition)
-
-          ############################################
-          # check mismatch of msgid and msgid_plural #
-          ############################################
-          def_msgstr = definition[def_msgid]
-          if msgid.index("\000")
-            if def_msgstr.index("\000")
-              # OK
-              target[msgid] = def_msgstr
-            else
-              # NG
-              strings = []
-              definition.nplurals.times do
-                strings << def_msgstr
-              end
-              target[msgid] = strings.join("\000")
-            end
-          else
-            if def_msgstr.index("\000")
-              # NG
-              target[msgid] = def_msgstr.split("\000")[0]
-            else
-              # OK
-              target[msgid] = def_msgstr
-            end
-          end
-        end
-
-        # for the future
-        def merge_fuzzy_message(msgid, target, def_msgid, definition)
-          merge_message(msgid, target, def_msgid, definition)
-        end
-
-        def merge_comment(msgid, target, def_msgid, definition)
-          ref_comment = target.comment(msgid)
-          def_comment = definition.comment(def_msgid)
-
-          normal_comment = []
-          dot_comment = []
-          semi_comment = []
-          is_fuzzy = false
-
-          def_comment.split(CRLF_RE).each do |l|
-            if NOT_SPECIAL_COMMENT_RE =~ l
-              normal_comment << l
-            end
-          end
-
-          ref_comment.split(CRLF_RE).each do |l|
-            if DOT_COMMENT_RE =~ l
-              dot_comment << l
-            elsif SEMICOLON_COMMENT_RE =~ l
-              semi_comment << l
-            elsif FUZZY_RE =~ l
-              is_fuzzy = true if msgid != ""
-            end
-          end
-
-          str = format_comment(normal_comment, dot_comment, semi_comment, is_fuzzy)
-          target.set_comment(msgid, str)
-        end
-
-        def change_reference_comment(msgid, podata)
-          normal_comment = []
-          dot_comment = []
-          semi_comment = []
-          is_fuzzy = false
-
-          podata.comment(msgid).split(CRLF_RE).each do |l|
-            if DOT_COMMENT_RE =~ l
-              dot_comment << l
-            elsif SEMICOLON_COMMENT_RE =~ l
-              semi_comment << l
-            elsif FUZZY_RE =~ l
-              is_fuzzy = true
-            else
-              normal_comment << l
-            end
-          end
-
-          str = format_comment(normal_comment, dot_comment, semi_comment, is_fuzzy)
-          podata.set_comment(msgid, str)
-        end
-
-        def format_comment(normal_comment, dot_comment, semi_comment, is_fuzzy)
-          str = ""
-
-          str << normal_comment.join("\n").gsub(/^#(\s*)/) do |sss|
-            if $1 == ""
-              "# "
-            else
-              sss
-            end
-          end
-          if normal_comment.size > 0
-            str << "\n"
-          end
-
-          str << dot_comment.join("\n").gsub(/^#.(\s*)/) do |sss|
-            if $1 == ""
-              "#. "
-            else
-              sss
-            end
-          end
-          if dot_comment.size > 0
-            str << "\n"
-          end
-
-          str << semi_comment.join("\n").gsub(/^#:\s*/, "#: ")
-          if semi_comment.size > 0
-            str << "\n"
-          end
-
-          if is_fuzzy
-            str << "#, fuzzy\n"
-          end
-
-          str
         end
       end
 
