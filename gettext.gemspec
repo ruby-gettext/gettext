@@ -29,6 +29,7 @@ So you can use GNU gettext tools for maintaining.
   end
 
   s.add_runtime_dependency("locale")
+  s.add_runtime_dependency("levenshtein")
   s.add_development_dependency("rake")
   s.add_development_dependency("racc")
   s.add_development_dependency("yard")

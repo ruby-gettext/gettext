@@ -20,6 +20,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require "optparse"
+require "levenshtein"
 require "gettext"
 require "gettext/tools/poparser"
 require "gettext/tools/po"
@@ -279,8 +280,13 @@ module GetText
               end
             end
 
-            # TODO: search a fuzzy translation for entry in definition
-            # which including same msgctxt as one of new entry.
+            fuzzy_entry = find_fuzzy_entry(definition, msgid, msgctxt)
+            unless fuzzy_entry.nil?
+              result[*id] = merge_entry(fuzzy_entry, entry)
+              result[*id].flag = "fuzzy"
+              next
+            end
+
             result[*id] = entry
           end
 
@@ -331,6 +337,26 @@ module GetText
             entry.msgctxt
           end
           same_msgid_entries.first
+        end
+
+        MAX_FUZZY_DISTANCE = 0.5 # XXX: make sure that its value is proper.
+
+        def find_fuzzy_entry(definition, msgid, msgctxt)
+          min_distance_entry = nil
+          min_distance = MAX_FUZZY_DISTANCE
+
+          same_msgctxt_entries = definition.find_all do |entry|
+            entry.msgctxt == msgctxt
+          end
+          same_msgctxt_entries.each do |entry|
+            distance = Levenshtein.normalized_distance(entry.msgid, msgid)
+            if min_distance > distance
+              min_distance = distance
+              min_distance_entry = entry
+            end
+          end
+
+          min_distance_entry
         end
 
         def add_obsolete_entry(result, definition)
