@@ -274,16 +274,14 @@ module GetText
             if msgctxt.nil?
               same_msgid_entry = find_by_msgid(definition, msgid)
               if not same_msgid_entry.nil? and not same_msgid_entry.msgctxt.nil?
-                result[nil, msgid] = merge_entry(same_msgid_entry, entry)
-                result[nil, msgid].flag = "fuzzy"
+                result[nil, msgid] = merge_fuzzy_entry(same_msgid_entry, entry)
                 next
               end
             end
 
             fuzzy_entry = find_fuzzy_entry(definition, msgid, msgctxt)
             unless fuzzy_entry.nil?
-              result[*id] = merge_entry(fuzzy_entry, entry)
-              result[*id].flag = "fuzzy"
+              result[*id] = merge_fuzzy_entry(fuzzy_entry, entry)
               next
             end
 
@@ -337,6 +335,12 @@ module GetText
             entry.msgctxt
           end
           same_msgid_entries.first
+        end
+
+        def merge_fuzzy_entry(fuzzy_entry, entry)
+          merged_entry = merge_entry(fuzzy_entry, entry)
+          merged_entry.flag = "fuzzy"
+          merged_entry
         end
 
         MAX_FUZZY_DISTANCE = 0.5 # XXX: make sure that its value is proper.
