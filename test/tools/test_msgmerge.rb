@@ -322,7 +322,7 @@ EOE
 
       assert_false(merged_po.has_key?("helol"))
       assert_true(merged_po.has_key?("hello"))
-      assert_equal("boujuor", merged_po["hello"].msgstr)
+      assert_equal("bonjour", merged_po["hello"].msgstr)
       assert_equal("fuzzy", merged_po["hello"].flag)
     end
 
