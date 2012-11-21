@@ -284,11 +284,11 @@ module GetText
             result[*id] = entry
           end
 
-          obsolete_entries = extract_obsolete_entries(result, definition)
-          unless obsolete_entries.empty?
-            result[:last] = nil
-            result[:last].comment = obsolete_entries
+          obsolete_entry = generate_obsolete_entry(result, definition)
+          unless obsolete_entry.nil?
+            result[:last] = obsolete_entry
           end
+
           result
         end
 
@@ -337,12 +337,29 @@ module GetText
           same_msgid_entries.first
         end
 
+        def generate_obsolete_entry(result, definition)
+          obsolete_entry = nil
+
+          obsolete_entries = extract_obsolete_entries(result, definition)
+          unless obsolete_entries.empty?
+            obsolete_comment = ""
+
+            obsolete_entries.each do |entry|
+              obsolete_comment << entry.to_s
+            end
+            obsolete_entry = POEntry.new(:normal)
+            obsolete_entry.msgid = :last
+            obsolete_entry.comment = obsolete_comment
+          end
+          obsolete_entry
+        end
+
         def extract_obsolete_entries(result, definition)
-          obsolete_entries = ""
+          obsolete_entries = []
           definition.each do |entry|
             id = [entry.msgctxt, entry.msgid]
             unless result.has_key?(*id)
-              obsolete_entries << entry.to_s
+              obsolete_entries << entry
             end
           end
           obsolete_entries
