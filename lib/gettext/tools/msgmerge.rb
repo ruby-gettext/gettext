@@ -256,61 +256,98 @@ module GetText
         # the definition, take the msgstr from the definition.  Add
         # this merged entry to the output message list.
 
-        DOT_COMMENT_RE = /\A#\./
-        SEMICOLON_COMMENT_RE = /\A#\:/
-        FUZZY_RE = /\A#\,/
-        NOT_SPECIAL_COMMENT_RE = /\A#([^:.,]|\z)/
-
-        CRLF_RE = /\r?\n/
         POT_DATE_EXTRACT_RE = /POT-Creation-Date:\s*(.*)?\s*$/
         POT_DATE_RE = /POT-Creation-Date:.*?$/
 
         def merge(definition, reference)
-          definition.each_msgid do |msgid|
-            msgstr = definition[msgid] || ""
-            definition[msgid] = msgstr
-          end
+          result = GetText::PO.new
 
-          reference.each_msgid do |msgid|
-            msgstr = reference[msgid] || ""
-            reference[msgid] = msgstr
-          end
+          reference.each do |entry|
+            msgid = entry.msgid
+            msgctxt = entry.msgctxt
+            id = [msgctxt, msgid]
 
-          # deep copy
-          result = Marshal.load( Marshal.dump(reference) )
-
-          used = []
-          merge_header(result, definition)
-
-          result.each_msgid do |msgid|
-            if definition.msgid?(msgid)
-              used << msgid
-              merge_message(msgid, result, msgid, definition)
-            elsif other_msgid = definition.search_msgid_fuzzy(msgid, used)
-              used << other_msgid
-              merge_fuzzy_message(msgid, result, other_msgid, definition)
-            elsif msgid.index("\000") and (reference.msgstr(msgid).gsub("\000", "").empty?)
-              # plural
-              result[msgid] = ([""] * definition.nplurals).join("\000")
-            else
-              change_reference_comment(msgid, result)
+            if definition.has_key?(*id)
+              result[*id] = merge_entry(definition[*id], entry)
+              next
             end
-          end
 
-          ###################################################################
-          # msgids which are not used in reference are handled as obsolete. #
-          ###################################################################
-          last_comment = result.comment(:last) || ""
-          definition.each_msgid do |msgid|
-            unless used.include?(msgid)
-              last_comment << "\n"
-              last_comment << definition.generate_po_entry(msgid).strip.gsub(/^/, "#. ")
-              last_comment << "\n"
+            if msgctxt.nil?
+              same_msgid_entry = find_by_msgid(definition, msgid)
+              if not same_msgid_entry.nil? and not same_msgid_entry.msgctxt.nil?
+                result[nil, msgid] = merge_entry(same_msgid_entry, entry)
+                result[nil, msgid].flag = "fuzzy"
+                next
+              end
             end
-          end
-          result.set_comment(:last, last_comment) unless last_comment.empty?
 
+            # TODO: search a fuzzy translation for entry in definition
+            # which including same msgctxt as one of new entry.
+            result[*id] = entry
+          end
+
+          obsolete_entries = extract_obsolete_entries(result, definition)
+          unless obsolete_entries.empty?
+            result[:last] = nil
+            result[:last].comment = obsolete_entries
+          end
           result
+        end
+
+        def merge_entry(definition_entry, reference_entry)
+          if definition_entry.msgid.empty? and definition_entry.msgctxt.nil?
+            new_header = merge_header(definition_entry, reference_entry)
+            return new_header
+          end
+
+          if definition_entry.flag == "fuzzy"
+            entry = definition_entry
+            entry.flag = "fuzzy"
+            return entry
+          end
+
+          entry = reference_entry
+          entry.translator_comment = definition_entry.translator_comment
+          entry.previous_msgid = nil
+
+          unless definition_entry.msgid_plural == reference_entry.msgid_plural
+            entry.flag = "fuzzy"
+          end
+
+          entry.msgstr = definition_entry.msgstr
+          entry
+        end
+
+        def merge_header(old_header, new_header)
+          header = old_header
+          if POT_DATE_EXTRACT_RE =~ new_header.msgstr
+            create_date = $1
+            pot_creation_date = "POT-Creation-Date: #{create_date}"
+            header.msgstr = header.msgstr.gsub(POT_DATE_RE, pot_creation_date)
+          end
+          header.flag = nil
+          header
+        end
+
+        def find_by_msgid(entries, msgid)
+          same_msgid_entries = entries.find_all do |entry|
+            entry.msgid == msgid
+          end
+          same_msgid_entries = same_msgid_entries.sort_by do |entry|
+            entry.msgctxt
+          end
+          same_msgid_entries.first
+        end
+
+        def extract_obsolete_entries(result, definition)
+          obsolete_entries = ""
+          definition.each do |entry|
+            id = [entry.msgctxt, entry.msgid]
+            unless result.has_key?(*id)
+              obsolete_entries << entry.to_s
+            end
+          end
+          obsolete_entries
         end
 
         def merge_message(msgid, target, def_msgid, definition)
@@ -434,19 +471,6 @@ module GetText
           end
 
           str
-        end
-
-        def merge_header(target, definition)
-          merge_comment("", target, "", definition)
-
-          msg = target.msgstr("")
-          def_msg = definition.msgstr("")
-          if POT_DATE_EXTRACT_RE =~ msg
-            time = $1
-            def_msg = def_msg.sub(POT_DATE_RE, "POT-Creation-Date: #{time}")
-          end
-
-          target[""] = def_msg
         end
       end
 
