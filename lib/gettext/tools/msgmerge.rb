@@ -284,11 +284,7 @@ module GetText
             result[*id] = entry
           end
 
-          obsolete_entry = generate_obsolete_entry(result, definition)
-          unless obsolete_entry.nil?
-            result[:last] = obsolete_entry
-          end
-
+          add_obsolete_entry(result, definition)
           result
         end
 
@@ -335,6 +331,14 @@ module GetText
             entry.msgctxt
           end
           same_msgid_entries.first
+        end
+
+        def add_obsolete_entry(result, definition)
+          obsolete_entry = generate_obsolete_entry(result, definition)
+          unless obsolete_entry.nil?
+            result[:last] = obsolete_entry
+          end
+          result
         end
 
         def generate_obsolete_entry(result, definition)
