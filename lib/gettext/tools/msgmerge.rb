@@ -503,8 +503,8 @@ module GetText
 
         parser = POParser.new
         parser.ignore_fuzzy = false
-        defpo = parser.parse_file(config.defpo, PoData.new)
-        refpot = parser.parse_file(config.refpot, PoData.new)
+        defpo = parser.parse_file(config.defpo, PO.new)
+        refpot = parser.parse_file(config.refpot, PO.new)
 
         merger = Merger.new
         result = merger.merge(defpo, refpot)
@@ -513,10 +513,10 @@ module GetText
 
         if config.output.is_a?(String)
           File.open(File.expand_path(config.output), "w+") do |file|
-            file.write(result.generate_po)
+            file.write(result.to_s)
           end
         else
-          puts(result.generate_po)
+          puts(result.to_s)
         end
       end
     end
