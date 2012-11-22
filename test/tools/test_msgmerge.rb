@@ -280,7 +280,7 @@ EOE
     def test_previous_msgid
       comment = "#| msgid the previous msgid"
       parsed_comment = parse_comment(comment).previous_msgid
-      assert_equal("the previous msgid\n", parsed_comment)
+      assert_equal("msgid the previous msgid\n", parsed_comment)
     end
 
     private
