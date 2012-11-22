@@ -112,15 +112,6 @@ module GetText
       self[*id].comment = comment
     end
 
-    def set_references(msgid, references, msgctxt=nil)
-      id = [msgctxt, msgid]
-      unless @entries.has_key?(id)
-        raise(NonExistentEntryError,
-              "the entry of \"%s\" does not exist." % msgid)
-      end
-      self[*id].references = references
-    end
-
     def to_s
       po_string = ""
 

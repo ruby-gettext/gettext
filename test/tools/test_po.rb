@@ -204,30 +204,6 @@ class TestPO < Test::Unit::TestCase
     end
   end
 
-  class TestSetReferences < self
-    def test_add
-      msgid = "msgid"
-      msgstr = "msgstr"
-      references = ["file.rb:10"]
-
-      @po = GetText::PO.new
-      @po[msgid] = msgstr
-      @po.set_references(msgid, references)
-
-      assert_equal(references, @po[msgid].references)
-    end
-
-    def test_add_to_non_existent_entry
-      msgid = "msgid"
-      references = ["file.rb:10"]
-
-      @po = GetText::PO.new
-      assert_raise(GetText::PO::NonExistentEntryError) do
-        @po.set_references(msgid, references)
-      end
-    end
-  end
-
   class TestToS < self
     def setup
       @po = GetText::PO.new
