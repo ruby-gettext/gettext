@@ -67,7 +67,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
     @extracted_comments = []
     @references = []
     @flag = []
-    @previous_msgid = []
+    @previous = []
     @comments = []
     @data = data
     @fuzzy = false
@@ -143,7 +143,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
       entry.translator_comment = format_comment(@translator_comments)
       entry.extracted_comment = format_comment(@extracted_comments)
       entry.flag = format_comment(@flag)
-      entry.previous_msgid = format_comment(@previous_msgid)
+      entry.previous = format_comment(@previous)
       entry.references = @references
       entry.msgctxt = @msgctxt
       entry.msgid = msgid
@@ -171,7 +171,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
     @extracted_comments = []
     @references = []
     @flag = []
-    @previous_msgid = []
+    @previous = []
     @references = []
     @comments.clear
     @msgctxt = nil
@@ -210,7 +210,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
         when FLAG_MARK
           @flag << content
         when PREVIOUS_MSGID_COMMENT_MARK
-          @previous_msgid << content
+          @previous << content
         else
           @comments << comment
         end

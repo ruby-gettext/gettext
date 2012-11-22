@@ -160,7 +160,7 @@ EOP
       assert_equal("flag", entries["hello"].flag)
     end
 
-    def test_previous_msgid
+    def test_previous
       po_file = create_po_file(<<-EOP)
 #| msgctxt Normal
 #| msgid He
@@ -170,12 +170,12 @@ msgid_plural "them"
 msgstr[0] "il"
 msgstr[1] "ils"
 EOP
-      expected_previous_msgid = "msgctxt Normal\n" +
+      expected_previous = "msgctxt Normal\n" +
                                   "msgid He\n" +
                                   "msgid_plural Them"
       entries = parse_po_file(po_file)
       assert_true(entries.has_key?(nil, "he"))
-      assert_equal(expected_previous_msgid, entries["he"].previous_msgid)
+      assert_equal(expected_previous, entries["he"].previous)
     end
 
     def test_msgid_plural

@@ -245,11 +245,11 @@ EOP
       assert_equal(expected_po, po.to_s)
     end
 
-    def test_previous_msgid
+    def test_previous
       po = GetText::POEntry.new(:normal)
       po.msgid = "msgid"
       po.msgstr = "msgstr"
-      po.previous_msgid = <<EOC
+      po.previous = <<EOC
 msgctxt previous_msgctxt
 msgid previous_msgid
 msgid_plural previous_msgid_plural

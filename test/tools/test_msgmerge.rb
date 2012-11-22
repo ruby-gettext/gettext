@@ -277,9 +277,9 @@ EOE
       assert_equal("fuzzy\n", parsed_comment)
     end
 
-    def test_previous_msgid
+    def test_previous
       comment = "#| msgid the previous msgid"
-      parsed_comment = parse_comment(comment).previous_msgid
+      parsed_comment = parse_comment(comment).previous
       assert_equal("msgid the previous msgid\n", parsed_comment)
     end
 
@@ -425,17 +425,17 @@ EOE
       assert_equal("fuzzy", merged_po["hello"].flag)
     end
 
-    def test_previous_msgid
+    def test_previous
       @po["hello"] = generate_entry(:msgid => "hello",
                                     :msgstr => "bonjour",
-                                    :previous_msgid => "hi")
+                                    :previous => "hi")
 
       @pot["hello"] = generate_entry(:msgid => "hello",
                                      :msgstr => "")
 
       merged_po = @merger.merge(@po, @pot)
       assert_equal("bonjour", merged_po["hello"].msgstr)
-      assert_equal(nil, merged_po["hello"].previous_msgid)
+      assert_equal(nil, merged_po["hello"].previous)
     end
 
     def test_fuzzy_header
@@ -497,7 +497,7 @@ EOC
       entry.extracted_comment = options[:extracted_comment]
       entry.references = options[:references] || []
       entry.flag = options[:flag]
-      entry.previous_msgid = options[:previous_msgid]
+      entry.previous = options[:previous]
       entry.msgctxt = msgctxt
       entry.msgid = options[:msgid]
       entry.msgid_plural = msgid_plural

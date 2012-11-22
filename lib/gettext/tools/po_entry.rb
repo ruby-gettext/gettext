@@ -82,7 +82,7 @@ module GetText
     attr_accessor :translator_comment
     attr_accessor :extracted_comment
     attr_accessor :flag
-    attr_accessor :previous_msgid
+    attr_accessor :previous
     attr_accessor :comment
 
     # Create the object. +type+ should be :normal, :plural, :msgctxt or :msgctxt_plural.
@@ -92,7 +92,7 @@ module GetText
       @extracted_comment = nil
       @references = []
       @flag = nil
-      @previous_msgid = nil
+      @previous = nil
       @msgctxt = nil
       @msgid = nil
       @msgid_plural = nil
@@ -128,7 +128,7 @@ module GetText
         extracted_comment == other.extracted_comment and
         references == other.references and
         flag == other.flag and
-        previous_msgid == other.previous_msgid and
+        previous == other.previous and
         comment == other.comment
     end
 
@@ -183,7 +183,7 @@ module GetText
       str << format_extracted_comment
       str << format_reference_comment
       str << format_flag_comment
-      str << format_previous_msgid_comment
+      str << format_previous_comment
 
       # msgctxt, msgid, msgstr
       if msgctxt?
@@ -257,8 +257,8 @@ module GetText
       format_comment("#,", flag)
     end
 
-    def format_previous_msgid_comment
-      format_comment("#|", previous_msgid)
+    def format_previous_comment
+      format_comment("#|", previous)
     end
 
     def format_comment(mark, comment)

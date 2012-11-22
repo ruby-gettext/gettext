@@ -66,7 +66,7 @@ module GetText
           formatted_comments << entry.format_extracted_comment
           formatted_comments << entry.format_reference_comment
           formatted_comments << entry.format_flag_comment
-          formatted_comments << entry.format_previous_msgid_comment
+          formatted_comments << entry.format_previous_comment
 
           unless entry.comment.nil?
             formatted_comments = entry.format_comment("#", entry.comment)
@@ -220,7 +220,7 @@ module GetText
           entry.extracted_comment = ""
           entry.references = []
           entry.flag = ""
-          entry.previous_msgid = ""
+          entry.previous = ""
           entry
         end
 
@@ -240,7 +240,7 @@ module GetText
             when POParser::FLAG_MARK
               entry.flag << "#{content}\n"
             when POParser::PREVIOUS_MSGID_COMMENT_MARK
-              entry.previous_msgid << "#{content}\n"
+              entry.previous << "#{content}\n"
             else
               entry.comment << line
             end
@@ -306,7 +306,7 @@ module GetText
 
           entry = reference_entry
           entry.translator_comment = definition_entry.translator_comment
-          entry.previous_msgid = nil
+          entry.previous = nil
 
           unless definition_entry.msgid_plural == reference_entry.msgid_plural
             entry.flag = "fuzzy"
