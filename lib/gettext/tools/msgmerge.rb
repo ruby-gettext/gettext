@@ -240,7 +240,7 @@ module GetText
             when POParser::FLAG_MARK
               entry.flag << "#{content}\n"
             when POParser::PREVIOUS_MSGID_COMMENT_MARK
-              entry.previous_msgid << "#{content.gsub(/\Amsgid\s+/, "")}\n"
+              entry.previous_msgid << "#{content}\n"
             else
               entry.comment << line
             end

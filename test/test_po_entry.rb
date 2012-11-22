@@ -249,10 +249,16 @@ EOP
       po = GetText::POEntry.new(:normal)
       po.msgid = "msgid"
       po.msgstr = "msgstr"
-      po.previous_msgid = "previous_msgid"
+      po.previous_msgid = <<EOC
+msgctxt previous_msgctxt
+msgid previous_msgid
+msgid_plural previous_msgid_plural
+EOC
 
       expected_po =<<EOP
+#| msgctxt previous_msgctxt
 #| msgid previous_msgid
+#| msgid_plural previous_msgid_plural
 msgid \"msgid\"
 msgstr \"msgstr\"
 EOP

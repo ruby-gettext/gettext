@@ -210,7 +210,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
         when FLAG_MARK
           @flag << content
         when PREVIOUS_MSGID_COMMENT_MARK
-          @previous_msgid << content.gsub(/\Amsgid\s+/, "")
+          @previous_msgid << content
         else
           @comments << comment
         end

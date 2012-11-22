@@ -258,7 +258,7 @@ module GetText
     end
 
     def format_previous_msgid_comment
-      format_comment("#| msgid", previous_msgid)
+      format_comment("#|", previous_msgid)
     end
 
     def format_comment(mark, comment)
