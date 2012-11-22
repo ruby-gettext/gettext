@@ -454,6 +454,23 @@ EOE
       assert_equal(nil, merged_po[""].flag)
     end
 
+    def test_fuzzy_header_including_pot_creation_date
+      creation_date_mark = "POT-Creation-Date: "
+      po_creation_date = "#{creation_date_mark}2012-11-15 08:15+0900"
+      pot_creation_date = "#{creation_date_mark}2012-11-20 14:15+0900"
+      @po[""] = generate_entry(:msgid => "",
+                               :msgstr => po_creation_date,
+                               :translator_comment => "header comment")
+
+      @pot[""] = generate_entry(:msgid => "",
+                                :msgstr => pot_creation_date,
+                                :translator_comment => "header comment",
+                                :flag => "fuzzy")
+
+      merged_po = @merger.merge(@po, @pot)
+      assert_equal(pot_creation_date, merged_po[""].msgstr)
+    end
+
     def test_obsolete_entry
       @po["hello"] = "bonjour"
       @pot["hi"] = "salut"
