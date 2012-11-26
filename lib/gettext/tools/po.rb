@@ -20,8 +20,11 @@
 require "gettext/tools/po_entry"
 
 module GetText
-  # PO stores POEntries like Hash. Each key of {POEntry} is [msgctxt, msgid].
-  # PO[msgctxt, msgid] returns the {POEntry} containing msgctxt and msgid.
+
+  # PO stores PO entries like Hash. Each key of {POEntry} is msgctxt
+  # and msgid.
+  # PO[msgctxt, msgid] returns the {POEntry} containing msgctxt and
+  # msgid.
   # If you specify msgid only, msgctxt is treated as nonexistent.
   #
   # @since 2.3.4
@@ -32,7 +35,8 @@ module GetText
     end
 
     # @!attribute [rw] order
-    #   The order is used to sort POEntries in {#to_s}.
+    #   The order is used to sort PO entries(objects of {POEntry}) in
+    #   {#to_s}.
     #   @param [Symbol] order the name as order by sort.
     #     Now :reference is allowed only.
     #   @return [Symbol] the name as order by sort.
@@ -45,10 +49,14 @@ module GetText
 
     # Returns {POEntry} containing msgctxt and msgid.
     # If you specify one argument, it is treated as msgid.
-    # @overload [](msgctxt=nil, msgid)
-    #   @param [String] msgctxt msgctxt contained {POEntry}.
-    #   @param [String] msgid msgid contained {POEntry}.
-    #   @return [POEntry]
+    # @overload [](msgid)
+    #   @!macro [new] po.[].argument
+    #     @param [String] msgid msgid contained returning {POEntry}.
+    #     @return [POEntry]
+    #   @!macro po.[].argument
+    # @overload [](msgctxt, msgid)
+    #   @!macro po.[].argument
+    #   @param [String] msgid msgid contained returning {POEntry}.
     def [](msgctxt, msgid=nil)
       if msgid.nil?
         msgid = msgctxt
@@ -58,19 +66,28 @@ module GetText
       @entries[[msgctxt, msgid]]
     end
 
-    # Stores {POEntry} or msgstr binding msgctxt and msgid.
+    # Stores {POEntry} or msgstr binding msgctxt and msgid. If you
+    # specify msgstr, this method creates {POEntry} containing it.
     # If you specify the two argument, the first argument is treated
     # as msgid.
-    # @overload []=(msgctxt=nil, msgid, po_entry)
-    #   @!macro [new] po.store.arguments
-    #     @param [String] msgctxt msgctxt binded {POEntry}.
+    #
+    # @overload []=(msgid, po_entry)
+    #   @!macro [new] po.store.entry.arguments
     #     @param [String] msgid msgid binded {POEntry}.
-    #   @!macro po.store.arguments
-    #   @param [POEntry] po_entry stored {POEntry}.
-    # @overload []=(msgctxt=nil, msgid, msgstr)
-    #   @!macro po.store.arguments
-    #   @param [String] msgstr msgstr contained {POEntry} stored PO.
-    #     This {POEntry} is generated in this method.
+    #     @param [POEntry] po_entry stored {POEntry}.
+    #   @!macro po.store.entry.arguments
+    # @overload []=(msgctxt, msgid, po_entry)
+    #   @param [String] msgctxt msgctxt binded {POEntry}.
+    #   @!macro po.store.entry.arguments
+    # @overload []=(msgid, msgstr)
+    #   @!macro [new] po.store.msgstr.arguments
+    #     @param [String] msgid msgid binded {POEntry}.
+    #     @param [String] msgstr msgstr contained {POEntry} stored PO.
+    #       This {POEntry} is generated in this method.
+    #   @!macro po.store.msgstr.arguments
+    # @overload []=(msgctxt, msgid, msgstr)
+    #   @param [String] msgctxt msgctxt binded {POEntry}.
+    #   @!macro po.store.msgstr.arguments
     def []=(*arguments)
       case arguments.size
       when 2
@@ -109,13 +126,19 @@ module GetText
       entry
     end
 
-    # Returns if PO stores {POEntry} containing [msgctxt, msgid].
-    # If you specify one argument, it is treated as msgid.
-    # @overload has_key?(msgctxt=nil, msgid)
+    # Returns if PO stores {POEntry} containing msgctxt and msgid.
+    # If you specify one argument, it is treated as msgid and msgctxt
+    # is nil.
+    #
+    # @overload has_key?(msgid)
+    #   @!macro [new] po.has_key?.arguments
+    #     @param [String] msgid msgid contained {POEntry} checked if it be
+    #       stored PO.
+    #   @!macro po.has_key?.arguments
+    # @overload has_key?(msgctxt, msgid)
     #   @param [String] msgctxt msgctxt contained {POEntry} checked if
     #     it be stored PO.
-    #   @param [String] msgid msgid contained {POEntry} checked if it be
-    #     stored PO.
+    #   @!macro po.has_key?.arguments
     def has_key?(*arguments)
       case arguments.size
       when 1
@@ -160,7 +183,7 @@ module GetText
     # them.
     # @see http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html#PO-Files
     #   The description for Format of PO in GNU gettext manual
-    # @return [String] Formatted and joined POEntries. It is used for
+    # @return [String] Formatted and joined PO entries. It is used for
     #   creating .po files.
     def to_s
       po_string = ""
