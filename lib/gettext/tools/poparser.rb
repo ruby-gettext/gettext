@@ -17,10 +17,11 @@
 require 'racc/parser.rb'
 
 require "gettext/tools/po"
+require "gettext/tools/msgmerge"
 module GetText
   class POParser < Racc::Parser
 
-module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 122)
+module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 123)
   # for backward compatibility.
   PoParser = POParser
 

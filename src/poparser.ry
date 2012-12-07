@@ -118,6 +118,7 @@ end
 
 ---- header
 require "gettext/tools/po"
+require "gettext/tools/msgmerge"
 ---- inner
   # for backward compatibility.
   PoParser = POParser
