@@ -25,8 +25,6 @@ require "gettext"
 require "gettext/tools/poparser"
 require "gettext/tools/po"
 
-# TODO: MsgMerge should use POEntry to generate PO content.
-
 module GetText
   module Tools
     class MsgMerge
