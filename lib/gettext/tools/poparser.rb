@@ -22,9 +22,6 @@ module GetText
   class POParser < Racc::Parser
 
 module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 123)
-  # for backward compatibility.
-  PoParser = POParser
-
   if GetText.respond_to?(:bindtextdomain)
     include GetText
     GetText.bindtextdomain("gettext")
@@ -492,4 +489,7 @@ end
   end   # class POParser
 end   # module GetText
 
-
+  # for backward compatibility.
+  module GetText
+    PoParser = POParser
+  end

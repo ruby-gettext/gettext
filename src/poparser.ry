@@ -120,9 +120,6 @@ end
 require "gettext/tools/po"
 require "gettext/tools/msgmerge"
 ---- inner
-  # for backward compatibility.
-  PoParser = POParser
-
   if GetText.respond_to?(:bindtextdomain)
     include GetText
     GetText.bindtextdomain("gettext")
@@ -356,3 +353,8 @@ require "gettext/tools/msgmerge"
   end
   private :detect_file_encoding
 ---- footer
+  # for backward compatibility.
+  module GetText
+    PoParser = POParser
+  end
+
