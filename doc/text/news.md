@@ -1,4 +1,12 @@
 # News
+## <a id="2-3-5">2.3.5</a>: 2012-12-11
+
+This is a bug fix release.
+
+### Fixes
+
+  * [POParser] Fixed the class name for backward compatibility.
+
 ## <a id="2-3-4">2.3.4</a>: 2012-12-11
 
 This is a many changes and new implements release.
