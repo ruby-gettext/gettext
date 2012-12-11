@@ -9,5 +9,5 @@
 =end
 
 module GetText
-  VERSION = "2.3.5"
+  VERSION = "2.3.6"
 end
