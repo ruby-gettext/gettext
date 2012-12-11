@@ -1,4 +1,41 @@
 # News
+## <a id="2-3-4">2.3.4</a>: 2012-12-11
+
+This is a many changes and new implements release.
+
+### Improvements
+
+  * [Merger] Implemented "fuzzy-match" with Levenshtein distance.
+  * Added the class "PO" for management PO entries. Please use PO
+    instead of PoData. (see details in
+    http://rubydoc.info/gems/gettext/GetText/PO.html)
+  * [POEntry (renamed from PoMessages)] Supported to specify msgstr.
+  * [POEntry]　Stored comments each type
+    (translator\_comment, extracted\_comment, flag, previous).
+    see
+    http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+    for details of comment type.
+  * [POEntry] Checked if specified type is valid in #type=.
+  * [PoParser][MO] Concatenated msgctxt, msgid, msgid\_plural to
+    "#{msgctxt}\004#{msgid}\000"{msgid\_plural}" by MO instead of
+    PoParser. PoData and MO treat a concatenated string as msgid, but
+    PO doesn't.
+  * [PoParser] Parsed each type comment from whole comment.
+
+### Changes
+
+  * Rename some classes and methods.
+    * PoMessage to PoEntry. This isn't "message" but "entry".
+      (See http://www.gnu.org/software/gettext/manual/gettext.html#PO-Files)
+    * PoMessages#== to POEntry#mergeable?.
+    * PoMessages#to\_po\_str to POEntry#to\_s.
+    * PoMessages#sources(sources=) to POEntry#references(references=)
+    * MoFile to MO. For backword compatible, MoFile can be used now.
+    * PoParser to POParser. For backword compatible, PoParser can be used now.
+  * Raised no error when POEntry doesn't have references.
+    It is useful for no references in .PO file.
+
+# News
 ## <a id="2-3-3">2.3.3</a>: 2012-10-18
 
 It's a package fix and msginit improvement release.
