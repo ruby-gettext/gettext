@@ -391,7 +391,7 @@ module GetText
           obsolete_entries = []
           definition.each do |entry|
             id = [entry.msgctxt, entry.msgid]
-            unless result.has_key?(*id)
+            if not result.has_key?(*id) and not entry.msgid == :last
               obsolete_entries << entry
             end
           end
