@@ -307,6 +307,17 @@ EOE
       assert_equal("il", merged_po["he"].msgstr)
     end
 
+    def test_existing_obsolete_entry
+      @po["hello"] = "bonjour"
+      @pot["hello"] = "bonjour"
+      @pot[:last] = generate_entry(:msgid => :last,
+                                   :comment => "#~ obsolete_entry")
+      merged_po = @merger.merge(@po, @pot)
+
+      assert_equal("bonjour", merged_po["hello"].msgstr)
+      assert_equal("#~ obsolete_entry", merged_po[:last].comment)
+    end
+
     def test_different_msgstr
       @po["hello"] = "salut"
       @pot["hello"] = "bonjour"
@@ -502,6 +513,7 @@ EOC
       entry.msgid = options[:msgid]
       entry.msgid_plural = msgid_plural
       entry.msgstr = options[:msgstr]
+      entry.comment = options[:comment]
       entry
     end
   end

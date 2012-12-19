@@ -344,6 +344,7 @@ module GetText
         MAX_FUZZY_DISTANCE = 0.5 # XXX: make sure that its value is proper.
 
         def find_fuzzy_entry(definition, msgid, msgctxt)
+          return nil if msgid == :last
           min_distance_entry = nil
           min_distance = MAX_FUZZY_DISTANCE
 
