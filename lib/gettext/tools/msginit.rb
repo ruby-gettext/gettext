@@ -68,8 +68,7 @@ module GetText
 
         parser = POParser.new
         parser.ignore_fuzzy = false
-        pot = parser.parse_file(@input_file,
-                                GetText::PO.new)
+        pot = parser.parse_file(@input_file, GetText::PO.new)
         po = replace_pot_header(pot)
 
         File.open(@output_file, "w") do |f|
@@ -255,8 +254,7 @@ module GetText
       POT_REVISION_DATE_KEY = /^(PO-Revision-Date:).+/
 
       def replace_pot_revision_date #:nodoc:
-        @entry = @entry.gsub(POT_REVISION_DATE_KEY,
-                             "\\1 #{revision_date}")
+        @entry = @entry.gsub(POT_REVISION_DATE_KEY, "\\1 #{revision_date}")
       end
 
       LANGUAGE_KEY = /^(Language:).+/
@@ -349,8 +347,7 @@ module GetText
       def replace_first_author #:nodoc:
         @comment = @comment.gsub(YEAR_KEY, "\\1 #{year}.")
         unless @translator.nil?
-          @comment = @comment.gsub(FIRST_AUTHOR_KEY,
-                                   "#{@translator}, \\1")
+          @comment = @comment.gsub(FIRST_AUTHOR_KEY, "#{@translator}, \\1")
         end
       end
 
