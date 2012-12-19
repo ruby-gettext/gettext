@@ -348,7 +348,7 @@ module GetText
           min_distance = MAX_FUZZY_DISTANCE
 
           same_msgctxt_entries = definition.find_all do |entry|
-            entry.msgctxt == msgctxt
+            entry.msgctxt == msgctxt and not entry.msgid == :last
           end
           same_msgctxt_entries.each do |entry|
             distance = Levenshtein.normalized_distance(entry.msgid, msgid)
