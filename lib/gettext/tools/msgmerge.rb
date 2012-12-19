@@ -375,14 +375,14 @@ module GetText
 
           obsolete_entries = extract_obsolete_entries(result, definition)
           unless obsolete_entries.empty?
-            obsolete_comment = ""
+            obsolete_comment = []
 
             obsolete_entries.each do |entry|
               obsolete_comment << entry.to_s
             end
             obsolete_entry = POEntry.new(:normal)
             obsolete_entry.msgid = :last
-            obsolete_entry.comment = obsolete_comment
+            obsolete_entry.comment = obsolete_comment.join("\n")
           end
           obsolete_entry
         end
