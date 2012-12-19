@@ -1,4 +1,18 @@
 # News
+## <a id="2-3-6">2.3.6</a>: 2012-12-19
+
+This is a bug fix release.
+
+### Fixes
+
+  * [POEntry] Fixed the bug that obsolete comment mark (#~) is added
+    to already comment.
+  * [msgmerge] Fixed the bug that no separator (blank line) didn't exist
+    between each obsolete entry.
+  * [msgmerge] Fixed tne bug that obsolete entries in old PO file are
+    added to new PO file. Any obsolete entries in old PO file aren't
+    treated for merging.
+
 ## <a id="2-3-5">2.3.5</a>: 2012-12-11
 
 This is a bug fix release.
