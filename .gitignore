@@ -10,3 +10,4 @@
 /.yardoc/
 /Gemfile.lock
 /locale/
+/po/gettext.pot
