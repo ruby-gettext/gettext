@@ -199,7 +199,12 @@ msgstr \"Salut\"
 EOC
       po.comment = obsolete_comment
 
-      expected_obsolete_comment = obsolete_comment.gsub(/^/, "#~ ")
+      expected_obsolete_comment = <<-EOC
+# test.rb:10
+#~ msgid "hello"
+#~ msgstr "Salut"
+EOC
+
       assert_equal(expected_obsolete_comment, po.to_s)
     end
 

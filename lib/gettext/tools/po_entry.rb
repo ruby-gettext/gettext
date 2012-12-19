@@ -176,7 +176,7 @@ module GetText
       str = ""
       # extracted comments
       if @msgid == :last
-        return format_comment("#~", comment)
+        return format_obsolete_comment(comment)
       end
 
       str << format_translator_comment
@@ -268,6 +268,23 @@ module GetText
       comment.each_line do |comment_line|
         if comment_line == "\n"
           formatted_comment << "#{mark}\n"
+        else
+          formatted_comment << "#{mark} #{comment_line.strip}\n"
+        end
+      end
+      formatted_comment
+    end
+
+    def format_obsolete_comment(comment)
+      mark = "#~"
+      return "" if comment.nil?
+
+      formatted_comment = ""
+      comment.each_line do |comment_line|
+        if /\A#[^~]/ =~ comment_line or comment_line.start_with?(mark)
+          formatted_comment << comment_line
+        elsif comment_line == "\n"
+          formatted_comment << "\n"
         else
           formatted_comment << "#{mark} #{comment_line.strip}\n"
         end

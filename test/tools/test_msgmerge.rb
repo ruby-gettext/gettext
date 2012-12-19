@@ -134,7 +134,13 @@ EOC
         po[""] = header_entry
         po.set_comment(:last, obsolete_comment)
 
-        expected_obsolete_comment = obsolete_comment.gsub(/^/, "#~ ").chomp
+        expected_obsolete_comment = <<-EOC
+# test.rb:10
+#~ msgid "Hello"
+#~ msgstr "Salut"
+EOC
+        expected_obsolete_comment = expected_obsolete_comment.chomp
+
         expected_po = <<EOP
 #{header_entry_comment}
 msgid \"\"

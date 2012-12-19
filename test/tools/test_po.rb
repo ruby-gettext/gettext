@@ -477,11 +477,24 @@ EOC
 # test.rb:10
 msgid \"hello\"
 msgstr \"Salut\"
+
+# test.rb:20
+msgid \"hi\"
+msgstr \"Bonjour\"
 EOC
     end
 
     def expected_obsolete_comment
-      obsolete_comment.gsub(/^/, "#~ ").chomp
+      comment = <<EOC
+# test.rb:10
+#~ msgid \"hello\"
+#~ msgstr \"Salut\"
+
+# test.rb:20
+#~ msgid \"hi\"
+#~ msgstr \"Bonjour\"
+EOC
+      comment.chomp
     end
   end
 end
