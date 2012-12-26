@@ -193,10 +193,10 @@ module GetText
                                  "msgid: #{msgid}"
           raise(NoMsgctxtError, no_msgctxt_message)
         end
-        str << "msgctxt \"" << msgctxt << "\"\n"
+        str << "msgctxt " << format_message(msgctxt)
       end
 
-      str << "msgid \"" << escaped(:msgid) << "\"\n"
+      str << "msgid " << format_message(msgid)
       if plural?
         if @msgid_plural.nil?
           no_plural_message = "This POEntry is a kind of plural " +
@@ -205,7 +205,7 @@ module GetText
           raise(NoMsgidPluralError, no_plural_message)
         end
 
-        str << "msgid_plural \"" << escaped(:msgid_plural) << "\"\n"
+        str << "msgid_plural " << format_message(msgid_plural)
 
         if msgstr.nil?
           str << "msgstr[0] \"\"\n"
@@ -213,7 +213,7 @@ module GetText
         else
           msgstrs = msgstr.split("\000", -1)
           msgstrs.each_with_index do |msgstr, index|
-            str << "msgstr[#{index}] \"#{escape(msgstr)}\"\n"
+            str << "msgstr[#{index}] " << format_message(msgstr)
           end
         end
       else
