@@ -259,6 +259,10 @@ module GetText
         def merge(definition, reference)
           result = GetText::PO.new
 
+          translated_entries = definition.reject do |entry|
+            entry.msgstr.nil?
+          end
+
           reference.each do |entry|
             msgid = entry.msgid
             msgctxt = entry.msgctxt
@@ -270,14 +274,14 @@ module GetText
             end
 
             if msgctxt.nil?
-              same_msgid_entry = find_by_msgid(definition, msgid)
+              same_msgid_entry = find_by_msgid(translated_entries, msgid)
               if not same_msgid_entry.nil? and not same_msgid_entry.msgctxt.nil?
                 result[nil, msgid] = merge_fuzzy_entry(same_msgid_entry, entry)
                 next
               end
             end
 
-            fuzzy_entry = find_fuzzy_entry(definition, msgid, msgctxt)
+            fuzzy_entry = find_fuzzy_entry(translated_entries, msgid, msgctxt)
             unless fuzzy_entry.nil?
               result[*id] = merge_fuzzy_entry(fuzzy_entry, entry)
               next
@@ -286,7 +290,7 @@ module GetText
             result[*id] = entry
           end
 
-          add_obsolete_entry(result, definition)
+          add_obsolete_entry(result, translated_entries)
           result
         end
 
