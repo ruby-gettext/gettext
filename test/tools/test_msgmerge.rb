@@ -404,48 +404,48 @@ EOE
     end
 
     class TestAddNoFuzzy < self
-    def test_add_to_nontranslated_entry
-      @po["helol"] = generate_entry(:msgid => "helol",
-                                    :msgstr => nil)
-      @pot["hello"] = generate_entry(:msgid => "hello",
-                                     :msgstr => nil)
-      merged_po = @merger.merge(@po, @pot)
-      assert_true(merged_po.has_key?("hello"))
-      assert_nil(merged_po["hello"].flag)
-    end
+      def test_add_to_nontranslated_entry
+        @po["helol"] = generate_entry(:msgid => "helol",
+                                      :msgstr => nil)
+        @pot["hello"] = generate_entry(:msgid => "hello",
+                                       :msgstr => nil)
+        merged_po = @merger.merge(@po, @pot)
+        assert_true(merged_po.has_key?("hello"))
+        assert_nil(merged_po["hello"].flag)
+      end
 
-    def test_fuzzy_header
-      @po[""] = generate_entry(:msgid => "",
-                               :msgstr => "header\nentry",
-                               :translator_comment => "header comment")
+      def test_fuzzy_header
+        @po[""] = generate_entry(:msgid => "",
+                                 :msgstr => "header\nentry",
+                                 :translator_comment => "header comment")
 
-      @pot[""] = generate_entry(:msgid => "",
-                                :msgstr => "uninitialized\ncomment",
-                                :translator_comment => "uninitialized comment",
-                                :flag => "fuzzy")
+        @pot[""] = generate_entry(:msgid => "",
+                                  :msgstr => "uninitialized\ncomment",
+                                  :translator_comment => "uninitialized comment",
+                                  :flag => "fuzzy")
 
-      merged_po = @merger.merge(@po, @pot)
-      assert_equal("header\nentry", merged_po[""].msgstr)
-      assert_equal("header comment", merged_po[""].translator_comment)
-      assert_equal(nil, merged_po[""].flag)
-    end
+        merged_po = @merger.merge(@po, @pot)
+        assert_equal("header\nentry", merged_po[""].msgstr)
+        assert_equal("header comment", merged_po[""].translator_comment)
+        assert_equal(nil, merged_po[""].flag)
+      end
 
-    def test_fuzzy_header_including_pot_creation_date
-      creation_date_mark = "POT-Creation-Date: "
-      po_creation_date = "#{creation_date_mark}2012-11-15 08:15+0900"
-      pot_creation_date = "#{creation_date_mark}2012-11-20 14:15+0900"
-      @po[""] = generate_entry(:msgid => "",
-                               :msgstr => po_creation_date,
-                               :translator_comment => "header comment")
+      def test_fuzzy_header_including_pot_creation_date
+        creation_date_mark = "POT-Creation-Date: "
+        po_creation_date = "#{creation_date_mark}2012-11-15 08:15+0900"
+        pot_creation_date = "#{creation_date_mark}2012-11-20 14:15+0900"
+        @po[""] = generate_entry(:msgid => "",
+                                 :msgstr => po_creation_date,
+                                 :translator_comment => "header comment")
 
-      @pot[""] = generate_entry(:msgid => "",
-                                :msgstr => pot_creation_date,
-                                :translator_comment => "header comment",
-                                :flag => "fuzzy")
+        @pot[""] = generate_entry(:msgid => "",
+                                  :msgstr => pot_creation_date,
+                                  :translator_comment => "header comment",
+                                  :flag => "fuzzy")
 
-      merged_po = @merger.merge(@po, @pot)
-      assert_equal(pot_creation_date, merged_po[""].msgstr)
-    end
+        merged_po = @merger.merge(@po, @pot)
+        assert_equal(pot_creation_date, merged_po[""].msgstr)
+      end
     end
 
     class TestAddFuzzy < self
