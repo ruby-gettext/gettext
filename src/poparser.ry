@@ -118,7 +118,16 @@ end
 
 ---- header
 require "gettext/tools/po"
-require "gettext/tools/msgmerge"
+
+# For suppressing warning. PoData is deprecated and will be removed.
+module GetText
+  module Tools
+    class MsgMerge
+      class PoData
+      end
+    end
+  end
+end
 ---- inner
   if GetText.respond_to?(:bindtextdomain)
     include GetText

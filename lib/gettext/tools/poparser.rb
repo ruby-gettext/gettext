@@ -17,11 +17,20 @@
 require 'racc/parser.rb'
 
 require "gettext/tools/po"
-require "gettext/tools/msgmerge"
+
+# For suppressing warning. PoData is deprecated and will be removed.
+module GetText
+  module Tools
+    class MsgMerge
+      class PoData
+      end
+    end
+  end
+end
 module GetText
   class POParser < Racc::Parser
 
-module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 123)
+module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 132)
   if GetText.respond_to?(:bindtextdomain)
     include GetText
     GetText.bindtextdomain("gettext")
