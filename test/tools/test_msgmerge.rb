@@ -332,45 +332,6 @@ EOE
       assert_equal("salut", merged_po["hello"].msgstr)
     end
 
-    def test_similar_msgstr_for_fuzzy
-      @po["helol"] = "bonjour"
-      @pot["hello"] = ""
-      merged_po = @merger.merge(@po, @pot)
-
-      assert_false(merged_po.has_key?("helol"))
-      assert_true(merged_po.has_key?("hello"))
-      assert_equal("bonjour", merged_po["hello"].msgstr)
-      assert_equal("fuzzy", merged_po["hello"].flag)
-    end
-
-    def test_nonexistent_msgctxt
-      @po["normal", "hello"] = generate_entry(:msgctxt => "normal",
-                                              :msgid => "hello",
-                                              :msgstr => "salut")
-      @pot["hello"] = generate_entry(:msgid => "hello",
-                                     :msgstr => "")
-      merged_po = @merger.merge(@po, @pot)
-
-      assert_false(merged_po.has_key?("normal", "hello"))
-      assert_true(merged_po.has_key?("hello"))
-      assert_equal("salut", merged_po["hello"].msgstr)
-      assert_equal("fuzzy", merged_po["hello"].flag)
-    end
-
-    def test_msgid_plural
-      @po["he"] = generate_entry(:msgid => "he",
-                                 :msgid_plural => "thye",
-                                 :msgstr => "il\000ils")
-      @pot["he"] = generate_entry(:msgid => "he",
-                                  :msgid_plural => "they",
-                                  :msgstr => "")
-      merged_po = @merger.merge(@po, @pot)
-
-      assert_equal("il\000ils", merged_po["he"].msgstr)
-      assert_equal("they", merged_po["he"].msgid_plural)
-      assert_equal("fuzzy", merged_po["he"].flag)
-    end
-
     def test_translator_comment
       @po["hello"] = generate_entry(:msgid => "hello",
                                     :msgstr => "bonjour",
@@ -429,29 +390,6 @@ EOE
       assert_equal("no-c-format", merged_po["hello"].flag)
     end
 
-    def test_add_fuzzy_flag_to_merged_entry_from_fuzzy_entry
-      @po["hello"] = generate_entry(:msgid => "hello",
-                                    :msgstr => "bonjuor",
-                                    :flag => "fuzzy")
-
-      @pot["hello"] = generate_entry(:msgid => "hello",
-                                     :msgstr => "")
-
-      merged_po = @merger.merge(@po, @pot)
-      assert_equal("bonjuor", merged_po["hello"].msgstr)
-      assert_equal("fuzzy", merged_po["hello"].flag)
-    end
-
-    def test_add_fuzzy_flag_to_nontranslated_entry
-      @po["helol"] = generate_entry(:msgid => "helol",
-                                    :msgstr => nil)
-      @pot["hello"] = generate_entry(:msgid => "hello",
-                                     :msgstr => nil)
-      merged_po = @merger.merge(@po, @pot)
-      assert_true(merged_po.has_key?("hello"))
-      assert_nil(merged_po["hello"].flag)
-    end
-
     def test_previous
       @po["hello"] = generate_entry(:msgid => "hello",
                                     :msgstr => "bonjour",
@@ -463,6 +401,70 @@ EOE
       merged_po = @merger.merge(@po, @pot)
       assert_equal("bonjour", merged_po["hello"].msgstr)
       assert_equal(nil, merged_po["hello"].previous)
+    end
+
+    def test_add_to_nontranslated_entry
+      @po["helol"] = generate_entry(:msgid => "helol",
+                                    :msgstr => nil)
+      @pot["hello"] = generate_entry(:msgid => "hello",
+                                     :msgstr => nil)
+      merged_po = @merger.merge(@po, @pot)
+      assert_true(merged_po.has_key?("hello"))
+      assert_nil(merged_po["hello"].flag)
+    end
+
+    class TestAddFuzzy < self
+    def test_nonexistent_msgctxt
+      @po["normal", "hello"] = generate_entry(:msgctxt => "normal",
+                                              :msgid => "hello",
+                                              :msgstr => "salut")
+      @pot["hello"] = generate_entry(:msgid => "hello",
+                                     :msgstr => "")
+      merged_po = @merger.merge(@po, @pot)
+
+      assert_false(merged_po.has_key?("normal", "hello"))
+      assert_true(merged_po.has_key?("hello"))
+      assert_equal("salut", merged_po["hello"].msgstr)
+      assert_equal("fuzzy", merged_po["hello"].flag)
+    end
+
+    def test_msgid_plural
+      @po["he"] = generate_entry(:msgid => "he",
+                                 :msgid_plural => "thye",
+                                 :msgstr => "il\000ils")
+      @pot["he"] = generate_entry(:msgid => "he",
+                                  :msgid_plural => "they",
+                                  :msgstr => "")
+      merged_po = @merger.merge(@po, @pot)
+
+      assert_equal("il\000ils", merged_po["he"].msgstr)
+      assert_equal("they", merged_po["he"].msgid_plural)
+      assert_equal("fuzzy", merged_po["he"].flag)
+    end
+
+    def test_fuzzy_matching_entry
+      @po["helol"] = "bonjour"
+      @pot["hello"] = ""
+      merged_po = @merger.merge(@po, @pot)
+
+      assert_false(merged_po.has_key?("helol"))
+      assert_true(merged_po.has_key?("hello"))
+      assert_equal("bonjour", merged_po["hello"].msgstr)
+      assert_equal("fuzzy", merged_po["hello"].flag)
+    end
+
+    def test_merged_entry_from_fuzzy_entry
+      @po["hello"] = generate_entry(:msgid => "hello",
+                                    :msgstr => "bonjuor",
+                                    :flag => "fuzzy")
+
+      @pot["hello"] = generate_entry(:msgid => "hello",
+                                     :msgstr => "")
+
+      merged_po = @merger.merge(@po, @pot)
+      assert_equal("bonjuor", merged_po["hello"].msgstr)
+      assert_equal("fuzzy", merged_po["hello"].flag)
+    end
     end
 
     def test_fuzzy_header
