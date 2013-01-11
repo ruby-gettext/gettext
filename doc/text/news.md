@@ -1,4 +1,19 @@
 # News
+
+## <a id="2-3-7">2.3.7</a>: 2013-01-11
+
+This is a msgmerge improved release.
+
+### Improvements
+
+  * [msgmerge] Speeded up fuzzy matching.
+
+### Fixes
+
+  * [msgmerge] Fix the bug that msgmerge adds needless fuzzy flag from
+    not fuzzy entries in merged PO.
+  * [POEntry] Pretty formated all messages except msgstr.
+
 ## <a id="2-3-6">2.3.6</a>: 2012-12-19
 
 This is a bug fix release.
