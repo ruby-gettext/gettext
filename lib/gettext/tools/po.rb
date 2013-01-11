@@ -55,8 +55,8 @@ module GetText
     #     @return [POEntry]
     #   @!macro po.[].argument
     # @overload [](msgctxt, msgid)
+    #   @param [String] msgctxt msgctxt contained returning {POEntry}.
     #   @!macro po.[].argument
-    #   @param [String] msgid msgid contained returning {POEntry}.
     def [](msgctxt, msgid=nil)
       if msgid.nil?
         msgid = msgctxt
