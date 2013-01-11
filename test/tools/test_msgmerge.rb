@@ -429,7 +429,7 @@ EOE
       assert_equal("no-c-format", merged_po["hello"].flag)
     end
 
-    def test_fuzzy_flag
+    def test_add_fuzzy_flag_to_merged_entry_from_fuzzy_entry
       @po["hello"] = generate_entry(:msgid => "hello",
                                     :msgstr => "bonjuor",
                                     :flag => "fuzzy")
