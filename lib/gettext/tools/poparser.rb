@@ -184,11 +184,6 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 123)
     comment
   end
 
-  TRANSLATOR_COMMENT_MARK = "# "
-  EXTRACTED_COMMENT_MARK = "#."
-  FLAG_MARK = "#,"
-  PREVIOUS_MSGID_COMMENT_MARK = "#|"
-  REFERENCE_COMMENT_MARK = "#:"
   def on_comment(comment)
     @fuzzy = true if (/fuzzy/ =~ comment)
     if @data.instance_of?(PO) or
@@ -199,15 +194,15 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 123)
         mark = $1
         content = $2
         case mark
-        when TRANSLATOR_COMMENT_MARK
+        when POEntry::TRANSLATOR_COMMENT_MARK
           @translator_comments << content
-        when EXTRACTED_COMMENT_MARK
+        when POEntry::EXTRACTED_COMMENT_MARK
           @extracted_comments << content
-        when REFERENCE_COMMENT_MARK
+        when POEntry::REFERENCE_COMMENT_MARK
           @references << content
-        when FLAG_MARK
+        when POEntry::FLAG_MARK
           @flag << content
-        when PREVIOUS_MSGID_COMMENT_MARK
+        when POEntry::PREVIOUS_MSGID_COMMENT_MARK
           @previous << content
         else
           @comments << comment

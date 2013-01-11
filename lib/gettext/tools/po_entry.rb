@@ -45,6 +45,12 @@ module GetText
       :msgctxt_plural => [:msgctxt, :msgid, :msgid_plural, :msgstr]
     }
 
+   TRANSLATOR_COMMENT_MARK = "# "
+   EXTRACTED_COMMENT_MARK = "#."
+   FLAG_MARK = "#,"
+   PREVIOUS_MSGID_COMMENT_MARK = "#|"
+   REFERENCE_COMMENT_MARK = "#:"
+
     class << self
       def escape(string)
         string.gsub(/([\\"\n])/) do

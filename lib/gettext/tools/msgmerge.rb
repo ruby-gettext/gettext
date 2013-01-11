@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 #
+# Copyright (C) 2012-2013  Haruka Yoshihara <yoshihara@clear-code.com>
 # Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2005-2009 Masao Mutoh
 # Copyright (C) 2005,2006 speakillof
@@ -229,15 +230,15 @@ module GetText
             mark = $1
             content = $2
             case mark
-            when POParser::TRANSLATOR_COMMENT_MARK
+            when POEntry::TRANSLATOR_COMMENT_MARK
               entry.translator_comment << "#{content}\n"
-            when POParser::EXTRACTED_COMMENT_MARK
+            when POEntry::EXTRACTED_COMMENT_MARK
               entry.extracted_comment << "#{content}\n"
-            when POParser::REFERENCE_COMMENT_MARK
+            when POEntry::REFERENCE_COMMENT_MARK
               entry.references << content
-            when POParser::FLAG_MARK
+            when POEntry::FLAG_MARK
               entry.flag << "#{content}\n"
-            when POParser::PREVIOUS_MSGID_COMMENT_MARK
+            when POEntry::PREVIOUS_MSGID_COMMENT_MARK
               entry.previous << "#{content}\n"
             else
               entry.comment << line
