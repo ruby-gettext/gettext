@@ -72,7 +72,6 @@ This is a many changes and new implements release.
   * Raised no error when POEntry doesn't have references.
     It is useful for no references in .PO file.
 
-# News
 ## <a id="2-3-3">2.3.3</a>: 2012-10-18
 
 It's a package fix and msginit improvement release.
