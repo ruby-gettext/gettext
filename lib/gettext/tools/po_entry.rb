@@ -234,19 +234,19 @@ module GetText
     end
 
     def format_extracted_comment
-      format_comment("#.", extracted_comment)
+      format_comment(EXTRACTED_COMMENT_MARK, extracted_comment)
     end
 
     def format_reference_comment
       max_line_length = 70
       formatted_reference = ""
       if not references.nil? and not references.empty?
-        formatted_reference << "#:"
+        formatted_reference << REFERENCE_COMMENT_MARK
         line_size = 2
         references.each do |reference|
           if line_size + reference.size > max_line_length
             formatted_reference << "\n"
-            formatted_reference <<  "#: #{reference}"
+            formatted_reference <<  "#{REFERENCE_COMMENT_MARK} #{reference}"
             line_size = 3 + reference.size
           else
             formatted_reference << " #{reference}"
@@ -260,11 +260,11 @@ module GetText
     end
 
     def format_flag_comment
-      format_comment("#,", flag)
+      format_comment(FLAG_MARK, flag)
     end
 
     def format_previous_comment
-      format_comment("#|", previous)
+      format_comment(PREVIOUS_MSGID_COMMENT_MARK, previous)
     end
 
     def format_comment(mark, comment)
