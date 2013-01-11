@@ -238,7 +238,7 @@ module GetText
               entry.references << content
             when POEntry::FLAG_MARK
               entry.flag << "#{content}\n"
-            when POEntry::PREVIOUS_MSGID_COMMENT_MARK
+            when POEntry::PREVIOUS_COMMENT_MARK
               entry.previous << "#{content}\n"
             else
               entry.comment << line

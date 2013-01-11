@@ -309,7 +309,7 @@ end
           @references << content
         when POEntry::FLAG_MARK
           @flag << content
-        when POEntry::PREVIOUS_MSGID_COMMENT_MARK
+        when POEntry::PREVIOUS_COMMENT_MARK
           @previous << content
         else
           @comments << comment

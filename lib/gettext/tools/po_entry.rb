@@ -48,7 +48,7 @@ module GetText
    TRANSLATOR_COMMENT_MARK = "# "
    EXTRACTED_COMMENT_MARK = "#."
    FLAG_MARK = "#,"
-   PREVIOUS_MSGID_COMMENT_MARK = "#|"
+   PREVIOUS_COMMENT_MARK = "#|"
    REFERENCE_COMMENT_MARK = "#:"
 
     class << self
@@ -264,7 +264,7 @@ module GetText
     end
 
     def format_previous_comment
-      format_comment(PREVIOUS_MSGID_COMMENT_MARK, previous)
+      format_comment(PREVIOUS_COMMENT_MARK, previous)
     end
 
     def format_comment(mark, comment)

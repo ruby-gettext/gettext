@@ -211,7 +211,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 132)
           @references << content
         when POEntry::FLAG_MARK
           @flag << content
-        when POEntry::PREVIOUS_MSGID_COMMENT_MARK
+        when POEntry::PREVIOUS_COMMENT_MARK
           @previous << content
         else
           @comments << comment
