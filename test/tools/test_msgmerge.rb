@@ -442,6 +442,16 @@ EOE
       assert_equal("fuzzy", merged_po["hello"].flag)
     end
 
+    def test_add_fuzzy_flag_to_nontranslated_entry
+      @po["helol"] = generate_entry(:msgid => "helol",
+                                    :msgstr => nil)
+      @pot["hello"] = generate_entry(:msgid => "hello",
+                                     :msgstr => nil)
+      merged_po = @merger.merge(@po, @pot)
+      assert_true(merged_po.has_key?("hello"))
+      assert_nil(merged_po["hello"].flag)
+    end
+
     def test_previous
       @po["hello"] = generate_entry(:msgid => "hello",
                                     :msgstr => "bonjour",
