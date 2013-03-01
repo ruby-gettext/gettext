@@ -235,7 +235,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 132)
 
   def detect_file_encoding(po_file)
     open(po_file, :encoding => 'ASCII-8BIT') do |input|
-      input.lines.each do |line|
+      input.each_line do |line|
         return Encoding.find($1) if %r["Content-Type:.*\scharset=(.*)\\n"] =~ line
       end
     end
