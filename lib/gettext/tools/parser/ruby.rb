@@ -160,7 +160,9 @@ module GetText
           ignore_next_comma = false
           case tk
           when RubyToken::TkIDENTIFIER, RubyToken::TkCONSTANT
-            store_po_entry(po, po_entry, path, line_no, last_comment)
+            if store_po_entry(po, po_entry, path, line_no, last_comment)
+              last_comment = ""
+            end
             if ID.include?(tk.name)
               po_entry = POEntry.new(:normal)
             elsif PLURAL_ID.include?(tk.name)
