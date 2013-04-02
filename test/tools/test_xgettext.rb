@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
 #
 # License: Ruby's or LGPL
@@ -58,6 +58,40 @@ EOR
 msgid "Hello"
 msgstr ""
 EOP
+  end
+
+  private
+  def header(options=nil)
+    options ||= {}
+    package_name = options[:package_name] || "PACKAGE"
+    package_version = options[:package_version] || "VERSION"
+    msgid_bugs_address = options[:msgid_bugs_address] || ""
+    copyright_holder = options[:copyright_holder] ||
+                         "THE PACKAGE'S COPYRIGHT HOLDER"
+    output_encoding = options[:to_code] || "UTF-8"
+
+    time = @now.strftime("%Y-%m-%d %H:%M%z")
+    <<-"EOH"
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR #{copyright_holder}
+# This file is distributed under the same license as the #{package_name} package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: #{package_name} #{package_version}\\n"
+"Report-Msgid-Bugs-To: #{msgid_bugs_address}\\n"
+"POT-Creation-Date: #{time}\\n"
+"PO-Revision-Date: #{time}\\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
+"Language-Team: LANGUAGE <LL@li.org>\\n"
+"Language: \\n"
+"MIME-Version: 1.0\\n"
+"Content-Type: text/plain; charset=#{output_encoding}\\n"
+"Content-Transfer-Encoding: 8bit\\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
+EOH
   end
 
   class TestEncoding < self
@@ -313,39 +347,5 @@ msgstr ""
 EOP
       end
     end
-  end
-
-  private
-  def header(options=nil)
-    options ||= {}
-    package_name = options[:package_name] || "PACKAGE"
-    package_version = options[:package_version] || "VERSION"
-    msgid_bugs_address = options[:msgid_bugs_address] || ""
-    copyright_holder = options[:copyright_holder] ||
-                         "THE PACKAGE'S COPYRIGHT HOLDER"
-    output_encoding = options[:to_code] || "UTF-8"
-
-    time = @now.strftime("%Y-%m-%d %H:%M%z")
-    <<-"EOH"
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR #{copyright_holder}
-# This file is distributed under the same license as the #{package_name} package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
-msgid ""
-msgstr ""
-"Project-Id-Version: #{package_name} #{package_version}\\n"
-"Report-Msgid-Bugs-To: #{msgid_bugs_address}\\n"
-"POT-Creation-Date: #{time}\\n"
-"PO-Revision-Date: #{time}\\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
-"Language-Team: LANGUAGE <LL@li.org>\\n"
-"Language: \\n"
-"MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=#{output_encoding}\\n"
-"Content-Transfer-Encoding: 8bit\\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
-EOH
   end
 end
