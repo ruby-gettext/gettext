@@ -71,7 +71,7 @@ class TestLocalePath < Test::Unit::TestCase
   def test_default_path_rules
     GetText::LocalePath.memoize_clear
     $LOAD_PATH.unshift("./lib")
-    default_path_rules = GetText::LocalePath.default_path_rules
+    GetText::LocalePath.default_path_rules
     assert_equal($LOAD_PATH[0], "./lib")
   end
 end
