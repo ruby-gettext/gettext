@@ -23,7 +23,7 @@ def toplevel_method
   _("language")
 end
 
-class TestGetText < Test::Unit::TestCase
+class TestTextDomainToplevel < Test::Unit::TestCase
   include GetText
 
   def teardown
