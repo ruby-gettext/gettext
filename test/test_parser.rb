@@ -51,20 +51,20 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_target "\#", ['fixtures/_.rb:88', 'fixtures/_.rb:92']
     assert_target "\\taaa", ['fixtures/_.rb:96']
     assert_target "Here document1\\nHere document2\\n", ['fixtures/_.rb:100']
-    assert_target "Francois Pinard", ['fixtures/_.rb:119'] do |t|
+    assert_target "Francois Pinard", ['fixtures/_.rb:120'] do |t|
       assert_match(/proper name/, t.extracted_comment)
       assert_match(/Pronunciation/, t.extracted_comment)
     end
 
-    assert_target("No TRANSLATORS comment", ["fixtures/_.rb:122"]) do |t|
+    assert_target("No TRANSLATORS comment", ["fixtures/_.rb:123"]) do |t|
       assert_nil(t.comment)
     end
 
-    assert_target "self explaining", ['fixtures/_.rb:127'] do |t|
+    assert_target "self explaining", ['fixtures/_.rb:128'] do |t|
       assert_nil t.comment
     end
 
-    assert_target "This is a # including string.", ["fixtures/_.rb:131"]
+    assert_target "This is a # including string.", ["fixtures/_.rb:132"]
 
     # TODO: assert_target "in_quote", ['fixtures/_.rb:118']
   end
