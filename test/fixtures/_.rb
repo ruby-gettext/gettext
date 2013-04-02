@@ -102,6 +102,7 @@ Here document1
 Here document2
 EOF
 )
+    ret
   end
 
   def test_18
