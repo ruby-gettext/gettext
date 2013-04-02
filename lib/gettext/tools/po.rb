@@ -191,7 +191,7 @@ module GetText
       header_entry = @entries[[nil, ""]]
       po_string << header_entry.to_s unless header_entry.nil?
 
-      content_entries = @entries.reject do |(msgctxt, msgid), _|
+      content_entries = @entries.reject do |(_, msgid), _|
         msgid == :last or msgid.empty?
       end
 
