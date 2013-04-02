@@ -165,6 +165,44 @@ EOP
     end
   end
 
+  class TestTranslatorComment < self
+    def test_n_
+      rb = <<-RB
+n_members = 1
+# TRANSLATORS: Use this message as test
+n_("I will go!",
+   "We will go!",
+   n_members)
+
+_("No comment")
+RB
+      File.open(@rb_file_path, "w") do |rb_file|
+        rb_file.puts(rb)
+      end
+
+      @xgettext.run("--output", @pot_file_path, @rb_file_path)
+
+      encoding = "UTF-8"
+      pot_content = File.read(@pot_file_path)
+      set_encoding(pot_content, encoding)
+      expected_content = <<-POT
+#{header}
+#. Use this message as test
+#: ../lib/xgettext.rb:3
+msgid "I will go!"
+msgid_plural "We will go!"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../lib/xgettext.rb:7
+msgid "No comment"
+msgstr ""
+POT
+      expected_content = encode(expected_content, encoding)
+      assert_equal(expected_content, pot_content)
+    end
+  end
+
   class TestCommandLineOption < self
     def test_package_name
       File.open(@rb_file_path, "w") do |rb_file|
