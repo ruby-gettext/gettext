@@ -69,11 +69,11 @@ class TestLocalePath < Test::Unit::TestCase
   end
 
   class TestDefaultPathRuels < self
-  def test_load_path_untached
-    GetText::LocalePath.memoize_clear
-    $LOAD_PATH.unshift("./lib")
-    GetText::LocalePath.default_path_rules
-    assert_equal($LOAD_PATH[0], "./lib")
-  end
+    def test_load_path_untached
+      GetText::LocalePath.memoize_clear
+      $LOAD_PATH.unshift("./lib")
+      GetText::LocalePath.default_path_rules
+      assert_equal($LOAD_PATH[0], "./lib")
+    end
   end
 end
