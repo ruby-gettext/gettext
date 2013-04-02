@@ -97,12 +97,12 @@ ddd
   end
 
   def test_17
-    ret = _(<<EOF
+    translated = _(<<EOF
 Here document1
 Here document2
 EOF
 )
-    ret
+    translated
   end
 
   def test_18
