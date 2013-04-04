@@ -68,7 +68,7 @@ class TestLocalePath < Test::Unit::TestCase
     assert(Regexp.compile(path2) =~ default_path_rules[1])
   end
 
-  class TestDefaultPathRuels < self
+  class TestDefaultPathRules < self
     def test_load_path_untached
       GetText::LocalePath.memoize_clear
       $LOAD_PATH.unshift("./lib")
