@@ -1,5 +1,29 @@
 # News
 
+## <a id="2-3-8">2.3.8</a>: 2013-04-05
+
+This is a msgmerge improved release.
+
+### Improvements
+
+  * Added licence information to the gemspec.
+    [GitHub #13] [Patch by jordimassaguerpla]
+  * Supported Ruby 2.0.0.
+    [GitHub #14] [Reported by mtasaka]
+
+### Fixes
+
+  * [rxgettext] Fixed a bug that the comment for the previous message
+    also exists in the current message.
+    [Debian #684184] [Reported by Francesco Poli] [Patch by Jérémy Bobbio]
+
+### Thanks
+
+  * jordimassaguerpla
+  * mtasaka
+  * Francesco Poli
+  * Jérémy Bobbio
+
 ## <a id="2-3-7">2.3.7</a>: 2013-01-11
 
 This is a msgmerge improved release.
