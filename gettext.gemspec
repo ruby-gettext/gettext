@@ -37,5 +37,5 @@ So you can use GNU gettext tools for maintaining.
   s.add_development_dependency("test-unit")
   s.add_development_dependency("test-unit-notify")
   s.add_development_dependency("test-unit-rr")
-  s.license = "Ruby"
+  s.license = "Ruby or LGPLv3+"
 end
