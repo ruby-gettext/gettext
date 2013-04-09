@@ -185,7 +185,7 @@ module GetText
   def ensure_command_exists(cmd)
     `#{cmd} --help`
     unless $? && $?.success?
-      raise _("`%{cmd}' can not be found. \nInstall GNU Gettext then set PATH or MSGMERGE_PATH correctly.") % {:cmd => cmd}
+      raise _("`%{cmd}' cannot be found. \nInstall GNU Gettext then set PATH or MSGMERGE_PATH correctly.") % {:cmd => cmd}
     end
   end
 
