@@ -1,5 +1,22 @@
 # News
 
+## <a id="2-3-9">2.3.9</a>: 2013-04-16
+
+This is a msgmerge updated release.
+
+### Improvements
+
+  * [tools] Used the more modern word "cannot" instead of "can
+    not". [GitHub #15] [Patch by Benjamin Kerensa]
+
+### Fixes
+
+  * Avoided including native extentions in this gem for Windows users.
+
+### Thanks
+
+  * Benjamin Kerensa
+
 ## <a id="2-3-8">2.3.8</a>: 2013-04-05
 
 This is a msgmerge improved release.
