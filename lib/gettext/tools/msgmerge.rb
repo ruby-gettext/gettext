@@ -21,7 +21,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require "optparse"
-require "levenshtein"
+require "text"
 require "gettext"
 require "gettext/tools/poparser"
 require "gettext/tools/po"
@@ -357,7 +357,7 @@ module GetText
             entry.msgctxt == msgctxt and not entry.msgid == :last
           end
           same_msgctxt_entries.each do |entry|
-            distance = Levenshtein.normalized_distance(entry.msgid, msgid)
+            distance = normalize_distance(entry.msgid, msgid)
             if min_distance > distance
               min_distance = distance
               min_distance_entry = entry
@@ -365,6 +365,16 @@ module GetText
           end
 
           min_distance_entry
+        end
+
+        def normalize_distance(source, destination)
+          source_size = source.size
+          destination_size = destination.size
+          max_size =
+            source_size > destination_size ? source_size : destination_size
+
+          return 0.0 if max_size.zero?
+          Text::Levenshtein.distance(source, destination) / max_size.to_f
         end
 
         def add_obsolete_entry(result, definition)
