@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 2.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 15:10+0900\n"
-"PO-Revision-Date: 2012-10-16 16:20+0900\n"
+"POT-Creation-Date: 2013-04-16 15:11+0900\n"
+"PO-Revision-Date: 2013-04-16 15:07+0900\n"
 "Last-Translator: Haruka Yoshihara <yoshihara@clear-code.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -39,7 +39,7 @@ msgstr "po/potファイルをチェックしてください。文法エラーも
 
 #: ../lib/gettext/tools.rb:188
 msgid ""
-"`%{cmd}' can not be found. \n"
+"`%{cmd}' cannot be found. \n"
 "Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
 msgstr ""
 "`%{cmd}'は見つかりませんでした。\n"
@@ -58,19 +58,19 @@ msgid "Generate binary message catalog from textual translation description."
 msgstr "poファイルからバイナリのメッセージカタログファイル（moファイル）を生成します。"
 
 #: ../lib/gettext/tools/msgfmt.rb:89
-#: ../lib/gettext/tools/msgmerge.rb:488
+#: ../lib/gettext/tools/msgmerge.rb:498
 #: ../lib/gettext/tools/xgettext.rb:213
 msgid "write output to specified file"
 msgstr "出力ファイルを指定します"
 
 #: ../lib/gettext/tools/msgfmt.rb:93
-#: ../lib/gettext/tools/msgmerge.rb:499
+#: ../lib/gettext/tools/msgmerge.rb:509
 #: ../lib/gettext/tools/xgettext.rb:256
 msgid "display version information and exit"
 msgstr "バージョンを表示します"
 
 #: ../lib/gettext/tools/msgfmt.rb:86 ../lib/gettext/tools/msginit.rb:88
-#: ../lib/gettext/tools/msgmerge.rb:483
+#: ../lib/gettext/tools/msgmerge.rb:493
 #: ../lib/gettext/tools/xgettext.rb:210
 msgid "Specific options:"
 msgstr "オプション："
@@ -92,7 +92,7 @@ msgid "Use LOCALE as target locale. If LOCALE is not specified, LOCALE is the cu
 msgstr "LOCALEとして指定された値をターゲットのロケールとして扱います。ロケールが指定されていない場合は、ユーザの現在のロケールを使用します。"
 
 #: ../lib/gettext/tools/msginit.rb:111
-#: ../lib/gettext/tools/msgmerge.rb:494
+#: ../lib/gettext/tools/msgmerge.rb:504
 msgid "Display this help and exit"
 msgstr "このヘルプを表示します"
 
@@ -124,19 +124,19 @@ msgstr "あなたのフルネームを入力してください"
 msgid "Please enter your email address"
 msgstr "あなたのメールアドレスを入力してください"
 
-#: ../lib/gettext/tools/msgmerge.rb:462
+#: ../lib/gettext/tools/msgmerge.rb:472
 msgid "definition po is not given."
 msgstr "poファイルが指定されていません。"
 
-#: ../lib/gettext/tools/msgmerge.rb:464
+#: ../lib/gettext/tools/msgmerge.rb:474
 msgid "reference pot is not given."
 msgstr "potファイルが指定されていません。"
 
-#: ../lib/gettext/tools/msgmerge.rb:472
+#: ../lib/gettext/tools/msgmerge.rb:482
 msgid "Usage: %s def.po ref.pot [-o output.pot]"
 msgstr "使用法: %s def.po ref.pot [-o output.pot]"
 
-#: ../lib/gettext/tools/msgmerge.rb:475
+#: ../lib/gettext/tools/msgmerge.rb:485
 msgid "Merges two Uniforum style .po files together. The def.po file is an existing PO file with translations. The ref.pot file is the last created PO file with up-to-date source references. ref.pot is generally created by rgettext."
 msgstr "2つの.poファイルをマージします。def.poファイルはすでにある翻訳済みのPOファイルです。ref.potは最新のPOファイルです。ref.potは通常xgettextから新たに生成されたものです。"
 
@@ -312,19 +312,19 @@ msgstr ""
 #. "Fran\u00e7ois" or (with HTML entities) "Fran&ccedil;ois".
 #. Pronunciation is like "fraa-swa pee-nar".
 #. This is an example from GNU gettext documentation.
-#: ../test/fixtures/_.rb:119
+#: ../test/fixtures/_.rb:120
 msgid "Francois Pinard"
 msgstr ""
 
-#: ../test/fixtures/_.rb:122
+#: ../test/fixtures/_.rb:123
 msgid "No TRANSLATORS comment"
 msgstr ""
 
-#: ../test/fixtures/_.rb:127
+#: ../test/fixtures/_.rb:128
 msgid "self explaining"
 msgstr ""
 
-#: ../test/fixtures/_.rb:131
+#: ../test/fixtures/_.rb:132
 msgid "This is a # including string."
 msgstr ""
 
