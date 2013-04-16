@@ -368,10 +368,7 @@ module GetText
         end
 
         def normalize_distance(source, destination)
-          source_size = source.size
-          destination_size = destination.size
-          max_size =
-            source_size > destination_size ? source_size : destination_size
+          max_size = [source.size, destination.size].max
 
           return 0.0 if max_size.zero?
           Text::Levenshtein.distance(source, destination) / max_size.to_f
