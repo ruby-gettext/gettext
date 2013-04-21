@@ -1,6 +1,6 @@
 # News
 
-## <a id="2-3-9">2.3.9</a>: 2013-04-16
+## <a id="2-3-9">2.3.9</a>: 2013-04-21
 
 This is a msgmerge updated release.
 
@@ -8,6 +8,7 @@ This is a msgmerge updated release.
 
   * [tools] Used the more modern word "cannot" instead of "can
     not". [GitHub #15] [Patch by Benjamin Kerensa]
+  * Cleared license descriptions. [Suggested by Jérémy Bobbio]
 
 ### Fixes
 
@@ -16,6 +17,7 @@ This is a msgmerge updated release.
 ### Thanks
 
   * Benjamin Kerensa
+  * Jérémy Bobbio
 
 ## <a id="2-3-8">2.3.8</a>: 2013-04-05
 
