@@ -1,5 +1,9 @@
 = gettext - gettext for Ruby
 
+https://github.com/ruby-gettext/gettext is the official gettext gem
+repository. It is moved from https://github.com/mutoh/gettext . Mutoh
+agreed with the move.
+
 Gettext gem is a pure Ruby Localization(L10n) library and tool
 which is modeled after the GNU gettext package.
 
@@ -15,11 +19,10 @@ The tools for developers support creating, useing, and modifying
 localized message files(message catalogs).
 
 ((*Rails*))
-Rails support has been removed.  
-Rails / ActiveRecord specific code now lives in locale_rails[http://github.com/mutoh/locale_rails/tree/master], gettext_rails[http://github.com/mutoh/gettext_rails/tree/master] and gettext_activerecord[http://github.com/mutoh/gettext_activerecord/tree/master].
+Rails support has been removed.
 
 == Website
-* homepage[http://ruby-gettext.github.com/]
+* homepage[http://ruby-gettext.github.io/]
 * on github[http://github.com/ruby-gettext/gettext]
 
 == Features
@@ -49,17 +52,13 @@ Rails / ActiveRecord specific code now lives in locale_rails[http://github.com/m
   * Locale is retrieved from client informations using Ruby-Locale.
     (HTTP_ACCEPT_LANGUAGE, HTTP_ACCEPT_CHARSET, QUERY_STRING(lang), Cookies(lang)).
 
-* String%() is extended to use named argument such as <tt>%{foo}" %{:foo => 1}</tt>.
-  Notes that Ruby-1.9.x supports this format by itself.
-
 == Requirements
-* {Ruby 1.8.3 or later}[http://www.ruby-lang.org]
+* {Ruby 1.9.3 or later}[http://www.ruby-lang.org]
 * {RubyGems}[http://www.rubygems.org/]
-* {locale gem}[http://rubyforge.org/projects/locale/]
+* {locale gem}[http://ruby-gettext.github.io/]
   * $ gem install locale
 * (for development only)
-  * {GNU gettext 0.10.35 or later}[http://www.gnu.org/software/gettext/gettext.html]
-  * {Racc-1.4.3 or later}[http://www.ruby-lang.org/raa/list.rhtml?name=racc]
+  * {Racc-1.4.3 or later}[http://rubygems.org/gems/racc]
     * (for compiling src/rmsgfmt.ry only)
 
 == Install
