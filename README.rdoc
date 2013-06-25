@@ -54,7 +54,7 @@ Rails / ActiveRecord specific code now lives in locale_rails[http://github.com/m
 
 == Requirements
 * {Ruby 1.8.3 or later}[http://www.ruby-lang.org]
-* {Rubygems}[http://www.rubygems.org/]
+* {RubyGems}[http://www.rubygems.org/]
 * {locale gem}[http://rubyforge.org/projects/locale/]
   * $ gem install locale
 * (for development only)
