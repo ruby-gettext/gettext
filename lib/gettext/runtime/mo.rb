@@ -308,21 +308,21 @@ module GetText
     attr_reader :charset, :nplurals, :plural
 
     private
-      def convert_encoding(string, original_string)
-        return string if @output_charset.nil? or @charset.nil?
+    def convert_encoding(string, original_string)
+      return string if @output_charset.nil? or @charset.nil?
 
-        begin
-          string.encode(@output_charset, @charset)
-        rescue EncodingError
-          if $DEBUG
-            warn "@charset = ", @charset
-            warn "@output_charset = ", @output_charset
-            warn "msgid = ", original_string
-            warn "msgstr = ", string
-          end
-          string
+      begin
+        string.encode(@output_charset, @charset)
+      rescue EncodingError
+        if $DEBUG
+          warn "@charset = ", @charset
+          warn "@output_charset = ", @output_charset
+          warn "msgid = ", original_string
+          warn "msgstr = ", string
         end
+        string
       end
+    end
 
     def generate_original_string(msgid, options)
       string = ""
