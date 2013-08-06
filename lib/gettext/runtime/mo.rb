@@ -308,7 +308,6 @@ module GetText
     attr_reader :charset, :nplurals, :plural
 
     private
-    if "".respond_to?(:encode)
       def convert_encoding(string, original_string)
         return string if @output_charset.nil? or @charset.nil?
 
@@ -324,21 +323,6 @@ module GetText
           string
         end
       end
-    else
-      require 'gettext/core_ext/iconv'
-      def convert_encoding(string, original_string)
-        begin
-          Iconv.conv(@output_charset, @charset, string)
-        rescue Iconv::Failure
-          if $DEBUG
-            warn "@charset = ", @charset
-            warn "@output_charset = ", @output_charset
-            warn "msgid = ", original_string
-            warn "msgstr = ", str
-          end
-        end
-      end
-    end
 
     def generate_original_string(msgid, options)
       string = ""
