@@ -96,8 +96,6 @@ EOH
 
   class TestEncoding < self
     def test_different_encoding_from_current_locale
-      need_encoding
-
       rhtml = <<-EOR
 <%#-*- coding: sjis -*-%>
 <html>
@@ -110,36 +108,34 @@ EOH
 </html>
 EOR
       File.open(@rhtml_file_path, "w") do |rhtml_file|
-        rhtml_file.puts(encode(rhtml, "sjis"))
+        rhtml_file.puts(rhtml.encode("sjis"))
       end
 
       @xgettext.run("--output", @pot_file_path, @rhtml_file_path)
 
       encoding = "UTF-8"
       pot_content = File.read(@pot_file_path)
-      set_encoding(pot_content, encoding)
+      pot_content.force_encoding(encoding)
       expected_content = <<-EOP
 #{header}
 #: ../templates/xgettext.rhtml:7
 msgid "わたし"
 msgstr ""
 EOP
-      expected_content = encode(expected_content, encoding)
+      expected_content = expected_content.encode(encoding)
       assert_equal(expected_content, pot_content)
     end
 
     def test_multiple_encodings
-      need_encoding
-
       File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(encode(<<-EOR, "euc-jp"))
+        rb_file.puts(<<-EOR.encode("euc-jp"))
 # -*- coding: euc-jp -*-
 _("こんにちは")
 EOR
       end
 
       File.open(@rhtml_file_path, "w") do |rhtml_file|
-        rhtml_file.puts(encode(<<-EOR, "cp932"))
+        rhtml_file.puts(<<-EOR.encode("cp932"))
 <%# -*- coding: cp932 -*-%>
 <h1><%= _("わたし") %></h1>
 EOR
@@ -149,7 +145,7 @@ EOR
 
       encoding = "UTF-8"
       pot_content = File.read(@pot_file_path)
-      set_encoding(pot_content, encoding)
+      pot_content.force_encoding(encoding)
       expected_content = <<-EOP
 #{header}
 #: ../lib/xgettext.rb:2
@@ -160,7 +156,7 @@ msgstr ""
 msgid "わたし"
 msgstr ""
 EOP
-      expected_content = encode(expected_content, encoding)
+      expected_content = expected_content.encode(encoding)
       assert_equal(expected_content, pot_content)
     end
   end
@@ -184,7 +180,7 @@ RB
 
       encoding = "UTF-8"
       pot_content = File.read(@pot_file_path)
-      set_encoding(pot_content, encoding)
+      pot_content.force_encoding(encoding)
       expected_content = <<-POT
 #{header}
 #. Use this message as test
@@ -198,7 +194,7 @@ msgstr[1] ""
 msgid "No comment"
 msgstr ""
 POT
-      expected_content = encode(expected_content, encoding)
+      expected_content = expected_content.encode(encoding)
       assert_equal(expected_content, pot_content)
     end
   end
@@ -265,8 +261,6 @@ POT
     end
 
     def test_to_code
-      need_encoding
-
       File.open(@rb_file_path, "w") do |rb_file|
         rb_file.puts(<<-EOR)
 # -*- coding: utf-8 -*-
@@ -281,7 +275,7 @@ EOR
                     @rb_file_path)
 
       actual_pot = File.read(@pot_file_path)
-      set_encoding(actual_pot, output_encoding)
+      actual_pot.force_encoding(output_encoding)
 
       options = {:to_code => output_encoding}
       expected_pot = <<-EOP
@@ -290,7 +284,7 @@ EOR
 msgid "わたし"
 msgstr ""
 EOP
-      expected_pot = encode(expected_pot, output_encoding)
+      expected_pot = expected_pot.encode(output_encoding)
 
       assert_equal(expected_pot, actual_pot)
     end

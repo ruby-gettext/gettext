@@ -136,17 +136,13 @@ module GetText
     def parse  # :nodoc:
       source = IO.read(@path)
 
-      if source.respond_to?(:encode)
-        encoding = detect_encoding(source) || source.encoding
-
-        source.force_encoding(encoding)
-      end
+      encoding = detect_encoding(source) || source.encoding
+      source.force_encoding(encoding)
 
       parse_lines(source.each_line.to_a)
     end
 
     def detect_encoding(source)
-      return nil unless source.respond_to?(:force_encoding)
       binary_source = source.dup.force_encoding("ASCII-8BIT")
       if /\A.*coding\s*[=:]\s*([[:alnum:]\-_]+)/ =~ binary_source
         $1.gsub(/-(?:unix|mac|dos)\z/, "")

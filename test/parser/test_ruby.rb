@@ -68,8 +68,6 @@ class TestRubyParser < Test::Unit::TestCase
   end
 
   class TestDetectEncoding < self
-    setup :need_encoding
-
     def test_ascii_and_hyphen
       assert_equal("euc-jp", detect_encoding("# coding: euc-jp"))
     end

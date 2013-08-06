@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -22,10 +22,6 @@ require "tmpdir"
 require "tempfile"
 require "time"
 
-unless String.method_defined?(:encode)
-  require "iconv"
-end
-
 require "gettext"
 
 module GetTextTestUtils
@@ -44,24 +40,5 @@ module GetTextTestUtils
 
   def teardown_tmpdir
     FileUtils.rm_rf(@tmpdir, :secure => true) if @tmpdir
-  end
-
-  def need_encoding
-    unless defined?(Encoding)
-      omit("This test needs encoding.")
-    end
-  end
-
-  def set_encoding(string, encoding)
-    return unless string.respond_to?(:force_encoding)
-    string.force_encoding(encoding)
-  end
-
-  def encode(string, encoding)
-    if string.respond_to?(:encode)
-      string.encode(encoding)
-    else
-      Iconv.iconv(encoding, "UTF-8", string).join("")
-    end
   end
 end

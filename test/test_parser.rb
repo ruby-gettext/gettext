@@ -134,8 +134,6 @@ class TestGetTextParser < Test::Unit::TestCase
     include GetTextTestUtils
 
     def test_detect_encoding
-      need_encoding
-
       euc_file = Tempfile.new("euc-jp.rhtml")
       euc_file.open
       euc_file.puts("<%#-*- coding: euc-jp -*-%>")

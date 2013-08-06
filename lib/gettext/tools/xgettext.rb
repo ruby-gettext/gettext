@@ -346,11 +346,7 @@ EOH
       end
 
       def encode(string)
-        if string.respond_to?(:encode)
-          string.encode(@output_encoding)
-        else
-          string # don't support
-        end
+        string.encode(@output_encoding)
       end
     end
   end

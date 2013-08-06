@@ -35,15 +35,13 @@ module GetText
       content = IO.read(file)
       src = ERB.new(content).src
 
-      if src.respond_to?(:encode)
-        # Force the src encoding back to the encoding in magic comment
-        # or original content.
-        encoding = detect_encoding(src) || content.encoding
-        src.force_encoding(encoding)
+      # Force the src encoding back to the encoding in magic comment
+      # or original content.
+      encoding = detect_encoding(src) || content.encoding
+      src.force_encoding(encoding)
 
-        # Remove magic comment prepended by erb in Ruby 1.9.
-        src = src.gsub(MAGIC_COMMENT, "")
-      end
+      # Remove magic comment prepended by erb in Ruby 1.9.
+      src = src.gsub(MAGIC_COMMENT, "")
 
       erb = src.split(/$/)
       RubyParser.new(file).parse_lines(erb)
