@@ -46,7 +46,7 @@ module GetText
       end
 
       erb = src.split(/$/)
-      RubyParser.parse_lines(file, erb)
+      RubyParser.new(file).parse_lines(erb)
     end
 
     def detect_encoding(erb_source)

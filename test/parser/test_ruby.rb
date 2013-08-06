@@ -96,7 +96,8 @@ class TestRubyParser < Test::Unit::TestCase
 
     private
     def detect_encoding(content)
-      GetText::RubyParser.detect_encoding(content)
+      parser = GetText::RubyParser.new("/tmp/source.rb")
+      parser.detect_encoding(content)
     end
 
     class NewLineStyle < self

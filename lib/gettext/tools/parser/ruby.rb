@@ -108,20 +108,33 @@ module GetText
     end
   end
 
-  module RubyParser
-    extend self
-
+  class RubyParser
     ID = ['gettext', '_', 'N_', 'sgettext', 's_']
     PLURAL_ID = ['ngettext', 'n_', 'Nn_', 'ns_', 'nsgettext']
     MSGCTXT_ID = ['pgettext', 'p_']
     MSGCTXT_PLURAL_ID = ['npgettext', 'np_']
 
+    class << self
+      def target?(file)  # :nodoc:
+        true # always true, as the default parser.
+      end
+
+      def parse(path)
+        parser = new(path)
+        parser.parse
+      end
+    end
+
+    def initialize(path)
+      @path = path
+    end
+
     # (Since 2.1.0) the 2nd parameter is deprecated
     # (and ignored here).
     # And You don't need to keep the poentries as unique.
 
-    def parse(path)  # :nodoc:
-      source = IO.read(path)
+    def parse  # :nodoc:
+      source = IO.read(@path)
 
       if source.respond_to?(:encode)
         encoding = detect_encoding(source) || source.encoding
@@ -129,7 +142,7 @@ module GetText
         source.force_encoding(encoding)
       end
 
-      parse_lines(path, source.each_line.to_a)
+      parse_lines(source.each_line.to_a)
     end
 
     def detect_encoding(source)
@@ -142,7 +155,7 @@ module GetText
       end
     end
 
-    def parse_lines(path, lines)  # :nodoc:
+    def parse_lines(lines)  # :nodoc:
       po = []
       file = StringIO.new(lines.join + "\n")
       rl = RubyLexX.new
@@ -161,7 +174,7 @@ module GetText
           ignore_next_comma = false
           case tk
           when RubyToken::TkIDENTIFIER, RubyToken::TkCONSTANT
-            if store_po_entry(po, po_entry, path, line_no, last_comment)
+            if store_po_entry(po, po_entry, line_no, last_comment)
               last_comment = ""
             end
             if ID.include?(tk.name)
@@ -187,14 +200,14 @@ module GetText
               po_entry.advance_to_next_attribute if po_entry
             end
           else
-            if store_po_entry(po, po_entry, path, line_no, last_comment)
+            if store_po_entry(po, po_entry, line_no, last_comment)
               po_entry = nil
               last_comment = ""
             end
           end
         rescue
           $stderr.print "\n\nError"
-          $stderr.print " parsing #{path}:#{tk.line_no}\n\t #{lines[tk.line_no - 1]}" if tk
+          $stderr.print " parsing #{@path}:#{tk.line_no}\n\t #{lines[tk.line_no - 1]}" if tk
           $stderr.print "\n #{$!.inspect} in\n"
           $stderr.print $!.backtrace.join("\n")
           $stderr.print "\n"
@@ -223,14 +236,10 @@ module GetText
       po
     end
 
-    def target?(file)  # :nodoc:
-      true # always true, as the default parser.
-    end
-
     private
-    def store_po_entry(po, po_entry, file_name, line_no, last_comment) #:nodoc:
+    def store_po_entry(po, po_entry, line_no, last_comment) #:nodoc:
       if po_entry && po_entry.msgid
-        po_entry.references << file_name + ":" + line_no
+        po_entry.references << @path + ":" + line_no
         po_entry.add_comment(last_comment) unless last_comment.empty?
         po << po_entry
         true
