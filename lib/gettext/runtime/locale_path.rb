@@ -11,7 +11,6 @@
 =end
 
 require 'rbconfig'
-require 'gettext/core_ext/string'
 
 module GetText
   # Treats locale-path for mo-files.

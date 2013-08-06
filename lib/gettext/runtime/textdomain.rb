@@ -13,7 +13,6 @@
   license terms as Ruby or LGPL.
 =end
 
-require 'gettext/core_ext/string'
 require 'gettext/runtime/mo'
 require 'gettext/runtime/locale_path'
 
