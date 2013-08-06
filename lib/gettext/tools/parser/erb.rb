@@ -13,26 +13,42 @@ require 'erb'
 require 'gettext/tools/parser/ruby'
 
 module GetText
-  module ErbParser
-    extend self
-
+  class ErbParser
     @config = {
       :extnames => ['.rhtml', '.erb']
     }
 
-    # Sets some preferences to parse ERB files.
-    # * config: a Hash of the config. It can takes some values below:
-    #   * :extnames: An Array of target files extension. Default is [".rhtml"].
-    def init(config)
-      config.each{|k, v|
-  @config[k] = v
-      }
+    class << self
+      # Sets some preferences to parse ERB files.
+      # * config: a Hash of the config. It can takes some values below:
+      #   * :extnames: An Array of target files extension. Default is [".rhtml"].
+      def init(config)
+        config.each{|k, v|
+          @config[k] = v
+        }
+      end
+
+      def target?(file) # :nodoc:
+        @config[:extnames].each do |v|
+          return true if File.extname(file) == v
+        end
+        false
+      end
+
+      def parse(path)
+        parser = new(path)
+        parser.parse
+      end
     end
 
     MAGIC_COMMENT = /\A#coding:.*\n/
 
-    def parse(file) # :nodoc:
-      content = IO.read(file)
+    def initialize(path)
+      @path = path
+    end
+
+    def parse # :nodoc:
+      content = IO.read(@path)
       src = ERB.new(content).src
 
       # Force the src encoding back to the encoding in magic comment
@@ -44,7 +60,7 @@ module GetText
       src = src.gsub(MAGIC_COMMENT, "")
 
       erb = src.split(/$/)
-      RubyParser.new(file).parse_lines(erb)
+      RubyParser.new(@path).parse_lines(erb)
     end
 
     def detect_encoding(erb_source)
@@ -53,13 +69,6 @@ module GetText
       else
         nil
       end
-    end
-
-    def target?(file) # :nodoc:
-      @config[:extnames].each do |v|
-  return true if File.extname(file) == v
-      end
-      false
     end
   end
 end

@@ -140,7 +140,7 @@ class TestGetTextParser < Test::Unit::TestCase
       euc_file.close
 
       erb_source = ERB.new(File.read(euc_file.path)).src
-      encoding = GetText::ErbParser.detect_encoding(erb_source)
+      encoding = GetText::ErbParser.new(euc_file.path).detect_encoding(erb_source)
 
       assert_equal("EUC-JP", encoding)
     end
