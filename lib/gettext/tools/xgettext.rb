@@ -77,6 +77,7 @@ module GetText
         @msgid_bugs_address = nil
         @copyright_holder = nil
         @output_encoding = nil
+        @parser_options = {:translators_tag => "TRANSLATORS:"}
       end
 
       # The parser object requires to have target?(path) and
@@ -244,6 +245,11 @@ EOH
           require out
         end
 
+        parser.on("-g", "--gnu-compatible",
+                  _("Create PO file compatible with GNU gettext")) do
+          @parser_options[:gnu_compatibility] = true
+        end
+
         parser.on("-d", "--debug", _("run in debugging mode")) do
           $DEBUG = true
         end
@@ -290,7 +296,7 @@ EOH
         @parsers.each do |parser|
           next unless parser.target?(path)
 
-          extracted_po = parser.parse(path)
+          extracted_po = parser.parse(path, @parser_options)
           extracted_po.each do |po_entry|
             if po_entry.kind_of?(Array)
               po_entry = POEntry.new_from_ary(po_entry)
