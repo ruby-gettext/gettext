@@ -2,6 +2,7 @@
 =begin
   parser/ruby.rb - parser for ruby script
 
+  Copyright (C) 2013       Kouhei Sutou <kou@clear-code.com>
   Copyright (C) 2003-2009  Masao Mutoh
   Copyright (C) 2005       speakillof
   Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
@@ -11,7 +12,7 @@
 
 =end
 
-require 'irb/ruby-lex.rb'
+require 'irb/ruby-lex'
 require 'stringio'
 require 'gettext/tools/po_entry'
 
