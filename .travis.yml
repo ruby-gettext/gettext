@@ -4,6 +4,8 @@ rvm:
   - rbx-19mode
   - jruby
 #  - ruby-head
+env:
+  - JRUBY_OPTS=-Xcext.enabled=true
 notifications:
   recipients:
     - travis@clear-code.com
