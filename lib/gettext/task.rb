@@ -186,7 +186,12 @@ module GetText
     end
 
     def current_scope
-      Rake.application.current_scope.to_a
+      scope = Rake.application.current_scope
+      if scope.is_a?(Array)
+        scope
+      else
+        [scope.path]
+      end
     end
 
     def namespace_recursive(namespace_spec, &block)
