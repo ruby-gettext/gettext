@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -186,7 +186,7 @@ module GetText
     end
 
     def current_scope
-      Rake.application.current_scope
+      Rake.application.current_scope.to_a
     end
 
     def namespace_recursive(namespace_spec, &block)
