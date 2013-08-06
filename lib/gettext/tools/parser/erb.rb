@@ -31,7 +31,7 @@ module GetText
 
     MAGIC_COMMENT = /\A#coding:.*\n/
 
-    def parse(file) # :nodoc:
+    def parse(file, options = {}) # :nodoc:
       content = IO.read(file)
       src = ERB.new(content).src
 
@@ -46,7 +46,7 @@ module GetText
       end
 
       erb = src.split(/$/)
-      RubyParser.parse_lines(file, erb)
+      RubyParser.parse_lines(file, erb, options)
     end
 
     def detect_encoding(erb_source)

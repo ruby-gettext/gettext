@@ -119,7 +119,7 @@ module GetText
     # (and ignored here).
     # And You don't need to keep the poentries as unique.
 
-    def parse(path)  # :nodoc:
+    def parse(path, options = {})  # :nodoc:
       source = IO.read(path)
 
       if source.respond_to?(:encode)
@@ -128,7 +128,7 @@ module GetText
         source.force_encoding(encoding)
       end
 
-      parse_lines(path, source.each_line.to_a)
+      parse_lines(path, source.each_line.to_a, options)
     end
 
     def detect_encoding(source)
@@ -141,7 +141,7 @@ module GetText
       end
     end
 
-    def parse_lines(path, lines)  # :nodoc:
+    def parse_lines(path, lines, options = {})  # :nodoc:
       po = []
       file = StringIO.new(lines.join + "\n")
       rl = RubyLexX.new
@@ -206,7 +206,11 @@ module GetText
           if last_comment.empty?
             # new comment from programmer to translator?
             comment1 = tk.value.lstrip
-            if comment1 =~ /^TRANSLATORS\:/
+            translators_tag = options[:translators_tag]
+
+            if translators_tag.nil?
+              last_comment = comment1
+            elsif comment1 =~ /^#{translators_tag}/
               last_comment = $'
             end
           else

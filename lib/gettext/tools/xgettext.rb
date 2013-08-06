@@ -77,6 +77,7 @@ module GetText
         @msgid_bugs_address = nil
         @copyright_holder = nil
         @output_encoding = nil
+        @parser_options = {:translators_tag => "TRANSLATORS:"}
       end
 
       # The parser object requires to have target?(path) and
@@ -237,6 +238,10 @@ EOH
         parser.on("--output-encoding=ENCODING",
                   _("set encoding for output")) do |encoding|
           @output_encoding = encoding
+
+        parser.on("-c", "--add-comments[=TAG]",
+                  _("add comments preceding the translated text, include the text following the TAG (all if empty) [default: \"TRANSLATORS:\"]")) do |tag|
+          @parser_options[:translators_tag] = tag
         end
 
         parser.on("-r", "--require=library",
@@ -290,7 +295,7 @@ EOH
         @parsers.each do |parser|
           next unless parser.target?(path)
 
-          extracted_po = parser.parse(path)
+          extracted_po = parser.parse(path, @parser_options)
           extracted_po.each do |po_entry|
             if po_entry.kind_of?(Array)
               po_entry = POEntry.new_from_ary(po_entry)
