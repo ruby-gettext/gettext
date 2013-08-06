@@ -77,6 +77,7 @@ module GetText
         @msgid_bugs_address = nil
         @copyright_holder = nil
         @output_encoding = nil
+        @parser_options = {:translators_tag => "TRANSLATORS:"}
       end
 
       # The parser object requires to have target?(path) and
@@ -133,7 +134,7 @@ module GetText
       def generate_pot_header # :nodoc:
         time = now.strftime("%Y-%m-%d %H:%M%z")
 
-        <<EOH
+        header = <<EOH
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR #{@copyright_holder}
 # This file is distributed under the same license as the #{@package_name} package.
@@ -152,8 +153,12 @@ msgstr ""
 "MIME-Version: 1.0\\n"
 "Content-Type: text/plain; charset=#{@output_encoding}\\n"
 "Content-Transfer-Encoding: 8bit\\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
 EOH
+        if !@parser_options[:gnu_compatibility]
+          header << "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n\"\n"
+        end
+
+        header
       end
 
       def generate_pot(paths) # :nodoc:
@@ -244,6 +249,11 @@ EOH
           require out
         end
 
+        parser.on("-g", "--gnu-compatible",
+                  _("Create PO file compatible with GNU gettext")) do
+          @parser_options[:gnu_compatibility] = true
+        end
+
         parser.on("-d", "--debug", _("run in debugging mode")) do
           $DEBUG = true
         end
@@ -290,7 +300,7 @@ EOH
         @parsers.each do |parser|
           next unless parser.target?(path)
 
-          extracted_po = parser.parse(path)
+          extracted_po = parser.parse(path, @parser_options)
           extracted_po.each do |po_entry|
             if po_entry.kind_of?(Array)
               po_entry = POEntry.new_from_ary(po_entry)

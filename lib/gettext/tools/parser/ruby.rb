@@ -79,9 +79,7 @@ module GetText
 
   end
 
-  # Extends POEntry for RubyParser.
-  # Implements a sort of state machine to assist the parser.
-  module POEntryForRubyParser
+  class RubyPOEntry < POEntry
     # Supports parsing by setting attributes by and by.
     def set_current_attribute(str)
       param = @param_type[@param_number]
@@ -97,13 +95,25 @@ module GetText
     def advance_to_next_attribute
       @param_number += 1
     end
-  end
-  class POEntry
-    include POEntryForRubyParser
-    alias :initialize_old :initialize
-    def initialize(type)
-      initialize_old(type)
+
+    # make the output GNU gettext compatible,
+    # do not double escape new line characters in the messages
+    attr_accessor :gnu_compatibility
+
+    def initialize(type, options = {})
+      super(type)
       init_param
+
+      @gnu_compatibility = options[:gnu_compatibility]
+    end
+
+    def format_message(message)
+      if @gnu_compatibility && !message.nil? && message.include?("\\n")
+        # unescape new lines (GNU compatibility)
+        super(message.gsub("\\n", "\n"))
+      else
+        super(message)
+      end
     end
   end
 
@@ -119,7 +129,7 @@ module GetText
     # (and ignored here).
     # And You don't need to keep the poentries as unique.
 
-    def parse(path)  # :nodoc:
+    def parse(path, options = {})  # :nodoc:
       source = IO.read(path)
 
       if source.respond_to?(:encode)
@@ -128,7 +138,7 @@ module GetText
         source.force_encoding(encoding)
       end
 
-      parse_lines(path, source.each_line.to_a)
+      parse_lines(path, source.each_line.to_a, options)
     end
 
     def detect_encoding(source)
@@ -141,7 +151,7 @@ module GetText
       end
     end
 
-    def parse_lines(path, lines)  # :nodoc:
+    def parse_lines(path, lines, options = {})  # :nodoc:
       po = []
       file = StringIO.new(lines.join + "\n")
       rl = RubyLexX.new
@@ -164,13 +174,13 @@ module GetText
               last_comment = ""
             end
             if ID.include?(tk.name)
-              po_entry = POEntry.new(:normal)
+              po_entry = RubyPOEntry.new(:normal, options)
             elsif PLURAL_ID.include?(tk.name)
-              po_entry = POEntry.new(:plural)
+              po_entry = RubyPOEntry.new(:plural, options)
             elsif MSGCTXT_ID.include?(tk.name)
-              po_entry = POEntry.new(:msgctxt)
+              po_entry = RubyPOEntry.new(:msgctxt, options)
             elsif MSGCTXT_PLURAL_ID.include?(tk.name)
-              po_entry = POEntry.new(:msgctxt_plural)
+              po_entry = RubyPOEntry.new(:msgctxt_plural, options)
             else
               po_entry = nil
             end
