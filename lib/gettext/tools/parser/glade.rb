@@ -3,6 +3,7 @@
 =begin
   parser/glade.rb - parser for Glade-2
 
+  Copyright (C) 2013       Kouhei Sutou <kou@clear-code.com>
   Copyright (C) 2004,2005  Masao Mutoh
 
   You may redistribute it and/or modify it under the same
@@ -13,22 +14,47 @@ require 'cgi'
 require 'gettext'
 
 module GetText
-  module GladeParser
+  class GladeParser
     extend GetText
-    extend self
 
     bindtextdomain("gettext")
+
+    class << self
+      XML_RE = /<\?xml/
+      GLADE_RE = /glade-2.0.dtd/
+
+      def target?(file) # :nodoc:
+        data = IO.readlines(file)
+        if XML_RE =~ data[0] and GLADE_RE =~ data[1]
+          true
+        else
+          if File.extname(file) == '.glade'
+            raise _("`%{file}' is not glade-2.0 format.") % {:file => file}
+          end
+          false
+        end
+      end
+
+      def parse(path)
+        parser = new(path)
+        parser.parse
+      end
+    end
 
     TARGET1 = /<property.*translatable="yes">(.*)/
     TARGET2 = /(.*)<\/property>/
 
-    def parse(file) # :nodoc:
-      lines = IO.readlines(file)
-      parse_lines(file, lines)
+    def initialize(path)
+      @path = path
+    end
+
+    def parse # :nodoc:
+      lines = IO.readlines(@path)
+      parse_lines(lines)
     end
 
     #from ary of lines.
-    def parse_lines(file, lines) # :nodoc:
+    def parse_lines(lines) # :nodoc:
       targets = []
       cnt = 0
       target = false
@@ -46,14 +72,14 @@ module GetText
           target = true
           if TARGET2 =~ $1
             val = $1
-            add_target(val, file, line_no, targets)
+            add_target(val, line_no, targets)
             val = nil
             target = false
           end
         elsif target
           if TARGET2 =~ line
             val << $1
-            add_target(val, file, line_no, targets)
+            add_target(val, line_no, targets)
             val = nil
             target = false
           else
@@ -64,29 +90,14 @@ module GetText
       targets
     end
 
-    XML_RE = /<\?xml/
-    GLADE_RE = /glade-2.0.dtd/
-
-    def target?(file) # :nodoc:
-      data = IO.readlines(file)
-      if XML_RE =~ data[0] and GLADE_RE =~ data[1]
-        true
-      else
-        if File.extname(file) == '.glade'
-          raise _("`%{file}' is not glade-2.0 format.") % {:file => file}
-        end
-        false
-      end
-    end
-
-    def add_target(val, file, line_no, targets) # :nodoc:
+    def add_target(val, line_no, targets) # :nodoc:
       return unless val.size > 0
       assoc_data = targets.assoc(val)
       val = CGI.unescapeHTML(val)
       if assoc_data
-        targets[targets.index(assoc_data)] = assoc_data << "#{file}:#{line_no}"
+        targets[targets.index(assoc_data)] = assoc_data << "#{@path}:#{line_no}"
       else
-        targets << [val.gsub(/\n/, '\n'), "#{file}:#{line_no}"]
+        targets << [val.gsub(/\n/, '\n'), "#{@path}:#{line_no}"]
       end
       targets
     end
