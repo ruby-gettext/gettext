@@ -49,37 +49,33 @@ module GetText
     end
 
     def parse # :nodoc:
-      lines = IO.readlines(@path)
-      parse_lines(lines)
+      File.open(@path) do |file|
+        parse_source(file)
+      end
     end
 
-    #from ary of lines.
-    def parse_lines(lines) # :nodoc:
+    private
+    def parse_source(input) # :nodoc:
       targets = []
-      cnt = 0
       target = false
-      line_no = 0
+      start_line_no = nil
       val = nil
 
-      loop do
-        line = lines.shift
-        break unless line
-
-        cnt += 1
+      input.each_line.with_index do |line, i|
         if TARGET1 =~ line
-          line_no = cnt
+          start_line_no = i + 1
           val = $1 + "\n"
           target = true
           if TARGET2 =~ $1
             val = $1
-            add_target(val, line_no, targets)
+            add_target(val, start_line_no, targets)
             val = nil
             target = false
           end
         elsif target
           if TARGET2 =~ line
             val << $1
-            add_target(val, line_no, targets)
+            add_target(val, start_line_no, targets)
             val = nil
             target = false
           else
