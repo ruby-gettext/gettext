@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 =begin
   gettext/textdomain_manager - GetText::TextDomainManager class

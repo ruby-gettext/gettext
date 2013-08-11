@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 =begin
   textdomain.rb - GetText::Textdomain

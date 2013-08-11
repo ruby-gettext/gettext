@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
 # Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>

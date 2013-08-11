@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 =begin
     mo.rb - A simple class for operating GNU MO file.

@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 class TestGetTextString < Test::Unit::TestCase
   class TestFormat < self
