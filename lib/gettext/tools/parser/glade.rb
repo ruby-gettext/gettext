@@ -70,12 +70,12 @@ module GetText
     def target?(file) # :nodoc:
       data = IO.readlines(file)
       if XML_RE =~ data[0] and GLADE_RE =~ data[1]
-  true
+        true
       else
-  if File.extname(file) == '.glade'
-    raise _("`%{file}' is not glade-2.0 format.") % {:file => file}
-  end
-  false
+        if File.extname(file) == '.glade'
+          raise _("`%{file}' is not glade-2.0 format.") % {:file => file}
+        end
+        false
       end
     end
 
