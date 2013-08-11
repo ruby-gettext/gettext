@@ -59,8 +59,7 @@ module GetText
       # Remove magic comment prepended by erb in Ruby 1.9.
       src = src.gsub(MAGIC_COMMENT, "")
 
-      erb = src.split(/$/)
-      RubyParser.new(@path).parse_lines(erb)
+      RubyParser.new(@path).parse_source(src)
     end
 
     def detect_encoding(erb_source)

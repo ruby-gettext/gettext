@@ -139,7 +139,7 @@ module GetText
       encoding = detect_encoding(source) || source.encoding
       source.force_encoding(encoding)
 
-      parse_lines(source.each_line.to_a)
+      parse_source(source)
     end
 
     def detect_encoding(source)
@@ -151,9 +151,9 @@ module GetText
       end
     end
 
-    def parse_lines(lines)  # :nodoc:
+    def parse_source(source)
       po = []
-      file = StringIO.new(lines.join + "\n")
+      file = StringIO.new(source)
       rl = RubyLexX.new
       rl.set_input(file)
       rl.skip_space = true
