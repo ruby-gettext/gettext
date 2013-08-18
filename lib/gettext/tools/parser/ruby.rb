@@ -119,21 +119,30 @@ module GetText
         true # always true, as the default parser.
       end
 
-      def parse(path)
-        parser = new(path)
+      # Parses Ruby script located at `path`.
+      #
+      # This is a short cut method. It equals to `new(path,
+      # options).parse`.
+      #
+      # @return [Array<POEntry>] Extracted messages
+      # @see #initialize and #parse
+      def parse(path, options={})
+        parser = new(path, options)
         parser.parse
       end
     end
 
-    def initialize(path)
+    # @param path [String] Ruby script path to be parsed
+    # @param options [Hash]
+    def initialize(path, options={})
       @path = path
+      @options = options
     end
 
-    # (Since 2.1.0) the 2nd parameter is deprecated
-    # (and ignored here).
-    # And You don't need to keep the poentries as unique.
-
-    def parse  # :nodoc:
+    # Extracts messages from @path.
+    #
+    # @return [Array<POEntry>] Extracted messages
+    def parse
       source = IO.read(@path)
 
       encoding = detect_encoding(source) || source.encoding

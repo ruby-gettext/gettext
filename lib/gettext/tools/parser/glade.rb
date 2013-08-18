@@ -44,8 +44,9 @@ module GetText
     TARGET1 = /<property.*translatable="yes">(.*)/
     TARGET2 = /(.*)<\/property>/
 
-    def initialize(path)
+    def initialize(path, options={})
       @path = path
+      @options = options
     end
 
     def parse # :nodoc:

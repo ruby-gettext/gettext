@@ -35,19 +35,32 @@ module GetText
         false
       end
 
-      def parse(path)
-        parser = new(path)
+      # Parses eRuby script located at `path`.
+      #
+      # This is a short cut method. It equals to `new(path,
+      # options).parse`.
+      #
+      # @return [Array<POEntry>] Extracted messages
+      # @see #initialize and #parse
+      def parse(path, options={})
+        parser = new(path, options)
         parser.parse
       end
     end
 
     MAGIC_COMMENT = /\A#coding:.*\n/
 
-    def initialize(path)
+    # @param path [String] eRuby script path to be parsed
+    # @param options [Hash]
+    def initialize(path, options={})
       @path = path
+      @options = options
     end
 
-    def parse # :nodoc:
+    # Extracts messages from @path.
+    #
+    # @return [Array<POEntry>] Extracted messages
+    def parse
       content = IO.read(@path)
       src = ERB.new(content).src
 
@@ -59,7 +72,7 @@ module GetText
       # Remove magic comment prepended by erb in Ruby 1.9.
       src = src.gsub(MAGIC_COMMENT, "")
 
-      RubyParser.new(@path).parse_source(src)
+      RubyParser.new(@path, @options).parse_source(src)
     end
 
     def detect_encoding(erb_source)
