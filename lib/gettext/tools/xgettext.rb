@@ -67,7 +67,7 @@ module GetText
       end
 
       def initialize #:nodoc:
-        @parsers = @@default_parsers
+        @parsers = @@default_parsers.dup
 
         @input_files = nil
         @output = nil
