@@ -88,7 +88,7 @@ module GetText
       #     def target?(path)
       #       File.extname(path) == ".foo"  # *.foo file only.
       #     end
-      #     def parse(path)
+      #     def parse(path, options={})
       #       po = []
       #       # Simple entry
       #       entry = POEntry.new(:normal)
@@ -119,7 +119,7 @@ module GetText
       #     end
       #   end
       #
-      #   GetText::XGetText.add_parser(FooParser.new)
+      #   GetText::Tools::XGetText.add_parser(FooParser.new)
       #
       # @param [#target?, #parse] parser
       #   It parses target file and extracts translate target entries from the
