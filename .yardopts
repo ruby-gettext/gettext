@@ -1,5 +1,6 @@
 --protected
 --no-private
+--markup markdown
 --output doc/reference/en
 --title "gettext API Reference"
 -
