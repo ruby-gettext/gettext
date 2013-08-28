@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
 # Copyright (C) 2009  Vladimir Dobriakov <vladimir@geekq.net>
 # Copyright (C) 2009-2010  Masao Mutoh
@@ -34,7 +34,7 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   class TestRuby < self
-    def test_ruby
+    def test__
       @ary = @xgettext.parse(['fixtures/_.rb'])
 
       assert_target 'aaa\n', ['fixtures/_.rb:34']
@@ -70,7 +70,7 @@ class TestGetTextParser < Test::Unit::TestCase
       # TODO: assert_target "in_quote", ['fixtures/_.rb:118']
     end
 
-    def test_ruby_N
+    def test_N_
       @ary = @xgettext.parse(['fixtures/N_.rb'])
 
       assert_target 'aaa', ['fixtures/N_.rb:10']
@@ -88,7 +88,7 @@ class TestGetTextParser < Test::Unit::TestCase
       assert_target 'nnn\nooo', ['fixtures/N_.rb:64']
     end
 
-    def test_ruby_n
+    def test_n_
       @ary = @xgettext.parse(['fixtures/n_.rb'])
       assert_plural_target "aaa", "aaa2", ['fixtures/n_.rb:29']
       assert_plural_target "bbb\\n", "ccc2\\nccc2", ['fixtures/n_.rb:33']
@@ -107,7 +107,7 @@ class TestGetTextParser < Test::Unit::TestCase
       end
     end
 
-    def test_ruby_p
+    def test_p_
       @ary = @xgettext.parse(['fixtures/p_.rb'])
       assert_target_in_context "AAA", "BBB", ["fixtures/p_.rb:29", "fixtures/p_.rb:33"]
       assert_target_in_context "AAA|BBB", "CCC", ["fixtures/p_.rb:37"]
@@ -120,7 +120,7 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   class TestGlade < self
-    def test_glade
+    def test_old_style
       # Old style (~2.0.4)
       ary = GetText::GladeParser.parse('fixtures/gladeparser.glade')
 
