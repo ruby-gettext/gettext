@@ -49,6 +49,11 @@ class TestGetTextParser < Test::Unit::TestCase
       def test_one_new_line
         assert_equal(["one new line\\n"], parse("fixtures/_/one_new_line.rb"))
       end
+
+      def test_middle_new_line
+        assert_equal(["middle\\nnew line"],
+                     parse("fixtures/_/middle_new_line.rb"))
+      end
     end
 
     def test__
