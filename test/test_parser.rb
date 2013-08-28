@@ -33,6 +33,7 @@ class TestGetTextParser < Test::Unit::TestCase
     @xgettext = GetText::Tools::XGetText.new
   end
 
+  class TestRuby < self
   def test_ruby
     @ary = @xgettext.parse(['fixtures/_.rb'])
 
@@ -116,7 +117,9 @@ class TestGetTextParser < Test::Unit::TestCase
       assert_equal "please translate 'name' in the context of 'program'.\n Hint: the translation should NOT contain the translation of 'program'.", t.extracted_comment
     end
   end
+  end
 
+  class TestGlade < self
   def test_glade
     # Old style (~2.0.4)
     ary = GetText::GladeParser.parse('fixtures/gladeparser.glade')
@@ -128,6 +131,7 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_equal(['<span color="red">1st line markup </span>\n<span color="blue">2nd line markup</span>', 'fixtures/gladeparser.glade:94'], ary[4])
     assert_equal(['<span>&quot;markup&quot; with &lt;escaped strings&gt;</span>', 'fixtures/gladeparser.glade:116'], ary[5])
     assert_equal(['duplicated', 'fixtures/gladeparser.glade:137', 'fixtures/gladeparser.glade:158'], ary[6])
+  end
   end
 
   class TestErbParser < self
