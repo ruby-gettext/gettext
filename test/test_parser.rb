@@ -59,7 +59,6 @@ class TestGetTextParser < Test::Unit::TestCase
     def test__
       @ary = @xgettext.parse(['fixtures/_.rb'])
 
-      assert_target 'bbb\nccc', ['fixtures/_.rb:38']
       assert_target 'bbb\nccc\nddd\n', ['fixtures/_.rb:42']
       assert_target 'eee', ['fixtures/_.rb:49', 'fixtures/_.rb:53']
       assert_target 'fff', ['fixtures/_.rb:53']
