@@ -320,7 +320,7 @@ EOP
     def mock_html_parser
       html_parser = Object.new
       mock(html_parser).target?("index.html") {true}
-      mock(html_parser).parse("index.html") {[]}
+      mock(html_parser).parse("index.html", {}) {[]}
       html_parser
     end
   end
