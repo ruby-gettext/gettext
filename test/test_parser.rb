@@ -22,11 +22,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require "tempfile"
-require 'gettext/tools/parser/ruby'
-require 'gettext/tools/parser/glade'
-require 'gettext/tools/parser/erb'
+require "gettext/tools/parser/ruby"
+require "gettext/tools/parser/glade"
+require "gettext/tools/parser/erb"
 
-require 'gettext/tools/xgettext'
+require "gettext/tools/xgettext"
 
 class TestGetTextParser < Test::Unit::TestCase
   def setup
