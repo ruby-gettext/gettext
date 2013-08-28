@@ -19,7 +19,7 @@
 
 module Fixtures
   module Method_
-    class OneNewLine
+    class MiddleNewLine
       include GetText
 
       bindtextdomain("_", :path => GetTextTestUtils.locale_path)
