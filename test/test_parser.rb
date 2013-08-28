@@ -45,12 +45,15 @@ class TestGetTextParser < Test::Unit::TestCase
       def test_one_line
         assert_equal(["one line"], parse("fixtures/_/one_line.rb"))
       end
+
+      def test_one_new_line
+        assert_equal(["one new line\\n"], parse("fixtures/_/one_new_line.rb"))
+      end
     end
 
     def test__
       @ary = @xgettext.parse(['fixtures/_.rb'])
 
-      assert_target 'aaa\n', ['fixtures/_.rb:34']
       assert_target 'bbb\nccc', ['fixtures/_.rb:38']
       assert_target 'bbb\nccc\nddd\n', ['fixtures/_.rb:42']
       assert_target 'eee', ['fixtures/_.rb:49', 'fixtures/_.rb:53']
