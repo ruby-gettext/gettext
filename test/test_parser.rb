@@ -34,6 +34,19 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   class TestRuby < self
+    private
+    def parse(path)
+      @xgettext.parse([path]).collect do |po_entry|
+        po_entry.msgid
+      end
+    end
+
+    sub_test_case("_") do
+      def test_one_line
+        assert_equal(["one line"], parse("fixtures/_/one_line.rb"))
+      end
+    end
+
     def test__
       @ary = @xgettext.parse(['fixtures/_.rb'])
 
