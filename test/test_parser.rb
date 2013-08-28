@@ -59,12 +59,17 @@ class TestGetTextParser < Test::Unit::TestCase
         assert_equal([["middle\\nnew line", ["#{path}:28"]]],
                      parse(path))
       end
+
+      def test_multiple_lines_literal
+        path = "fixtures/_/multiple_lines_literal.rb"
+        assert_equal([["multiple\\nlines\\nliteral\\n", ["#{path}:28"]]],
+                     parse(path))
+      end
     end
 
     def test__
       @ary = @xgettext.parse(['fixtures/_.rb'])
 
-      assert_target 'bbb\nccc\nddd\n', ['fixtures/_.rb:42']
       assert_target 'eee', ['fixtures/_.rb:49', 'fixtures/_.rb:53']
       assert_target 'fff', ['fixtures/_.rb:53']
       assert_target 'ggghhhiii', ['fixtures/_.rb:57']
