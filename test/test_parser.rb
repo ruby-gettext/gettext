@@ -37,22 +37,27 @@ class TestGetTextParser < Test::Unit::TestCase
     private
     def parse(path)
       @xgettext.parse([path]).collect do |po_entry|
-        po_entry.msgid
+        [po_entry.msgid, po_entry.references.sort]
       end
     end
 
     sub_test_case("_") do
       def test_one_line
-        assert_equal(["one line"], parse("fixtures/_/one_line.rb"))
+        path = "fixtures/_/one_line.rb"
+        assert_equal([["one line", ["#{path}:28"]]],
+                     parse(path))
       end
 
       def test_one_new_line
-        assert_equal(["one new line\\n"], parse("fixtures/_/one_new_line.rb"))
+        path = "fixtures/_/one_new_line.rb"
+        assert_equal([["one new line\\n", ["#{path}:28"]]],
+                     parse(path))
       end
 
       def test_middle_new_line
-        assert_equal(["middle\\nnew line"],
-                     parse("fixtures/_/middle_new_line.rb"))
+        path = "fixtures/_/middle_new_line.rb"
+        assert_equal([["middle\\nnew line", ["#{path}:28"]]],
+                     parse(path))
       end
     end
 
