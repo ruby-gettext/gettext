@@ -190,7 +190,11 @@ module GetText
       if scope.is_a?(Array)
         scope
       else
-        [scope.path]
+        if scope.empty?
+          []
+        else
+          [scope.path]
+        end
       end
     end
 
