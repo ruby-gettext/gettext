@@ -43,25 +43,6 @@ class TestToolsXGetText < Test::Unit::TestCase
     FileUtils.mkdir_p(File.dirname(@rhtml_file_path))
   end
 
-  class TestReference < self
-    def test_relative
-      File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(<<-EOR)
-_("Hello")
-EOR
-      end
-
-      @xgettext.run("--output", @pot_file_path, @rb_file_path)
-
-      assert_equal(<<-EOP, File.read(@pot_file_path))
-#{header}
-#: ../lib/xgettext.rb:1
-msgid "Hello"
-msgstr ""
-EOP
-    end
-  end
-
   private
   def header(options=nil)
     options ||= {}
@@ -94,6 +75,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
 EOH
+  end
+
+  class TestReference < self
+    def test_relative
+      File.open(@rb_file_path, "w") do |rb_file|
+        rb_file.puts(<<-EOR)
+_("Hello")
+EOR
+      end
+
+      @xgettext.run("--output", @pot_file_path, @rb_file_path)
+
+      assert_equal(<<-EOP, File.read(@pot_file_path))
+#{header}
+#: ../lib/xgettext.rb:1
+msgid "Hello"
+msgstr ""
+EOP
+    end
   end
 
   class TestEncoding < self
