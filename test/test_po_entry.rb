@@ -240,8 +240,8 @@ EOE
           entry.references = ["file1:1", "file2:10"]
           expected_po = <<-EOE
 #: file1:1 file2:10
-msgid "He said \\\"hello.\\\""
-msgstr "Il a dit \\\"bonjour.\\\""
+msgid "He said \\"hello.\\""
+msgstr "Il a dit \\"bonjour.\\""
 EOE
           assert_equal(expected_po, entry.to_s)
         end
@@ -254,10 +254,10 @@ EOE
           entry.references = ["file1:1", "file2:10"]
           expected_po = <<-EOE
 #: file1:1 file2:10
-msgid "He said \\\"hello.\\\""
-msgid_plural "They said \\\"hello.\\\""
-msgstr[0] "Il a dit \\\"bonjour.\\\""
-msgstr[1] "Ils ont dit \\\"bonjour.\\\""
+msgid "He said \\"hello.\\""
+msgid_plural "They said \\"hello.\\""
+msgstr[0] "Il a dit \\"bonjour.\\""
+msgstr[1] "Ils ont dit \\"bonjour.\\""
 EOE
           assert_equal(expected_po, entry.to_s)
         end
@@ -269,8 +269,8 @@ EOE
       entry.msgid = :last
       obsolete_comment = <<-EOC
 # test.rb:10
-msgid \"hello\"
-msgstr \"Salut\"
+msgid "hello"
+msgstr "Salut"
 EOC
       entry.comment = obsolete_comment
 
@@ -291,8 +291,8 @@ EOC
 
       expected_po = <<-EOP
 # It's the translator comment.
-msgid \"msgid\"
-msgstr \"msgstr\"
+msgid "msgid"
+msgstr "msgstr"
 EOP
       assert_equal(expected_po, entry.to_s)
     end
@@ -305,8 +305,8 @@ EOP
 
       expected_po = <<-EOP
 #. It's the extracted comment.
-msgid \"msgid\"
-msgstr \"msgstr\"
+msgid "msgid"
+msgstr "msgstr"
 EOP
       assert_equal(expected_po, entry.to_s)
     end
@@ -319,8 +319,8 @@ EOP
 
       expected_po = <<-EOP
 #, It's the flag.
-msgid \"msgid\"
-msgstr \"msgstr\"
+msgid "msgid"
+msgstr "msgstr"
 EOP
       assert_equal(expected_po, entry.to_s)
     end
@@ -339,8 +339,8 @@ EOC
 #| msgctxt previous_msgctxt
 #| msgid previous_msgid
 #| msgid_plural previous_msgid_plural
-msgid \"msgid\"
-msgstr \"msgstr\"
+msgid "msgid"
+msgstr "msgstr"
 EOP
       assert_equal(expected_po, entry.to_s)
     end
