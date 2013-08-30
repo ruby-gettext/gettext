@@ -297,6 +297,22 @@ EOP
       xgettext.parse(["index.html"])
     end
 
+    def test_old_style_parser
+      parser = Object.new
+      def parser.target?(path)
+        true
+      end
+      def parser.parse(path)
+        # It doesn't receive options argument as the second argument
+        [["Message"]]
+      end
+
+      GetText::Tools::XGetText.add_parser(parser)
+      xgettext = GetText::Tools::XGetText.new
+      assert_equal([POEntry.new_from_ary(["Message"])],
+                   xgettext.parse(["index.html"]))
+    end
+
     def test_instance_method
       @xgettext.add_parser(mock_html_parser)
       @xgettext.parse(["index.html"])
