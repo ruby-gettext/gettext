@@ -3,11 +3,10 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-03-31 19:22+0900\n"
+"POT-Creation-Date: 2013-08-30 22:00+0900\n"
 "PO-Revision-Date: 2012-03-31 19:22+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: test/fixtures/non_ascii.rb:10
+#: ../fixtures/non_ascii.rb:10
 msgid "こんにちは"
 msgstr "Hello in Japanese"

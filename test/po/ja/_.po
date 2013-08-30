@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-08-19 23:15+0900\n"
+"POT-Creation-Date: 2013-08-30 23:15+0900\n"
 "PO-Revision-Date: 2012-08-19 17:43+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,12 +19,18 @@ msgid "aaa"
 msgstr "AAA"
 
 #: ../fixtures/_.rb:34
-msgid "aaa\n"
-msgstr "AAA\n"
+msgid ""
+"aaa\n"
+msgstr ""
+"AAA\n"
 
 #: ../fixtures/_.rb:38
-msgid "bbb\nccc"
-msgstr "BBB\nCCC"
+msgid ""
+"bbb\n"
+"ccc"
+msgstr ""
+"BBB\n"
+"CCC"
 
 #: ../fixtures/_.rb:42
 msgid ""
@@ -69,7 +75,9 @@ msgid "lllmmm"
 msgstr ""
 
 #: ../fixtures/_.rb:84
-msgid "nnn\nooo"
+msgid ""
+"nnn\n"
+"ooo"
 msgstr ""
 
 #: ../fixtures/_.rb:88 ../fixtures/_.rb:92
@@ -77,7 +85,7 @@ msgid "#"
 msgstr ""
 
 #: ../fixtures/_.rb:96
-msgid "	aaa"
+msgid "\taaa"
 msgstr ""
 
 #: ../fixtures/_.rb:100
@@ -86,29 +94,73 @@ msgid ""
 "Here document2\n"
 msgstr ""
 
-#. This is a proper name.  See the gettext
+#. TRANSLATORS: This is a proper name.  See the gettext
 #. manual, section Names.  Note this is actually a non-ASCII
 #. name: The first name is (with Unicode escapes)
 #. "Fran\u00e7ois" or (with HTML entities) "Fran&ccedil;ois".
 #. Pronunciation is like "fraa-swa pee-nar".
 #. This is an example from GNU gettext documentation.
-#: ../fixtures/_.rb:119
+#: ../fixtures/_.rb:120
 msgid "Francois Pinard"
 msgstr ""
 
-#: ../fixtures/_.rb:122
+#: ../fixtures/_.rb:123
 msgid "No TRANSLATORS comment"
 msgstr ""
 
-#: ../fixtures/_.rb:127
+#: ../fixtures/_.rb:128
 msgid "self explaining"
 msgstr ""
 
-#: ../fixtures/_.rb:131
+#: ../fixtures/_.rb:132
 msgid "This is a # including string."
+msgstr ""
+
+#: ../fixtures/_/double_quote_in_double_quote.rb:28
+msgid "double \"quote\" in double quote"
+msgstr ""
+
+#: ../fixtures/_/double_quote_in_single_quote.rb:28
+msgid "double \"quote\" in single quote"
+msgstr ""
+
+#: ../fixtures/_/literal_concatenation_with_continuation_line.rb:28
+msgid "literal concatenation with continuation line"
+msgstr ""
+
+#: ../fixtures/_/middle_new_line.rb:28
+msgid ""
+"middle\n"
+"new line"
+msgstr ""
+
+#: ../fixtures/_/multiple_lines_literal.rb:28
+msgid ""
+"multiple\n"
+"lines\n"
+"literal\n"
+msgstr ""
+
+#: ../fixtures/_/multiple_messages_in_same_line.rb:28
+#, fuzzy
+msgid "in same line"
+msgstr "ONE LINE"
+
+#: ../fixtures/_/multiple_messages_in_same_line.rb:28
+msgid "multiple"
+msgstr ""
+
+#: ../fixtures/_/multiple_same_messages.rb:28
+#: ../fixtures/_/multiple_same_messages.rb:32
+msgid "multiple same messages"
 msgstr ""
 
 #: ../fixtures/_/one_line.rb:28
 msgid "one line"
 msgstr "ONE LINE"
 
+#: ../fixtures/_/one_new_line.rb:28
+#, fuzzy
+msgid ""
+"one new line\n"
+msgstr "ONE LINE"
