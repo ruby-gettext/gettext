@@ -163,7 +163,7 @@ EOP
 
   class TestTranslatorComment < self
     def test_n_
-      rb = <<-RB
+      pot_content = parse(<<-RB)
 n_members = 1
 # TRANSLATORS: Use this message as test
 n_("I will go!",
@@ -172,15 +172,6 @@ n_("I will go!",
 
 _("No comment")
 RB
-      File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(rb)
-      end
-
-      @xgettext.run("--output", @pot_file_path, @rb_file_path)
-
-      encoding = "UTF-8"
-      pot_content = File.read(@pot_file_path)
-      pot_content.force_encoding(encoding)
       expected_content = <<-POT
 #{header}
 #. Use this message as test
@@ -196,6 +187,20 @@ msgstr ""
 POT
       expected_content = expected_content.encode(encoding)
       assert_equal(expected_content, pot_content)
+    end
+
+    private
+    def parse(ruby_source)
+      File.open(@rb_file_path, "w") do |rb_file|
+        rb_file.puts(ruby_source)
+      end
+
+      @xgettext.run("--output", @pot_file_path, @rb_file_path)
+
+      encoding = "UTF-8"
+      pot_content = File.read(@pot_file_path)
+      pot_content.force_encoding(encoding)
+      pot_content
     end
   end
 
