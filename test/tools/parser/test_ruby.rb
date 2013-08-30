@@ -113,7 +113,7 @@ class TestRubyParser < Test::Unit::TestCase
     end
   end
 
-  class Test_ < self
+  sub_test_case("_") do
     def test_one_line
       assert_parse([
                      {
@@ -130,7 +130,7 @@ class TestRubyParser < Test::Unit::TestCase
     end
   end
 
-  class Tests_ < self
+  sub_test_case("s_") do
     def test_custom
       assert_parse([
                      {
@@ -149,7 +149,7 @@ class TestRubyParser < Test::Unit::TestCase
     end
   end
 
-  class Testns_ < self
+  sub_test_case("ns_") do
     def test_custom
       assert_parse([
                      {
