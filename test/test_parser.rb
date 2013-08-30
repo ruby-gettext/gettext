@@ -91,12 +91,22 @@ class TestGetTextParser < Test::Unit::TestCase
                      ],
                      parse(path))
       end
+
+      def test_double_quote_in_single_quote
+        path = "fixtures/_/double_quote_in_single_quote.rb"
+        assert_equal([
+                       [
+                         "double \"quote\" in single quote",
+                         ["#{path}:28"]
+                       ],
+                     ],
+                     parse(path))
+      end
     end
 
     def test__
       @ary = @xgettext.parse(['fixtures/_.rb'])
 
-      assert_target 'a"b"c"', ['fixtures/_.rb:63']
       assert_target 'd"e"f"', ['fixtures/_.rb:67']
       assert_target 'jjj', ['fixtures/_.rb:71']
       assert_target 'kkk', ['fixtures/_.rb:72']
