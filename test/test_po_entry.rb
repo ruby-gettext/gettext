@@ -22,9 +22,6 @@
 
 require 'gettext/tools/parser/ruby'
 
-# Most functionality of PoMessage is thoroughly tested together
-# with the parser and po file generator. Here only tests for some special
-# functionality.
 class TestPOEntry < Test::Unit::TestCase
 
   def test_context_match
