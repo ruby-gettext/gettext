@@ -163,7 +163,7 @@ module GetText
 
     def target_files
       files = @spec.files.find_all do |file|
-        /\.(?:rb|erb|glade)/i =~ File.extname(file)
+        /\A\.(?:rb|erb|glade)\z/i =~ File.extname(file)
       end
       files += @spec.executables.collect do |executable|
         "bin/#{executable}"
