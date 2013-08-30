@@ -343,6 +343,11 @@ EOP
         assert_equal(Encoding.default_external, detect_encoding("CHARSET"))
       end
 
+      def test_fuzzy
+        assert_equal(Encoding.default_external,
+                     detect_encoding("EUC-JP", :fuzzy => true))
+      end
+
       private
       def detect_encoding(encoding, options={})
         comments = []
