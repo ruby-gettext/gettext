@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-08-30 23:15+0900\n"
-"PO-Revision-Date: 2012-08-19 17:43+0900\n"
+"PO-Revision-Date: 2013-08-30 23:17+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -142,9 +142,8 @@ msgid ""
 msgstr ""
 
 #: ../fixtures/_/multiple_messages_in_same_line.rb:28
-#, fuzzy
 msgid "in same line"
-msgstr "ONE LINE"
+msgstr ""
 
 #: ../fixtures/_/multiple_messages_in_same_line.rb:28
 msgid "multiple"
@@ -160,7 +159,6 @@ msgid "one line"
 msgstr "ONE LINE"
 
 #: ../fixtures/_/one_new_line.rb:28
-#, fuzzy
 msgid ""
 "one new line\n"
-msgstr "ONE LINE"
+msgstr ""
