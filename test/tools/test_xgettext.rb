@@ -186,7 +186,7 @@ EOP
 
   class TestTranslatorComment < self
     def test_n_
-      pot_content = generate(<<-RB)
+      pot_content = generate(<<-RB, "--add-comments=TRANSLATORS:")
 n_members = 1
 # TRANSLATORS: Use this message as test
 n_("I will go!",
@@ -205,8 +205,39 @@ POT
       assert_equal(expected_content, pot_content)
     end
 
-    def test_no_tag
+    def test_no_add_comments
       pot_content = generate(<<-RUBY)
+# TRNALSTORS: There is no translator's tag
+_("Message")
+      RUBY
+
+      assert_equal(<<-POT, pot_content)
+#{header}
+#: ../lib/xgettext.rb:2
+msgid "Message"
+msgstr ""
+      POT
+    end
+
+    def test_add_comments_without_tag
+      pot_content = generate(<<-RUBY, "--add-comments")
+# There is no translator's tag but all
+# comments are included.
+_("Message")
+      RUBY
+
+      assert_equal(<<-POT, pot_content)
+#{header}
+#. There is no translator's tag but all
+#. comments are included.
+#: ../lib/xgettext.rb:3
+msgid "Message"
+msgstr ""
+      POT
+    end
+
+    def test_not_started_with_tag
+      pot_content = generate(<<-RUBY, "--add-comments=TRANSLATORS:")
 # This comment isn't started with "TRANSLATORS:" tag
 _("Message")
       RUBY
@@ -214,6 +245,25 @@ _("Message")
       assert_equal(<<-POT, pot_content)
 #{header}
 #: ../lib/xgettext.rb:2
+msgid "Message"
+msgstr ""
+      POT
+    end
+
+    def test_indented
+      pot_content = generate(<<-RUBY, "--add-comments")
+# The following lines are indented
+#   * indented1
+#   * indented2
+_("Message")
+      RUBY
+
+      assert_equal(<<-POT, pot_content)
+#{header}
+#. The following lines are indented
+#. * indented1
+#. * indented2
+#: ../lib/xgettext.rb:4
 msgid "Message"
 msgstr ""
       POT

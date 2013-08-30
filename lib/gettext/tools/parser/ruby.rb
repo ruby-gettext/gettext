@@ -225,7 +225,7 @@ module GetText
           if last_comment.empty?
             # new comment from programmer to translator?
             comment1 = tk.value.lstrip
-            if comment1 =~ /^TRANSLATORS\:/
+            if translator_comment?(comment1)
               last_comment << comment1
             end
           else
@@ -251,6 +251,15 @@ module GetText
       else
         false
       end
+    end
+
+    def translator_comment?(comment)
+      return false unless @options.has_key?(:translators_tag)
+
+      tag = @options[:translators_tag]
+      return true if tag.nil?
+
+      /\A#{Regexp.escape(tag)}/ === comment
     end
   end
 end

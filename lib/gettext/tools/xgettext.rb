@@ -77,6 +77,8 @@ module GetText
         @msgid_bugs_address = nil
         @copyright_holder = nil
         @output_encoding = nil
+
+        @parser_options = {}
       end
 
       # The parser object requires to have target?(path) and
@@ -242,6 +244,13 @@ EOH
         parser.on("-r", "--require=library",
                   _("require the library before executing xgettext")) do |out|
           require out
+        end
+
+        parser.on("-c", "--add-comments[=TAG]",
+                  _("If TAG is specified, place comment blocks starting with TAG and precedding keyword lines in output file"),
+                  _("If TAG is not specified, place all comment blocks preceing keyword lines in output file"),
+                  _("(default: %s)") % _("no TAG")) do |tag|
+          @parser_options[:translators_tag] = tag
         end
 
         parser.on("-d", "--debug", _("run in debugging mode")) do
