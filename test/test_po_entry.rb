@@ -250,7 +250,7 @@ EOE
     def test_obsolete_comment
       entry = GetText::POEntry.new(:normal)
       entry.msgid = :last
-      obsolete_comment =<<EOC
+      obsolete_comment = <<EOC
 # test.rb:10
 msgid \"hello\"
 msgstr \"Salut\"
