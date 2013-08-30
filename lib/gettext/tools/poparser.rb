@@ -121,7 +121,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 132)
 	str = str[1..-1]
       end
     end
-    @q.push [false, '$end']
+    @q.push [false, "$end"]
     if $DEBUG
       @q.each do |a,b|
       puts "[#{a}, #{b}]"
@@ -234,7 +234,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 132)
   end
 
   def detect_file_encoding(po_file)
-    open(po_file, :encoding => 'ASCII-8BIT') do |input|
+    open(po_file, :encoding => "ASCII-8BIT") do |input|
       input.each_line do |line|
         if %r["Content-Type:.*\scharset=(.*)\\n"] =~ line
           charset = $1
@@ -431,7 +431,7 @@ module_eval(<<'.,.,', 'poparser.ry', 61)
           $stderr.print "msgid = '#{val[1]}\n"
         end
       else
-        on_message('', unescape(val[3]))
+        on_message("", unescape(val[3]))
       end
       @fuzzy = false
     else
