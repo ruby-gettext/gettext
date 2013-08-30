@@ -12,9 +12,9 @@
 
 =end
 
-require 'irb/ruby-lex'
-require 'stringio'
-require 'gettext/tools/po_entry'
+require "irb/ruby-lex"
+require "stringio"
+require "gettext/tools/po_entry"
 
 module GetText
   class RubyLexX < RubyLex  # :nodoc: all
@@ -32,7 +32,7 @@ module GetText
           end
 
           if @here_header
-            s = s.sub(/\A.*?\n/, '').sub(/^.*\n\Z/, '')
+            s = s.sub(/\A.*?\n/, "").sub(/^.*\n\Z/, "")
           else
             begin
               s = eval(s)
@@ -86,7 +86,7 @@ module GetText
     # Supports parsing by setting attributes by and by.
     def set_current_attribute(str)
       param = @param_type[@param_number]
-      raise ParseError, 'no more string parameters expected' unless param
+      raise ParseError, "no more string parameters expected" unless param
       set_value(param, str)
     end
 
@@ -109,10 +109,10 @@ module GetText
   end
 
   class RubyParser
-    ID = ['gettext', '_', 'N_', 'sgettext', 's_']
-    PLURAL_ID = ['ngettext', 'n_', 'Nn_', 'ns_', 'nsgettext']
-    MSGCTXT_ID = ['pgettext', 'p_']
-    MSGCTXT_PLURAL_ID = ['npgettext', 'np_']
+    ID = ["gettext", "_", "N_", "sgettext", "s_"]
+    PLURAL_ID = ["ngettext", "n_", "Nn_", "ns_", "nsgettext"]
+    MSGCTXT_ID = ["pgettext", "p_"]
+    MSGCTXT_PLURAL_ID = ["npgettext", "np_"]
 
     class << self
       def target?(file)  # :nodoc:
@@ -170,7 +170,7 @@ module GetText
 
       po_entry = nil
       line_no = nil
-      last_comment = ''
+      last_comment = ""
       reset_comment = false
       ignore_next_comma = false
       rl.parse do |tk|
