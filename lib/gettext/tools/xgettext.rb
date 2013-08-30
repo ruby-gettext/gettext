@@ -256,7 +256,7 @@ EOH
                   _("If TAG is specified, place comment blocks starting with TAG and precedding keyword lines in output file"),
                   _("If TAG is not specified, place all comment blocks preceing keyword lines in output file"),
                   _("(default: %s)") % _("no TAG")) do |tag|
-          @parse_options[:translators_tag] = tag
+          @parse_options[:comment_tag] = tag
         end
 
         parser.on("-d", "--debug", _("run in debugging mode")) do

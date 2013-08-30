@@ -124,16 +124,82 @@ module GetText
       # This is a short cut method. It equals to `new(path,
       # options).parse`.
       #
-      # @return [Array<POEntry>] Extracted messages
-      # @see #initialize and #parse
+      # @param (see #initialize)
+      # @option (see #initialize)
+      # @return (see #parse)
+      # @see #initialize
+      # @see #parse
       def parse(path, options={})
         parser = new(path, options)
         parser.parse
       end
     end
 
+    #
+    # @example `:comment_tag` option: String tag
+    #   path = "hello.rb"
+    #   # content:
+    #   #   # TRANSLATORS: This is a comment to translators.
+    #   #   _("Hello")
+    #   #
+    #   #   # This is a comment for programmers.
+    #   #   # TRANSLATORS: This is a comment to translators.
+    #   #   # This is also a comment to translators.
+    #   #   _("World")
+    #   #
+    #   #   # This is a comment for programmers.
+    #   #   # This is also a comment for programmers
+    #   #   # because all lines don't start with "TRANSRATORS:".
+    #   #   _("Bye")
+    #   options = {:comment_tag => "TRANSLATORS:"}
+    #   parser = GetText::RubyParser.new(path, options)
+    #   parser.parse
+    #   # => [
+    #   #   POEntry<
+    #   #     :msgid => "Hello",
+    #   #     :extracted_comment =>
+    #   #       "TRANSLATORS: This is a comment to translators.",
+    #   #   >,
+    #   #   POEntry<
+    #   #     :msgid => "World",
+    #   #     :extracted_comment =>
+    #   #       "TRANSLATORS: This is a comment to translators.\n" +
+    #   #       "This is also a comment to translators.",
+    #   #   >,
+    #   #   POEntry<
+    #   #     :msgid => "Bye",
+    #   #     :extracted_comment => nil,
+    #   #   >,
+    #   # ]
+    #
+    # @example `:comment_tag` option: nil tag
+    #   path = "hello.rb"
+    #   # content:
+    #   #   # This is a comment to translators.
+    #   #   # This is also a comment for translators.
+    #   #   _("Hello")
+    #   options = {:comment_tag => nil}
+    #   parser = GetText::RubyParser.new(path, options)
+    #   parser.parse
+    #   # => [
+    #   #   POEntry<
+    #   #     :msgid => "Hello",
+    #   #     :extracted_comment =>
+    #   #       "This is a comment to translators.\n" +
+    #   #       " This is also a comment for translators.",
+    #   #   >,
+    #   # ]
+    #
     # @param path [String] Ruby script path to be parsed
-    # @param options [Hash]
+    # @param options [Hash] Options
+    # @option options [String, nil] :comment_tag The tag to
+    #   detect comments to be extracted. The extracted comments are
+    #   used to deliver messages to translators from programmers.
+    #
+    #   If the tag is String and a line in a comment start with the
+    #   tag, the line and the following lines are extracted.
+    #
+    #   If the tag is nil, all comments are extracted.
     def initialize(path, options={})
       @path = path
       @options = options
@@ -223,9 +289,8 @@ module GetText
         when RubyToken::TkCOMMENT_WITH_CONTENT
           last_comment = "" if reset_comment
           if last_comment.empty?
-            # new comment from programmer to translator?
             comment1 = tk.value.lstrip
-            if translator_comment?(comment1)
+            if comment_to_be_extracted?(comment1)
               last_comment << comment1
             end
           else
@@ -253,10 +318,10 @@ module GetText
       end
     end
 
-    def translator_comment?(comment)
-      return false unless @options.has_key?(:translators_tag)
+    def comment_to_be_extracted?(comment)
+      return false unless @options.has_key?(:comment_tag)
 
-      tag = @options[:translators_tag]
+      tag = @options[:comment_tag]
       return true if tag.nil?
 
       /\A#{Regexp.escape(tag)}/ === comment
