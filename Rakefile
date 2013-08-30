@@ -83,10 +83,15 @@ namespace :test do
   task :prepare => [:poparser, "test:gettext", "samples:gettext"]
 end
 
-GetText::Task.new(spec)
+xgettext_options = ["--add-comments=TRANSLATORS:"]
+GetText::Task.new(spec) do |task|
+  task.xgettext_options.concat(xgettext_options)
+end
+
 Dir.glob("samples/*.rb") do |target|
   domain = File.basename(target, ".*")
   GetText::Task.new(spec) do |task|
+    task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "samples:#{domain}"
     task.po_base_directory = "samples/po"
@@ -105,6 +110,7 @@ task "samples:gettext"
   ["hellolib", Dir.glob("samples/cgi/hellolib.rb")],
 ].each do |domain, files|
   GetText::Task.new(spec) do |task|
+    task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "samples:cgi:#{domain}"
     task.po_base_directory = "samples/cgi/po"
@@ -120,6 +126,7 @@ task "samples:gettext" => "samples:cgi:gettext"
 
 ["untranslated", "backslash", "non_ascii", "np_", "p_"].each do |domain|
   GetText::Task.new(spec) do |task|
+    task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
     task.po_base_directory = "test/po"
@@ -132,6 +139,7 @@ end
 
 ["_", "s_", "ns_"].each do |domain|
   GetText::Task.new(spec) do |task|
+    task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
     task.po_base_directory = "test/po"
@@ -148,6 +156,7 @@ po_only_domains = [
 ]
 po_only_domains.each do |domain|
   GetText::Task.new(spec) do |task|
+    task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
     task.po_base_directory = "test/po"
