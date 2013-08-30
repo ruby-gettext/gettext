@@ -61,8 +61,11 @@ class TestPOEntry < Test::Unit::TestCase
       def test_minimum
         @entry.msgid = 'hello'
         @entry.references = ["file1:1", "file2:10"]
-        assert_equal("#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n",
-                     @entry.to_s)
+        assert_equal(<<-PO, @entry.to_s)
+#: file1:1 file2:10
+msgid "hello"
+msgstr ""
+        PO
       end
 
       def test_with_garbage_information
@@ -70,8 +73,11 @@ class TestPOEntry < Test::Unit::TestCase
         @entry.references = ["file1:1", "file2:10"]
         @entry.msgctxt = 'context'
         @entry.msgid_plural = 'hello2'
-        assert_equal("#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n",
-                     @entry.to_s)
+        assert_equal(<<-PO, @entry.to_s)
+#: file1:1 file2:10
+msgid "hello"
+msgstr ""
+        PO
       end
     end
 
