@@ -192,8 +192,6 @@ n_members = 1
 n_("I will go!",
    "We will go!",
    n_members)
-
-_("No comment")
 RB
       expected_content = <<-POT
 #{header}
@@ -203,10 +201,6 @@ msgid "I will go!"
 msgid_plural "We will go!"
 msgstr[0] ""
 msgstr[1] ""
-
-#: ../lib/xgettext.rb:7
-msgid "No comment"
-msgstr ""
 POT
       assert_equal(expected_content, pot_content)
     end
