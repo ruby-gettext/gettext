@@ -306,7 +306,7 @@ EOH
           next unless parser.target?(path)
 
           # For backward compatibility
-          if parser.method(:parse).arity == 1
+          if parser.method(:parse).arity == 1 or @parse_options.empty?
             extracted_po = parser.parse(path)
           else
             extracted_po = parser.parse(path, @parse_options)
