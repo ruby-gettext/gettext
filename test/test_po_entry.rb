@@ -216,7 +216,7 @@ EOE
       end
 
       class TestEscape < self
-        def test_escaped_msgstr
+        def test_normal
           entry = GetText::POEntry.new(:normal)
           entry.msgid = "He said \"hello.\""
           entry.msgstr = "Il a dit \"bonjour.\""
@@ -229,7 +229,7 @@ EOE
           assert_equal(expected_po, entry.to_s)
         end
 
-        def test_escaped_msgstr_with_msgid_plural
+        def test_plural
           entry = GetText::POEntry.new(:plural)
           entry.msgid = "He said \"hello.\""
           entry.msgid_plural = "They said \"hello.\""
