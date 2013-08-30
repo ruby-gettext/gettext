@@ -90,7 +90,13 @@ msgstr ""
         @entry.msgid = 'hello'
         @entry.msgid_plural = 'hello2'
         @entry.references = ["file1:1", "file2:10"]
-        assert_equal("#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", @entry.to_s)
+        assert_equal(<<-PO, @entry.to_s)
+#: file1:1 file2:10
+msgid "hello"
+msgid_plural "hello2"
+msgstr[0] ""
+msgstr[1] ""
+        PO
       end
 
       def test_with_garbage_information
@@ -98,8 +104,13 @@ msgstr ""
         @entry.msgid_plural = 'hello2'
         @entry.references = ["file1:1", "file2:10"]
         @entry.msgctxt = 'context'
-        # Ignore this property
-        assert_equal("#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", @entry.to_s)
+        assert_equal(<<-PO, @entry.to_s)
+#: file1:1 file2:10
+msgid "hello"
+msgid_plural "hello2"
+msgstr[0] ""
+msgstr[1] ""
+        PO
       end
     end
 
