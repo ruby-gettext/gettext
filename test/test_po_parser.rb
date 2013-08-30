@@ -131,17 +131,17 @@ EOP
     end
 
     class TestReferences < self
-    def test_references
-      po_file = create_po_file(<<-EOP)
+      def test_references
+        po_file = create_po_file(<<-EOP)
 # This is the comment.
 #: file.rb:10
 msgid "hello"
 msgstr "bonjour"
 EOP
-      entries = parse_po_file(po_file)
-      assert_true(entries.has_key?(nil, "hello"))
-      assert_equal(["file.rb:10"], entries["hello"].references)
-    end
+        entries = parse_po_file(po_file)
+        assert_true(entries.has_key?(nil, "hello"))
+        assert_equal(["file.rb:10"], entries["hello"].references)
+      end
     end
 
     def test_translator_comment
