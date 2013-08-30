@@ -35,6 +35,7 @@ class TestGetTextParser < Test::Unit::TestCase
 
   class TestRuby < self
     def test__
+      @xgettext.parse_options[:comment_tag] = "TRANSLATORS:"
       @ary = @xgettext.parse(['fixtures/_.rb'])
 
       assert_target 'jjj', ['fixtures/_.rb:71']
@@ -81,6 +82,7 @@ class TestGetTextParser < Test::Unit::TestCase
     end
 
     def test_n_
+      @xgettext.parse_options[:comment_tag] = "TRANSLATORS:"
       @ary = @xgettext.parse(['fixtures/n_.rb'])
       assert_plural_target "aaa", "aaa2", ['fixtures/n_.rb:29']
       assert_plural_target "bbb\\n", "ccc2\\nccc2", ['fixtures/n_.rb:33']
@@ -94,19 +96,20 @@ class TestGetTextParser < Test::Unit::TestCase
       assert_plural_target "mmmmmm", "mmm2mmm2", ['fixtures/n_.rb:80']
       assert_plural_target "nnn", "nnn2", ['fixtures/n_.rb:81']
       assert_plural_target "comment", "comments", ['fixtures/n_.rb:97'] do |t|
-        assert_equal "please provide translations for all\n the plural forms!",
+        assert_equal "TRANSLATORS:please provide translations for all\n the plural forms!",
                        t.extracted_comment
       end
     end
 
     def test_p_
+      @xgettext.parse_options[:comment_tag] = "TRANSLATORS:"
       @ary = @xgettext.parse(['fixtures/p_.rb'])
       assert_target_in_context "AAA", "BBB", ["fixtures/p_.rb:29", "fixtures/p_.rb:33"]
       assert_target_in_context "AAA|BBB", "CCC", ["fixtures/p_.rb:37"]
       assert_target_in_context "AAA", "CCC", ["fixtures/p_.rb:41"]
       assert_target_in_context "CCC", "BBB", ["fixtures/p_.rb:45"]
       assert_target_in_context "program", "name", ['fixtures/p_.rb:55'] do |t|
-        assert_equal "please translate 'name' in the context of 'program'.\n Hint: the translation should NOT contain the translation of 'program'.", t.extracted_comment
+        assert_equal "TRANSLATORS:please translate 'name' in the context of 'program'.\n Hint: the translation should NOT contain the translation of 'program'.", t.extracted_comment
       end
     end
   end
