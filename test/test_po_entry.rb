@@ -96,6 +96,16 @@ msgid "hello"
 msgstr ""
         PO
       end
+
+      def test_new_line
+        @entry.msgid = "hello\nworld"
+        assert_equal(<<-PO, @entry.to_s)
+msgid ""
+"hello\\n"
+"world"
+msgstr ""
+        PO
+      end
     end
 
     class TestPlural < self
