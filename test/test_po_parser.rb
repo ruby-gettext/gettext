@@ -373,7 +373,7 @@ EOP
       end
 
       def test_fuzzy
-        assert_equal(Encoding.default_external,
+        assert_equal(Encoding::EUC_JP,
                      detect_encoding("EUC-JP", :fuzzy => true))
       end
 

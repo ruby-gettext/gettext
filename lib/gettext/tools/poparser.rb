@@ -239,8 +239,6 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 132)
       in_header = false
       input.each_line do |line|
         case line.chomp
-        when /\A#,\s*fuzzy\z/
-          break
         when /\Amsgid\s+"(.*)"\z/
           id = $1
           break unless id.empty?
