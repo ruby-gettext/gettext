@@ -290,7 +290,12 @@ EOH
         @parsers.each do |parser|
           next unless parser.target?(path)
 
-          extracted_po = parser.parse(path)
+          # For backward compatibility
+          if parser.method(:parse).arity == 1
+            extracted_po = parser.parse(path)
+          else
+            extracted_po = parser.parse(path, @parser_options)
+          end
           extracted_po.each do |po_entry|
             if po_entry.kind_of?(Array)
               po_entry = POEntry.new_from_ary(po_entry)
