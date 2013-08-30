@@ -82,16 +82,24 @@ msgstr ""
     end
 
     class TestPlural < self
-      def test_plural
-        po = GetText::POEntry.new(:plural)
-        po.msgid = 'hello'
-        po.msgid_plural = 'hello2'
-        po.references = ["file1:1", "file2:10"]
-        assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
+      def setup
+        @entry = GetText::POEntry.new(:plural)
+      end
 
-        po.msgctxt = 'context'
+      def test_minimum
+        @entry.msgid = 'hello'
+        @entry.msgid_plural = 'hello2'
+        @entry.references = ["file1:1", "file2:10"]
+        assert_equal("#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", @entry.to_s)
+      end
+
+      def test_with_garbage_information
+        @entry.msgid = 'hello'
+        @entry.msgid_plural = 'hello2'
+        @entry.references = ["file1:1", "file2:10"]
+        @entry.msgctxt = 'context'
         # Ignore this property
-        assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
+        assert_equal("#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", @entry.to_s)
       end
     end
 
