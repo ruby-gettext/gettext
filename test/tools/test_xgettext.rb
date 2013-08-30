@@ -195,7 +195,7 @@ n_("I will go!",
 RB
       expected_content = <<-POT
 #{header}
-#. Use this message as test
+#. TRANSLATORS: Use this message as test
 #: ../lib/xgettext.rb:3
 msgid "I will go!"
 msgid_plural "We will go!"

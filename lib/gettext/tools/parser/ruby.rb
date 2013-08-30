@@ -226,7 +226,7 @@ module GetText
             # new comment from programmer to translator?
             comment1 = tk.value.lstrip
             if comment1 =~ /^TRANSLATORS\:/
-              last_comment = $'
+              last_comment << comment1
             end
           else
             last_comment += "\n"
