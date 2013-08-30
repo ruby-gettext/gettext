@@ -78,7 +78,7 @@ module GetText
         @copyright_holder = nil
         @output_encoding = nil
 
-        @parser_options = {}
+        @parse_options = {}
       end
 
       # The parser object requires to have target?(path) and
@@ -250,7 +250,7 @@ EOH
                   _("If TAG is specified, place comment blocks starting with TAG and precedding keyword lines in output file"),
                   _("If TAG is not specified, place all comment blocks preceing keyword lines in output file"),
                   _("(default: %s)") % _("no TAG")) do |tag|
-          @parser_options[:translators_tag] = tag
+          @parse_options[:translators_tag] = tag
         end
 
         parser.on("-d", "--debug", _("run in debugging mode")) do
@@ -303,7 +303,7 @@ EOH
           if parser.method(:parse).arity == 1
             extracted_po = parser.parse(path)
           else
-            extracted_po = parser.parse(path, @parser_options)
+            extracted_po = parser.parse(path, @parse_options)
           end
           extracted_po.each do |po_entry|
             if po_entry.kind_of?(Array)
