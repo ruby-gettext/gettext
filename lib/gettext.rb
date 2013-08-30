@@ -13,19 +13,7 @@
   license terms as Ruby or LGPL.
 =end
 
-if Object.constants.include? "Gem"
-  begin
-    begin
-      gem 'locale', '>=2.0.5'
-    rescue Gem::LoadError
-    end
-  rescue NoMethodError
-  else LoadError
-  end
-end
-
 require 'locale'
-raise "Install locale as gem or uninstall old gettext" unless Locale.respond_to? :candidates
 
 require 'gettext/version'
 require 'gettext/runtime/textdomain_manager'

@@ -28,7 +28,7 @@ So you can use GNU gettext tools for maintaining.
     s.test_files = Dir.glob("test/test_*.rb")
   end
 
-  s.add_runtime_dependency("locale")
+  s.add_runtime_dependency("locale", ">= 2.0.5")
   s.add_runtime_dependency("text")
   s.add_development_dependency("rake")
   s.add_development_dependency("racc")
