@@ -195,7 +195,7 @@ msgstr[1] ""
       entry.msgid = ""
       entry.msgstr = "This is the header entry."
       entry.references = nil
-      expected_header = <<EOH
+      expected_header = <<-EOH
 msgid ""
 msgstr "This is the header entry."
 EOH
@@ -267,7 +267,7 @@ EOE
     def test_obsolete_comment
       entry = GetText::POEntry.new(:normal)
       entry.msgid = :last
-      obsolete_comment = <<EOC
+      obsolete_comment = <<-EOC
 # test.rb:10
 msgid \"hello\"
 msgstr \"Salut\"
@@ -289,7 +289,7 @@ EOC
       entry.msgstr = "msgstr"
       entry.translator_comment = "It's the translator comment."
 
-      expected_po = <<EOP
+      expected_po = <<-EOP
 # It's the translator comment.
 msgid \"msgid\"
 msgstr \"msgstr\"
@@ -303,7 +303,7 @@ EOP
       entry.msgstr = "msgstr"
       entry.extracted_comment = "It's the extracted comment."
 
-      expected_po = <<EOP
+      expected_po = <<-EOP
 #. It's the extracted comment.
 msgid \"msgid\"
 msgstr \"msgstr\"
@@ -317,7 +317,7 @@ EOP
       entry.msgstr = "msgstr"
       entry.flag = "It's the flag."
 
-      expected_po = <<EOP
+      expected_po = <<-EOP
 #, It's the flag.
 msgid \"msgid\"
 msgstr \"msgstr\"
@@ -329,13 +329,13 @@ EOP
       entry = GetText::POEntry.new(:normal)
       entry.msgid = "msgid"
       entry.msgstr = "msgstr"
-      entry.previous = <<EOC
+      entry.previous = <<-EOC
 msgctxt previous_msgctxt
 msgid previous_msgid
 msgid_plural previous_msgid_plural
 EOC
 
-      expected_po = <<EOP
+      expected_po = <<-EOP
 #| msgctxt previous_msgctxt
 #| msgid previous_msgid
 #| msgid_plural previous_msgid_plural
