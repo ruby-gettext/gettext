@@ -212,7 +212,7 @@ module GetText
           end
         rescue
           $stderr.print "\n\nError"
-          $stderr.print " parsing #{@path}:#{tk.line_no}\n\t #{lines[tk.line_no - 1]}" if tk
+          $stderr.print " parsing #{@path}:#{tk.line_no}\n\t #{source.lines.to_a[tk.line_no - 1]}" if tk
           $stderr.print "\n #{$!.inspect} in\n"
           $stderr.print $!.backtrace.join("\n")
           $stderr.print "\n"
