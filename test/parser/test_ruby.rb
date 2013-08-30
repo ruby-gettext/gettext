@@ -43,7 +43,7 @@ class TestRubyParser < Test::Unit::TestCase
         :msgid_plural => nil,
         :msgstr       => nil,
         :separator    => nil,
-        :references      => nil,
+        :references   => nil,
       }
       default.merge(message)
     end
@@ -56,7 +56,7 @@ class TestRubyParser < Test::Unit::TestCase
         :msgid_plural => po_entry.msgid_plural,
         :msgstr       => po_entry.msgstr,
         :separator    => po_entry.separator,
-        :references      => normalize_references(po_entry.references),
+        :references   => normalize_references(po_entry.references),
       }
     end
   end
@@ -134,10 +134,10 @@ class TestRubyParser < Test::Unit::TestCase
     def test_custom
       assert_parse([
                      {
-                       :msgid     => "context|context$message",
-                       :msgstr    => nil,
-                       :separator => "$",
-                       :references   => ["custom.rb:28"],
+                       :msgid      => "context|context$message",
+                       :msgstr     => nil,
+                       :separator  => "$",
+                       :references => ["custom.rb:28"],
                      }
                    ],
                    "custom.rb")
@@ -157,7 +157,7 @@ class TestRubyParser < Test::Unit::TestCase
                        :msgid_plural => "context|context$messages",
                        :msgstr       => nil,
                        :separator    => "$",
-                       :references      => ["custom.rb:28"],
+                       :references   => ["custom.rb:28"],
                      }
                    ],
                    "custom.rb")
