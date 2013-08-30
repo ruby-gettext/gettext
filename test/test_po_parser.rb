@@ -332,4 +332,31 @@ EOP
       end
     end
   end
+
+  class TestHeader < self
+    class TestEncoding < self
+      def test_known
+        assert_equal(Encoding::EUC_JP, detect_encoding("EUC-JP"))
+      end
+
+      def test_unknown
+        assert_equal(Encoding.default_external, detect_encoding("CHARSET"))
+      end
+
+      private
+      def detect_encoding(encoding, options={})
+        comments = []
+        comments << "#, fuzzy" if options[:fuzzy]
+        po_file = create_po_file(<<-PO)
+#{comments.join("\n")}
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=#{encoding}\\n"
+        PO
+
+        parser = GetText::POParser.new
+        parser.send(:detect_file_encoding, po_file.path)
+      end
+    end
+  end
 end
