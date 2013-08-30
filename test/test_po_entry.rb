@@ -114,7 +114,6 @@ msgstr[1] ""
       end
     end
 
-    class TestMessageContext < self
       def test_msgctxt
         po = GetText::POEntry.new(:msgctxt)
         po.msgctxt = 'context'
@@ -131,7 +130,6 @@ msgstr[1] ""
         po.references = ["file1:1", "file2:10"]
         assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
       end
-    end
 
     class TestInvalid < self
       def test_exception
