@@ -66,6 +66,12 @@ module GetText
         end
       end
 
+      # @return [Hash<Symbol, Object>] Options for parsing. Options
+      #   are depend on each parser.
+      # @see RubyParser#parse
+      # @see ErbParser#parse
+      attr_reader :parse_options
+
       def initialize #:nodoc:
         @parsers = @@default_parsers.dup
 
