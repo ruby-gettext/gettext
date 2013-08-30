@@ -186,7 +186,7 @@ EOH
     end
 
     class TestMessageString < self
-      def test_msgstr
+      def test_normal
         entry = GetText::POEntry.new(:normal)
         entry.msgid = "hello"
         entry.msgstr = "Bonjour"
@@ -228,7 +228,7 @@ EOE
         assert_equal(expected_po, entry.to_s)
       end
 
-      def test_msgstr_with_msgid_plural
+      def test_plural
         entry = GetText::POEntry.new(:plural)
         entry.msgid = "he"
         entry.msgid_plural = "them"
