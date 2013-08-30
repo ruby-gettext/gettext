@@ -311,6 +311,11 @@ module GetText
     def convert_encoding(string, original_string)
       return string if @output_charset.nil? or @charset.nil?
 
+      if Encoding.find(@output_charset) == Encoding.find(@charset)
+        string.force_encoding(@output_charset)
+        return string
+      end
+
       begin
         string.encode(@output_charset, @charset)
       rescue EncodingError
