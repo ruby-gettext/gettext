@@ -35,8 +35,8 @@ module GetText
         end
       end
 
-      def parse(path)
-        parser = new(path)
+      def parse(path, options={})
+        parser = new(path, options)
         parser.parse
       end
     end
