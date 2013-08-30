@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
 # Copyright (C) 2009  Vladimir Dobriakov <vladimir@geekq.net>
 # Copyright (C) 2009-2010  Masao Mutoh
@@ -122,6 +122,103 @@ class TestRubyParser < Test::Unit::TestCase
                      }
                    ],
                    "one_line.rb")
+    end
+
+    def test_one_new_line
+      path = "one_new_line.rb"
+      assert_parse([
+                     {
+                       :msgid      => "one new line\\n",
+                       :references => ["#{path}:28"],
+                     },
+                   ],
+                   path)
+    end
+
+    def test_middle_new_line
+      path = "middle_new_line.rb"
+      assert_parse([
+                     {
+                       :msgid      => "middle\\nnew line",
+                       :references => ["#{path}:28"],
+                     },
+                   ],
+                   path)
+    end
+
+    def test_multiple_lines_literal
+      path = "multiple_lines_literal.rb"
+      assert_parse([
+                     {
+                       :msgid      => "multiple\\nlines\\nliteral\\n",
+                       :references => ["#{path}:28"],
+                     },
+                   ],
+                   path)
+    end
+
+    def test_multiple_same_messages
+      path = "multiple_same_messages.rb"
+      assert_parse([
+                     {
+                       :msgid      => "multiple same messages",
+                       :references => ["#{path}:28"],
+                     },
+                     {
+                       :msgid      => "multiple same messages",
+                       :references => ["#{path}:32"],
+                     },
+                   ],
+                   path)
+    end
+
+    def test_multiple_messages_in_same_line
+      path = "multiple_messages_in_same_line.rb"
+      assert_parse([
+                     {
+                       :msgid      => "multiple",
+                       :references => ["#{path}:28"],
+                     },
+                     {
+                       :msgid      => "in same line",
+                       :references => ["#{path}:28"],
+                     },
+                   ],
+                   path)
+    end
+
+    def test_literal_concatenation_with_continuation_line
+      path = "literal_concatenation_with_continuation_line.rb"
+      msgid = "literal concatenation with continuation line"
+      assert_parse([
+                     {
+                       :msgid      => msgid,
+                       :references => ["#{path}:28"],
+                     },
+                   ],
+                   path)
+    end
+
+    def test_double_quote_in_single_quote
+      path = "double_quote_in_single_quote.rb"
+      assert_parse([
+                     {
+                       :msgid      => "double \"quote\" in single quote",
+                       :references => ["#{path}:28"],
+                     },
+                   ],
+                   path)
+    end
+
+    def test_double_quote_in_double_quote
+      path = "double_quote_in_double_quote.rb"
+      assert_parse([
+                     {
+                       :msgid      => "double \"quote\" in double quote",
+                       :references => ["#{path}:28"],
+                     },
+                   ],
+                   path)
     end
 
     private
