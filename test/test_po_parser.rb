@@ -262,7 +262,7 @@ EOP
     end
   end
 
-  class FuzzyTest < self
+  class TestFuzzy < self
     def setup
       @po = <<-EOP
 #, fuzzy
@@ -274,7 +274,7 @@ EOP
       @po_file.close
     end
 
-    class IgnoreTest < self
+    class TestIgnore < self
       def test_report_warning
         mock($stderr).print("Warning: fuzzy message was ignored.\n")
         mock($stderr).print("  #{@po_file.path}: msgid 'Hello'\n")
@@ -296,7 +296,7 @@ EOP
       end
     end
 
-    class NotIgnore < self
+    class TestNotIgnore < self
       def test_report_warning
         mock($stderr).print("Warning: fuzzy message was used.\n")
         mock($stderr).print("  #{@po_file.path}: msgid 'Hello'\n")
