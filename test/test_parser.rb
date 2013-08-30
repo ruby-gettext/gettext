@@ -41,10 +41,10 @@ class TestGetTextParser < Test::Unit::TestCase
       assert_target 'jjj', ['fixtures/_.rb:71']
       assert_target 'kkk', ['fixtures/_.rb:72']
       assert_target 'lllmmm', ['fixtures/_.rb:76']
-      assert_target 'nnn\nooo', ['fixtures/_.rb:84']
+      assert_target "nnn\nooo", ['fixtures/_.rb:84']
       assert_target "\#", ['fixtures/_.rb:88', 'fixtures/_.rb:92']
       assert_target "\\taaa", ['fixtures/_.rb:96']
-      assert_target "Here document1\\nHere document2\\n", ['fixtures/_.rb:100']
+      assert_target "Here document1\nHere document2\n", ['fixtures/_.rb:100']
       assert_target "Francois Pinard", ['fixtures/_.rb:120'] do |t|
         assert_match(/proper name/, t.extracted_comment)
         assert_match(/Pronunciation/, t.extracted_comment)
@@ -67,9 +67,9 @@ class TestGetTextParser < Test::Unit::TestCase
       @ary = @xgettext.parse(['fixtures/N_.rb'])
 
       assert_target 'aaa', ['fixtures/N_.rb:10']
-      assert_target 'aaa\n', ['fixtures/N_.rb:14']
-      assert_target 'bbb\nccc', ['fixtures/N_.rb:18']
-      assert_target 'bbb\nccc\nddd\n', ['fixtures/N_.rb:22']
+      assert_target "aaa\n", ['fixtures/N_.rb:14']
+      assert_target "bbb\nccc", ['fixtures/N_.rb:18']
+      assert_target "bbb\nccc\nddd\n", ['fixtures/N_.rb:22']
       assert_target 'eee', ['fixtures/N_.rb:29', 'fixtures/N_.rb:33']
       assert_target 'fff', ['fixtures/N_.rb:33']
       assert_target 'ggghhhiii', ['fixtures/N_.rb:37']
@@ -78,17 +78,17 @@ class TestGetTextParser < Test::Unit::TestCase
       assert_target 'jjj', ['fixtures/N_.rb:51']
       assert_target 'kkk', ['fixtures/N_.rb:52']
       assert_target 'lllmmm', ['fixtures/N_.rb:56']
-      assert_target 'nnn\nooo', ['fixtures/N_.rb:64']
+      assert_target "nnn\nooo", ['fixtures/N_.rb:64']
     end
 
     def test_n_
       @xgettext.parse_options[:comment_tag] = "TRANSLATORS:"
       @ary = @xgettext.parse(['fixtures/n_.rb'])
       assert_plural_target "aaa", "aaa2", ['fixtures/n_.rb:29']
-      assert_plural_target "bbb\\n", "ccc2\\nccc2", ['fixtures/n_.rb:33']
-      assert_plural_target "ddd\\nddd", "ddd2\\nddd2", ['fixtures/n_.rb:37']
-      assert_plural_target "eee\\neee\\n", "eee2\\neee2\\n", ['fixtures/n_.rb:42']
-      assert_plural_target "ddd\\neee\\n", "ddd\\neee2", ['fixtures/n_.rb:48']
+      assert_plural_target "bbb\n", "ccc2\nccc2", ['fixtures/n_.rb:33']
+      assert_plural_target "ddd\nddd", "ddd2\nddd2", ['fixtures/n_.rb:37']
+      assert_plural_target "eee\neee\n", "eee2\neee2\n", ['fixtures/n_.rb:42']
+      assert_plural_target "ddd\neee\n", "ddd\neee2", ['fixtures/n_.rb:48']
       assert_plural_target "fff", "fff2", ['fixtures/n_.rb:55', 'fixtures/n_.rb:59']
       assert_plural_target "ggg", "ggg2", ['fixtures/n_.rb:59']
       assert_plural_target "ggghhhiii", "jjjkkklll", ['fixtures/n_.rb:63']
@@ -148,7 +148,7 @@ class TestGetTextParser < Test::Unit::TestCase
       @ary = GetText::ErbParser.parse('fixtures/erb/ascii.rhtml')
 
       assert_target 'aaa', ['fixtures/erb/ascii.rhtml:8']
-      assert_target 'aaa\n', ['fixtures/erb/ascii.rhtml:11']
+      assert_target "aaa\n", ['fixtures/erb/ascii.rhtml:11']
       assert_target 'bbb', ['fixtures/erb/ascii.rhtml:12']
       assert_plural_target "ccc1", "ccc2", ['fixtures/erb/ascii.rhtml:13']
     end
@@ -165,13 +165,13 @@ class TestGetTextParser < Test::Unit::TestCase
     GetText::ErbParser.init(:extnames => ['.rhtml', '.rxml'])
     @ary = @xgettext.parse(['fixtures/erb/ascii.rhtml'])
     assert_target 'aaa', ['fixtures/erb/ascii.rhtml:8']
-    assert_target 'aaa\n', ['fixtures/erb/ascii.rhtml:11']
+    assert_target "aaa\n", ['fixtures/erb/ascii.rhtml:11']
     assert_target 'bbb', ['fixtures/erb/ascii.rhtml:12']
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb/ascii.rhtml:13']
 
     @ary = @xgettext.parse(['fixtures/erb/ascii.rxml'])
     assert_target 'aaa', ['fixtures/erb/ascii.rxml:9']
-    assert_target 'aaa\n', ['fixtures/erb/ascii.rxml:12']
+    assert_target "aaa\n", ['fixtures/erb/ascii.rxml:12']
     assert_target 'bbb', ['fixtures/erb/ascii.rxml:13']
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb/ascii.rxml:14']
 

@@ -329,7 +329,7 @@ module GetText
     #   param is symbol with the name of param
     #   value - new value
     def set_value(param, value)
-      send "#{param}=", (send(param) || '') + value.gsub(/\n/, '\n')
+      send "#{param}=", (send(param) || '') + value
     end
 
     def escape(value)

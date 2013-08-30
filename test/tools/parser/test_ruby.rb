@@ -128,7 +128,7 @@ class TestRubyParser < Test::Unit::TestCase
       path = "one_new_line.rb"
       assert_parse([
                      {
-                       :msgid      => "one new line\\n",
+                       :msgid      => "one new line\n",
                        :references => ["#{path}:28"],
                      },
                    ],
@@ -139,7 +139,7 @@ class TestRubyParser < Test::Unit::TestCase
       path = "middle_new_line.rb"
       assert_parse([
                      {
-                       :msgid      => "middle\\nnew line",
+                       :msgid      => "middle\nnew line",
                        :references => ["#{path}:28"],
                      },
                    ],
@@ -150,7 +150,7 @@ class TestRubyParser < Test::Unit::TestCase
       path = "multiple_lines_literal.rb"
       assert_parse([
                      {
-                       :msgid      => "multiple\\nlines\\nliteral\\n",
+                       :msgid      => "multiple\nlines\nliteral\n",
                        :references => ["#{path}:28"],
                      },
                    ],
