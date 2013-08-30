@@ -200,34 +200,34 @@ EOE
       end
 
       class TestEscape < self
-      def test_escaped_msgstr
-         entry = GetText::POEntry.new(:normal)
-         entry.msgid = "He said \"hello.\""
-         entry.msgstr = "Il a dit \"bonjour.\""
-         entry.references = ["file1:1", "file2:10"]
-         expected_po = <<-EOE
+        def test_escaped_msgstr
+          entry = GetText::POEntry.new(:normal)
+          entry.msgid = "He said \"hello.\""
+          entry.msgstr = "Il a dit \"bonjour.\""
+          entry.references = ["file1:1", "file2:10"]
+          expected_po = <<-EOE
 #: file1:1 file2:10
 msgid "He said \\\"hello.\\\""
 msgstr "Il a dit \\\"bonjour.\\\""
 EOE
-        assert_equal(expected_po, entry.to_s)
-      end
+          assert_equal(expected_po, entry.to_s)
+        end
 
-      def test_escaped_msgstr_with_msgid_plural
-        entry = GetText::POEntry.new(:plural)
-        entry.msgid = "He said \"hello.\""
-        entry.msgid_plural = "They said \"hello.\""
-        entry.msgstr = "Il a dit \"bonjour.\"\000Ils ont dit \"bonjour.\""
-        entry.references = ["file1:1", "file2:10"]
-        expected_po = <<-EOE
+        def test_escaped_msgstr_with_msgid_plural
+          entry = GetText::POEntry.new(:plural)
+          entry.msgid = "He said \"hello.\""
+          entry.msgid_plural = "They said \"hello.\""
+          entry.msgstr = "Il a dit \"bonjour.\"\000Ils ont dit \"bonjour.\""
+          entry.references = ["file1:1", "file2:10"]
+          expected_po = <<-EOE
 #: file1:1 file2:10
 msgid "He said \\\"hello.\\\""
 msgid_plural "They said \\\"hello.\\\""
 msgstr[0] "Il a dit \\\"bonjour.\\\""
 msgstr[1] "Ils ont dit \\\"bonjour.\\\""
 EOE
-        assert_equal(expected_po, entry.to_s)
-      end
+          assert_equal(expected_po, entry.to_s)
+        end
       end
 
       def test_plural
