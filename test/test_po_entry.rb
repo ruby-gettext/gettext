@@ -191,12 +191,12 @@ EOH
         entry.msgid = "hello"
         entry.msgstr = "Bonjour"
         entry.references = ["file1:1", "file2:10"]
-        expected_entry = <<-EOE
+        expected_po = <<-EOE
 #: file1:1 file2:10
 msgid "hello"
 msgstr "Bonjour"
 EOE
-        assert_equal(expected_entry, entry.to_s)
+        assert_equal(expected_po, entry.to_s)
       end
 
       def test_escaped_msgstr
@@ -204,12 +204,12 @@ EOE
          entry.msgid = "He said \"hello.\""
          entry.msgstr = "Il a dit \"bonjour.\""
          entry.references = ["file1:1", "file2:10"]
-         expected_entry = <<-EOE
+         expected_po = <<-EOE
 #: file1:1 file2:10
 msgid "He said \\\"hello.\\\""
 msgstr "Il a dit \\\"bonjour.\\\""
 EOE
-        assert_equal(expected_entry, entry.to_s)
+        assert_equal(expected_po, entry.to_s)
       end
 
       def test_escaped_msgstr_with_msgid_plural
@@ -218,14 +218,14 @@ EOE
         entry.msgid_plural = "They said \"hello.\""
         entry.msgstr = "Il a dit \"bonjour.\"\000Ils ont dit \"bonjour.\""
         entry.references = ["file1:1", "file2:10"]
-        expected_entry = <<-EOE
+        expected_po = <<-EOE
 #: file1:1 file2:10
 msgid "He said \\\"hello.\\\""
 msgid_plural "They said \\\"hello.\\\""
 msgstr[0] "Il a dit \\\"bonjour.\\\""
 msgstr[1] "Ils ont dit \\\"bonjour.\\\""
 EOE
-        assert_equal(expected_entry, entry.to_s)
+        assert_equal(expected_po, entry.to_s)
       end
 
       def test_msgstr_with_msgid_plural
@@ -234,14 +234,14 @@ EOE
         entry.msgid_plural = "them"
         entry.msgstr = "il\000ils"
         entry.references = ["file1:1", "file2:10"]
-        expected_entry = <<-EOE
+        expected_po = <<-EOE
 #: file1:1 file2:10
 msgid "he"
 msgid_plural "them"
 msgstr[0] "il"
 msgstr[1] "ils"
 EOE
-        assert_equal(expected_entry, entry.to_s)
+        assert_equal(expected_po, entry.to_s)
       end
     end
 
