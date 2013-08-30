@@ -144,24 +144,27 @@ msgstr[1] ""
     end
 
     class TestInvalid < self
-      def test_exception
+      def test_normal
         po = GetText::POEntry.new(:normal)
         po.references = ["file1:1", "file2:10"]
         assert_raise(GetText::POEntry::NoMsgidError) {po.to_s}
+      end
 
-        po.references = nil
-        assert_raise(GetText::POEntry::NoMsgidError) {po.to_s}
-
+      def test_plural
         po = GetText::POEntry.new(:plural)
         po.msgid = 'hello'
         po.references = ["file1:1", "file2:10"]
         assert_raise(GetText::POEntry::NoMsgidPluralError) {po.to_s}
+      end
 
+      def test_msgctxt
         po = GetText::POEntry.new(:msgctxt)
         po.msgid = 'hello'
         po.references = ["file1:1", "file2:10"]
         assert_raise(GetText::POEntry::NoMsgctxtError) {po.to_s}
+      end
 
+      def test_msgctx_plural
         po = GetText::POEntry.new(:msgctxt_plural)
         po.msgctxt = 'context'
         po.msgid = 'hello'
