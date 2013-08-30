@@ -94,6 +94,24 @@ msgid "Hello"
 msgstr ""
 EOP
     end
+
+    def test_same_message
+      File.open(@rb_file_path, "w") do |rb_file|
+        rb_file.puts(<<-EOR)
+_("Hello")
+_("Hello")
+EOR
+      end
+
+      @xgettext.run("--output", @pot_file_path, @rb_file_path)
+
+      assert_equal(<<-EOP, File.read(@pot_file_path))
+#{header}
+#: ../lib/xgettext.rb:1 ../lib/xgettext.rb:2
+msgid "Hello"
+msgstr ""
+EOP
+    end
   end
 
   class TestEncoding < self
