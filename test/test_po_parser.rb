@@ -23,28 +23,28 @@ require "gettext/tools/poparser"
 class TestPOParser < Test::Unit::TestCase
   class TestMsgStr < self
     class TestEmpty < self
-    def test_msgstr_not_existing
-      po_file = create_po_file(<<-EOP)
+      def test_msgstr_not_existing
+        po_file = create_po_file(<<-EOP)
 msgid "Hello"
 msgstr ""
 EOP
-      messages = parse_po_file(po_file, MO.new)
+        messages = parse_po_file(po_file, MO.new)
 
-      assert_equal(nil, messages["Hello"])
-    end
+        assert_equal(nil, messages["Hello"])
+      end
 
-    def test_empty_msgstr_for_msgid_plural
-      po_file = create_po_file(<<-EOP)
+      def test_empty_msgstr_for_msgid_plural
+        po_file = create_po_file(<<-EOP)
 msgid "He"
 msgid_plural "They"
 msgstr[0] ""
 msgstr[1] ""
 EOP
-      messages = parse_po_file(po_file, MO.new)
+        messages = parse_po_file(po_file, MO.new)
 
-      assert_true(messages.has_key?("He\000They"))
-      assert_equal(nil, messages["He\000They"])
-    end
+        assert_true(messages.has_key?("He\000They"))
+        assert_equal(nil, messages["He\000They"])
+      end
     end
   end
 
