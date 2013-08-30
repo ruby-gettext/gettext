@@ -73,7 +73,6 @@ module GetText
           ]
           command_line.concat(@xgettext_options)
           command_line.concat(files)
-          p command_line
           GetText::Tools::XGetText.run(*command_line)
         end
       end
