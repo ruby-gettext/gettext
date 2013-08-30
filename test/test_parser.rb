@@ -80,12 +80,22 @@ class TestGetTextParser < Test::Unit::TestCase
                      ],
                      parse(path))
       end
+
+      def test_literal_concatenation_with_continuation_line
+        path = "fixtures/_/literal_concatenation_with_continuation_line.rb"
+        assert_equal([
+                       [
+                         "literal concatenation with continuation line",
+                         ["#{path}:28"]
+                       ],
+                     ],
+                     parse(path))
+      end
     end
 
     def test__
       @ary = @xgettext.parse(['fixtures/_.rb'])
 
-      assert_target 'ggghhhiii', ['fixtures/_.rb:57']
       assert_target 'a"b"c"', ['fixtures/_.rb:63']
       assert_target 'd"e"f"', ['fixtures/_.rb:67']
       assert_target 'jjj', ['fixtures/_.rb:71']
