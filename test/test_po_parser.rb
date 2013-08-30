@@ -21,6 +21,7 @@
 require "gettext/tools/poparser"
 
 class TestPOParser < Test::Unit::TestCase
+  class TestMsgStr < self
   def test_msgstr_not_existing
     po_file = create_po_file(<<-EOP)
 msgid "Hello"
@@ -42,6 +43,7 @@ EOP
 
     assert_true(messages.has_key?("He\000They"))
     assert_equal(nil, messages["He\000They"])
+  end
   end
 
   class TestPoData < self
