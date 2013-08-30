@@ -80,7 +80,7 @@ end
 
 namespace :test do
   desc "Prepare test environment"
-  task :prepare => ["test:gettext", "samples:gettext"]
+  task :prepare => [:poparser, "test:gettext", "samples:gettext"]
 end
 
 GetText::Task.new(spec)
