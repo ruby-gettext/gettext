@@ -44,6 +44,19 @@ class TestToolsXGetText < Test::Unit::TestCase
   end
 
   private
+  def generate(ruby_source, *command_line_options)
+    File.open(@rb_file_path, "w") do |rb_file|
+      rb_file.puts(ruby_source)
+    end
+
+    command_line = ["--output", @pot_file_path]
+    command_line += command_line_options
+    command_line += [@rb_file_path]
+    @xgettext.run(*command_line)
+
+    File.read(@pot_file_path)
+  end
+
   def header(options=nil)
     options ||= {}
     package_name = options[:package_name] || "PACKAGE"
@@ -79,15 +92,10 @@ EOH
 
   class TestReference < self
     def test_relative
-      File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(<<-EOR)
+      pot_content = generate(<<-EOR)
 _("Hello")
 EOR
-      end
-
-      @xgettext.run("--output", @pot_file_path, @rb_file_path)
-
-      assert_equal(<<-EOP, File.read(@pot_file_path))
+      assert_equal(<<-EOP, pot_content)
 #{header}
 #: ../lib/xgettext.rb:1
 msgid "Hello"
@@ -96,16 +104,11 @@ EOP
     end
 
     def test_same_message
-      File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(<<-EOR)
+      pot_content = generate(<<-EOR)
 _("Hello")
 _("Hello")
 EOR
-      end
-
-      @xgettext.run("--output", @pot_file_path, @rb_file_path)
-
-      assert_equal(<<-EOP, File.read(@pot_file_path))
+      assert_equal(<<-EOP, pot_content)
 #{header}
 #: ../lib/xgettext.rb:1 ../lib/xgettext.rb:2
 msgid "Hello"
@@ -183,7 +186,7 @@ EOP
 
   class TestTranslatorComment < self
     def test_n_
-      pot_content = parse(<<-RB)
+      pot_content = generate(<<-RB)
 n_members = 1
 # TRANSLATORS: Use this message as test
 n_("I will go!",
@@ -207,96 +210,54 @@ msgstr ""
 POT
       assert_equal(expected_content, pot_content)
     end
-
-    private
-    def parse(ruby_source)
-      File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(ruby_source)
-      end
-
-      @xgettext.run("--output", @pot_file_path, @rb_file_path)
-
-      File.read(@pot_file_path)
-    end
   end
 
   class TestCommandLineOption < self
     def test_package_name
-      File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(":hello")
-      end
-
       package_name = "test-package"
-      @xgettext.run("--output", @pot_file_path,
-                    "--package-name", package_name,
-                    @rb_file_path)
+      pot_content = generate(":hello", "--package-name", package_name)
 
       options = {:package_name => package_name}
       expected_header = "#{header(options)}\n"
-      assert_equal(expected_header, File.read(@pot_file_path))
+      assert_equal(expected_header, pot_content)
     end
 
     def test_package_version
-      File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(":hello")
-      end
-
       package_version = "1.2.3"
-      @xgettext.run("--output", @pot_file_path,
-                    "--package-version", package_version,
-                    @rb_file_path)
+      pot_content = generate(":hello", "--package-version", package_version)
 
       options = {:package_version => package_version}
       expected_header = "#{header(options)}\n"
-      assert_equal(expected_header, File.read(@pot_file_path))
+      assert_equal(expected_header, pot_content)
     end
 
     def test_report_msgid_bugs_to
-      File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(":hello")
-      end
-
       msgid_bugs_address = "me@example.com"
-      @xgettext.run("--output", @pot_file_path,
-                    "--msgid-bugs-address", msgid_bugs_address,
-                    @rb_file_path)
+      pot_content = generate(":hello",
+                             "--msgid-bugs-address", msgid_bugs_address)
 
       options = {:msgid_bugs_address => msgid_bugs_address}
       expected_header = "#{header(options)}\n"
-      assert_equal(expected_header, File.read(@pot_file_path))
+      assert_equal(expected_header, pot_content)
     end
 
     def test_copyright_holder
-      File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(":hello")
-      end
-
       copyright_holder = "me"
-      @xgettext.run("--output", @pot_file_path,
-                    "--copyright-holder", copyright_holder,
-                    @rb_file_path)
+      pot_content = generate(":hello", "--copyright-holder", copyright_holder)
 
       options = {:copyright_holder => copyright_holder}
       expected_header = "#{header(options)}\n"
-      assert_equal(expected_header, File.read(@pot_file_path))
+      assert_equal(expected_header, pot_content)
     end
 
     def test_to_code
-      File.open(@rb_file_path, "w") do |rb_file|
-        rb_file.puts(<<-EOR)
+      output_encoding = "EUC-JP"
+      pot_content = generate(<<-EOR, "--output-encoding", output_encoding)
 # -*- coding: utf-8 -*-
 
 _("わたし")
 EOR
-      end
-
-      output_encoding = "EUC-JP"
-      @xgettext.run("--output", @pot_file_path,
-                    "--output-encoding", output_encoding,
-                    @rb_file_path)
-
-      actual_pot = File.read(@pot_file_path)
-      actual_pot.force_encoding(output_encoding)
+      pot_content.force_encoding(output_encoding)
 
       options = {:to_code => output_encoding}
       expected_pot = <<-EOP
@@ -307,7 +268,7 @@ msgstr ""
 EOP
       expected_pot = expected_pot.encode(output_encoding)
 
-      assert_equal(expected_pot, actual_pot)
+      assert_equal(expected_pot, pot_content)
     end
   end
 
