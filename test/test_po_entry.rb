@@ -115,11 +115,11 @@ msgstr[1] ""
     end
 
     def test_msgctxt
-      po = GetText::POEntry.new(:msgctxt)
-      po.msgctxt = 'context'
-      po.msgid = 'hello'
-      po.references = ["file1:1", "file2:10"]
-      assert_equal(<<-PO, po.to_s)
+      entry = GetText::POEntry.new(:msgctxt)
+      entry.msgctxt = 'context'
+      entry.msgid = 'hello'
+      entry.references = ["file1:1", "file2:10"]
+      assert_equal(<<-PO, entry.to_s)
 #: file1:1 file2:10
 msgctxt "context"
 msgid "hello"
@@ -128,12 +128,12 @@ msgstr ""
     end
 
     def test_msgctxt_plural
-      po = GetText::POEntry.new(:msgctxt_plural)
-      po.msgctxt = 'context'
-      po.msgid = 'hello'
-      po.msgid_plural = 'hello2'
-      po.references = ["file1:1", "file2:10"]
-      assert_equal(<<-PO, po.to_s)
+      entry = GetText::POEntry.new(:msgctxt_plural)
+      entry.msgctxt = 'context'
+      entry.msgid = 'hello'
+      entry.msgid_plural = 'hello2'
+      entry.references = ["file1:1", "file2:10"]
+      assert_equal(<<-PO, entry.to_s)
 #: file1:1 file2:10
 msgctxt "context"
 msgid "hello"
