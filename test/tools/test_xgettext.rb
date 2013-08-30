@@ -185,7 +185,6 @@ msgstr[1] ""
 msgid "No comment"
 msgstr ""
 POT
-      expected_content = expected_content.encode(encoding)
       assert_equal(expected_content, pot_content)
     end
 
@@ -197,10 +196,7 @@ POT
 
       @xgettext.run("--output", @pot_file_path, @rb_file_path)
 
-      encoding = "UTF-8"
-      pot_content = File.read(@pot_file_path)
-      pot_content.force_encoding(encoding)
-      pot_content
+      File.read(@pot_file_path)
     end
   end
 
