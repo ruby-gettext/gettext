@@ -286,6 +286,25 @@ msgid "Message"
 msgstr ""
       POT
     end
+
+    def test_multiple
+      pot_content = generate(<<-RUBY, "--add-comments=TRANSLATORS:")
+# TRANSLATORS: The first comment
+_("Message")
+
+# TRANSLATORS: The second comment
+_("Message")
+      RUBY
+
+      assert_equal(<<-POT, pot_content)
+#{header}
+#. TRANSLATORS: The first comment
+#. TRANSLATORS: The second comment
+#: ../lib/xgettext.rb:2 ../lib/xgettext.rb:5
+msgid "Message"
+msgstr ""
+      POT
+    end
   end
 
   class TestCommandLineOption < self
