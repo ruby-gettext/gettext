@@ -54,16 +54,24 @@ class TestPOEntry < Test::Unit::TestCase
 
   class TestToS < self
     class TestNormal < self
-      def test_normal
-        po = GetText::POEntry.new(:normal)
-        po.msgid = 'hello'
-        po.references = ["file1:1", "file2:10"]
-        assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
+      def setup
+        @entry = GetText::POEntry.new(:normal)
+      end
 
-        po.msgctxt = 'context'
-        po.msgid_plural = 'hello2'
-        # Ignore these properties.
-        assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
+      def test_minimum
+        @entry.msgid = 'hello'
+        @entry.references = ["file1:1", "file2:10"]
+        assert_equal("#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n",
+                     @entry.to_s)
+      end
+
+      def test_with_garbage_information
+        @entry.msgid = 'hello'
+        @entry.references = ["file1:1", "file2:10"]
+        @entry.msgctxt = 'context'
+        @entry.msgid_plural = 'hello2'
+        assert_equal("#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n",
+                     @entry.to_s)
       end
     end
 
