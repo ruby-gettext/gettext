@@ -34,13 +34,6 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   class TestRuby < self
-    private
-    def parse(path)
-      @xgettext.parse([path]).collect do |po_entry|
-        [po_entry.msgid, po_entry.references.sort]
-      end
-    end
-
     def test__
       @ary = @xgettext.parse(['fixtures/_.rb'])
 
