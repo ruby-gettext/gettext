@@ -53,6 +53,7 @@ class TestPOEntry < Test::Unit::TestCase
   end
 
   class TestToS < self
+    class TestNormal < self
     def test_normal
       po = GetText::POEntry.new(:normal)
       po.msgid = 'hello'
@@ -64,7 +65,9 @@ class TestPOEntry < Test::Unit::TestCase
       # Ignore these properties.
       assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
     end
+    end
 
+    class TestPlural < self
     def test_plural
       po = GetText::POEntry.new(:plural)
       po.msgid = 'hello'
@@ -76,7 +79,9 @@ class TestPOEntry < Test::Unit::TestCase
       # Ignore this property
       assert_equal "#: file1:1 file2:10\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
     end
+    end
 
+    class TestMessageContext < self
     def test_msgctxt
       po = GetText::POEntry.new(:msgctxt)
       po.msgctxt = 'context'
@@ -93,7 +98,9 @@ class TestPOEntry < Test::Unit::TestCase
       po.references = ["file1:1", "file2:10"]
       assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
     end
+    end
 
+    class TestInvalid < self
     def test_exception
       po = GetText::POEntry.new(:normal)
       po.references = ["file1:1", "file2:10"]
@@ -118,6 +125,7 @@ class TestPOEntry < Test::Unit::TestCase
       po.references = ["file1:1", "file2:10"]
       assert_raise(GetText::POEntry::NoMsgidPluralError) {po.to_s}
     end
+    end
 
     def test_header
       po = GetText::POEntry.new(:normal)
@@ -131,6 +139,7 @@ EOH
       assert_equal(expected_header, po.to_s)
     end
 
+    class TestMessageString < self
     def test_msgstr
       po = GetText::POEntry.new(:normal)
       po.msgid = "hello"
@@ -187,6 +196,7 @@ msgstr[0] "il"
 msgstr[1] "ils"
 EOE
       assert_equal(expected_entry, po.to_s)
+    end
     end
 
     def test_obsolete_comment
