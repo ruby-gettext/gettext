@@ -53,9 +53,12 @@ module GetText
 
     class << self
       def escape(string)
-        string.gsub(/([\\"\n])/) do
+        string.gsub(/([\\"\t\n])/) do
           special_character = $1
-          if special_character == "\n"
+          case special_character
+          when "\t"
+            "\\t"
+          when "\n"
             "\\n"
           else
             "\\#{special_character}"

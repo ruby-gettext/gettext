@@ -372,6 +372,12 @@ EOP
       assert_equal("First\\nSecond\\nThird",
                    @entry.escaped(:msgid))
     end
+
+    def test_tab
+      @entry.msgid = "First\tSecond\tThird"
+      assert_equal("First\\tSecond\\tThird",
+                   @entry.escaped(:msgid))
+    end
   end
 
   class TestFormatMessage < self
