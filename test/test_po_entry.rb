@@ -199,6 +199,22 @@ EOE
         assert_equal(expected_po, entry.to_s)
       end
 
+      def test_plural
+        entry = GetText::POEntry.new(:plural)
+        entry.msgid = "he"
+        entry.msgid_plural = "them"
+        entry.msgstr = "il\000ils"
+        entry.references = ["file1:1", "file2:10"]
+        expected_po = <<-EOE
+#: file1:1 file2:10
+msgid "he"
+msgid_plural "them"
+msgstr[0] "il"
+msgstr[1] "ils"
+EOE
+        assert_equal(expected_po, entry.to_s)
+      end
+
       class TestEscape < self
         def test_escaped_msgstr
           entry = GetText::POEntry.new(:normal)
@@ -228,22 +244,6 @@ msgstr[1] "Ils ont dit \\\"bonjour.\\\""
 EOE
           assert_equal(expected_po, entry.to_s)
         end
-      end
-
-      def test_plural
-        entry = GetText::POEntry.new(:plural)
-        entry.msgid = "he"
-        entry.msgid_plural = "them"
-        entry.msgstr = "il\000ils"
-        entry.references = ["file1:1", "file2:10"]
-        expected_po = <<-EOE
-#: file1:1 file2:10
-msgid "he"
-msgid_plural "them"
-msgstr[0] "il"
-msgstr[1] "ils"
-EOE
-        assert_equal(expected_po, entry.to_s)
       end
     end
 
