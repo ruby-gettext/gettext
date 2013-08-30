@@ -26,6 +26,11 @@ module GetText
 
     attr_accessor :locales, :po_base_directory, :mo_base_directory, :domain
     attr_accessor :namespace_prefix, :files
+    # @return [Array<String>] Command line options for extracting messages
+    #   from sources.
+    # @see GetText::Tools::XGetText
+    # @see `rxgettext --help`
+    attr_reader :xgettext_options
     def initialize(spec)
       @spec = spec
       @locales = []
@@ -34,6 +39,7 @@ module GetText
       @files = target_files
       @domain = @spec.name
       @namespace_prefix = nil
+      @xgettext_options = []
       yield(self) if block_given?
       @locales = detect_locales if @locales.empty?
       raise("must set locales: #{inspect}") if @locales.empty?
@@ -60,10 +66,15 @@ module GetText
           pot_dependencies << po_base_directory
         end
         file pot_file => pot_dependencies do
-          GetText::Tools::XGetText.run("--package-name", @spec.name,
-                                       "--package-version", @spec.version.to_s,
-                                       "--output", pot_file,
-                                       *files)
+          command_line = [
+            "--package-name", @spec.name,
+            "--package-version", @spec.version.to_s,
+            "--output", pot_file,
+          ]
+          command_line.concat(@xgettext_options)
+          command_line.concat(files)
+          p command_line
+          GetText::Tools::XGetText.run(*command_line)
         end
       end
 
