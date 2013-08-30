@@ -71,12 +71,20 @@ class TestGetTextParser < Test::Unit::TestCase
         assert_equal([["multiple same messages", ["#{path}:28", "#{path}:32"]]],
                      parse(path))
       end
+
+      def test_multiple_messages_in_same_line
+        path = "fixtures/_/multiple_messages_in_same_line.rb"
+        assert_equal([
+                       ["multiple",     ["#{path}:28"]],
+                       ["in same line", ["#{path}:28"]],
+                     ],
+                     parse(path))
+      end
     end
 
     def test__
       @ary = @xgettext.parse(['fixtures/_.rb'])
 
-      assert_target 'fff', ['fixtures/_.rb:53']
       assert_target 'ggghhhiii', ['fixtures/_.rb:57']
       assert_target 'a"b"c"', ['fixtures/_.rb:63']
       assert_target 'd"e"f"', ['fixtures/_.rb:67']
