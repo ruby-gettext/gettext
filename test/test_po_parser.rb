@@ -274,6 +274,20 @@ EOP
       @po_file.close
     end
 
+    private
+    def parse
+      parser = GetText::POParser.new
+      class << parser
+        def _(message_id)
+          message_id
+        end
+      end
+      messages = MO.new
+      yield parser
+      parser.parse_file(@po_file.path, messages)
+      messages
+    end
+
     class TestIgnore < self
       def test_report_warning
         mock($stderr).print("Warning: fuzzy message was ignored.\n")
@@ -316,20 +330,6 @@ EOP
         end
         assert_equal("Bonjour", messages["Hello"])
       end
-    end
-
-    private
-    def parse
-      parser = GetText::POParser.new
-      class << parser
-        def _(message_id)
-          message_id
-        end
-      end
-      messages = MO.new
-      yield parser
-      parser.parse_file(@po_file.path, messages)
-      messages
     end
   end
 end
