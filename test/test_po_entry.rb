@@ -119,7 +119,12 @@ msgstr[1] ""
       po.msgctxt = 'context'
       po.msgid = 'hello'
       po.references = ["file1:1", "file2:10"]
-      assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
+      assert_equal(<<-PO, po.to_s)
+#: file1:1 file2:10
+msgctxt "context"
+msgid "hello"
+msgstr ""
+      PO
     end
 
     def test_msgctxt_plural
@@ -128,7 +133,14 @@ msgstr[1] ""
       po.msgid = 'hello'
       po.msgid_plural = 'hello2'
       po.references = ["file1:1", "file2:10"]
-      assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
+      assert_equal(<<-PO, po.to_s)
+#: file1:1 file2:10
+msgctxt "context"
+msgid "hello"
+msgid_plural "hello2"
+msgstr[0] ""
+msgstr[1] ""
+      PO
     end
 
     class TestInvalid < self
