@@ -250,6 +250,24 @@ msgstr ""
       POT
     end
 
+    def test_not_first_line_is_started_with_tag
+      pot_content = generate(<<-RUBY, "--add-comments=TRANSLATORS:")
+# The first line.
+# TRANSLATORS: The second line.
+# The third line.
+_("Message")
+      RUBY
+
+      assert_equal(<<-POT, pot_content)
+#{header}
+#. TRANSLATORS: The second line.
+#. The third line.
+#: ../lib/xgettext.rb:4
+msgid "Message"
+msgstr ""
+      POT
+    end
+
     def test_indented
       pot_content = generate(<<-RUBY, "--add-comments")
 # The following lines are indented
