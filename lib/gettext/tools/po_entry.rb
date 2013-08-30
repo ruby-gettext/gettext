@@ -110,7 +110,8 @@ module GetText
     def add_comment(new_comment)
       if (new_comment and ! new_comment.empty?)
         @extracted_comment ||= ""
-        @extracted_comment += new_comment
+        @extracted_comment << "\n" unless @extracted_comment.empty?
+        @extracted_comment << new_comment
       end
       to_s
     end
