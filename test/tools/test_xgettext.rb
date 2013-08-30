@@ -204,6 +204,20 @@ msgstr[1] ""
 POT
       assert_equal(expected_content, pot_content)
     end
+
+    def test_no_tag
+      pot_content = generate(<<-RUBY)
+# This comment isn't started with "TRANSLATORS:" tag
+_("Message")
+      RUBY
+
+      assert_equal(<<-POT, pot_content)
+#{header}
+#: ../lib/xgettext.rb:2
+msgid "Message"
+msgstr ""
+      POT
+    end
   end
 
   class TestCommandLineOption < self
