@@ -21,6 +21,19 @@
 require "gettext/tools/poparser"
 
 class TestPOParser < Test::Unit::TestCase
+  private
+  def create_po_file(content)
+    po_file = Tempfile.new("hello.po")
+    po_file.print(content)
+    po_file.close
+    po_file
+  end
+
+  def parse_po_file(po_file, parsed_entries)
+    parser = GetText::POParser.new
+    parser.parse_file(po_file.path, parsed_entries)
+  end
+
   class TestMsgStr < self
     class TestEmpty < self
       def test_normal
@@ -247,19 +260,6 @@ EOP
       parser.ignore_fuzzy = ignore_fuzzy
       parser.parse_file(po_file.path, PO.new)
     end
-  end
-
-  private
-  def create_po_file(content)
-    po_file = Tempfile.new("hello.po")
-    po_file.print(content)
-    po_file.close
-    po_file
-  end
-
-  def parse_po_file(po_file, parsed_entries)
-    parser = GetText::POParser.new
-    parser.parse_file(po_file.path, parsed_entries)
   end
 
   class FuzzyTest < self
