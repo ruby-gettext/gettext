@@ -114,22 +114,22 @@ msgstr[1] ""
       end
     end
 
-      def test_msgctxt
-        po = GetText::POEntry.new(:msgctxt)
-        po.msgctxt = 'context'
-        po.msgid = 'hello'
-        po.references = ["file1:1", "file2:10"]
-        assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
-      end
+    def test_msgctxt
+      po = GetText::POEntry.new(:msgctxt)
+      po.msgctxt = 'context'
+      po.msgid = 'hello'
+      po.references = ["file1:1", "file2:10"]
+      assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgstr \"\"\n", po.to_s
+    end
 
-      def test_msgctxt_plural
-        po = GetText::POEntry.new(:msgctxt_plural)
-        po.msgctxt = 'context'
-        po.msgid = 'hello'
-        po.msgid_plural = 'hello2'
-        po.references = ["file1:1", "file2:10"]
-        assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
-      end
+    def test_msgctxt_plural
+      po = GetText::POEntry.new(:msgctxt_plural)
+      po.msgctxt = 'context'
+      po.msgid = 'hello'
+      po.msgid_plural = 'hello2'
+      po.references = ["file1:1", "file2:10"]
+      assert_equal "#: file1:1 file2:10\nmsgctxt \"context\"\nmsgid \"hello\"\nmsgid_plural \"hello2\"\nmsgstr[0] \"\"\nmsgstr[1] \"\"\n", po.to_s
+    end
 
     class TestInvalid < self
       def test_exception
