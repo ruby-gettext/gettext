@@ -208,7 +208,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 132)
         when POEntry::EXTRACTED_COMMENT_MARK
           @extracted_comments << content
         when POEntry::REFERENCE_COMMENT_MARK
-          @references << content
+          @references.concat(parse_references_line(content))
         when POEntry::FLAG_MARK
           @flag << content
         when POEntry::PREVIOUS_COMMENT_MARK
@@ -233,6 +233,7 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 132)
     parse(File.open(*args) {|io| io.read }, data)
   end
 
+  private
   def detect_file_encoding(po_file)
     open(po_file, :encoding => "ASCII-8BIT") do |input|
       in_header = false
@@ -274,7 +275,10 @@ module_eval(<<'...end poparser.ry/module_eval...', 'poparser.ry', 132)
       end
     end
   end
-  private :detect_file_encoding
+
+  def parse_references_line(line)
+    line.split(/\s+/)
+  end
 ...end poparser.ry/module_eval...
 ##### State transition tables begin ###
 

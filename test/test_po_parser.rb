@@ -131,7 +131,7 @@ EOP
     end
 
     class TestReferences < self
-      def test_references
+      def test_single
         po_file = create_po_file(<<-EOP)
 # This is the comment.
 #: file.rb:10
@@ -141,6 +141,33 @@ EOP
         entries = parse_po_file(po_file)
         assert_true(entries.has_key?(nil, "hello"))
         assert_equal(["file.rb:10"], entries["hello"].references)
+      end
+
+      def test_per_line
+        po_file = create_po_file(<<-PO)
+# This is the comment.
+#: file.rb:10
+#: file.rb:20
+msgid "hello"
+msgstr "bonjour"
+        PO
+        entries = parse_po_file(po_file)
+        assert_true(entries.has_key?(nil, "hello"))
+        assert_equal(["file.rb:10", "file.rb:20"],
+                     entries["hello"].references)
+      end
+
+      def test_same_line
+        po_file = create_po_file(<<-PO)
+# This is the comment.
+#: file.rb:10 file.rb:20
+msgid "hello"
+msgstr "bonjour"
+        PO
+        entries = parse_po_file(po_file)
+        assert_true(entries.has_key?(nil, "hello"))
+        assert_equal(["file.rb:10", "file.rb:20"],
+                     entries["hello"].references)
       end
     end
 

@@ -306,7 +306,7 @@ end
         when POEntry::EXTRACTED_COMMENT_MARK
           @extracted_comments << content
         when POEntry::REFERENCE_COMMENT_MARK
-          @references << content
+          @references.concat(parse_references_line(content))
         when POEntry::FLAG_MARK
           @flag << content
         when POEntry::PREVIOUS_COMMENT_MARK
@@ -331,6 +331,7 @@ end
     parse(File.open(*args) {|io| io.read }, data)
   end
 
+  private
   def detect_file_encoding(po_file)
     open(po_file, :encoding => "ASCII-8BIT") do |input|
       in_header = false
@@ -372,7 +373,10 @@ end
       end
     end
   end
-  private :detect_file_encoding
+
+  def parse_references_line(line)
+    line.split(/\s+/)
+  end
 ---- footer
   # for backward compatibility.
   module GetText
