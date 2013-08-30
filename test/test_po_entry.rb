@@ -270,7 +270,7 @@ EOC
       entry.msgstr = "msgstr"
       entry.translator_comment = "It's the translator comment."
 
-      expected_po =<<EOP
+      expected_po = <<EOP
 # It's the translator comment.
 msgid \"msgid\"
 msgstr \"msgstr\"
@@ -284,7 +284,7 @@ EOP
       entry.msgstr = "msgstr"
       entry.extracted_comment = "It's the extracted comment."
 
-      expected_po =<<EOP
+      expected_po = <<EOP
 #. It's the extracted comment.
 msgid \"msgid\"
 msgstr \"msgstr\"
@@ -298,7 +298,7 @@ EOP
       entry.msgstr = "msgstr"
       entry.flag = "It's the flag."
 
-      expected_po =<<EOP
+      expected_po = <<EOP
 #, It's the flag.
 msgid \"msgid\"
 msgstr \"msgstr\"
@@ -316,7 +316,7 @@ msgid previous_msgid
 msgid_plural previous_msgid_plural
 EOC
 
-      expected_po =<<EOP
+      expected_po = <<EOP
 #| msgctxt previous_msgctxt
 #| msgid previous_msgid
 #| msgid_plural previous_msgid_plural
