@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 =begin
-  textdomain.rb - GetText::Textdomain
+  text_domain.rb - GetText::TextDomain
 
   Copyright (C) 2001-2009  Masao Mutoh
   Copyright (C) 2001-2003  Masahiro Sakai
@@ -17,7 +17,7 @@ require 'gettext/runtime/mo'
 require 'gettext/runtime/locale_path'
 
 module GetText
-  # GetText::TextDomain class manages mo-files of a textdomain.
+  # GetText::TextDomain class manages mo-files of a text domain.
   #
   # Usually, you don't need to use this class directly.
   #
@@ -43,7 +43,7 @@ module GetText
 
     # Add default locale path. Usually you should use GetText.add_default_locale_path instead.
     # * path: a new locale path. (e.g.) "/usr/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
-    #   ('locale' => "ja_JP", 'name' => "textdomain")
+    #   ('locale' => "ja_JP", 'name' => "text_domain")
     # * Returns: the new DEFAULT_LOCALE_PATHS
     def self.add_default_locale_path(path)
       warn "Deprecated. Use GetText::LocalePath.add_default_rule instead."
@@ -51,7 +51,7 @@ module GetText
     end
 
     # Creates a new GetText::TextDomain.
-    # * name: the textdomain name.
+    # * name: the text domain name.
     # * topdir: the locale path ("%{topdir}/%{lang}/LC_MESSAGES/%{name}.mo") or nil.
     # * output_charset: output charset.
     # * Returns: a newly created GetText::TextDomain object.

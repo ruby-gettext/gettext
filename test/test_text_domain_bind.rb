@@ -6,18 +6,18 @@ end
 class TestGetTextBind < Test::Unit::TestCase
   def setup
     GetText.locale = "ja_JP.EUC-JP"
-    @dumped_all_textdomains = GetText::TextDomainManager.dump_all_textdomains
-    GetText::TextDomainManager.clear_all_textdomains
+    @dumped_all_text_domains = GetText::TextDomainManager.dump_all_text_domains
+    GetText::TextDomainManager.clear_all_text_domains
   end
 
   def teardown
-    GetText::TextDomainManager.restore_all_textdomains(@dumped_all_textdomains)
+    GetText::TextDomainManager.restore_all_text_domains(@dumped_all_text_domains)
   end
 
   def test_bindtextdomain
     domain = GetText.bindtextdomain("foo")
-    assert_equal domain, GetText::TextDomainManager.create_or_find_textdomain_group(Object).textdomains[0]
-    assert_equal domain, GetText::TextDomainManager.textdomain_pool("foo")
+    assert_equal domain, GetText::TextDomainManager.create_or_find_text_domain_group(Object).text_domains[0]
+    assert_equal domain, GetText::TextDomainManager.text_domain_pool("foo")
   end
 
   def test_textdomain

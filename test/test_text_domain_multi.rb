@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require 'fixtures/multi_textdomain.rb'
+require 'fixtures/multi_text_domain.rb'
 
 class TestGetTextMulti < Test::Unit::TestCase
   include MultiTextDomain
@@ -24,7 +24,7 @@ class TestGetTextMulti < Test::Unit::TestCase
   end
 
   def test_inheritance
-    # inheritance. only parent has a textdomain and it's methods
+    # inheritance. only parent has a text domain and it's methods
     test = C21.new
     assert_equal("japanese", test.test)   # Use C11's po(test1.po)
     assert_equal("JAPANESE", test.test2)  # Use C11's po(test2.po)
@@ -38,7 +38,7 @@ class TestGetTextMulti < Test::Unit::TestCase
     # module
     assert_equal("japanese", M1.test)
 
-    # sub-module. only an included module has a textdomain and it's methods
+    # sub-module. only an included module has a text domain and it's methods
     assert_equal("japanese", M1::M1M1.test)   # Same method with M1.
     assert_equal("LANGUAGE", M1::M1M1.test2)  # No influence from ancestors.
 
@@ -72,7 +72,7 @@ class TestGetTextMulti < Test::Unit::TestCase
     assert_equal("no data", test.test3)   # No po file.
   end
 
-  def test_same_msgid_but_different_textdomain
+  def test_same_msgid_but_different_text_domain
     test1 = C12.new  # test1 domain
     test2 = C51.new  # test3 domain
     test3 = C52.new  # test3 domain but inherited C11.

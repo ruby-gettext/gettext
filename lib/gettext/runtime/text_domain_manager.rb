@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 =begin
-  gettext/textdomain_manager - GetText::TextDomainManager class
+  gettext/text_domain_manager - GetText::TextDomainManager class
 
   Copyright (C) 2009  Masao Mutoh
 
@@ -11,15 +11,15 @@
 =end
 
 require 'gettext/runtime/class_info'
-require 'gettext/runtime/textdomain'
-require 'gettext/runtime/textdomain_group'
+require 'gettext/runtime/text_domain'
+require 'gettext/runtime/text_domain_group'
 
 module GetText
 
   module TextDomainManager
 
-    @@textdomain_pool = {}
-    @@textdomain_group_pool = {}
+    @@text_domain_pool = {}
+    @@text_domain_group_pool = {}
 
     @@output_charset = nil
     @@gettext_classes = []
@@ -30,9 +30,9 @@ module GetText
 
     extend self
 
-    # Find textdomain by name
-    def textdomain_pool(domainname)
-      @@textdomain_pool[domainname]
+    # Find text domain by name
+    def text_domain_pool(domainname)
+      @@text_domain_pool[domainname]
     end
 
     # Set the value whether cache messages or not.
@@ -58,30 +58,30 @@ module GetText
     # Sets the output charset.The program can have a output charset.
     def output_charset=(charset)
       @@output_charset = charset
-      @@textdomain_pool.each do |key, textdomain|
-        textdomain.output_charset = charset
+      @@text_domain_pool.each do |key, text_domain|
+        text_domain.output_charset = charset
       end
     end
 
-    # bind textdomain to the class.
+    # bind text domain to the class.
     def bind_to(klass, domainname, options = {})
       warn "Bind the domain '#{domainname}' to '#{klass}'. " if $DEBUG
 
       charset = options[:output_charset] || self.output_charset
-      textdomain = create_or_find_textdomain(domainname,options[:path],charset)
+      text_domain = create_or_find_text_domain(domainname,options[:path],charset)
       target_klass = ClassInfo.normalize_class(klass)
-      create_or_find_textdomain_group(target_klass).add(textdomain)
+      create_or_find_text_domain_group(target_klass).add(text_domain)
       @@gettext_classes << target_klass unless @@gettext_classes.include? target_klass
 
-      textdomain
+      text_domain
     end
 
-    def each_textdomains(klass) #:nodoc:
+    def each_text_domains(klass) #:nodoc:
       lang = Locale.candidates[0]
       ClassInfo.related_classes(klass, @@gettext_classes).each do |target|
-        if group = @@textdomain_group_pool[target]
-          group.textdomains.each do |textdomain|
-            yield textdomain, lang
+        if group = @@text_domain_group_pool[target]
+          group.text_domains.each do |text_domain|
+            yield text_domain, lang
           end
         end
       end
@@ -100,8 +100,8 @@ module GetText
       msg = @@singular_message_cache[key]
       return msg if msg and @@cached
       # Find messages from related classes.
-      each_textdomains(klass) do |textdomain, lang|
-        msg = textdomain.translate_singular_message(lang, msgid)
+      each_text_domains(klass) do |text_domain, lang|
+        msg = text_domain.translate_singular_message(lang, msgid)
         break if msg
       end
 
@@ -161,8 +161,8 @@ module GetText
       unless (msgs and @@cached)
         # Find messages from related classes.
         msgs = nil
-        each_textdomains(klass) do |textdomain, lang|
-          msgs = textdomain.translate_plural_message(lang, msgid, msgid_plural)
+        each_text_domains(klass) do |text_domain, lang|
+          msgs = text_domain.translate_plural_message(lang, msgid, msgid_plural)
           break if msgs
         end
 
@@ -183,25 +183,25 @@ module GetText
     end
 
     # for testing.
-    def dump_all_textdomains
+    def dump_all_text_domains
       [
-        @@textdomain_pool.dup,
-        @@textdomain_group_pool.dup,
+        @@text_domain_pool.dup,
+        @@text_domain_group_pool.dup,
         @@gettext_classes.dup,
       ]
     end
 
     # for testing.
-    def restore_all_textdomains(dumped_all_textdomains)
-      @@textdomain_pool, @@textdomain_group_pool, @@gettext_classes =
-        dumped_all_textdomains
+    def restore_all_text_domains(dumped_all_text_domains)
+      @@text_domain_pool, @@text_domain_group_pool, @@gettext_classes =
+        dumped_all_text_domains
       clear_caches
     end
 
     # for testing.
-    def clear_all_textdomains
-      @@textdomain_pool = {}
-      @@textdomain_group_pool = {}
+    def clear_all_text_domains
+      @@text_domain_pool = {}
+      @@text_domain_group_pool = {}
       @@gettext_classes = []
       clear_caches
     end
@@ -212,18 +212,18 @@ module GetText
       @@plural_message_cache = {}
     end
 
-    def create_or_find_textdomain_group(klass) #:nodoc:
-      group = @@textdomain_group_pool[klass]
+    def create_or_find_text_domain_group(klass) #:nodoc:
+      group = @@text_domain_group_pool[klass]
       return group if group
 
-      @@textdomain_group_pool[klass] = TextDomainGroup.new
+      @@text_domain_group_pool[klass] = TextDomainGroup.new
     end
 
-    def create_or_find_textdomain(name, path, charset)#:nodoc:
-      textdomain = @@textdomain_pool[name]
-      return textdomain if textdomain
+    def create_or_find_text_domain(name, path, charset)#:nodoc:
+      text_domain = @@text_domain_pool[name]
+      return text_domain if text_domain
 
-      @@textdomain_pool[name] = TextDomain.new(name, path, charset)
+      @@text_domain_pool[name] = TextDomain.new(name, path, charset)
     end
   end
 end

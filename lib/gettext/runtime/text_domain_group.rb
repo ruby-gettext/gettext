@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 =begin
-  gettext/textdomain_group - GetText::TextDomainGroup class
+  gettext/text_domain_group - GetText::TextDomainGroup class
 
   Copyright (C) 2009  Masao Mutoh
 
@@ -13,14 +13,14 @@
 module GetText
 
   class TextDomainGroup
-    attr_reader :textdomains
+    attr_reader :text_domains
 
     def initialize
-      @textdomains = []
+      @text_domains = []
     end
 
-    def add(textdomain)
-      @textdomains.unshift(textdomain) unless @textdomains.include? textdomain
+    def add(text_domain)
+      @text_domains.unshift(text_domain) unless @text_domains.include? text_domain
     end
   end
 end

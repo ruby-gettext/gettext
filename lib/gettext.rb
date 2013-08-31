@@ -16,10 +16,10 @@
 require 'locale'
 
 require 'gettext/version'
-require 'gettext/runtime/textdomain_manager'
+require 'gettext/runtime/text_domain_manager'
 
 module GetText
-  # If the textdomain isn't bound when calling GetText.textdomain, this error is raised.
+  # If the text domain isn't bound when calling GetText.textdomain, this error is raised.
   class NoboundTextDomainError < RuntimeError
     def initialize(domainname)
       @domainname = domainname
@@ -37,12 +37,12 @@ module GetText
 
   # bindtextdomain(domainname, options = {})
   #
-  # Bind a textdomain(%{path}/%{locale}/LC_MESSAGES/%{domainname}.mo) to
+  # Bind a text domain(%{path}/%{locale}/LC_MESSAGES/%{domainname}.mo) to
   # your program.
   # Normally, the texdomain scope becomes the class/module(and parent
   # classes/included modules).
   #
-  # * domainname: the textdomain name.
+  # * domainname: the text domain name.
   # * options: options as an Hash.
   #   * :path - the path to the mo-files. When the value is nil, it will search default paths such as
   #     /usr/share/locale, /usr/local/share/locale)
@@ -54,9 +54,9 @@ module GetText
     bindtextdomain_to(self, domainname, *options)
   end
 
-  # Includes GetText module and bind a textdomain to a class.
+  # Includes GetText module and bind a text domain to a class.
   # * klass: the target ruby class.
-  # * domainname: the textdomain name.
+  # * domainname: the text domain name.
   # * options: options as an Hash. See GetText.bindtextdomain.
   def bindtextdomain_to(klass, domainname, *options)
     if options[0].kind_of? Hash
@@ -73,23 +73,23 @@ module GetText
     TextDomainManager.bind_to(klass, domainname, opts)
   end
 
-  # Binds a existed textdomain to your program.
+  # Binds a existed text domain to your program.
   # This is the same function with GetText.bindtextdomain but simpler(and faster) than bindtextdomain.
   # Note that you need to call GetText.bindtextdomain first. If the domainname hasn't bound yet,
   # raises GetText::NoboundTextDomainError.
-  # * domainname: a textdomain name.
+  # * domainname: a text domain name.
   # * Returns: the GetText::TextDomainManager.
   def textdomain(domainname) #:nodoc:
     textdomain_to(self, domainname)
   end
 
-  # Includes GetText module and bind an exsited textdomain to a class.
-  # See textdomain for more detail.
+  # Includes GetText module and bind an exsited text domain to a class.
+  # See text domain for more detail.
   # * klass: the target ruby class.
-  # * domainname: the textdomain name.
+  # * domainname: the text domain name.
 
   def textdomain_to(klass, domainname)  #:nodoc:
-    domain = TextDomainManager.textdomain_pool(domainname)
+    domain = TextDomainManager.text_domain_pool(domainname)
     raise NoboundTextDomainError.new(domainname) unless domain
     bindtextdomain_to(klass, domainname)
   end
