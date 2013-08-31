@@ -40,7 +40,7 @@ task :default => :test
 ############################################################
 # GetText tasks for developing
 ############################################################
-po_parser_rb_path = "lib/gettext/tools/po_parser.rb"
+po_parser_rb_path = "lib/gettext/po_parser.rb"
 desc "Create #{po_parser_rb_path}"
 task :po_parser => po_parser_rb_path
 
