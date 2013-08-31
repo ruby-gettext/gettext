@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require 'fixtures/multi_text_domain.rb'
+require 'fixtures/multi_text_domain'
 
 class TestGetTextMulti < Test::Unit::TestCase
   include MultiTextDomain

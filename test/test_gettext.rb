@@ -20,13 +20,13 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'fixtures/simple.rb'
-require 'fixtures/_.rb'
+require 'fixtures/simple'
+require 'fixtures/_'
 require "fixtures/_/one_line"
-require 'fixtures/s_.rb'
-require 'fixtures/ns_.rb'
-require 'fixtures/p_.rb'
-require 'fixtures/np_.rb'
+require 'fixtures/s_'
+require 'fixtures/ns_'
+require 'fixtures/p_'
+require 'fixtures/np_'
 
 class TestGetText < Test::Unit::TestCase
 
