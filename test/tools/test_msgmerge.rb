@@ -21,103 +21,9 @@
 require 'gettext/tools/msgmerge'
 
 class TestToolsMsgMerge < Test::Unit::TestCase
-  class TestSplitMsgid < self
-    def test_existed_msgctxt_and_msgid_plural
-      msgctxt = "msgctxt"
-      msgid = "msgid"
-      msgid_plural = "msgid_plural"
-
-      assert_equal([msgctxt, msgid, msgid_plural],
-                   split_msgid("#{msgctxt}\004#{msgid}\000#{msgid_plural}"))
-    end
-
-    def test_existed_msgctxt_only
-      msgctxt = "msgctxt"
-      msgid = "msgid"
-
-      assert_equal([msgctxt, msgid, nil],
-                   split_msgid("#{msgctxt}\004#{msgid}"))
-    end
-
-    def test_existed_msgid_plural_only
-      msgid = "msgid"
-      msgid_plural = "msgid_plural"
-
-      assert_equal([nil, msgid, msgid_plural],
-                   split_msgid("#{msgid}\000#{msgid_plural}"))
-    end
-
-    def test_not_existed
-      msgid = "msgid"
-
-      assert_equal([nil, msgid, nil], split_msgid(msgid))
-    end
-
-    def test_empty_msgid
-      msgid = ""
-
-      assert_equal([nil, msgid, nil], split_msgid(msgid))
-    end
-
-    def test_last_symbol_msgid
-      msgid = :last
-
-      assert_equal([nil, msgid, nil], split_msgid(msgid))
-    end
-
-    private
-    def split_msgid(msgid)
-      po_data = GetText::Tools::MsgMerge::PoData.new
-      po_data.send(:split_msgid, msgid)
-    end
-  end
-
-  class TestParseComment < self
-    def setup
-      @po_data = GetText::Tools::MsgMerge::PoData.new
-      @entry = @po_data.send(:generate_entry, "test")
-    end
-
-    def test_translator_comment
-      comment = "# translator comment"
-      parsed_comment = parse_comment(comment).translator_comment
-      assert_equal("translator comment\n", parsed_comment)
-    end
-
-    def test_extracted_comment
-      comment = "#. extracted comment"
-      parsed_comment = parse_comment(comment).extracted_comment
-      assert_equal("extracted comment\n", parsed_comment)
-    end
-
-    def test_references
-      comment = "#: reference.rb:10"
-      parsed_comment = parse_comment(comment).references
-      assert_equal(["reference.rb:10"], parsed_comment)
-    end
-
-    def test_flag
-      comment = "#, fuzzy"
-      parsed_comment = parse_comment(comment).flag
-      assert_equal("fuzzy\n", parsed_comment)
-    end
-
-    def test_previous
-      comment = "#| msgid the previous msgid"
-      parsed_comment = parse_comment(comment).previous
-      assert_equal("msgid the previous msgid\n", parsed_comment)
-    end
-
-    private
-    def parse_comment(comment)
-      @po_data.send(:parse_comment, comment, @entry)
-    end
-  end
-
   class TestMerger < self
     def setup
       @merger = GetText::Tools::MsgMerge::Merger.new
-      @po_data = GetText::Tools::MsgMerge::PoData.new
       @po = GetText::PO.new
       @pot = GetText::PO.new
     end
@@ -340,7 +246,7 @@ EOC
     def generate_entry(options)
       msgctxt = options[:msgctxt]
       msgid_plural = options[:msgid_plural]
-      type = @po_data.send(:detect_entry_type, msgctxt, msgid_plural)
+      type = detect_entry_type(msgctxt, msgid_plural)
 
       entry = GetText::POEntry.new(type)
       entry.translator_comment = options[:translator_comment]
@@ -354,6 +260,22 @@ EOC
       entry.msgstr = options[:msgstr]
       entry.comment = options[:comment]
       entry
+    end
+
+    def detect_entry_type(msgctxt, msgid_plural)
+      if msgctxt.nil?
+        if msgid_plural.nil?
+          :normal
+        else
+          :plural
+        end
+      else
+        if msgid_plural.nil?
+          :msgctxt
+        else
+          :msgctxt_plural
+        end
+      end
     end
   end
 
