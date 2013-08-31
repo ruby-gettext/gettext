@@ -376,8 +376,4 @@ end
     line.split(/\s+/)
   end
 ---- footer
-  # for backward compatibility.
-  module GetText
-    PoParser = POParser
-  end
 

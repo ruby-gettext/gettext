@@ -512,7 +512,4 @@ end
   end   # class POParser
 end   # module GetText
 
-  # for backward compatibility.
-  module GetText
-    PoParser = POParser
-  end
+
