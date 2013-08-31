@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2009-2010  Masao Mutoh
 # Copyright (C) 2009  OZAWA Sakuro <github@2238club.org>
 # Copyright (C) 2009  grosser <grosser.michael@gmail.com>
@@ -236,16 +236,16 @@ DDD
     assert_equal("fr_first", n_("first", "second", 0))
     assert_equal("fr_first", n_("first", "second", 1))
     assert_equal("fr_first", n_("first", "second", 2))
-    setlocale("da") # Invalid Plural-Forms.
+    set_locale("da") # Invalid Plural-Forms.
     assert_equal("da_first", n_("first", "second", 0))
     assert_equal("da_first", n_("first", "second", 1))
     assert_equal("da_first", n_("first", "second", 2))
-    setlocale("la") # wrong number of msgstr.
+    set_locale("la") # wrong number of msgstr.
     assert_equal("la_first", n_("first", "second", 0))
     assert_equal("la_first", n_("first", "second", 1))
     assert_equal("la_first", n_("first", "second", 2))
 
-    setlocale("li") # Invalid Plural-Forms: nplurals is set, but wrong plural=.
+    set_locale("li") # Invalid Plural-Forms: nplurals is set, but wrong plural=.
     assert_equal("li_first", n_("first", "second", 0))
     assert_equal("li_first", n_("first", "second", 1))
     assert_equal("li_first", n_("first", "second", 2))
@@ -292,7 +292,7 @@ DDD
     assert_equal(["one", "two"], Nn_("one", "two"))
   end
 
-  def test_setlocale
+  def test_set_locale
     bindtextdomain("test1", :path => "locale")
     assert_equal("japanese", _("language"))
     set_locale("en")
