@@ -20,6 +20,7 @@
 require "gettext/tools"
 
 module GetText
+  module Tools
   class Task
     include GetText
     include Rake::DSL
@@ -218,5 +219,6 @@ module GetText
         end
       end
     end
+  end
   end
 end

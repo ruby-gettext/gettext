@@ -20,8 +20,7 @@ require "rake"
 require "rubygems"
 require "yard"
 require "gettext/version"
-require "gettext/tools"
-require "gettext/task"
+require "gettext/tools/task"
 require "bundler/gem_helper"
 
 class Bundler::GemHelper
@@ -84,13 +83,13 @@ namespace :test do
 end
 
 xgettext_options = ["--add-comments=TRANSLATORS:"]
-GetText::Task.new(spec) do |task|
+GetText::Tools::Task.new(spec) do |task|
   task.xgettext_options.concat(xgettext_options)
 end
 
 Dir.glob("samples/*.rb") do |target|
   domain = File.basename(target, ".*")
-  GetText::Task.new(spec) do |task|
+  GetText::Tools::Task.new(spec) do |task|
     task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "samples:#{domain}"
@@ -109,7 +108,7 @@ task "samples:gettext"
   ["helloerb2", Dir.glob("samples/cgi/helloerb2.cgi")],
   ["hellolib", Dir.glob("samples/cgi/hellolib.rb")],
 ].each do |domain, files|
-  GetText::Task.new(spec) do |task|
+  GetText::Tools::Task.new(spec) do |task|
     task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "samples:cgi:#{domain}"
@@ -125,7 +124,7 @@ task "samples:cgi:gettext"
 task "samples:gettext" => "samples:cgi:gettext"
 
 ["untranslated", "backslash", "non_ascii", "np_", "p_"].each do |domain|
-  GetText::Task.new(spec) do |task|
+  GetText::Tools::Task.new(spec) do |task|
     task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
@@ -138,7 +137,7 @@ task "samples:gettext" => "samples:cgi:gettext"
 end
 
 ["_", "s_", "ns_"].each do |domain|
-  GetText::Task.new(spec) do |task|
+  GetText::Tools::Task.new(spec) do |task|
     task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
@@ -155,7 +154,7 @@ po_only_domains = [
   "plural", "plural_error", "rubyparser", "test1", "test2", "test3"
 ]
 po_only_domains.each do |domain|
-  GetText::Task.new(spec) do |task|
+  GetText::Tools::Task.new(spec) do |task|
     task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
