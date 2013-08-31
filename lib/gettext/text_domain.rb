@@ -41,15 +41,6 @@ module GetText
       @@cached = val
     end
 
-    # Add default locale path. Usually you should use GetText.add_default_locale_path instead.
-    # * path: a new locale path. (e.g.) "/usr/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
-    #   ('locale' => "ja_JP", 'name' => "text_domain")
-    # * Returns: the new DEFAULT_LOCALE_PATHS
-    def self.add_default_locale_path(path)
-      warn "Deprecated. Use GetText::LocalePath.add_default_rule instead."
-      LocalePath.add_default_rule(path)
-    end
-
     # Creates a new GetText::TextDomain.
     # * name: the text domain name.
     # * topdir: the locale path ("%{topdir}/%{lang}/LC_MESSAGES/%{name}.mo") or nil.
