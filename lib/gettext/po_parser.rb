@@ -18,19 +18,10 @@ require 'racc/parser.rb'
 
 require "gettext/po"
 
-# For suppressing warning. PoData is deprecated and will be removed.
-module GetText
-  module Tools
-    class MsgMerge
-      class PoData
-      end
-    end
-  end
-end
 module GetText
   class POParser < Racc::Parser
 
-module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 132)
+module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 123)
   if GetText.respond_to?(:bindtextdomain)
     include GetText
     GetText.bindtextdomain("gettext")
@@ -143,8 +134,7 @@ module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 132)
   def on_message(msgid, msgstr)
     msgstr = nil if msgstr.empty?
 
-    if @data.instance_of?(PO) or
-        @data.instance_of?(GetText::Tools::MsgMerge::PoData)
+    if @data.instance_of?(PO)
       type = detect_entry_type
       entry = POEntry.new(type)
       entry.translator_comment = format_comment(@translator_comments)
@@ -157,15 +147,7 @@ module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 132)
       entry.msgid_plural = @msgid_plural
       entry.msgstr = msgstr
 
-      if @data.instance_of?(PO)
-        @data[@msgctxt, msgid] = entry
-      elsif @data.instance_of?(GetText::Tools::MsgMerge::PoData)
-        id = ""
-        id << "#{@msgctxt}\004" unless @msgctxt.nil?
-        id << msgid
-        id << "\000#{@msgid_plural}" unless @msgid_plural.nil?
-        @data[id] = entry
-      end
+      @data[@msgctxt, msgid] = entry
     else
       options = {}
       options[:msgctxt] = @msgctxt
@@ -195,8 +177,7 @@ module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 132)
 
   def on_comment(comment)
     @fuzzy = true if (/fuzzy/ =~ comment)
-    if @data.instance_of?(PO) or
-        @data.instance_of?(GetText::Tools::MsgMerge::PoData)
+    if @data.instance_of?(PO)
       if comment == "#"
         @translator_comments << ""
       elsif /\A(#.)\s*(.*)\z/ =~ comment

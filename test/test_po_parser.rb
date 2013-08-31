@@ -61,62 +61,6 @@ EOP
     end
   end
 
-  class TestPoData < self
-    def test_comment
-      po_file = create_po_file(<<-EOP)
-#: file.rb:10
-msgid "hello"
-msgstr "bonjour"
-EOP
-      entries = parse_po_file(po_file)
-      assert_true(entries.msgids.include?("hello"))
-      assert_equal("bonjour", entries["hello"])
-      assert_equal("#: file.rb:10", entries.comment("hello"))
-    end
-
-    def test_msgctxt
-      po_file = create_po_file(<<-EOP)
-msgctxt "pronoun"
-msgid "he"
-msgstr "il"
-EOP
-      entries = parse_po_file(po_file)
-      assert_true(entries.msgids.include?("pronoun\004he"))
-      assert_equal("il", entries["pronoun\004he"])
-    end
-
-    def test_msgid_plural
-      po_file = create_po_file(<<-EOP)
-msgid "he"
-msgid_plural "they"
-msgstr[0] "il"
-msgstr[1] "ils"
-EOP
-      entries = parse_po_file(po_file)
-
-      assert_true(entries.msgids.include?("he\000they"))
-      assert_equal("il\000ils", entries["he\000they"])
-    end
-
-    def test_msgctxt_and_msgid_plural
-      po_file = create_po_file(<<-EOP)
-msgctxt "pronoun"
-msgid "he"
-msgid_plural "them"
-msgstr[0] "il"
-msgstr[1] "ils"
-EOP
-      entries = parse_po_file(po_file)
-      assert_true(entries.msgids.include?("pronoun\004he\000them"))
-      assert_equal("il\000ils", entries["pronoun\004he\000them"])
-    end
-
-    private
-    def parse_po_file(po_file)
-      super(po_file, GetText::Tools::MsgMerge::PoData.new)
-    end
-  end
-
   class TestPO < self
     def test_msgstr
       po_file = create_po_file(<<-EOP)
