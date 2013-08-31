@@ -22,7 +22,7 @@
 require "optparse"
 require "fileutils"
 require "gettext"
-require "gettext/tools/poparser"
+require "gettext/tools/po_parser"
 
 module GetText
   module Tools

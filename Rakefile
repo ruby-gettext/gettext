@@ -8,7 +8,7 @@
 # You don't need to use this file directly.
 #
 # Copyright(c) 2005-2009 Masao Mutoh
-# Copyright(c) 2012 Kouhei Sutou <kou@clear-code.com>
+# Copyright(c) 2012-2013 Kouhei Sutou <kou@clear-code.com>
 # Copyright(c) 2012 Haruka Yoshihara <yoshihara@clear-code.com>
 # This program is licenced under the same licence as Ruby.
 
@@ -40,25 +40,25 @@ task :default => :test
 ############################################################
 # GetText tasks for developing
 ############################################################
-poparser_rb_path = "lib/gettext/tools/poparser.rb"
-desc "Create #{poparser_rb_path}"
-task :poparser => poparser_rb_path
+po_parser_rb_path = "lib/gettext/tools/po_parser.rb"
+desc "Create #{po_parser_rb_path}"
+task :po_parser => po_parser_rb_path
 
 def fix_racc_output_indent(racc_output)
   racc_output.gsub(/^  (end\s*\# module GetText)$/, '\1')
 end
 
-poparser_ry_path = "src/poparser.ry"
-file poparser_rb_path => poparser_ry_path do
+po_parser_ry_path = "src/po_parser.ry"
+file po_parser_rb_path => po_parser_ry_path do
   racc = File.join(Gem.bindir, "racc")
-  tempfile = Tempfile.new("gettext-poparser")
-  ruby(racc, "-g", poparser_ry_path, "-o", tempfile.path)
+  tempfile = Tempfile.new("gettext-po-parser")
+  ruby(racc, "-g", po_parser_ry_path, "-o", tempfile.path)
 
-  File.open(poparser_rb_path, "w") do |poparser_rb|
-    poparser_rb.puts(<<-EOH)
+  File.open(po_parser_rb_path, "w") do |po_parser_rb|
+    po_parser_rb.puts(<<-EOH)
 # -*- coding: utf-8 -*-
 #
-# poparser.rb - Generate a .mo
+# po_parser.rb - Generate a .mo
 #
 # Copyright (C) 2003-2009 Masao Mutoh <mutomasa at gmail.com>
 # Copyright (C) 2012 Kouhei Sutou <kou@clear-code.com>
@@ -68,7 +68,7 @@ file poparser_rb_path => poparser_ry_path do
 
 EOH
 
-    poparser_rb.puts(fix_racc_output_indent(tempfile.read))
+    po_parser_rb.puts(fix_racc_output_indent(tempfile.read))
   end
 end
 
@@ -80,7 +80,7 @@ end
 
 namespace :test do
   desc "Prepare test environment"
-  task :prepare => [:poparser, "test:gettext", "samples:gettext"]
+  task :prepare => [:po_parser, "test:gettext", "samples:gettext"]
 end
 
 xgettext_options = ["--add-comments=TRANSLATORS:"]
