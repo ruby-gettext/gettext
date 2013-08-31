@@ -24,7 +24,6 @@ class HelloGtkBuilder
   end
 
   def on_quit
-    puts "Hello world"
     Gtk.main_quit
   end
 end
