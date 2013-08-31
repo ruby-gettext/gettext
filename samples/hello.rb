@@ -26,7 +26,7 @@ if __FILE__ == $0
   p old.to_s # Show current locale
 
   # Change the locale to "en".
-  GetText.set_locale_all("en")
+  GetText.set_locale("en")
   p GetText.locale.to_s
   a.hello # Show in English
 
