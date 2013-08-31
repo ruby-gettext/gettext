@@ -1,5 +1,11 @@
 = gettext - gettext for Ruby
 
+NOTE: Gettext gem 3.0.0 removed many deprecated APIs and improves
+internal APIs. We want to keep backward compatibility as much as
+possible but some existing codes may be broken by gettext gem API
+change. If your code breaks by gettext gem 3.0.0, please report your
+problem. We will fix the problem and release a new version.
+
 https://github.com/ruby-gettext/gettext is the official gettext gem
 repository. It is moved from https://github.com/mutoh/gettext . Mutoh
 agreed with the move.
