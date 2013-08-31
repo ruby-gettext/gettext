@@ -293,8 +293,4 @@ unless defined? XX
   # http://rubyforge.org/projects/codeforpeople/
   alias :p_ :pgettext #:nodoc:
 end
-
-  # for backward compatibility
-  alias :set_locale_all :set_locale #:nodoc:
-  alias :setlocale :set_locale #:nodoc:
 end
