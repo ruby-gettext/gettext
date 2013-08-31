@@ -23,8 +23,8 @@
 require "optparse"
 require "text"
 require "gettext"
-require "gettext/tools/po_parser"
-require "gettext/tools/po"
+require "gettext/po_parser"
+require "gettext/po"
 
 module GetText
   module Tools

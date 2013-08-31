@@ -16,7 +16,7 @@
 
 require 'racc/parser.rb'
 
-require "gettext/tools/po"
+require "gettext/po"
 
 # For suppressing warning. PoData is deprecated and will be removed.
 module GetText

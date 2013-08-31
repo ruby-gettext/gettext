@@ -14,7 +14,7 @@
 
 require "irb/ruby-lex"
 require "stringio"
-require "gettext/tools/po_entry"
+require "gettext/po_entry"
 
 module GetText
   class RubyLexX < RubyLex  # :nodoc: all

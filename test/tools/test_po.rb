@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "gettext/tools/po"
+require "gettext/po"
 
 class TestPO < Test::Unit::TestCase
   def setup
