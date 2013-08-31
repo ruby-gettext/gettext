@@ -10,9 +10,9 @@
 
 =end
 
-require 'gettext/runtime/class_info'
-require 'gettext/runtime/text_domain'
-require 'gettext/runtime/text_domain_group'
+require 'gettext/class_info'
+require 'gettext/text_domain'
+require 'gettext/text_domain_group'
 
 module GetText
 

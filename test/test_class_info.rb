@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require 'gettext/runtime/class_info'
+require 'gettext/class_info'
 
 module M1; end
 module M2; end

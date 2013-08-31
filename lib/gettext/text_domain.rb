@@ -13,8 +13,8 @@
   license terms as Ruby or LGPL.
 =end
 
-require 'gettext/runtime/mo'
-require 'gettext/runtime/locale_path'
+require 'gettext/mo'
+require 'gettext/locale_path'
 
 module GetText
   # GetText::TextDomain class manages mo-files of a text domain.

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require 'gettext/runtime/mo'
+require 'gettext/mo'
 
 class TestMo < Test::Unit::TestCase
   def test_not_exist_msgid

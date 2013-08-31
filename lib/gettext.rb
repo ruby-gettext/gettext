@@ -16,7 +16,7 @@
 require 'locale'
 
 require 'gettext/version'
-require 'gettext/runtime/text_domain_manager'
+require 'gettext/text_domain_manager'
 
 module GetText
   # If the text domain isn't bound when calling GetText.textdomain, this error is raised.
