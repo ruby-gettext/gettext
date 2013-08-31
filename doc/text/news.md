@@ -1,5 +1,62 @@
 # News
 
+## <a id="3-0-0">3.0.0</a>: 2013-08-31
+
+This is a new major version up release!
+
+This release removes many deprecated APIs and improves internal
+APIs. We want to keep backward compatibility as much as possible but
+some existing codes may be broken by gettext gem API change. If your
+code breaks by gettext gem 3.0.0, please report your problem. We will
+fix the problem and release a new version.
+
+### Improvements
+
+  * Removed deprecated APIs
+    * `require "gettext/parser/erb"`.
+       Use `require "gettext/tools/parser/erb"` instead.
+    * `require "gettext/parser/glade"`.
+      Use `require "gettext/tools/parser/glade"` instead.
+    * `require "gettext/parser/ruby"`.
+      Use `require "gettext/tools/parser/ruby"` instead.
+    * `require "gettext/utils"`.
+      Use `require "gettext/tools"` instead.
+    * `GetText.msgmerge`. Use `GetText::Tools::MsgMerge.run` instead.
+    * `GetText.create_mofiles`. Use `GetText::Tools::Task` instead.
+    * `GetText::PoParser`. Use `GetText::POParser` instead.
+    * `require "gettext/tools/poparser"`.
+       Use `require "gettext/po_parser"` instead.
+    * `require "gettext/runtime/mofile"`.
+       Use `require "gettext/mo"` instead.
+    * `GetText::MoFile`. Use `GetText::MO` instead.
+    * `GetText::Task`. Use `GetText::Tools::Task` instead.
+    * `GetText.set_locale_all`. Use `GetText.set_locale` instead.
+    * `GetText.setlocale`. Use `GetText.set_locale` instead.
+    * `GetText::Tools::MsgMerge::PoData`. Use `GetText::POEntry` instead.
+  * Removed Ruby 1.8 support.
+  * Supported Rake 10.1.0.
+  * Stopped to remove `TRANSLATORS:` tag because GNU gettext doesn't
+    remove it.
+  * Stopped to use `TRANSLATORS:` as comment tag. It is GNU gettext
+    compatible behavior.
+  * rxgettext: Added `--add-comments[=TAG]` option that exists in
+    xgettext. [GitHub #16] [Reported by Ladislav Slezák]
+  * Supported escaping tab character as `\t`.
+
+### Fixes
+
+  * po: Added a missing new line for multiple extracted comments.
+    [GitHub #17] [Patch by Ladislav Slezák]
+  * Fixed a bug that encoding may not be set.
+  * Fixed a bug that `\n` is escaped as `\\n`.
+    [GitHub #18] [Debian #716916] [Reported by Ladislav Slezák]
+    [Reported by Francesco Poli]
+
+### Thanks
+
+  * Ladislav Slezák
+  * Francesco Poli
+
 ## <a id="2-3-9">2.3.9</a>: 2013-04-21
 
 This is a msgmerge updated release.
