@@ -11,11 +11,11 @@ This library was called as "Ruby-GetText-Package". Since 2.3.0, this
 library is called just "gettext". You can call this library as
 "gettext gem" or "Ruby gettext" to distinguish from GNU gettext.
 
-This library translates original messages to localized  
-messages using client-side locale information(environment  
+This library translates original messages to localized
+messages using client-side locale information(environment
 variable or CGI variable).
 
-The tools for developers support creating, useing, and modifying  
+The tools for developers support creating, useing, and modifying
 localized message files(message catalogs).
 
 ((*Rails*))
@@ -28,12 +28,12 @@ Rails support has been removed.
 == Features
 * Translate singular/plural messages with simple APIs(similar to GNU gettext)
 
-* Thread safety. Message resources are shared from all threads, but 
+* Thread safety. Message resources are shared from all threads, but
   returns translated messages of the current thread's locale.
 
 * Tools to find message IDs
   * Extract message IDs to po-files using rxgettext from
-    * ruby scripts 
+    * ruby scripts
     * glade-2 XML file(.glade)
     * ERB file(.rhtml, .erb)
     * Anything (with your own parsers)
@@ -67,7 +67,7 @@ Rails support has been removed.
     gem uninstall gettext
 
 * gem
-    #from rubyforge 
+    #from rubyforge
     (sudo/su on POSIX system)
     gem install gettext
 
@@ -76,7 +76,7 @@ Rails support has been removed.
     (sudo/su on POSIX system)
     ruby setup.rb
 
-You can also install files in your favorite directory by  
+You can also install files in your favorite directory by
 supplying setup.rb some options. Try <tt>ruby setup.rb --help</tt>.
 
 == Usage
@@ -120,7 +120,7 @@ The gettext methods comes in 3 combinable flavors
 
 === Bind textdomains to the classes.
 A textdomain has a translation file in each language.
-A module/class can have multi textdomains. This means the 
+A module/class can have multi textdomains. This means the
 libraries/applications can have their own textdomains.
 
  class Foo
@@ -198,7 +198,7 @@ LGPL(Lesser General Public License: doc/text/lgpl-3.0.txt or http://www.gnu.org/
 * Korean(ko)                 - Gyoung-Yoon Noh <nohmad at gmail.com>
 * Latvian(lv)                - Aivars Akots <aivars.akots at gmail.com>
 * Norwegian(nb)              - Runar Ingebrigtsen <runar at mopo.no>
-* Portuguese(Brazil)(pt_BR)  
+* Portuguese(Brazil)(pt_BR)
   * Antonio S. de A. Terceiro <terceiro at softwarelivre.org> (current)
   * Joao Pedrosa <joaopedrosa at gmail.com>
 * Russian(ru)                - Yuri Kozlov <kozlov.y at gmail.com>
@@ -222,14 +222,14 @@ LGPL(Lesser General Public License: doc/text/lgpl-3.0.txt or http://www.gnu.org/
 * English(default)          - 2.1.0
 * Esperanto(eo)             - 2.0.1
 * Estonian(et)              - 2.0.1
-* French(fr)                - 2.0.1 
+* French(fr)                - 2.0.1
 * German(de)                - 2.0.1
-* Greek(el)                 - 2.0.1 
+* Greek(el)                 - 2.0.1
 * Hungarian(hu)             - 2.0.1
 * Italian(it)               - 1.6.0 (old)
 * Japanese(ja)              - 2.1.0
 * Korean(ko)                - 1.9.0 (old)
-* Latvian(lv)               - 2.0.1 
+* Latvian(lv)               - 2.0.1
 * Norwegian(nb)             - 2.0.1
 * Portuguese(Brazil)(pt_BR) - 2.0.1
 * Russian(ru)               - 2.0.1
