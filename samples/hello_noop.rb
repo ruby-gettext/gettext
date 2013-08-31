@@ -16,7 +16,8 @@ class HelloNoop
     # You can call bindtextdomain as instance methods.
     # In this case, it initializes(decided the locale lazily)
     # in a instance.
-    bindtextdomain("hello_noop", :path => "locale")
+    base_dir = File.dirname(__FILE__)
+    bindtextdomain("hello_noop", :path => File.join(base_dir, "locale"))
   end
 
   def hello

@@ -9,7 +9,8 @@ require 'gettext'
 require 'tk'
 
 include GetText
-bindtextdomain("hello_tk", :path => "locale")
+base_dir = File.dirname(__FILE__)
+bindtextdomain("hello_tk", :path => File.join(base_dir, "locale"))
 
 TkLabel.new {
   text _("hello, tk world")

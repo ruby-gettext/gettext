@@ -10,7 +10,8 @@ require 'gettext'
 module Hello
   include GetText
 
-  bindtextdomain("hello2", :path => "locale")
+  base_dir = File.dirname(__FILE__)
+  bindtextdomain("hello2", :path => File.join(base_dir, "locale"))
 
   module_function
   def hello

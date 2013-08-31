@@ -11,7 +11,8 @@ class HelloPlural
   include GetText
 
   def initialize
-    bindtextdomain("hello_plural", :path => "locale")
+    base_dir = File.dirname(__FILE__)
+    bindtextdomain("hello_plural", :path => File.join(base_dir, "locale"))
   end
 
   def hello
