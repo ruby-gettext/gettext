@@ -28,7 +28,6 @@ http://localhost:10080/2?lang=ja
      #ja is a target locale in this sample.
 
 http.rb        - an http server for samples using WEBrick
-Rakefile       - a Rakefile to create mo files from po files.
 
 index.cgi      - a sample menu (CGI sample)     - textdomain: main
 cookie.cgi     - a sample menu (CGI sample)     - textdomain: main
@@ -40,4 +39,3 @@ other.rhtml    - an ERB file (used from helloerb1)
 
 hellolib.rb    - a smple library called from helloerb.rhtml which have an 
                  independent textdomain: hellolib
-ruby.bat       - Execute ruby interpreter on Win32.
