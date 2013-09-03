@@ -18,6 +18,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "etc"
 require "gettext"
 require "gettext/po_parser"
 require "gettext/tools/msgmerge"
@@ -200,7 +201,24 @@ module GetText
       end
 
       def guess_full_name
-        ENV["USERNAME"]
+        full_name = guess_full_name_from_password_entry
+        full_name ||= ENV["USERNAME"]
+        full_name
+      end
+
+      def guess_full_name_from_password_entry
+        password_entry = find_password_entry
+        return nil if password_entry.nil?
+
+        full_name = password_entry.gecos.split(/,/).first.strip
+        full_name = nil if full_name.empty?
+        full_name
+      end
+
+      def find_password_entry
+        Etc.getpwuid
+      rescue ArgumentError
+        nil
       end
 
       def translator_mail
