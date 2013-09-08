@@ -88,8 +88,6 @@ module GetText
         self.spec = spec
         if spec
           yield(self) if block_given?
-          @locales = detect_locales if @locales.empty?
-          raise("must set locales: #{inspect}") if @locales.empty?
           warn("Use #{self.class.name}.define instead of #{self.class.name}.new(spec).")
           define
         end
@@ -118,6 +116,9 @@ module GetText
       #
       # TODO: List defined Rake tasks.
       def define
+        ensure_variables
+        validate
+
         define_file_tasks
         if namespace_prefix
           namespace_recursive namespace_prefix do
@@ -140,6 +141,14 @@ module GetText
         @domain = nil
         @namespace_prefix = nil
         @xgettext_options = []
+      end
+
+      def ensure_variables
+        @locales = detect_locales if @locales.empty?
+      end
+
+      def validate
+        raise("must set locales: #{inspect}") if @locales.empty?
       end
 
       def define_file_tasks
