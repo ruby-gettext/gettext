@@ -73,7 +73,7 @@ module GetText
       # @return [Array<String>] Files that have messages.
       attr_accessor :files
       attr_accessor :domain
-      attr_accessor :namespace_prefix, :files
+      attr_accessor :namespace_prefix
       # @return [Array<String>] Command line options for extracting messages
       #   from sources.
       # @see GetText::Tools::XGetText
