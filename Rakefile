@@ -89,7 +89,9 @@ end
 
 Dir.glob("samples/*.rb") do |target|
   domain = File.basename(target, ".*")
-  GetText::Tools::Task.new(spec) do |task|
+  GetText::Tools::Task.new do |task|
+    task.package_name = domain
+    task.package_version = spec.version.to_s
     task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "samples:#{domain}"
@@ -109,6 +111,8 @@ task "samples:gettext"
   ["hellolib", Dir.glob("samples/cgi/hellolib.rb")],
 ].each do |domain, files|
   GetText::Tools::Task.new(spec) do |task|
+    task.package_name = domain
+    task.package_version = spec.version.to_s
     task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "samples:cgi:#{domain}"
@@ -124,7 +128,9 @@ task "samples:cgi:gettext"
 task "samples:gettext" => "samples:cgi:gettext"
 
 ["untranslated", "backslash", "non_ascii", "np_", "p_"].each do |domain|
-  GetText::Tools::Task.new(spec) do |task|
+  GetText::Tools::Task.new do |task|
+    task.package_name = domain
+    task.package_version = spec.version.to_s
     task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
@@ -137,7 +143,9 @@ task "samples:gettext" => "samples:cgi:gettext"
 end
 
 ["_", "s_", "ns_"].each do |domain|
-  GetText::Tools::Task.new(spec) do |task|
+  GetText::Tools::Task.new do |task|
+    task.package_name = domain
+    task.package_version = spec.version.to_s
     task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
@@ -154,7 +162,9 @@ po_only_domains = [
   "plural", "plural_error", "rubyparser", "test1", "test2", "test3"
 ]
 po_only_domains.each do |domain|
-  GetText::Tools::Task.new(spec) do |task|
+  GetText::Tools::Task.new do |task|
+    task.package_name = domain
+    task.package_version = spec.version.to_s
     task.xgettext_options.concat(xgettext_options)
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"

@@ -26,26 +26,65 @@ module GetText
       include GetText
       include Rake::DSL
 
-      attr_accessor :locales, :po_base_directory, :mo_base_directory, :domain
+      # @return [Gem::Specification, nil] Package information associated
+      #   with the task.
+      attr_reader :spec
+
+      # @return [String, nil] Package name for messages.
+      attr_accessor :package_name
+
+      # @return [String, nil] Package version for messages.
+      attr_accessor :package_version
+
+      attr_accessor :locales, :po_base_directory, :mo_base_directory
+      # @return [Array<String>] Files that have messages.
+      attr_accessor :files
+      attr_accessor :domain
       attr_accessor :namespace_prefix, :files
       # @return [Array<String>] Command line options for extracting messages
       #   from sources.
       # @see GetText::Tools::XGetText
       # @see `rxgettext --help`
       attr_reader :xgettext_options
-      def initialize(spec)
-        @spec = spec
+
+      # @param [Gem::Specification, nil] spec Package information associated
+      #   with the task. Some information are extracted from the spec.
+      # @see #spec= What information are extracted from the spec.
+      def initialize(spec=nil)
+        @spec = nil
+        @package_name = nil
+        @package_version = nil
         @locales = []
         @po_base_directory = "po"
         @mo_base_directory = "."
-        @files = target_files
-        @domain = @spec.name
+        @files = []
+        @domain = nil
         @namespace_prefix = nil
         @xgettext_options = []
+        self.spec = spec
         yield(self) if block_given?
         @locales = detect_locales if @locales.empty?
         raise("must set locales: #{inspect}") if @locales.empty?
         define
+      end
+
+      # Sets package infromation by Gem::Specification. Here is a list
+      # for information extracted from the spec:
+      #
+      #   * {#package_name}
+      #   * {#package_version}
+      #   * {#domain}
+      #   * {#files}
+      #
+      # @param [Gem::Specification] spec package information for the
+      #   i18n application.
+      def spec=(spec)
+        @spec = spec
+        return if @spec.nil?
+        self.package_name = spec.name
+        self.package_version = spec.version.to_s
+        self.domain ||= spec.name
+        self.files.concat(target_files)
       end
 
       private
@@ -69,10 +108,14 @@ module GetText
           end
           file pot_file => pot_dependencies do
             command_line = [
-              "--package-name", @spec.name,
-              "--package-version", @spec.version.to_s,
               "--output", pot_file,
             ]
+            if package_name
+              command_line.concat(["--package-name", package_name])
+            end
+            if package_versio
+              command_line.concat(["--package-version", package_version])
+            end
             command_line.concat(@xgettext_options)
             command_line.concat(files)
             GetText::Tools::XGetText.run(*command_line)
