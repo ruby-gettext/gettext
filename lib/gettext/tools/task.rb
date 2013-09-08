@@ -113,7 +113,7 @@ module GetText
             if package_name
               command_line.concat(["--package-name", package_name])
             end
-            if package_versio
+            if package_version
               command_line.concat(["--package-version", package_version])
             end
             command_line.concat(@xgettext_options)
