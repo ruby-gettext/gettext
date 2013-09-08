@@ -106,6 +106,7 @@ module GetText
       def spec=(spec)
         @spec = spec
         return if @spec.nil?
+
         @package_name = spec.name
         @package_version = spec.version.to_s
         @domain ||= spec.name
