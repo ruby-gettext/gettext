@@ -42,4 +42,28 @@ class TestToolsTask < Test::Unit::TestCase
       assert_equal(spec.name, @task.package_name)
     end
   end
+
+  class TestPackageVersion < self
+    def setup
+      @task = GetText::Tools::Task.new
+    end
+
+    def test_default
+      assert_nil(@task.package_version)
+    end
+
+    def test_accessor
+      package_version = "1.0"
+      @task.package_version = package_version
+      assert_equal(package_version, @task.package_version)
+    end
+
+    def test_spec
+      version = "1.0"
+      spec = Gem::Specification.new
+      spec.version = version
+      @task.spec = spec
+      assert_equal(version, @task.package_version)
+    end
+  end
 end
