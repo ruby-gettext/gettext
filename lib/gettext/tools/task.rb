@@ -84,16 +84,7 @@ module GetText
       #   with the task. Some information are extracted from the spec.
       # @see #spec= What information are extracted from the spec.
       def initialize(spec=nil)
-        @spec = nil
-        @package_name = nil
-        @package_version = nil
-        @locales = []
-        @po_base_directory = "po"
-        @mo_base_directory = "."
-        @files = []
-        @domain = nil
-        @namespace_prefix = nil
-        @xgettext_options = []
+        initialize_variables
         self.spec = spec
         if spec
           yield(self) if block_given?
@@ -138,6 +129,19 @@ module GetText
       end
 
       private
+      def initialize_variables
+        @spec = nil
+        @package_name = nil
+        @package_version = nil
+        @locales = []
+        @po_base_directory = "po"
+        @mo_base_directory = "."
+        @files = []
+        @domain = nil
+        @namespace_prefix = nil
+        @xgettext_options = []
+      end
+
       def define_file_tasks
         unless files.empty?
           pot_dependencies = files.dup
