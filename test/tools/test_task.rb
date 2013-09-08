@@ -66,4 +66,40 @@ class TestToolsTask < Test::Unit::TestCase
       assert_equal(version, @task.package_version)
     end
   end
+
+  class TestDomain < self
+    def setup
+      @task = GetText::Tools::Task.new
+    end
+
+    def test_default
+      assert_nil(@task.domain)
+    end
+
+    def test_accessor
+      domain = "hello"
+      @task.domain = domain
+      assert_equal(domain, @task.domain)
+    end
+
+    class TestSpec < self
+      def setup
+        super
+        @spec = Gem::Specification.new
+        @spec.name = "hello"
+      end
+
+      def test_not_set
+        @task.spec = @spec
+        assert_equal(@spec.name, @task.domain)
+      end
+
+      def test_already_set
+        domain = "#{@spec.name}-world"
+        @task.domain = domain
+        @task.spec = @spec
+        assert_equal(domain, @task.domain)
+      end
+    end
+  end
 end
