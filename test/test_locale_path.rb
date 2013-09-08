@@ -1,3 +1,25 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2013  Haruka Yoshihara <yoshihara@clear-code.com>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
+# Copyright (C) 2009-2010  Masao Mutoh
+#
+# License: Ruby's or LGPL
+#
+# This library is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 require 'fixtures/simple'
 
 class TestLocalePath < Test::Unit::TestCase
@@ -59,13 +81,13 @@ class TestLocalePath < Test::Unit::TestCase
     GetText::LocalePath.memoize_clear
     ENV["GETTEXT_PATH"] = path1
     default_path_rules = GetText::LocalePath.default_path_rules
-    assert(Regexp.compile(path1) =~ default_path_rules[0])
+    assert_match(Regexp.compile(path1), default_path_rules[0])
 
     GetText::LocalePath.memoize_clear
     ENV["GETTEXT_PATH"] = "#{path1},#{path2}"
     default_path_rules = GetText::LocalePath.default_path_rules
-    assert(Regexp.compile(path1) =~ default_path_rules[0])
-    assert(Regexp.compile(path2) =~ default_path_rules[1])
+    assert_match(Regexp.compile(path1), default_path_rules[0])
+    assert_match(Regexp.compile(path2), default_path_rules[1])
   end
 
   class TestDefaultPathRules < self
