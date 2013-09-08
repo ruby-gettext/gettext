@@ -106,10 +106,10 @@ module GetText
       def spec=(spec)
         @spec = spec
         return if @spec.nil?
-        self.package_name = spec.name
-        self.package_version = spec.version.to_s
-        self.domain ||= spec.name
-        self.files += target_files
+        @package_name = spec.name
+        @package_version = spec.version.to_s
+        @domain ||= spec.name
+        @files += target_files
       end
 
       # Define tasks from configured parameters.
