@@ -124,6 +124,8 @@ module GetText
       end
 
       # Define tasks from configured parameters.
+      #
+      # TODO: List defined Rake tasks.
       def define
         define_file_tasks
         if namespace_prefix
