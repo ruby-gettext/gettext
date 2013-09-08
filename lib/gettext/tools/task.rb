@@ -109,7 +109,7 @@ module GetText
         self.package_name = spec.name
         self.package_version = spec.version.to_s
         self.domain ||= spec.name
-        self.files.concat(target_files)
+        self.files += target_files
       end
 
       # Define tasks from configured parameters.

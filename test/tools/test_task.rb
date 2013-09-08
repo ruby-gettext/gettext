@@ -102,4 +102,49 @@ class TestToolsTask < Test::Unit::TestCase
       end
     end
   end
+
+
+  class TestFiles < self
+    def setup
+      @task = GetText::Tools::Task.new
+    end
+
+    def test_default
+      assert_equal([], @task.files)
+    end
+
+    def test_accessor
+      files = [
+        "lib/hellor.rb",
+        "lib/world.rb",
+      ]
+      @task.files = files
+      assert_equal(files, @task.files)
+    end
+
+    class TestSpec < self
+      def setup
+        super
+        @spec = Gem::Specification.new
+        @spec.files = [
+          "lib/hellor.rb",
+          "lib/world.rb",
+        ]
+      end
+
+      def test_not_set
+        @task.spec = @spec
+        assert_equal(@spec.files, @task.files)
+      end
+
+      def test_already_set
+        files = [
+          "lib/hello/world.rb",
+        ]
+        @task.files = files
+        @task.spec = @spec
+        assert_equal(files + @spec.files, @task.files)
+      end
+    end
+  end
 end
