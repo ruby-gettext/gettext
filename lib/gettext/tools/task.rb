@@ -26,6 +26,39 @@ module GetText
       include GetText
       include Rake::DSL
 
+      class << self
+        # Define gettext related Rake tasks. Normally, use this method
+        # to define tasks because this method is a convenient API.
+        #
+        # See accessor APIs how to configure this task.
+        #
+        # See {#define} for what task is defined.
+        #
+        # @example Recommended usage
+        #   require "gettext/tools/task"
+        #   # Recommended usage
+        #   GetText::Tools::Task.define do |task|
+        #     task.spec = spec
+        #     # ...
+        #   end
+        #   # Low level API
+        #   task = GetText::Tools::Task.new
+        #   task.spec = spec
+        #   # ...
+        #   task.define
+        #
+        # @yield [task] Gives the newely created task to the block.
+        # @yieldparam [GetText::Tools::Task] task The task that should be
+        #   configured.
+        # @see {#define}
+        # @return [void]
+        def define
+          task = new
+          yield(task)
+          task.define
+        end
+      end
+
       # @return [Gem::Specification, nil] Package information associated
       #   with the task.
       attr_reader :spec
@@ -62,10 +95,13 @@ module GetText
         @namespace_prefix = nil
         @xgettext_options = []
         self.spec = spec
-        yield(self) if block_given?
-        @locales = detect_locales if @locales.empty?
-        raise("must set locales: #{inspect}") if @locales.empty?
-        define
+        if spec
+          yield(self) if block_given?
+          @locales = detect_locales if @locales.empty?
+          raise("must set locales: #{inspect}") if @locales.empty?
+          warn("Use #{self.class.name}.define instead of #{self.class.name}.new(spec).")
+          define
+        end
       end
 
       # Sets package infromation by Gem::Specification. Here is a list
@@ -87,7 +123,7 @@ module GetText
         self.files.concat(target_files)
       end
 
-      private
+      # Define tasks from configured parameters.
       def define
         define_file_tasks
         if namespace_prefix
@@ -99,6 +135,7 @@ module GetText
         end
       end
 
+      private
       def define_file_tasks
         unless files.empty?
           pot_dependencies = files.dup
