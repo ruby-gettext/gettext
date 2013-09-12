@@ -69,7 +69,11 @@ module GetText
       # @return [String, nil] Package version for messages.
       attr_accessor :package_version
 
-      attr_accessor :locales, :po_base_directory, :mo_base_directory
+      attr_accessor :locales, :po_base_directory
+      # @return [String] Base directory that has generated MOs. MOs
+      #   are generated into
+      #   `#{mo_base_directory}/#{locale}/LC_MESSAGES/#{domain}.mo`.
+      attr_accessor :mo_base_directory
       # @return [Array<String>] Files that have messages.
       attr_accessor :files
       attr_accessor :domain
@@ -137,7 +141,7 @@ module GetText
         @package_version = nil
         @locales = []
         @po_base_directory = "po"
-        @mo_base_directory = "."
+        @mo_base_directory = "locale"
         @files = []
         @domain = nil
         @namespace_prefix = nil
@@ -262,7 +266,7 @@ module GetText
       end
 
       def mo_directory(locale)
-        File.join(mo_base_directory, "locale", locale.to_s, "LC_MESSAGES")
+        File.join(mo_base_directory, locale.to_s, "LC_MESSAGES")
       end
 
       def mo_file(locale)

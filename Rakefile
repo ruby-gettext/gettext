@@ -97,7 +97,7 @@ Dir.glob("samples/*.rb") do |target|
     task.domain = domain
     task.namespace_prefix = "samples:#{domain}"
     task.po_base_directory = "samples/po"
-    task.mo_base_directory = "samples"
+    task.mo_base_directory = "samples/locale"
     task.files = Dir.glob(target.gsub(/\..*\z/, ".*"))
   end
   task "samples:gettext" => "samples:#{domain}:gettext"
@@ -118,7 +118,7 @@ task "samples:gettext"
     task.domain = domain
     task.namespace_prefix = "samples:cgi:#{domain}"
     task.po_base_directory = "samples/cgi/po"
-    task.mo_base_directory = "samples/cgi"
+    task.mo_base_directory = "samples/cgi/locale"
     task.files = files
   end
   task "samples:cgi:gettext" => "samples:cgi:#{domain}:gettext"
@@ -136,7 +136,7 @@ task "samples:gettext" => "samples:cgi:gettext"
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
     task.po_base_directory = "test/po"
-    task.mo_base_directory = "test"
+    task.mo_base_directory = "test/locale"
     task.files = ["test/fixtures/#{domain}.rb"]
     task.locales = ["ja"]
   end
@@ -151,7 +151,7 @@ end
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
     task.po_base_directory = "test/po"
-    task.mo_base_directory = "test"
+    task.mo_base_directory = "test/locale"
     task.files = ["test/fixtures/#{domain}.rb"]
     task.files += Dir.glob("test/fixtures/#{domain}/*.rb")
     task.locales = ["ja"]
@@ -170,7 +170,7 @@ po_only_domains.each do |domain|
     task.domain = domain
     task.namespace_prefix = "test:#{domain}"
     task.po_base_directory = "test/po"
-    task.mo_base_directory = "test"
+    task.mo_base_directory = "test/locale"
     task.files = []
     task.locales = Dir.glob("test/po/*/#{domain}.po").collect do |po|
       File.basename(File.dirname(po))
