@@ -55,7 +55,7 @@ module GetText
       @filename = nil
       @last_modified = nil
       @little_endian = true
-      @output_charset = output_charset
+      @output_charset = normalize_charset(output_charset)
       @plural_proc = nil
       super()
     end
@@ -339,6 +339,10 @@ module GetText
       string << msgid
       string << "\000" << msgid_plural unless msgid_plural.nil?
       string
+    end
+
+    def normalize_charset(charset)
+      Encoding.name_list.find { |enc| enc.downcase.gsub(/\W/, '') == charset } || charset
     end
   end
 end

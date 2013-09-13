@@ -49,7 +49,7 @@ end
 
 po_parser_ry_path = "src/po_parser.ry"
 file po_parser_rb_path => po_parser_ry_path do
-  racc = File.join(Gem.bindir, "racc")
+  racc = [File.join(Gem.bindir, "racc"),`which racc`.strip].find { |bin| File.executable?(bin) }
   tempfile = Tempfile.new("gettext-po-parser")
   ruby(racc, "-g", po_parser_ry_path, "-o", tempfile.path)
 

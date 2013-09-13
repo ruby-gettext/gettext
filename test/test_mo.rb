@@ -25,6 +25,10 @@ class TestMo < Test::Unit::TestCase
                  mo["You should escape '\\' as '\\\\'."])
   end
 
+  def test_normalize_charset
+    GetText::MO.open('locale/ja/LC_MESSAGES/non_ascii.mo', 'utf8')
+  end
+
   def load_mo(file)
     GetText::MO.open("locale/ja/LC_MESSAGES/#{file}", "UTF-8")
   end
