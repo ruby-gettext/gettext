@@ -213,7 +213,8 @@ module GetText
       end
 
       def define_pot_task
-        unless files.empty?
+        return if files.empty?
+
           pot_dependencies = files.dup
           unless File.exist?(po_base_directory)
             directory po_base_directory
@@ -233,7 +234,6 @@ module GetText
             command_line.concat(files)
             GetText::Tools::XGetText.run(*command_line)
           end
-        end
       end
 
       def define_named_tasks
