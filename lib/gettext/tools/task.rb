@@ -231,16 +231,16 @@ module GetText
       end
 
       def define_mo_task(locale)
-          mo_dependencies = [po_file(locale)]
-          _mo_directory = mo_directory(locale)
-          unless File.exist?(_mo_directory)
-            directory _mo_directory
-            mo_dependencies << _mo_directory
-          end
-          _mo_file = mo_file(locale)
-          file _mo_file => mo_dependencies do
-            GetText::Tools::MsgFmt.run(_po_file, "--output", _mo_file)
-          end
+        mo_dependencies = [po_file(locale)]
+        _mo_directory = mo_directory(locale)
+        unless File.exist?(_mo_directory)
+          directory _mo_directory
+          mo_dependencies << _mo_directory
+        end
+        _mo_file = mo_file(locale)
+        file _mo_file => mo_dependencies do
+          GetText::Tools::MsgFmt.run(_po_file, "--output", _mo_file)
+        end
       end
 
       def define_named_tasks
