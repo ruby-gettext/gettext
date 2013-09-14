@@ -217,6 +217,23 @@ class TestToolsTask < Test::Unit::TestCase
                        Rake::Task[@po_file].prerequisites)
         end
       end
+
+      class TestMO < self
+        def setup
+          super
+          @task.domain = "hello"
+          @locale = "ja"
+          @task.locales = [@locale]
+          @po_file = task.send(:po_file, @locale)
+          @mo_file = @task.send(:mo_file, @locale)
+        end
+
+        def test_prerequisites
+          @task.define
+          assert_equal([@po_file],
+                       Rake::Task[@mo_file].prerequisites)
+        end
+      end
     end
   end
 
