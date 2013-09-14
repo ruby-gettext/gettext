@@ -174,13 +174,14 @@ class TestToolsTask < Test::Unit::TestCase
         def setup
           super
           @task.domain = "hello"
+          @pot_file = @task.send(:pot_file)
         end
 
         def test_empty
           @task.files = []
           @task.define
           assert_raise(RuntimeError) do
-            Rake::Task[@task.send(:pot_file)]
+            Rake::Task[@pot_file]
           end
         end
 
@@ -188,7 +189,7 @@ class TestToolsTask < Test::Unit::TestCase
           @task.files = [__FILE__]
           @task.define
           assert_equal([__FILE__],
-                       Rake::Task[@task.send(:pot_file)].prerequisites)
+                       Rake::Task[@pot_file].prerequisites)
         end
       end
 
