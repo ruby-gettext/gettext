@@ -191,6 +191,31 @@ class TestToolsTask < Test::Unit::TestCase
                        Rake::Task[@task.send(:pot_file)].prerequisites)
         end
       end
+
+      class TestPo < self
+        def setup
+          super
+          @task.domain = "hello"
+          @locale = "ja"
+          @task.locales = [@locale]
+          @po_file = @task.send(:po_file, @locale)
+        end
+
+        def test_empty
+          @task.files = []
+          @task.define
+          assert_raise(RuntimeError) do
+            Rake::Task[@po_file]
+          end
+        end
+
+        def test_not_empty
+          @task.files = [__FILE__]
+          @task.define
+          assert_equal([@task.send(:pot_file)],
+                       Rake::Task[@po_file].prerequisites)
+        end
+      end
     end
   end
 
