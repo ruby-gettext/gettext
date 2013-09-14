@@ -231,7 +231,8 @@ module GetText
       end
 
       def define_mo_task(locale)
-        mo_dependencies = [po_file(locale)]
+        _po_file  = po_file(locale)
+        mo_dependencies = [_po_file]
         _mo_directory = mo_directory(locale)
         unless File.exist?(_mo_directory)
           directory _mo_directory
