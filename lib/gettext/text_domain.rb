@@ -164,9 +164,19 @@ module GetText
 
       if path
         charset = @output_charset || lang.charset || Locale.charset || "UTF-8"
+        charset = normalize_charset(charset)
         @mofiles[lang_key] = MO.open(path, charset)
       else
         @mofiles[lang_key] = :empty
+      end
+    end
+
+    def normalize_charset(charset)
+      case charset
+      when /\Autf8\z/i
+        "UTF-8"
+      else
+        charset
       end
     end
   end
