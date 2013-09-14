@@ -215,25 +215,25 @@ module GetText
       def define_pot_task
         return if files.empty?
 
-          pot_dependencies = files.dup
-          unless File.exist?(po_base_directory)
-            directory po_base_directory
-            pot_dependencies << po_base_directory
+        pot_dependencies = files.dup
+        unless File.exist?(po_base_directory)
+          directory po_base_directory
+          pot_dependencies << po_base_directory
+        end
+        file pot_file => pot_dependencies do
+          command_line = [
+            "--output", pot_file,
+          ]
+          if package_name
+            command_line.concat(["--package-name", package_name])
           end
-          file pot_file => pot_dependencies do
-            command_line = [
-              "--output", pot_file,
-            ]
-            if package_name
-              command_line.concat(["--package-name", package_name])
-            end
-            if package_version
-              command_line.concat(["--package-version", package_version])
-            end
-            command_line.concat(@xgettext_options)
-            command_line.concat(files)
-            GetText::Tools::XGetText.run(*command_line)
+          if package_version
+            command_line.concat(["--package-version", package_version])
           end
+          command_line.concat(@xgettext_options)
+          command_line.concat(files)
+          GetText::Tools::XGetText.run(*command_line)
+        end
       end
 
       def define_named_tasks
