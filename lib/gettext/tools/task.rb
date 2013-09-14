@@ -176,27 +176,7 @@ module GetText
       end
 
       def define_file_tasks
-        unless files.empty?
-          pot_dependencies = files.dup
-          unless File.exist?(po_base_directory)
-            directory po_base_directory
-            pot_dependencies << po_base_directory
-          end
-          file pot_file => pot_dependencies do
-            command_line = [
-              "--output", pot_file,
-            ]
-            if package_name
-              command_line.concat(["--package-name", package_name])
-            end
-            if package_version
-              command_line.concat(["--package-version", package_version])
-            end
-            command_line.concat(@xgettext_options)
-            command_line.concat(files)
-            GetText::Tools::XGetText.run(*command_line)
-          end
-        end
+        define_pot_task
 
         locales.each do |locale|
           _po_file = po_file(locale)
@@ -228,6 +208,30 @@ module GetText
           _mo_file = mo_file(locale)
           file _mo_file => mo_dependencies do
             GetText::Tools::MsgFmt.run(_po_file, "--output", _mo_file)
+          end
+        end
+      end
+
+      def define_pot_task
+        unless files.empty?
+          pot_dependencies = files.dup
+          unless File.exist?(po_base_directory)
+            directory po_base_directory
+            pot_dependencies << po_base_directory
+          end
+          file pot_file => pot_dependencies do
+            command_line = [
+              "--output", pot_file,
+            ]
+            if package_name
+              command_line.concat(["--package-name", package_name])
+            end
+            if package_version
+              command_line.concat(["--package-version", package_version])
+            end
+            command_line.concat(@xgettext_options)
+            command_line.concat(files)
+            GetText::Tools::XGetText.run(*command_line)
           end
         end
       end
