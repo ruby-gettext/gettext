@@ -219,27 +219,27 @@ module GetText
       end
 
       def define_po_task(locale)
-          return if files.empty?
+        return if files.empty?
 
-          _po_file = po_file(locale)
-            po_dependencies = [pot_file]
-            _po_directory = po_directory(locale)
-            unless File.exist?(_po_directory)
-              directory _po_directory
-              po_dependencies << _po_directory
-            end
-            file _po_file => po_dependencies do
-              if File.exist?(_po_file)
-                GetText::Tools::MsgMerge.run(_po_file, pot_file,
-                                             "--output", _po_file)
-              else
-                GetText::Tools::MsgInit.run("--input", pot_file,
-                                            "--output", _po_file,
-                                            "--locale", locale.to_s)
-              end
-            end
+        _po_file = po_file(locale)
+        po_dependencies = [pot_file]
+        _po_directory = po_directory(locale)
+        unless File.exist?(_po_directory)
+          directory _po_directory
+          po_dependencies << _po_directory
+        end
+        file _po_file => po_dependencies do
+          if File.exist?(_po_file)
+            GetText::Tools::MsgMerge.run(_po_file, pot_file,
+                                         "--output", _po_file)
+          else
+            GetText::Tools::MsgInit.run("--input", pot_file,
+                                        "--output", _po_file,
+                                        "--locale", locale.to_s)
           end
+        end
       end
+    end
 
       def define_named_tasks
         namespace :gettext do
