@@ -84,6 +84,10 @@ module GetText
       # @see `rxgettext --help`
       attr_reader :xgettext_options
 
+      # @return [Bool]
+      # @see #enable_description? For details.
+      attr_writer :enable_description
+
       # @param [Gem::Specification, nil] spec Package information associated
       #   with the task. Some information are extracted from the spec.
       # @see #spec= What information are extracted from the spec.
@@ -134,6 +138,15 @@ module GetText
         end
       end
 
+      # If it is true, each task has description. Otherwise, all tasks
+      # doesn't have description.
+      #
+      # @return [Bool]
+      # @since 3.0.1
+      def enable_description?
+        @enable_description
+      end
+
       private
       def initialize_variables
         @spec = nil
@@ -146,6 +159,7 @@ module GetText
         @domain = nil
         @namespace_prefix = nil
         @xgettext_options = []
+        @enable_description = true
       end
 
       def ensure_variables
@@ -154,6 +168,11 @@ module GetText
 
       def validate
         raise("must set locales: #{inspect}") if @locales.empty?
+      end
+
+      def desc(*args)
+        return unless @enable_description
+        super
       end
 
       def define_file_tasks

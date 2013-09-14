@@ -103,7 +103,6 @@ class TestToolsTask < Test::Unit::TestCase
     end
   end
 
-
   class TestFiles < self
     def setup
       @task = GetText::Tools::Task.new
@@ -144,6 +143,63 @@ class TestToolsTask < Test::Unit::TestCase
         @task.files = files
         @task.spec = @spec
         assert_equal(files + @spec.files, @task.files)
+      end
+    end
+  end
+
+  class TestEnableDescription < self
+    def setup
+      @task = GetText::Tools::Task.new
+    end
+
+    def test_default
+      assert_true(@task.enable_description?)
+    end
+
+    def test_accessor
+      @task.enable_description = false
+      assert_false(@task.enable_description?)
+    end
+
+    class TestTask < self
+      setup
+      def setup_application
+        @application = Rake::Application.new
+        @original_application = Rake.application
+        Rake.application = @application
+      end
+
+      teardown
+      def teardown
+        Rake.application = @original_application
+      end
+
+      setup
+      def setup_record_task_metadata
+        @original_record_task_metadata = Rake::TaskManager.record_task_metadata
+        Rake::TaskManager.record_task_metadata = true
+      end
+
+      teardown
+      def teardown_record_task_metadata
+        Rake::TaskManager.record_task_metadata = @original_record_task_metadata
+      end
+
+      def test_true
+        @task.enable_description = true
+        @task.define
+        assert_not_nil(task.comment)
+      end
+
+      def test_false
+        @task.enable_description = false
+        @task.define
+        assert_nil(task.comment)
+      end
+
+      private
+      def task
+        Rake::Task["gettext:po:update"]
       end
     end
   end
