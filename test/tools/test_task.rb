@@ -224,7 +224,7 @@ class TestToolsTask < Test::Unit::TestCase
           @task.domain = "hello"
           @locale = "ja"
           @task.locales = [@locale]
-          @po_file = task.send(:po_file, @locale)
+          @po_file = @task.send(:po_file, @locale)
           @mo_file = @task.send(:mo_file, @locale)
         end
 
