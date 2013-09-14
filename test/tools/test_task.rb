@@ -170,7 +170,7 @@ class TestToolsTask < Test::Unit::TestCase
     end
 
     class TestTask < self
-      class TestPot < self
+      class TestPOT < self
         def setup
           super
           @task.domain = "hello"
@@ -193,7 +193,7 @@ class TestToolsTask < Test::Unit::TestCase
         end
       end
 
-      class TestPo < self
+      class TestPO < self
         def setup
           super
           @task.domain = "hello"
