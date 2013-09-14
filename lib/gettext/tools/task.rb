@@ -239,7 +239,6 @@ module GetText
           end
         end
       end
-    end
 
       def define_named_tasks
         namespace :gettext do
