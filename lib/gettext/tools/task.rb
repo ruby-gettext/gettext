@@ -179,27 +179,9 @@ module GetText
         define_pot_task
 
         locales.each do |locale|
-          _po_file = po_file(locale)
-          unless files.empty?
-            po_dependencies = [pot_file]
-            _po_directory = po_directory(locale)
-            unless File.exist?(_po_directory)
-              directory _po_directory
-              po_dependencies << _po_directory
-            end
-            file _po_file => po_dependencies do
-              if File.exist?(_po_file)
-                GetText::Tools::MsgMerge.run(_po_file, pot_file,
-                                             "--output", _po_file)
-              else
-                GetText::Tools::MsgInit.run("--input", pot_file,
-                                            "--output", _po_file,
-                                            "--locale", locale.to_s)
-              end
-            end
-          end
+          define_po_task(locale)
 
-          mo_dependencies = [_po_file]
+          mo_dependencies = [po_file(locale)]
           _mo_directory = mo_directory(locale)
           unless File.exist?(_mo_directory)
             directory _mo_directory
@@ -234,6 +216,28 @@ module GetText
           command_line.concat(files)
           GetText::Tools::XGetText.run(*command_line)
         end
+      end
+
+      def define_po_task(locale)
+          _po_file = po_file(locale)
+          unless files.empty?
+            po_dependencies = [pot_file]
+            _po_directory = po_directory(locale)
+            unless File.exist?(_po_directory)
+              directory _po_directory
+              po_dependencies << _po_directory
+            end
+            file _po_file => po_dependencies do
+              if File.exist?(_po_file)
+                GetText::Tools::MsgMerge.run(_po_file, pot_file,
+                                             "--output", _po_file)
+              else
+                GetText::Tools::MsgInit.run("--input", pot_file,
+                                            "--output", _po_file,
+                                            "--locale", locale.to_s)
+              end
+            end
+          end
       end
 
       def define_named_tasks
