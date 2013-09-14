@@ -20,28 +20,28 @@
 require "gettext/tools/task"
 
 class TestToolsTask < Test::Unit::TestCase
-      setup
-      def setup_application
-        @application = Rake::Application.new
-        @original_application = Rake.application
-        Rake.application = @application
-      end
+  setup
+  def setup_application
+    @application = Rake::Application.new
+    @original_application = Rake.application
+    Rake.application = @application
+  end
 
-      teardown
-      def teardown
-        Rake.application = @original_application
-      end
+  teardown
+  def teardown
+    Rake.application = @original_application
+  end
 
-      setup
-      def setup_record_task_metadata
-        @original_record_task_metadata = Rake::TaskManager.record_task_metadata
-        Rake::TaskManager.record_task_metadata = true
-      end
+  setup
+  def setup_record_task_metadata
+    @original_record_task_metadata = Rake::TaskManager.record_task_metadata
+    Rake::TaskManager.record_task_metadata = true
+  end
 
-      teardown
-      def teardown_record_task_metadata
-        Rake::TaskManager.record_task_metadata = @original_record_task_metadata
-      end
+  teardown
+  def teardown_record_task_metadata
+    Rake::TaskManager.record_task_metadata = @original_record_task_metadata
+  end
 
   class TestPackageName < self
     def setup
