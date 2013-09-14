@@ -189,7 +189,7 @@ module GetText
             end
             file _po_file => po_dependencies do
               if File.exist?(_po_file)
-                GetText::Tools::MsgMerge.run(po_file(locale), pot_file,
+                GetText::Tools::MsgMerge.run(_po_file, pot_file,
                                              "--output", _po_file)
               else
                 GetText::Tools::MsgInit.run("--input", pot_file,
