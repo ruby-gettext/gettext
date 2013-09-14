@@ -219,8 +219,9 @@ module GetText
       end
 
       def define_po_task(locale)
+          return if files.empty?
+
           _po_file = po_file(locale)
-          unless files.empty?
             po_dependencies = [pot_file]
             _po_directory = po_directory(locale)
             unless File.exist?(_po_directory)
