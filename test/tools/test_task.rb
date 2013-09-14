@@ -168,6 +168,30 @@ class TestToolsTask < Test::Unit::TestCase
         assert_equal(files + @spec.files, @task.files)
       end
     end
+
+    class TestTask < self
+      class TestPot < self
+        def setup
+          super
+          @task.domain = "hello"
+        end
+
+        def test_empty
+          @task.files = []
+          @task.define
+          assert_raise(RuntimeError) do
+            Rake::Task[@task.send(:pot_file)]
+          end
+        end
+
+        def test_not_empty
+          @task.files = [__FILE__]
+          @task.define
+          assert_equal([__FILE__],
+                       Rake::Task[@task.send(:pot_file)].prerequisites)
+        end
+      end
+    end
   end
 
   class TestEnableDescription < self
