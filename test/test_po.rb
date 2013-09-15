@@ -300,9 +300,9 @@ msgstr ""
         PO
       end
 
-    private
-    def header
-      <<EOH
+      private
+      def header
+        <<EOH
 Project-Id-Version: test 1.0.0
 POT-Creation-Date: 2012-10-31 12:40+0900
 PO-Revision-Date: 2012-11-01 17:46+0900
@@ -314,31 +314,31 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Plural-Forms: nplurals=2; plural=(n != 1)
 EOH
-    end
+      end
 
-    def header_comment
-      <<EOC
+      def header_comment
+        <<EOC
 Japanese translations for test package.
 Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
 This file is distributed under the same license as the PACKAGE package.
 FULLNAME <MAIL@ADDRESS>, 2012.
 
 EOC
-    end
-
-    def expected_header
-      expected_header = header.split("\n").collect do |line|
-        "\"#{line}\\n\""
       end
-      expected_header.join("\n")
-    end
 
-    def expected_header_comment
-      expected_header_comment = header_comment.split("\n").collect do |line|
-        "# #{line}"
+      def expected_header
+        expected_header = header.split("\n").collect do |line|
+          "\"#{line}\\n\""
+        end
+        expected_header.join("\n")
       end
-      expected_header_comment.join("\n")
-    end
+
+      def expected_header_comment
+        expected_header_comment = header_comment.split("\n").collect do |line|
+          "# #{line}"
+        end
+        expected_header_comment.join("\n")
+      end
     end
 
     def test_same_filename
