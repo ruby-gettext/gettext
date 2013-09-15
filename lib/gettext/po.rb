@@ -244,19 +244,19 @@ module GetText
       end
     end
 
-    def sort_by_msgid(entries)
-      entries.sort_by do |msgid_entry|
-        # msgid_entry = [[msgctxt, msgid], POEntry]
-        msgid_entry[0]
-      end
-    end
-
     def split_reference(reference)
       return ["", -1] if reference.nil?
       if /\A(.+):(\d+?)\z/ =~ reference
         [$1, $2.to_i]
       else
         [reference, -1]
+      end
+    end
+
+    def sort_by_msgid(entries)
+      entries.sort_by do |msgid_entry|
+        # msgid_entry = [[msgctxt, msgid], POEntry]
+        msgid_entry[0]
       end
     end
   end
