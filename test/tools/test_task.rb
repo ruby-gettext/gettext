@@ -20,6 +20,11 @@
 require "gettext/tools/task"
 
 class TestToolsTask < Test::Unit::TestCase
+  setup :before => :append
+  def setup_task
+    @task = GetText::Tools::Task.new
+  end
+
   setup
   def setup_application
     @application = Rake::Application.new
@@ -44,10 +49,6 @@ class TestToolsTask < Test::Unit::TestCase
   end
 
   class TestPackageName < self
-    def setup
-      @task = GetText::Tools::Task.new
-    end
-
     def test_default
       assert_nil(@task.package_name)
     end
@@ -67,10 +68,6 @@ class TestToolsTask < Test::Unit::TestCase
   end
 
   class TestPackageVersion < self
-    def setup
-      @task = GetText::Tools::Task.new
-    end
-
     def test_default
       assert_nil(@task.package_version)
     end
@@ -91,10 +88,6 @@ class TestToolsTask < Test::Unit::TestCase
   end
 
   class TestDomain < self
-    def setup
-      @task = GetText::Tools::Task.new
-    end
-
     def test_default
       assert_nil(@task.domain)
     end
@@ -107,7 +100,6 @@ class TestToolsTask < Test::Unit::TestCase
 
     class TestSpec < self
       def setup
-        super
         @spec = Gem::Specification.new
         @spec.name = "hello"
       end
@@ -127,10 +119,6 @@ class TestToolsTask < Test::Unit::TestCase
   end
 
   class TestFiles < self
-    def setup
-      @task = GetText::Tools::Task.new
-    end
-
     def test_default
       assert_equal([], @task.files)
     end
@@ -146,7 +134,6 @@ class TestToolsTask < Test::Unit::TestCase
 
     class TestSpec < self
       def setup
-        super
         @spec = Gem::Specification.new
         @spec.files = [
           "lib/hellor.rb",
@@ -170,8 +157,8 @@ class TestToolsTask < Test::Unit::TestCase
     end
 
     class TestTask < self
-      def setup
-        super
+      setup :before => :append
+      def setup_domain
         @task.domain = "hello"
       end
 
@@ -186,7 +173,6 @@ class TestToolsTask < Test::Unit::TestCase
 
       class TestPOT < self
         def setup
-          super
           @pot_file = @task.send(:pot_file)
         end
 
@@ -200,7 +186,6 @@ class TestToolsTask < Test::Unit::TestCase
 
       class TestPO < self
         def setup
-          super
           @locale = "ja"
           @task.locales = [@locale]
           @po_file = @task.send(:po_file, @locale)
@@ -216,7 +201,6 @@ class TestToolsTask < Test::Unit::TestCase
 
       class TestMO < self
         def setup
-          super
           @locale = "ja"
           @task.locales = [@locale]
           @po_file = @task.send(:po_file, @locale)
@@ -234,10 +218,6 @@ class TestToolsTask < Test::Unit::TestCase
   end
 
   class TestEnableDescription < self
-    def setup
-      @task = GetText::Tools::Task.new
-    end
-
     def test_default
       assert_true(@task.enable_description?)
     end
@@ -249,7 +229,6 @@ class TestToolsTask < Test::Unit::TestCase
 
     class TestTask < self
       def setup
-        super
         @task.domain = "hello"
         @task.files = [__FILE__]
       end

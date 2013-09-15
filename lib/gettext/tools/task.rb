@@ -85,13 +85,23 @@ module GetText
       # @return [String, nil] Package version for messages.
       attr_accessor :package_version
 
-      attr_accessor :locales, :po_base_directory
+      # It is a required parameter.
+      #
+      # @return [Array<String>] Supported locales. It is filled from
+      #   {#po_base_directory} by default.
+      attr_accessor :locales
+      attr_accessor :po_base_directory
       # @return [String] Base directory that has generated MOs. MOs
       #   are generated into
       #   `#{mo_base_directory}/#{locale}/LC_MESSAGES/#{domain}.mo`.
       attr_accessor :mo_base_directory
+      # It is a required parameter.
+      #
       # @return [Array<String>] Files that have messages.
       attr_accessor :files
+      # It is a required parameter.
+      #
+      # @return [String] Text domain
       attr_accessor :domain
       attr_accessor :namespace_prefix
       # @return [Array<String>] Command line options for extracting messages
@@ -189,6 +199,9 @@ module GetText
         end
         if @files.empty?
           reasons["files"] = "must set one or more files"
+        end
+        if @domain.nil?
+          reasons["domain"] = "must set domain"
         end
         raise ValidationError.new(reasons) unless reasons.empty?
       end
