@@ -456,81 +456,26 @@ EOP
     end
 
     class TestObsoleteComment < self
-      def test_obsolete_comment
-        hello = "hello"
-        hello_translation = "こんにちは"
-        hello_references = ["file.rb:10"]
-
-        @po[hello] = hello_translation
-        @po[hello].references = hello_references
-
-        @po.set_comment(:last, obsolete_comment)
-
-        hello_comment = "#: file.rb:10"
-        expected_po =<<EOP
-#{expected_header_comment}
-#
-msgid ""
-msgstr ""
-#{expected_header}
-
-#{hello_comment}
-msgid "#{hello}"
-msgstr "#{hello_translation}"
-
-#{expected_obsolete_comment}
-EOP
-        assert_equal(expected_po, @po.to_s)
-      end
-
-      def test_obsolete_comment_without_header
+      def setup
         @po = GetText::PO.new
-
-        hello = "hello"
-        hello_translation = "こんにちは"
-        hello_references = ["file.rb:10"]
-
-        @po[hello] = hello_translation
-        @po[hello].references = hello_references
-
-        @po.set_comment(:last, obsolete_comment)
-
-        hello_comment = "#: file.rb:10"
-        expected_po =<<EOP
-
-#{hello_comment}
-msgid "#{hello}"
-msgstr "#{hello_translation}"
-
-#{expected_obsolete_comment}
-EOP
-        assert_equal(expected_po, @po.to_s)
+        @po["hello"] = ""
+        @po.set_comment(:last, <<-OBSOLETE_COMMENT)
+# hello.rb:20
+msgid "hi"
+msgstr "Bonjour"
+        OBSOLETE_COMMENT
       end
 
-      private
-      def obsolete_comment
-        <<EOC
-# test.rb:10
-msgid \"hello\"
-msgstr \"Salut\"
+      def test_default
+        assert_equal(<<-PO, @po.to_s)
 
-# test.rb:20
-msgid \"hi\"
-msgstr \"Bonjour\"
-EOC
-      end
+msgid "hello"
+msgstr ""
 
-      def expected_obsolete_comment
-        comment = <<EOC
-# test.rb:10
-#~ msgid \"hello\"
-#~ msgstr \"Salut\"
-
-# test.rb:20
-#~ msgid \"hi\"
-#~ msgstr \"Bonjour\"
-EOC
-        comment.chomp
+# hello.rb:20
+#~ msgid "hi"
+#~ msgstr "Bonjour"
+        PO
       end
     end
 
