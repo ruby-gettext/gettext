@@ -154,11 +154,11 @@ module GetText
           "  self: #{self.inspect}\n  other: '#{other.inspect}'"
         raise ParseError, message
       end
-      if other.msgid_plural && !self.msgid_plural
+      if other.msgid_plural && !msgid_plural
         res = other
-        unless (res.references.include? self.references[0])
-          res.references += self.references
-          res.add_comment(self.extracted_comment)
+        unless (res.references.include? references[0])
+          res.references += references
+          res.add_comment(extracted_comment)
         end
       else
         res = self
