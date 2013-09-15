@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -201,6 +201,80 @@ class TestPO < Test::Unit::TestCase
       entry.msgstr = msgstr
       entry.comment = comment
       assert_equal(entry, @po[msgid])
+    end
+  end
+
+  class TestOrder < self
+    def setup
+      @po = GetText::PO.new
+      parser = GetText::POParser.new
+      parser.parse(<<-PO, @po)
+#: hello.rb:2
+msgid "World"
+msgstr ""
+
+#: hello.rb:1
+msgid "Hello"
+msgstr ""
+
+#: hello.rb:3
+msgid "Hello World"
+msgstr ""
+      PO
+    end
+
+    def test_nil
+      @po.order = nil
+      assert_equal(<<-PO, @po.to_s)
+
+#: hello.rb:2
+msgid "World"
+msgstr ""
+
+#: hello.rb:1
+msgid "Hello"
+msgstr ""
+
+#: hello.rb:3
+msgid "Hello World"
+msgstr ""
+      PO
+    end
+
+    def test_msgid
+      @po.order = :msgid
+      assert_equal(<<-PO, @po.to_s)
+
+#: hello.rb:1
+msgid "Hello"
+msgstr ""
+
+#: hello.rb:3
+msgid "Hello World"
+msgstr ""
+
+#: hello.rb:2
+msgid "World"
+msgstr ""
+      PO
+    end
+
+    def test_references
+      @po.order = :references
+      assert_equal(<<-PO, @po.to_s)
+
+#: hello.rb:1
+msgid "Hello"
+msgstr ""
+
+#: hello.rb:2
+msgid "World"
+msgstr ""
+
+#: hello.rb:3
+msgid "Hello World"
+msgstr ""
+      PO
     end
   end
 

@@ -212,7 +212,7 @@ module GetText
       when :references
         sorted_entries = sort_by_references(entries)
       when :msgid
-        # TODO: sort by msgid alphabetically.
+        sorted_entries = sort_by_msgid(entries)
       else
         sorted_entries = entries.to_a
       end
@@ -241,6 +241,13 @@ module GetText
         entry_source <=> other_source
       else
         entry_line_number <=> other_line_number
+      end
+    end
+
+    def sort_by_msgid(entries)
+      entries.sort_by do |msgid_entry|
+        # msgid_entry = [[msgctxt, msgid], POEntry]
+        msgid_entry[0]
       end
     end
 
