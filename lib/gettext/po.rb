@@ -195,7 +195,7 @@ module GetText
         msgid == :last or msgid.empty?
       end
 
-      sort_by_order(content_entries).each do |msgid, entry|
+      sort(content_entries).each do |msgid, entry|
         po_string << "\n" << entry.to_s
       end
 
@@ -207,7 +207,7 @@ module GetText
     end
 
     private
-    def sort_by_order(entries)
+    def sort(entries)
       case @order
       when :references
         sorted_entries = sort_by_references(entries)
