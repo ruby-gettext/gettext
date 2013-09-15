@@ -67,18 +67,6 @@ module GetText
       end
     end
 
-    @@max_line_length = 70
-
-    # Sets the max line length.
-    def self.max_line_length=(len)
-      @@max_line_length = len
-    end
-
-    # Gets the max line length.
-    def self.max_line_length
-      @@max_line_length
-    end
-
     # Required
     attr_reader :type          # :normal, :plural, :msgctxt, :msgctxt_plural
     attr_accessor :msgid
