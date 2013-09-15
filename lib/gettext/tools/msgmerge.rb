@@ -264,7 +264,7 @@ module GetText
 
           parser.on_tail("--version",
                          _("display version information and exit")) do
-            puts(VERSION)
+            puts(GetText::VERSION)
             exit(true)
           end
 
@@ -284,9 +284,6 @@ module GetText
       include GetText
 
       bindtextdomain("gettext")
-
-      # constant values
-      VERSION = GetText::VERSION
 
       def run(*options) #:nodoc:
         config = Config.new
