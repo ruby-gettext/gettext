@@ -381,80 +381,82 @@ msgstr ""
     end
   end
 
-  class TestEscape < self
-    def setup
-      @entry = GetText::POEntry.new(:normal)
+  class TestFormatter < self
+    class TestEscape < self
+      def test_backslash
+        assert_equal("You should escape '\\\\' as '\\\\\\\\'.",
+                     escape("You should escape '\\' as '\\\\'."))
+      end
+
+      def test_new_line
+        assert_equal("First\\nSecond\\nThird",
+                     escape("First\nSecond\nThird"))
+      end
+
+      def test_tab
+        assert_equal("First\\tSecond\\tThird",
+                     escape("First\tSecond\tThird"))
+      end
+
+      private
+      def escape(message)
+        GetText::POEntry::Formatter.escape(message)
+      end
     end
 
-    def test_backslash
-      @entry.msgid = "You should escape '\\' as '\\\\'."
-      assert_equal("You should escape '\\\\' as '\\\\\\\\'.",
-                   @entry.escaped(:msgid))
+    class TestFormatMessage < self
+      def setup
+        @entry = GetText::POEntry.new(:normal)
+        @formatter = GetText::POEntry::Formatter.new(@entry)
+      end
+
+      def test_including_newline
+        message = "line 1\n" +
+                    "line 2"
+        expected_message = "\"\"\n" +
+                            "\"line 1\\n\"\n" +
+                            "\"line 2\"\n"
+        assert_equal(expected_message, format_message(message))
+      end
+
+      def test_not_existed_newline
+        message = "line 1"
+        expected_message = "\"line 1\"\n"
+        assert_equal(expected_message, format_message(message))
+      end
+
+      private
+      def format_message(message)
+        @formatter.send(:format_message, message)
+      end
     end
 
-    def test_new_line
-      @entry.msgid = "First\nSecond\nThird"
-      assert_equal("First\\nSecond\\nThird",
-                   @entry.escaped(:msgid))
-    end
+    class TestFormatComment < self
+      def setup
+        @entry = GetText::POEntry.new(:normal)
+        @formatter = GetText::POEntry::Formatter.new(@entry)
+      end
 
-    def test_tab
-      @entry.msgid = "First\tSecond\tThird"
-      assert_equal("First\\tSecond\\tThird",
-                   @entry.escaped(:msgid))
-    end
-  end
+      def test_one_line_comment
+        comment = "comment"
+        mark = "#"
+        @entry.msgid = "msgid"
+        expected_comment = "# #{comment}\n"
+        assert_equal(expected_comment, format_comment(mark, comment))
+      end
 
-  class TestFormatMessage < self
-    def setup
-      @entry = GetText::POEntry.new(:normal)
-    end
+      def test_multiline_comment
+        comment = "comment1\ncomment2"
+        mark = "#"
+        @entry.msgid = ""
+        expected_comment = "#{comment.gsub(/^/, "#{mark} ")}\n"
+        assert_equal(expected_comment, format_comment(mark, comment))
+      end
 
-    def test_including_newline
-      message = "line 1\n" +
-                  "line 2"
-      expected_message = "\"\"\n" +
-                          "\"line 1\\n\"\n" +
-                          "\"line 2\"\n"
-      assert_equal(expected_message, format_message(message))
-    end
-
-    def test_not_existed_newline
-      message = "line 1"
-      expected_message = "\"line 1\"\n"
-      assert_equal(expected_message, format_message(message))
-    end
-
-    private
-    def format_message(message)
-      @entry.send(:format_message, message)
-    end
-  end
-
-  class TestFormatComment < self
-    def setup
-      @entry = GetText::POEntry.new(:normal)
-    end
-
-    def test_one_line_comment
-      comment = "comment"
-      mark = "#"
-      @entry.msgid = "msgid"
-      expected_comment = "# #{comment}\n"
-      assert_equal(expected_comment, format_comment(mark, comment))
-    end
-
-    def test_multiline_comment
-      comment = "comment1\ncomment2"
-      mark = "#"
-      @entry.msgid = ""
-      expected_comment = "#{comment.gsub(/^/, "#{mark} ")}\n"
-      assert_equal(expected_comment, format_comment(mark, comment))
-    end
-
-    private
-    def format_comment(mark, comment)
-      @entry.send(:format_comment, mark, comment)
+      private
+      def format_comment(mark, comment)
+        @formatter.send(:format_comment, mark, comment)
+      end
     end
   end
 end

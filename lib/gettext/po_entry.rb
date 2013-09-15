@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
 # Copyright (C) 2009  Masao Mutoh
 #
@@ -51,22 +51,6 @@ module GetText
    PREVIOUS_COMMENT_MARK = "#|"
    REFERENCE_COMMENT_MARK = "#:"
 
-    class << self
-      def escape(string)
-        string.gsub(/([\\"\t\n])/) do
-          special_character = $1
-          case special_character
-          when "\t"
-            "\\t"
-          when "\n"
-            "\\n"
-          else
-            "\\#{special_character}"
-          end
-        end
-      end
-    end
-
     # Required
     attr_reader :type          # :normal, :plural, :msgctxt, :msgctxt_plural
     attr_accessor :msgid
@@ -105,12 +89,6 @@ module GetText
         @extracted_comment << "\n" unless @extracted_comment.empty?
         @extracted_comment << new_comment
       end
-    end
-
-    # Returns a parameter representation suitable for po-files
-    # and other purposes.
-    def escaped(param_name)
-      escape(send(param_name))
     end
 
     # Checks if the self has same attributes as other.
@@ -178,56 +156,8 @@ module GetText
     def to_s(options={})
       raise(NoMsgidError, "msgid is nil.") unless @msgid
 
-      str = ""
-      # extracted comments
-      if @msgid == :last
-        return format_obsolete_comment(comment)
-      end
-
-      str << format_translator_comment
-      str << format_extracted_comment
-      if options[:include_reference_comment] != false
-        str << format_reference_comment
-      end
-      str << format_flag_comment
-      str << format_previous_comment
-
-      # msgctxt, msgid, msgstr
-      if msgctxt?
-        if @msgctxt.nil?
-          no_msgctxt_message = "This POEntry is a kind of msgctxt " +
-                                 "but the msgctxt property is nil. " +
-                                 "msgid: #{msgid}"
-          raise(NoMsgctxtError, no_msgctxt_message)
-        end
-        str << "msgctxt " << format_message(msgctxt)
-      end
-
-      str << "msgid " << format_message(msgid)
-      if plural?
-        if @msgid_plural.nil?
-          no_plural_message = "This POEntry is a kind of plural " +
-                                "but the msgid_plural property is nil. " +
-                                "msgid: #{msgid}"
-          raise(NoMsgidPluralError, no_plural_message)
-        end
-
-        str << "msgid_plural " << format_message(msgid_plural)
-
-        if msgstr.nil?
-          str << "msgstr[0] \"\"\n"
-          str << "msgstr[1] \"\"\n"
-        else
-          msgstrs = msgstr.split("\000", -1)
-          msgstrs.each_with_index do |msgstr, index|
-            str << "msgstr[#{index}] " << format_message(msgstr)
-          end
-        end
-      else
-        str << "msgstr "
-        str << format_message(msgstr)
-      end
-      str
+      formatter = Formatter.new(self, options)
+      formatter.format
     end
 
     # Returns true if the type is kind of msgctxt.
@@ -256,90 +186,169 @@ module GetText
       send "#{param}=", (send(param) || '') + value
     end
 
-    def escape(value)
-      self.class.escape((value || "").gsub(/\r/, ""))
-    end
+    class Formatter
+      class << self
+        def escape(string)
+          return "" if string.nil?
 
-    def format_translator_comment
-      format_comment("#", translator_comment)
-    end
-
-    def format_extracted_comment
-      format_comment(EXTRACTED_COMMENT_MARK, extracted_comment)
-    end
-
-    def format_reference_comment
-      max_line_length = 70
-      formatted_reference = ""
-      if not references.nil? and not references.empty?
-        formatted_reference << REFERENCE_COMMENT_MARK
-        line_size = 2
-        references.each do |reference|
-          if line_size + reference.size > max_line_length
-            formatted_reference << "\n"
-            formatted_reference <<  "#{REFERENCE_COMMENT_MARK} #{reference}"
-            line_size = 3 + reference.size
-          else
-            formatted_reference << " #{reference}"
-            line_size += 1 + reference.size
+          string.gsub(/([\\"\t\n])/) do
+            special_character = $1
+            case special_character
+            when "\t"
+              "\\t"
+            when "\n"
+              "\\n"
+            else
+              "\\#{special_character}"
+            end
           end
         end
-
-        formatted_reference << "\n"
       end
-      formatted_reference
-    end
 
-    def format_flag_comment
-      format_comment(FLAG_MARK, flag)
-    end
+      def initialize(entry, options={})
+        @entry = entry
+        @options = options
+      end
 
-    def format_previous_comment
-      format_comment(PREVIOUS_COMMENT_MARK, previous)
-    end
+      def format
+        # extracted comments
+        if @entry.msgid == :last
+          return format_obsolete_comment(@entry.comment)
+        end
 
-    def format_comment(mark, comment)
-      return "" if comment.nil?
+        str = ""
+        str << format_translator_comment
+        str << format_extracted_comment
+        if @options[:include_reference_comment] != false
+          str << format_reference_comment
+        end
+        str << format_flag_comment
+        str << format_previous_comment
 
-      formatted_comment = ""
-      comment.each_line do |comment_line|
-        if comment_line == "\n"
-          formatted_comment << "#{mark}\n"
+        # msgctxt, msgid, msgstr
+        if @entry.msgctxt?
+          if @entry.msgctxt.nil?
+            no_msgctxt_message = "This POEntry is a kind of msgctxt " +
+                                   "but the msgctxt property is nil. " +
+                                   "msgid: #{@entry.msgid}"
+            raise(NoMsgctxtError, no_msgctxt_message)
+          end
+          str << "msgctxt " << format_message(@entry.msgctxt)
+        end
+
+        str << "msgid " << format_message(@entry.msgid)
+        if @entry.plural?
+          if @entry.msgid_plural.nil?
+            no_plural_message = "This POEntry is a kind of plural " +
+                                  "but the msgid_plural property is nil. " +
+                                  "msgid: #{@entry.msgid}"
+            raise(NoMsgidPluralError, no_plural_message)
+          end
+
+          str << "msgid_plural " << format_message(@entry.msgid_plural)
+
+          if @entry.msgstr.nil?
+            str << "msgstr[0] \"\"\n"
+            str << "msgstr[1] \"\"\n"
+          else
+            msgstrs = @entry.msgstr.split("\000", -1)
+            msgstrs.each_with_index do |msgstr, index|
+              str << "msgstr[#{index}] " << format_message(msgstr)
+            end
+          end
         else
-          formatted_comment << "#{mark} #{comment_line.strip}\n"
+          str << "msgstr "
+          str << format_message(@entry.msgstr)
         end
+        str
       end
-      formatted_comment
-    end
 
-    def format_obsolete_comment(comment)
-      mark = "#~"
-      return "" if comment.nil?
+      private
+      def format_translator_comment
+        format_comment("#", @entry.translator_comment)
+      end
 
-      formatted_comment = ""
-      comment.each_line do |comment_line|
-        if /\A#[^~]/ =~ comment_line or comment_line.start_with?(mark)
-          formatted_comment << comment_line
-        elsif comment_line == "\n"
-          formatted_comment << "\n"
+      def format_extracted_comment
+        format_comment(EXTRACTED_COMMENT_MARK, @entry.extracted_comment)
+      end
+
+      def format_reference_comment
+        max_line_length = 70
+        formatted_reference = ""
+        if not @entry.references.nil? and not @entry.references.empty?
+          formatted_reference << REFERENCE_COMMENT_MARK
+          line_size = 2
+          @entry.references.each do |reference|
+            if line_size + reference.size > max_line_length
+              formatted_reference << "\n"
+              formatted_reference <<  "#{REFERENCE_COMMENT_MARK} #{reference}"
+              line_size = 3 + reference.size
+            else
+              formatted_reference << " #{reference}"
+              line_size += 1 + reference.size
+            end
+          end
+
+          formatted_reference << "\n"
+        end
+        formatted_reference
+      end
+
+      def format_flag_comment
+        format_comment(FLAG_MARK, @entry.flag)
+      end
+
+      def format_previous_comment
+        format_comment(PREVIOUS_COMMENT_MARK, @entry.previous)
+      end
+
+      def format_comment(mark, comment)
+        return "" if comment.nil?
+
+        formatted_comment = ""
+        comment.each_line do |comment_line|
+          if comment_line == "\n"
+            formatted_comment << "#{mark}\n"
+          else
+            formatted_comment << "#{mark} #{comment_line.strip}\n"
+          end
+        end
+        formatted_comment
+      end
+
+      def format_obsolete_comment(comment)
+        mark = "#~"
+        return "" if comment.nil?
+
+        formatted_comment = ""
+        comment.each_line do |comment_line|
+          if /\A#[^~]/ =~ comment_line or comment_line.start_with?(mark)
+            formatted_comment << comment_line
+          elsif comment_line == "\n"
+            formatted_comment << "\n"
+          else
+            formatted_comment << "#{mark} #{comment_line.strip}\n"
+          end
+        end
+        formatted_comment
+      end
+
+      def format_message(message)
+        formatted_message = ""
+        if not message.nil? and message.include?("\n")
+          formatted_message << "\"\"\n"
+          message.each_line.each do |line|
+            formatted_message << "\"#{escape(line)}\"\n"
+          end
         else
-          formatted_comment << "#{mark} #{comment_line.strip}\n"
+          formatted_message << "\"#{escape(message)}\"\n"
         end
+        formatted_message
       end
-      formatted_comment
-    end
 
-    def format_message(message)
-      formatted_message = ""
-      if not message.nil? and message.include?("\n")
-        formatted_message << "\"\"\n"
-        message.each_line.each do |line|
-          formatted_message << "\"#{escape(line)}\"\n"
-        end
-      else
-        formatted_message << "\"#{escape(message)}\"\n"
+      def escape(string)
+        self.class.escape(string)
       end
-      formatted_message
     end
   end
 end
