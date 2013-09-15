@@ -330,12 +330,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
 
-#: hello.rb:1
-msgid "Hello"
-msgstr ""
-
 #: hello.rb:2
 msgid "World"
+msgstr ""
+
+#: hello.rb:1
+msgid "Hello"
 msgstr ""
 EOP
     end
@@ -374,6 +374,54 @@ EOP
     class TestFuzzy < self
       def test_header_message
         @msgmerge.run(@po_file_path, @pot_file_path, "--output", @po_file_path)
+        assert_equal(<<-EOP, File.read(@po_file_path))
+#{po_header(@pot_formatted_time, @po_formatted_time)}
+#: hello.rb:1
+msgid "Hello"
+msgstr ""
+
+#: hello.rb:2
+msgid "World"
+msgstr "Translated World"
+EOP
+      end
+    end
+
+    class TestSort < self
+      def test_default
+        @msgmerge.run("--output", @po_file_path, @po_file_path, @pot_file_path)
+        assert_equal(<<-EOP, File.read(@po_file_path))
+#{po_header(@pot_formatted_time, @po_formatted_time)}
+#: hello.rb:1
+msgid "Hello"
+msgstr ""
+
+#: hello.rb:2
+msgid "World"
+msgstr "Translated World"
+EOP
+      end
+
+      def test_sort_output
+        @msgmerge.run("--output", @po_file_path,
+                      "--sort-output",
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-EOP, File.read(@po_file_path))
+#{po_header(@pot_formatted_time, @po_formatted_time)}
+#: hello.rb:1
+msgid "Hello"
+msgstr ""
+
+#: hello.rb:2
+msgid "World"
+msgstr "Translated World"
+EOP
+      end
+
+      def test_sort_by_file
+        @msgmerge.run("--output", @po_file_path,
+                      "--sort-by-file",
+                      @po_file_path, @pot_file_path)
         assert_equal(<<-EOP, File.read(@po_file_path))
 #{po_header(@pot_formatted_time, @po_formatted_time)}
 #: hello.rb:1

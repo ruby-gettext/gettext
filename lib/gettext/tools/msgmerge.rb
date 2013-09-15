@@ -200,6 +200,7 @@ module GetText
 
         attr_accessor :definition_po, :reference_pot
         attr_accessor :output, :fuzzy, :update
+        attr_accessor :order
 
         # update mode options
         attr_accessor :backup, :suffix
@@ -221,6 +222,7 @@ module GetText
           @definition_po = nil
           @reference_po = nil
           @output = nil
+          @order = :references
           @fuzzy = nil
           @update = nil
           @backup = ENV["VERSION_CONTROL"]
@@ -260,6 +262,16 @@ module GetText
           parser.on("-o", "--output=FILE",
                     _("Write output to specified file")) do |output|
             @output = output
+          end
+
+          parser.on("--[no-]sort-output",
+                    _("Generate sorted output")) do |sort|
+            @order = sort ? :references : nil
+          end
+
+          parser.on("--[no-]sort-by-file",
+                    _("Sort output by file location")) do |sort_by_file|
+            @order = sort_by_file ? :references : :msgid
           end
 
           #parser.on("-F", "--fuzzy-matching")
@@ -307,6 +319,7 @@ module GetText
 
         merger = Merger.new
         result = merger.merge(definition_po, reference_pot)
+        result.order = config.order
         p result if $DEBUG
         print result.generate_po if $DEBUG
 
