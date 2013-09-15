@@ -327,6 +327,7 @@ msgstr ""
       end
     end
 
+    class TestReferenceComment < self
     def test_same_filename
       hello = "hello"
       hello_translation = "こんにちは"
@@ -470,6 +471,7 @@ msgid "#{bye}"
 msgstr "#{bye_translation}"
 EOP
       assert_equal(expected_po, @po.to_s)
+    end
     end
 
     class TestObsoleteComment < self
