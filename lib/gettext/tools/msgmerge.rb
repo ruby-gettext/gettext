@@ -258,7 +258,7 @@ module GetText
           parser.separator(_("Specific options:"))
 
           parser.on("-o", "--output=FILE",
-                  _("write output to specified file")) do |output|
+                    _("Write output to specified file")) do |output|
             @output = output
           end
 
