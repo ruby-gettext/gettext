@@ -230,6 +230,36 @@ module GetText
       str
     end
 
+    # Returns true if the type is kind of msgctxt.
+    def msgctxt?
+      [:msgctxt, :msgctxt_plural].include?(@type)
+    end
+
+    # Returns true if the type is kind of plural.
+    def plural?
+      [:plural, :msgctxt_plural].include?(@type)
+    end
+
+    def [](number)
+      param = @param_type[number]
+      raise ParseError, 'no more string parameters expected' unless param
+      send param
+    end
+
+    private
+
+    # sets or extends the value of a translation target params like msgid,
+    # msgctxt etc.
+    #   param is symbol with the name of param
+    #   value - new value
+    def set_value(param, value)
+      send "#{param}=", (send(param) || '') + value
+    end
+
+    def escape(value)
+      self.class.escape((value || "").gsub(/\r/, ""))
+    end
+
     def format_translator_comment
       format_comment("#", translator_comment)
     end
@@ -310,36 +340,6 @@ module GetText
         formatted_message << "\"#{escape(message)}\"\n"
       end
       formatted_message
-    end
-
-    # Returns true if the type is kind of msgctxt.
-    def msgctxt?
-      [:msgctxt, :msgctxt_plural].include?(@type)
-    end
-
-    # Returns true if the type is kind of plural.
-    def plural?
-      [:plural, :msgctxt_plural].include?(@type)
-    end
-
-    def [](number)
-      param = @param_type[number]
-      raise ParseError, 'no more string parameters expected' unless param
-      send param
-    end
-
-    private
-
-    # sets or extends the value of a translation target params like msgid,
-    # msgctxt etc.
-    #   param is symbol with the name of param
-    #   value - new value
-    def set_value(param, value)
-      send "#{param}=", (send(param) || '') + value
-    end
-
-    def escape(value)
-      self.class.escape((value || "").gsub(/\r/, ""))
     end
   end
 end

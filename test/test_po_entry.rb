@@ -416,13 +416,18 @@ msgstr ""
       expected_message = "\"\"\n" +
                           "\"line 1\\n\"\n" +
                           "\"line 2\"\n"
-      assert_equal(expected_message, @entry.format_message(message))
+      assert_equal(expected_message, format_message(message))
     end
 
     def test_not_existed_newline
       message = "line 1"
       expected_message = "\"line 1\"\n"
-      assert_equal(expected_message, @entry.format_message(message))
+      assert_equal(expected_message, format_message(message))
+    end
+
+    private
+    def format_message(message)
+      @entry.send(:format_message, message)
     end
   end
 
@@ -436,7 +441,7 @@ msgstr ""
       mark = "#"
       @entry.msgid = "msgid"
       expected_comment = "# #{comment}\n"
-      assert_equal(expected_comment, @entry.format_comment(mark, comment))
+      assert_equal(expected_comment, format_comment(mark, comment))
     end
 
     def test_multiline_comment
@@ -444,7 +449,12 @@ msgstr ""
       mark = "#"
       @entry.msgid = ""
       expected_comment = "#{comment.gsub(/^/, "#{mark} ")}\n"
-      assert_equal(expected_comment, @entry.format_comment(mark, comment))
+      assert_equal(expected_comment, format_comment(mark, comment))
+    end
+
+    private
+    def format_comment(mark, comment)
+      @entry.send(:format_comment, mark, comment)
     end
   end
 end
