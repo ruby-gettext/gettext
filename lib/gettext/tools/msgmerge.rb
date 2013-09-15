@@ -192,7 +192,8 @@ module GetText
         end
       end
 
-      class Config #:nodoc:
+      # @private
+      class Config
 
         attr_accessor :defpo, :refpot, :output, :fuzzy, :update
 
@@ -220,6 +221,55 @@ module GetText
           @suffix = ENV["SIMPLE_BACKUP_SUFFIX"] || "~"
           @input_dirs = ["."]
         end
+
+        def parse(command_line)
+          parser = create_option_parser
+          rest = parser.parse(command_line)
+
+          if rest.size != 2
+            puts(parser.help)
+            exit(false)
+          end
+
+          @defpo, @refpot = rest
+        end
+
+        private
+        def create_option_parser
+          parser = OptionParser.new
+          parser.banner = _("Usage: %s def.po ref.pot [-o output.pot]") % $0
+          #parser.summary_width = 80
+          parser.separator("")
+          description = _("Merges two Uniforum style .po files together. " +
+                            "The def.po file is an existing PO file with " +
+                            "translations. The ref.pot file is the last " +
+                            "created PO file with up-to-date source " +
+                            "references. ref.pot is generally created by " +
+                            "rgettext.")
+          parser.separator(description)
+          parser.separator("")
+          parser.separator(_("Specific options:"))
+
+          parser.on("-o", "--output=FILE",
+                  _("write output to specified file")) do |output|
+            @output = output
+          end
+
+          #parser.on("-F", "--fuzzy-matching")
+
+          parser.on("-h", "--help", _("Display this help and exit")) do
+            puts(parser.help)
+            exit(true)
+          end
+
+          parser.on_tail("--version",
+                         _("display version information and exit")) do
+            puts(VERSION)
+            exit(true)
+          end
+
+          parser
+        end
       end
 
       class << self
@@ -239,7 +289,8 @@ module GetText
       VERSION = GetText::VERSION
 
       def run(*options) #:nodoc:
-        config = check_command_line_options(*options)
+        config = Config.new
+        config.parse(options)
 
         parser = POParser.new
         parser.ignore_fuzzy = false
@@ -258,62 +309,6 @@ module GetText
         else
           puts(result.to_s)
         end
-      end
-
-      private
-      def check_command_line_options(*options) #:nodoc:
-        config = parse_arguments(*options)
-
-        if config.defpo.nil?
-          raise ArgumentError, _("definition po is not given.")
-        elsif config.refpot.nil?
-          raise ArgumentError, _("reference pot is not given.")
-        end
-
-        config
-      end
-
-      def parse_arguments(*options) #:nodoc:
-        config = Config.new
-        config.output = nil
-
-        parser = OptionParser.new
-        parser.banner = _("Usage: %s def.po ref.pot [-o output.pot]") % $0
-        #parser.summary_width = 80
-        parser.separator("")
-        description = _("Merges two Uniforum style .po files together. " +
-                          "The def.po file is an existing PO file with " +
-                          "translations. The ref.pot file is the last " +
-                          "created PO file with up-to-date source " +
-                          "references. ref.pot is generally created by " +
-                          "rgettext.")
-        parser.separator(description)
-        parser.separator("")
-        parser.separator(_("Specific options:"))
-
-        parser.on("-o", "--output=FILE",
-                _("write output to specified file")) do |output|
-          config.output = output
-        end
-
-        #parser.on("-F", "--fuzzy-matching")
-
-        parser.on("-h", "--help", _("Display this help and exit")) do
-          puts(parser.help)
-          exit(true)
-        end
-
-        parser.on_tail("--version", _("display version information and exit")) do
-          puts(VERSION)
-          exit(true)
-        end
-
-        parser.parse!(options)
-
-        config.defpo = options[0]
-        config.refpot = options[1]
-
-        config
       end
     end
   end
