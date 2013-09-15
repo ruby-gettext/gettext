@@ -322,6 +322,12 @@ module GetText
       [:plural, :msgctxt_plural].include?(@type)
     end
 
+    def [](number)
+      param = @param_type[number]
+      raise ParseError, 'no more string parameters expected' unless param
+      send param
+    end
+
     private
 
     # sets or extends the value of a translation target params like msgid,
@@ -334,13 +340,6 @@ module GetText
 
     def escape(value)
       self.class.escape((value || "").gsub(/\r/, ""))
-    end
-
-    public
-    def [](number)
-      param = @param_type[number]
-      raise ParseError, 'no more string parameters expected' unless param
-      send param
     end
   end
 end
