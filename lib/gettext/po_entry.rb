@@ -149,8 +149,11 @@ module GetText
     # with the plural wins.
     def merge(other)
       return self unless other
-      raise ParseError, "Translation targets do not match: \n" \
-      "  self: #{self.inspect}\n  other: '#{other.inspect}'" unless self.mergeable?(other)
+      unless mergeable?(other)
+        message = "Translation targets do not match: \n" +
+          "  self: #{self.inspect}\n  other: '#{other.inspect}'"
+        raise ParseError, message
+      end
       if other.msgid_plural && !self.msgid_plural
         res = other
         unless (res.references.include? self.references[0])
