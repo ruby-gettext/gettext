@@ -313,7 +313,7 @@ EOH
           end
           extracted_po.each do |po_entry|
             if po_entry.kind_of?(Array)
-              po_entry = POEntry.new_from_ary(po_entry)
+              po_entry = create_po_entry(*po_entry)
             end
 
             if po_entry.msgid.empty?
@@ -363,6 +363,32 @@ EOH
           end
           break
         end
+      end
+
+      def create_po_entry(msgid, *references)
+        type = :normal
+        msgctxt = nil
+        msgid_plural = nil
+
+        if msgid.include?("\004")
+          msgctxt, msgid = msgid.split(/\004/, 2)
+          type = :msgctxt
+        end
+        if msgid.include?("\000")
+          msgid, msgid_plural = msgid.split(/\000/, 2)
+          if type == :msgctxt
+            type = :msgctxt_plural
+          else
+            type = :plural
+          end
+        end
+
+        po_entry = POEntry.new(type)
+        po_entry.msgid = msgid
+        po_entry.msgctxt = msgctxt
+        po_entry.msgid_plural = msgid_plural
+        po_entry.references = references
+        po_entry
       end
 
       def encode(string)

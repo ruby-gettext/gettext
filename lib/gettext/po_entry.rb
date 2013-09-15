@@ -65,38 +65,6 @@ module GetText
           end
         end
       end
-
-      # For backward comatibility. This doesn't support "comment".
-      # ary = [msgid1, "file1:line1", "file2:line"]
-      def new_from_ary(ary)
-        ary = ary.dup
-        msgid = ary.shift
-        references = ary
-        type = :normal
-        msgctxt = nil
-        msgid_plural = nil
-
-        if msgid.include? "\004"
-          msgctxt, msgid = msgid.split(/\004/)
-          type = :msgctxt
-        end
-        if msgid.include? "\000"
-          ids = msgid.split(/\000/)
-          msgid = ids[0]
-          msgid_plural = ids[1]
-          if type == :msgctxt
-            type = :msgctxt_plural
-          else
-            type = :plural
-          end
-        end
-        ret = self.new(type)
-        ret.msgid = msgid
-        ret.references = references
-        ret.msgctxt = msgctxt
-        ret.msgid_plural = msgid_plural
-        ret
-      end
     end
 
     @@max_line_length = 70

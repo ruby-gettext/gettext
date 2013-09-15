@@ -396,7 +396,9 @@ EOP
 
       GetText::Tools::XGetText.add_parser(parser)
       xgettext = GetText::Tools::XGetText.new
-      assert_equal([POEntry.new_from_ary(["Message"])],
+      po_entry = GetText::POEntry.new(:normal)
+      po_entry.msgid = "Message"
+      assert_equal([po_entry],
                    xgettext.parse(["index.html"]))
     end
 
