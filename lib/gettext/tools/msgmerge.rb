@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012-2013  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2005-2009 Masao Mutoh
 # Copyright (C) 2005,2006 speakillof
 #
@@ -238,6 +238,29 @@ module GetText
       # constant values
       VERSION = GetText::VERSION
 
+      def run(*options) #:nodoc:
+        config = check_command_line_options(*options)
+
+        parser = POParser.new
+        parser.ignore_fuzzy = false
+        defpo = parser.parse_file(config.defpo, PO.new)
+        refpot = parser.parse_file(config.refpot, PO.new)
+
+        merger = Merger.new
+        result = merger.merge(defpo, refpot)
+        p result if $DEBUG
+        print result.generate_po if $DEBUG
+
+        if config.output.is_a?(String)
+          File.open(File.expand_path(config.output), "w+") do |file|
+            file.write(result.to_s)
+          end
+        else
+          puts(result.to_s)
+        end
+      end
+
+      private
       def check_command_line_options(*options) #:nodoc:
         options, output = parse_arguments(*options)
 
@@ -292,28 +315,6 @@ module GetText
         parser.parse!(options)
 
         [options, output]
-      end
-
-      def run(*options) #:nodoc:
-        config = check_command_line_options(*options)
-
-        parser = POParser.new
-        parser.ignore_fuzzy = false
-        defpo = parser.parse_file(config.defpo, PO.new)
-        refpot = parser.parse_file(config.refpot, PO.new)
-
-        merger = Merger.new
-        result = merger.merge(defpo, refpot)
-        p result if $DEBUG
-        print result.generate_po if $DEBUG
-
-        if config.output.is_a?(String)
-          File.open(File.expand_path(config.output), "w+") do |file|
-            file.write(result.to_s)
-          end
-        else
-          puts(result.to_s)
-        end
       end
     end
   end
