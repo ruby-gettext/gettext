@@ -243,15 +243,16 @@ module GetText
         private
         def create_option_parser
           parser = OptionParser.new
-          parser.banner = _("Usage: %s def.po ref.pot [-o output.pot]") % $0
+          parser.banner =
+            _("Usage: %s [OPTIONS] definition.po reference.pot") % $0
           #parser.summary_width = 80
           parser.separator("")
           description = _("Merges two Uniforum style .po files together. " +
-                            "The def.po file is an existing PO file with " +
-                            "translations. The ref.pot file is the last " +
-                            "created PO file with up-to-date source " +
-                            "references. ref.pot is generally created by " +
-                            "rgettext.")
+                            "The definition.po file is an existing PO file " +
+                            "with translations. The reference.pot file is " +
+                            "the last created PO file with up-to-date source " +
+                            "references. The reference.pot is generally " +
+                            "created by rxgettext.")
           parser.separator(description)
           parser.separator("")
           parser.separator(_("Specific options:"))
@@ -269,7 +270,7 @@ module GetText
           end
 
           parser.on_tail("--version",
-                         _("display version information and exit")) do
+                         _("Display version information and exit")) do
             puts(GetText::VERSION)
             exit(true)
           end
