@@ -281,203 +281,24 @@ msgstr ""
   class TestToS < self
     def setup
       @po = GetText::PO.new
-      @po[""] = header
-      @po[""].translator_comment = header_comment
     end
 
-    def test_same_filename
-      hello = "hello"
-      hello_translation = "こんにちは"
-      hello_references = ["file.rb:10"]
-      hello_comment = "#: file.rb:10"
-      bye = "bye"
-      bye_translation = "さようなら"
-      bye_references = ["file.rb:20"]
-      bye_comment = "#: file.rb:20"
-
-      @po[hello] = hello_translation
-      @po[hello].references = hello_references
-
-      @po[bye] = bye_translation
-      @po[bye].references = bye_references
-
-      expected_po =<<EOP
-#{expected_header_comment}
-#
-msgid ""
-msgstr ""
-#{expected_header}
-
-#{hello_comment}
-msgid "#{hello}"
-msgstr "#{hello_translation}"
-
-#{bye_comment}
-msgid "#{bye}"
-msgstr "#{bye_translation}"
-EOP
-      assert_equal(expected_po, @po.to_s)
-    end
-
-    def test_different_filename
-      hello = "hello"
-      hello_translation = "こんにちは"
-      hello_references = ["file.rb:10"]
-      hello_comment = "#: file.rb:10"
-      bye = "bye"
-      bye_translation = "さようなら"
-      bye_references = ["test.rb:10"]
-      bye_comment = "#: test.rb:10"
-
-      @po[hello] = hello_translation
-      @po[hello].references = hello_references
-
-      @po[bye] = bye_translation
-      @po[bye].references = bye_references
-
-      expected_po =<<EOP
-#{expected_header_comment}
-#
-msgid ""
-msgstr ""
-#{expected_header}
-
-#{hello_comment}
-msgid "#{hello}"
-msgstr "#{hello_translation}"
-
-#{bye_comment}
-msgid "#{bye}"
-msgstr "#{bye_translation}"
-EOP
-      assert_equal(expected_po, @po.to_s)
-    end
-
-    def test_including_colon_filename
-      hello = "hello"
-      hello_translation = "こんにちは"
-      hello_references = ["file.rb:10"]
-      hello_comment = "#: file.rb:10"
-      bye = "bye"
-      bye_translation = "さようなら"
-      bye_references = ["file:2.rb:10"]
-      bye_comment = "#: file:2.rb:10"
-
-      @po[hello] = hello_translation
-      @po[hello].references = hello_references
-
-      @po[bye] = bye_translation
-      @po[bye].references = bye_references
-
-      expected_po =<<EOP
-#{expected_header_comment}
-#
-msgid ""
-msgstr ""
-#{expected_header}
-
-#{hello_comment}
-msgid "#{hello}"
-msgstr "#{hello_translation}"
-
-#{bye_comment}
-msgid "#{bye}"
-msgstr "#{bye_translation}"
-EOP
-      assert_equal(expected_po, @po.to_s)
-    end
-
-    def test_no_file_number
-      hello = "hello"
-      hello_translation = "こんにちは"
-      hello_references = ["file.rb"]
-      hello_comment = "#: file.rb"
-      bye = "bye"
-      bye_translation = "さようなら"
-      bye_references = ["test.rb"]
-      bye_comment = "#: test.rb"
-
-      @po[hello] = hello_translation
-      @po[hello].references = hello_references
-
-      @po[bye] = bye_translation
-      @po[bye].references = bye_references
-
-      expected_po =<<EOP
-#{expected_header_comment}
-#
-msgid ""
-msgstr ""
-#{expected_header}
-
-#{hello_comment}
-msgid "#{hello}"
-msgstr "#{hello_translation}"
-
-#{bye_comment}
-msgid "#{bye}"
-msgstr "#{bye_translation}"
-EOP
-      assert_equal(expected_po, @po.to_s)
-    end
-
-    def test_multiple_filename
-      hello = "hello"
-      hello_translation = "こんにちは"
-      hello_references = ["file.rb:10"]
-      hello_comment = "#: file.rb:10"
-      bye = "bye"
-      bye_translation = "さようなら"
-      bye_references = ["test.rb:10", "file.rb:110", "file.rb:20"]
-      bye_comment = "#: file.rb:20 file.rb:110 test.rb:10"
-
-      @po[hello] = hello_translation
-      @po[hello].references = hello_references
-
-      @po[bye] = bye_translation
-      @po[bye].references = bye_references
-
-      expected_po =<<EOP
-#{expected_header_comment}
-#
-msgid ""
-msgstr ""
-#{expected_header}
-
-#{hello_comment}
-msgid "#{hello}"
-msgstr "#{hello_translation}"
-
-#{bye_comment}
-msgid "#{bye}"
-msgstr "#{bye_translation}"
-EOP
-      assert_equal(expected_po, @po.to_s)
-    end
-
-    class TestObsoleteComment < self
+    class TestHeader < self
       def setup
-        @po = GetText::PO.new
-        @po["hello"] = ""
-        @po.set_comment(:last, <<-OBSOLETE_COMMENT)
-# hello.rb:20
-msgid "hi"
-msgstr "Bonjour"
-        OBSOLETE_COMMENT
+        super
+        @po[""] = header
+        @po[""].translator_comment = header_comment
       end
 
-      def test_default
+      def test_no_entry
         assert_equal(<<-PO, @po.to_s)
-
-msgid "hello"
+#{expected_header_comment}
+#
+msgid ""
 msgstr ""
-
-# hello.rb:20
-#~ msgid "hi"
-#~ msgstr "Bonjour"
+#{expected_header}
         PO
       end
-    end
 
     private
     def header
@@ -517,6 +338,176 @@ EOC
         "# #{line}"
       end
       expected_header_comment.join("\n")
+    end
+    end
+
+    def test_same_filename
+      hello = "hello"
+      hello_translation = "こんにちは"
+      hello_references = ["file.rb:10"]
+      hello_comment = "#: file.rb:10"
+      bye = "bye"
+      bye_translation = "さようなら"
+      bye_references = ["file.rb:20"]
+      bye_comment = "#: file.rb:20"
+
+      @po[hello] = hello_translation
+      @po[hello].references = hello_references
+
+      @po[bye] = bye_translation
+      @po[bye].references = bye_references
+
+      expected_po =<<EOP
+
+#{hello_comment}
+msgid "#{hello}"
+msgstr "#{hello_translation}"
+
+#{bye_comment}
+msgid "#{bye}"
+msgstr "#{bye_translation}"
+EOP
+      assert_equal(expected_po, @po.to_s)
+    end
+
+    def test_different_filename
+      hello = "hello"
+      hello_translation = "こんにちは"
+      hello_references = ["file.rb:10"]
+      hello_comment = "#: file.rb:10"
+      bye = "bye"
+      bye_translation = "さようなら"
+      bye_references = ["test.rb:10"]
+      bye_comment = "#: test.rb:10"
+
+      @po[hello] = hello_translation
+      @po[hello].references = hello_references
+
+      @po[bye] = bye_translation
+      @po[bye].references = bye_references
+
+      expected_po =<<EOP
+
+#{hello_comment}
+msgid "#{hello}"
+msgstr "#{hello_translation}"
+
+#{bye_comment}
+msgid "#{bye}"
+msgstr "#{bye_translation}"
+EOP
+      assert_equal(expected_po, @po.to_s)
+    end
+
+    def test_including_colon_filename
+      hello = "hello"
+      hello_translation = "こんにちは"
+      hello_references = ["file.rb:10"]
+      hello_comment = "#: file.rb:10"
+      bye = "bye"
+      bye_translation = "さようなら"
+      bye_references = ["file:2.rb:10"]
+      bye_comment = "#: file:2.rb:10"
+
+      @po[hello] = hello_translation
+      @po[hello].references = hello_references
+
+      @po[bye] = bye_translation
+      @po[bye].references = bye_references
+
+      expected_po =<<EOP
+
+#{hello_comment}
+msgid "#{hello}"
+msgstr "#{hello_translation}"
+
+#{bye_comment}
+msgid "#{bye}"
+msgstr "#{bye_translation}"
+EOP
+      assert_equal(expected_po, @po.to_s)
+    end
+
+    def test_no_file_number
+      hello = "hello"
+      hello_translation = "こんにちは"
+      hello_references = ["file.rb"]
+      hello_comment = "#: file.rb"
+      bye = "bye"
+      bye_translation = "さようなら"
+      bye_references = ["test.rb"]
+      bye_comment = "#: test.rb"
+
+      @po[hello] = hello_translation
+      @po[hello].references = hello_references
+
+      @po[bye] = bye_translation
+      @po[bye].references = bye_references
+
+      expected_po =<<EOP
+
+#{hello_comment}
+msgid "#{hello}"
+msgstr "#{hello_translation}"
+
+#{bye_comment}
+msgid "#{bye}"
+msgstr "#{bye_translation}"
+EOP
+      assert_equal(expected_po, @po.to_s)
+    end
+
+    def test_multiple_filename
+      hello = "hello"
+      hello_translation = "こんにちは"
+      hello_references = ["file.rb:10"]
+      hello_comment = "#: file.rb:10"
+      bye = "bye"
+      bye_translation = "さようなら"
+      bye_references = ["test.rb:10", "file.rb:110", "file.rb:20"]
+      bye_comment = "#: file.rb:20 file.rb:110 test.rb:10"
+
+      @po[hello] = hello_translation
+      @po[hello].references = hello_references
+
+      @po[bye] = bye_translation
+      @po[bye].references = bye_references
+
+      expected_po =<<EOP
+
+#{hello_comment}
+msgid "#{hello}"
+msgstr "#{hello_translation}"
+
+#{bye_comment}
+msgid "#{bye}"
+msgstr "#{bye_translation}"
+EOP
+      assert_equal(expected_po, @po.to_s)
+    end
+
+    class TestObsoleteComment < self
+      def setup
+        @po = GetText::PO.new
+        @po["hello"] = ""
+        @po.set_comment(:last, <<-OBSOLETE_COMMENT)
+# hello.rb:20
+msgid "hi"
+msgstr "Bonjour"
+        OBSOLETE_COMMENT
+      end
+
+      def test_default
+        assert_equal(<<-PO, @po.to_s)
+
+msgid "hello"
+msgstr ""
+
+# hello.rb:20
+#~ msgid "hi"
+#~ msgstr "Bonjour"
+        PO
+      end
     end
   end
 end
