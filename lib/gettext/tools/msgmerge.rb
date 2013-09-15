@@ -201,6 +201,7 @@ module GetText
         attr_accessor :definition_po, :reference_pot
         attr_accessor :output, :fuzzy, :update
         attr_accessor :order
+        attr_accessor :po_format_options
 
         # update mode options
         attr_accessor :backup, :suffix
@@ -223,6 +224,7 @@ module GetText
           @reference_po = nil
           @output = nil
           @order = :references
+          @po_format_options = {}
           @fuzzy = nil
           @update = nil
           @backup = ENV["VERSION_CONTROL"]
@@ -279,6 +281,11 @@ module GetText
             @order = sort_by_msgid ?  :msgid : :references
           end
 
+          parser.on("--[no-]location",
+                    _("Preserve '#: FILENAME:LINE' lines")) do |location|
+            @po_format_options[:include_reference_comment] = location
+          end
+
           #parser.on("-F", "--fuzzy-matching")
 
           parser.on("-h", "--help", _("Display this help and exit")) do
@@ -330,10 +337,10 @@ module GetText
 
         if config.output.is_a?(String)
           File.open(File.expand_path(config.output), "w+") do |file|
-            file.write(result.to_s)
+            file.write(result.to_s(config.po_format_options))
           end
         else
-          puts(result.to_s)
+          puts(result.to_s(config.po_format_options))
         end
       end
     end

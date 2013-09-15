@@ -279,7 +279,7 @@ EOC
     end
   end
 
-  class TestMerge < self
+  class TestCommand < self
     include GetTextTestUtils
 
     def setup
@@ -472,6 +472,45 @@ msgstr ""
 msgid "World"
 msgstr "Translated World"
 EOP
+      end
+    end
+
+    class TestLocation < self
+      def test_location
+        @msgmerge.run("--output", @po_file_path,
+                      "--location",
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-PO, File.read(@po_file_path))
+#{po_header(@pot_formatted_time, @po_formatted_time)}
+#: hello.rb:1
+msgid "Hello"
+msgstr ""
+
+#: hello.rb:2
+msgid "World"
+msgstr "Translated World"
+
+#: hello.rb:3
+msgid "Hello World"
+msgstr ""
+        PO
+      end
+
+      def test_no_location
+        @msgmerge.run("--output", @po_file_path,
+                      "--no-location",
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-PO, File.read(@po_file_path))
+#{po_header(@pot_formatted_time, @po_formatted_time)}
+msgid "Hello"
+msgstr ""
+
+msgid "World"
+msgstr "Translated World"
+
+msgid "Hello World"
+msgstr ""
+        PO
       end
     end
   end
