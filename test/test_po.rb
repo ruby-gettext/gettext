@@ -284,25 +284,8 @@ msgstr ""
     end
 
     class TestHeader < self
-      def setup
-        super
-        @po[""] = header
-        @po[""].translator_comment = header_comment
-      end
-
       def test_no_entry
-        assert_equal(<<-PO, @po.to_s)
-#{expected_header_comment}
-#
-msgid ""
-msgstr ""
-#{expected_header}
-        PO
-      end
-
-      private
-      def header
-        <<EOH
+        @po[""] = <<-HEADER
 Project-Id-Version: test 1.0.0
 POT-Creation-Date: 2012-10-31 12:40+0900
 PO-Revision-Date: 2012-11-01 17:46+0900
@@ -313,31 +296,34 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Plural-Forms: nplurals=2; plural=(n != 1)
-EOH
-      end
-
-      def header_comment
-        <<EOC
+        HEADER
+        @po[""].translator_comment = <<-HEADER_COMMENT
 Japanese translations for test package.
 Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
 This file is distributed under the same license as the PACKAGE package.
 FULLNAME <MAIL@ADDRESS>, 2012.
 
-EOC
-      end
+        HEADER_COMMENT
 
-      def expected_header
-        expected_header = header.split("\n").collect do |line|
-          "\"#{line}\\n\""
-        end
-        expected_header.join("\n")
-      end
-
-      def expected_header_comment
-        expected_header_comment = header_comment.split("\n").collect do |line|
-          "# #{line}"
-        end
-        expected_header_comment.join("\n")
+        assert_equal(<<-PO, @po.to_s)
+# Japanese translations for test package.
+# Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FULLNAME <MAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: test 1.0.0\\n"
+"POT-Creation-Date: 2012-10-31 12:40+0900\\n"
+"PO-Revision-Date: 2012-11-01 17:46+0900\\n"
+"Last-Translator: FULLNAME <MAIL@ADDRESS>\\n"
+"Language-Team: Japanese\\n"
+"Language: \\n"
+"MIME-Version: 1.0\\n"
+"Content-Type: text/plain; charset=UTF-8\\n"
+"Content-Transfer-Encoding: 8bit\\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\\n"
+        PO
       end
     end
 
