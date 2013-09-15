@@ -226,7 +226,6 @@ msgstr ""
     def test_nil
       @po.order = nil
       assert_equal(<<-PO, @po.to_s)
-
 #: hello.rb:2
 msgid "World"
 msgstr ""
@@ -244,7 +243,6 @@ msgstr ""
     def test_msgid
       @po.order = :msgid
       assert_equal(<<-PO, @po.to_s)
-
 #: hello.rb:1
 msgid "Hello"
 msgstr ""
@@ -262,7 +260,6 @@ msgstr ""
     def test_references
       @po.order = :references
       assert_equal(<<-PO, @po.to_s)
-
 #: hello.rb:1
 msgid "Hello"
 msgstr ""
@@ -345,7 +342,6 @@ msgstr ""
         @po[bye].references = bye_references
 
         expected_po =<<EOP
-
 #{hello_comment}
 msgid "#{hello}"
 msgstr "#{hello_translation}"
@@ -374,7 +370,6 @@ EOP
         @po[bye].references = bye_references
 
         expected_po =<<EOP
-
 #{hello_comment}
 msgid "#{hello}"
 msgstr "#{hello_translation}"
@@ -403,7 +398,6 @@ EOP
         @po[bye].references = bye_references
 
         expected_po =<<EOP
-
 #{hello_comment}
 msgid "#{hello}"
 msgstr "#{hello_translation}"
@@ -432,7 +426,6 @@ EOP
         @po[bye].references = bye_references
 
         expected_po =<<EOP
-
 #{hello_comment}
 msgid "#{hello}"
 msgstr "#{hello_translation}"
@@ -461,7 +454,6 @@ EOP
         @po[bye].references = bye_references
 
         expected_po =<<EOP
-
 #{hello_comment}
 msgid "#{hello}"
 msgstr "#{hello_translation}"
@@ -482,7 +474,6 @@ EOP
 
         def test_false
           assert_equal(<<-PO, @po.to_s(:include_reference_comment => false))
-
 msgid "Hi"
 msgstr "Bonjour"
           PO
@@ -503,7 +494,6 @@ msgstr "Bonjour"
 
       def test_default
         assert_equal(<<-PO, @po.to_s)
-
 msgid "hello"
 msgstr ""
 

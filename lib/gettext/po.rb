@@ -197,11 +197,13 @@ module GetText
       end
 
       sort(content_entries).each do |msgid, entry|
-        po_string << "\n" << entry.to_s(options)
+        po_string << "\n" unless po_string.empty?
+        po_string << entry.to_s(options)
       end
 
       if @entries.has_key?([nil, :last])
-        po_string << "\n" << @entries[[nil, :last]].to_s(options)
+        po_string << "\n" unless po_string.empty?
+        po_string << @entries[[nil, :last]].to_s(options)
       end
 
       po_string
