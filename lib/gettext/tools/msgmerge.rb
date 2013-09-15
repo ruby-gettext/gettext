@@ -262,12 +262,7 @@ module GetText
 
       private
       def check_command_line_options(*options) #:nodoc:
-        options, output = parse_arguments(*options)
-
-        config = Config.new
-        config.output = output
-        config.defpo = options[0]
-        config.refpot = options[1]
+        config = parse_arguments(*options)
 
         if config.defpo.nil?
           raise ArgumentError, _("definition po is not given.")
@@ -279,6 +274,9 @@ module GetText
       end
 
       def parse_arguments(*options) #:nodoc:
+        config = Config.new
+        config.output = nil
+
         parser = OptionParser.new
         parser.banner = _("Usage: %s def.po ref.pot [-o output.pot]") % $0
         #parser.summary_width = 80
@@ -293,11 +291,9 @@ module GetText
         parser.separator("")
         parser.separator(_("Specific options:"))
 
-        output = nil
-
         parser.on("-o", "--output=FILE",
-                _("write output to specified file")) do |out|
-          output = out
+                _("write output to specified file")) do |output|
+          config.output = output
         end
 
         #parser.on("-F", "--fuzzy-matching")
@@ -314,7 +310,10 @@ module GetText
 
         parser.parse!(options)
 
-        [options, output]
+        config.defpo = options[0]
+        config.refpot = options[1]
+
+        config
       end
     end
   end
