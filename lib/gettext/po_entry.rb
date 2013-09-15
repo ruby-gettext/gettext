@@ -378,5 +378,4 @@ module GetText
       send param
     end
   end
-
 end
