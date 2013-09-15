@@ -170,22 +170,27 @@ class TestToolsTask < Test::Unit::TestCase
     end
 
     class TestTask < self
+      def setup
+        super
+        @task.domain = "hello"
+      end
+
+      def test_empty
+        @task.files = []
+        error = assert_raise(GetText::Tools::Task::ValidationError) do
+          @task.define
+        end
+        assert_equal({"files" => "must set one or more files"},
+                     error.reasons)
+      end
+
       class TestPOT < self
         def setup
           super
-          @task.domain = "hello"
           @pot_file = @task.send(:pot_file)
         end
 
-        def test_empty
-          @task.files = []
-          @task.define
-          assert_raise(RuntimeError) do
-            Rake::Task[@pot_file]
-          end
-        end
-
-        def test_not_empty
+        def test_prerequisites
           @task.files = [__FILE__]
           @task.define
           assert_equal([__FILE__],
@@ -196,21 +201,12 @@ class TestToolsTask < Test::Unit::TestCase
       class TestPO < self
         def setup
           super
-          @task.domain = "hello"
           @locale = "ja"
           @task.locales = [@locale]
           @po_file = @task.send(:po_file, @locale)
         end
 
-        def test_empty
-          @task.files = []
-          @task.define
-          assert_raise(RuntimeError) do
-            Rake::Task[@po_file]
-          end
-        end
-
-        def test_not_empty
+        def test_prerequisites
           @task.files = [__FILE__]
           @task.define
           assert_equal([@task.send(:pot_file)],
@@ -221,7 +217,6 @@ class TestToolsTask < Test::Unit::TestCase
       class TestMO < self
         def setup
           super
-          @task.domain = "hello"
           @locale = "ja"
           @task.locales = [@locale]
           @po_file = @task.send(:po_file, @locale)
@@ -229,6 +224,7 @@ class TestToolsTask < Test::Unit::TestCase
         end
 
         def test_prerequisites
+          @task.files = [__FILE__]
           @task.define
           assert_equal([@po_file],
                        Rake::Task[@mo_file].prerequisites)
@@ -252,6 +248,12 @@ class TestToolsTask < Test::Unit::TestCase
     end
 
     class TestTask < self
+      def setup
+        super
+        @task.domain = "hello"
+        @task.files = [__FILE__]
+      end
+
       def test_true
         @task.enable_description = true
         @task.define

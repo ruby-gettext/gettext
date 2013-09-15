@@ -23,6 +23,22 @@ require "gettext/tools"
 module GetText
   module Tools
     class Task
+      class Error < StandardError
+      end
+
+      class ValidationError < Error
+        attr_reader :reasons
+        def initialize(reasons)
+          @reasons = reasons
+          lines = []
+          lines << "invalid configurations:"
+          @reasons.each do |variable, reason|
+            lines << "#{variable}: #{reason}"
+          end
+          super(lines.join("\n"))
+        end
+      end
+
       include GetText
       include Rake::DSL
 
@@ -167,7 +183,14 @@ module GetText
       end
 
       def validate
-        raise("must set locales: #{inspect}") if @locales.empty?
+        reasons = {}
+        if @locales.empty?
+          reasons["locales"] = "must set one or more locales"
+        end
+        if @files.empty?
+          reasons["files"] = "must set one or more files"
+        end
+        raise ValidationError.new(reasons) unless reasons.empty?
       end
 
       def desc(*args)
@@ -185,8 +208,6 @@ module GetText
       end
 
       def define_pot_task
-        return if files.empty?
-
         pot_dependencies = files.dup
         unless File.exist?(po_base_directory)
           directory po_base_directory
@@ -209,8 +230,6 @@ module GetText
       end
 
       def define_po_task(locale)
-        return if files.empty?
-
         _po_file = po_file(locale)
         po_dependencies = [pot_file]
         _po_directory = po_directory(locale)
