@@ -284,6 +284,19 @@ module GetText
           end
 
           namespace :po do
+            po_scope = current_scope
+            desc "Add a new locale"
+            task :add, [:locale] do |_task, args|
+              locale = args.locale || ENV["LOCALE"]
+              if locale.nil?
+                raise "specify locale name by " +
+                  "'rake #{_task.name}[${LOCALE}]' or " +
+                  "rake #{_task.name} LOCALE=${LOCALE}'"
+              end
+              define_po_task(locale)
+              Rake::Task[po_file(locale)].invoke
+            end
+
             update_tasks = []
             @locales.each do |locale|
               namespace locale do
