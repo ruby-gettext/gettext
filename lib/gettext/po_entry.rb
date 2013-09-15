@@ -98,13 +98,13 @@ module GetText
 
     # Support for extracted comments. Explanation s.
     # http://www.gnu.org/software/gettext/manual/gettext.html#Names
+    # @return [void]
     def add_comment(new_comment)
       if (new_comment and ! new_comment.empty?)
         @extracted_comment ||= ""
         @extracted_comment << "\n" unless @extracted_comment.empty?
         @extracted_comment << new_comment
       end
-      to_s
     end
 
     # Returns a parameter representation suitable for po-files
