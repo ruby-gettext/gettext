@@ -198,7 +198,8 @@ module GetText
 
         bindtextdomain("gettext")
 
-        attr_accessor :defpo, :refpot, :output, :fuzzy, :update
+        attr_accessor :definition_po, :reference_pot
+        attr_accessor :output, :fuzzy, :update
 
         # update mode options
         attr_accessor :backup, :suffix
@@ -217,6 +218,8 @@ module GetText
         # the SIMPLE_BACKUP_SUFFIX environment variable.
 
         def initialize
+          @definition_po = nil
+          @reference_po = nil
           @output = nil
           @fuzzy = nil
           @update = nil
@@ -234,7 +237,7 @@ module GetText
             exit(false)
           end
 
-          @defpo, @refpot = rest
+          @definition_po, @reference_pot = rest
         end
 
         private
@@ -290,11 +293,13 @@ module GetText
 
         parser = POParser.new
         parser.ignore_fuzzy = false
-        defpo = parser.parse_file(config.defpo, PO.new)
-        refpot = parser.parse_file(config.refpot, PO.new)
+        definition_po = PO.new
+        reference_pot = PO.new
+        parser.parse_file(config.definition_po, definition_po)
+        parser.parse_file(config.reference_pot, reference_pot)
 
         merger = Merger.new
-        result = merger.merge(defpo, refpot)
+        result = merger.merge(definition_po, reference_pot)
         p result if $DEBUG
         print result.generate_po if $DEBUG
 
