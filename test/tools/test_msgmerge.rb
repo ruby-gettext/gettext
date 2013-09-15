@@ -398,7 +398,7 @@ EOP
     class TestSort < self
       def test_default
         @msgmerge.run("--output", @po_file_path, @po_file_path, @pot_file_path)
-        assert_equal(<<-EOP, File.read(@po_file_path))
+        assert_equal(<<-PO, File.read(@po_file_path))
 #{po_header(@pot_formatted_time, @po_formatted_time)}
 #: hello.rb:1
 msgid "Hello"
@@ -411,14 +411,14 @@ msgstr "Translated World"
 #: hello.rb:3
 msgid "Hello World"
 msgstr ""
-EOP
+        PO
       end
 
       def test_sort_output
         @msgmerge.run("--output", @po_file_path,
                       "--sort-output",
                       @po_file_path, @pot_file_path)
-        assert_equal(<<-EOP, File.read(@po_file_path))
+        assert_equal(<<-PO, File.read(@po_file_path))
 #{po_header(@pot_formatted_time, @po_formatted_time)}
 #: hello.rb:1
 msgid "Hello"
@@ -431,14 +431,14 @@ msgstr "Translated World"
 #: hello.rb:3
 msgid "Hello World"
 msgstr ""
-EOP
+        PO
       end
 
       def test_sort_by_file
         @msgmerge.run("--output", @po_file_path,
                       "--sort-by-file",
                       @po_file_path, @pot_file_path)
-        assert_equal(<<-EOP, File.read(@po_file_path))
+        assert_equal(<<-PO, File.read(@po_file_path))
 #{po_header(@pot_formatted_time, @po_formatted_time)}
 #: hello.rb:1
 msgid "Hello"
@@ -451,14 +451,14 @@ msgstr "Translated World"
 #: hello.rb:3
 msgid "Hello World"
 msgstr ""
-EOP
+        PO
       end
 
       def test_sort_by_msgid
         @msgmerge.run("--output", @po_file_path,
                       "--sort-by-msgid",
                       @po_file_path, @pot_file_path)
-        assert_equal(<<-EOP, File.read(@po_file_path))
+        assert_equal(<<-PO, File.read(@po_file_path))
 #{po_header(@pot_formatted_time, @po_formatted_time)}
 #: hello.rb:1
 msgid "Hello"
@@ -471,7 +471,7 @@ msgstr ""
 #: hello.rb:2
 msgid "World"
 msgstr "Translated World"
-EOP
+        PO
       end
     end
 
