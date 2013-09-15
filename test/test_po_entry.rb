@@ -354,6 +354,31 @@ msgstr "msgstr"
 EOP
       assert_equal(expected_po, entry.to_s)
     end
+
+    class TestOptions < self
+      class TestIncludeReferenceComment < self
+        def setup
+          @entry = GetText::POEntry.new(:normal)
+          @entry.msgid = "hello"
+          @entry.references = ["hello.rb:1"]
+        end
+
+        def test_default
+          assert_equal(<<-PO, @entry.to_s)
+#: hello.rb:1
+msgid "hello"
+msgstr ""
+          PO
+        end
+
+        def test_false
+          assert_equal(<<-PO, @entry.to_s(:include_reference_comment => false))
+msgid "hello"
+msgstr ""
+          PO
+        end
+      end
+    end
   end
 
   class TestEscape < self

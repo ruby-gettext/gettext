@@ -179,8 +179,12 @@ module GetText
       res
     end
 
-    # Output the po entry for the po-file.
-    def to_s
+    # Format the po entry in PO format.
+    #
+    # @param [Hash] options
+    # @options options [Bool] :include_reference_comment (true)
+    #   Includes reference comments in formatted string if true.
+    def to_s(options={})
       raise(NoMsgidError, "msgid is nil.") unless @msgid
 
       str = ""
@@ -191,7 +195,9 @@ module GetText
 
       str << format_translator_comment
       str << format_extracted_comment
-      str << format_reference_comment
+      if options[:include_reference_comment] != false
+        str << format_reference_comment
+      end
       str << format_flag_comment
       str << format_previous_comment
 
