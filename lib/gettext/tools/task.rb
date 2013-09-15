@@ -299,11 +299,25 @@ module GetText
       def define_named_tasks
         namespace :gettext do
           if @enable_po
+            define_pot_tasks
+            define_po_tasks
+          end
+
+          define_mo_tasks
+        end
+
+        desc "Update *.mo"
+        task :gettext => (current_scope + ["gettext", "mo", "update"]).join(":")
+      end
+
+      def define_pot_tasks
           namespace :pot do
             desc "Create #{pot_file}"
             task :create => pot_file
           end
+      end
 
+      def define_po_tasks
           namespace :po do
             desc "Add a new locale"
             task :add, [:locale] do |_task, args|
@@ -329,8 +343,9 @@ module GetText
             desc "Update *.po"
             task :update => update_tasks
           end
-          end
+      end
 
+      def define_mo_tasks
           namespace :mo do
             update_tasks = []
             @locales.each do |locale|
@@ -344,10 +359,6 @@ module GetText
             desc "Update *.mo"
             task :update => update_tasks
           end
-        end
-
-        desc "Update *.mo"
-        task :gettext => (current_scope + ["gettext", "mo", "update"]).join(":")
       end
 
       def pot_file
