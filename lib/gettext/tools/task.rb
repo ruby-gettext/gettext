@@ -114,6 +114,10 @@ module GetText
       # @see #enable_description? For details.
       attr_writer :enable_description
 
+      # @return [Bool]
+      # @see #enable_po? For details.
+      attr_writer :enable_po
+
       # @param [Gem::Specification, nil] spec Package information associated
       #   with the task. Some information are extracted from the spec.
       # @see #spec= What information are extracted from the spec.
@@ -173,6 +177,17 @@ module GetText
         @enable_description
       end
 
+      # If it is true, PO related tasks are defined. Otherwise, they
+      # are not defined.
+      #
+      # This parameter is useful to manage PO written by hand.
+      #
+      # @return [Bool]
+      # @since 3.0.1
+      def enable_po?
+        @enable_po
+      end
+
       private
       def initialize_variables
         @spec = nil
@@ -186,6 +201,7 @@ module GetText
         @namespace_prefix = nil
         @xgettext_options = []
         @enable_description = true
+        @enable_po = true
       end
 
       def ensure_variables
@@ -197,7 +213,7 @@ module GetText
         if @locales.empty?
           reasons["locales"] = "must set one or more locales"
         end
-        if @files.empty?
+        if @enable_po and @files.empty?
           reasons["files"] = "must set one or more files"
         end
         if @domain.nil?
@@ -221,6 +237,8 @@ module GetText
       end
 
       def define_pot_task
+        return unless @enable_po
+
         pot_dependencies = files.dup
         unless File.exist?(po_base_directory)
           directory po_base_directory
@@ -243,6 +261,8 @@ module GetText
       end
 
       def define_po_task(locale)
+        return unless @enable_po
+
         _po_file = po_file(locale)
         po_dependencies = [pot_file]
         _po_directory = po_directory(locale)
@@ -278,6 +298,7 @@ module GetText
 
       def define_named_tasks
         namespace :gettext do
+          if @enable_po
           namespace :pot do
             desc "Create #{pot_file}"
             task :create => pot_file
@@ -307,6 +328,7 @@ module GetText
 
             desc "Update *.po"
             task :update => update_tasks
+          end
           end
 
           namespace :mo do

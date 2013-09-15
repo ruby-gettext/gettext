@@ -171,7 +171,7 @@ po_only_domains.each do |domain|
     task.namespace_prefix = "test:#{domain}"
     task.po_base_directory = "test/po"
     task.mo_base_directory = "test/locale"
-    task.files = ["test/po"] # dummy
+    task.enable_po = false
     task.locales = Dir.glob("test/po/*/#{domain}.po").collect do |po|
       File.basename(File.dirname(po))
     end

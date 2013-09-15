@@ -251,4 +251,37 @@ class TestToolsTask < Test::Unit::TestCase
       end
     end
   end
+
+  class TestEnablePO < self
+    def test_default
+      assert_true(@task.enable_po?)
+    end
+
+    def test_accessor
+      @task.enable_po = false
+      assert_false(@task.enable_po?)
+    end
+
+    class TestTask < self
+      def setup
+        @task.domain = "hello"
+      end
+
+      def test_true
+        @task.enable_po = true
+        error = assert_raise(GetText::Tools::Task::ValidationError) do
+          @task.define
+        end
+        assert_equal({"files" => "must set one or more files"},
+                     error.reasons)
+      end
+
+      def test_false
+        @task.enable_po = false
+        @task.define
+        task_names = @application.tasks.collect(&:name)
+        assert_equal([], task_names.grep(/\Agettext:po/))
+      end
+    end
+  end
 end
