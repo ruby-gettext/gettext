@@ -311,54 +311,54 @@ module GetText
       end
 
       def define_pot_tasks
-          namespace :pot do
-            desc "Create #{pot_file}"
-            task :create => pot_file
-          end
+        namespace :pot do
+          desc "Create #{pot_file}"
+          task :create => pot_file
+        end
       end
 
       def define_po_tasks
-          namespace :po do
-            desc "Add a new locale"
-            task :add, [:locale] do |_task, args|
-              locale = args.locale || ENV["LOCALE"]
-              if locale.nil?
-                raise "specify locale name by " +
-                  "'rake #{_task.name}[${LOCALE}]' or " +
-                  "rake #{_task.name} LOCALE=${LOCALE}'"
-              end
-              define_po_file_task(locale)
-              Rake::Task[po_file(locale)].invoke
+        namespace :po do
+          desc "Add a new locale"
+          task :add, [:locale] do |_task, args|
+            locale = args.locale || ENV["LOCALE"]
+            if locale.nil?
+              raise "specify locale name by " +
+                "'rake #{_task.name}[${LOCALE}]' or " +
+                "rake #{_task.name} LOCALE=${LOCALE}'"
             end
-
-            update_tasks = []
-            @locales.each do |locale|
-              namespace locale do
-                desc "Update #{po_file(locale)}"
-                task :update => po_file(locale)
-                update_tasks << (current_scope + ["update"]).join(":")
-              end
-            end
-
-            desc "Update *.po"
-            task :update => update_tasks
+            define_po_file_task(locale)
+            Rake::Task[po_file(locale)].invoke
           end
+
+          update_tasks = []
+          @locales.each do |locale|
+            namespace locale do
+              desc "Update #{po_file(locale)}"
+              task :update => po_file(locale)
+              update_tasks << (current_scope + ["update"]).join(":")
+            end
+          end
+
+          desc "Update *.po"
+          task :update => update_tasks
+        end
       end
 
       def define_mo_tasks
-          namespace :mo do
-            update_tasks = []
-            @locales.each do |locale|
-              namespace locale do
-                desc "Update #{mo_file(locale)}"
-                task :update => mo_file(locale)
-                update_tasks << (current_scope + ["update"]).join(":")
-              end
+        namespace :mo do
+          update_tasks = []
+          @locales.each do |locale|
+            namespace locale do
+              desc "Update #{mo_file(locale)}"
+              task :update => mo_file(locale)
+              update_tasks << (current_scope + ["update"]).join(":")
             end
-
-            desc "Update *.mo"
-            task :update => update_tasks
           end
+
+          desc "Update *.mo"
+          task :update => update_tasks
+        end
       end
 
       def pot_file
