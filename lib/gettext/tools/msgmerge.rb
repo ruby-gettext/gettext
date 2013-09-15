@@ -279,17 +279,23 @@ module GetText
       end
 
       class << self
-        # Merge a po-file inluding translated messages and a new pot-file.
-        # @param [Array<String>] arguments arguments for rmsgfmt.
-        # @return [void]
-        def run(*arguments)
-          new.run(*arguments)
+        # (see #run)
+        #
+        # This method is provided just for convenience. It equals to
+        # `new.run(*command_line)`.
+        def run(*command_line)
+          new.run(*command_line)
         end
       end
 
-      def run(*options) #:nodoc:
+      # Merge a po-file inluding translated messages and a new pot-file.
+      #
+      # @param [Array<String>] command_line
+      #   command line arguments for rmsgmerge.
+      # @return [void]
+      def run(*command_line)
         config = Config.new
-        config.parse(options)
+        config.parse(command_line)
 
         parser = POParser.new
         parser.ignore_fuzzy = false
