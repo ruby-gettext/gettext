@@ -194,6 +194,9 @@ module GetText
 
       # @private
       class Config
+        include GetText
+
+        bindtextdomain("gettext")
 
         attr_accessor :defpo, :refpot, :output, :fuzzy, :update
 
@@ -280,10 +283,6 @@ module GetText
           new.run(*arguments)
         end
       end
-
-      include GetText
-
-      bindtextdomain("gettext")
 
       def run(*options) #:nodoc:
         config = Config.new
