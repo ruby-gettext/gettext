@@ -455,6 +455,7 @@ EOP
       assert_equal(expected_po, @po.to_s)
     end
 
+    class TestObsoleteComment < self
     def test_obsolete_comment
       hello = "hello"
       hello_translation = "こんにちは"
@@ -507,6 +508,33 @@ EOP
     end
 
     private
+    def obsolete_comment
+      <<EOC
+# test.rb:10
+msgid \"hello\"
+msgstr \"Salut\"
+
+# test.rb:20
+msgid \"hi\"
+msgstr \"Bonjour\"
+EOC
+    end
+
+    def expected_obsolete_comment
+      comment = <<EOC
+# test.rb:10
+#~ msgid \"hello\"
+#~ msgstr \"Salut\"
+
+# test.rb:20
+#~ msgid \"hi\"
+#~ msgstr \"Bonjour\"
+EOC
+      comment.chomp
+    end
+    end
+
+    private
     def header
       <<EOH
 Project-Id-Version: test 1.0.0
@@ -544,31 +572,6 @@ EOC
         "# #{line}"
       end
       expected_header_comment.join("\n")
-    end
-
-    def obsolete_comment
-      <<EOC
-# test.rb:10
-msgid \"hello\"
-msgstr \"Salut\"
-
-# test.rb:20
-msgid \"hi\"
-msgstr \"Bonjour\"
-EOC
-    end
-
-    def expected_obsolete_comment
-      comment = <<EOC
-# test.rb:10
-#~ msgid \"hello\"
-#~ msgstr \"Salut\"
-
-# test.rb:20
-#~ msgid \"hi\"
-#~ msgstr \"Bonjour\"
-EOC
-      comment.chomp
     end
   end
 end
