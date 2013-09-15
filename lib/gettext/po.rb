@@ -183,24 +183,25 @@ module GetText
     # them.
     # @see http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html#PO-Files
     #   The description for Format of PO in GNU gettext manual
+    # @param (see POEntry#to_s)
     # @return [String] Formatted and joined PO entries. It is used for
     #   creating .po files.
-    def to_s
+    def to_s(options={})
       po_string = ""
 
       header_entry = @entries[[nil, ""]]
-      po_string << header_entry.to_s unless header_entry.nil?
+      po_string << header_entry.to_s(options) unless header_entry.nil?
 
       content_entries = @entries.reject do |(_, msgid), _|
         msgid == :last or msgid.empty?
       end
 
       sort(content_entries).each do |msgid, entry|
-        po_string << "\n" << entry.to_s
+        po_string << "\n" << entry.to_s(options)
       end
 
       if @entries.has_key?([nil, :last])
-        po_string << "\n" << @entries[[nil, :last]].to_s
+        po_string << "\n" << @entries[[nil, :last]].to_s(options)
       end
 
       po_string

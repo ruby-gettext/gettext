@@ -472,6 +472,22 @@ msgstr "#{bye_translation}"
 EOP
         assert_equal(expected_po, @po.to_s)
       end
+
+      class TestIncludeReferenceComment < self
+        def setup
+          super
+          @po["Hi"] = "Bonjour"
+          @po["Hi"].references = ["hi.rb:29"]
+        end
+
+        def test_false
+          assert_equal(<<-PO, @po.to_s(:include_reference_comment => false))
+
+msgid "Hi"
+msgstr "Bonjour"
+          PO
+        end
+      end
     end
 
     class TestObsoleteComment < self
