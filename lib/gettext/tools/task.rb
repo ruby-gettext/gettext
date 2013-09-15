@@ -228,15 +228,15 @@ module GetText
       end
 
       def define_file_tasks
-        define_pot_task
+        define_pot_file_task
 
         locales.each do |locale|
-          define_po_task(locale)
-          define_mo_task(locale)
+          define_po_file_task(locale)
+          define_mo_file_task(locale)
         end
       end
 
-      def define_pot_task
+      def define_pot_file_task
         return unless @enable_po
 
         pot_dependencies = files.dup
@@ -260,7 +260,7 @@ module GetText
         end
       end
 
-      def define_po_task(locale)
+      def define_po_file_task(locale)
         return unless @enable_po
 
         _po_file = po_file(locale)
@@ -282,7 +282,7 @@ module GetText
         end
       end
 
-      def define_mo_task(locale)
+      def define_mo_file_task(locale)
         _po_file  = po_file(locale)
         mo_dependencies = [_po_file]
         _mo_directory = mo_directory(locale)
@@ -313,7 +313,7 @@ module GetText
                   "'rake #{_task.name}[${LOCALE}]' or " +
                   "rake #{_task.name} LOCALE=${LOCALE}'"
               end
-              define_po_task(locale)
+              define_po_file_task(locale)
               Rake::Task[po_file(locale)].invoke
             end
 
