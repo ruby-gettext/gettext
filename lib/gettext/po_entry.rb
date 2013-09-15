@@ -156,13 +156,13 @@ module GetText
       end
       if other.msgid_plural && !msgid_plural
         res = other
-        unless (res.references.include? references[0])
+        unless res.references.include?(references[0])
           res.references += references
           res.add_comment(extracted_comment)
         end
       else
         res = self
-        unless (res.references.include? other.references[0])
+        unless res.references.include?(other.references[0])
           res.references += other.references
           res.add_comment(other.extracted_comment)
         end
