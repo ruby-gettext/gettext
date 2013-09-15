@@ -274,6 +274,11 @@ module GetText
             @order = sort_by_file ? :references : :msgid
           end
 
+          parser.on("--[no-]sort-by-msgid",
+                    _("Sort output by msgid")) do |sort_by_msgid|
+            @order = sort_by_msgid ?  :msgid : :references
+          end
+
           #parser.on("-F", "--fuzzy-matching")
 
           parser.on("-h", "--help", _("Display this help and exit")) do
