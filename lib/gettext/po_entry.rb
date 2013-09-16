@@ -45,11 +45,11 @@ module GetText
       :msgctxt_plural => [:msgctxt, :msgid, :msgid_plural, :msgstr]
     }
 
-   TRANSLATOR_COMMENT_MARK = "# "
-   EXTRACTED_COMMENT_MARK = "#."
-   FLAG_MARK = "#,"
-   PREVIOUS_COMMENT_MARK = "#|"
-   REFERENCE_COMMENT_MARK = "#:"
+    TRANSLATOR_COMMENT_MARK = "# "
+    EXTRACTED_COMMENT_MARK = "#."
+    FLAG_MARK = "#,"
+    PREVIOUS_COMMENT_MARK = "#|"
+    REFERENCE_COMMENT_MARK = "#:"
 
     # Required
     attr_reader :type          # :normal, :plural, :msgctxt, :msgctxt_plural
