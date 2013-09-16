@@ -77,39 +77,39 @@ module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 123)
     until str.empty? do
       case str
       when /\A\s+/
-	str = $'
+        str = $'
       when /\Amsgctxt/
-	@q.push [:MSGCTXT, $&]
-	str = $'
+        @q.push [:MSGCTXT, $&]
+        str = $'
       when /\Amsgid_plural/
-	@q.push [:MSGID_PLURAL, $&]
-	str = $'
+        @q.push [:MSGID_PLURAL, $&]
+        str = $'
       when /\Amsgid/
-	@q.push [:MSGID, $&]
-	str = $'
+        @q.push [:MSGID, $&]
+        str = $'
       when /\Amsgstr/
-	@q.push [:MSGSTR, $&]
-	str = $'
+        @q.push [:MSGSTR, $&]
+        str = $'
       when /\A\[(\d+)\]/
-	@q.push [:PLURAL_NUM, $1]
-	str = $'
+        @q.push [:PLURAL_NUM, $1]
+        str = $'
       when /\A\#~(.*)/
         if report_warning?
           $stderr.print _("Warning: obsolete msgid exists.\n")
           $stderr.print "         #{$&}\n"
         end
-	@q.push [:COMMENT, $&]
-	str = $'
+        @q.push [:COMMENT, $&]
+        str = $'
       when /\A\#(.*)/
-	@q.push [:COMMENT, $&]
-	str = $'
+        @q.push [:COMMENT, $&]
+        str = $'
       when /\A\"(.*)\"/
-	@q.push [:STRING, unescape_string($1)]
-	str = $'
+        @q.push [:STRING, unescape_string($1)]
+        str = $'
       else
-	#c = str[0,1]
-	#@q.push [:STRING, c]
-	str = str[1..-1]
+        #c = str[0,1]
+        #@q.push [:STRING, c]
+        str = str[1..-1]
       end
     end
     @q.push [false, "$end"]
