@@ -222,6 +222,7 @@ module GetText
         def initialize
           @definition_po = nil
           @reference_po = nil
+          @update = false
           @output = nil
           @order = :references
           @po_format_options = {
@@ -244,6 +245,7 @@ module GetText
           end
 
           @definition_po, @reference_pot = rest
+          @output = @definition_po if @update
         end
 
         private
@@ -262,6 +264,11 @@ module GetText
           parser.separator(description)
           parser.separator("")
           parser.separator(_("Specific options:"))
+
+          parser.on("-U", "--[no-]update",
+                    _("Update definition.po")) do |update|
+            @update = update
+          end
 
           parser.on("-o", "--output=FILE",
                     _("Write output to specified file")) do |output|

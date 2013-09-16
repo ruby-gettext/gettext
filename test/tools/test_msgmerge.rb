@@ -377,7 +377,7 @@ EOP
 
     class TestFuzzy < self
       def test_header_message
-        @msgmerge.run(@po_file_path, @pot_file_path, "--output", @po_file_path)
+        @msgmerge.run("--update", @po_file_path, @pot_file_path)
         assert_equal(<<-EOP, File.read(@po_file_path))
 #{po_header(@pot_formatted_time, @po_formatted_time)}
 #: hello.rb:1
@@ -397,7 +397,7 @@ EOP
 
     class TestSort < self
       def test_default
-        @msgmerge.run("--output", @po_file_path, @po_file_path, @pot_file_path)
+        @msgmerge.run("--update", @po_file_path, @pot_file_path)
         assert_equal(<<-PO, File.read(@po_file_path))
 #{po_header(@pot_formatted_time, @po_formatted_time)}
 #: hello.rb:1
@@ -415,7 +415,7 @@ msgstr ""
       end
 
       def test_sort_output
-        @msgmerge.run("--output", @po_file_path,
+        @msgmerge.run("--update",
                       "--sort-output",
                       @po_file_path, @pot_file_path)
         assert_equal(<<-PO, File.read(@po_file_path))
@@ -435,7 +435,7 @@ msgstr ""
       end
 
       def test_sort_by_file
-        @msgmerge.run("--output", @po_file_path,
+        @msgmerge.run("--update",
                       "--sort-by-file",
                       @po_file_path, @pot_file_path)
         assert_equal(<<-PO, File.read(@po_file_path))
@@ -455,7 +455,7 @@ msgstr ""
       end
 
       def test_sort_by_msgid
-        @msgmerge.run("--output", @po_file_path,
+        @msgmerge.run("--update",
                       "--sort-by-msgid",
                       @po_file_path, @pot_file_path)
         assert_equal(<<-PO, File.read(@po_file_path))
@@ -477,7 +477,7 @@ msgstr "Translated World"
 
     class TestLocation < self
       def test_location
-        @msgmerge.run("--output", @po_file_path,
+        @msgmerge.run("--update",
                       "--location",
                       @po_file_path, @pot_file_path)
         assert_equal(<<-PO, File.read(@po_file_path))
@@ -497,7 +497,7 @@ msgstr ""
       end
 
       def test_no_location
-        @msgmerge.run("--output", @po_file_path,
+        @msgmerge.run("--update",
                       "--no-location",
                       @po_file_path, @pot_file_path)
         assert_equal(<<-PO, File.read(@po_file_path))
@@ -536,7 +536,7 @@ msgstr "Translated Hello World. This translation is very long. Yes! Very long tr
       end
 
       def test_default
-        @msgmerge.run("--output", @po_file_path,
+        @msgmerge.run("--update",
                       @po_file_path, @pot_file_path)
         assert_equal(<<-PO, File.read(@po_file_path))
 #: hello.rb:1
@@ -554,7 +554,7 @@ msgstr ""
       end
 
       def test_width
-        @msgmerge.run("--output", @po_file_path,
+        @msgmerge.run("--update",
                       "--width", "70",
                       @po_file_path, @pot_file_path)
         assert_equal(<<-PO, File.read(@po_file_path))
@@ -573,7 +573,7 @@ msgstr ""
       end
 
       def test_no_wrap
-        @msgmerge.run("--output", @po_file_path,
+        @msgmerge.run("--update",
                       "--no-wrap",
                       @po_file_path, @pot_file_path)
         assert_equal(<<-PO, File.read(@po_file_path))
