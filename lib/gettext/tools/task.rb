@@ -108,13 +108,13 @@ module GetText
       #   from sources.
       # @see GetText::Tools::XGetText
       # @see `rxgettext --help`
-      attr_reader :xgettext_options
+      attr_accessor :xgettext_options
 
       # @return [Array<String>] Command line options for merging PO with the
       #   latest POT.
       # @see GetText::Tools::MsgMerge
       # @see `rmsgmerge --help`
-      attr_reader :msgmerge_options
+      attr_accessor :msgmerge_options
 
       # @return [Bool]
       # @see #enable_description? For details.
