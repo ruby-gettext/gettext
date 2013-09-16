@@ -370,7 +370,7 @@ module GetText
         return [message] if message.empty?
 
         max_line_width = @options[:max_line_width]
-        return [message] if max_line_width < 0
+        return [message] if max_line_width <= 0
 
         chunks = []
         message.each_line do |line|

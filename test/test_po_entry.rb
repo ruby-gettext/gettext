@@ -434,6 +434,13 @@ msgstr ""
         MESSAGE
       end
 
+      def test_disable_wrap
+        message = "long line\n"
+        assert_equal(<<-MESSAGE, format_message(message, :max_line_width => 0))
+"long line\\n"
+        MESSAGE
+      end
+
       private
       def format_message(message, options={})
         formatter = GetText::POEntry::Formatter.new(@entry, options)
