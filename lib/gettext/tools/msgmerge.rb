@@ -224,7 +224,9 @@ module GetText
           @reference_po = nil
           @output = nil
           @order = :references
-          @po_format_options = {}
+          @po_format_options = {
+            :max_line_width => POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
+          }
           @fuzzy = nil
           @update = nil
           @backup = ENV["VERSION_CONTROL"]
@@ -284,6 +286,23 @@ module GetText
           parser.on("--[no-]location",
                     _("Preserve '#: FILENAME:LINE' lines")) do |location|
             @po_format_options[:include_reference_comment] = location
+          end
+
+          parser.on("--width=WIDTH", Integer,
+                    _("Set output page width"),
+                    "(#{@po_format_options[:max_line_width]})") do |width|
+            @po_format_options[:max_line_width] = width
+          end
+
+          parser.on("--[no-]wrap",
+                    _("Break long message lines, longer than the output page width, into several lines"),
+                    "(#{@po_format_options[:max_line_width] >= 0})") do |wrap|
+            if wrap
+              max_line_width = POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH
+            else
+              max_line_width = -1
+            end
+            @po_format_options[:max_line_width] = max_line_width
           end
 
           #parser.on("-F", "--fuzzy-matching")

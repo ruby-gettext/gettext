@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2010  Eddie Lau <tatonlto@gmail.com>
 #
 # License: Ruby's or LGPL
@@ -510,6 +510,80 @@ msgstr "Translated World"
 
 msgid "Hello World"
 msgstr ""
+        PO
+      end
+    end
+
+    class TestWidth < self
+      def pot_content
+        <<-POT
+#: hello.rb:1
+msgid "Hello very long line! This line is very long. Yes! This line is very long! Very very long line!"
+msgstr ""
+
+#: hello.rb:3
+msgid "Hello World"
+msgstr ""
+        POT
+      end
+
+      def po_content
+        <<-PO
+#: hello.rb:3
+msgid "Hello World"
+msgstr "Translated Hello World. This translation is very long. Yes! Very long translation!!!"
+        PO
+      end
+
+      def test_default
+        @msgmerge.run("--output", @po_file_path,
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-PO, File.read(@po_file_path))
+#: hello.rb:1
+msgid ""
+"Hello very long line! This line is very long. Yes! This line is very long! Ver"
+"y very long line!"
+msgstr ""
+
+#: hello.rb:3
+msgid "Hello World"
+msgstr ""
+"Translated Hello World. This translation is very long. Yes! Very long translat"
+"ion!!!"
+        PO
+      end
+
+      def test_width
+        @msgmerge.run("--output", @po_file_path,
+                      "--width", "70",
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-PO, File.read(@po_file_path))
+#: hello.rb:1
+msgid ""
+"Hello very long line! This line is very long. Yes! This line is very l"
+"ong! Very very long line!"
+msgstr ""
+
+#: hello.rb:3
+msgid "Hello World"
+msgstr ""
+"Translated Hello World. This translation is very long. Yes! Very long "
+"translation!!!"
+        PO
+      end
+
+      def test_no_wrap
+        @msgmerge.run("--output", @po_file_path,
+                      "--no-wrap",
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-PO, File.read(@po_file_path))
+#: hello.rb:1
+msgid "Hello very long line! This line is very long. Yes! This line is very long! Very very long line!"
+msgstr ""
+
+#: hello.rb:3
+msgid "Hello World"
+msgstr "Translated Hello World. This translation is very long. Yes! Very long translation!!!"
         PO
       end
     end
