@@ -110,6 +110,12 @@ module GetText
       # @see `rxgettext --help`
       attr_reader :xgettext_options
 
+      # @return [Array<String>] Command line options for merging PO with the
+      #   latest POT.
+      # @see GetText::Tools::MsgMerge
+      # @see `rmsgmerge --help`
+      attr_reader :msgmerge_options
+
       # @return [Bool]
       # @see #enable_description? For details.
       attr_writer :enable_description
@@ -200,6 +206,7 @@ module GetText
         @domain = nil
         @namespace_prefix = nil
         @xgettext_options = []
+        @msgmerge_options = []
         @enable_description = true
         @enable_po = true
       end
@@ -272,8 +279,12 @@ module GetText
         end
         file _po_file => po_dependencies do
           if File.exist?(_po_file)
-            GetText::Tools::MsgMerge.run(_po_file, pot_file,
-                                         "--output", _po_file)
+            command_line = [
+              "--output", _po_file,
+            ]
+            command_line.concat(@msgmerge_options)
+            command_line.concat([_po_file, pot_file])
+            GetText::Tools::MsgMerge.run(*command_line)
           else
             GetText::Tools::MsgInit.run("--input", pot_file,
                                         "--output", _po_file,
