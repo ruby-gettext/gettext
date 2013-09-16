@@ -202,13 +202,13 @@ module GetText
 
       include POFormat
 
-      DEFAULT_MAX_LINE_WIDTH = 80
+      DEFAULT_MAX_LINE_WIDTH = 78
 
       # @param [POEntry] entry The entry to be formatted.
       # @param [Hash] options
       # @option options [Bool] :include_reference_comment (true)
       #   Includes reference comments in formatted string if true.
-      # @option options [Integer] :max_line_width (80)
+      # @option options [Integer] :max_line_width (78)
       #   Wraps long lines that is longer than the `:max_line_width`.
       #   Don't break long lines if `:max_line_width` is less than 0
       #   such as `-1`.
