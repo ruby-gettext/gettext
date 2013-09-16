@@ -280,7 +280,7 @@ module GetText
         file _po_file => po_dependencies do
           if File.exist?(_po_file)
             command_line = [
-              "--output", _po_file,
+              "--update",
             ]
             command_line.concat(@msgmerge_options)
             command_line.concat([_po_file, pot_file])
