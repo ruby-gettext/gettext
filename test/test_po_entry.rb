@@ -407,7 +407,6 @@ msgstr ""
     class TestFormatMessage < self
       def setup
         @entry = GetText::POEntry.new(:normal)
-        @formatter = GetText::POEntry::Formatter.new(@entry)
       end
 
       def test_including_newline
@@ -425,9 +424,20 @@ msgstr ""
         assert_equal(expected_message, format_message(message))
       end
 
+      def test_wrap
+        message = "long line\n"
+        assert_equal(<<-MESSAGE, format_message(message, :max_line_width => 4))
+""
+"long"
+" lin"
+"e\\n"
+        MESSAGE
+      end
+
       private
-      def format_message(message)
-        @formatter.send(:format_message, message)
+      def format_message(message, options={})
+        formatter = GetText::POEntry::Formatter.new(@entry, options)
+        formatter.send(:format_message, message)
       end
     end
 

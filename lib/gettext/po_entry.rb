@@ -151,8 +151,7 @@ module GetText
     # Format the po entry in PO format.
     #
     # @param [Hash] options
-    # @options options [Bool] :include_reference_comment (true)
-    #   Includes reference comments in formatted string if true.
+    # @option options (see Formatter#initialize)
     def to_s(options={})
       raise(NoMsgidError, "msgid is nil.") unless @msgid
 
@@ -205,9 +204,19 @@ module GetText
         end
       end
 
+      DEFAULT_MAX_LINE_WIDTH = 80
+
+      # @param [POEntry] entry The entry to be formatted.
+      # @param [Hash] options
+      # @option options [Bool] :include_reference_comment (true)
+      #   Includes reference comments in formatted string if true.
+      # @option options [Integer] :max_line_width (80)
+      #   Wraps long lines that is longer than the `:max_line_width`.
+      #   Don't break long lines if `:max_line_width` is less than 0
+      #   such as `-1`.
       def initialize(entry, options={})
         @entry = entry
-        @options = options
+        @options = fill_default_option_values(options)
       end
 
       def format
@@ -219,7 +228,7 @@ module GetText
         str = ""
         str << format_translator_comment
         str << format_extracted_comment
-        if @options[:include_reference_comment] != false
+        if @options[:include_reference_comment]
           str << format_reference_comment
         end
         str << format_flag_comment
@@ -264,6 +273,15 @@ module GetText
       end
 
       private
+      def fill_default_option_values(options)
+        options = options.dup
+        if options[:include_reference_comment].nil?
+          options[:include_reference_comment] = true
+        end
+        options[:max_line_width] ||= DEFAULT_MAX_LINE_WIDTH
+        options
+      end
+
       def format_translator_comment
         format_comment("#", @entry.translator_comment)
       end
@@ -273,19 +291,20 @@ module GetText
       end
 
       def format_reference_comment
-        max_line_length = 70
+        max_line_width = @options[:max_line_width]
         formatted_reference = ""
         if not @entry.references.nil? and not @entry.references.empty?
           formatted_reference << REFERENCE_COMMENT_MARK
-          line_size = 2
+          line_width = 2
           @entry.references.each do |reference|
-            if line_size + reference.size > max_line_length
+            if max_line_width > 0 and
+                line_width + reference.size > max_line_width
               formatted_reference << "\n"
               formatted_reference <<  "#{REFERENCE_COMMENT_MARK} #{reference}"
-              line_size = 3 + reference.size
+              line_width = 3 + reference.size
             else
               formatted_reference << " #{reference}"
-              line_size += 1 + reference.size
+              line_width += 1 + reference.size
             end
           end
 
@@ -334,20 +353,35 @@ module GetText
       end
 
       def format_message(message)
+        return "\"\"\n" if message.nil?
+
+        chunks = wrap_message(message)
         formatted_message = ""
-        if not message.nil? and message.include?("\n")
-          formatted_message << "\"\"\n"
-          message.each_line.each do |line|
-            formatted_message << "\"#{escape(line)}\"\n"
-          end
-        else
-          formatted_message << "\"#{escape(message)}\"\n"
+        formatted_message << "\"\"\n" if chunks.size > 1
+        chunks.each do |chunk|
+          formatted_message << "\"#{escape(chunk)}\"\n"
         end
         formatted_message
       end
 
       def escape(string)
         self.class.escape(string)
+      end
+
+      def wrap_message(message)
+        return [message] if message.empty?
+
+        max_line_width = @options[:max_line_width]
+        return [message] if max_line_width < 0
+
+        chunks = []
+        message.each_line do |line|
+          # TODO: use character width instead of the number of characters
+          line.scan(/.{1,#{max_line_width}}/m) do |chunk|
+            chunks << chunk
+          end
+        end
+        chunks
       end
     end
   end
