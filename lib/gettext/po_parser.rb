@@ -184,15 +184,15 @@ module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 123)
         mark = $1
         content = $2
         case mark
-        when POEntry::TRANSLATOR_COMMENT_MARK
+        when POFormat::TRANSLATOR_COMMENT_MARK
           @translator_comments << content
-        when POEntry::EXTRACTED_COMMENT_MARK
+        when POFormat::EXTRACTED_COMMENT_MARK
           @extracted_comments << content
-        when POEntry::REFERENCE_COMMENT_MARK
+        when POFormat::REFERENCE_COMMENT_MARK
           @references.concat(parse_references_line(content))
-        when POEntry::FLAG_MARK
+        when POFormat::FLAG_MARK
           @flag << content
-        when POEntry::PREVIOUS_COMMENT_MARK
+        when POFormat::PREVIOUS_COMMENT_MARK
           @previous << content
         else
           @comments << comment

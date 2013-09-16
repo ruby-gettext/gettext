@@ -19,6 +19,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "gettext/po_format"
+
 module GetText
   class ParseError < StandardError
   end
@@ -44,12 +46,6 @@ module GetText
       :msgctxt => [:msgctxt, :msgid, :msgstr],
       :msgctxt_plural => [:msgctxt, :msgid, :msgid_plural, :msgstr]
     }
-
-    TRANSLATOR_COMMENT_MARK = "# "
-    EXTRACTED_COMMENT_MARK = "#."
-    FLAG_MARK = "#,"
-    PREVIOUS_COMMENT_MARK = "#|"
-    REFERENCE_COMMENT_MARK = "#:"
 
     # Required
     attr_reader :type          # :normal, :plural, :msgctxt, :msgctxt_plural
@@ -203,6 +199,8 @@ module GetText
           end
         end
       end
+
+      include POFormat
 
       DEFAULT_MAX_LINE_WIDTH = 80
 
