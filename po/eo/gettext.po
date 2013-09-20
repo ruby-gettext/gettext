@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-16 16:38+0900\n"
+"POT-Creation-Date: 2013-09-20 22:54+0900\n"
 "PO-Revision-Date: 2008-07-13 10:16+0200\n"
 "Last-Translator: Malte Milatz\n"
 "Language-Team: Esperanto\n"
@@ -21,23 +21,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../lib/gettext/tools.rb:81
-msgid "Failed to merge with %{defpo}"
-msgstr "Kunfando kun %{defpo} fiaskis"
+# TODO: Should this be "parameter"?
+#: ../lib/gettext/runtime/textdomain_manager.rb:148
+#, fuzzy
+msgid "ngettext: 3rd parmeter is wrong: value = %{number}"
+msgstr "Malĝusta tria parametro: valoro = %{number}"
 
-#: ../lib/gettext/tools.rb:82
-msgid "New .pot was copied to %{failed_filename}"
-msgstr "Nova pot-dosiero kopiiĝis al %{failed_filename}"
-
-#: ../lib/gettext/tools.rb:83
-msgid "Check these po/pot-files. It may have syntax errors or something wrong."
-msgstr ""
-"Kontrolu jenajn po/pot-dosierojn. Estas eble sintaksaj eraroj en ili, aŭ io."
-
-#: ../lib/gettext/tools.rb:188
-msgid ""
-"`%{cmd}' can not be found. \n"
-"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+#: ../lib/gettext/text_domain_manager.rb:154
+msgid "ngettext: 3rd parameter should be a number, not nil."
 msgstr ""
 
 #: ../lib/gettext/tools/msgfmt.rb:65
@@ -54,45 +45,43 @@ msgid "Generate binary message catalog from textual translation description."
 msgstr "Generu porkomputilan mesaĝaron el la traduktekstoj."
 
 #: ../lib/gettext/tools/msgfmt.rb:86 ../lib/gettext/tools/msginit.rb:89
-#: ../lib/gettext/tools/msgmerge.rb:474 ../lib/gettext/tools/xgettext.rb:210
+#: ../lib/gettext/tools/msgmerge.rb:266 ../lib/gettext/tools/xgettext.rb:218
 msgid "Specific options:"
 msgstr "Specifaj opcioj:"
 
-#: ../lib/gettext/tools/msgfmt.rb:89 ../lib/gettext/tools/msgmerge.rb:479
-#: ../lib/gettext/tools/xgettext.rb:213
+#: ../lib/gettext/tools/msgfmt.rb:89 ../lib/gettext/tools/xgettext.rb:221
 msgid "write output to specified file"
 msgstr "skribos la produkton en la indikitan dosieron"
 
-#: ../lib/gettext/tools/msgfmt.rb:93 ../lib/gettext/tools/msgmerge.rb:490
-#: ../lib/gettext/tools/xgettext.rb:256
+#: ../lib/gettext/tools/msgfmt.rb:93 ../lib/gettext/tools/xgettext.rb:271
 msgid "display version information and exit"
 msgstr "montros versi-informon"
 
 #: ../lib/gettext/tools/msginit.rb:85
 msgid ""
-"Create a new .po file from initializing .pot file with user's environment "
-"and input."
+"Create a new .po file from initializing .pot file with user's environment and "
+"input."
 msgstr ""
 
 #: ../lib/gettext/tools/msginit.rb:91
 msgid ""
-"Use INPUT as a .pot file. If INPUT is not specified, INPUT is a .pot file "
-"existing the current directory."
+"Use INPUT as a .pot file. If INPUT is not specified, INPUT is a .pot file exis"
+"ting the current directory."
 msgstr ""
 
 #: ../lib/gettext/tools/msginit.rb:98
 msgid ""
-"Use OUTPUT as a created .po file. If OUTPUT is not specified, OUTPUT depend "
-"on LOCALE or the current locale on your environment."
+"Use OUTPUT as a created .po file. If OUTPUT is not specified, OUTPUT depend on"
+" LOCALE or the current locale on your environment."
 msgstr ""
 
 #: ../lib/gettext/tools/msginit.rb:105
 msgid ""
-"Use LOCALE as target locale. If LOCALE is not specified, LOCALE is the "
-"current locale on your environment."
+"Use LOCALE as target locale. If LOCALE is not specified, LOCALE is the current"
+" locale on your environment."
 msgstr ""
 
-#: ../lib/gettext/tools/msginit.rb:112 ../lib/gettext/tools/msgmerge.rb:485
+#: ../lib/gettext/tools/msginit.rb:112 ../lib/gettext/tools/msgmerge.rb:317
 msgid "Display this help and exit"
 msgstr ""
 
@@ -112,8 +101,8 @@ msgstr "Dosiero '%s' jam ekzistas."
 
 #: ../lib/gettext/tools/msginit.rb:152
 msgid ""
-"\"Locale '#{language_tag}' is invalid. \"Please check if your specified "
-"locale is usable."
+"\"Locale '#{language_tag}' is invalid. \"Please check if your specified locale i"
+"s usable."
 msgstr ""
 
 #: ../lib/gettext/tools/msginit.rb:161
@@ -121,73 +110,107 @@ msgstr ""
 msgid "file '%s' has already existed."
 msgstr "Dosiero '%s' jam ekzistas."
 
-#: ../lib/gettext/tools/msginit.rb:199
+#: ../lib/gettext/tools/msginit.rb:200
 msgid "Please enter your full name"
 msgstr ""
 
-#: ../lib/gettext/tools/msginit.rb:211
+#: ../lib/gettext/tools/msginit.rb:229
 msgid "Please enter your email address"
 msgstr ""
 
-#: ../lib/gettext/tools/msgmerge.rb:453
-msgid "definition po is not given."
-msgstr "ne ricevis po-dosieron."
-
-#: ../lib/gettext/tools/msgmerge.rb:455
-msgid "reference pot is not given."
-msgstr "ne ricevis referencan pot-dosieron."
-
-#: ../lib/gettext/tools/msgmerge.rb:463
-msgid "Usage: %s def.po ref.pot [-o output.pot]"
-msgstr "Uzmaniero: %s def.po ref.pot [ -o el.pot ]"
-
-#: ../lib/gettext/tools/msgmerge.rb:466
-msgid ""
-"Merges two Uniforum style .po files together. The def.po file is an existing "
-"PO file with translations. The ref.pot file is the last created PO file with "
-"up-to-date source references. ref.pot is generally created by rgettext."
+#: ../lib/gettext/tools/msgmerge.rb:255
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
-"Kunfandos du po-dosierojn `Uniforum'-formatitajn. def.po jam enhavu "
-"tradukojn; ref.pot estu aktuale kreita el la fontkodo per rgettext."
+
+#: ../lib/gettext/tools/msgmerge.rb:258
+#, fuzzy
+msgid ""
+"Merges two Uniforum style .po files together. The definition.po file is an exi"
+"sting PO file with translations. The reference.pot file is the last created PO"
+" file with up-to-date source references. The reference.pot is generally create"
+"d by rxgettext."
+msgstr ""
+"Kunfandos du po-dosierojn `Uniforum'-formatitajn. def.po jam enhavu tradukojn;"
+" ref.pot estu aktuale kreita el la fontkodo per rgettext."
+
+#: ../lib/gettext/tools/msgmerge.rb:269
+msgid "Update definition.po"
+msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:274
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "skribos la produkton en la indikitan dosieron"
+
+#: ../lib/gettext/tools/msgmerge.rb:279
+msgid "Generate sorted output"
+msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:284
+msgid "Sort output by file location"
+msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:289
+msgid "Sort output by msgid"
+msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:294
+msgid "Preserve '#: FILENAME:LINE' lines"
+msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:299
+msgid "Set output page width"
+msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:305
+msgid ""
+"Break long message lines, longer than the output page width, into several line"
+"s"
+msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:323
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "montros versi-informon"
+
+#: ../lib/gettext/tools/parser/glade.rb:32
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}' ne konformas al la formato de glade-2.0."
 
 #: ../lib/gettext/tools/xgettext.rb:64
 msgid "'%{klass}' is ignored."
 msgstr "ignoras '%{klass}'."
 
-#: ../lib/gettext/tools/xgettext.rb:175
+#: ../lib/gettext/tools/xgettext.rb:183
 msgid "Error parsing %{path}"
 msgstr ""
 
-#: ../lib/gettext/tools/xgettext.rb:186
+#: ../lib/gettext/tools/xgettext.rb:194
 msgid "no input files"
 msgstr "neniu dosiero donita"
 
-#: ../lib/gettext/tools/xgettext.rb:204
+#: ../lib/gettext/tools/xgettext.rb:212
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Uzmaniero: %s en.rb [ -r analiz.rb ] [ -o el.pot ]"
 
-#: ../lib/gettext/tools/xgettext.rb:207
+#: ../lib/gettext/tools/xgettext.rb:215
 msgid "Extract translatable strings from given input files."
 msgstr "Arigos tradukeblajn frazojn el donitaj dosieroj."
 
-#: ../lib/gettext/tools/xgettext.rb:218
+#: ../lib/gettext/tools/xgettext.rb:226
 msgid "set package name in output"
 msgstr ""
 
-#: ../lib/gettext/tools/xgettext.rb:223
+#: ../lib/gettext/tools/xgettext.rb:231
 msgid "set package version in output"
 msgstr ""
 
-#: ../lib/gettext/tools/xgettext.rb:228
+#: ../lib/gettext/tools/xgettext.rb:236
 msgid "set report address for msgid bugs"
 msgstr ""
 
-#: ../lib/gettext/tools/xgettext.rb:233
+#: ../lib/gettext/tools/xgettext.rb:241
 msgid "set copyright holder in output"
-msgstr ""
-
-#: ../lib/gettext/tools/xgettext.rb:238
-msgid "set encoding for output"
 msgstr ""
 
 # TODO: This translation looks somehow unrelated... What did I do that day?
@@ -196,41 +219,63 @@ msgstr ""
 msgid "require the library before executing xgettext"
 msgstr "uzos indikitan opcianalizilon"
 
-#: ../lib/gettext/tools/xgettext.rb:247
-msgid "run in debugging mode"
-msgstr "sencimiga modo"
+#: ../lib/gettext/tools/xgettext.rb:246
+msgid "set encoding for output"
+msgstr ""
 
 #: ../lib/gettext/tools/xgettext.rb:251
 #, fuzzy
 msgid "display this help and exit"
 msgstr "montros versi-informon"
 
-#: ../lib/gettext/tools/xgettext.rb:302
+#: ../lib/gettext/tools/xgettext.rb:256
 msgid ""
-"Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") "
-"doesn't returns empty string but the header entry in po file."
+"If TAG is specified, place comment blocks starting with TAG and precedding key"
+"word lines in output file"
 msgstr ""
 
-#: ../lib/gettext/tools/parser/glade.rb:76
-msgid "`%{file}' is not glade-2.0 format."
-msgstr "`%{file}' ne konformas al la formato de glade-2.0."
-
-# TODO: Should this be "parameter"?
-#: ../lib/gettext/runtime/textdomain_manager.rb:148
-#, fuzzy
-msgid "ngettext: 3rd parmeter is wrong: value = %{number}"
-msgstr "Malĝusta tria parametro: valoro = %{number}"
-
-#: ../lib/gettext/runtime/textdomain_manager.rb:154
-msgid "ngettext: 3rd parameter should be a number, not nil."
+#: ../lib/gettext/tools/xgettext.rb:257
+msgid ""
+"If TAG is not specified, place all comment blocks preceing keyword lines in ou"
+"tput file"
 msgstr ""
 
-#: ../samples/hello_gtk2.rb:22
-msgid "hello, gtk world"
+#: ../lib/gettext/tools/xgettext.rb:258
+msgid "(default: %s)"
 msgstr ""
 
-#: ../samples/hello_tk.rb:15
-msgid "hello, tk world"
+#: ../lib/gettext/tools/xgettext.rb:258
+msgid "no TAG"
+msgstr ""
+
+#: ../lib/gettext/tools/xgettext.rb:262
+msgid "run in debugging mode"
+msgstr "sencimiga modo"
+
+#: ../lib/gettext/tools/xgettext.rb:320
+msgid ""
+"Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"
+"urns empty string but the header entry in po file."
+msgstr ""
+
+#: ../samples/cgi/hellolib.rb:16
+msgid "This message is from hellolib."
+msgstr ""
+
+#: ../samples/hello.rb:17
+msgid "Hello World\n"
+msgstr ""
+
+#: ../samples/hello2.rb:19
+msgid "One is %{num}\n"
+msgstr ""
+
+#: ../samples/hello2.rb:20
+msgid "Hello %{world}\n"
+msgstr ""
+
+#: ../samples/hello2.rb:20
+msgid "World"
 msgstr ""
 
 #: ../samples/hello_glade2.glade:9 ../test/fixtures/gladeparser.glade:8
@@ -248,11 +293,9 @@ msgstr ""
 msgid "<Hello world>"
 msgstr ""
 
-#: ../samples/hello_plural.rb:19
-msgid "There is an apple.\n"
-msgid_plural "There are %{num} apples.\n"
-msgstr[0] ""
-msgstr[1] ""
+#: ../samples/hello_gtk2.rb:25
+msgid "hello, gtk world"
+msgstr ""
 
 #: ../samples/hello_noop.rb:13
 msgid "Hello World"
@@ -262,28 +305,172 @@ msgstr ""
 msgid "Hello World2"
 msgstr ""
 
-#: ../samples/hello.rb:16
-msgid "Hello World\n"
+#: ../samples/hello_plural.rb:20
+msgid "There is an apple.\n"
+msgid_plural "There are %{num} apples.\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../samples/hello_tk.rb:16
+msgid "hello, tk world"
 msgstr ""
 
-#: ../samples/cgi/hellolib.rb:16
-msgid "This message is from hellolib."
+#: ../test/fixtures/N_.rb:10 ../test/fixtures/_.rb:30 ../test/fixtures/n_.rb:29
+#: ../test/test_gettext.rb:155 ../test/test_gettext.rb:159
+msgid "aaa"
+msgid_plural "aaa2"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../test/fixtures/N_.rb:14 ../test/fixtures/_.rb:34
+msgid "aaa\n"
 msgstr ""
 
-#: ../samples/hello2.rb:18
-msgid "One is %{num}\n"
+#: ../test/fixtures/N_.rb:18 ../test/fixtures/_.rb:38
+msgid ""
+"bbb\n"
+"ccc"
 msgstr ""
 
-#: ../samples/hello2.rb:19
-msgid "Hello %{world}\n"
+#: ../test/fixtures/N_.rb:22 ../test/fixtures/_.rb:42
+msgid ""
+"bbb\n"
+"ccc\n"
+"ddd\n"
 msgstr ""
 
-#: ../samples/hello2.rb:19
-msgid "World"
+#: ../test/fixtures/N_.rb:29 ../test/fixtures/N_.rb:33 ../test/fixtures/_.rb:49
+#: ../test/fixtures/_.rb:53
+msgid "eee"
 msgstr ""
 
-#: ../test/tools/files/simple_translation.rb:3
-msgid "a translation"
+#: ../test/fixtures/N_.rb:33 ../test/fixtures/_.rb:53 ../test/fixtures/n_.rb:55
+#: ../test/fixtures/n_.rb:59
+msgid "fff"
+msgid_plural "fff2"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../test/fixtures/N_.rb:37 ../test/fixtures/_.rb:57 ../test/fixtures/n_.rb:63
+msgid "ggghhhiii"
+msgid_plural "jjjkkklll"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../test/fixtures/N_.rb:43 ../test/fixtures/_.rb:63 ../test/fixtures/n_.rb:72
+msgid "a\"b\"c\""
+msgid_plural "a\"b\"c\"2"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../test/fixtures/N_.rb:47 ../test/fixtures/_.rb:67 ../test/fixtures/n_.rb:76
+msgid "d\"e\"f\""
+msgid_plural "d\"e\"f\"2"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../test/fixtures/N_.rb:51 ../test/fixtures/_.rb:71
+msgid "jjj"
+msgstr ""
+
+#: ../test/fixtures/N_.rb:52 ../test/fixtures/_.rb:72
+msgid "kkk"
+msgstr ""
+
+#: ../test/fixtures/N_.rb:56 ../test/fixtures/_.rb:76
+msgid "lllmmm"
+msgstr ""
+
+#: ../test/fixtures/N_.rb:64 ../test/fixtures/_.rb:84
+msgid ""
+"nnn\n"
+"ooo"
+msgstr ""
+
+#: ../test/fixtures/_.rb:88 ../test/fixtures/_.rb:92
+msgid "#"
+msgstr ""
+
+#: ../test/fixtures/_.rb:96
+msgid "\taaa"
+msgstr ""
+
+#: ../test/fixtures/_.rb:100
+msgid ""
+"Here document1\n"
+"Here document2\n"
+msgstr ""
+
+#. TRANSLATORS: This is a proper name.  See the gettext
+#. manual, section Names.  Note this is actually a non-ASCII
+#. name: The first name is (with Unicode escapes)
+#. "Fran\u00e7ois" or (with HTML entities) "Fran&ccedil;ois".
+#. Pronunciation is like "fraa-swa pee-nar".
+#. This is an example from GNU gettext documentation.
+#: ../test/fixtures/_.rb:120
+msgid "Francois Pinard"
+msgstr ""
+
+#: ../test/fixtures/_.rb:123
+msgid "No TRANSLATORS comment"
+msgstr ""
+
+#: ../test/fixtures/_.rb:128
+msgid "self explaining"
+msgstr ""
+
+#: ../test/fixtures/_.rb:132
+msgid "This is a # including string."
+msgstr ""
+
+#: ../test/fixtures/_/double_quote_in_double_quote.rb:28
+msgid "double \"quote\" in double quote"
+msgstr ""
+
+#: ../test/fixtures/_/double_quote_in_single_quote.rb:28
+msgid "double \"quote\" in single quote"
+msgstr ""
+
+#: ../test/fixtures/_/literal_concatenation_with_continuation_line.rb:28
+msgid "literal concatenation with continuation line"
+msgstr ""
+
+#: ../test/fixtures/_/middle_new_line.rb:28
+msgid ""
+"middle\n"
+"new line"
+msgstr ""
+
+#: ../test/fixtures/_/multiple_lines_literal.rb:28
+msgid ""
+"multiple\n"
+"lines\n"
+"literal\n"
+msgstr ""
+
+#: ../test/fixtures/_/multiple_messages_in_same_line.rb:28
+msgid "multiple"
+msgstr ""
+
+#: ../test/fixtures/_/multiple_messages_in_same_line.rb:28
+msgid "in same line"
+msgstr ""
+
+#: ../test/fixtures/_/multiple_same_messages.rb:28
+#: ../test/fixtures/_/multiple_same_messages.rb:32
+msgid "multiple same messages"
+msgstr ""
+
+#: ../test/fixtures/_/one_line.rb:28
+msgid "one line"
+msgstr ""
+
+#: ../test/fixtures/_/one_new_line.rb:28
+msgid "one new line\n"
+msgstr ""
+
+#: ../test/fixtures/backslash.rb:27
+msgid "You should escape '\\' as '\\\\'."
 msgstr ""
 
 #: ../test/fixtures/gladeparser.glade:29
@@ -316,13 +503,41 @@ msgstr ""
 msgid "duplicated"
 msgstr ""
 
-#: ../test/fixtures/n_.rb:29 ../test/fixtures/_.rb:30
-#: ../test/fixtures/N_.rb:10 ../test/test_gettext.rb:155
-#: ../test/test_gettext.rb:159
-msgid "aaa"
-msgid_plural "aaa2"
-msgstr[0] ""
-msgstr[1] ""
+#: ../test/fixtures/multi_text_domain.rb:11
+#: ../test/fixtures/multi_text_domain.rb:24
+#: ../test/fixtures/multi_text_domain.rb:43
+#: ../test/fixtures/multi_text_domain.rb:50
+#: ../test/fixtures/multi_text_domain.rb:62
+#: ../test/fixtures/multi_text_domain.rb:75
+#: ../test/fixtures/multi_text_domain.rb:91
+#: ../test/fixtures/multi_text_domain.rb:104
+#: ../test/fixtures/multi_text_domain.rb:108
+#: ../test/fixtures/multi_text_domain.rb:128 ../test/fixtures/simple.rb:10
+#: ../test/test_gettext.rb:64 ../test/test_gettext.rb:297
+#: ../test/test_gettext.rb:299 ../test/test_gettext.rb:302
+#: ../test/test_gettext.rb:306 ../test/test_gettext.rb:309
+#: ../test/test_gettext.rb:322 ../test/test_gettext.rb:325
+#: ../test/test_gettext.rb:328 ../test/test_gettext.rb:336
+#: ../test/test_gettext.rb:339 ../test/test_gettext.rb:351
+#: ../test/test_gettext.rb:358 ../test/test_text_domain_toplevel.rb:9
+#: ../test/test_text_domain_toplevel.rb:15
+#: ../test/test_text_domain_toplevel.rb:18
+#: ../test/test_text_domain_toplevel.rb:23 ../test/test_thread.rb:23
+msgid "language"
+msgstr ""
+
+#: ../test/fixtures/multi_text_domain.rb:14
+#: ../test/fixtures/multi_text_domain.rb:27
+#: ../test/fixtures/multi_text_domain.rb:54
+#: ../test/fixtures/multi_text_domain.rb:65
+#: ../test/fixtures/multi_text_domain.rb:78
+#: ../test/fixtures/multi_text_domain.rb:116 ../test/test_gettext.rb:53
+msgid "LANGUAGE"
+msgstr ""
+
+#: ../test/fixtures/multi_text_domain.rb:120
+msgid "no data"
+msgstr ""
 
 #: ../test/fixtures/n_.rb:33
 msgid "bbb\n"
@@ -362,37 +577,9 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../test/fixtures/n_.rb:55 ../test/fixtures/n_.rb:59
-#: ../test/fixtures/_.rb:53 ../test/fixtures/N_.rb:33
-msgid "fff"
-msgid_plural "fff2"
-msgstr[0] ""
-msgstr[1] ""
-
 #: ../test/fixtures/n_.rb:59
 msgid "ggg"
 msgid_plural "ggg2"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../test/fixtures/n_.rb:63 ../test/fixtures/_.rb:57
-#: ../test/fixtures/N_.rb:37
-msgid "ggghhhiii"
-msgid_plural "jjjkkklll"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../test/fixtures/n_.rb:72 ../test/fixtures/_.rb:63
-#: ../test/fixtures/N_.rb:43
-msgid "a\"b\"c\""
-msgid_plural "a\"b\"c\"2"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../test/fixtures/n_.rb:76 ../test/fixtures/_.rb:67
-#: ../test/fixtures/N_.rb:47
-msgid "d\"e\"f\""
-msgid_plural "d\"e\"f\"2"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -408,7 +595,7 @@ msgid_plural "nnn2"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../test/fixtures/n_.rb:86 ../test/fixtures/n_.rb:85
+#: ../test/fixtures/n_.rb:85 ../test/fixtures/n_.rb:86
 msgid "ooo"
 msgid_plural "ppp"
 msgstr[0] ""
@@ -420,7 +607,7 @@ msgid_plural "rrr"
 msgstr[0] ""
 msgstr[1] ""
 
-#. please provide translations for all
+#. TRANSLATORS:please provide translations for all
 #. the plural forms!
 #: ../test/fixtures/n_.rb:97
 msgid "comment"
@@ -428,46 +615,8 @@ msgid_plural "comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../test/fixtures/ns_/custom.rb:28 ../test/fixtures/s_/custom.rb:28
-msgid "context|context$message"
-msgid_plural "context|context$messages"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../test/fixtures/multi_textdomain.rb:11
-#: ../test/fixtures/multi_textdomain.rb:24
-#: ../test/fixtures/multi_textdomain.rb:43
-#: ../test/fixtures/multi_textdomain.rb:50
-#: ../test/fixtures/multi_textdomain.rb:62
-#: ../test/fixtures/multi_textdomain.rb:75
-#: ../test/fixtures/multi_textdomain.rb:91
-#: ../test/fixtures/multi_textdomain.rb:104
-#: ../test/fixtures/multi_textdomain.rb:108
-#: ../test/fixtures/multi_textdomain.rb:128 ../test/fixtures/simple.rb:10
-#: ../test/test_thread.rb:23 ../test/test_textdomain_toplevel.rb:9
-#: ../test/test_textdomain_toplevel.rb:15
-#: ../test/test_textdomain_toplevel.rb:18
-#: ../test/test_textdomain_toplevel.rb:23 ../test/test_gettext.rb:64
-#: ../test/test_gettext.rb:297 ../test/test_gettext.rb:299
-#: ../test/test_gettext.rb:302 ../test/test_gettext.rb:306
-#: ../test/test_gettext.rb:309 ../test/test_gettext.rb:322
-#: ../test/test_gettext.rb:325 ../test/test_gettext.rb:328
-#: ../test/test_gettext.rb:336 ../test/test_gettext.rb:339
-#: ../test/test_gettext.rb:351 ../test/test_gettext.rb:358
-msgid "language"
-msgstr ""
-
-#: ../test/fixtures/multi_textdomain.rb:14
-#: ../test/fixtures/multi_textdomain.rb:27
-#: ../test/fixtures/multi_textdomain.rb:54
-#: ../test/fixtures/multi_textdomain.rb:65
-#: ../test/fixtures/multi_textdomain.rb:78
-#: ../test/fixtures/multi_textdomain.rb:116 ../test/test_gettext.rb:53
-msgid "LANGUAGE"
-msgstr ""
-
-#: ../test/fixtures/multi_textdomain.rb:120
-msgid "no data"
+#: ../test/fixtures/non_ascii.rb:10
+msgid "こんにちは"
 msgstr ""
 
 #: ../test/fixtures/np_.rb:28 ../test/fixtures/np_.rb:29
@@ -499,96 +648,8 @@ msgid_plural "%{num} pictures"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../test/fixtures/_/one_line.rb:28
-msgid "one line"
-msgstr ""
-
-#: ../test/fixtures/non_ascii.rb:10
-msgid "こんにちは"
-msgstr ""
-
-#: ../test/fixtures/untranslated.rb:10
-msgid "untranslated"
-msgstr ""
-
-#: ../test/fixtures/_.rb:34 ../test/fixtures/N_.rb:14
-msgid "aaa\n"
-msgstr ""
-
-#: ../test/fixtures/_.rb:38 ../test/fixtures/N_.rb:18
-msgid ""
-"bbb\n"
-"ccc"
-msgstr ""
-
-#: ../test/fixtures/_.rb:42 ../test/fixtures/N_.rb:22
-msgid ""
-"bbb\n"
-"ccc\n"
-"ddd\n"
-msgstr ""
-
-#: ../test/fixtures/_.rb:49 ../test/fixtures/_.rb:53 ../test/fixtures/N_.rb:29
-#: ../test/fixtures/N_.rb:33
-msgid "eee"
-msgstr ""
-
-#: ../test/fixtures/_.rb:71 ../test/fixtures/N_.rb:51
-msgid "jjj"
-msgstr ""
-
-#: ../test/fixtures/_.rb:72 ../test/fixtures/N_.rb:52
-msgid "kkk"
-msgstr ""
-
-#: ../test/fixtures/_.rb:76 ../test/fixtures/N_.rb:56
-msgid "lllmmm"
-msgstr ""
-
-#: ../test/fixtures/_.rb:84 ../test/fixtures/N_.rb:64
-msgid ""
-"nnn\n"
-"ooo"
-msgstr ""
-
-#: ../test/fixtures/_.rb:88 ../test/fixtures/_.rb:92
-msgid "#"
-msgstr ""
-
-#: ../test/fixtures/_.rb:96
-msgid "\taaa"
-msgstr ""
-
-#: ../test/fixtures/_.rb:100
-msgid ""
-"Here document1\n"
-"Here document2\n"
-msgstr ""
-
-#. This is a proper name.  See the gettext
-#. manual, section Names.  Note this is actually a non-ASCII
-#. name: The first name is (with Unicode escapes)
-#. "Fran\u00e7ois" or (with HTML entities) "Fran&ccedil;ois".
-#. Pronunciation is like "fraa-swa pee-nar".
-#. This is an example from GNU gettext documentation.
-#: ../test/fixtures/_.rb:119
-msgid "Francois Pinard"
-msgstr ""
-
-#: ../test/fixtures/_.rb:122
-msgid "No TRANSLATORS comment"
-msgstr ""
-
-#: ../test/fixtures/_.rb:127
-msgid "self explaining"
-msgstr ""
-
-#: ../test/fixtures/_.rb:131
-msgid "This is a # including string."
-msgstr ""
-
-#: ../test/fixtures/ns_.rb:28 ../test/fixtures/s_.rb:28
-#: ../test/fixtures/s_.rb:32 ../test/fixtures/ns_.rb:32
+#: ../test/fixtures/ns_.rb:28 ../test/fixtures/ns_.rb:32
+#: ../test/fixtures/s_.rb:28 ../test/fixtures/s_.rb:32
 #: ../test/test_gettext.rb:119
 msgid "AAA|BBB"
 msgid_plural "CCC"
@@ -637,9 +698,11 @@ msgid_plural "DDD"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../test/fixtures/backslash.rb:27
-msgid "You should escape '\\' as '\\\\'."
-msgstr ""
+#: ../test/fixtures/ns_/custom.rb:28 ../test/fixtures/s_/custom.rb:28
+msgid "context|context$message"
+msgid_plural "context|context$messages"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../test/fixtures/p_.rb:29 ../test/fixtures/p_.rb:33
 msgctxt "AAA"
@@ -665,7 +728,7 @@ msgstr ""
 msgid "BBB"
 msgstr ""
 
-#. please translate 'name' in the context of 'program'.
+#. TRANSLATORS:please translate 'name' in the context of 'program'.
 #. Hint: the translation should NOT contain the translation of 'program'.
 #: ../test/fixtures/p_.rb:55
 msgctxt "program"
@@ -674,6 +737,10 @@ msgstr ""
 
 #: ../test/fixtures/simple.rb:14
 msgid "one is %d."
+msgstr ""
+
+#: ../test/fixtures/untranslated.rb:10
+msgid "untranslated"
 msgstr ""
 
 #: ../test/test_gettext.rb:59
@@ -724,7 +791,7 @@ msgid_plural "second"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../test/test_gettext.rb:269 ../test/test_gettext.rb:268
+#: ../test/test_gettext.rb:268 ../test/test_gettext.rb:269
 #: ../test/test_gettext.rb:270 ../test/test_gettext.rb:278
 #: ../test/test_gettext.rb:279 ../test/test_gettext.rb:280
 msgid "single"
@@ -732,8 +799,39 @@ msgid_plural "plural"
 msgstr[0] ""
 msgstr[1] ""
 
-#~ msgid "Warning: fuzzy message was ignored.\n"
-#~ msgstr "Averto: ignoras senfunkcian frazon.\n"
+#: ../test/tools/files/simple_translation.rb:3
+msgid "a translation"
+msgstr ""
 
-#~ msgid "Warning: obsolete msgid exists.\n"
-#~ msgstr "Averto: msgid arkaika.\n"
+#: ../lib/gettext/tools.rb:81
+#~ msgid "Failed to merge with %{defpo}"
+#~ msgstr "Kunfando kun %{defpo} fiaskis"
+
+#: ../lib/gettext/tools.rb:82
+#~ msgid "New .pot was copied to %{failed_filename}"
+#~ msgstr "Nova pot-dosiero kopiiĝis al %{failed_filename}"
+
+#: ../lib/gettext/tools.rb:83
+#~ msgid "Check these po/pot-files. It may have syntax errors or something wrong."
+#~ msgstr "Kontrolu jenajn po/pot-dosierojn. Estas eble sintaksaj eraroj en ili, aŭ io."
+
+#: ../lib/gettext/tools/msgmerge.rb:453
+#~ msgid "definition po is not given."
+#~ msgstr "ne ricevis po-dosieron."
+
+#: ../lib/gettext/tools/msgmerge.rb:455
+#~ msgid "reference pot is not given."
+#~ msgstr "ne ricevis referencan pot-dosieron."
+
+#: ../lib/gettext/tools/msgmerge.rb:463
+#~ msgid "Usage: %s def.po ref.pot [-o output.pot]"
+#~ msgstr "Uzmaniero: %s def.po ref.pot [ -o el.pot ]"
+
+#: ../lib/gettext/tools/msgmerge.rb:466
+#~ msgid ""
+#~ "Merges two Uniforum style .po files together. The def.po file is an existing P"
+#~ "O file with translations. The ref.pot file is the last created PO file with up"
+#~ "-to-date source references. ref.pot is generally created by rgettext."
+#~ msgstr ""
+#~ "Kunfandos du po-dosierojn `Uniforum'-formatitajn. def.po jam enhavu tradukojn;"
+#~ " ref.pot estu aktuale kreita el la fontkodo per rgettext."
