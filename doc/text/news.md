@@ -1,5 +1,36 @@
 # News
 
+## <a id="3-0-1">3.0.1</a>: 2013-09-20
+
+### Improvements
+
+  * Removed an unused file. [GitHub#19] [Reported by Ladislav Slezák]
+  * msginit: Added full user name guessing by /etc/passwd.
+  * incompatible: {GetText::Tools::Task} no longer require spec.
+  * Added {GetText::Tools::Task.define}. It is the recommended API
+    rather than {GetText::Tools::Task.new}.
+  * Supported "utf8" as a valid charset.
+    [GitHub#20][Reported by Antonio Terceiro]
+  * Added {GetText::Tools::Task#enable_description=}.
+  * Added {GetText::Tools::Task#enable_description?}.
+  * Added {GetText::Tools::Task#enable_po=}.
+  * Added {GetText::Tools::Task#enable_po?}.
+  * Added {GetText::Tools::Task#msgmerge_options=}.
+  * Added {GetText::Tools::Task#msgmerge_options}.
+  * task: Added `gettext:po:add[LOCALE]` task.
+  * msgmerge: add `--sort-output` option.
+  * msgmerge: add `--sort-by-file` option.
+  * msgmerge: add `--sort-by-msgid` option.
+  * msgmerge: add `--no-location` option.
+  * msgmerge: add `--width` option.
+  * msgmerge: add `--no-wrap` option.
+  * msgmerge: add `--update` option.
+
+### Thanks
+
+  * Ladislav Slezák
+  * Antonio Terceiro
+
 ## <a id="3-0-0">3.0.0</a>: 2013-08-31
 
 This is a new major version up release!
