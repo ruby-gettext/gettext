@@ -162,14 +162,8 @@ module GetText
     #   @yieldparam [POEntry] entry {POEntry} in PO.
     # @overload each
     #   @return [Enumerator] Returns Enumerator for {POEntry}.
-    def each
-      if block_given?
-        @entries.each do |_, entry|
-          yield(entry)
-        end
-      else
-        @entries.each_value
-      end
+    def each(&block)
+      @entries.each_value(&block)
     end
 
     # For {PoParer}.
