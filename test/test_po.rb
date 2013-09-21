@@ -504,4 +504,19 @@ msgstr ""
       end
     end
   end
+
+  class TestEmpty < self
+    def setup
+      @po = GetText::PO.new
+    end
+
+    def test_true
+      assert_true(@po.empty?)
+    end
+
+    def test_false
+      @po["Hello"] = "Bonjour"
+      assert_false(@po.empty?)
+    end
+  end
 end

@@ -166,6 +166,11 @@ module GetText
       @entries.each_value(&block)
     end
 
+    # @return [Bool] `true` if there is no entry, `false` otherwise.
+    def empty?
+      @entries.empty?
+    end
+
     # For {PoParer}.
     def set_comment(msgid, comment, msgctxt=nil)
       id = [msgctxt, msgid]
