@@ -138,6 +138,43 @@ module GetText
         @parsers.unshift(parser)
       end
 
+      def run(*options)  # :nodoc:
+        check_command_line_options(*options)
+
+        @output_encoding ||= "UTF-8"
+        pot = generate_pot_header
+        pot << "\n"
+        pot << generate_pot(@input_files)
+
+        if @output.is_a?(String)
+          File.open(File.expand_path(@output), "w+") do |file|
+            file.puts(pot)
+          end
+        else
+          @output.puts(pot)
+        end
+        self
+      end
+
+      def parse(paths) # :nodoc:
+        po = PO.new
+        paths = [paths] if paths.kind_of?(String)
+        paths.each do |path|
+          begin
+            parse_path(path, po)
+          rescue
+            puts(_("Error parsing %{path}") % {:path => path})
+            raise
+          end
+        end
+        po
+      end
+
+      private
+      def now
+        Time.now
+      end
+
       def generate_pot_header # :nodoc:
         time = now.strftime("%Y-%m-%d %H:%M%z")
 
@@ -171,20 +208,6 @@ EOH
           entries << encode(target.to_s)
         end
         entries.join("\n")
-      end
-
-      def parse(paths) # :nodoc:
-        po = PO.new
-        paths = [paths] if paths.kind_of?(String)
-        paths.each do |path|
-          begin
-            parse_path(path, po)
-          rescue
-            puts(_("Error parsing %{path}") % {:path => path})
-            raise
-          end
-        end
-        po
       end
 
       def check_command_line_options(*options) # :nodoc:
@@ -276,29 +299,6 @@ EOH
         parser.parse!(options)
 
         [options, output]
-      end
-
-      def run(*options)  # :nodoc:
-        check_command_line_options(*options)
-
-        @output_encoding ||= "UTF-8"
-        pot = generate_pot_header
-        pot << "\n"
-        pot << generate_pot(@input_files)
-
-        if @output.is_a?(String)
-          File.open(File.expand_path(@output), "w+") do |file|
-            file.puts(pot)
-          end
-        else
-          @output.puts(pot)
-        end
-        self
-      end
-
-      private
-      def now
-        Time.now
       end
 
       def parse_path(path, po)
