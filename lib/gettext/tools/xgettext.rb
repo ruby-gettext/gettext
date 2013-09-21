@@ -174,7 +174,7 @@ EOH
       end
 
       def parse(paths) # :nodoc:
-        po = []
+        po = PO.new
         paths = [paths] if paths.kind_of?(String)
         paths.each do |path|
           begin
@@ -346,20 +346,11 @@ EOH
               end
             end
 
-            # Save the previous target
-            if po.empty?
-              existing = nil
-            else
-              entry = po.find {|t| t.mergeable?(po_entry)}
-              existing = po.index(entry)
+            existing_entry = po[po_entry.msgctxt, po_entry.msgid]
+            if existing_entry
+              po_entry = existing_entry.merge(po_entry)
             end
-
-            if existing
-              po_entry = po[existing].merge(po_entry)
-              po[existing] = po_entry
-            else
-              po << po_entry
-            end
+            po[po_entry.msgctxt, po_entry.msgid] = po_entry
           end
           break
         end

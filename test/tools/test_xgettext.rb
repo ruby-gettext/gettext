@@ -399,7 +399,7 @@ EOP
       po_entry = GetText::POEntry.new(:normal)
       po_entry.msgid = "Message"
       assert_equal([po_entry],
-                   xgettext.parse(["index.html"]))
+                   xgettext.parse(["index.html"]).to_a)
     end
 
     def test_instance_method
