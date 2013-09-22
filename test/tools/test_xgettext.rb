@@ -313,8 +313,7 @@ msgstr ""
       pot_content = generate(":hello", "--package-name", package_name)
 
       options = {:package_name => package_name}
-      expected_header = "#{header(options)}\n"
-      assert_equal(expected_header, pot_content)
+      assert_equal(header(options), pot_content)
     end
 
     def test_package_version
@@ -322,8 +321,7 @@ msgstr ""
       pot_content = generate(":hello", "--package-version", package_version)
 
       options = {:package_version => package_version}
-      expected_header = "#{header(options)}\n"
-      assert_equal(expected_header, pot_content)
+      assert_equal(header(options), pot_content)
     end
 
     def test_report_msgid_bugs_to
@@ -332,8 +330,7 @@ msgstr ""
                              "--msgid-bugs-address", msgid_bugs_address)
 
       options = {:msgid_bugs_address => msgid_bugs_address}
-      expected_header = "#{header(options)}\n"
-      assert_equal(expected_header, pot_content)
+      assert_equal(header(options), pot_content)
     end
 
     def test_copyright_holder
@@ -341,8 +338,7 @@ msgstr ""
       pot_content = generate(":hello", "--copyright-holder", copyright_holder)
 
       options = {:copyright_holder => copyright_holder}
-      expected_header = "#{header(options)}\n"
-      assert_equal(expected_header, pot_content)
+      assert_equal(header(options), pot_content)
     end
 
     def test_to_code

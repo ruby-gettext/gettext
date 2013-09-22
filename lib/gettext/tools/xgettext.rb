@@ -142,9 +142,7 @@ module GetText
         check_command_line_options(*options)
 
         @output_encoding ||= "UTF-8"
-        pot = generate_pot_header
-        pot << "\n"
-        pot << generate_pot(@input_files)
+        pot = generate_pot(@input_files)
 
         if @output.is_a?(String)
           File.open(File.expand_path(@output), "w+") do |file|
@@ -175,39 +173,45 @@ module GetText
         Time.now
       end
 
-      def generate_pot_header # :nodoc:
+      def header_comment
+        <<-COMMENT
+SOME DESCRIPTIVE TITLE.
+Copyright (C) YEAR #{@copyright_holder}
+This file is distributed under the same license as the #{@package_name} package.
+FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+
+       COMMENT
+      end
+
+      def header_content
         time = now.strftime("%Y-%m-%d %H:%M%z")
 
-        <<EOH
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR #{@copyright_holder}
-# This file is distributed under the same license as the #{@package_name} package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
-msgid ""
-msgstr ""
-"Project-Id-Version: #{@package_name} #{@package_version}\\n"
-"Report-Msgid-Bugs-To: #{@msgid_bugs_address}\\n"
-"POT-Creation-Date: #{time}\\n"
-"PO-Revision-Date: #{time}\\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
-"Language-Team: LANGUAGE <LL@li.org>\\n"
-"Language: \\n"
-"MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=#{@output_encoding}\\n"
-"Content-Transfer-Encoding: 8bit\\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
-EOH
+        <<-CONTENT
+Project-Id-Version: #{@package_name} #{@package_version}
+Report-Msgid-Bugs-To: #{@msgid_bugs_address}
+POT-Creation-Date: #{time}
+PO-Revision-Date: #{time}
+Last-Translator: FULL NAME <EMAIL@ADDRESS>
+Language-Team: LANGUAGE <LL@li.org>
+Language: 
+MIME-Version: 1.0
+Content-Type: text/plain; charset=#{@output_encoding}
+Content-Transfer-Encoding: 8bit
+Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
+        CONTENT
       end
 
       def generate_pot(paths) # :nodoc:
+        header = POEntry.new(:normal)
+        header.msgid = ""
+        header.msgstr = header_content
+        header.translator_comment = header_comment
+        header.flag = "fuzzy"
+
         po = parse(paths)
-        entries = []
-        po.each do |target|
-          entries << encode(target.to_s)
-        end
-        entries.join("\n")
+        po[header.msgid] = header
+
+        po.to_s(:encoding => @output_encoding)
       end
 
       def check_command_line_options(*options) # :nodoc:
@@ -380,10 +384,6 @@ EOH
         po_entry.msgid_plural = msgid_plural
         po_entry.references = references
         po_entry
-      end
-
-      def encode(string)
-        string.encode(@output_encoding)
       end
     end
   end
