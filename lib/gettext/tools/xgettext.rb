@@ -85,6 +85,7 @@ module GetText
         @output_encoding = nil
 
         @parse_options = {}
+        @po_format_options = {}
       end
 
       # The parser object requires to have target?(path) and
@@ -211,7 +212,8 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
         po = parse(paths)
         po[header.msgid] = header
 
-        po.to_s(:encoding => @output_encoding)
+        to_s_options = @po_format_options.merge(:encoding => @output_encoding)
+        po.to_s(to_s_options)
       end
 
       def check_command_line_options(*options) # :nodoc:
@@ -272,6 +274,11 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
         parser.on("--output-encoding=ENCODING",
                   _("set encoding for output")) do |encoding|
           @output_encoding = encoding
+        end
+
+        parser.on("--[no-]location",
+                  _("Preserve '#: FILENAME:LINE' lines")) do |location|
+          @po_format_options[:include_reference_comment] = location
         end
 
         parser.on("-r", "--require=library",

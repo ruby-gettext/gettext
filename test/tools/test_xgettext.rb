@@ -361,6 +361,34 @@ EOP
 
       assert_equal(expected_pot, pot_content)
     end
+
+    class TestLocation < self
+      def test_default
+        assert_equal(<<-POT, generate("_('hello')"))
+#{header}
+#: ../lib/xgettext.rb:1
+msgid "hello"
+msgstr ""
+        POT
+      end
+
+      def test_location
+        assert_equal(<<-POT, generate("_('hello')", "--location"))
+#{header}
+#: ../lib/xgettext.rb:1
+msgid "hello"
+msgstr ""
+        POT
+      end
+
+      def test_no_location
+        assert_equal(<<-POT, generate("_('hello')", "--no-location"))
+#{header}
+msgid "hello"
+msgstr ""
+        POT
+      end
+    end
   end
 
   class TestAddParser < self
