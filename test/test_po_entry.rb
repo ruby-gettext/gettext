@@ -378,6 +378,23 @@ msgstr ""
           PO
         end
       end
+
+      class TestEncoding < self
+        def setup
+          @entry = GetText::POEntry.new(:normal)
+          @entry.msgid = "hello"
+          @entry.msgstr = "こんにちは"
+        end
+
+        def test_default
+          assert_equal(Encoding::UTF_8, @entry.to_s.encoding)
+        end
+
+        def test_valid
+          assert_equal(Encoding::EUC_JP,
+                       @entry.to_s(:encoding => "EUC-JP").encoding)
+        end
+      end
     end
   end
 

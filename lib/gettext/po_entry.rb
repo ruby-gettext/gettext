@@ -212,6 +212,8 @@ module GetText
       #   Wraps long lines that is longer than the `:max_line_width`.
       #   Don't break long lines if `:max_line_width` is less than 0
       #   such as `-1`.
+      # @option options [Encoding] :encoding (nil)
+      #   Encodes to the specific encoding.
       def initialize(entry, options={})
         @entry = entry
         @options = fill_default_option_values(options)
@@ -267,7 +269,8 @@ module GetText
           str << "msgstr "
           str << format_message(@entry.msgstr)
         end
-        str
+
+        encode(str)
       end
 
       private
@@ -380,6 +383,12 @@ module GetText
           end
         end
         chunks
+      end
+
+      def encode(string)
+        encoding = @options[:encoding]
+        return string if encoding.nil?
+        string.encode(encoding)
       end
     end
   end
