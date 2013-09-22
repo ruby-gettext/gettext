@@ -85,6 +85,8 @@ module GetText
         @output_encoding = nil
 
         @parse_options = {}
+
+        @po_order = :references
         @po_format_options = {}
       end
 
@@ -210,6 +212,7 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
         header.flag = "fuzzy"
 
         po = parse(paths)
+        po.order = @po_order
         po[header.msgid] = header
 
         to_s_options = @po_format_options.merge(:encoding => @output_encoding)
@@ -274,6 +277,21 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
         parser.on("--output-encoding=ENCODING",
                   _("set encoding for output")) do |encoding|
           @output_encoding = encoding
+        end
+
+        parser.on("--[no-]sort-output",
+                  _("Generate sorted output")) do |sort|
+          @po_order = sort ? :references : nil
+        end
+
+        parser.on("--[no-]sort-by-file",
+                  _("Sort output by file location")) do |sort_by_file|
+          @po_order = sort_by_file ? :references : :msgid
+        end
+
+        parser.on("--[no-]sort-by-msgid",
+                  _("Sort output by msgid")) do |sort_by_msgid|
+          @po_order = sort_by_msgid ?  :msgid : :references
         end
 
         parser.on("--[no-]location",

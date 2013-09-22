@@ -389,6 +389,122 @@ msgstr ""
         POT
       end
     end
+
+    class TestSort < self
+      def setup
+        super
+        @code = <<-RUBY
+        RUBY
+      end
+
+      def test_default
+        assert_equal(<<-POT, generate)
+#{header}
+#: ../lib/xgettext.rb:1
+msgid "World"
+msgstr ""
+
+#: ../lib/xgettext.rb:2
+msgid "Hello"
+msgstr ""
+
+#: ../templates/xgettext.rhtml:1
+msgid "ABC"
+msgstr ""
+
+#: ../templates/xgettext.rhtml:2
+msgid "123"
+msgstr ""
+        POT
+      end
+
+      def test_no_sort_output
+        assert_equal(<<-POT, generate("--no-sort-output"))
+#{header}
+#: ../templates/xgettext.rhtml:1
+msgid "ABC"
+msgstr ""
+
+#: ../templates/xgettext.rhtml:2
+msgid "123"
+msgstr ""
+
+#: ../lib/xgettext.rb:1
+msgid "World"
+msgstr ""
+
+#: ../lib/xgettext.rb:2
+msgid "Hello"
+msgstr ""
+        POT
+      end
+
+      def test_sort_by_file
+        assert_equal(<<-POT, generate("--sort-by-file"))
+#{header}
+#: ../lib/xgettext.rb:1
+msgid "World"
+msgstr ""
+
+#: ../lib/xgettext.rb:2
+msgid "Hello"
+msgstr ""
+
+#: ../templates/xgettext.rhtml:1
+msgid "ABC"
+msgstr ""
+
+#: ../templates/xgettext.rhtml:2
+msgid "123"
+msgstr ""
+        POT
+      end
+
+      def test_sort_by_msgid
+        assert_equal(<<-POT, generate("--sort-by-msgid"))
+#{header}
+#: ../templates/xgettext.rhtml:2
+msgid "123"
+msgstr ""
+
+#: ../templates/xgettext.rhtml:1
+msgid "ABC"
+msgstr ""
+
+#: ../lib/xgettext.rb:2
+msgid "Hello"
+msgstr ""
+
+#: ../lib/xgettext.rb:1
+msgid "World"
+msgstr ""
+        POT
+      end
+
+      private
+      def generate(*command_line_options)
+        File.open(@rhtml_file_path, "w") do |rhtml_file|
+          rhtml_file.puts(<<-RHTML)
+<%= _("ABC") %>
+<%= _("123") %>
+          RHTML
+        end
+
+        File.open(@rb_file_path, "w") do |rb_file|
+          rb_file.puts(<<-RUBY)
+_('World')
+_('Hello')
+          RUBY
+        end
+
+        command_line = ["--output", @pot_file_path]
+        command_line += command_line_options
+        command_line += [@rhtml_file_path, @rb_file_path]
+        @xgettext.run(*command_line)
+
+        File.read(@pot_file_path)
+      end
+    end
   end
 
   class TestAddParser < self
