@@ -287,7 +287,7 @@ module GetText
 
           parser.on("--[no-]sort-by-msgid",
                     _("Sort output by msgid")) do |sort_by_msgid|
-            @order = sort_by_msgid ?  :msgid : :references
+            @order = sort_by_msgid ? :msgid : :references
           end
 
           parser.on("--[no-]location",

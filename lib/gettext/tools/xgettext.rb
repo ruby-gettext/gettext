@@ -291,7 +291,7 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
 
         parser.on("--[no-]sort-by-msgid",
                   _("Sort output by msgid")) do |sort_by_msgid|
-          @po_order = sort_by_msgid ?  :msgid : :references
+          @po_order = sort_by_msgid ? :msgid : :references
         end
 
         parser.on("--[no-]location",
