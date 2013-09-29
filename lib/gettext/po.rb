@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 #
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
 #
 # License: Ruby's or LGPL
@@ -189,7 +190,9 @@ module GetText
       po_string = ""
 
       header_entry = @entries[[nil, ""]]
-      po_string << header_entry.to_s(options) unless header_entry.nil?
+      unless header_entry.nil?
+        po_string << header_entry.to_s(options.merge(:max_line_width => nil))
+      end
 
       content_entries = @entries.reject do |(_, msgid), _|
         msgid == :last or msgid.empty?

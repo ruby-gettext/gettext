@@ -505,6 +505,45 @@ _('Hello')
         File.read(@pot_file_path)
       end
     end
+
+    class TestWidth < self
+      def msgid
+        <<-MSGID.chomp
+Hello very long line! This line is very long. Yes! This line is very long! Very very long line!
+        MSGID
+      end
+
+      def test_default
+        assert_equal(<<-POT, generate("_('#{msgid}')"))
+#{header}
+#: ../lib/xgettext.rb:1
+msgid ""
+"Hello very long line! This line is very long. Yes! This line is very long! Ver"
+"y very long line!"
+msgstr ""
+        POT
+      end
+
+      def test_width
+        assert_equal(<<-POT, generate("_('#{msgid}')", "--width", "70"))
+#{header}
+#: ../lib/xgettext.rb:1
+msgid ""
+"Hello very long line! This line is very long. Yes! This line is very l"
+"ong! Very very long line!"
+msgstr ""
+        POT
+      end
+
+      def test_no_wrap
+        assert_equal(<<-POT, generate("_('#{msgid}')", "--no-wrap"))
+#{header}
+#: ../lib/xgettext.rb:1
+msgid "Hello very long line! This line is very long. Yes! This line is very long! Very very long line!"
+msgstr ""
+        POT
+      end
+    end
   end
 
   class TestAddParser < self

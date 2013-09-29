@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2003-2010  Masao Mutoh
 # Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
 #
@@ -87,7 +87,9 @@ module GetText
         @parse_options = {}
 
         @po_order = :references
-        @po_format_options = {}
+        @po_format_options = {
+          :max_line_width => POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
+        }
       end
 
       # The parser object requires to have target?(path) and
@@ -297,6 +299,23 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
         parser.on("--[no-]location",
                   _("Preserve '#: FILENAME:LINE' lines")) do |location|
           @po_format_options[:include_reference_comment] = location
+        end
+
+        parser.on("--width=WIDTH", Integer,
+                  _("Set output page width"),
+                  "(#{@po_format_options[:max_line_width]})") do |width|
+          @po_format_options[:max_line_width] = width
+        end
+
+        parser.on("--[no-]wrap",
+                  _("Break long message lines, longer than the output page width, into several lines"),
+                  "(#{@po_format_options[:max_line_width] >= 0})") do |wrap|
+          if wrap
+            max_line_width = POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH
+          else
+            max_line_width = -1
+          end
+          @po_format_options[:max_line_width] = max_line_width
         end
 
         parser.on("-r", "--require=library",
