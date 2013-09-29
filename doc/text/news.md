@@ -1,5 +1,18 @@
 # News
 
+## <a id="3-0-2">3.0.2</a>: 2013-09-29
+
+### Improvements
+
+  * Added {GetText::PO#empty?}.
+  * Added `:encoding` option to {GetText::POEntry#to_s}.
+  * xgettext: Added `--no-location` option.
+  * xgettext: Added `--sort-output` option.
+  * xgettext: Added `--sort-by-file` option.
+  * xgettext: Added `--sort-by-msgid` option.
+  * xgettext: Added `--width` option.
+  * xgettext: Added `--no-wrap` option.
+
 ## <a id="3-0-1">3.0.1</a>: 2013-09-20
 
 ### Improvements
