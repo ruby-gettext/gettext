@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 
-require 'locale/util/memoizable'
-
 module GetText
   # For normalize/finding the related classes/modules.
   # This is used for realizing the scope of TextDomain.
   # (see: http://www.yotabanana.com/hiki/ruby-gettext-scope.html)
   module ClassInfo
     extend self
-    include Locale::Util::Memoizable
-
     # normalize the class name
     # klass should kind of the class, not object.
     def normalize_class(klass)
@@ -23,7 +19,6 @@ module GetText
     def root_ancestors  # :nodoc:
       Object.ancestors
     end
-    memoize :root_ancestors
 
     # Internal method for related_classes.
     def related_classes_internal(klass, all_classes = [], analyzed_classes = [] )
@@ -64,6 +59,5 @@ module GetText
       end
       ret
     end
-    memoize :related_classes
   end
 end

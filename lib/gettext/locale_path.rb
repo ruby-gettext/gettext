@@ -15,8 +15,6 @@ require 'rbconfig'
 module GetText
   # Treats locale-path for mo-files.
   class LocalePath
-    include Locale::Util::Memoizable
-
     # The default locale paths.
     CONFIG_PREFIX = RbConfig::CONFIG['prefix'].gsub(/\/local/, "")
     DEFAULT_RULES = [
@@ -29,8 +27,6 @@ module GetText
                     ].uniq
 
     class << self
-      include Locale::Util::Memoizable
-
       # Add default locale path. Usually you should use GetText.add_default_locale_path instead.
       # * path: a new locale path. (e.g.) "/usr/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
       #   ('locale' => "ja_JP", 'name' => "textdomain")
@@ -66,7 +62,6 @@ module GetText
           Dir.glob(path % {:lang => "*", :name => "*"}).size > 0}.uniq
         default_path_rules
       end
-      memoize_dup :default_path_rules
     end
 
     attr_reader :locale_paths, :supported_locales
@@ -114,7 +109,5 @@ module GetText
       end
       nil
     end
-    memoize :current_path
-
   end
 end

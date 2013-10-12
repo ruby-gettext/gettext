@@ -25,7 +25,6 @@ require 'fixtures/simple'
 class TestLocalePath < Test::Unit::TestCase
   def setup
     GetText.locale = "ja_JP.eucJP"
-    GetText::LocalePath.clear
   end
 
   def teardown
@@ -78,12 +77,10 @@ class TestLocalePath < Test::Unit::TestCase
     path1 = File.join(topdir, "locale")
     path2 = File.join(topdir, "cgi", "locale")
 
-    GetText::LocalePath.memoize_clear
     ENV["GETTEXT_PATH"] = path1
     default_path_rules = GetText::LocalePath.default_path_rules
     assert_match(Regexp.compile(path1), default_path_rules[0])
 
-    GetText::LocalePath.memoize_clear
     ENV["GETTEXT_PATH"] = "#{path1},#{path2}"
     default_path_rules = GetText::LocalePath.default_path_rules
     assert_match(Regexp.compile(path1), default_path_rules[0])
@@ -92,7 +89,6 @@ class TestLocalePath < Test::Unit::TestCase
 
   class TestDefaultPathRules < self
     def test_load_path_untached
-      GetText::LocalePath.memoize_clear
       $LOAD_PATH.unshift("./lib")
       GetText::LocalePath.default_path_rules
       assert_equal($LOAD_PATH[0], "./lib")
