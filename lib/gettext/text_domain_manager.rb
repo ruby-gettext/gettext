@@ -96,7 +96,7 @@ module GetText
     #   it returns a last part of msgid separeted "div".
     def translate_singular_message(klass, msgid, div = nil)
       klass = ClassInfo.normalize_class(klass)
-      key = [Locale.current, klass, msgid, div].hash
+      key = [Locale.current, klass, msgid, div]
       msg = @@singular_message_cache[key]
       return msg if msg and @@cached
       # Find messages from related classes.
@@ -156,7 +156,7 @@ module GetText
         div = arg4
       end
 
-      key = [Locale.current, klass, msgid, msgid_plural, div].hash
+      key = [Locale.current, klass, msgid, msgid_plural, div]
       msgs = @@plural_message_cache[key]
       unless (msgs and @@cached)
         # Find messages from related classes.
