@@ -103,7 +103,18 @@ module GetText
       #
       # @return [String] Text domain
       attr_accessor :domain
+
+      # It is useful when you have multiple domains. You can define tasks
+      # for each domains by using different namespace prefix.
+      #
+      # It is `nil` by default. It means that tasks are defined at top
+      # level.
+      #
+      # TODO: example
+      #
+      # @return [String] Namespace prefix for tasks defined by this class.
       attr_accessor :namespace_prefix
+
       # @return [Array<String>] Command line options for extracting messages
       #   from sources.
       # @see GetText::Tools::XGetText
