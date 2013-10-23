@@ -258,7 +258,7 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
           output = out
         end
 
-        parser.on("--package-name=PACKAGE",
+        parser.on("--package-name=NAME",
                   _("set package name in output")) do |name|
           @package_name = name
         end
@@ -269,11 +269,11 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
         end
 
         parser.on("--msgid-bugs-address=EMAIL",
-                  _("set report address for msgid bugs")) do |address|
+                  _("set report e-mail address for msgid bugs")) do |address|
           @msgid_bugs_address = address
         end
 
-        parser.on("--copyright-holder=STRING",
+        parser.on("--copyright-holder=HOLDER",
                   _("set copyright holder in output")) do |holder|
           @copyright_holder = holder
         end
