@@ -24,6 +24,7 @@ require "pathname"
 require "optparse"
 require "locale"
 require "gettext"
+require "gettext/po"
 
 module GetText
   module Tools
