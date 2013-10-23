@@ -373,13 +373,16 @@ module GetText
         return [message] if message.empty?
 
         max_line_width = @options[:max_line_width]
-        return [message] if max_line_width <= 0
 
         chunks = []
         message.each_line do |line|
-          # TODO: use character width instead of the number of characters
-          line.scan(/.{1,#{max_line_width}}/m) do |chunk|
-            chunks << chunk
+          if max_line_width <= 0
+            chunks << line
+          else
+            # TODO: use character width instead of the number of characters
+            line.scan(/.{1,#{max_line_width}}/m) do |chunk|
+              chunks << chunk
+            end
           end
         end
         chunks

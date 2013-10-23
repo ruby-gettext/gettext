@@ -458,6 +458,15 @@ msgstr ""
         MESSAGE
       end
 
+      def test_multilines_disable_wrap
+        message = "long\nline\n"
+        assert_equal(<<-MESSAGE, format_message(message, :max_line_width => 0))
+""
+"long\\n"
+"line\\n"
+        MESSAGE
+      end
+
       private
       def format_message(message, options={})
         formatter = GetText::POEntry::Formatter.new(@entry, options)
