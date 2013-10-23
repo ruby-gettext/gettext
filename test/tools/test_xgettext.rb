@@ -62,6 +62,7 @@ class TestToolsXGetText < Test::Unit::TestCase
     package_name = options[:package_name] || "PACKAGE"
     package_version = options[:package_version] || "VERSION"
     msgid_bugs_address = options[:msgid_bugs_address] || ""
+    copyright_year = options[:copyright_year] || "YEAR"
     copyright_holder = options[:copyright_holder] ||
                          "THE PACKAGE'S COPYRIGHT HOLDER"
     output_encoding = options[:to_code] || "UTF-8"
@@ -69,9 +70,9 @@ class TestToolsXGetText < Test::Unit::TestCase
     time = @now.strftime("%Y-%m-%d %H:%M%z")
     <<-"EOH"
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR #{copyright_holder}
+# Copyright (C) #{copyright_year} #{copyright_holder}
 # This file is distributed under the same license as the #{package_name} package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR <EMAIL@ADDRESS>, #{copyright_year}.
 #
 #, fuzzy
 msgid ""
@@ -330,6 +331,14 @@ msgstr ""
                              "--msgid-bugs-address", msgid_bugs_address)
 
       options = {:msgid_bugs_address => msgid_bugs_address}
+      assert_equal(header(options), pot_content)
+    end
+
+    def test_copyright_year
+      copyright_year = "2013"
+      pot_content = generate(":hello", "--copyright-year", copyright_year)
+
+      options = {:copyright_year => copyright_year}
       assert_equal(header(options), pot_content)
     end
 

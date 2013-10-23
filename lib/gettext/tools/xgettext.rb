@@ -82,6 +82,7 @@ module GetText
         @package_version = nil
         @msgid_bugs_address = nil
         @copyright_holder = nil
+        @copyright_year = nil
         @output_encoding = nil
 
         @parse_options = {}
@@ -181,9 +182,9 @@ module GetText
       def header_comment
         <<-COMMENT
 SOME DESCRIPTIVE TITLE.
-Copyright (C) YEAR #{@copyright_holder}
+Copyright (C) #{@copyright_year} #{@copyright_holder}
 This file is distributed under the same license as the #{@package_name} package.
-FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+FIRST AUTHOR <EMAIL@ADDRESS>, #{@copyright_year}.
 
        COMMENT
       end
@@ -237,6 +238,7 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
         @package_version ||= "VERSION"
         @msgid_bugs_address ||= ""
         @copyright_holder ||= "THE PACKAGE'S COPYRIGHT HOLDER"
+        @copyright_year ||= "YEAR"
       end
 
       def parse_arguments(*options) #:nodoc:
@@ -274,6 +276,11 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
         parser.on("--copyright-holder=STRING",
                   _("set copyright holder in output")) do |out|
           @copyright_holder = out
+        end
+
+        parser.on("--copyright-year=YEAR",
+                  _("set copyright year in output")) do |year|
+          @copyright_year = year
         end
 
         parser.on("--output-encoding=ENCODING",
