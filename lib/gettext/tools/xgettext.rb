@@ -78,12 +78,12 @@ module GetText
         @input_files = nil
         @output = nil
 
-        @package_name = nil
-        @package_version = nil
-        @msgid_bugs_address = nil
-        @copyright_holder = nil
-        @copyright_year = nil
-        @output_encoding = nil
+        @package_name = "PACKAGE"
+        @package_version = "VERSION"
+        @msgid_bugs_address = ""
+        @copyright_holder = "THE PACKAGE'S COPYRIGHT HOLDER"
+        @copyright_year = "YEAR"
+        @output_encoding = "UTF-8"
 
         @parse_options = {}
 
@@ -147,7 +147,6 @@ module GetText
       def run(*options)  # :nodoc:
         check_command_line_options(*options)
 
-        @output_encoding ||= "UTF-8"
         pot = generate_pot(@input_files)
 
         if @output.is_a?(String)
@@ -233,12 +232,6 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
 
         @input_files = input_files
         @output = output
-
-        @package_name ||= "PACKAGE"
-        @package_version ||= "VERSION"
-        @msgid_bugs_address ||= ""
-        @copyright_holder ||= "THE PACKAGE'S COPYRIGHT HOLDER"
-        @copyright_year ||= "YEAR"
       end
 
       def parse_arguments(*options) #:nodoc:
@@ -259,32 +252,38 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
         end
 
         parser.on("--package-name=NAME",
-                  _("set package name in output")) do |name|
+                  _("set package name in output"),
+                  "(#{@package_name})") do |name|
           @package_name = name
         end
 
         parser.on("--package-version=VERSION",
-                  _("set package version in output")) do |version|
+                  _("set package version in output"),
+                  "(#{@package_version})") do |version|
           @package_version = version
         end
 
         parser.on("--msgid-bugs-address=EMAIL",
-                  _("set report e-mail address for msgid bugs")) do |address|
+                  _("set report e-mail address for msgid bugs"),
+                  "(#{@msgid_bugs_address})") do |address|
           @msgid_bugs_address = address
         end
 
         parser.on("--copyright-holder=HOLDER",
-                  _("set copyright holder in output")) do |holder|
+                  _("set copyright holder in output"),
+                  "(#{@copyright_holder})") do |holder|
           @copyright_holder = holder
         end
 
         parser.on("--copyright-year=YEAR",
-                  _("set copyright year in output")) do |year|
+                  _("set copyright year in output"),
+                  "(#{@copyright_year})") do |year|
           @copyright_year = year
         end
 
         parser.on("--output-encoding=ENCODING",
-                  _("set encoding for output")) do |encoding|
+                  _("set encoding for output"),
+                  "(#{@output_encoding})") do |encoding|
           @output_encoding = encoding
         end
 
