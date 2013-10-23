@@ -259,23 +259,23 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
         end
 
         parser.on("--package-name=PACKAGE",
-                  _("set package name in output")) do |out|
-          @package_name = out
+                  _("set package name in output")) do |name|
+          @package_name = name
         end
 
         parser.on("--package-version=VERSION",
-                  _("set package version in output")) do |out|
-          @package_version = out
+                  _("set package version in output")) do |version|
+          @package_version = version
         end
 
         parser.on("--msgid-bugs-address=EMAIL",
-                  _("set report address for msgid bugs")) do |out|
-          @msgid_bugs_address = out
+                  _("set report address for msgid bugs")) do |address|
+          @msgid_bugs_address = address
         end
 
         parser.on("--copyright-holder=STRING",
-                  _("set copyright holder in output")) do |out|
-          @copyright_holder = out
+                  _("set copyright holder in output")) do |holder|
+          @copyright_holder = holder
         end
 
         parser.on("--copyright-year=YEAR",
