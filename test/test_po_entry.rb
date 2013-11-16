@@ -274,23 +274,42 @@ EOE
       end
     end
 
-    def test_obsolete_comment
-      entry = GetText::POEntry.new(:normal)
-      entry.msgid = :last
-      obsolete_comment = <<-EOC
-# test.rb:10
-msgid "hello"
-msgstr "Salut"
-EOC
-      entry.comment = obsolete_comment
+    class TestObsoleteComment < self
+      def test_obsolete_comment
+        comment = <<-COMMENT.chomp
+#~ msgid "he"
+#~ msgstr "il"
+        COMMENT
 
-      expected_obsolete_comment = <<-EOC
-# test.rb:10
-#~ msgid "hello"
-#~ msgstr "Salut"
-EOC
+        assert_equal(<<-COMMENT, obsolete_entry(comment))
+#~ msgid "he"
+#~ msgstr "il"
+        COMMENT
+      end
 
-      assert_equal(expected_obsolete_comment, entry.to_s)
+      def test_new_line_only
+        assert_equal("\n", obsolete_entry("\n"))
+      end
+
+      def test_no_comment_mark
+        comment = <<-COMMENT.chomp
+msgid "he"
+msgstr "il"
+        COMMENT
+
+        assert_equal(<<-COMMENT, obsolete_entry(comment))
+#~ msgid "he"
+#~ msgstr "il"
+        COMMENT
+      end
+
+      private
+      def obsolete_entry(comment)
+        entry = GetText::POEntry.new(:normal)
+        entry.msgid = :last
+        entry.comment = comment
+        entry.to_s
+      end
     end
 
     def test_translator_comment

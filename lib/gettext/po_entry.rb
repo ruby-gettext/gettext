@@ -349,7 +349,7 @@ module GetText
         formatted_comment = ""
         comment.each_line do |comment_line|
           if /\A#[^~]/ =~ comment_line or comment_line.start_with?(mark)
-            formatted_comment << comment_line
+            formatted_comment << "#{comment_line.chomp}\n"
           elsif comment_line == "\n"
             formatted_comment << "\n"
           else
