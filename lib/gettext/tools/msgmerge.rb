@@ -208,35 +208,30 @@ module GetText
         end
 
         def generate_obsolete_entry(result)
-          obsolete_comment = []
-
           obsolete_entries = extract_obsolete_entries(result)
-          obsolete_entries.each do |entry|
-            obsolete_comment << entry.to_s
+          obsolete_comments = obsolete_entries.collect do |entry|
+            entry.to_s
           end
 
-          obsolete_entry_in_definition = @definition[:last]
-          if obsolete_entry_in_definition
-            obsolete_comment << obsolete_entry_in_definition.comment
-          end
-
-          return nil if obsolete_comment.empty?
+          return nil if obsolete_comments.empty?
 
           obsolete_entry = POEntry.new(:normal)
           obsolete_entry.msgid = :last
-          obsolete_entry.comment = obsolete_comment.join("\n")
+          obsolete_entry.comment = obsolete_comments.join("\n")
           obsolete_entry
         end
 
         def extract_obsolete_entries(result)
-          obsolete_entries = []
-          @translated_entries.each do |entry|
-            id = [entry.msgctxt, entry.msgid]
-            if not result.has_key?(*id) and not entry.msgid == :last
-              obsolete_entries << entry
+          @definition.find_all do |entry|
+            if entry.obsolete?
+              true
+            elsif entry.msgstr.nil?
+              false
+            else
+              id = [entry.msgctxt, entry.msgid]
+              not result.has_key?(*id)
             end
           end
-          obsolete_entries
         end
       end
 
