@@ -29,6 +29,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
 
     def parse_po(po, output)
       parser = GetText::POParser.new
+      parser.report_warning = false
       parser.parse(po, output)
     end
 
@@ -63,15 +64,35 @@ msgstr "bonjour"
       end
     end
 
-    def test_existing_obsolete_entry
-      @po["hello"] = "bonjour"
-      @po[:last] = generate_entry(:msgid => :last,
-                                  :comment => "#~ obsolete_entry")
-      @pot["hello"] = "bonjour"
-      merged_po = merge
+    class TestObosleteEntry < self
+      def test_in_po
+        pot = <<-POT
+msgid "hello"
+msgstr ""
+        POT
+        po = <<-PO
+msgid "hello"
+msgstr "bonjour"
 
-      assert_equal("bonjour", merged_po["hello"].msgstr)
-      assert_nil(merged_po[:last])
+#~ msgid "he"
+#~ msgstr "il"
+        PO
+
+        assert_equal(<<-PO, merge(pot, po))
+msgid "hello"
+msgstr "bonjour"
+
+#~ msgid "he"
+#~ msgstr "il"
+        PO
+      end
+
+      private
+      def merge(pot, po)
+        parse_po(pot, @pot)
+        parse_po(po, @po)
+        super().to_s
+      end
     end
 
     def test_different_msgstr

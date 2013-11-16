@@ -96,7 +96,7 @@ module GetText
             result[*id] = merge_definition(entry)
           end
 
-          add_obsolete_entry(result, @translated_entries)
+          add_obsolete_entry(result)
           result
         end
 
@@ -199,34 +199,38 @@ module GetText
           Text::Levenshtein.distance(source, destination) / max_size.to_f
         end
 
-        def add_obsolete_entry(result, definition)
-          obsolete_entry = generate_obsolete_entry(result, definition)
+        def add_obsolete_entry(result)
+          obsolete_entry = generate_obsolete_entry(result)
           unless obsolete_entry.nil?
             result[:last] = obsolete_entry
           end
           result
         end
 
-        def generate_obsolete_entry(result, definition)
-          obsolete_entry = nil
+        def generate_obsolete_entry(result)
+          obsolete_comment = []
 
-          obsolete_entries = extract_obsolete_entries(result, definition)
-          unless obsolete_entries.empty?
-            obsolete_comment = []
-
-            obsolete_entries.each do |entry|
-              obsolete_comment << entry.to_s
-            end
-            obsolete_entry = POEntry.new(:normal)
-            obsolete_entry.msgid = :last
-            obsolete_entry.comment = obsolete_comment.join("\n")
+          obsolete_entries = extract_obsolete_entries(result)
+          obsolete_entries.each do |entry|
+            obsolete_comment << entry.to_s
           end
+
+          obsolete_entry_in_definition = @definition[:last]
+          if obsolete_entry_in_definition
+            obsolete_comment << obsolete_entry_in_definition.comment
+          end
+
+          return nil if obsolete_comment.empty?
+
+          obsolete_entry = POEntry.new(:normal)
+          obsolete_entry.msgid = :last
+          obsolete_entry.comment = obsolete_comment.join("\n")
           obsolete_entry
         end
 
-        def extract_obsolete_entries(result, definition)
+        def extract_obsolete_entries(result)
           obsolete_entries = []
-          definition.each do |entry|
+          @translated_entries.each do |entry|
             id = [entry.msgctxt, entry.msgid]
             if not result.has_key?(*id) and not entry.msgid == :last
               obsolete_entries << entry
