@@ -55,7 +55,7 @@ module GetText
         parser.parse_file(config.definition_po, definition_po)
         parser.parse_file(config.reference_pot, reference_pot)
 
-        merger = Merger.new(definition_po, reference_pot)
+        merger = Merger.new(reference_pot, definition_po)
         result = merger.merge
         result.order = config.order
         p result if $DEBUG
@@ -80,9 +80,9 @@ module GetText
         POT_DATE_EXTRACT_RE = /POT-Creation-Date:\s*(.*)?\s*$/
         POT_DATE_RE = /POT-Creation-Date:.*?$/
 
-        def initialize(definition, reference)
-          @definition = definition
+        def initialize(reference, definition)
           @reference = reference
+          @definition = definition
           @translated_entries = @definition.reject do |entry|
             entry.msgstr.nil?
           end
@@ -107,27 +107,27 @@ module GetText
           id = [msgctxt, msgid]
 
           if @definition.has_key?(*id)
-            return merge_entry(@definition[*id], entry)
+            return merge_entry(entry, @definition[*id])
           end
 
           if msgctxt.nil?
             same_msgid_entry = find_by_msgid(@translated_entries, msgid)
             if same_msgid_entry and same_msgid_entry.msgctxt
-              return merge_fuzzy_entry(same_msgid_entry, entry)
+              return merge_fuzzy_entry(entry, same_msgid_entry)
             end
           end
 
           fuzzy_entry = find_fuzzy_entry(@translated_entries, msgid, msgctxt)
           if fuzzy_entry
-            return merge_fuzzy_entry(fuzzy_entry, entry)
+            return merge_fuzzy_entry(entry, fuzzy_entry)
           end
 
           entry
         end
 
-        def merge_entry(definition_entry, reference_entry)
+        def merge_entry(reference_entry, definition_entry)
           if definition_entry.header?
-            return merge_header(definition_entry, reference_entry)
+            return merge_header(reference_entry, definition_entry)
           end
 
           return definition_entry if definition_entry.flag == "fuzzy"
@@ -144,7 +144,7 @@ module GetText
           entry
         end
 
-        def merge_header(old_header, new_header)
+        def merge_header(new_header, old_header)
           header = old_header
           if POT_DATE_EXTRACT_RE =~ new_header.msgstr
             create_date = $1
@@ -165,8 +165,8 @@ module GetText
           same_msgid_entries.first
         end
 
-        def merge_fuzzy_entry(fuzzy_entry, entry)
-          merged_entry = merge_entry(fuzzy_entry, entry)
+        def merge_fuzzy_entry(entry, fuzzy_entry)
+          merged_entry = merge_entry(entry, fuzzy_entry)
           merged_entry.flag = "fuzzy"
           merged_entry
         end

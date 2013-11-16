@@ -28,7 +28,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
     end
 
     def merge
-      merger = GetText::Tools::MsgMerge::Merger.new(@po, @pot)
+      merger = GetText::Tools::MsgMerge::Merger.new(@pot, @po)
       merger.merge
     end
 
