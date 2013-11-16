@@ -93,7 +93,7 @@ module GetText
 
           @reference.each do |entry|
             id = [entry.msgctxt, entry.msgid]
-            result[*id] = apply_definition(entry)
+            result[*id] = merge_definition(entry)
           end
 
           add_obsolete_entry(result, @translated_entries)
@@ -101,7 +101,7 @@ module GetText
         end
 
         private
-        def apply_definition(entry)
+        def merge_definition(entry)
           msgid = entry.msgid
           msgctxt = entry.msgctxt
           id = [msgctxt, msgid]
