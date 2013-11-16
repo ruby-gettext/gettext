@@ -99,14 +99,14 @@ module GetText
 
             if msgctxt.nil?
               same_msgid_entry = find_by_msgid(translated_entries, msgid)
-              if not same_msgid_entry.nil? and not same_msgid_entry.msgctxt.nil?
+              if same_msgid_entry and same_msgid_entry.msgctxt
                 result[nil, msgid] = merge_fuzzy_entry(same_msgid_entry, entry)
                 next
               end
             end
 
             fuzzy_entry = find_fuzzy_entry(translated_entries, msgid, msgctxt)
-            unless fuzzy_entry.nil?
+            if fuzzy_entry
               result[*id] = merge_fuzzy_entry(fuzzy_entry, entry)
               next
             end
