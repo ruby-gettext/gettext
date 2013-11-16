@@ -44,18 +44,12 @@ msgstr "bonjour"
       PO
       parse(<<-POT, @pot)
 msgid "hello"
-msgstr "bonjour"
-
-msgid "he"
-msgstr "il"
+msgstr ""
       POT
 
       assert_equal(<<-PO, merge.to_s)
 msgid "hello"
 msgstr "bonjour"
-
-msgid "he"
-msgstr "il"
       PO
     end
 
