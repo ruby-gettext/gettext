@@ -165,6 +165,12 @@ module GetText
       [:plural, :msgctxt_plural].include?(@type)
     end
 
+    # @return true if the entry is header entry, false otherwise.
+    #   Header entry is normal type and has empty msgid.
+    def header?
+      @type == :normal and @msgid == ""
+    end
+
     def [](number)
       param = @param_type[number]
       raise ParseError, 'no more string parameters expected' unless param

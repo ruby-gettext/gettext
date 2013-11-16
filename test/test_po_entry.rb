@@ -398,6 +398,36 @@ msgstr ""
     end
   end
 
+  class TestPredicate < self
+    class TestHeader < self
+      def test_empty_msgid
+        entry = GetText::POEntry.new(:normal)
+        entry.msgid = ""
+        assert_true(entry.header?)
+      end
+
+      def test_not_empty_msgid
+        entry = GetText::POEntry.new(:normal)
+        entry.msgid = "hello"
+        assert_false(entry.header?)
+      end
+
+      def test_msgctxt
+        entry = GetText::POEntry.new(:msgctxt)
+        entry.msgid = ""
+        entry.msgctxt = "context"
+        assert_false(entry.header?)
+      end
+
+      def test_plural
+        entry = GetText::POEntry.new(:plural)
+        entry.msgid = ""
+        entry.msgid_plural = ""
+        assert_false(entry.header?)
+      end
+    end
+  end
+
   class TestFormatter < self
     class TestEscape < self
       def test_backslash
