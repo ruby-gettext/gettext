@@ -55,7 +55,7 @@ module GetText
         parser.parse_file(config.definition_po, definition_po)
         parser.parse_file(config.reference_pot, reference_pot)
 
-        merger = Merger.new(reference_pot, definition_po)
+        merger = Merger.new(reference_pot, definition_po, config)
         result = merger.merge
         result.order = config.order
         p result if $DEBUG
@@ -80,12 +80,13 @@ module GetText
         POT_DATE_EXTRACT_RE = /POT-Creation-Date:\s*(.*)?\s*$/
         POT_DATE_RE = /POT-Creation-Date:.*?$/
 
-        def initialize(reference, definition)
+        def initialize(reference, definition, config)
           @reference = reference
           @definition = definition
           @translated_entries = @definition.reject do |entry|
             entry.msgstr.nil?
           end
+          @config = config
         end
 
         def merge
@@ -109,6 +110,8 @@ module GetText
           if @definition.has_key?(*id)
             return merge_entry(entry, @definition[*id])
           end
+
+          return entry unless @config.enable_fuzzy_matching?
 
           if msgctxt.nil?
             same_msgid_entry = find_by_msgid(@translated_entries, msgid)
@@ -241,12 +244,15 @@ module GetText
         bindtextdomain("gettext")
 
         attr_accessor :definition_po, :reference_pot
-        attr_accessor :output, :fuzzy, :update
+        attr_accessor :output, :update
         attr_accessor :order
         attr_accessor :po_format_options
 
         # update mode options
         attr_accessor :backup, :suffix
+
+        # (#see #enable_fuzzy_matching?)
+        attr_writer :enable_fuzzy_matching
 
         # The result is written back to def.po.
         #       --backup=CONTROL        make a backup of def.po
@@ -270,7 +276,7 @@ module GetText
           @po_format_options = {
             :max_line_width => POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
           }
-          @fuzzy = nil
+          @enable_fuzzy_matching = true
           @update = nil
           @backup = ENV["VERSION_CONTROL"]
           @suffix = ENV["SIMPLE_BACKUP_SUFFIX"] || "~"
@@ -288,6 +294,11 @@ module GetText
 
           @definition_po, @reference_pot = rest
           @output = @definition_po if @update
+        end
+
+        # @return [Bool] true if fuzzy matching is enabled, false otherwise.
+        def enable_fuzzy_matching?
+          @enable_fuzzy_matching
         end
 
         private
@@ -354,7 +365,11 @@ module GetText
             @po_format_options[:max_line_width] = max_line_width
           end
 
-          #parser.on("-F", "--fuzzy-matching")
+          parser.on("--[no-]fuzzy-matching",
+                    _("Disable fuzzy matching"),
+                    _("(enable)")) do |boolean|
+            @enable_fuzzy_matching = boolean
+          end
 
           parser.on("-h", "--help", _("Display this help and exit")) do
             puts(parser.help)

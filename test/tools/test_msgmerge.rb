@@ -25,6 +25,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
     def setup
       @po = GetText::PO.new
       @pot = GetText::PO.new
+      @config = GetText::Tools::MsgMerge::Config.new
     end
 
     def parse_po(po, output)
@@ -34,7 +35,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
     end
 
     def merge
-      merger = GetText::Tools::MsgMerge::Merger.new(@pot, @po)
+      merger = GetText::Tools::MsgMerge::Merger.new(@pot, @po, @config)
       merger.merge
     end
 
@@ -630,6 +631,62 @@ msgstr ""
 #: hello.rb:3
 msgid "Hello World"
 msgstr "Translated Hello World. This translation is very long. Yes! Very long translation!!!"
+        PO
+      end
+    end
+
+    class TestFuzzyMatching < self
+      def pot_content
+        <<-POT
+msgid "Hello"
+msgstr ""
+        POT
+      end
+
+      def po_content
+        <<-PO
+msgid "Hello!"
+msgstr "Bonjour!"
+        PO
+      end
+
+      def test_default
+        @msgmerge.run("--update",
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-PO, File.read(@po_file_path))
+#, fuzzy
+msgid "Hello"
+msgstr "Bonjour!"
+
+#~ msgid "Hello!"
+#~ msgstr "Bonjour!"
+        PO
+      end
+
+      def test_fuzzy_matching
+        @msgmerge.run("--update",
+                      "--fuzzy-matching",
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-PO, File.read(@po_file_path))
+#, fuzzy
+msgid "Hello"
+msgstr "Bonjour!"
+
+#~ msgid "Hello!"
+#~ msgstr "Bonjour!"
+        PO
+      end
+
+      def test_no_fuzzy_matching
+        @msgmerge.run("--update",
+                      "--no-fuzzy-matching",
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-PO, File.read(@po_file_path))
+msgid "Hello"
+msgstr ""
+
+#~ msgid "Hello!"
+#~ msgstr "Bonjour!"
         PO
       end
     end
