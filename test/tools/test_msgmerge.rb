@@ -27,19 +27,36 @@ class TestToolsMsgMerge < Test::Unit::TestCase
       @pot = GetText::PO.new
     end
 
+    def parse(po, output)
+      parser = GetText::POParser.new
+      parser.parse(po, output)
+    end
+
     def merge
       merger = GetText::Tools::MsgMerge::Merger.new(@pot, @po)
       merger.merge
     end
 
     def test_add_entry
-      @po["hello"] = "bonjour"
-      @pot["hello"] = "bonjour"
-      @pot["he"] = "il"
-      merged_po = merge
+      parse(<<-PO, @po)
+msgid "hello"
+msgstr "bonjour"
+      PO
+      parse(<<-POT, @pot)
+msgid "hello"
+msgstr "bonjour"
 
-      assert_equal("bonjour", merged_po["hello"].msgstr)
-      assert_equal("il", merged_po["he"].msgstr)
+msgid "he"
+msgstr "il"
+      POT
+
+      assert_equal(<<-PO, merge.to_s)
+msgid "hello"
+msgstr "bonjour"
+
+msgid "he"
+msgstr "il"
+      PO
     end
 
     def test_existing_obsolete_entry
