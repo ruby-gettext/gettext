@@ -201,10 +201,9 @@ module GetText
 
         def add_obsolete_entry(result)
           obsolete_entry = generate_obsolete_entry(result)
-          unless obsolete_entry.nil?
-            result[:last] = obsolete_entry
-          end
-          result
+          return if obsolete_entry.nil?
+
+          result[:last] = obsolete_entry
         end
 
         def generate_obsolete_entry(result)
