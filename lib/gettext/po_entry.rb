@@ -171,6 +171,12 @@ module GetText
       @type == :normal and @msgid == ""
     end
 
+    # @return true if the entry is obsolete entry, false otherwise.
+    #   Obsolete entry is normal type and has :last msgid.
+    def obsolete?
+      @type == :normal and @msgid == :last
+    end
+
     def [](number)
       param = @param_type[number]
       raise ParseError, 'no more string parameters expected' unless param
@@ -226,8 +232,7 @@ module GetText
       end
 
       def format
-        # extracted comments
-        if @entry.msgid == :last
+        if @entry.obsolete?
           return format_obsolete_comment(@entry.comment)
         end
 

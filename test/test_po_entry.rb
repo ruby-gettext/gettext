@@ -445,6 +445,34 @@ msgstr ""
         assert_false(entry.header?)
       end
     end
+
+    class TestObsolete < self
+      def test_last_msgid
+        entry = GetText::POEntry.new(:normal)
+        entry.msgid = :last
+        assert_true(entry.obsolete?)
+      end
+
+      def test_not_lasty_msgid
+        entry = GetText::POEntry.new(:normal)
+        entry.msgid = "hello"
+        assert_false(entry.obsolete?)
+      end
+
+      def test_msgctxt
+        entry = GetText::POEntry.new(:msgctxt)
+        entry.msgid = :last
+        entry.msgctxt = "context"
+        assert_false(entry.obsolete?)
+      end
+
+      def test_plural
+        entry = GetText::POEntry.new(:plural)
+        entry.msgid = :last
+        entry.msgid_plural = ""
+        assert_false(entry.obsolete?)
+      end
+    end
   end
 
   class TestFormatter < self
