@@ -92,34 +92,37 @@ module GetText
           result = GetText::PO.new
 
           @reference.each do |entry|
+            id = [entry.msgctxt, entry.msgid]
+            result[*id] = apply_definition(entry)
+          end
+
+          add_obsolete_entry(result, @translated_entries)
+          result
+        end
+
+        private
+        def apply_definition(entry)
             msgid = entry.msgid
             msgctxt = entry.msgctxt
             id = [msgctxt, msgid]
 
             if @definition.has_key?(*id)
-              result[*id] = merge_entry(@definition[*id], entry)
-              next
+              return merge_entry(@definition[*id], entry)
             end
 
             if msgctxt.nil?
               same_msgid_entry = find_by_msgid(@translated_entries, msgid)
               if same_msgid_entry and same_msgid_entry.msgctxt
-                result[nil, msgid] = merge_fuzzy_entry(same_msgid_entry, entry)
-                next
+                return merge_fuzzy_entry(same_msgid_entry, entry)
               end
             end
 
             fuzzy_entry = find_fuzzy_entry(@translated_entries, msgid, msgctxt)
             if fuzzy_entry
-              result[*id] = merge_fuzzy_entry(fuzzy_entry, entry)
-              next
+              return merge_fuzzy_entry(fuzzy_entry, entry)
             end
 
-            result[*id] = entry
-          end
-
-          add_obsolete_entry(result, @translated_entries)
-          result
+            entry
         end
 
         def merge_entry(definition_entry, reference_entry)
