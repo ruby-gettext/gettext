@@ -23,16 +23,20 @@ require 'gettext/tools/msgmerge'
 class TestToolsMsgMerge < Test::Unit::TestCase
   class TestMerger < self
     def setup
-      @merger = GetText::Tools::MsgMerge::Merger.new
       @po = GetText::PO.new
       @pot = GetText::PO.new
+    end
+
+    def merge
+      merger = GetText::Tools::MsgMerge::Merger.new(@po, @pot)
+      merger.merge
     end
 
     def test_add_entry
       @po["hello"] = "bonjour"
       @pot["hello"] = "bonjour"
       @pot["he"] = "il"
-      merged_po = @merger.merge(@po, @pot)
+      merged_po = merge
 
       assert_equal("bonjour", merged_po["hello"].msgstr)
       assert_equal("il", merged_po["he"].msgstr)
@@ -43,7 +47,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
       @po[:last] = generate_entry(:msgid => :last,
                                   :comment => "#~ obsolete_entry")
       @pot["hello"] = "bonjour"
-      merged_po = @merger.merge(@po, @pot)
+      merged_po = merge
 
       assert_equal("bonjour", merged_po["hello"].msgstr)
       assert_nil(merged_po[:last])
@@ -52,7 +56,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
     def test_different_msgstr
       @po["hello"] = "salut"
       @pot["hello"] = "bonjour"
-      merged_po = @merger.merge(@po, @pot)
+      merged_po = merge
 
       assert_equal("salut", merged_po["hello"].msgstr)
     end
@@ -66,7 +70,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
                                      :msgstr => "",
                                      :translator_comment => "It's comments")
 
-      merged_po = @merger.merge(@po, @pot)
+      merged_po = merge
       assert_equal("bonjour", merged_po["hello"].msgstr)
       assert_equal("comment", merged_po["hello"].translator_comment)
     end
@@ -80,7 +84,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
                                      :msgstr => "",
                                      :extracted_comment => "extracted comments")
 
-      merged_po = @merger.merge(@po, @pot)
+      merged_po = merge
       assert_equal("bonjour", merged_po["hello"].msgstr)
       assert_equal("extracted comments", merged_po["hello"].extracted_comment)
     end
@@ -96,7 +100,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
                                      :msgstr => "",
                                      :references => pot_references)
 
-      merged_po = @merger.merge(@po, @pot)
+      merged_po = merge
       assert_equal("bonjour", merged_po["hello"].msgstr)
       assert_equal(pot_references, merged_po["hello"].references)
     end
@@ -110,7 +114,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
                                      :msgstr => "",
                                      :flag => "no-c-format")
 
-      merged_po = @merger.merge(@po, @pot)
+      merged_po = merge
       assert_equal("bonjour", merged_po["hello"].msgstr)
       assert_equal("no-c-format", merged_po["hello"].flag)
     end
@@ -123,7 +127,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
       @pot["hello"] = generate_entry(:msgid => "hello",
                                      :msgstr => "")
 
-      merged_po = @merger.merge(@po, @pot)
+      merged_po = merge
       assert_equal("bonjour", merged_po["hello"].msgstr)
       assert_equal(nil, merged_po["hello"].previous)
     end
@@ -134,7 +138,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
                                       :msgstr => nil)
         @pot["hello"] = generate_entry(:msgid => "hello",
                                        :msgstr => nil)
-        merged_po = @merger.merge(@po, @pot)
+        merged_po = merge
         assert_true(merged_po.has_key?("hello"))
         assert_nil(merged_po["hello"].flag)
       end
@@ -149,7 +153,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
                                   :translator_comment => "uninitialized comment",
                                   :flag => "fuzzy")
 
-        merged_po = @merger.merge(@po, @pot)
+        merged_po = merge
         assert_equal("header\nentry", merged_po[""].msgstr)
         assert_equal("header comment", merged_po[""].translator_comment)
         assert_equal(nil, merged_po[""].flag)
@@ -168,7 +172,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
                                   :translator_comment => "header comment",
                                   :flag => "fuzzy")
 
-        merged_po = @merger.merge(@po, @pot)
+        merged_po = merge
         assert_equal(pot_creation_date, merged_po[""].msgstr)
       end
     end
@@ -180,7 +184,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
                                                 :msgstr => "salut")
         @pot["hello"] = generate_entry(:msgid => "hello",
                                        :msgstr => "")
-        merged_po = @merger.merge(@po, @pot)
+        merged_po = merge
 
         assert_false(merged_po.has_key?("normal", "hello"))
         assert_true(merged_po.has_key?("hello"))
@@ -195,7 +199,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
         @pot["he"] = generate_entry(:msgid => "he",
                                     :msgid_plural => "they",
                                     :msgstr => "")
-        merged_po = @merger.merge(@po, @pot)
+        merged_po = merge
 
         assert_equal("il\000ils", merged_po["he"].msgstr)
         assert_equal("they", merged_po["he"].msgid_plural)
@@ -205,7 +209,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
       def test_fuzzy_matching_entry
         @po["helol"] = "bonjour"
         @pot["hello"] = ""
-        merged_po = @merger.merge(@po, @pot)
+        merged_po = merge
 
         assert_false(merged_po.has_key?("helol"))
         assert_true(merged_po.has_key?("hello"))
@@ -221,7 +225,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
         @pot["hello"] = generate_entry(:msgid => "hello",
                                        :msgstr => "")
 
-        merged_po = @merger.merge(@po, @pot)
+        merged_po = merge
         assert_equal("bonjuor", merged_po["hello"].msgstr)
         assert_equal("fuzzy", merged_po["hello"].flag)
       end
@@ -230,7 +234,7 @@ class TestToolsMsgMerge < Test::Unit::TestCase
     def test_obsolete_entry
       @po["hello"] = "bonjour"
       @pot["hi"] = "salut"
-      merged_po = @merger.merge(@po, @pot)
+      merged_po = merge
 
       assert_equal("salut", merged_po["hi"].msgstr)
       assert_false(merged_po.has_key?("hello"))

@@ -55,8 +55,8 @@ module GetText
         parser.parse_file(config.definition_po, definition_po)
         parser.parse_file(config.reference_pot, reference_pot)
 
-        merger = Merger.new
-        result = merger.merge(definition_po, reference_pot)
+        merger = Merger.new(definition_po, reference_pot)
+        result = merger.merge
         result.order = config.order
         p result if $DEBUG
         print result.generate_po if $DEBUG
@@ -80,32 +80,36 @@ module GetText
         POT_DATE_EXTRACT_RE = /POT-Creation-Date:\s*(.*)?\s*$/
         POT_DATE_RE = /POT-Creation-Date:.*?$/
 
-        def merge(definition, reference)
-          result = GetText::PO.new
-
-          translated_entries = definition.reject do |entry|
+        def initialize(definition, reference)
+          @definition = definition
+          @reference = reference
+          @translated_entries = @definition.reject do |entry|
             entry.msgstr.nil?
           end
+        end
 
-          reference.each do |entry|
+        def merge
+          result = GetText::PO.new
+
+          @reference.each do |entry|
             msgid = entry.msgid
             msgctxt = entry.msgctxt
             id = [msgctxt, msgid]
 
-            if definition.has_key?(*id)
-              result[*id] = merge_entry(definition[*id], entry)
+            if @definition.has_key?(*id)
+              result[*id] = merge_entry(@definition[*id], entry)
               next
             end
 
             if msgctxt.nil?
-              same_msgid_entry = find_by_msgid(translated_entries, msgid)
+              same_msgid_entry = find_by_msgid(@translated_entries, msgid)
               if same_msgid_entry and same_msgid_entry.msgctxt
                 result[nil, msgid] = merge_fuzzy_entry(same_msgid_entry, entry)
                 next
               end
             end
 
-            fuzzy_entry = find_fuzzy_entry(translated_entries, msgid, msgctxt)
+            fuzzy_entry = find_fuzzy_entry(@translated_entries, msgid, msgctxt)
             if fuzzy_entry
               result[*id] = merge_fuzzy_entry(fuzzy_entry, entry)
               next
@@ -114,14 +118,13 @@ module GetText
             result[*id] = entry
           end
 
-          add_obsolete_entry(result, translated_entries)
+          add_obsolete_entry(result, @translated_entries)
           result
         end
 
         def merge_entry(definition_entry, reference_entry)
           if definition_entry.header?
-            new_header = merge_header(definition_entry, reference_entry)
-            return new_header
+            return merge_header(definition_entry, reference_entry)
           end
 
           return definition_entry if definition_entry.flag == "fuzzy"
