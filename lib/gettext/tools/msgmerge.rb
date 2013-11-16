@@ -119,7 +119,7 @@ module GetText
         end
 
         def merge_entry(definition_entry, reference_entry)
-          if definition_entry.msgid.empty? and definition_entry.msgctxt.nil?
+          if definition_entry.header?
             new_header = merge_header(definition_entry, reference_entry)
             return new_header
           end
