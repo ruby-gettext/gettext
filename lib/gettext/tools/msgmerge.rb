@@ -29,7 +29,8 @@ require "gettext/po"
 module GetText
   module Tools
     class MsgMerge
-      class Merger #:nodoc:
+      # @private
+      class Merger
         # Merge the reference with the definition: take the #. and
         #  #: comments from the reference, take the # comments from
         # the definition, take the msgstr from the definition.  Add
