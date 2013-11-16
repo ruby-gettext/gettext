@@ -102,27 +102,27 @@ module GetText
 
         private
         def apply_definition(entry)
-            msgid = entry.msgid
-            msgctxt = entry.msgctxt
-            id = [msgctxt, msgid]
+          msgid = entry.msgid
+          msgctxt = entry.msgctxt
+          id = [msgctxt, msgid]
 
-            if @definition.has_key?(*id)
-              return merge_entry(@definition[*id], entry)
+          if @definition.has_key?(*id)
+            return merge_entry(@definition[*id], entry)
+          end
+
+          if msgctxt.nil?
+            same_msgid_entry = find_by_msgid(@translated_entries, msgid)
+            if same_msgid_entry and same_msgid_entry.msgctxt
+              return merge_fuzzy_entry(same_msgid_entry, entry)
             end
+          end
 
-            if msgctxt.nil?
-              same_msgid_entry = find_by_msgid(@translated_entries, msgid)
-              if same_msgid_entry and same_msgid_entry.msgctxt
-                return merge_fuzzy_entry(same_msgid_entry, entry)
-              end
-            end
+          fuzzy_entry = find_fuzzy_entry(@translated_entries, msgid, msgctxt)
+          if fuzzy_entry
+            return merge_fuzzy_entry(fuzzy_entry, entry)
+          end
 
-            fuzzy_entry = find_fuzzy_entry(@translated_entries, msgid, msgctxt)
-            if fuzzy_entry
-              return merge_fuzzy_entry(fuzzy_entry, entry)
-            end
-
-            entry
+          entry
         end
 
         def merge_entry(definition_entry, reference_entry)
