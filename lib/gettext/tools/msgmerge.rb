@@ -29,6 +29,47 @@ require "gettext/po"
 module GetText
   module Tools
     class MsgMerge
+      class << self
+        # (see #run)
+        #
+        # This method is provided just for convenience. It equals to
+        # `new.run(*command_line)`.
+        def run(*command_line)
+          new.run(*command_line)
+        end
+      end
+
+      # Merge a po-file inluding translated messages and a new pot-file.
+      #
+      # @param [Array<String>] command_line
+      #   command line arguments for rmsgmerge.
+      # @return [void]
+      def run(*command_line)
+        config = Config.new
+        config.parse(command_line)
+
+        parser = POParser.new
+        parser.ignore_fuzzy = false
+        definition_po = PO.new
+        reference_pot = PO.new
+        parser.parse_file(config.definition_po, definition_po)
+        parser.parse_file(config.reference_pot, reference_pot)
+
+        merger = Merger.new
+        result = merger.merge(definition_po, reference_pot)
+        result.order = config.order
+        p result if $DEBUG
+        print result.generate_po if $DEBUG
+
+        if config.output.is_a?(String)
+          File.open(File.expand_path(config.output), "w+") do |file|
+            file.write(result.to_s(config.po_format_options))
+          end
+        else
+          puts(result.to_s(config.po_format_options))
+        end
+      end
+
       # @private
       class Merger
         # Merge the reference with the definition: take the #. and
@@ -327,47 +368,6 @@ module GetText
           end
 
           parser
-        end
-      end
-
-      class << self
-        # (see #run)
-        #
-        # This method is provided just for convenience. It equals to
-        # `new.run(*command_line)`.
-        def run(*command_line)
-          new.run(*command_line)
-        end
-      end
-
-      # Merge a po-file inluding translated messages and a new pot-file.
-      #
-      # @param [Array<String>] command_line
-      #   command line arguments for rmsgmerge.
-      # @return [void]
-      def run(*command_line)
-        config = Config.new
-        config.parse(command_line)
-
-        parser = POParser.new
-        parser.ignore_fuzzy = false
-        definition_po = PO.new
-        reference_pot = PO.new
-        parser.parse_file(config.definition_po, definition_po)
-        parser.parse_file(config.reference_pot, reference_pot)
-
-        merger = Merger.new
-        result = merger.merge(definition_po, reference_pot)
-        result.order = config.order
-        p result if $DEBUG
-        print result.generate_po if $DEBUG
-
-        if config.output.is_a?(String)
-          File.open(File.expand_path(config.output), "w+") do |file|
-            file.write(result.to_s(config.po_format_options))
-          end
-        else
-          puts(result.to_s(config.po_format_options))
         end
       end
     end
