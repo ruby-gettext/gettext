@@ -124,11 +124,7 @@ module GetText
             return new_header
           end
 
-          if definition_entry.flag == "fuzzy"
-            entry = definition_entry
-            entry.flag = "fuzzy"
-            return entry
-          end
+          return definition_entry if definition_entry.flag == "fuzzy"
 
           entry = reference_entry
           entry.translator_comment = definition_entry.translator_comment
