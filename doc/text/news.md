@@ -1,5 +1,28 @@
 # News
 
+## <a id="3-0-3">3.0.3</a>: 2013-12-15
+
+### Improvements
+
+  * Documented {GetText::Tools::Task#namespace_prefix}.
+  * Added `--copyright-year` option to {GetText::Tools::XGetText}.
+    [GitHub#25] [Debian #726941] [Reported by Francesco Poli]
+    [Reported by 375gnu]
+  * {GetText::Tools::XGetText} respects new lines in translate target
+    message.
+  * Added {GetText::POEntry#header?}.
+  * Added {GetText::POEntry#obsolete?}.
+  * Added `--no-fuzzy-matching` option to {GetText::Tools::MsgMerge}.
+    [GitHub#28] [Reported by Sam Lown]
+
+### Fixes
+
+  * Fixed cache key hash conflict on armv7hl. Memoization feature is
+    removed for this fix. If you get performance issue. Please report
+    it. We will solve the issue. See also locale gem's GitHub issue #3.
+    [GitHub#22] [Reported by mtasaka]
+  * Fixed a bug that obsolete comment misses the last new line.
+
 ## <a id="3-0-2">3.0.2</a>: 2013-09-29
 
 ### Improvements
