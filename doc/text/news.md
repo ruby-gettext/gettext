@@ -23,6 +23,13 @@
     [GitHub#22] [Reported by mtasaka]
   * Fixed a bug that obsolete comment misses the last new line.
 
+### Thanks
+
+  * Francesco Poli
+  * 375gnu
+  * Sam Lown
+  * mtasaka
+
 ## <a id="3-0-2">3.0.2</a>: 2013-09-29
 
 ### Improvements
