@@ -38,7 +38,8 @@ module GetText
       end
       analyzed_classes << klass unless analyzed_classes.include? klass
 
-      klass.ancestors[1..-1].each do |a|
+      klass.ancestors.each do |a|
+        next if a == klass
         ret += related_classes_internal(a, all_classes, analyzed_classes)
         ret.uniq!
       end

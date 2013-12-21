@@ -35,6 +35,16 @@ end
 class @@anon::AC1; end
 module @@anon::AM1; end
 
+module TestClassInfoSandbox
+  class << self
+    def clear
+      constants.each do |name|
+        remove_const(name)
+      end
+    end
+  end
+end
+
 class TestClassInfo < Test::Unit::TestCase
   include GetText::ClassInfo
 
@@ -83,5 +93,36 @@ class TestClassInfo < Test::Unit::TestCase
 
   def test_ruby19
     assert_equal Object, GetText::ClassInfo.normalize_class(Module.new)
+  end
+
+  sub_test_case "related_classes" do
+    def setup
+      unless Module.respond_to?(:prepend, true)
+        omit("Module#prepend is required")
+      end
+
+      TestClassInfoSandbox.module_eval(<<-SOURCE)
+        module Prepended
+        end
+
+        class Base
+          prepend Prepended
+        end
+      SOURCE
+    end
+
+    def teardown
+      TestClassInfoSandbox.clear
+    end
+
+    def test_prepend
+      assert_equal([
+                     TestClassInfoSandbox::Base,
+                     TestClassInfoSandbox,
+                     TestClassInfoSandbox::Prepended,
+                     Object,
+                   ],
+                   related_classes(TestClassInfoSandbox::Base))
+    end
   end
 end
