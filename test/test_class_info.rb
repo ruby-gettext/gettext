@@ -70,7 +70,7 @@ class TestClassInfo < Test::Unit::TestCase
 =end
   end
 
-  def test_rellated_classes_with_all_classes
+  def test_related_classes_with_all_classes
     assert_equal [M1, Object], related_classes(M1, [M1])
     assert_equal [M1, Object], related_classes(M1::M3::M4, [M1])
     assert_equal [M1::M3, Object], related_classes(M1::M3::M4, [M1::M3])
