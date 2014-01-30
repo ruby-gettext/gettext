@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
 # Copyright (C) 2009  Masao Mutoh
 #
@@ -471,6 +471,19 @@ msgstr ""
         entry.msgid = :last
         entry.msgid_plural = ""
         assert_false(entry.obsolete?)
+      end
+    end
+
+    class TestFuzzy < self
+      def test_fuzzy_flag
+        entry = GetText::POEntry.new(:normal)
+        entry.flag = "fuzzy"
+        assert_true(entry.fuzzy?)
+      end
+
+      def test_no_fuzzy_flag
+        entry = GetText::POEntry.new(:normal)
+        assert_false(entry.fuzzy?)
       end
     end
   end

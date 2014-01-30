@@ -177,6 +177,12 @@ module GetText
       @type == :normal and @msgid == :last
     end
 
+    # @return true if the entry is fuzzy entry, false otherwise.
+    #   Fuzzy entry has "fuzzy" flag.
+    def fuzzy?
+      @flag == "fuzzy"
+    end
+
     def [](number)
       param = @param_type[number]
       raise ParseError, 'no more string parameters expected' unless param
