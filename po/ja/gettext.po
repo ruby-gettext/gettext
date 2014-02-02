@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 2.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-20 22:54+0900\n"
+"POT-Creation-Date: 2014-02-02 23:46+0900\n"
 "PO-Revision-Date: 2013-04-16 15:07+0900\n"
 "Last-Translator: Haruka Yoshihara <yoshihara@clear-code.com>\n"
 "Language-Team: Japanese\n"
@@ -25,6 +25,76 @@ msgstr "ngettext: 3番目のパラメータが不正です。: value = %{number}
 msgid "ngettext: 3rd parameter should be a number, not nil."
 msgstr "ngettext: 3番目のパラメータがnilです。数値にしてください。"
 
+#: ../lib/gettext/tools/msgcat.rb:172
+msgid "Usage: %s [OPTIONS] PO_FILE1 PO_FILE2 ..."
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:174
+msgid "Concatenates and merges PO files."
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:176 ../lib/gettext/tools/msgfmt.rb:86
+#: ../lib/gettext/tools/msginit.rb:89 ../lib/gettext/tools/msgmerge.rb:329
+#: ../lib/gettext/tools/xgettext.rb:248
+msgid "Specific options:"
+msgstr "オプション："
+
+#: ../lib/gettext/tools/msgcat.rb:180
+msgid "(default: the standard output)"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:185 ../lib/gettext/tools/msgcat.rb:202
+#: ../lib/gettext/tools/msgmerge.rb:342 ../lib/gettext/tools/msgmerge.rb:361
+#: ../lib/gettext/tools/xgettext.rb:302
+msgid "Sort output by msgid"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:190 ../lib/gettext/tools/msgcat.rb:195
+#: ../lib/gettext/tools/msgmerge.rb:349 ../lib/gettext/tools/msgmerge.rb:356
+msgid "Sort output by location"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:196 ../lib/gettext/tools/msgmerge.rb:350
+msgid "It is same as --sort-by-location"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:197 ../lib/gettext/tools/msgcat.rb:204
+#: ../lib/gettext/tools/msgmerge.rb:344 ../lib/gettext/tools/msgmerge.rb:351
+msgid "Just for GNU gettext's msgcat compatibility"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:203 ../lib/gettext/tools/msgmerge.rb:343
+msgid "It is same as --sort-by-msgid"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:209
+msgid "Remove location information"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:214
+msgid "Remove all comments"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:219 ../lib/gettext/tools/msgmerge.rb:371
+#: ../lib/gettext/tools/xgettext.rb:312
+msgid "Set output page width"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:225 ../lib/gettext/tools/msgmerge.rb:377
+#: ../lib/gettext/tools/xgettext.rb:318
+msgid ""
+"Break long message lines, longer than the output page width, into several line"
+"s"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:236
+msgid "Ignore fuzzy entries"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:241
+msgid "Don't report warning messages"
+msgstr ""
+
 #: ../lib/gettext/tools/msgfmt.rb:65
 msgid "no input files specified."
 msgstr "入力ファイルが指定されていません。"
@@ -37,16 +107,11 @@ msgstr "使い方: %s input.po [-o output.mo]"
 msgid "Generate binary message catalog from textual translation description."
 msgstr "poファイルからバイナリのメッセージカタログファイル（moファイル）を生成します。"
 
-#: ../lib/gettext/tools/msgfmt.rb:86 ../lib/gettext/tools/msginit.rb:89
-#: ../lib/gettext/tools/msgmerge.rb:266 ../lib/gettext/tools/xgettext.rb:218
-msgid "Specific options:"
-msgstr "オプション："
-
-#: ../lib/gettext/tools/msgfmt.rb:89 ../lib/gettext/tools/xgettext.rb:221
+#: ../lib/gettext/tools/msgfmt.rb:89 ../lib/gettext/tools/xgettext.rb:251
 msgid "write output to specified file"
 msgstr "出力ファイルを指定します"
 
-#: ../lib/gettext/tools/msgfmt.rb:93 ../lib/gettext/tools/xgettext.rb:271
+#: ../lib/gettext/tools/msgfmt.rb:93 ../lib/gettext/tools/xgettext.rb:349
 msgid "display version information and exit"
 msgstr "バージョンを表示します"
 
@@ -78,7 +143,7 @@ msgid ""
 " locale on your environment."
 msgstr "LOCALEとして指定された値をターゲットのロケールとして扱います。ロケールが指定されていない場合は、ユーザの現在のロケールを使用します。"
 
-#: ../lib/gettext/tools/msginit.rb:112 ../lib/gettext/tools/msgmerge.rb:317
+#: ../lib/gettext/tools/msginit.rb:112 ../lib/gettext/tools/msgmerge.rb:398
 msgid "Display this help and exit"
 msgstr "このヘルプを表示します"
 
@@ -104,17 +169,13 @@ msgstr "'#{language_tag}'というロケールは正しくありません。指�
 msgid "file '%s' has already existed."
 msgstr "ファイル'%s'はすでに存在します。"
 
-#: ../lib/gettext/tools/msginit.rb:200
+#: ../lib/gettext/tools/msginit.rb:202
 msgid "Please enter your full name"
 msgstr "あなたのフルネームを入力してください"
 
-#: ../lib/gettext/tools/msginit.rb:229
+#: ../lib/gettext/tools/msginit.rb:231
 msgid "Please enter your email address"
 msgstr "あなたのメールアドレスを入力してください"
-
-#: ../lib/gettext/tools/msgmerge.rb:255
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
 
 #: ../lib/gettext/tools/msgmerge.rb:258
 #, fuzzy
@@ -127,39 +188,13 @@ msgstr ""
 "2つの.poファイルをマージします。def.poファイルはすでにある翻訳済みのPOファイルです。ref.potは最新のPOファイルです。ref.potは通常"
 "xgettextから新たに生成されたものです。"
 
-#: ../lib/gettext/tools/msgmerge.rb:269
-msgid "Update definition.po"
-msgstr ""
-
 #: ../lib/gettext/tools/msgmerge.rb:274
 #, fuzzy
 msgid "Write output to specified file"
 msgstr "出力ファイルを指定します"
 
-#: ../lib/gettext/tools/msgmerge.rb:279
-msgid "Generate sorted output"
-msgstr ""
-
-#: ../lib/gettext/tools/msgmerge.rb:284
-msgid "Sort output by file location"
-msgstr ""
-
-#: ../lib/gettext/tools/msgmerge.rb:289
-msgid "Sort output by msgid"
-msgstr ""
-
-#: ../lib/gettext/tools/msgmerge.rb:294
-msgid "Preserve '#: FILENAME:LINE' lines"
-msgstr ""
-
-#: ../lib/gettext/tools/msgmerge.rb:299
-msgid "Set output page width"
-msgstr ""
-
-#: ../lib/gettext/tools/msgmerge.rb:305
-msgid ""
-"Break long message lines, longer than the output page width, into several line"
-"s"
+#: ../lib/gettext/tools/msgmerge.rb:318
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
 #: ../lib/gettext/tools/msgmerge.rb:323
@@ -167,83 +202,117 @@ msgstr ""
 msgid "Display version information and exit"
 msgstr "バージョンを表示します"
 
+#: ../lib/gettext/tools/msgmerge.rb:332
+msgid "Update definition.po"
+msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:366 ../lib/gettext/tools/xgettext.rb:307
+msgid "Preserve '#: FILENAME:LINE' lines"
+msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:388
+msgid "Disable fuzzy matching"
+msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:389
+msgid "(enable)"
+msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:394
+msgid "Don't output obsolete entries"
+msgstr ""
+
 #: ../lib/gettext/tools/parser/glade.rb:32
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "ファイル'%{file}'はglade-2.0のフォーマットではありません。"
 
-#: ../lib/gettext/tools/xgettext.rb:64
+#: ../lib/gettext/tools/xgettext.rb:65
 msgid "'%{klass}' is ignored."
 msgstr "'%{klass}'は無視されました。"
 
-#: ../lib/gettext/tools/xgettext.rb:183
+#: ../lib/gettext/tools/xgettext.rb:170
 msgid "Error parsing %{path}"
 msgstr "%{path}をパース中にエラーが発生しました。"
 
-#: ../lib/gettext/tools/xgettext.rb:194
+#: ../lib/gettext/tools/xgettext.rb:229
 msgid "no input files"
 msgstr "入力ファイルが指定されていません。"
 
-#: ../lib/gettext/tools/xgettext.rb:212
+#: ../lib/gettext/tools/xgettext.rb:242
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "使用法: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#: ../lib/gettext/tools/xgettext.rb:215
+#: ../lib/gettext/tools/xgettext.rb:245
 msgid "Extract translatable strings from given input files."
 msgstr "与えられた入力ファイルから翻訳可能な文字列を抜き出します。"
 
-#: ../lib/gettext/tools/xgettext.rb:226
+#: ../lib/gettext/tools/xgettext.rb:256
 msgid "set package name in output"
 msgstr "出力に含めるパッケージ名を指定します"
 
-#: ../lib/gettext/tools/xgettext.rb:231
+#: ../lib/gettext/tools/xgettext.rb:262
 msgid "set package version in output"
 msgstr "出力に含めるパッケージのバージョンを指定します"
 
-#: ../lib/gettext/tools/xgettext.rb:236
-msgid "set report address for msgid bugs"
+#: ../lib/gettext/tools/xgettext.rb:268
+#, fuzzy
+msgid "set report e-mail address for msgid bugs"
 msgstr "msgidのバグを報告するアドレスを指定します"
 
-#: ../lib/gettext/tools/xgettext.rb:241
+#: ../lib/gettext/tools/xgettext.rb:274
 msgid "set copyright holder in output"
 msgstr "出力に含める著作権の保持者を指定します"
 
-#: ../lib/gettext/tools/xgettext.rb:246
+#: ../lib/gettext/tools/xgettext.rb:280
+#, fuzzy
+msgid "set copyright year in output"
+msgstr "出力に含める著作権の保持者を指定します"
+
+#: ../lib/gettext/tools/xgettext.rb:286
 msgid "set encoding for output"
 msgstr "出力ファイルのエンコーディングを設定します"
 
-#: ../lib/gettext/tools/xgettext.rb:251
+#: ../lib/gettext/tools/xgettext.rb:292
+msgid "Generate sorted output"
+msgstr ""
+
+#: ../lib/gettext/tools/xgettext.rb:297
+msgid "Sort output by file location"
+msgstr ""
+
+#: ../lib/gettext/tools/xgettext.rb:329
 msgid "require the library before executing xgettext"
 msgstr "xgettextを実行する前に読み込むライブラリを指定します"
 
-#: ../lib/gettext/tools/xgettext.rb:256
+#: ../lib/gettext/tools/xgettext.rb:334
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
 msgstr ""
 
-#: ../lib/gettext/tools/xgettext.rb:257
+#: ../lib/gettext/tools/xgettext.rb:335
 msgid ""
 "If TAG is not specified, place all comment blocks preceing keyword lines in ou"
 "tput file"
 msgstr ""
 
-#: ../lib/gettext/tools/xgettext.rb:258
+#: ../lib/gettext/tools/xgettext.rb:336
 msgid "no TAG"
 msgstr ""
 
-#: ../lib/gettext/tools/xgettext.rb:258
+#: ../lib/gettext/tools/xgettext.rb:336
 msgid "(default: %s)"
 msgstr ""
 
-#: ../lib/gettext/tools/xgettext.rb:262
+#: ../lib/gettext/tools/xgettext.rb:340
 msgid "run in debugging mode"
 msgstr "デバッグモードで実行します"
 
-#: ../lib/gettext/tools/xgettext.rb:266
+#: ../lib/gettext/tools/xgettext.rb:344
 msgid "display this help and exit"
 msgstr "このヘルプを表示します"
 
-#: ../lib/gettext/tools/xgettext.rb:320
+#: ../lib/gettext/tools/xgettext.rb:375
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"
 "urns empty string but the header entry in po file."
@@ -256,19 +325,22 @@ msgid "This message is from hellolib."
 msgstr ""
 
 #: ../samples/hello.rb:17
-msgid "Hello World\n"
+msgid ""
+"Hello World\n"
 msgstr ""
 
 #: ../samples/hello2.rb:19
-msgid "One is %{num}\n"
-msgstr ""
-
-#: ../samples/hello2.rb:20
-msgid "Hello %{world}\n"
+msgid ""
+"One is %{num}\n"
 msgstr ""
 
 #: ../samples/hello2.rb:20
 msgid "World"
+msgstr ""
+
+#: ../samples/hello2.rb:20
+msgid ""
+"Hello %{world}\n"
 msgstr ""
 
 #: ../samples/hello_glade2.glade:9 ../test/fixtures/gladeparser.glade:8
@@ -291,16 +363,18 @@ msgid "hello, gtk world"
 msgstr ""
 
 #: ../samples/hello_noop.rb:13
-msgid "Hello World"
-msgstr ""
-
-#: ../samples/hello_noop.rb:13
 msgid "Hello World2"
 msgstr ""
 
+#: ../samples/hello_noop.rb:13
+msgid "Hello World"
+msgstr ""
+
 #: ../samples/hello_plural.rb:20
-msgid "There is an apple.\n"
-msgid_plural "There are %{num} apples.\n"
+msgid ""
+"There is an apple.\n"
+msgid_plural ""
+"There are %{num} apples.\n"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -316,7 +390,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../test/fixtures/N_.rb:14 ../test/fixtures/_.rb:34
-msgid "aaa\n"
+msgid ""
+"aaa\n"
 msgstr ""
 
 #: ../test/fixtures/N_.rb:18 ../test/fixtures/_.rb:38
@@ -442,11 +517,11 @@ msgid ""
 msgstr ""
 
 #: ../test/fixtures/_/multiple_messages_in_same_line.rb:28
-msgid "multiple"
+msgid "in same line"
 msgstr ""
 
 #: ../test/fixtures/_/multiple_messages_in_same_line.rb:28
-msgid "in same line"
+msgid "multiple"
 msgstr ""
 
 #: ../test/fixtures/_/multiple_same_messages.rb:28
@@ -459,7 +534,8 @@ msgid "one line"
 msgstr ""
 
 #: ../test/fixtures/_/one_new_line.rb:28
-msgid "one new line\n"
+msgid ""
+"one new line\n"
 msgstr ""
 
 #: ../test/fixtures/backslash.rb:27
@@ -533,7 +609,8 @@ msgid "no data"
 msgstr ""
 
 #: ../test/fixtures/n_.rb:33
-msgid "bbb\n"
+msgid ""
+"bbb\n"
 msgid_plural ""
 "ccc2\n"
 "ccc2"
@@ -796,39 +873,28 @@ msgstr[1] ""
 msgid "a translation"
 msgstr ""
 
-#: ../lib/gettext/tools.rb:81
+#: ../lib/gettext/tools/xgettext.rb:236
+#~ msgid "set report address for msgid bugs"
+#~ msgstr "msgidのバグを報告するアドレスを指定します"
+
 #~ msgid "Failed to merge with %{defpo}"
 #~ msgstr "%{defpo}のマージに失敗しました。"
-
-#: ../lib/gettext/tools.rb:82
 #~ msgid "New .pot was copied to %{failed_filename}"
 #~ msgstr "新しい.potファイルを%{failed_filename}にコピーしました。"
-
-#: ../lib/gettext/tools.rb:83
 #~ msgid "Check these po/pot-files. It may have syntax errors or something wrong."
 #~ msgstr "po/potファイルをチェックしてください。文法エラーもしくはその他のエラーがあるかもしれません。"
-
-#: ../lib/gettext/tools.rb:188
 #~ msgid ""
 #~ "`%{cmd}' cannot be found. \n"
 #~ "Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
 #~ msgstr ""
 #~ "`%{cmd}'は見つかりませんでした。\n"
 #~ "GNU Gettextをインストールし、環境変数PATHかMSGMERGE_PATHを正しく設定してください。"
-
-#: ../lib/gettext/tools/msgmerge.rb:472
 #~ msgid "definition po is not given."
 #~ msgstr "poファイルが指定されていません。"
-
-#: ../lib/gettext/tools/msgmerge.rb:474
 #~ msgid "reference pot is not given."
 #~ msgstr "potファイルが指定されていません。"
-
-#: ../lib/gettext/tools/msgmerge.rb:482
 #~ msgid "Usage: %s def.po ref.pot [-o output.pot]"
 #~ msgstr "使用法: %s def.po ref.pot [-o output.pot]"
-
-#: ../lib/gettext/tools/msgmerge.rb:485
 #~ msgid ""
 #~ "Merges two Uniforum style .po files together. The def.po file is an existing P"
 #~ "O file with translations. The ref.pot file is the last created PO file with up"
