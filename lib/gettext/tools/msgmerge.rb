@@ -335,14 +335,14 @@ module GetText
             @order = sort ? :msgid : nil
           end
 
-          parser.on("--[no-]sort-by-file",
-                    _("Sort output by file location")) do |sort_by_file|
-            @order = sort_by_file ? :reference : :msgid
+          parser.on("--sort-by-file",
+                    _("Sort output by file location")) do
+            @order = :reference
           end
 
-          parser.on("--[no-]sort-by-msgid",
-                    _("Sort output by msgid")) do |sort_by_msgid|
-            @order = sort_by_msgid ? :msgid : :reference
+          parser.on("--sort-by-msgid",
+                    _("Sort output by msgid")) do
+            @order = :msgid
           end
 
           parser.on("--[no-]location",
