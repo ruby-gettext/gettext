@@ -375,6 +375,29 @@ EOP
     end
 
     class TestOptions < self
+      class TestIncludeTranslatorComment < self
+        def setup
+          @entry = GetText::POEntry.new(:normal)
+          @entry.msgid = "hello"
+          @entry.translator_comment = "translator comment"
+        end
+
+        def test_default
+          assert_equal(<<-PO, @entry.to_s)
+# translator comment
+msgid "hello"
+msgstr ""
+          PO
+        end
+
+        def test_false
+          assert_equal(<<-PO, @entry.to_s(:include_translator_comment => false))
+msgid "hello"
+msgstr ""
+          PO
+        end
+      end
+
       class TestIncludeReferenceComment < self
         def setup
           @entry = GetText::POEntry.new(:normal)

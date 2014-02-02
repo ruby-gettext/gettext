@@ -224,6 +224,8 @@ module GetText
 
       # @param [POEntry] entry The entry to be formatted.
       # @param [Hash] options
+      # @option options [Bool] :include_translator_comment (true)
+      #   Includes translator comments in formatted string if true.
       # @option options [Bool] :include_reference_comment (true)
       #   Includes reference comments in formatted string if true.
       # @option options [Integer] :max_line_width (78)
@@ -243,7 +245,9 @@ module GetText
         end
 
         str = ""
-        str << format_translator_comment
+        if include_translator_comment?
+          str << format_translator_comment
+        end
         str << format_extracted_comment
         if include_reference_comment?
           str << format_reference_comment
@@ -293,11 +297,19 @@ module GetText
       private
       def normalize_options(options)
         options = options.dup
-        if options[:include_reference_comment].nil?
-          options[:include_reference_comment] = true
+        include_comment_keys = [
+          :include_translator_comment,
+          :include_reference_comment,
+        ]
+        include_comment_keys.each do |key|
+          options[key] = true if options[key].nil?
         end
         options[:max_line_width] ||= DEFAULT_MAX_LINE_WIDTH
         options
+      end
+
+      def include_translator_comment?
+        @options[:include_translator_comment]
       end
 
       def include_reference_comment?
