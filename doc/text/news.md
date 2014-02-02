@@ -8,6 +8,35 @@
   * Added {GetText::POEntry#fuzzy?}.
   * Added {GetText::Tools::MsgCat}.
   * Added `rmsgcat` command. [GitHub#23] [Requested by Andreas Loupasakis]
+  * Changed `:references` {GetText::PO#order} value to `:reference`.
+    `:references` is still usable but it is deprecated. It will be
+    remove at 4.0.0. Don't use it for newly written code.
+  * Removed `--no-sort-by-msgid` of `rmsgmerge` feature. It is not
+    straightforward behavior.
+  * Removed `--no-sort-by-file` of `rmsgmerge` feature. It is not
+    straightforward behavior.
+  * Added `--sort-by-location` to `rmsgmerge`.
+  * Added `:include_translator_comment` option to
+    {GetText::POEntry#to_s} options.
+  * Added `:include_extracted_comment` option to
+    {GetText::POEntry#to_s} options.
+  * Added `:include_flag_comment` option to {GetText::POEntry#to_s}
+    options.
+  * Added `:include_previous_comment` option to
+    {GetText::POEntry#to_s} options.
+  * Added `:include_all_comments` option to {GetText::POEntry#to_s}
+    options.
+  * Added {GetText::POEntry#flags} and
+    {GetText::POEntry#flags=}. {GetText::POEntry#flag} and
+    {GetText::POEntry#flag=} are deprecated. Don't use them for newly
+    written code.
+
+### Fixes
+
+  * Fixed `--sort-output` of `rmsgmerge` behavior. It used location for
+    sort key but it was not GNU gettext compatible behavior. GNU
+    gettext uses msgid for sort key. Now, `--sort-output` uses
+    msgid like GNU gettext.
 
 ### Thanks
 
