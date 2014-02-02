@@ -444,6 +444,29 @@ msgstr ""
         end
       end
 
+      class TestIncludeFlagComment < self
+        def setup
+          @entry = GetText::POEntry.new(:normal)
+          @entry.msgid = "hello"
+          @entry.flag = "fuzzy"
+        end
+
+        def test_default
+          assert_equal(<<-PO, @entry.to_s)
+#, fuzzy
+msgid "hello"
+msgstr ""
+          PO
+        end
+
+        def test_false
+          assert_equal(<<-PO, @entry.to_s(:include_flag_comment => false))
+msgid "hello"
+msgstr ""
+          PO
+        end
+      end
+
       class TestEncoding < self
         def setup
           @entry = GetText::POEntry.new(:normal)
