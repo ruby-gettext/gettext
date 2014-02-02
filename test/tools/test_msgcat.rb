@@ -251,4 +251,48 @@ msgstr ""
       end
     end
   end
+
+  class TestWidth < self
+    def setup
+      @po = <<-PO
+msgid "long long long long long long long long long long long long long long long line"
+msgstr ""
+      PO
+    end
+
+    def test_default
+      assert_equal(<<-PO, run_msgcat([@po]))
+msgid ""
+"long long long long long long long long long long long long long long long lin"
+"e"
+msgstr ""
+      PO
+    end
+
+    def test_width
+      assert_equal(<<-PO, run_msgcat([@po], "--width=40"))
+msgid ""
+"long long long long long long long long "
+"long long long long long long long line"
+msgstr ""
+      PO
+    end
+
+
+    def test_wrap
+      assert_equal(<<-PO, run_msgcat([@po], "--wrap"))
+msgid ""
+"long long long long long long long long long long long long long long long lin"
+"e"
+msgstr ""
+      PO
+    end
+
+    def test_no_wrap
+      assert_equal(<<-PO, run_msgcat([@po], "--no-wrap"))
+msgid "long long long long long long long long long long long long long long long line"
+msgstr ""
+      PO
+    end
+  end
 end

@@ -134,7 +134,9 @@ module GetText
           @pos = []
           @output = nil
           @order = nil
-          @po_format_options = {}
+          @po_format_options = {
+            :max_line_width => POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
+          }
         end
 
         def parse(command_line)
@@ -190,6 +192,23 @@ module GetText
           parser.on("--no-all-comments",
                     _("Remove all comments")) do |boolean|
             @po_format_options[:include_all_comments] = boolean
+          end
+
+          parser.on("--width=WIDTH", Integer,
+                    _("Set output page width"),
+                    "(#{@po_format_options[:max_line_width]})") do |width|
+            @po_format_options[:max_line_width] = width
+          end
+
+          parser.on("--[no-]wrap",
+                    _("Break long message lines, longer than the output page width, into several lines"),
+                    "(#{@po_format_options[:max_line_width] >= 0})") do |wrap|
+            if wrap
+              max_line_width = POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH
+            else
+              max_line_width = -1
+            end
+            @po_format_options[:max_line_width] = max_line_width
           end
 
           parser
