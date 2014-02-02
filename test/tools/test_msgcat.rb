@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "stringio"
 require "tempfile"
+
 require "gettext/tools/msgcat"
 
 class TestToolsMsgCat < Test::Unit::TestCase
@@ -31,8 +33,26 @@ class TestToolsMsgCat < Test::Unit::TestCase
     command_line = ["--output", output.path]
     command_line.concat(options)
     command_line.concat(inputs.collect(&:path))
-    GetText::Tools::MsgCat.run(*command_line)
+    @stdout, @stderr = capture_output do
+      GetText::Tools::MsgCat.run(*command_line)
+    end
     output.read
+  end
+
+  def capture_output
+    original_stdout = $stdout
+    original_stderr = $stderr
+    begin
+      stdout = StringIO.new
+      stderr = StringIO.new
+      $stdout = stdout
+      $stderr = stderr
+      yield
+      [stdout.string, stderr.string]
+    ensure
+      $stdout = original_stdout
+      $stderr = original_stderr
+    end
   end
 
   class TestHeader < self
@@ -293,6 +313,65 @@ msgstr ""
 msgid "long long long long long long long long long long long long long long long line"
 msgstr ""
       PO
+    end
+  end
+
+  class TestFuzzy < self
+    class TestAllFuzzy < self
+      def setup
+        @po_fuzzy1 = <<-PO
+#, fuzzy
+msgid "Hello"
+msgstr "Bonjour1"
+        PO
+
+        @po_fuzzy2 = <<-PO
+#, fuzzy
+msgid "Hello"
+msgstr "Bonjour2"
+        PO
+      end
+
+      def test_default
+        assert_equal(<<-PO, run_msgcat([@po_fuzzy1, @po_fuzzy2]))
+#, fuzzy
+msgid "Hello"
+msgstr "Bonjour1"
+        PO
+      end
+
+      def test_no_fuzzy
+        assert_equal("", run_msgcat([@po_fuzzy1, @po_fuzzy2], "--no-fuzzy"))
+      end
+    end
+
+    class TestHaveNoFuzzy < self
+      def setup
+        @po_fuzzy = <<-PO
+#, fuzzy
+msgid "Hello"
+msgstr "Bonjour1"
+        PO
+
+        @po_not_fuzzy = <<-PO
+msgid "Hello"
+msgstr "Bonjour2"
+        PO
+      end
+
+      def test_default
+        assert_equal(<<-PO, run_msgcat([@po_fuzzy, @po_not_fuzzy]))
+msgid "Hello"
+msgstr "Bonjour2"
+        PO
+      end
+
+      def test_no_fuzzy
+        assert_equal(<<-PO, run_msgcat([@po_fuzzy, @po_not_fuzzy], "--no-fuzzy"))
+msgid "Hello"
+msgstr "Bonjour2"
+        PO
+      end
     end
   end
 end

@@ -43,6 +43,7 @@ module GetText
         config.parse(command_line)
 
         parser = POParser.new
+        parser.ignore_fuzzy = !config.include_fuzzy?
         output_po = PO.new
         output_po.order = config.order
         merger = Merger.new(output_po, config)
@@ -72,34 +73,23 @@ module GetText
         def merge(po)
           po.each do |entry|
             id = [entry.msgctxt, entry.msgid]
-            @output_po[*id] = merge_definition(entry)
+            if @output_po.has_key?(*id)
+              merged_entry = merge_entry(@output_po[*id], entry)
+            else
+              merged_entry = entry
+            end
+            @output_po[*id] = merged_entry if merged_entry
           end
         end
 
         private
-        def merge_definition(entry)
-          msgid = entry.msgid
-          msgctxt = entry.msgctxt
-          id = [msgctxt, msgid]
-
-          if @output_po.has_key?(*id)
-            merge_entry(@output_po[*id], entry)
-          else
-            entry
-          end
-        end
-
         def merge_entry(base_entry, new_entry)
           if base_entry.header?
             return merge_header(base_entry, new_entry)
           end
 
           if base_entry.fuzzy?
-            if new_entry.fuzzy?
-              return base_entry
-            else
-              return new_entry
-            end
+            return merge_fuzzy_entry(base_entry, new_entry)
           end
 
           base_entry
@@ -107,6 +97,14 @@ module GetText
 
         def merge_header(base_entry, new_entry)
           base_entry
+        end
+
+        def merge_fuzzy_entry(base_entry, new_entry)
+          if new_entry.fuzzy?
+            base_entry
+          else
+            new_entry
+          end
         end
       end
 
@@ -130,6 +128,9 @@ module GetText
         # @see POEntry#to_s
         attr_accessor :po_format_options
 
+        # (see include_fuzzy?)
+        attr_writer :include_fuzzy
+
         def initialize
           @pos = []
           @output = nil
@@ -137,6 +138,12 @@ module GetText
           @po_format_options = {
             :max_line_width => POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
           }
+          @include_fuzzy = true
+        end
+
+        # @return [Boolean] Whether includes fuzzy entries or not.
+        def include_fuzzy?
+          @include_fuzzy
         end
 
         def parse(command_line)
@@ -209,6 +216,11 @@ module GetText
               max_line_width = -1
             end
             @po_format_options[:max_line_width] = max_line_width
+          end
+
+          parser.on("--no-fuzzy",
+                    _("Ignore fuzzy entries")) do |include_fuzzy|
+            @include_fuzzy = include_fuzzy
           end
 
           parser
