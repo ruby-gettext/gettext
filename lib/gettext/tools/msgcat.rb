@@ -93,7 +93,11 @@ module GetText
             return merge_fuzzy_entry(base_entry, new_entry)
           end
 
-          base_entry
+          if base_entry.translated?
+            base_entry
+          else
+            new_entry
+          end
         end
 
         def merge_header(base_entry, new_entry)

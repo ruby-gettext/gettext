@@ -99,35 +99,42 @@ msgstr "Monde"
 
   class TestDuplicated < self
     class TestTranslated < self
-      class TestSame < self
-        def setup
-          @po = <<-PO
+      def test_same
+        po = <<-PO
 msgid "Hello"
 msgstr "Bonjour"
-          PO
-        end
+        PO
 
-        def test_default
-          assert_equal(@po, run_msgcat([@po, @po]))
-        end
+        assert_equal(po, run_msgcat([po, po]))
       end
 
-      class TestDifferent < self
-        def setup
-          @po1 = <<-PO
+      def test_different
+        po1 = <<-PO
 msgid "Hello"
 msgstr "Bonjour"
-          PO
+        PO
 
-          @po2 = <<-PO
+        po2 = <<-PO
 msgid "Hello"
 msgstr "Salut"
-          PO
-        end
+        PO
 
-        def test_default
-          assert_equal(@po1, run_msgcat([@po1, @po2]))
-        end
+        assert_equal(po1, run_msgcat([po1, po2]))
+      end
+
+      def test_one_not_translated
+        po_not_translated = <<-PO
+msgid "Hello"
+msgstr ""
+        PO
+
+        po_translated = <<-PO
+msgid "Hello"
+msgstr "Bonjour"
+        PO
+
+        assert_equal(po_translated,
+                     run_msgcat([po_not_translated, po_translated]))
       end
     end
   end
