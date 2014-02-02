@@ -710,5 +710,43 @@ msgstr ""
         PO
       end
     end
+
+    class TestObsoleteEntries < self
+      def pot_content
+        <<-POT
+msgid "World"
+msgstr ""
+        POT
+      end
+
+      def po_content
+        <<-PO
+msgid "Hello!"
+msgstr "Bonjour!"
+        PO
+      end
+
+      def test_default
+        @msgmerge.run("--update",
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-PO, File.read(@po_file_path))
+msgid "World"
+msgstr ""
+
+#~ msgid "Hello!"
+#~ msgstr "Bonjour!"
+        PO
+      end
+
+      def test_no_obsolete_entries
+        @msgmerge.run("--update",
+                      "--no-obsolete-entries",
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-PO, File.read(@po_file_path))
+msgid "World"
+msgstr ""
+        PO
+      end
+    end
   end
 end

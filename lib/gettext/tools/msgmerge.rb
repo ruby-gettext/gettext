@@ -97,7 +97,7 @@ module GetText
             result[*id] = merge_definition(entry)
           end
 
-          add_obsolete_entry(result)
+          add_obsolete_entry(result) if @config.output_obsolete_entries?
           result
         end
 
@@ -254,6 +254,9 @@ module GetText
         # (#see #enable_fuzzy_matching?)
         attr_writer :enable_fuzzy_matching
 
+        # (#see #output_obsolete_entries?)
+        attr_writer :output_obsolete_entries
+
         # The result is written back to def.po.
         #       --backup=CONTROL        make a backup of def.po
         #       --suffix=SUFFIX         override the usual backup suffix
@@ -278,6 +281,7 @@ module GetText
           }
           @enable_fuzzy_matching = true
           @update = nil
+          @output_obsolete_entries = true
           @backup = ENV["VERSION_CONTROL"]
           @suffix = ENV["SIMPLE_BACKUP_SUFFIX"] || "~"
           @input_dirs = ["."]
@@ -299,6 +303,12 @@ module GetText
         # @return [Bool] true if fuzzy matching is enabled, false otherwise.
         def enable_fuzzy_matching?
           @enable_fuzzy_matching
+        end
+
+        # @return [Bool] true if outputting obsolete entries is
+        #    enabled, false otherwise.
+        def output_obsolete_entries?
+          @output_obsolete_entries
         end
 
         private
@@ -378,6 +388,11 @@ module GetText
                     _("Disable fuzzy matching"),
                     _("(enable)")) do |boolean|
             @enable_fuzzy_matching = boolean
+          end
+
+          parser.on("--no-obsolete-entries",
+                    _("Don't output obsolete entries")) do |boolean|
+            @output_obsolete_entries = boolean
           end
 
           parser.on("-h", "--help", _("Display this help and exit")) do
