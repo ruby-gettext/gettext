@@ -203,6 +203,13 @@ module GetText
       @flags.include?("fuzzy")
     end
 
+    # @return true if the entry is translated entry, false otherwise.
+    def translated?
+      return false if fuzzy?
+      return false if @msgstr.nil? or @msgstr.empty?
+      true
+    end
+
     def [](number)
       param = @param_type[number]
       raise ParseError, 'no more string parameters expected' unless param

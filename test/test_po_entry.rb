@@ -621,6 +621,33 @@ msgstr ""
         assert_false(entry.fuzzy?)
       end
     end
+
+    class TestTranslated < self
+      def setup
+        @entry = GetText::POEntry.new(:normal)
+        @entry.msgid = "Hello"
+      end
+
+      def test_have_msgstr
+        @entry.msgstr = "Bonjour"
+        assert_true(@entry.translated?)
+      end
+
+      def test_nil_msgstr
+        @entry.msgstr = nil
+        assert_false(@entry.translated?)
+      end
+
+      def test_empty_msgstr
+        @entry.msgstr = ""
+        assert_false(@entry.translated?)
+      end
+
+      def test_fuzzy
+        @entry.flag = "fuzzy"
+        assert_false(@entry.translated?)
+      end
+    end
   end
 
   class TestFormatter < self
