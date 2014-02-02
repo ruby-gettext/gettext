@@ -329,7 +329,9 @@ module GetText
           end
 
           parser.on("--[no-]sort-output",
-                    _("Generate sorted output")) do |sort|
+                    _("Sort output by msgid"),
+                    _("It is same as --sort-by-msgid"),
+                    _("Just for GNU gettext's msgcat compatibility")) do |sort|
             @order = sort ? :msgid : nil
           end
 
