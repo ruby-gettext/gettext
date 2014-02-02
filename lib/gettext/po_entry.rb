@@ -245,7 +245,7 @@ module GetText
         str = ""
         str << format_translator_comment
         str << format_extracted_comment
-        if @options[:include_reference_comment]
+        if include_reference_comment?
           str << format_reference_comment
         end
         str << format_flag_comment
@@ -291,6 +291,10 @@ module GetText
       end
 
       private
+      def include_reference_comment?
+        @options[:include_reference_comment]
+      end
+
       def fill_default_option_values(options)
         options = options.dup
         if options[:include_reference_comment].nil?
