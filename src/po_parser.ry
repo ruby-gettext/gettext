@@ -289,7 +289,7 @@ require "gettext/po"
         when POFormat::REFERENCE_COMMENT_MARK
           @references.concat(parse_references_line(content))
         when POFormat::FLAG_MARK
-          @flags.cocnat(parse_flags_line(content))
+          @flags.concat(parse_flags_line(content))
         when POFormat::PREVIOUS_COMMENT_MARK
           @previous << content
         else
