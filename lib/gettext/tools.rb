@@ -18,9 +18,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'gettext/tools/xgettext'
-require 'gettext/tools/msgfmt'
-require 'gettext/tools/msginit'
-require 'gettext/tools/msgmerge'
-require 'gettext/tools/msgcat'
-require 'gettext/mo'
+require "gettext/tools/xgettext"
+require "gettext/tools/msgfmt"
+require "gettext/tools/msginit"
+require "gettext/tools/msgmerge"
+require "gettext/tools/msgcat"
+require "gettext/mo"
