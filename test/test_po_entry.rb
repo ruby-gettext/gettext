@@ -490,7 +490,7 @@ msgstr ""
         end
       end
 
-      class TestRemoveAllComments < self
+      class TestIncludeAllComments < self
         def setup
           @entry = GetText::POEntry.new(:normal)
           @entry.msgid = "hello"
@@ -513,8 +513,20 @@ msgstr ""
           PO
         end
 
-        def test_true
-          assert_equal(<<-PO, @entry.to_s(:remove_all_comments => true))
+        def test_false
+          assert_equal(<<-PO, @entry.to_s(:include_all_comments => false))
+msgid "hello"
+msgstr ""
+          PO
+        end
+
+        def test_false_with_other_include
+          options = {
+            :include_reference_comment => true,
+            :include_all_comments      => false,
+          }
+          assert_equal(<<-PO, @entry.to_s(options))
+#: hello.rb:1
 msgid "hello"
 msgstr ""
           PO

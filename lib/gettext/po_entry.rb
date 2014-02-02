@@ -254,9 +254,12 @@ module GetText
       #   Includes flag comments in formatted string if true.
       # @option options [Bool] :include_previous_comment (true)
       #   Includes previous comments in formatted string if true.
-      # @option options [Bool] :remove_all_comments (false)
-      #   Don't includes all comments in formatted string if true.
-      #   If this value is true, other `:include_XXX` options are ignored.
+      # @option options [Bool] :include_all_comments (true)
+      #   Includes all comments in formatted string if true.
+      #   Other specific `:include_XXX` options get preference over
+      #   this option.
+      #   You can remove all comments by specifying this option as
+      #   false and omitting other `:include_XXX` options.
       # @option options [Integer] :max_line_width (78)
       #   Wraps long lines that is longer than the `:max_line_width`.
       #   Don't break long lines if `:max_line_width` is less than 0
@@ -324,14 +327,12 @@ module GetText
           :include_flag_comment,
           :include_previous_comment,
         ]
-        if options[:remove_all_comments]
-          include_comment_keys.each do |key|
-            options[key] = false
-          end
-        else
-          include_comment_keys.each do |key|
-            options[key] = true if options[key].nil?
-          end
+        if options[:include_all_comments].nil?
+          options[:include_all_comments] = true
+        end
+        default_include_comment_value = options[:include_all_comments]
+        include_comment_keys.each do |key|
+          options[key] = default_include_comment_value if options[key].nil?
         end
         options[:max_line_width] ||= DEFAULT_MAX_LINE_WIDTH
         options
