@@ -467,6 +467,29 @@ msgstr ""
         end
       end
 
+      class TestIncludePreviousComment < self
+        def setup
+          @entry = GetText::POEntry.new(:normal)
+          @entry.msgid = "hello"
+          @entry.previous = "msgid \"Hello\""
+        end
+
+        def test_default
+          assert_equal(<<-PO, @entry.to_s)
+#| msgid \"Hello\"
+msgid "hello"
+msgstr ""
+          PO
+        end
+
+        def test_false
+          assert_equal(<<-PO, @entry.to_s(:include_previous_comment => false))
+msgid "hello"
+msgstr ""
+          PO
+        end
+      end
+
       class TestEncoding < self
         def setup
           @entry = GetText::POEntry.new(:normal)

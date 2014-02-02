@@ -232,6 +232,8 @@ module GetText
       #   Includes reference comments in formatted string if true.
       # @option options [Bool] :include_flag_comment (true)
       #   Includes flag comments in formatted string if true.
+      # @option options [Bool] :include_previous_comment (true)
+      #   Includes previous comments in formatted string if true.
       # @option options [Integer] :max_line_width (78)
       #   Wraps long lines that is longer than the `:max_line_width`.
       #   Don't break long lines if `:max_line_width` is less than 0
@@ -261,7 +263,9 @@ module GetText
         if include_flag_comment?
           str << format_flag_comment
         end
-        str << format_previous_comment
+        if include_previous_comment?
+          str << format_previous_comment
+        end
 
         # msgctxt, msgid, msgstr
         if @entry.msgctxt?
@@ -310,6 +314,7 @@ module GetText
           :include_extracted_comment,
           :include_reference_comment,
           :include_flag_comment,
+          :include_previous_comment,
         ]
         include_comment_keys.each do |key|
           options[key] = true if options[key].nil?
@@ -332,6 +337,10 @@ module GetText
 
       def include_flag_comment?
         @options[:include_flag_comment]
+      end
+
+      def include_previous_comment?
+        @options[:include_previous_comment]
       end
 
       def format_translator_comment
