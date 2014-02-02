@@ -152,6 +152,17 @@ msgstr ""
                      run_msgcat([@po_charlie, @po_bob, @po_alice],
                                 "--sort-output"))
       end
+
+      def test_no_sort_output
+        not_sorted_po = <<-PO.chomp
+#{@po_charlie}
+#{@po_bob}
+#{@po_alice}
+        PO
+        assert_equal(not_sorted_po,
+                     run_msgcat([@po_charlie, @po_bob, @po_alice],
+                                "--no-sort-output"))
+      end
     end
 
     class TestByReference < self

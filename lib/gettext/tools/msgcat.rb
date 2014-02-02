@@ -161,11 +161,11 @@ module GetText
             @order = :reference
           end
 
-          parser.on("--sort-output",
+          parser.on("--[no-]sort-output",
                     _("Sort output by msgid"),
                     _("It is same as --sort-by-msgid"),
-                    _("Just for GNU gettext's msgcat compatibility")) do
-            @order = :msgid
+                    _("Just for GNU gettext's msgcat compatibility")) do |sort|
+            @order = sort ? :msgid : nil
           end
 
           parser
