@@ -490,6 +490,37 @@ msgstr ""
         end
       end
 
+      class TestRemoveAllComments < self
+        def setup
+          @entry = GetText::POEntry.new(:normal)
+          @entry.msgid = "hello"
+          @entry.translator_comment = "translator comment"
+          @entry.extracted_comment = "extracted comment"
+          @entry.references = ["hello.rb:1"]
+          @entry.flag = "fuzzy"
+          @entry.previous = "msgid \"Hello\""
+        end
+
+        def test_default
+          assert_equal(<<-PO, @entry.to_s)
+# translator comment
+#. extracted comment
+#: hello.rb:1
+#, fuzzy
+#| msgid \"Hello\"
+msgid "hello"
+msgstr ""
+          PO
+        end
+
+        def test_true
+          assert_equal(<<-PO, @entry.to_s(:remove_all_comments => true))
+msgid "hello"
+msgstr ""
+          PO
+        end
+      end
+
       class TestEncoding < self
         def setup
           @entry = GetText::POEntry.new(:normal)
