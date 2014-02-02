@@ -226,6 +226,8 @@ module GetText
       # @param [Hash] options
       # @option options [Bool] :include_translator_comment (true)
       #   Includes translator comments in formatted string if true.
+      # @option options [Bool] :include_extracted_comment (true)
+      #   Includes extracted comments in formatted string if true.
       # @option options [Bool] :include_reference_comment (true)
       #   Includes reference comments in formatted string if true.
       # @option options [Integer] :max_line_width (78)
@@ -248,7 +250,9 @@ module GetText
         if include_translator_comment?
           str << format_translator_comment
         end
-        str << format_extracted_comment
+        if include_extracted_comment?
+          str << format_extracted_comment
+        end
         if include_reference_comment?
           str << format_reference_comment
         end
@@ -299,6 +303,7 @@ module GetText
         options = options.dup
         include_comment_keys = [
           :include_translator_comment,
+          :include_extracted_comment,
           :include_reference_comment,
         ]
         include_comment_keys.each do |key|
@@ -310,6 +315,10 @@ module GetText
 
       def include_translator_comment?
         @options[:include_translator_comment]
+      end
+
+      def include_extracted_comment?
+        @options[:include_extracted_comment]
       end
 
       def include_reference_comment?

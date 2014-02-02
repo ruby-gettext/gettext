@@ -398,6 +398,29 @@ msgstr ""
         end
       end
 
+      class TestIncludeExtractedComment < self
+        def setup
+          @entry = GetText::POEntry.new(:normal)
+          @entry.msgid = "hello"
+          @entry.extracted_comment = "extracted comment"
+        end
+
+        def test_default
+          assert_equal(<<-PO, @entry.to_s)
+#. extracted comment
+msgid "hello"
+msgstr ""
+          PO
+        end
+
+        def test_false
+          assert_equal(<<-PO, @entry.to_s(:include_extracted_comment => false))
+msgid "hello"
+msgstr ""
+          PO
+        end
+      end
+
       class TestIncludeReferenceComment < self
         def setup
           @entry = GetText::POEntry.new(:normal)
