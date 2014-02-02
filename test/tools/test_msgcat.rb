@@ -186,6 +186,17 @@ msgstr ""
         PO
       end
 
+      def test_sort_by_location
+        sorted_po = <<-PO.chomp
+#{@po_a1}
+#{@po_a2}
+#{@po_b1}
+        PO
+        assert_equal(sorted_po,
+                     run_msgcat([@po_b1, @po_a2, @po_a1],
+                                "--sort-by-location"))
+      end
+
       def test_sort_by_file
         sorted_po = <<-PO.chomp
 #{@po_a1}
