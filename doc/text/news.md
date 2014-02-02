@@ -1,5 +1,11 @@
 # News
 
+## <a id="3-0-5">3.0.5</a>: 2014-02-02
+
+### Fixes
+
+  * Added missing `require` for {GetText::Tools::MsgCat}.
+
 ## <a id="3-0-4">3.0.4</a>: 2014-02-02
 
 ### Improvements
