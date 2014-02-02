@@ -53,7 +53,7 @@ msgstr ""
   end
 
   class TestNoDuplicated < self
-    class TestOnlyTranslated < self
+    class TestTranslated < self
       def setup
         @input_po1 = <<-PO
 msgid "Hello"
