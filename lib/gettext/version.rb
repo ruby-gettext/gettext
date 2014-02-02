@@ -1,7 +1,7 @@
 =begin
   version - version information of gettext
 
-  Copyright (C) 2012-2013 Kouhei Sutou <kou@clear-code.com>
+  Copyright (C) 2012-2014 Kouhei Sutou <kou@clear-code.com>
   Copyright (C) 2005-2009 Masao Mutoh
 
   You may redistribute it and/or modify it under the same
@@ -9,5 +9,5 @@
 =end
 
 module GetText
-  VERSION = "3.0.4"
+  VERSION = "3.0.5"
 end
