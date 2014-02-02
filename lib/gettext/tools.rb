@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2005-2008  Masao Mutoh
 #
 # License: Ruby's or LGPL
@@ -22,4 +22,5 @@ require 'gettext/tools/xgettext'
 require 'gettext/tools/msgfmt'
 require 'gettext/tools/msginit'
 require 'gettext/tools/msgmerge'
+require 'gettext/tools/msgcat'
 require 'gettext/mo'
