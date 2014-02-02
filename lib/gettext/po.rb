@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
 #
 # License: Ruby's or LGPL
@@ -38,13 +38,20 @@ module GetText
     # @!attribute [rw] order
     #   The order is used to sort PO entries(objects of {POEntry}) in
     #   {#to_s}.
-    #   @param [Symbol] order the name as order by sort.
-    #     Now :reference is allowed only.
+    #   @param [:reference, :msgid] order (:reference) The sort key.
+    #
+    #     Use `:reference` for sorting by location that message is placed.
+    #
+    #     Use `:msgid` for sorting by msgid alphabetical order.
+    #
+    #     `:references` is deprecated since 3.0.4. It will be removed
+    #     at 4.0.0. Use `:reference` instead.
+    #
     #   @return [Symbol] the name as order by sort.
     attr_accessor :order
 
     def initialize(order=nil)
-      @order = order || :references
+      @order = order || :reference
       @entries = {}
     end
 
@@ -214,8 +221,8 @@ module GetText
     private
     def sort(entries)
       case @order
-      when :references
-        sorted_entries = sort_by_references(entries)
+      when :reference, :references # :references is deprecated.
+        sorted_entries = sort_by_reference(entries)
       when :msgid
         sorted_entries = sort_by_msgid(entries)
       else
@@ -223,10 +230,10 @@ module GetText
       end
     end
 
-    def sort_by_references(entries)
+    def sort_by_reference(entries)
       entries.each do |_, entry|
         entry.references = entry.references.sort do |reference, other|
-          compare_references(reference, other)
+          compare_reference(reference, other)
         end
       end
 
@@ -234,11 +241,11 @@ module GetText
         # msgid_entry = [[msgctxt, msgid], POEntry]
         entry_first_reference = msgid_entry[1].references.first
         other_first_reference = other_msgid_entry[1].references.first
-        compare_references(entry_first_reference, other_first_reference)
+        compare_reference(entry_first_reference, other_first_reference)
       end
     end
 
-    def compare_references(reference, other)
+    def compare_reference(reference, other)
       entry_source, entry_line_number = split_reference(reference)
       other_source, other_line_number = split_reference(other)
 

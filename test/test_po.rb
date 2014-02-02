@@ -257,7 +257,25 @@ msgstr ""
       PO
     end
 
+    def test_reference
+      @po.order = :reference
+      assert_equal(<<-PO, @po.to_s)
+#: hello.rb:1
+msgid "Hello"
+msgstr ""
+
+#: hello.rb:2
+msgid "World"
+msgstr ""
+
+#: hello.rb:3
+msgid "Hello World"
+msgstr ""
+      PO
+    end
+
     def test_references
+      raise "Remove :references support!" if GetText::VERSION >= "4.0.0"
       @po.order = :references
       assert_equal(<<-PO, @po.to_s)
 #: hello.rb:1

@@ -272,7 +272,7 @@ module GetText
           @reference_po = nil
           @update = false
           @output = nil
-          @order = :references
+          @order = :reference
           @po_format_options = {
             :max_line_width => POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
           }
@@ -330,17 +330,17 @@ module GetText
 
           parser.on("--[no-]sort-output",
                     _("Generate sorted output")) do |sort|
-            @order = sort ? :references : nil
+            @order = sort ? :reference : nil
           end
 
           parser.on("--[no-]sort-by-file",
                     _("Sort output by file location")) do |sort_by_file|
-            @order = sort_by_file ? :references : :msgid
+            @order = sort_by_file ? :reference : :msgid
           end
 
           parser.on("--[no-]sort-by-msgid",
                     _("Sort output by msgid")) do |sort_by_msgid|
-            @order = sort_by_msgid ? :msgid : :references
+            @order = sort_by_msgid ? :msgid : :reference
           end
 
           parser.on("--[no-]location",
