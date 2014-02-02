@@ -1,5 +1,13 @@
 # News
 
+## <a id="3-0-6">3.0.6</a>: 2014-02-02
+
+### Improvements
+
+  * Added {GetText::POEntry#translated?}.
+  * `rmsgcat` chooses translated entry if it exists.
+  * `rmsgmerge`: Added `--no-obsolete-entries` option.
+
 ## <a id="3-0-5">3.0.5</a>: 2014-02-02
 
 ### Fixes
