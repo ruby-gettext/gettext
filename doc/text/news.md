@@ -1,5 +1,19 @@
 # News
 
+## <a id="3-0-4">3.0.4</a>: 2014-02-02
+
+### Improvements
+
+  * Supported `Module#prepend`. [GitHub#29] [Reported by akira yamada]
+  * Added {GetText::POEntry#fuzzy?}.
+  * Added {GetText::Tools::MsgCat}.
+  * Added `rmsgcat` command. [GitHub#23] [Requested by Andreas Loupasakis]
+
+### Thanks
+
+  * akira yamada
+  * Andreas Loupasakis
+
 ## <a id="3-0-3">3.0.3</a>: 2013-12-15
 
 ### Improvements
