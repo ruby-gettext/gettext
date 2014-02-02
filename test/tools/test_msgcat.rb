@@ -35,12 +35,12 @@ class TestToolsMsgCat < Test::Unit::TestCase
 
   class TestHeader < self
     def setup
-      @input_po1 = <<-PO
+      @po1 = <<-PO
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 3.0.0\\n"
       PO
-      @input_po2 = <<-PO
+      @po2 = <<-PO
 msgid ""
 msgstr ""
 "Language: ja\\n"
@@ -48,28 +48,28 @@ msgstr ""
     end
 
     def test_default
-      assert_equal(@input_po1, run_msgcat([@input_po1, @input_po2]))
+      assert_equal(@po1, run_msgcat([@po1, @po2]))
     end
   end
 
   class TestNoDuplicated < self
     class TestTranslated < self
       def setup
-        @input_po1 = <<-PO
+        @po1 = <<-PO
 msgid "Hello"
 msgstr "Bonjour"
         PO
 
-        @input_po2 = <<-PO
+        @po2 = <<-PO
 msgid "World"
 msgstr "Monde"
         PO
       end
 
       def test_default
-        assert_equal(<<-PO.chomp, run_msgcat([@input_po1, @input_po2]))
-#{@input_po1}
-#{@input_po2}
+        assert_equal(<<-PO.chomp, run_msgcat([@po1, @po2]))
+#{@po1}
+#{@po2}
         PO
       end
     end
@@ -92,19 +92,19 @@ msgstr "Bonjour"
 
       class TestDifferent < self
         def setup
-          @input_po1 = <<-PO
+          @po1 = <<-PO
 msgid "Hello"
 msgstr "Bonjour"
           PO
 
-          @input_po2 = <<-PO
+          @po2 = <<-PO
 msgid "Hello"
 msgstr "Salut"
           PO
         end
 
         def test_default
-          assert_equal(@input_po1, run_msgcat([@input_po1, @input_po2]))
+          assert_equal(@po1, run_msgcat([@po1, @po2]))
         end
       end
     end
