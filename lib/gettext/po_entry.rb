@@ -291,10 +291,6 @@ module GetText
       end
 
       private
-      def include_reference_comment?
-        @options[:include_reference_comment]
-      end
-
       def fill_default_option_values(options)
         options = options.dup
         if options[:include_reference_comment].nil?
@@ -302,6 +298,10 @@ module GetText
         end
         options[:max_line_width] ||= DEFAULT_MAX_LINE_WIDTH
         options
+      end
+
+      def include_reference_comment?
+        @options[:include_reference_comment]
       end
 
       def format_translator_comment
