@@ -44,6 +44,7 @@ module GetText
 
         parser = POParser.new
         output_po = PO.new
+        output_po.order = config.order
         merger = Merger.new(output_po, config)
         config.pos.each do |po_file_name|
           po = PO.new
@@ -120,9 +121,13 @@ module GetText
         # @return [String] The output file name.
         attr_accessor :output
 
+        # @return [:reference, :msgid] The sort key.
+        attr_accessor :order
+
         def initialize
           @pos = []
           @output = nil
+          @order = nil
         end
 
         def parse(command_line)
@@ -144,6 +149,23 @@ module GetText
                     _("Write output to specified file"),
                     _("(default: the standard output)")) do |output|
             @output = output
+          end
+
+          parser.on("--sort-by-msgid",
+                    _("Sort output by msgid")) do
+            @order = :msgid
+          end
+
+          parser.on("--sort-by-file",
+                    _("Sort output by file location")) do
+            @order = :reference
+          end
+
+          parser.on("--sort-output",
+                    _("Sort output by msgid"),
+                    _("It is same as --sort-by-msgid"),
+                    _("Just for GNU gettext's msgcat compatibility")) do
+            @order = :msgid
           end
 
           parser

@@ -28,8 +28,10 @@ class TestToolsMsgCat < Test::Unit::TestCase
       input
     end
     output = Tempfile.new("msgcat-output")
-    GetText::Tools::MsgCat.run("--output", output.path,
-                               *inputs.collect(&:path))
+    command_line = ["--output", output.path]
+    command_line.concat(options)
+    command_line.concat(inputs.collect(&:path))
+    GetText::Tools::MsgCat.run(*command_line)
     output.read
   end
 
@@ -106,6 +108,82 @@ msgstr "Salut"
         def test_default
           assert_equal(@po1, run_msgcat([@po1, @po2]))
         end
+      end
+    end
+  end
+
+  class TestSort < self
+    class TestByMsgid < self
+      def setup
+        @po_alice = <<-PO
+msgid "Alice"
+msgstr ""
+        PO
+
+        @po_bob = <<-PO
+msgid "Bob"
+msgstr ""
+        PO
+
+        @po_charlie = <<-PO
+msgid "Charlie"
+msgstr ""
+        PO
+      end
+
+      def test_sort_by_msgid
+        sorted_po = <<-PO.chomp
+#{@po_alice}
+#{@po_bob}
+#{@po_charlie}
+        PO
+        assert_equal(sorted_po,
+                     run_msgcat([@po_charlie, @po_bob, @po_alice],
+                                "--sort-by-msgid"))
+      end
+
+      def test_sort_output
+        sorted_po = <<-PO.chomp
+#{@po_alice}
+#{@po_bob}
+#{@po_charlie}
+        PO
+        assert_equal(sorted_po,
+                     run_msgcat([@po_charlie, @po_bob, @po_alice],
+                                "--sort-output"))
+      end
+    end
+
+    class TestByReference < self
+      def setup
+        @po_a1 = <<-PO
+#: a.rb:1
+msgid "Hello 3"
+msgstr ""
+        PO
+
+        @po_a2 = <<-PO
+#: a.rb:2
+msgid "Hello 2"
+msgstr ""
+        PO
+
+        @po_b1 = <<-PO
+#: b.rb:1
+msgid "Hello 1"
+msgstr ""
+        PO
+      end
+
+      def test_sort_by_file
+        sorted_po = <<-PO.chomp
+#{@po_a1}
+#{@po_a2}
+#{@po_b1}
+        PO
+        assert_equal(sorted_po,
+                     run_msgcat([@po_b1, @po_a2, @po_a1],
+                                "--sort-by-file"))
       end
     end
   end
