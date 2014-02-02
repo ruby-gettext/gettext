@@ -234,7 +234,7 @@ module GetText
       #   Encodes to the specific encoding.
       def initialize(entry, options={})
         @entry = entry
-        @options = fill_default_option_values(options)
+        @options = normalize_options(options)
       end
 
       def format
@@ -291,7 +291,7 @@ module GetText
       end
 
       private
-      def fill_default_option_values(options)
+      def normalize_options(options)
         options = options.dup
         if options[:include_reference_comment].nil?
           options[:include_reference_comment] = true
