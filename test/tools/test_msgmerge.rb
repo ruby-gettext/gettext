@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2010  Eddie Lau <tatonlto@gmail.com>
 #
 # License: Ruby's or LGPL
@@ -471,13 +471,13 @@ msgstr ""
 msgid "Hello"
 msgstr ""
 
-#: hello.rb:2
-msgid "World"
-msgstr "Translated World"
-
 #: hello.rb:3
 msgid "Hello World"
 msgstr ""
+
+#: hello.rb:2
+msgid "World"
+msgstr "Translated World"
         PO
       end
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012-2013  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2005-2009 Masao Mutoh
 # Copyright (C) 2005,2006 speakillof
 #
@@ -330,7 +330,7 @@ module GetText
 
           parser.on("--[no-]sort-output",
                     _("Generate sorted output")) do |sort|
-            @order = sort ? :reference : nil
+            @order = sort ? :msgid : nil
           end
 
           parser.on("--[no-]sort-by-file",
