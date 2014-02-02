@@ -74,4 +74,39 @@ msgstr "Monde"
       end
     end
   end
+
+  class TestDuplicated < self
+    class TestTranslated < self
+      class TestSame < self
+        def setup
+          @po = <<-PO
+msgid "Hello"
+msgstr "Bonjour"
+          PO
+        end
+
+        def test_default
+          assert_equal(@po, run_msgcat([@po, @po]))
+        end
+      end
+
+      class TestDifferent < self
+        def setup
+          @input_po1 = <<-PO
+msgid "Hello"
+msgstr "Bonjour"
+          PO
+
+          @input_po2 = <<-PO
+msgid "Hello"
+msgstr "Salut"
+          PO
+        end
+
+        def test_default
+          assert_equal(@input_po1, run_msgcat([@input_po1, @input_po2]))
+        end
+      end
+    end
+  end
 end

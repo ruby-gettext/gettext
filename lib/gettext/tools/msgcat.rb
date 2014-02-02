@@ -100,17 +100,7 @@ module GetText
             end
           end
 
-          # TODO
-          entry = reference_entry
-          entry.translator_comment = definition_entry.translator_comment
-          entry.previous = nil
-
-          unless definition_entry.msgid_plural == reference_entry.msgid_plural
-            entry.flag = "fuzzy"
-          end
-
-          entry.msgstr = definition_entry.msgstr
-          entry
+          base_entry
         end
 
         def merge_header(base_entry, new_entry)
