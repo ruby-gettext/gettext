@@ -476,7 +476,7 @@ msgstr ""
 
         def test_default
           assert_equal(<<-PO, @entry.to_s)
-#| msgid \"Hello\"
+#| msgid "Hello"
 msgid "hello"
 msgstr ""
           PO
@@ -507,7 +507,7 @@ msgstr ""
 #. extracted comment
 #: hello.rb:1
 #, fuzzy
-#| msgid \"Hello\"
+#| msgid "Hello"
 msgid "hello"
 msgstr ""
           PO
