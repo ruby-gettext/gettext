@@ -531,29 +531,37 @@ msgstr ""
         assert_equal(expected_message, format_message(message))
       end
 
+      def test_one_line_with_newline
+        message = "line\n"
+        assert_equal(<<-FORMATTED_MESSAGE, format_message(message))
+""
+"line\\n"
+        FORMATTED_MESSAGE
+      end
+
       def test_wrap
-        message = "long line\n"
+        message = "long line"
         assert_equal(<<-MESSAGE, format_message(message, :max_line_width => 4))
 ""
 "long"
 " lin"
-"e\\n"
+"e"
         MESSAGE
       end
 
       def test_disable_wrap
-        message = "long line\n"
+        message = "long line"
         assert_equal(<<-MESSAGE, format_message(message, :max_line_width => 0))
-"long line\\n"
+"long line"
         MESSAGE
       end
 
       def test_multilines_disable_wrap
-        message = "long\nline\n"
+        message = "long\nline"
         assert_equal(<<-MESSAGE, format_message(message, :max_line_width => 0))
 ""
 "long\\n"
-"line\\n"
+"line"
         MESSAGE
       end
 

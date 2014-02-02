@@ -371,11 +371,16 @@ module GetText
       end
 
       def format_message(message)
-        return "\"\"\n" if message.nil?
+        empty_formatted_message = "\"\"\n"
+        return empty_formatted_message if message.nil?
 
         chunks = wrap_message(message)
+        return empty_formatted_message if chunks.empty?
+
         formatted_message = ""
-        formatted_message << "\"\"\n" if chunks.size > 1
+        if chunks.size > 1 or chunks.first.end_with?("\n")
+          formatted_message << empty_formatted_message
+        end
         chunks.each do |chunk|
           formatted_message << "\"#{escape(chunk)}\"\n"
         end
