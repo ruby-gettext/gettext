@@ -43,6 +43,7 @@ module GetText
         config.parse(command_line)
 
         parser = POParser.new
+        parser.report_warning = config.report_warning?
         parser.ignore_fuzzy = !config.include_fuzzy?
         output_po = PO.new
         output_po.order = config.order
@@ -131,6 +132,9 @@ module GetText
         # (see include_fuzzy?)
         attr_writer :include_fuzzy
 
+        # (see report_warning?)
+        attr_writer :report_warning
+
         def initialize
           @pos = []
           @output = nil
@@ -139,11 +143,17 @@ module GetText
             :max_line_width => POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
           }
           @include_fuzzy = true
+          @report_warning = true
         end
 
         # @return [Boolean] Whether includes fuzzy entries or not.
         def include_fuzzy?
           @include_fuzzy
+        end
+
+        # @return [Boolean] Whether reports warning messages or not.
+        def report_warning?
+          @report_warning
         end
 
         def parse(command_line)
@@ -221,6 +231,11 @@ module GetText
           parser.on("--no-fuzzy",
                     _("Ignore fuzzy entries")) do |include_fuzzy|
             @include_fuzzy = include_fuzzy
+          end
+
+          parser.on("--no-report-warning",
+                    _("Don't report warning messages")) do |report_warning|
+            @report_warning = report_warning
           end
 
           parser

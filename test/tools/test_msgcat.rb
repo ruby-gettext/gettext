@@ -374,4 +374,24 @@ msgstr "Bonjour2"
       end
     end
   end
+
+  class TestWarning < self
+    def setup
+      @po_fuzzy = <<-PO
+#, fuzzy
+msgid "Hello World"
+msgstr "Bonjour"
+      PO
+    end
+
+    def test_default
+      run_msgcat([@po_fuzzy])
+      assert_not_empty(@stderr)
+    end
+
+    def test_no_report_warning
+      run_msgcat([@po_fuzzy], "--no-report-warning")
+      assert_empty(@stderr)
+    end
+  end
 end
