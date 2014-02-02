@@ -209,4 +209,25 @@ msgstr ""
       end
     end
   end
+
+  class TestComment < self
+    class TestReference < self
+      def setup
+        @po = <<-PO
+# translator comment
+#: a.rb:1
+msgid "Hello"
+msgstr ""
+        PO
+      end
+
+      def test_no_location
+        assert_equal(<<-PO, run_msgcat([@po], "--no-location"))
+# translator comment
+msgid "Hello"
+msgstr ""
+        PO
+      end
+    end
+  end
 end

@@ -52,12 +52,13 @@ module GetText
           merger.merge(po)
         end
 
+        output_po_string = output_po.to_s(config.po_format_options)
         if config.output.is_a?(String)
           File.open(File.expand_path(config.output), "w") do |file|
-            file.print(output_po.to_s)
+            file.print(output_po_string)
           end
         else
-          puts(output_po.to_s)
+          puts(output_po_string)
         end
       end
 
@@ -124,10 +125,16 @@ module GetText
         # @return [:reference, :msgid] The sort key.
         attr_accessor :order
 
+        # @return [Hash] The PO format options.
+        # @see PO#to_s
+        # @see POEntry#to_s
+        attr_accessor :po_format_options
+
         def initialize
           @pos = []
           @output = nil
           @order = nil
+          @po_format_options = {}
         end
 
         def parse(command_line)
@@ -173,6 +180,11 @@ module GetText
                     _("It is same as --sort-by-msgid"),
                     _("Just for GNU gettext's msgcat compatibility")) do |sort|
             @order = sort ? :msgid : nil
+          end
+
+          parser.on("--no-location",
+                    _("Remove location information")) do |boolean|
+            @po_format_options[:include_reference_comment] = boolean
           end
 
           parser
