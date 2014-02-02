@@ -229,5 +229,26 @@ msgstr ""
         PO
       end
     end
+
+    class TestAll < self
+      def setup
+        @po = <<-PO
+# translator comment
+#. extracted comment
+#: hello.rb:1
+#, c-format
+#| msgid "Hello"
+msgid "Hello"
+msgstr ""
+        PO
+      end
+
+      def test_no_all_comments
+        assert_equal(<<-PO, run_msgcat([@po], "--no-all-comments"))
+msgid "Hello"
+msgstr ""
+        PO
+      end
+    end
   end
 end
