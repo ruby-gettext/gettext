@@ -33,6 +33,25 @@ class TestToolsMsgCat < Test::Unit::TestCase
     output.read
   end
 
+  class TestHeader < self
+    def setup
+      @input_po1 = <<-PO
+msgid ""
+msgstr ""
+"Project-Id-Version: gettext 3.0.0\\n"
+      PO
+      @input_po2 = <<-PO
+msgid ""
+msgstr ""
+"Language: ja\\n"
+      PO
+    end
+
+    def test_default
+      assert_equal(@input_po1, run_msgcat([@input_po1, @input_po2]))
+    end
+  end
+
   class TestNoDuplicated < self
     class TestOnlyTranslated < self
       def setup

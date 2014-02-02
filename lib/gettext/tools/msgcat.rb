@@ -113,15 +113,8 @@ module GetText
           entry
         end
 
-        def merge_header(new_header, old_header)
-          header = old_header
-          if POT_DATE_EXTRACT_RE =~ new_header.msgstr
-            create_date = $1
-            pot_creation_date = "POT-Creation-Date: #{create_date}"
-            header.msgstr = header.msgstr.gsub(POT_DATE_RE, pot_creation_date)
-          end
-          header.flag = nil
-          header
+        def merge_header(base_entry, new_entry)
+          base_entry
         end
       end
 
