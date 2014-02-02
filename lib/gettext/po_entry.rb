@@ -250,22 +250,7 @@ module GetText
           return format_obsolete_comment(@entry.comment)
         end
 
-        str = ""
-        if include_translator_comment?
-          str << format_translator_comment
-        end
-        if include_extracted_comment?
-          str << format_extracted_comment
-        end
-        if include_reference_comment?
-          str << format_reference_comment
-        end
-        if include_flag_comment?
-          str << format_flag_comment
-        end
-        if include_previous_comment?
-          str << format_previous_comment
-        end
+        str = format_comments
 
         # msgctxt, msgid, msgstr
         if @entry.msgctxt?
@@ -341,6 +326,26 @@ module GetText
 
       def include_previous_comment?
         @options[:include_previous_comment]
+      end
+
+      def format_comments
+        formatted_comment = ""
+        if include_translator_comment?
+          formatted_comment << format_translator_comment
+        end
+        if include_extracted_comment?
+          formatted_comment << format_extracted_comment
+        end
+        if include_reference_comment?
+          formatted_comment << format_reference_comment
+        end
+        if include_flag_comment?
+          formatted_comment << format_flag_comment
+        end
+        if include_previous_comment?
+          formatted_comment << format_previous_comment
+        end
+        formatted_comment
       end
 
       def format_translator_comment
