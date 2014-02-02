@@ -501,6 +501,26 @@ msgstr ""
         PO
       end
 
+      def test_sort_by_location
+        @msgmerge.run("--update",
+                      "--sort-by-location",
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-PO, File.read(@po_file_path))
+#{po_header(@pot_formatted_time, @po_formatted_time)}
+#: hello.rb:1
+msgid "Hello"
+msgstr ""
+
+#: hello.rb:2
+msgid "World"
+msgstr "Translated World"
+
+#: hello.rb:3
+msgid "Hello World"
+msgstr ""
+        PO
+      end
+
       def test_sort_by_msgid
         @msgmerge.run("--update",
                       "--sort-by-msgid",

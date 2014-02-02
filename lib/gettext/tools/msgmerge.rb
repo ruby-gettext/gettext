@@ -336,7 +336,14 @@ module GetText
           end
 
           parser.on("--sort-by-file",
-                    _("Sort output by file location")) do
+                    _("Sort output by location"),
+                    _("It is same as --sort-by-location"),
+                    _("Just for GNU gettext's msgcat compatibility")) do
+            @order = :reference
+          end
+
+          parser.on("--sort-by-location",
+                    _("Sort output by location")) do
             @order = :reference
           end
 
