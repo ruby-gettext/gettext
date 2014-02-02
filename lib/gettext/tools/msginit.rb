@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -178,7 +178,9 @@ module GetText
 
         pot[""] = @entry
         pot[""].translator_comment = @comment
-        pot[""].flag = pot[""].flag.gsub(/\Afuzzy\z/, "")
+        pot[""].flags = pot[""].flags.reject do |flag|
+          flag == "fuzzy"
+        end
         pot
       end
 

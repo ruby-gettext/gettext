@@ -133,14 +133,14 @@ module GetText
             return merge_header(reference_entry, definition_entry)
           end
 
-          return definition_entry if definition_entry.flag == "fuzzy"
+          return definition_entry if definition_entry.fuzzy?
 
           entry = reference_entry
           entry.translator_comment = definition_entry.translator_comment
           entry.previous = nil
 
           unless definition_entry.msgid_plural == reference_entry.msgid_plural
-            entry.flag = "fuzzy"
+            entry.flags << "fuzzy"
           end
 
           entry.msgstr = definition_entry.msgstr
@@ -154,7 +154,7 @@ module GetText
             pot_creation_date = "POT-Creation-Date: #{create_date}"
             header.msgstr = header.msgstr.gsub(POT_DATE_RE, pot_creation_date)
           end
-          header.flag = nil
+          header.flags = []
           header
         end
 
@@ -170,7 +170,7 @@ module GetText
 
         def merge_fuzzy_entry(entry, fuzzy_entry)
           merged_entry = merge_entry(entry, fuzzy_entry)
-          merged_entry.flag = "fuzzy"
+          merged_entry.flags << "fuzzy"
           merged_entry
         end
 

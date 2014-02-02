@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2003-2010  Masao Mutoh
 # Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
 #
@@ -212,7 +212,7 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
         header.msgid = ""
         header.msgstr = header_content
         header.translator_comment = header_comment
-        header.flag = "fuzzy"
+        header.flags << "fuzzy"
 
         po = parse(paths)
         po.order = @po_order

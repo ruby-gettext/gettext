@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
 # Copyright (C) 2009  Masao Mutoh
 #
@@ -58,7 +58,9 @@ module GetText
     attr_accessor :references    # ["file1:line1", "file2:line2", ...]
     attr_accessor :translator_comment
     attr_accessor :extracted_comment
-    attr_accessor :flag
+    # @return [Array<String>] The flags for this PO entry.
+    # @since 3.0.4
+    attr_accessor :flags
     attr_accessor :previous
     attr_accessor :comment
 
@@ -68,7 +70,7 @@ module GetText
       @translator_comment = nil
       @extracted_comment = nil
       @references = []
-      @flag = nil
+      @flags = []
       @previous = nil
       @msgctxt = nil
       @msgid = nil
@@ -87,6 +89,24 @@ module GetText
       end
     end
 
+    # @return [String, nil] The flag of the PO entry.
+    # @deprecated Since 3.0.4. Use {#flags} instead.
+    def flag
+      @flags.first
+    end
+
+    # Set the new flag for the PO entry.
+    #
+    # @param [String, nil] flag The new flag.
+    # @deprecated Since 3.0.4. Use {#flags=} instead.
+    def flag=(flag)
+      if flag.nil?
+        @flags = []
+      else
+        @flags = [flag]
+      end
+    end
+
     # Checks if the self has same attributes as other.
     def ==(other)
       not other.nil? and
@@ -99,7 +119,7 @@ module GetText
         translator_comment == other.translator_comment and
         extracted_comment == other.extracted_comment and
         references == other.references and
-        flag == other.flag and
+        flags == other.flags and
         previous == other.previous and
         comment == other.comment
     end
@@ -180,7 +200,7 @@ module GetText
     # @return true if the entry is fuzzy entry, false otherwise.
     #   Fuzzy entry has "fuzzy" flag.
     def fuzzy?
-      @flag == "fuzzy"
+      @flags.include?("fuzzy")
     end
 
     def [](number)
@@ -389,7 +409,11 @@ module GetText
       end
 
       def format_flag_comment
-        format_comment(FLAG_MARK, @entry.flag)
+        formatted_flags = ""
+        @entry.flags.each do |flag|
+          formatted_flags << format_comment(FLAG_MARK, flag)
+        end
+        formatted_flags
       end
 
       def format_previous_comment
