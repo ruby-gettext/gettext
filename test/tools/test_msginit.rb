@@ -75,6 +75,30 @@ class TestToolsMsgInit < Test::Unit::TestCase
     end
   end
 
+  class TestOutput < self
+    def run(*args, &blcok)
+      Dir.mktmpdir do |dir|
+        Dir.chdir(dir) do
+          super
+        end
+      end
+    end
+
+    def test_pot_file_and_po_file
+      pot_file_path = "test.pot"
+      create_pot_file(pot_file_path)
+
+      po_dir = "sub"
+      FileUtils.mkdir_p(po_dir)
+      po_file_path = File.join(po_dir, "test.po")
+
+      @msginit.run("--input", pot_file_path,
+                   "--output", po_file_path)
+
+      assert_path_exist(po_file_path)
+    end
+  end
+
   def test_locale_including_language
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
@@ -124,22 +148,6 @@ class TestToolsMsgInit < Test::Unit::TestCase
         expected_po_header = po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
       end
-    end
-  end
-
-  def test_pot_file_and_po_file
-    Dir.mktmpdir do |dir|
-      pot_file_path = File.join(dir, "test.pot")
-      create_pot_file(pot_file_path)
-      locale = current_locale
-      language = current_language
-      po_file_path = File.join(dir, "test.po")
-
-      @msginit.run("--input", pot_file_path, "--output", po_file_path)
-
-      actual_po_header = File.read(po_file_path)
-      expected_po_header = po_header(locale, language)
-      assert_equal(expected_po_header, actual_po_header)
     end
   end
 
