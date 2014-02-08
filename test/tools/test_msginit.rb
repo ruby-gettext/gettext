@@ -76,15 +76,25 @@ class TestToolsMsgInit < Test::Unit::TestCase
   end
 
   class TestOutput < self
-    def test_pot_file_and_po_file
-      pot_file_path = "test.pot"
-      create_pot_file(pot_file_path)
+    def setup
+      super
+      @pot_file_path = "test.pot"
+      create_pot_file(@pot_file_path)
+    end
 
+    def test_default
+      @msginit.run("--input", @pot_file_path)
+
+      po_file_path = "#{current_locale}.po"
+      assert_path_exist(po_file_path)
+    end
+
+    def test_specify_option
       po_dir = "sub"
       FileUtils.mkdir_p(po_dir)
       po_file_path = File.join(po_dir, "test.po")
 
-      @msginit.run("--input", pot_file_path,
+      @msginit.run("--input", @pot_file_path,
                    "--output", po_file_path)
 
       assert_path_exist(po_file_path)
