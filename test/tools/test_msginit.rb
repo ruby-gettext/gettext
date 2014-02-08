@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -36,21 +36,42 @@ class TestToolsMsgInit < Test::Unit::TestCase
     Locale.current = "ja_JP.UTF-8"
   end
 
-  def test_all_options
-    Dir.mktmpdir do |dir|
-      pot_file_path = File.join(dir, "test.pot")
+  class TestInput < self
+    def run(*args, &blcok)
+      Dir.mktmpdir do |dir|
+        Dir.chdir(dir) do
+          super
+        end
+      end
+    end
+
+    def test_specify_option
+      pot_dir = "sub"
+      FileUtils.mkdir_p(pot_dir)
+      pot_file_path = File.join(pot_dir, "test.pot")
       create_pot_file(pot_file_path)
-      po_file_path = File.join(dir, "test.po")
-      locale = "en"
-      language = locale
+      @msginit.run("--input", pot_file_path)
+      po_file_path = "#{current_locale}.po"
+      assert_path_exist(po_file_path)
+    end
 
-      @msginit.run("--input", pot_file_path,
-                   "--output", po_file_path,
-                   "--locale", locale)
+    def test_find_pot
+      pot_in_current_directory = "test.pot"
+      create_pot_file(pot_in_current_directory)
+      @msginit.run
+      po_file_path = "#{current_locale}.po"
+      assert_path_exist(po_file_path)
+    end
 
-      actual_po_header = File.read(po_file_path)
-      expected_po_header = po_header(locale, language)
-      assert_equal(expected_po_header, actual_po_header)
+    def test_pot_not_found
+      pot_dir = "sub"
+      FileUtils.mkdir_p(pot_dir)
+      pot_file_path = File.join(pot_dir, "test.pot")
+      create_pot_file(pot_file_path)
+
+      assert_raise(GetText::Tools::MsgInit::ValidationError) do
+        @msginit.run
+      end
     end
   end
 
