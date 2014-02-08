@@ -36,15 +36,15 @@ class TestToolsMsgInit < Test::Unit::TestCase
     Locale.current = "ja_JP.UTF-8"
   end
 
-  class TestInput < self
-    def run(*args, &blcok)
-      Dir.mktmpdir do |dir|
-        Dir.chdir(dir) do
-          super
-        end
+  def run(*args, &blcok)
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        super
       end
     end
+  end
 
+  class TestInput < self
     def test_specify_option
       pot_dir = "sub"
       FileUtils.mkdir_p(pot_dir)
@@ -76,14 +76,6 @@ class TestToolsMsgInit < Test::Unit::TestCase
   end
 
   class TestOutput < self
-    def run(*args, &blcok)
-      Dir.mktmpdir do |dir|
-        Dir.chdir(dir) do
-          super
-        end
-      end
-    end
-
     def test_pot_file_and_po_file
       pot_file_path = "test.pot"
       create_pot_file(pot_file_path)
@@ -100,8 +92,6 @@ class TestToolsMsgInit < Test::Unit::TestCase
   end
 
   def test_locale_including_language
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
         create_pot_file("test.pot")
         locale = "en"
         language = locale
@@ -112,13 +102,9 @@ class TestToolsMsgInit < Test::Unit::TestCase
         actual_po_header = File.read(po_file_path)
         expected_po_header = po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
-      end
-    end
   end
 
   def test_locale_including_language_and_region
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
         create_pot_file("test.pot")
         locale = "en_US"
         language = "en"
@@ -129,13 +115,9 @@ class TestToolsMsgInit < Test::Unit::TestCase
         actual_po_header = File.read(po_file_path)
         expected_po_header = po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
-      end
-    end
   end
 
   def test_locale_including_language_and_region_with_charset
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
         create_pot_file("test.pot")
         locale = "en_US"
         language = "en"
@@ -147,13 +129,9 @@ class TestToolsMsgInit < Test::Unit::TestCase
         actual_po_header = File.read(po_file_path)
         expected_po_header = po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
-      end
-    end
   end
 
   def test_pot_file
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
         pot_file_path = "test.pot"
         create_pot_file(pot_file_path)
         locale = current_locale
@@ -165,13 +143,9 @@ class TestToolsMsgInit < Test::Unit::TestCase
         actual_po_header = File.read(po_file_path)
         expected_po_header = po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
-      end
-    end
   end
 
   def test_no_options
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
         create_pot_file("test.pot")
         locale = current_locale
         language = current_language
@@ -182,16 +156,12 @@ class TestToolsMsgInit < Test::Unit::TestCase
         actual_po_header = File.read(po_file_path)
         expected_po_header = po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
-      end
-    end
   end
 
   def test_no_translator
     stub(@msginit).read_translator_full_name {nil}
     stub(@msginit).read_translator_mail {nil}
 
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
         create_pot_file("test.pot")
         locale = current_locale
         language = current_language
@@ -202,15 +172,11 @@ class TestToolsMsgInit < Test::Unit::TestCase
         actual_po_header = File.read(po_file_path)
         expected_po_header = no_translator_po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
-      end
-    end
   end
 
   def test_no_translator_full_name
     stub(@msginit).read_translator_full_name {nil}
 
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
         create_pot_file("test.pot")
         locale = current_locale
         language = current_language
@@ -221,15 +187,11 @@ class TestToolsMsgInit < Test::Unit::TestCase
         actual_po_header = File.read(po_file_path)
         expected_po_header = no_translator_po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
-      end
-    end
   end
 
   def test_no_translator_mail
     stub(@msginit).read_translator_mail {nil}
 
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
         create_pot_file("test.pot")
         locale = current_locale
         language = current_language
@@ -240,13 +202,9 @@ class TestToolsMsgInit < Test::Unit::TestCase
         actual_po_header = File.read(po_file_path)
         expected_po_header = no_translator_po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
-      end
-    end
   end
 
   def test_package_name_specified_in_project_id_version
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
         pot_file_name = "test.pot"
         options = {:package_name => "test-package"}
         create_pot_file(pot_file_name, options)
@@ -260,12 +218,9 @@ class TestToolsMsgInit < Test::Unit::TestCase
         actual_po_header = File.read(po_file_path)
 
         assert_equal(expected_po_header, actual_po_header)
-      end
-    end
+  end
 
-    def test_no_plural_forms
-      Dir.mktmpdir do |dir|
-        Dir.chdir(dir) do
+  def test_no_plural_forms
           options = {:have_plural_forms => false}
           create_pot_file("test.pot", options)
           locale = current_locale
@@ -277,9 +232,6 @@ class TestToolsMsgInit < Test::Unit::TestCase
           actual_po_header = File.read(po_file_path)
           expected_po_header = po_header(locale, language)
           assert_equal(expected_po_header, actual_po_header)
-        end
-      end
-    end
   end
 
   private
