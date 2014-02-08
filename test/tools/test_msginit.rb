@@ -92,45 +92,45 @@ class TestToolsMsgInit < Test::Unit::TestCase
   end
 
   class TestLocale < self
-  def test_language
-        create_pot_file("test.pot")
-        locale = "en"
-        language = locale
-        po_file_path = "#{locale}.po"
+    def test_language
+      create_pot_file("test.pot")
+      locale = "en"
+      language = locale
+      po_file_path = "#{locale}.po"
 
-        @msginit.run("--locale", locale)
+      @msginit.run("--locale", locale)
 
-        actual_po_header = File.read(po_file_path)
-        expected_po_header = po_header(locale, language)
-        assert_equal(expected_po_header, actual_po_header)
-  end
+      actual_po_header = File.read(po_file_path)
+      expected_po_header = po_header(locale, language)
+      assert_equal(expected_po_header, actual_po_header)
+    end
 
-  def test_language_region
-        create_pot_file("test.pot")
-        locale = "en_US"
-        language = "en"
-        po_file_path = "#{locale}.po"
+    def test_language_region
+      create_pot_file("test.pot")
+      locale = "en_US"
+      language = "en"
+      po_file_path = "#{locale}.po"
 
-        @msginit.run("--locale", locale)
+      @msginit.run("--locale", locale)
 
-        actual_po_header = File.read(po_file_path)
-        expected_po_header = po_header(locale, language)
-        assert_equal(expected_po_header, actual_po_header)
-  end
+      actual_po_header = File.read(po_file_path)
+      expected_po_header = po_header(locale, language)
+      assert_equal(expected_po_header, actual_po_header)
+    end
 
-  def test_language_region_charset
-        create_pot_file("test.pot")
-        locale = "en_US"
-        language = "en"
-        charset = "UTF-8"
-        po_file_path = "en_US.po"
+    def test_language_region_charset
+      create_pot_file("test.pot")
+      locale = "en_US"
+      language = "en"
+      charset = "UTF-8"
+      po_file_path = "en_US.po"
 
-        @msginit.run("--locale", "#{locale}.#{charset}")
+      @msginit.run("--locale", "#{locale}.#{charset}")
 
-        actual_po_header = File.read(po_file_path)
-        expected_po_header = po_header(locale, language)
-        assert_equal(expected_po_header, actual_po_header)
-  end
+      actual_po_header = File.read(po_file_path)
+      expected_po_header = po_header(locale, language)
+      assert_equal(expected_po_header, actual_po_header)
+    end
   end
 
   def test_pot_file
