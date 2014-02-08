@@ -122,33 +122,6 @@ class TestToolsMsgInit < Test::Unit::TestCase
     end
   end
 
-  def test_pot_file
-        pot_file_path = "test.pot"
-        create_pot_file(pot_file_path)
-        locale = current_locale
-        language = current_language
-        po_file_path = "#{locale}.po"
-
-        @msginit.run("--input", pot_file_path)
-
-        actual_po_header = File.read(po_file_path)
-        expected_po_header = po_header(locale, language)
-        assert_equal(expected_po_header, actual_po_header)
-  end
-
-  def test_no_options
-        create_pot_file("test.pot")
-        locale = current_locale
-        language = current_language
-        po_file_path = "#{locale}.po"
-
-        @msginit.run
-
-        actual_po_header = File.read(po_file_path)
-        expected_po_header = po_header(locale, language)
-        assert_equal(expected_po_header, actual_po_header)
-  end
-
   def test_no_translator
     stub(@msginit).read_translator_full_name {nil}
     stub(@msginit).read_translator_mail {nil}
