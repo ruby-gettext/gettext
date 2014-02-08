@@ -91,7 +91,8 @@ class TestToolsMsgInit < Test::Unit::TestCase
     end
   end
 
-  def test_locale_including_language
+  class TestLocale < self
+  def test_language
         create_pot_file("test.pot")
         locale = "en"
         language = locale
@@ -104,7 +105,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
         assert_equal(expected_po_header, actual_po_header)
   end
 
-  def test_locale_including_language_and_region
+  def test_language_region
         create_pot_file("test.pot")
         locale = "en_US"
         language = "en"
@@ -117,7 +118,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
         assert_equal(expected_po_header, actual_po_header)
   end
 
-  def test_locale_including_language_and_region_with_charset
+  def test_language_region_charset
         create_pot_file("test.pot")
         locale = "en_US"
         language = "en"
@@ -129,6 +130,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
         actual_po_header = File.read(po_file_path)
         expected_po_header = po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
+  end
   end
 
   def test_pot_file
