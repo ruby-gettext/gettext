@@ -229,40 +229,67 @@ EOF
   end
 
   class TestTranslator < self
-    def run_msginit
+    def run_msginit(*arguments)
       create_pot_file("test.pot")
       po_file_path = "output.po"
-      @msginit.run("--output", po_file_path)
+      @msginit.run("--output", po_file_path,
+                   *arguments)
       File.read(po_file_path)
     end
 
-    def no_translator_po_header
-      po_header(current_locale, current_language,
-                :first_translator_name => nil,
-                :translator_name => nil,
-                :translator_email => nil)
+    class TestChanged < self
+      def po_header(options)
+        super(current_locale, current_language, options)
+      end
+
+      def test_name
+        name = "Custom Translator"
+        assert_equal(po_header(:first_translator_name => name,
+                               :translator_name => name),
+                     run_msginit("--translator-name", name))
+      end
+
+      def test_email
+        email = "custom-translator@example.com"
+        assert_equal(po_header(:translator_email => email),
+                     run_msginit("--translator-email", email))
+      end
     end
 
-    def test_no_name_no_email
-      stub(@msginit).read_translator_name {nil}
-      stub(@msginit).read_translator_email {nil}
+    class TestNotChanged < self
+      def no_translator_po_header
+        po_header(current_locale, current_language,
+                  :first_translator_name => nil,
+                  :translator_name => nil,
+                  :translator_email => nil)
+      end
 
-      assert_equal(no_translator_po_header,
-                   run_msginit)
-    end
+      def test_no_name_no_email
+        stub(@msginit).read_translator_name {nil}
+        stub(@msginit).read_translator_email {nil}
 
-    def test_no_name
-      stub(@msginit).read_translator_name {nil}
+        assert_equal(no_translator_po_header,
+                     run_msginit)
+      end
 
-      assert_equal(no_translator_po_header,
-                   run_msginit)
-    end
+      def test_no_name
+        stub(@msginit).read_translator_name {nil}
 
-    def test_no_email
-      stub(@msginit).read_translator_email {nil}
+        assert_equal(no_translator_po_header,
+                     run_msginit)
+      end
 
-      assert_equal(no_translator_po_header,
-                   run_msginit)
+      def test_no_email
+        stub(@msginit).read_translator_email {nil}
+
+        assert_equal(no_translator_po_header,
+                     run_msginit)
+      end
+
+      def test_no_translator
+        assert_equal(no_translator_po_header,
+                     run_msginit("--no-translator"))
+      end
     end
   end
 

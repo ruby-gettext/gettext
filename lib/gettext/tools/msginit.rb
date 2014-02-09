@@ -59,6 +59,9 @@ module GetText
         @entry = nil
         @comment = nil
         @translator = nil
+        @set_translator = true
+        @translator_name = nil
+        @translator_eamil = nil
       end
 
       # Create .po file from .pot file, user's inputs and metadata.
@@ -107,6 +110,21 @@ module GetText
                                  "locale on your environment.")
         parser.on("-l", "--locale=LOCALE", locale_description) do |loc|
           @locale = loc
+        end
+
+        parser.on("--no-translator",
+                  _("Don't set translator information")) do
+          @set_translator = false
+        end
+
+        parser.on("--translator-name=NAME",
+                  _("Use NAME as translator name")) do |name|
+          @translator_name = name
+        end
+
+        parser.on("--translator-email=EMAIL",
+                  _("Use EMAIL as translator email address")) do |email|
+          @translator_email = email
         end
 
         parser.on("-h", "--help", _("Display this help and exit")) do
@@ -185,6 +203,7 @@ module GetText
       end
 
       def translator_info
+        return nil unless @set_translator
         name = translator_name
         email = translator_email
         if name and email
@@ -195,7 +214,7 @@ module GetText
       end
 
       def translator_name
-        read_translator_name
+        @translator_name ||= read_translator_name
       end
 
       def read_translator_name
@@ -224,7 +243,7 @@ module GetText
       end
 
       def translator_email
-        read_translator_email
+        @translator_email ||= read_translator_email
       end
 
       def read_translator_email
