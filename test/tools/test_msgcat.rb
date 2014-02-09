@@ -401,4 +401,24 @@ msgstr "Bonjour"
       assert_empty(@stderr)
     end
   end
+
+  class TestObsoleteEntries < self
+    def setup
+      @po_fuzzy = <<-PO
+#~ msgid "Hello World"
+#~ msgstr "Bonjour"
+      PO
+    end
+
+    def test_default
+      assert_equal(<<-PO, run_msgcat([@po_fuzzy]))
+#~ msgid "Hello World"
+#~ msgstr "Bonjour"
+      PO
+    end
+
+    def test_no_obsolete_entries
+      assert_equal("", run_msgcat([@po_fuzzy], "--no-obsolete-entries"))
+    end
+  end
 end
