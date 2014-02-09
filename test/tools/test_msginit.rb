@@ -132,9 +132,10 @@ class TestToolsMsgInit < Test::Unit::TestCase
     end
   end
 
-  def test_no_translator
-    stub(@msginit).read_translator_full_name {nil}
-    stub(@msginit).read_translator_mail {nil}
+  class TestTranslator < self
+    def test_no_name_no_mail
+      stub(@msginit).read_translator_full_name {nil}
+      stub(@msginit).read_translator_mail {nil}
 
         create_pot_file("test.pot")
         locale = current_locale
@@ -146,25 +147,10 @@ class TestToolsMsgInit < Test::Unit::TestCase
         actual_po_header = File.read(po_file_path)
         expected_po_header = no_translator_po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
-  end
+    end
 
-  def test_no_translator_full_name
-    stub(@msginit).read_translator_full_name {nil}
-
-        create_pot_file("test.pot")
-        locale = current_locale
-        language = current_language
-        po_file_path = "#{locale}.po"
-
-        @msginit.run
-
-        actual_po_header = File.read(po_file_path)
-        expected_po_header = no_translator_po_header(locale, language)
-        assert_equal(expected_po_header, actual_po_header)
-  end
-
-  def test_no_translator_mail
-    stub(@msginit).read_translator_mail {nil}
+    def test_no_name
+      stub(@msginit).read_translator_full_name {nil}
 
         create_pot_file("test.pot")
         locale = current_locale
@@ -176,6 +162,22 @@ class TestToolsMsgInit < Test::Unit::TestCase
         actual_po_header = File.read(po_file_path)
         expected_po_header = no_translator_po_header(locale, language)
         assert_equal(expected_po_header, actual_po_header)
+    end
+
+    def test_no_mail
+      stub(@msginit).read_translator_mail {nil}
+
+        create_pot_file("test.pot")
+        locale = current_locale
+        language = current_language
+        po_file_path = "#{locale}.po"
+
+        @msginit.run
+
+        actual_po_header = File.read(po_file_path)
+        expected_po_header = no_translator_po_header(locale, language)
+        assert_equal(expected_po_header, actual_po_header)
+    end
   end
 
   def test_package_name_specified_in_project_id_version
