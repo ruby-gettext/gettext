@@ -1,10 +1,16 @@
 # News
 
+## <a id="3-1-0">3.1.0</a>: 2014-02-09
+
+### Improvements
+
+  * `rmsgcat`: Added `--no-obsolete-entries` option.
+
 ## <a id="3-0-9">3.0.9</a>: 2014-02-09
 
 ### Improvements
 
-  * `rmsgimerge`: Improves fuzzy matching speed.
+  * `rmsgmerge`: Improves fuzzy matching speed.
 
 ## <a id="3-0-8">3.0.8</a>: 2014-02-09
 
