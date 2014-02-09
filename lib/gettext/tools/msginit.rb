@@ -199,16 +199,16 @@ module GetText
       end
 
       def read_translator_name
-        prompt(_("Please enter your full name"), guess_name)
+        prompt(_("Please enter your full name"), guess_translator_name)
       end
 
-      def guess_name
-        name = guess_name_from_password_entry
+      def guess_translator_name
+        name = guess_translator_name_from_password_entry
         name ||= ENV["USERNAME"]
         name
       end
 
-      def guess_name_from_password_entry
+      def guess_trnaslator_name_from_password_entry
         password_entry = find_password_entry
         return nil if password_entry.nil?
 
@@ -228,10 +228,10 @@ module GetText
       end
 
       def read_translator_email
-        prompt(_("Please enter your email address"), guess_email)
+        prompt(_("Please enter your email address"), guess_translator_email)
       end
 
-      def guess_email
+      def guess_translator_email
         ENV["EMAIL"]
       end
 
