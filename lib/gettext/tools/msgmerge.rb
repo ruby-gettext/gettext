@@ -186,6 +186,7 @@ module GetText
           end
           same_msgctxt_entries.each do |entry|
             distance = normalize_distance(entry.msgid, msgid)
+            next if distance.nil?
             if min_distance > distance
               min_distance = distance
               min_distance_entry = entry
@@ -195,10 +196,14 @@ module GetText
           min_distance_entry
         end
 
+        MAX_N_CHARACTERS_DIFFERENCE = 10
         def normalize_distance(source, destination)
-          max_size = [source.size, destination.size].max
+          n_characters_difference = (source.size - destination.size).abs
+          return nil if n_characters_difference > MAX_N_CHARACTERS_DIFFERENCE
 
+          max_size = [source.size, destination.size].max
           return 0.0 if max_size.zero?
+
           Text::Levenshtein.distance(source, destination) / max_size.to_f
         end
 
