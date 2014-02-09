@@ -187,7 +187,7 @@ module GetText
       def translator_info
         name = translator_name
         email = translator_email
-        if not name.nil? and not email.nil?
+        if name and email
           "#{name} <#{email}>"
         else
           nil
