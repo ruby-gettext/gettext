@@ -227,7 +227,7 @@ module GetText
         name
       end
 
-      def guess_trnaslator_name_from_password_entry
+      def guess_translator_name_from_password_entry
         password_entry = find_password_entry
         return nil if password_entry.nil?
 
