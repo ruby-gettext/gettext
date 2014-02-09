@@ -73,6 +73,9 @@ module GetText
 
         def merge(po)
           po.each do |entry|
+            if entry.msgid == :last
+              next unless @config.output_obsolete_entries?
+            end
             id = [entry.msgctxt, entry.msgid]
             if @output_po.has_key?(*id)
               merged_entry = merge_entry(@output_po[*id], entry)
@@ -139,6 +142,9 @@ module GetText
         # (see report_warning?)
         attr_writer :report_warning
 
+        # (see output_obsolete_entries?)
+        attr_writer :output_obsolete_entries
+
         def initialize
           @pos = []
           @output = nil
@@ -148,6 +154,7 @@ module GetText
           }
           @include_fuzzy = true
           @report_warning = true
+          @output_obsolete_entries = true
         end
 
         # @return [Boolean] Whether includes fuzzy entries or not.
@@ -158,6 +165,11 @@ module GetText
         # @return [Boolean] Whether reports warning messages or not.
         def report_warning?
           @report_warning
+        end
+
+        # @return [Boolean] Whether outputs obsolete entries or not.
+        def output_obsolete_entries?
+          @output_obsolete_entries
         end
 
         def parse(command_line)
@@ -240,6 +252,11 @@ module GetText
           parser.on("--no-report-warning",
                     _("Don't report warning messages")) do |report_warning|
             @report_warning = report_warning
+          end
+
+          parser.on("--no-obsolete-entries",
+                    _("Don't output obsolete entries")) do
+            @output_obsolete_entries = false
           end
 
           parser
