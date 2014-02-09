@@ -133,50 +133,40 @@ class TestToolsMsgInit < Test::Unit::TestCase
   end
 
   class TestTranslator < self
+    def run_msginit
+      create_pot_file("test.pot")
+      po_file_path = "output.po"
+      @msginit.run("--output", po_file_path)
+      File.read(po_file_path)
+    end
+
+    def no_translator_po_header
+      po_header(current_locale, current_language,
+                :first_translator_full_name => nil,
+                :translator_full_name => nil,
+                :translator_mail => nil)
+    end
+
     def test_no_name_no_mail
       stub(@msginit).read_translator_full_name {nil}
       stub(@msginit).read_translator_mail {nil}
 
-        create_pot_file("test.pot")
-        locale = current_locale
-        language = current_language
-        po_file_path = "#{locale}.po"
-
-        @msginit.run
-
-        actual_po_header = File.read(po_file_path)
-        expected_po_header = no_translator_po_header(locale, language)
-        assert_equal(expected_po_header, actual_po_header)
+      assert_equal(no_translator_po_header,
+                   run_msginit)
     end
 
     def test_no_name
       stub(@msginit).read_translator_full_name {nil}
 
-        create_pot_file("test.pot")
-        locale = current_locale
-        language = current_language
-        po_file_path = "#{locale}.po"
-
-        @msginit.run
-
-        actual_po_header = File.read(po_file_path)
-        expected_po_header = no_translator_po_header(locale, language)
-        assert_equal(expected_po_header, actual_po_header)
+      assert_equal(no_translator_po_header,
+                   run_msginit)
     end
 
     def test_no_mail
       stub(@msginit).read_translator_mail {nil}
 
-        create_pot_file("test.pot")
-        locale = current_locale
-        language = current_language
-        po_file_path = "#{locale}.po"
-
-        @msginit.run
-
-        actual_po_header = File.read(po_file_path)
-        expected_po_header = no_translator_po_header(locale, language)
-        assert_equal(expected_po_header, actual_po_header)
+      assert_equal(no_translator_po_header,
+                   run_msginit)
     end
   end
 
@@ -262,11 +252,19 @@ EOF
     header
   end
 
-  def po_header(locale, language, options=nil)
-    options ||= {}
-    package_name = options[:package_name] || default_package_name
-    full_name = translator_full_name
-    mail = translator_mail
+  def po_header(locale, language, options={})
+    default_options = {
+      :package_name               => default_package_name,
+      :first_translator_full_name => translator_full_name,
+      :translator_full_name       => translator_full_name,
+      :translator_mail            => translator_mail,
+    }
+    options = default_options.merge(options)
+    package_name = options[:package_name]
+    first_translator_full_name =
+      options[:first_translator_full_name] || "FIRST AUTHOR"
+    full_name = options[:translator_full_name] || "FULL NAME"
+    mail = options[:translator_mail] || "EMAIL@ADDRESS"
     language_name = Locale::Info.get_language(language).name
     plural_forms = @msginit.send(:plural_forms, language)
 
@@ -274,7 +272,7 @@ EOF
 # #{language_name} translations for #{package_name} package.
 # Copyright (C) #{@year} THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# #{full_name} <#{mail}>, #{@year}.
+# #{first_translator_full_name} <#{mail}>, #{@year}.
 #
 msgid ""
 msgstr ""
@@ -293,30 +291,5 @@ EOF
 
   def default_package_name
     "PACKAGE"
-  end
-
-  def no_translator_po_header(locale, language)
-    language_name = Locale::Info.get_language(language).name
-    plural_forms = @msginit.send(:plural_forms, language)
-
-    <<EOF
-# #{language_name} translations for PACKAGE package.
-# Copyright (C) #{@year} THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, #{@year}.
-#
-msgid ""
-msgstr ""
-"Project-Id-Version: PACKAGE VERSION\\n"
-"POT-Creation-Date: #{@pot_create_date}\\n"
-"PO-Revision-Date: #{@po_revision_date}\\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
-"Language: #{locale}\\n"
-"Language-Team: #{language_name}\\n"
-"MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=UTF-8\\n"
-"Content-Transfer-Encoding: 8bit\\n"
-"Plural-Forms: #{plural_forms}\\n"
-EOF
   end
 end
