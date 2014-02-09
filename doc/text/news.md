@@ -1,5 +1,11 @@
 # News
 
+## <a id="3-0-8">3.0.8</a>: 2014-02-09
+
+### Fixes
+
+  * `rmsginit`: Fixed a typo.
+
 ## <a id="3-0-7">3.0.7</a>: 2014-02-09
 
 ### Improvements
