@@ -170,20 +170,24 @@ class TestToolsMsgInit < Test::Unit::TestCase
     end
   end
 
-  def test_package_name_specified_in_project_id_version
-        pot_file_name = "test.pot"
-        options = {:package_name => "test-package"}
-        create_pot_file(pot_file_name, options)
-        locale = current_locale
-        language = current_language
-        po_file_path = "#{locale}.po"
+  class TestPackage < self
+    def run_msginit
+      create_pot_file("test.pot")
+      po_file_path = "output.po"
+      @msginit.run("--output", po_file_path)
+      File.read(po_file_path)
+    end
 
-        @msginit.run("--input", pot_file_name)
+    class TestCustomPackageName < self
+      def default_po_header_options
+        super.merge(:package_name => "test-package")
+      end
 
-        expected_po_header = po_header(locale, language, options)
-        actual_po_header = File.read(po_file_path)
-
-        assert_equal(expected_po_header, actual_po_header)
+      def test_not_change
+        assert_equal(po_header(current_locale, current_language),
+                     run_msginit)
+      end
+    end
   end
 
   def test_no_plural_forms
@@ -224,7 +228,17 @@ class TestToolsMsgInit < Test::Unit::TestCase
     end
   end
 
+  def default_po_header_options
+    {
+      :package_name               => default_package_name,
+      :first_translator_full_name => translator_full_name,
+      :translator_full_name       => translator_full_name,
+      :translator_mail            => translator_mail,
+    }
+  end
+
   def pot_header(options)
+    options = default_po_header_options.merge(options)
     package_name = options[:package_name] || default_package_name
     have_plural_forms = options[:have_plural_forms] || true
     header = <<EOF
@@ -253,13 +267,7 @@ EOF
   end
 
   def po_header(locale, language, options={})
-    default_options = {
-      :package_name               => default_package_name,
-      :first_translator_full_name => translator_full_name,
-      :translator_full_name       => translator_full_name,
-      :translator_mail            => translator_mail,
-    }
-    options = default_options.merge(options)
+    options = default_po_header_options.merge(options)
     package_name = options[:package_name]
     first_translator_full_name =
       options[:first_translator_full_name] || "FIRST AUTHOR"
