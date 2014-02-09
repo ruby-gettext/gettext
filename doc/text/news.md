@@ -1,5 +1,13 @@
 # News
 
+## <a id="3-0-7">3.0.7</a>: 2014-02-09
+
+### Improvements
+
+  * `rmsginit`: Added `--no-translator`.
+  * `rmsginit`: Added `--translator-name`.
+  * `rmsginit`: Added `--translator-email`.
+
 ## <a id="3-0-6">3.0.6</a>: 2014-02-02
 
 ### Improvements
