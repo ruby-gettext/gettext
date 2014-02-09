@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-02 23:46+0900\n"
+"POT-Creation-Date: 2014-02-09 21:39+0900\n"
 "PO-Revision-Date: 2008-07-14 09:47-0300\n"
 "Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
 "Language-Team: Portuguese(Brazil) <pt@li.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "ngettext: 3rd parmeter is wrong: value = %{number}"
 msgstr "O 3º parâmetro está errado: value = %{number}"
 
-#: ../lib/gettext/text_domain_manager.rb:154
+#: ../lib/gettext/text_domain_manager.rb:155
 msgid "ngettext: 3rd parameter should be a number, not nil."
 msgstr ""
 
@@ -40,7 +40,7 @@ msgid "Concatenates and merges PO files."
 msgstr ""
 
 #: ../lib/gettext/tools/msgcat.rb:176 ../lib/gettext/tools/msgfmt.rb:86
-#: ../lib/gettext/tools/msginit.rb:89 ../lib/gettext/tools/msgmerge.rb:329
+#: ../lib/gettext/tools/msginit.rb:92 ../lib/gettext/tools/msgmerge.rb:329
 #: ../lib/gettext/tools/xgettext.rb:248
 msgid "Specific options:"
 msgstr "Opções específicas:"
@@ -122,32 +122,32 @@ msgstr "escreve saída para o arquivo especificado"
 msgid "display version information and exit"
 msgstr "mostra informação de versão e sai"
 
-#: ../lib/gettext/tools/msginit.rb:85
+#: ../lib/gettext/tools/msginit.rb:88
 msgid ""
 "Create a new .po file from initializing .pot file with user's environment and "
 "input."
 msgstr ""
 
-#: ../lib/gettext/tools/msginit.rb:91
+#: ../lib/gettext/tools/msginit.rb:94
 msgid ""
 "Use INPUT as a .pot file. If INPUT is not specified, INPUT is a .pot file exis"
 "ting the current directory."
 msgstr ""
 
-#: ../lib/gettext/tools/msginit.rb:98
+#: ../lib/gettext/tools/msginit.rb:101
 msgid ""
 "Use OUTPUT as a created .po file. If OUTPUT is not specified, OUTPUT depend on"
 " LOCALE or the current locale on your environment."
 msgstr ""
 
-#: ../lib/gettext/tools/msginit.rb:105
+#: ../lib/gettext/tools/msginit.rb:108
 msgid ""
 "Use LOCALE as target locale. If LOCALE is not specified, LOCALE is the current"
 " locale on your environment."
 msgstr ""
 
-#: ../lib/gettext/tools/msginit.rb:112 ../lib/gettext/tools/msgmerge.rb:398
-msgid "Display this help and exit"
+#: ../lib/gettext/tools/msginit.rb:116
+msgid "Don't set translator information"
 msgstr ""
 
 #: ../lib/gettext/tools/msginit.rb:117
@@ -155,8 +155,16 @@ msgstr ""
 msgid "Display version and exit"
 msgstr "mostra informação de versão e sai"
 
-#: ../lib/gettext/tools/msginit.rb:135
-msgid ".pot file does not exist in the current directory."
+#: ../lib/gettext/tools/msginit.rb:121
+msgid "Use NAME as translator name"
+msgstr ""
+
+#: ../lib/gettext/tools/msginit.rb:126
+msgid "Use EMAIL as translator email address"
+msgstr ""
+
+#: ../lib/gettext/tools/msginit.rb:130 ../lib/gettext/tools/msgmerge.rb:398
+msgid "Display this help and exit"
 msgstr ""
 
 #: ../lib/gettext/tools/msginit.rb:140
@@ -164,10 +172,8 @@ msgstr ""
 msgid "file '%s' does not exist."
 msgstr "O arquivo '%s' já existe."
 
-#: ../lib/gettext/tools/msginit.rb:152
-msgid ""
-"\"Locale '#{language_tag}' is invalid. \"Please check if your specified locale i"
-"s usable."
+#: ../lib/gettext/tools/msginit.rb:153
+msgid ".pot file does not exist in the current directory."
 msgstr ""
 
 #: ../lib/gettext/tools/msginit.rb:161
@@ -175,11 +181,17 @@ msgstr ""
 msgid "file '%s' has already existed."
 msgstr "O arquivo '%s' já existe."
 
-#: ../lib/gettext/tools/msginit.rb:202
+#: ../lib/gettext/tools/msginit.rb:170
+msgid ""
+"\"Locale '#{language_tag}' is invalid. \"Please check if your specified locale i"
+"s usable."
+msgstr ""
+
+#: ../lib/gettext/tools/msginit.rb:221
 msgid "Please enter your full name"
 msgstr ""
 
-#: ../lib/gettext/tools/msginit.rb:231
+#: ../lib/gettext/tools/msginit.rb:250
 msgid "Please enter your email address"
 msgstr ""
 

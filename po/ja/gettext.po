@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 2.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-02 23:46+0900\n"
-"PO-Revision-Date: 2013-04-16 15:07+0900\n"
+"POT-Creation-Date: 2014-02-09 21:39+0900\n"
+"PO-Revision-Date: 2014-02-09 21:39+0900\n"
 "Last-Translator: Haruka Yoshihara <yoshihara@clear-code.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../lib/gettext/text_domain_manager.rb:148
+#: ../lib/gettext/text_domain_manager.rb:149
 msgid "ngettext: 3rd parmeter is wrong: value = %{number}"
 msgstr "ngettext: 3番目のパラメータが不正です。: value = %{number}"
 
-#: ../lib/gettext/text_domain_manager.rb:154
+#: ../lib/gettext/text_domain_manager.rb:155
 msgid "ngettext: 3rd parameter should be a number, not nil."
 msgstr "ngettext: 3番目のパラメータがnilです。数値にしてください。"
 
@@ -34,10 +34,14 @@ msgid "Concatenates and merges PO files."
 msgstr ""
 
 #: ../lib/gettext/tools/msgcat.rb:176 ../lib/gettext/tools/msgfmt.rb:86
-#: ../lib/gettext/tools/msginit.rb:89 ../lib/gettext/tools/msgmerge.rb:329
+#: ../lib/gettext/tools/msginit.rb:92 ../lib/gettext/tools/msgmerge.rb:329
 #: ../lib/gettext/tools/xgettext.rb:248
 msgid "Specific options:"
 msgstr "オプション："
+
+#: ../lib/gettext/tools/msgcat.rb:179 ../lib/gettext/tools/msgmerge.rb:337
+msgid "Write output to specified file"
+msgstr "出力ファイルを指定します"
 
 #: ../lib/gettext/tools/msgcat.rb:180
 msgid "(default: the standard output)"
@@ -115,13 +119,13 @@ msgstr "出力ファイルを指定します"
 msgid "display version information and exit"
 msgstr "バージョンを表示します"
 
-#: ../lib/gettext/tools/msginit.rb:85
+#: ../lib/gettext/tools/msginit.rb:88
 msgid ""
 "Create a new .po file from initializing .pot file with user's environment and "
 "input."
 msgstr "ユーザの環境や入力からpotファイルを初期化してpoファイルを作成します。"
 
-#: ../lib/gettext/tools/msginit.rb:91
+#: ../lib/gettext/tools/msginit.rb:94
 msgid ""
 "Use INPUT as a .pot file. If INPUT is not specified, INPUT is a .pot file exis"
 "ting the current directory."
@@ -129,7 +133,7 @@ msgstr ""
 "INPUTとして指定された値をpotファイルとして使います。potファイルが指定されていない場合は、現在のカレントディレクトリにあるpotファイルを使用しま"
 "す。"
 
-#: ../lib/gettext/tools/msginit.rb:98
+#: ../lib/gettext/tools/msginit.rb:101
 msgid ""
 "Use OUTPUT as a created .po file. If OUTPUT is not specified, OUTPUT depend on"
 " LOCALE or the current locale on your environment."
@@ -137,70 +141,71 @@ msgstr ""
 "OUTPUTとして指定されたファイルをpoファイルとして扱います。poファイルが指定されていない場合、LOCALEとして指定された値か、ユーザの現在のロケー"
 "ルをもとにpoファイルの名前を決めます。"
 
-#: ../lib/gettext/tools/msginit.rb:105
+#: ../lib/gettext/tools/msginit.rb:108
 msgid ""
 "Use LOCALE as target locale. If LOCALE is not specified, LOCALE is the current"
 " locale on your environment."
 msgstr "LOCALEとして指定された値をターゲットのロケールとして扱います。ロケールが指定されていない場合は、ユーザの現在のロケールを使用します。"
 
-#: ../lib/gettext/tools/msginit.rb:112 ../lib/gettext/tools/msgmerge.rb:398
+#: ../lib/gettext/tools/msginit.rb:116
+msgid "Don't set translator information"
+msgstr "翻訳者情報を設定しません。"
+
+#: ../lib/gettext/tools/msginit.rb:121
+msgid "Use NAME as translator name"
+msgstr "翻訳者名にNAMEを使用します。"
+
+#: ../lib/gettext/tools/msginit.rb:126
+msgid "Use EMAIL as translator email address"
+msgstr "翻訳者のメールアドレスにEMAILを使用します。"
+
+#: ../lib/gettext/tools/msginit.rb:130 ../lib/gettext/tools/msgmerge.rb:398
 msgid "Display this help and exit"
 msgstr "このヘルプを表示します"
 
-#: ../lib/gettext/tools/msginit.rb:117
+#: ../lib/gettext/tools/msginit.rb:135
 msgid "Display version and exit"
 msgstr "バージョンを表示します"
 
-#: ../lib/gettext/tools/msginit.rb:135
+#: ../lib/gettext/tools/msginit.rb:153
 msgid ".pot file does not exist in the current directory."
 msgstr "現在のカレントディレクトリにpotファイルが存在しません。"
 
-#: ../lib/gettext/tools/msginit.rb:140
+#: ../lib/gettext/tools/msginit.rb:158
 msgid "file '%s' does not exist."
 msgstr "ファイル'%s'は存在しません。"
 
-#: ../lib/gettext/tools/msginit.rb:152
+#: ../lib/gettext/tools/msginit.rb:170
 msgid ""
 "\"Locale '#{language_tag}' is invalid. \"Please check if your specified locale i"
 "s usable."
 msgstr "'#{language_tag}'というロケールは正しくありません。指定したロケールが使用可能かどうか確認してください。"
 
-#: ../lib/gettext/tools/msginit.rb:161
+#: ../lib/gettext/tools/msginit.rb:179
 msgid "file '%s' has already existed."
 msgstr "ファイル'%s'はすでに存在します。"
 
-#: ../lib/gettext/tools/msginit.rb:202
+#: ../lib/gettext/tools/msginit.rb:221
 msgid "Please enter your full name"
 msgstr "あなたのフルネームを入力してください"
 
-#: ../lib/gettext/tools/msginit.rb:231
+#: ../lib/gettext/tools/msginit.rb:250
 msgid "Please enter your email address"
 msgstr "あなたのメールアドレスを入力してください"
 
-#: ../lib/gettext/tools/msgmerge.rb:258
-#, fuzzy
+#: ../lib/gettext/tools/msgmerge.rb:318
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
+msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:321
 msgid ""
 "Merges two Uniforum style .po files together. The definition.po file is an exi"
 "sting PO file with translations. The reference.pot file is the last created PO"
 " file with up-to-date source references. The reference.pot is generally create"
 "d by rxgettext."
 msgstr ""
-"2つの.poファイルをマージします。def.poファイルはすでにある翻訳済みのPOファイルです。ref.potは最新のPOファイルです。ref.potは通常"
-"xgettextから新たに生成されたものです。"
-
-#: ../lib/gettext/tools/msgmerge.rb:274
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "出力ファイルを指定します"
-
-#: ../lib/gettext/tools/msgmerge.rb:318
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
-
-#: ../lib/gettext/tools/msgmerge.rb:323
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "バージョンを表示します"
+"2つの.poファイルをマージします。definition.poファイルはすでにある翻訳済みのPOファイルです。reference.potは最新のPOファイル"
+"です。reference.potは通常rxgettextから新たに生成されたものです。"
 
 #: ../lib/gettext/tools/msgmerge.rb:332
 msgid "Update definition.po"
@@ -221,6 +226,10 @@ msgstr ""
 #: ../lib/gettext/tools/msgmerge.rb:394
 msgid "Don't output obsolete entries"
 msgstr ""
+
+#: ../lib/gettext/tools/msgmerge.rb:404
+msgid "Display version information and exit"
+msgstr "バージョン情報を出力して終了します。"
 
 #: ../lib/gettext/tools/parser/glade.rb:32
 msgid "`%{file}' is not glade-2.0 format."
@@ -255,16 +264,14 @@ msgid "set package version in output"
 msgstr "出力に含めるパッケージのバージョンを指定します"
 
 #: ../lib/gettext/tools/xgettext.rb:268
-#, fuzzy
 msgid "set report e-mail address for msgid bugs"
-msgstr "msgidのバグを報告するアドレスを指定します"
+msgstr "msgidのバグを報告するメールアドレスを指定します"
 
 #: ../lib/gettext/tools/xgettext.rb:274
 msgid "set copyright holder in output"
 msgstr "出力に含める著作権の保持者を指定します"
 
 #: ../lib/gettext/tools/xgettext.rb:280
-#, fuzzy
 msgid "set copyright year in output"
 msgstr "出力に含める著作権の保持者を指定します"
 
@@ -873,10 +880,8 @@ msgstr[1] ""
 msgid "a translation"
 msgstr ""
 
-#: ../lib/gettext/tools/xgettext.rb:236
 #~ msgid "set report address for msgid bugs"
 #~ msgstr "msgidのバグを報告するアドレスを指定します"
-
 #~ msgid "Failed to merge with %{defpo}"
 #~ msgstr "%{defpo}のマージに失敗しました。"
 #~ msgid "New .pot was copied to %{failed_filename}"
