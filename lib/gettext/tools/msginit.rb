@@ -185,36 +185,36 @@ module GetText
       end
 
       def translator_info
-        full_name = translator_full_name
+        name = translator_name
         mail = translator_mail
-        if not full_name.nil? and not mail.nil?
-          "#{full_name} <#{mail}>"
+        if not name.nil? and not mail.nil?
+          "#{name} <#{mail}>"
         else
           nil
         end
       end
 
-      def translator_full_name
-        read_translator_full_name
+      def translator_name
+        read_translator_name
       end
 
-      def read_translator_full_name #:nodoc:
-        prompt(_("Please enter your full name"), guess_full_name)
+      def read_translator_name #:nodoc:
+        prompt(_("Please enter your full name"), guess_name)
       end
 
-      def guess_full_name
-        full_name = guess_full_name_from_password_entry
-        full_name ||= ENV["USERNAME"]
-        full_name
+      def guess_name
+        name = guess_name_from_password_entry
+        name ||= ENV["USERNAME"]
+        name
       end
 
-      def guess_full_name_from_password_entry
+      def guess_name_from_password_entry
         password_entry = find_password_entry
         return nil if password_entry.nil?
 
-        full_name = password_entry.gecos.split(/,/).first.strip
-        full_name = nil if full_name.empty?
-        full_name
+        name = password_entry.gecos.split(/,/).first.strip
+        name = nil if name.empty?
+        name
       end
 
       def find_password_entry

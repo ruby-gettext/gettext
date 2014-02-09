@@ -23,7 +23,7 @@ require "gettext/tools/msginit"
 class TestToolsMsgInit < Test::Unit::TestCase
   def setup
     @msginit = GetText::Tools::MsgInit.new
-    stub(@msginit).read_translator_full_name {translator_full_name}
+    stub(@msginit).read_translator_name {translator_name}
     stub(@msginit).read_translator_mail {translator_mail}
 
     @year             = "2012"
@@ -53,7 +53,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
     Locale.current.language
   end
 
-  def translator_full_name
+  def translator_name
     "me"
   end
 
@@ -70,10 +70,10 @@ class TestToolsMsgInit < Test::Unit::TestCase
 
   def default_po_header_options
     {
-      :package_name               => default_package_name,
-      :first_translator_full_name => translator_full_name,
-      :translator_full_name       => translator_full_name,
-      :translator_mail            => translator_mail,
+      :package_name          => default_package_name,
+      :first_translator_name => translator_name,
+      :translator_name       => translator_name,
+      :translator_mail       => translator_mail,
     }
   end
 
@@ -109,9 +109,8 @@ EOF
   def po_header(locale, language, options={})
     options = default_po_header_options.merge(options)
     package_name = options[:package_name]
-    first_translator_full_name =
-      options[:first_translator_full_name] || "FIRST AUTHOR"
-    full_name = options[:translator_full_name] || "FULL NAME"
+    first_translator_name = options[:first_translator_name] || "FIRST AUTHOR"
+    name = options[:translator_name] || "FULL NAME"
     mail = options[:translator_mail] || "EMAIL@ADDRESS"
     language_name = Locale::Info.get_language(language).name
     plural_forms = @msginit.send(:plural_forms, language)
@@ -120,14 +119,14 @@ EOF
 # #{language_name} translations for #{package_name} package.
 # Copyright (C) #{@year} THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# #{first_translator_full_name} <#{mail}>, #{@year}.
+# #{first_translator_name} <#{mail}>, #{@year}.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: #{package_name} VERSION\\n"
 "POT-Creation-Date: #{@pot_create_date}\\n"
 "PO-Revision-Date: #{@po_revision_date}\\n"
-"Last-Translator: #{full_name} <#{mail}>\\n"
+"Last-Translator: #{name} <#{mail}>\\n"
 "Language: #{locale}\\n"
 "Language-Team: #{language_name}\\n"
 "MIME-Version: 1.0\\n"
@@ -239,13 +238,13 @@ EOF
 
     def no_translator_po_header
       po_header(current_locale, current_language,
-                :first_translator_full_name => nil,
-                :translator_full_name => nil,
+                :first_translator_name => nil,
+                :translator_name => nil,
                 :translator_mail => nil)
     end
 
     def test_no_name_no_mail
-      stub(@msginit).read_translator_full_name {nil}
+      stub(@msginit).read_translator_name {nil}
       stub(@msginit).read_translator_mail {nil}
 
       assert_equal(no_translator_po_header,
@@ -253,7 +252,7 @@ EOF
     end
 
     def test_no_name
-      stub(@msginit).read_translator_full_name {nil}
+      stub(@msginit).read_translator_name {nil}
 
       assert_equal(no_translator_po_header,
                    run_msginit)
