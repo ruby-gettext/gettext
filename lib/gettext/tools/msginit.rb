@@ -186,9 +186,9 @@ module GetText
 
       def translator_info
         name = translator_name
-        mail = translator_mail
-        if not name.nil? and not mail.nil?
-          "#{name} <#{mail}>"
+        email = translator_email
+        if not name.nil? and not email.nil?
+          "#{name} <#{email}>"
         else
           nil
         end
@@ -223,15 +223,15 @@ module GetText
         nil
       end
 
-      def translator_mail
-        read_translator_mail
+      def translator_email
+        read_translator_email
       end
 
-      def read_translator_mail #:nodoc:
-        prompt(_("Please enter your email address"), guess_mail)
+      def read_translator_email #:nodoc:
+        prompt(_("Please enter your email address"), guess_email)
       end
 
-      def guess_mail
+      def guess_email
         ENV["EMAIL"]
       end
 

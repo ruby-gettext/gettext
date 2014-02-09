@@ -24,7 +24,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
   def setup
     @msginit = GetText::Tools::MsgInit.new
     stub(@msginit).read_translator_name {translator_name}
-    stub(@msginit).read_translator_mail {translator_mail}
+    stub(@msginit).read_translator_email {translator_email}
 
     @year             = "2012"
     @po_revision_date = "2012-09-11 13:19+0900"
@@ -57,7 +57,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
     "me"
   end
 
-  def translator_mail
+  def translator_email
     "me@example.com"
   end
 
@@ -73,7 +73,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
       :package_name          => default_package_name,
       :first_translator_name => translator_name,
       :translator_name       => translator_name,
-      :translator_mail       => translator_mail,
+      :translator_email      => translator_email,
     }
   end
 
@@ -111,7 +111,7 @@ EOF
     package_name = options[:package_name]
     first_translator_name = options[:first_translator_name] || "FIRST AUTHOR"
     name = options[:translator_name] || "FULL NAME"
-    mail = options[:translator_mail] || "EMAIL@ADDRESS"
+    email = options[:translator_email] || "EMAIL@ADDRESS"
     language_name = Locale::Info.get_language(language).name
     plural_forms = @msginit.send(:plural_forms, language)
 
@@ -119,14 +119,14 @@ EOF
 # #{language_name} translations for #{package_name} package.
 # Copyright (C) #{@year} THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# #{first_translator_name} <#{mail}>, #{@year}.
+# #{first_translator_name} <#{email}>, #{@year}.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: #{package_name} VERSION\\n"
 "POT-Creation-Date: #{@pot_create_date}\\n"
 "PO-Revision-Date: #{@po_revision_date}\\n"
-"Last-Translator: #{name} <#{mail}>\\n"
+"Last-Translator: #{name} <#{email}>\\n"
 "Language: #{locale}\\n"
 "Language-Team: #{language_name}\\n"
 "MIME-Version: 1.0\\n"
@@ -240,12 +240,12 @@ EOF
       po_header(current_locale, current_language,
                 :first_translator_name => nil,
                 :translator_name => nil,
-                :translator_mail => nil)
+                :translator_email => nil)
     end
 
-    def test_no_name_no_mail
+    def test_no_name_no_email
       stub(@msginit).read_translator_name {nil}
-      stub(@msginit).read_translator_mail {nil}
+      stub(@msginit).read_translator_email {nil}
 
       assert_equal(no_translator_po_header,
                    run_msginit)
@@ -258,8 +258,8 @@ EOF
                    run_msginit)
     end
 
-    def test_no_mail
-      stub(@msginit).read_translator_mail {nil}
+    def test_no_email
+      stub(@msginit).read_translator_email {nil}
 
       assert_equal(no_translator_po_header,
                    run_msginit)
