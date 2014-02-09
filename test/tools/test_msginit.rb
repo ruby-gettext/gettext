@@ -190,18 +190,20 @@ class TestToolsMsgInit < Test::Unit::TestCase
     end
   end
 
-  def test_no_plural_forms
-          options = {:have_plural_forms => false}
-          create_pot_file("test.pot", options)
-          locale = current_locale
-          language = current_language
-          po_file_path = "#{locale}.po"
+  class TestPluralForms < self
+    def run_msginit(pot_header_options={})
+      create_pot_file("test.pot", pot_header_options)
+      po_file_path = "output.po"
+      @msginit.run("--output", po_file_path)
+      File.read(po_file_path)
+    end
 
-          @msginit.run
-
-          actual_po_header = File.read(po_file_path)
-          expected_po_header = po_header(locale, language)
-          assert_equal(expected_po_header, actual_po_header)
+    class TestNoInPot < self
+      def test_no_plural_forms_in_pot
+        assert_equal(po_header(current_locale, current_language),
+                     run_msginit(:have_plural_forms => false))
+      end
+    end
   end
 
   private
