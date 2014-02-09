@@ -44,6 +44,103 @@ class TestToolsMsgInit < Test::Unit::TestCase
     end
   end
 
+  private
+  def current_locale
+    Locale.current.to_simple.to_s
+  end
+
+  def current_language
+    Locale.current.language
+  end
+
+  def translator_full_name
+    "me"
+  end
+
+  def translator_mail
+    "me@example.com"
+  end
+
+  def create_pot_file(path, options=nil)
+    options ||= {}
+    File.open(path, "w") do |pot_file|
+      pot_file.puts(pot_header(options))
+    end
+  end
+
+  def default_po_header_options
+    {
+      :package_name               => default_package_name,
+      :first_translator_full_name => translator_full_name,
+      :translator_full_name       => translator_full_name,
+      :translator_mail            => translator_mail,
+    }
+  end
+
+  def pot_header(options)
+    options = default_po_header_options.merge(options)
+    package_name = options[:package_name] || default_package_name
+    have_plural_forms = options[:have_plural_forms] || true
+    header = <<EOF
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: #{package_name} VERSION\\n"
+"POT-Creation-Date: #{@pot_create_date}\\n"
+"PO-Revision-Date: #{@pot_create_date}\\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
+"Language: \\n"
+"Language-Team: LANGUAGE <LL@li.org>\\n"
+"MIME-Version: 1.0\\n"
+"Content-Type: text/plain; charset=UTF-8\\n"
+"Content-Transfer-Encoding: 8bit\\n"
+EOF
+    if have_plural_forms
+      header << "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
+    end
+    header
+  end
+
+  def po_header(locale, language, options={})
+    options = default_po_header_options.merge(options)
+    package_name = options[:package_name]
+    first_translator_full_name =
+      options[:first_translator_full_name] || "FIRST AUTHOR"
+    full_name = options[:translator_full_name] || "FULL NAME"
+    mail = options[:translator_mail] || "EMAIL@ADDRESS"
+    language_name = Locale::Info.get_language(language).name
+    plural_forms = @msginit.send(:plural_forms, language)
+
+    <<EOF
+# #{language_name} translations for #{package_name} package.
+# Copyright (C) #{@year} THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# #{first_translator_full_name} <#{mail}>, #{@year}.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: #{package_name} VERSION\\n"
+"POT-Creation-Date: #{@pot_create_date}\\n"
+"PO-Revision-Date: #{@po_revision_date}\\n"
+"Last-Translator: #{full_name} <#{mail}>\\n"
+"Language: #{locale}\\n"
+"Language-Team: #{language_name}\\n"
+"MIME-Version: 1.0\\n"
+"Content-Type: text/plain; charset=UTF-8\\n"
+"Content-Transfer-Encoding: 8bit\\n"
+"Plural-Forms: #{plural_forms}\\n"
+EOF
+  end
+
+  def default_package_name
+    "PACKAGE"
+  end
+
   class TestInput < self
     def test_specify_option
       pot_dir = "sub"
@@ -204,102 +301,5 @@ class TestToolsMsgInit < Test::Unit::TestCase
                      run_msginit(:have_plural_forms => false))
       end
     end
-  end
-
-  private
-  def current_locale
-    Locale.current.to_simple.to_s
-  end
-
-  def current_language
-    Locale.current.language
-  end
-
-  def translator_full_name
-    "me"
-  end
-
-  def translator_mail
-    "me@example.com"
-  end
-
-  def create_pot_file(path, options=nil)
-    options ||= {}
-    File.open(path, "w") do |pot_file|
-      pot_file.puts(pot_header(options))
-    end
-  end
-
-  def default_po_header_options
-    {
-      :package_name               => default_package_name,
-      :first_translator_full_name => translator_full_name,
-      :translator_full_name       => translator_full_name,
-      :translator_mail            => translator_mail,
-    }
-  end
-
-  def pot_header(options)
-    options = default_po_header_options.merge(options)
-    package_name = options[:package_name] || default_package_name
-    have_plural_forms = options[:have_plural_forms] || true
-    header = <<EOF
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
-msgid ""
-msgstr ""
-"Project-Id-Version: #{package_name} VERSION\\n"
-"POT-Creation-Date: #{@pot_create_date}\\n"
-"PO-Revision-Date: #{@pot_create_date}\\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
-"Language: \\n"
-"Language-Team: LANGUAGE <LL@li.org>\\n"
-"MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=UTF-8\\n"
-"Content-Transfer-Encoding: 8bit\\n"
-EOF
-    if have_plural_forms
-      header << "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
-    end
-    header
-  end
-
-  def po_header(locale, language, options={})
-    options = default_po_header_options.merge(options)
-    package_name = options[:package_name]
-    first_translator_full_name =
-      options[:first_translator_full_name] || "FIRST AUTHOR"
-    full_name = options[:translator_full_name] || "FULL NAME"
-    mail = options[:translator_mail] || "EMAIL@ADDRESS"
-    language_name = Locale::Info.get_language(language).name
-    plural_forms = @msginit.send(:plural_forms, language)
-
-    <<EOF
-# #{language_name} translations for #{package_name} package.
-# Copyright (C) #{@year} THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# #{first_translator_full_name} <#{mail}>, #{@year}.
-#
-msgid ""
-msgstr ""
-"Project-Id-Version: #{package_name} VERSION\\n"
-"POT-Creation-Date: #{@pot_create_date}\\n"
-"PO-Revision-Date: #{@po_revision_date}\\n"
-"Last-Translator: #{full_name} <#{mail}>\\n"
-"Language: #{locale}\\n"
-"Language-Team: #{language_name}\\n"
-"MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=UTF-8\\n"
-"Content-Transfer-Encoding: 8bit\\n"
-"Plural-Forms: #{plural_forms}\\n"
-EOF
-  end
-
-  def default_package_name
-    "PACKAGE"
   end
 end
