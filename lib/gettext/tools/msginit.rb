@@ -51,7 +51,7 @@ module GetText
 
       bindtextdomain("gettext")
 
-      def initialize #:nodoc:
+      def initialize
         @input_file = nil
         @output_file = nil
         @locale = nil
@@ -80,7 +80,7 @@ module GetText
       private
       VERSION = GetText::VERSION
 
-      def parse_arguments(*arguments) #:nodoc:
+      def parse_arguments(*arguments)
         parser = OptionParser.new
         description = _("Create a new .po file from initializing .pot " +
                           "file with user's environment and input.")
@@ -168,7 +168,7 @@ module GetText
         Locale::Info.language_code?(language_tag.language)
       end
 
-      def replace_pot_header(pot) #:nodoc:
+      def replace_pot_header(pot)
         @entry = pot[""].msgstr
         @comment = pot[""].translator_comment
         @translator = translator_info
@@ -198,7 +198,7 @@ module GetText
         read_translator_name
       end
 
-      def read_translator_name #:nodoc:
+      def read_translator_name
         prompt(_("Please enter your full name"), guess_name)
       end
 
@@ -227,7 +227,7 @@ module GetText
         read_translator_email
       end
 
-      def read_translator_email #:nodoc:
+      def read_translator_email
         prompt(_("Please enter your email address"), guess_email)
       end
 
@@ -265,7 +265,7 @@ module GetText
       EMAIL = "EMAIL@ADDRESS"
       FIRST_AUTHOR_KEY = /^FIRST AUTHOR <#{EMAIL}>, (\d+\.)$/
 
-      def replace_last_translator #:nodoc:
+      def replace_last_translator
         unless @translator.nil?
           @entry = @entry.gsub(LAST_TRANSLATOR_KEY, "\\1 #{@translator}")
         end
@@ -273,14 +273,14 @@ module GetText
 
       POT_REVISION_DATE_KEY = /^(PO-Revision-Date:).+/
 
-      def replace_pot_revision_date #:nodoc:
+      def replace_pot_revision_date
         @entry = @entry.gsub(POT_REVISION_DATE_KEY, "\\1 #{revision_date}")
       end
 
       LANGUAGE_KEY = /^(Language:).+/
       LANGUAGE_TEAM_KEY = /^(Language-Team:).+/
 
-      def replace_language #:nodoc:
+      def replace_language
         language_name = Locale::Info.get_language(@language).name
         @entry = @entry.gsub(LANGUAGE_KEY, "\\1 #{@locale}")
         @entry = @entry.gsub(LANGUAGE_TEAM_KEY, "\\1 #{language_name}")
@@ -289,7 +289,7 @@ module GetText
       PLURAL_FORMS =
         /^(Plural-Forms:) nplurals=INTEGER; plural=EXPRESSION;$/
 
-      def replace_plural_forms #:nodoc:
+      def replace_plural_forms
         plural_entry = plural_forms(@language)
         if PLURAL_FORMS =~ @entry
           @entry = @entry.gsub(PLURAL_FORMS, "\\1 #{plural_entry}\n")
@@ -298,7 +298,7 @@ module GetText
         end
       end
 
-      def plural_forms(language) #:nodoc:
+      def plural_forms(language)
         case language
         when "ja", "vi", "ko", /\Azh.*\z/
           nplural = "1"
@@ -350,7 +350,7 @@ module GetText
 
       DESCRIPTION_TITLE = /^SOME DESCRIPTIVE TITLE\.$/
 
-      def replace_description #:nodoc:
+      def replace_description
         language_name = Locale::Info.get_language(@language).name
         package_name = ""
         @entry.gsub(/Project-Id-Version: (.+?) .+/) do
@@ -364,7 +364,7 @@ module GetText
       YEAR_KEY = /^(FIRST AUTHOR <#{EMAIL}>,) YEAR\.$/
       LAST_TRANSLATOR_KEY = /^(Last-Translator:) FULL NAME <#{EMAIL}>$/
 
-      def replace_first_author #:nodoc:
+      def replace_first_author
         @comment = @comment.gsub(YEAR_KEY, "\\1 #{year}.")
         unless @translator.nil?
           @comment = @comment.gsub(FIRST_AUTHOR_KEY, "#{@translator}, \\1")
@@ -372,7 +372,7 @@ module GetText
       end
 
       COPYRIGHT_KEY = /^(Copyright \(C\)) YEAR (THE PACKAGE'S COPYRIGHT HOLDER)$/
-      def replace_copyright_year #:nodoc:
+      def replace_copyright_year
         @comment = @comment.gsub(COPYRIGHT_KEY, "\\1 #{year} \\2")
       end
 
