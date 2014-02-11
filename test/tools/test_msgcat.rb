@@ -380,6 +380,35 @@ msgstr "Bonjour2"
         PO
       end
     end
+
+    class TestNoAllComments < self
+      def setup
+        @po_fuzzy1 = <<-PO
+#, fuzzy
+msgid "Hello"
+msgstr "Bonjour1"
+        PO
+
+        @po_fuzzy2 = <<-PO
+#, fuzzy
+msgid "Hello"
+msgstr "Bonjour2"
+        PO
+      end
+
+      def test_default
+        pos = [@po_fuzzy1, @po_fuzzy2]
+        assert_equal(<<-PO, run_msgcat(pos, "--no-all-comments"))
+msgid "Hello"
+msgstr "Bonjour1"
+        PO
+      end
+
+      def test_no_fuzzy
+        pos = [@po_fuzzy1, @po_fuzzy2]
+        assert_equal("", run_msgcat(pos, "--no-all-comments", "--no-fuzzy"))
+      end
+    end
   end
 
   class TestWarning < self

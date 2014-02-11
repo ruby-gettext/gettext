@@ -108,11 +108,9 @@ module GetText
         end
 
         def merge_fuzzy_entry(base_entry, new_entry)
-          if new_entry.fuzzy?
-            base_entry
-          else
-            new_entry
-          end
+          return new_entry unless new_entry.fuzzy?
+          return nil unless @config.include_fuzzy?
+          base_entry
         end
       end
 
