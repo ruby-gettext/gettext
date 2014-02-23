@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gettext 2.3.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-23 22:20+0900\n"
-"PO-Revision-Date: 2014-02-09 21:39+0900\n"
+"PO-Revision-Date: 2014-02-23 22:33+0900\n"
 "Last-Translator: Haruka Yoshihara <yoshihara@clear-code.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -27,11 +27,11 @@ msgstr "ngettext: 3番目のパラメータがnilです。数値にしてくだ�
 
 #: ../lib/gettext/tools/msgcat.rb:207
 msgid "Usage: %s [OPTIONS] PO_FILE1 PO_FILE2 ..."
-msgstr ""
+msgstr "使い方: %s [オプション] POファイル1 POファイル2 ..."
 
 #: ../lib/gettext/tools/msgcat.rb:209
 msgid "Concatenates and merges PO files."
-msgstr ""
+msgstr "複数のPOファイルの内容を連結し、重複したものはマージします。"
 
 #: ../lib/gettext/tools/msgcat.rb:211 ../lib/gettext/tools/msgfmt.rb:86
 #: ../lib/gettext/tools/msginit.rb:92 ../lib/gettext/tools/msgmerge.rb:334
@@ -45,71 +45,71 @@ msgstr "出力ファイルを指定します"
 
 #: ../lib/gettext/tools/msgcat.rb:215
 msgid "(default: the standard output)"
-msgstr ""
+msgstr "（デフォルト：標準出力）"
 
 #: ../lib/gettext/tools/msgcat.rb:220 ../lib/gettext/tools/msgcat.rb:237
 #: ../lib/gettext/tools/msgmerge.rb:347 ../lib/gettext/tools/msgmerge.rb:366
 #: ../lib/gettext/tools/xgettext.rb:302
 msgid "Sort output by msgid"
-msgstr ""
+msgstr "出力をmsgidでソート"
 
 #: ../lib/gettext/tools/msgcat.rb:225 ../lib/gettext/tools/msgcat.rb:230
 #: ../lib/gettext/tools/msgmerge.rb:354 ../lib/gettext/tools/msgmerge.rb:361
 msgid "Sort output by location"
-msgstr ""
+msgstr "出力を位置情報でソート"
 
 #: ../lib/gettext/tools/msgcat.rb:231 ../lib/gettext/tools/msgmerge.rb:355
 msgid "It is same as --sort-by-location"
-msgstr ""
+msgstr "--sort-by-locationと同じ"
 
 #: ../lib/gettext/tools/msgcat.rb:232 ../lib/gettext/tools/msgcat.rb:239
 #: ../lib/gettext/tools/msgmerge.rb:349 ../lib/gettext/tools/msgmerge.rb:356
 msgid "Just for GNU gettext's msgcat compatibility"
-msgstr ""
+msgstr "GNU gettextのmsgcatとの互換性のためだけにあります"
 
 #: ../lib/gettext/tools/msgcat.rb:238 ../lib/gettext/tools/msgmerge.rb:348
 msgid "It is same as --sort-by-msgid"
-msgstr ""
+msgstr "--sort-by-msgidと同じ"
 
 #: ../lib/gettext/tools/msgcat.rb:244
 msgid "Remove location information"
-msgstr ""
+msgstr "位置情報を削除"
 
 #: ../lib/gettext/tools/msgcat.rb:249
 msgid "Remove all comments"
-msgstr ""
+msgstr "すべてのコメントを削除"
 
 #: ../lib/gettext/tools/msgcat.rb:254 ../lib/gettext/tools/msgmerge.rb:376
 #: ../lib/gettext/tools/xgettext.rb:312
 msgid "Set output page width"
-msgstr ""
+msgstr "出力のページ幅を設定"
 
 #: ../lib/gettext/tools/msgcat.rb:260 ../lib/gettext/tools/msgmerge.rb:382
 #: ../lib/gettext/tools/xgettext.rb:318
 msgid ""
 "Break long message lines, longer than the output page width, into several line"
 "s"
-msgstr ""
+msgstr "メッセージ中の出力ページ幅より長い行を複数行に分割"
 
 #: ../lib/gettext/tools/msgcat.rb:271
 msgid "Ignore fuzzy entries"
-msgstr ""
+msgstr "fuzzyエントリーを無視"
 
 #: ../lib/gettext/tools/msgcat.rb:276
 msgid "Don't report warning messages"
-msgstr ""
+msgstr "警告メッセージを出力しない"
 
 #: ../lib/gettext/tools/msgcat.rb:281 ../lib/gettext/tools/msgmerge.rb:399
 msgid "Don't output obsolete entries"
-msgstr ""
+msgstr "obsoleteエントリーを出力しない"
 
 #: ../lib/gettext/tools/msgcat.rb:286
 msgid "Remove FIELD from header"
-msgstr ""
+msgstr "ヘッダーからFIELDを削除"
 
 #: ../lib/gettext/tools/msgcat.rb:287
 msgid "Specify this option multiple times to remove multiple header fields"
-msgstr ""
+msgstr "複数のヘッダーフィールドを削除する場合はこのオプションを複数回指定すること"
 
 #: ../lib/gettext/tools/msgfmt.rb:65
 msgid "no input files specified."
@@ -207,7 +207,7 @@ msgstr "あなたのメールアドレスを入力してください"
 
 #: ../lib/gettext/tools/msgmerge.rb:323
 msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
+msgstr "使い方: %s [オプション] definition.po reference.pot"
 
 #: ../lib/gettext/tools/msgmerge.rb:326
 msgid ""
@@ -221,19 +221,19 @@ msgstr ""
 
 #: ../lib/gettext/tools/msgmerge.rb:337
 msgid "Update definition.po"
-msgstr ""
+msgstr "definition.poを更新"
 
 #: ../lib/gettext/tools/msgmerge.rb:371 ../lib/gettext/tools/xgettext.rb:307
 msgid "Preserve '#: FILENAME:LINE' lines"
-msgstr ""
+msgstr "'#: FILENAME:LINE'行を残す"
 
 #: ../lib/gettext/tools/msgmerge.rb:393
 msgid "Disable fuzzy matching"
-msgstr ""
+msgstr "曖昧マッチを無効にする"
 
 #: ../lib/gettext/tools/msgmerge.rb:394
 msgid "(enable)"
-msgstr ""
+msgstr "（有効）"
 
 #: ../lib/gettext/tools/msgmerge.rb:409
 msgid "Display version information and exit"
@@ -289,11 +289,11 @@ msgstr "出力ファイルのエンコーディングを設定します"
 
 #: ../lib/gettext/tools/xgettext.rb:292
 msgid "Generate sorted output"
-msgstr ""
+msgstr "ソート結果を生成"
 
 #: ../lib/gettext/tools/xgettext.rb:297
 msgid "Sort output by file location"
-msgstr ""
+msgstr "出力を位置情報でソート"
 
 #: ../lib/gettext/tools/xgettext.rb:329
 msgid "require the library before executing xgettext"
@@ -303,21 +303,21 @@ msgstr "xgettextを実行する前に読み込むライブラリを指定しま�
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
-msgstr ""
+msgstr "TAGを指定すると、キーワード行の前にあるコメントブロックのうち、TAGから始まるコメントブロックをTAGも含めて出力する"
 
 #: ../lib/gettext/tools/xgettext.rb:335
 msgid ""
 "If TAG is not specified, place all comment blocks preceing keyword lines in ou"
 "tput file"
-msgstr ""
+msgstr "TAGを指定しないと、キーワード行の前にあるすべてのコメントブロックを出力する"
 
 #: ../lib/gettext/tools/xgettext.rb:336
 msgid "no TAG"
-msgstr ""
+msgstr "TAGなし"
 
 #: ../lib/gettext/tools/xgettext.rb:336
 msgid "(default: %s)"
-msgstr ""
+msgstr "（デフォルト：%s）"
 
 #: ../lib/gettext/tools/xgettext.rb:340
 msgid "run in debugging mode"
@@ -888,30 +888,3 @@ msgstr[1] ""
 msgid "a translation"
 msgstr ""
 
-#~ msgid "set report address for msgid bugs"
-#~ msgstr "msgidのバグを報告するアドレスを指定します"
-#~ msgid "Failed to merge with %{defpo}"
-#~ msgstr "%{defpo}のマージに失敗しました。"
-#~ msgid "New .pot was copied to %{failed_filename}"
-#~ msgstr "新しい.potファイルを%{failed_filename}にコピーしました。"
-#~ msgid "Check these po/pot-files. It may have syntax errors or something wrong."
-#~ msgstr "po/potファイルをチェックしてください。文法エラーもしくはその他のエラーがあるかもしれません。"
-#~ msgid ""
-#~ "`%{cmd}' cannot be found. \n"
-#~ "Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
-#~ msgstr ""
-#~ "`%{cmd}'は見つかりませんでした。\n"
-#~ "GNU Gettextをインストールし、環境変数PATHかMSGMERGE_PATHを正しく設定してください。"
-#~ msgid "definition po is not given."
-#~ msgstr "poファイルが指定されていません。"
-#~ msgid "reference pot is not given."
-#~ msgstr "potファイルが指定されていません。"
-#~ msgid "Usage: %s def.po ref.pot [-o output.pot]"
-#~ msgstr "使用法: %s def.po ref.pot [-o output.pot]"
-#~ msgid ""
-#~ "Merges two Uniforum style .po files together. The def.po file is an existing P"
-#~ "O file with translations. The ref.pot file is the last created PO file with up"
-#~ "-to-date source references. ref.pot is generally created by rgettext."
-#~ msgstr ""
-#~ "2つの.poファイルをマージします。def.poファイルはすでにある翻訳済みのPOファイルです。ref.potは最新のPOファイルです。ref.potは通常"
-#~ "xgettextから新たに生成されたものです。"
