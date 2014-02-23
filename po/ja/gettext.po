@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 2.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-09 21:39+0900\n"
+"POT-Creation-Date: 2014-02-23 22:20+0900\n"
 "PO-Revision-Date: 2014-02-09 21:39+0900\n"
 "Last-Translator: Haruka Yoshihara <yoshihara@clear-code.com>\n"
 "Language-Team: Japanese\n"
@@ -17,86 +17,98 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../lib/gettext/text_domain_manager.rb:149
+#: ../lib/gettext/text_domain_manager.rb:148
 msgid "ngettext: 3rd parmeter is wrong: value = %{number}"
 msgstr "ngettext: 3番目のパラメータが不正です。: value = %{number}"
 
-#: ../lib/gettext/text_domain_manager.rb:155
+#: ../lib/gettext/text_domain_manager.rb:154
 msgid "ngettext: 3rd parameter should be a number, not nil."
 msgstr "ngettext: 3番目のパラメータがnilです。数値にしてください。"
 
-#: ../lib/gettext/tools/msgcat.rb:172
+#: ../lib/gettext/tools/msgcat.rb:207
 msgid "Usage: %s [OPTIONS] PO_FILE1 PO_FILE2 ..."
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:174
+#: ../lib/gettext/tools/msgcat.rb:209
 msgid "Concatenates and merges PO files."
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:176 ../lib/gettext/tools/msgfmt.rb:86
-#: ../lib/gettext/tools/msginit.rb:92 ../lib/gettext/tools/msgmerge.rb:329
+#: ../lib/gettext/tools/msgcat.rb:211 ../lib/gettext/tools/msgfmt.rb:86
+#: ../lib/gettext/tools/msginit.rb:92 ../lib/gettext/tools/msgmerge.rb:334
 #: ../lib/gettext/tools/xgettext.rb:248
 msgid "Specific options:"
 msgstr "オプション："
 
-#: ../lib/gettext/tools/msgcat.rb:179 ../lib/gettext/tools/msgmerge.rb:337
+#: ../lib/gettext/tools/msgcat.rb:214 ../lib/gettext/tools/msgmerge.rb:342
 msgid "Write output to specified file"
 msgstr "出力ファイルを指定します"
 
-#: ../lib/gettext/tools/msgcat.rb:180
+#: ../lib/gettext/tools/msgcat.rb:215
 msgid "(default: the standard output)"
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:185 ../lib/gettext/tools/msgcat.rb:202
-#: ../lib/gettext/tools/msgmerge.rb:342 ../lib/gettext/tools/msgmerge.rb:361
+#: ../lib/gettext/tools/msgcat.rb:220 ../lib/gettext/tools/msgcat.rb:237
+#: ../lib/gettext/tools/msgmerge.rb:347 ../lib/gettext/tools/msgmerge.rb:366
 #: ../lib/gettext/tools/xgettext.rb:302
 msgid "Sort output by msgid"
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:190 ../lib/gettext/tools/msgcat.rb:195
-#: ../lib/gettext/tools/msgmerge.rb:349 ../lib/gettext/tools/msgmerge.rb:356
+#: ../lib/gettext/tools/msgcat.rb:225 ../lib/gettext/tools/msgcat.rb:230
+#: ../lib/gettext/tools/msgmerge.rb:354 ../lib/gettext/tools/msgmerge.rb:361
 msgid "Sort output by location"
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:196 ../lib/gettext/tools/msgmerge.rb:350
+#: ../lib/gettext/tools/msgcat.rb:231 ../lib/gettext/tools/msgmerge.rb:355
 msgid "It is same as --sort-by-location"
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:197 ../lib/gettext/tools/msgcat.rb:204
-#: ../lib/gettext/tools/msgmerge.rb:344 ../lib/gettext/tools/msgmerge.rb:351
+#: ../lib/gettext/tools/msgcat.rb:232 ../lib/gettext/tools/msgcat.rb:239
+#: ../lib/gettext/tools/msgmerge.rb:349 ../lib/gettext/tools/msgmerge.rb:356
 msgid "Just for GNU gettext's msgcat compatibility"
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:203 ../lib/gettext/tools/msgmerge.rb:343
+#: ../lib/gettext/tools/msgcat.rb:238 ../lib/gettext/tools/msgmerge.rb:348
 msgid "It is same as --sort-by-msgid"
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:209
+#: ../lib/gettext/tools/msgcat.rb:244
 msgid "Remove location information"
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:214
+#: ../lib/gettext/tools/msgcat.rb:249
 msgid "Remove all comments"
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:219 ../lib/gettext/tools/msgmerge.rb:371
+#: ../lib/gettext/tools/msgcat.rb:254 ../lib/gettext/tools/msgmerge.rb:376
 #: ../lib/gettext/tools/xgettext.rb:312
 msgid "Set output page width"
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:225 ../lib/gettext/tools/msgmerge.rb:377
+#: ../lib/gettext/tools/msgcat.rb:260 ../lib/gettext/tools/msgmerge.rb:382
 #: ../lib/gettext/tools/xgettext.rb:318
 msgid ""
 "Break long message lines, longer than the output page width, into several line"
 "s"
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:236
+#: ../lib/gettext/tools/msgcat.rb:271
 msgid "Ignore fuzzy entries"
 msgstr ""
 
-#: ../lib/gettext/tools/msgcat.rb:241
+#: ../lib/gettext/tools/msgcat.rb:276
 msgid "Don't report warning messages"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:281 ../lib/gettext/tools/msgmerge.rb:399
+msgid "Don't output obsolete entries"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:286
+msgid "Remove FIELD from header"
+msgstr ""
+
+#: ../lib/gettext/tools/msgcat.rb:287
+msgid "Specify this option multiple times to remove multiple header fields"
 msgstr ""
 
 #: ../lib/gettext/tools/msgfmt.rb:65
@@ -159,7 +171,7 @@ msgstr "翻訳者名にNAMEを使用します。"
 msgid "Use EMAIL as translator email address"
 msgstr "翻訳者のメールアドレスにEMAILを使用します。"
 
-#: ../lib/gettext/tools/msginit.rb:130 ../lib/gettext/tools/msgmerge.rb:398
+#: ../lib/gettext/tools/msginit.rb:130 ../lib/gettext/tools/msgmerge.rb:403
 msgid "Display this help and exit"
 msgstr "このヘルプを表示します"
 
@@ -193,11 +205,11 @@ msgstr "あなたのフルネームを入力してください"
 msgid "Please enter your email address"
 msgstr "あなたのメールアドレスを入力してください"
 
-#: ../lib/gettext/tools/msgmerge.rb:318
+#: ../lib/gettext/tools/msgmerge.rb:323
 msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
-#: ../lib/gettext/tools/msgmerge.rb:321
+#: ../lib/gettext/tools/msgmerge.rb:326
 msgid ""
 "Merges two Uniforum style .po files together. The definition.po file is an exi"
 "sting PO file with translations. The reference.pot file is the last created PO"
@@ -207,27 +219,23 @@ msgstr ""
 "2つの.poファイルをマージします。definition.poファイルはすでにある翻訳済みのPOファイルです。reference.potは最新のPOファイル"
 "です。reference.potは通常rxgettextから新たに生成されたものです。"
 
-#: ../lib/gettext/tools/msgmerge.rb:332
+#: ../lib/gettext/tools/msgmerge.rb:337
 msgid "Update definition.po"
 msgstr ""
 
-#: ../lib/gettext/tools/msgmerge.rb:366 ../lib/gettext/tools/xgettext.rb:307
+#: ../lib/gettext/tools/msgmerge.rb:371 ../lib/gettext/tools/xgettext.rb:307
 msgid "Preserve '#: FILENAME:LINE' lines"
 msgstr ""
 
-#: ../lib/gettext/tools/msgmerge.rb:388
+#: ../lib/gettext/tools/msgmerge.rb:393
 msgid "Disable fuzzy matching"
 msgstr ""
 
-#: ../lib/gettext/tools/msgmerge.rb:389
+#: ../lib/gettext/tools/msgmerge.rb:394
 msgid "(enable)"
 msgstr ""
 
-#: ../lib/gettext/tools/msgmerge.rb:394
-msgid "Don't output obsolete entries"
-msgstr ""
-
-#: ../lib/gettext/tools/msgmerge.rb:404
+#: ../lib/gettext/tools/msgmerge.rb:409
 msgid "Display version information and exit"
 msgstr "バージョン情報を出力して終了します。"
 
@@ -370,11 +378,11 @@ msgid "hello, gtk world"
 msgstr ""
 
 #: ../samples/hello_noop.rb:13
-msgid "Hello World2"
+msgid "Hello World"
 msgstr ""
 
 #: ../samples/hello_noop.rb:13
-msgid "Hello World"
+msgid "Hello World2"
 msgstr ""
 
 #: ../samples/hello_plural.rb:20
