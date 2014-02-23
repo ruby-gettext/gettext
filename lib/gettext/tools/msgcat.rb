@@ -82,7 +82,9 @@ module GetText
             else
               merged_entry = entry
             end
-            @output_po[*id] = merged_entry if merged_entry
+            next unless merged_entry
+            remove_header_fields!(merged_entry) if merged_entry.header?
+            @output_po[*id] = merged_entry
           end
         end
 
@@ -111,6 +113,24 @@ module GetText
           return new_entry unless new_entry.fuzzy?
           return nil unless @config.include_fuzzy?
           base_entry
+        end
+
+        def remove_header_fields!(header_entry)
+          remove_header_fields = @config.remove_header_fields
+          return if remove_header_fields.empty?
+          msgstr = header_entry.msgstr
+          return if msgstr.nil?
+
+          new_msgstr = ""
+          msgstr.each_line do |line|
+            case line
+            when /\A([\w\d\-_]+):/
+              name = $1
+              next if remove_header_fields.include?(name)
+            end
+            new_msgstr << line
+          end
+          header_entry.msgstr = new_msgstr
         end
       end
 
@@ -143,6 +163,10 @@ module GetText
         # (see output_obsolete_entries?)
         attr_writer :output_obsolete_entries
 
+        # @return [Array<String>] The field names to be removed from
+        #   header entry.
+        attr_reader :remove_header_fields
+
         def initialize
           @pos = []
           @output = nil
@@ -153,6 +177,7 @@ module GetText
           @include_fuzzy = true
           @report_warning = true
           @output_obsolete_entries = true
+          @remove_header_fields = []
         end
 
         # @return [Boolean] Whether includes fuzzy entries or not.
@@ -255,6 +280,12 @@ module GetText
           parser.on("--no-obsolete-entries",
                     _("Don't output obsolete entries")) do
             @output_obsolete_entries = false
+          end
+
+          parser.on("--remove-header-field=FIELD",
+                    _("Remove FIELD from header"),
+                    _("Specify this option multiple times to remove multiple header fields")) do |field|
+            @remove_header_fields << field
           end
 
           parser

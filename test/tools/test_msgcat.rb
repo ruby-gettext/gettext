@@ -450,4 +450,38 @@ msgstr "Bonjour"
       assert_equal("", run_msgcat([@po_obsolete], "--no-obsolete-entries"))
     end
   end
+
+  class TestRemoveHeaderField < self
+    def setup
+      @po_header = <<-PO
+msgid ""
+msgstr ""
+"Project-Id-Version: gettext 3.0.0\\n"
+"POT-Creation-Date: 2014-02-23 19:02+0900\\n"
+"Language: ja\\n"
+      PO
+    end
+
+    def test_one
+      options = ["--remove-header-field=POT-Creation-Date"]
+      assert_equal(<<-PO, run_msgcat([@po_header], *options))
+msgid ""
+msgstr ""
+"Project-Id-Version: gettext 3.0.0\\n"
+"Language: ja\\n"
+      PO
+    end
+
+    def test_multiple
+      options = [
+        "--remove-header-field=Project-Id-Version",
+        "--remove-header-field=POT-Creation-Date",
+      ]
+      assert_equal(<<-PO, run_msgcat([@po_header], *options))
+msgid ""
+msgstr ""
+"Language: ja\\n"
+      PO
+    end
+  end
 end
