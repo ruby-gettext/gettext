@@ -1,5 +1,16 @@
 # News
 
+## <a id="3-1-1">3.1.1</a>: 2014-02-23
+
+### Improvements
+
+  * `rmsgcat`: Added `--remove-header-field` option.
+
+### Fixes
+
+  * `rmsgcat`: Fixed a bug that fuzzy entries are remained when
+    `--no-fuzzy` option is used with `--no-all-comments`.
+
 ## <a id="3-1-0">3.1.0</a>: 2014-02-09
 
 ### Improvements
