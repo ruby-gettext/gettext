@@ -1,7 +1,7 @@
 rvm:
   - 1.9.3
   - 2.0.0
-#  - rbx
+  - rbx-2
 #  - jruby
 #  - ruby-head
 env:
