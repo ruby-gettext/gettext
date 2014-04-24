@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -121,6 +121,11 @@ module GetText
       # @see `rxgettext --help`
       attr_accessor :xgettext_options
 
+      # @return [Array<String>] Command line options for creating PO from POT.
+      # @see GetText::Tools::MsgInit
+      # @see `rmsginit --help`
+      attr_accessor :msginit_options
+
       # @return [Array<String>] Command line options for merging PO with the
       #   latest POT.
       # @see GetText::Tools::MsgMerge
@@ -217,6 +222,7 @@ module GetText
         @domain = nil
         @namespace_prefix = nil
         @xgettext_options = []
+        @msginit_options = []
         @msgmerge_options = []
         @enable_description = true
         @enable_po = true
@@ -297,9 +303,13 @@ module GetText
             command_line.concat([_po_file, pot_file])
             GetText::Tools::MsgMerge.run(*command_line)
           else
-            GetText::Tools::MsgInit.run("--input", pot_file,
-                                        "--output", _po_file,
-                                        "--locale", locale.to_s)
+            command_line = [
+              "--input", pot_file,
+              "--output", _po_file,
+              "--locale", locale.to_s,
+            ]
+            command_line.concat(@msginit_options)
+            GetText::Tools::MsgInit.run(*command_line)
           end
         end
       end
