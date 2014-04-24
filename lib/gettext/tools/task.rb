@@ -307,6 +307,7 @@ module GetText
               "--input", pot_file,
               "--output", _po_file,
               "--locale", locale.to_s,
+              "--no-translator",
             ]
             command_line.concat(@msginit_options)
             GetText::Tools::MsgInit.run(*command_line)
