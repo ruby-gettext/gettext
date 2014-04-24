@@ -112,9 +112,10 @@ module GetText
           @locale = loc
         end
 
-        parser.on("--no-translator",
-                  _("Don't set translator information")) do
-          @set_translator = false
+        parser.on("--[no-]translator",
+                  _("Whether set translator information or not"),
+                  _("(set)")) do |boolean|
+          @set_translator = boolean
         end
 
         parser.on("--translator-name=NAME",
