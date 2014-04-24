@@ -1,5 +1,22 @@
 # News
 
+## <a id="3-1-2">3.1.2</a>: 2014-04-24
+
+### Improvements
+
+  * Travis CI: Enabled Rubyinus again.
+    [GitHub#30] [Patch by Masafumi Yokoyama]
+  * `GetText::Tools::Task`: Added `msginit_options` to customize `msginit`
+    command line.
+  * `rmsginit`: Supported `--translator` option.
+  * `GetText::Tools::Task`: Changed to not set translator information
+    by default. [GitHub#31] [Reported by David Silva]
+
+### Thanks
+
+  * Masafumi Yokoyama
+  * David Silva
+
 ## <a id="3-1-1">3.1.1</a>: 2014-02-23
 
 ### Improvements
