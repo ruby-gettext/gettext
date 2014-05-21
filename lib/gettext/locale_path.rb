@@ -48,7 +48,7 @@ module GetText
         default_path_rules += DEFAULT_RULES
 
         load_path = $LOAD_PATH.dup
-        load_path.map!{|v| v.match(/(.*?)(\/lib)*?$/); $1}
+        load_path.map!{|v| (v.respond_to?(:to_path) ? v.to_path : v).match(/(.*?)(\/lib)*?$/); $1}
         load_path.each {|path|
           default_path_rules += [
             "#{path}/data/locale/%{lang}/LC_MESSAGES/%{name}.mo",
