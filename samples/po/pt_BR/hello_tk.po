@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.0\n"
-"POT-Creation-Date: 2005-12-17 14:56+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2005-12-17 10:12-0300\n"
 "Last-Translator: Joao Pedrosa <joaopedrosa@gmail.com>\n"
 "Language-Team: Portuguese(Brazil)\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../hellogtk.rb:14
-msgid "hello, gtk world"
+#: ../hello_tk.rb:16
+#, fuzzy
+msgid "hello, tk world"
 msgstr "Olá, mundo de gtk"
+
+#: ../hellogtk.rb:14
+#~ msgid "hello, gtk world"
+#~ msgstr "Olá, mundo de gtk"

@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2001-12-24 01:52:10+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2008-07-22 08:56+0200\n"
 "Last-Translator: Aivars Akots <aivars.akots@gmail.com>\n"
 "Language-Team: Latvian\n"
@@ -18,7 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
-#: ../hello_gtk.rb:14
+#: ../hello_gtk2.rb:25
 msgid "hello, gtk world"
 msgstr "Sveicināta, gtk pasaule"
-

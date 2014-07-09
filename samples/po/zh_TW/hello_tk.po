@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2004-11-05 21:38+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2006-08-21 09:10+0800\n"
 "Last-Translator: LIN CHUNG-YI <xmarsh at gmail.com>\n"
 "Language-Team: zh_TW <xmarsh at gmail.com>\n"
@@ -20,7 +20,6 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
 
-#: hello_tk.rb:10
+#: ../hello_tk.rb:16
 msgid "hello, tk world"
 msgstr "哈囉, tk 世界"
-

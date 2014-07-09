@@ -1,13 +1,12 @@
-# hellgtk.po - sample for Ruby/GTK 
+# hellgtk.po - sample for Ruby/GTK
 #
 # Copyright (C) 2001-2004 Masao Mutoh
 #
 # Nikolai Weibull, 2004
-
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 0.8.0\n"
-"POT-Creation-Date: 2001-12-24 01:52:10+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2004-11-04 20:49+0100\n"
 "Last-Translator: Nikolai Weibull\n"
 "Language-Team: Swedish\n"
@@ -15,6 +14,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello_gtk.rb:14
+#: ../hello_gtk2.rb:25
 msgid "hello, gtk world"
 msgstr "hej, gtk-världen"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2008-08-06 02:36+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2008-08-06 02:36+0900\n"
 "Last-Translator: Masao Mutoh <mutomasa at gmail.com>\n"
 "Language-Team: Japanese\n"
@@ -16,29 +16,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: fixtures/npgettext.rb:10 fixtures/npgettext.rb:11 fixtures/npgettext.rb:15
-#: fixtures/npgettext.rb:16
+#: ../fixtures/np_.rb:28 ../fixtures/np_.rb:29 ../fixtures/np_.rb:33
+#: ../fixtures/np_.rb:34
 msgctxt "Magazine"
 msgid "a book"
 msgid_plural "%{num} books"
 msgstr[0] "一つの本"
 msgstr[1] "%{num}の本たち"
 
-#: fixtures/npgettext.rb:20 fixtures/npgettext.rb:21
+#: ../fixtures/np_.rb:38 ../fixtures/np_.rb:39
 msgctxt "Hardcover"
 msgid "a book"
 msgid_plural "%{num} books"
 msgstr[0] "一つのハードカバー本"
 msgstr[1] "%{num}のハードカバー本たち"
 
-#: fixtures/npgettext.rb:25 fixtures/npgettext.rb:26
+#: ../fixtures/np_.rb:43 ../fixtures/np_.rb:44
 msgctxt "Magaine"
 msgid "I have a magazine"
 msgid_plural "I have %{num} magazines"
 msgstr[0] "マガジンを1冊持ってます。"
 msgstr[1] "マガジンたちを%{num}冊持ってます。"
 
-#: fixtures/npgettext.rb:30 fixtures/npgettext.rb:31
+#: ../fixtures/np_.rb:48 ../fixtures/np_.rb:49
 msgctxt "Hardcover"
 msgid "a picture"
 msgid_plural "%{num} pictures"

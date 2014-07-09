@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2002-01-01 03:05:08+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Sava Chankov <sava.chankov@gmail.com>\n"
 "Language-Team: Bulgarian <ruby-on-rails-bulgaria@googlegroups.com>\n"
@@ -18,14 +18,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: hello2.rb:9
+#: ../hello2.rb:19
+msgid ""
+"One is %{num}\n"
+msgstr ""
+"Едно е %{num}\n"
+
+#: ../hello2.rb:20
+msgid ""
+"Hello %{world}\n"
+msgstr ""
+"Гепи %{копеле}\n"
+
+#: ../hello2.rb:20
 msgid "World"
 msgstr "копеле"
-
-#: hello2.rb:8
-msgid "One is %{num}\n"
-msgstr "Едно е %{num}\n"
-
-#: hello2.rb:9
-msgid "Hello %{world}\n"
-msgstr "Гепи %{копеле}\n"

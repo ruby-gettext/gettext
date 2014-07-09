@@ -2,11 +2,10 @@
 #
 # Copyright (C) 2001-2004 Masao Mutoh
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 0.8.0\n"
-"POT-Creation-Date: 2001-12-24 01:52:10+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2001-12-24 01:52:10+0900\n"
 "Last-Translator: Masao Mutoh\n"
 "Language-Team: Japanese\n"
@@ -14,6 +13,6 @@ msgstr ""
 "Content-Type: text/plain; charset=euc-jp\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello_gtk.rb:14
+#: ../hello_gtk2.rb:25
 msgid "hello, gtk world"
 msgstr "こんにちわ、GTK世界"

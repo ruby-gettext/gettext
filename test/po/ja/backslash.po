@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-08-19 22:58+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2012-05-20 13:18+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,4 +18,3 @@ msgstr ""
 #: ../fixtures/backslash.rb:27
 msgid "You should escape '\\' as '\\\\'."
 msgstr "'\\'は'\\\\'とエスケープするべきです。"
-

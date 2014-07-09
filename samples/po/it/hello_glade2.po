@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext-package 0.0.1\n"
-"POT-Creation-Date: 2002-01-01 03:05:08+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2005-04-24 15:27+0100\n"
 "Last-Translator: Gabriele Renzi <surrender_it at yahoo.it>\n"
 "Language-Team: Gabriele Renzi <surrender_it at yahoo.it>\n"
@@ -15,14 +15,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: hello_glade2.glade:8
+#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "finestra1"
 
-#: hello_glade2.glade:29
-msgid "first line\nsecond line\nthird line"
-msgstr "prima linea\nseconda linea\nterza linea"
+#: ../hello_glade2.glade:30
+msgid ""
+"first line\n"
+"second line\n"
+"third line"
+msgstr ""
+"prima linea\n"
+"seconda linea\n"
+"terza linea"
 
-#: hello_glade2.glade:53
+#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<Ciao a tutti>"

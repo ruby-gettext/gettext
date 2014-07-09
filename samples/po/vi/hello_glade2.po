@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2004-07-03 23:38+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2007-03-21 11:02+0900\n"
 "Last-Translator: Ngoc DAO Thanh <ngocdaothanh at gmail.com>\n"
 "Language-Team: Vietnamese\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: hello_glade2.glade:8
+#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "cửa sổ 1"
 
-#: hello_glade2.glade:29
+#: ../hello_glade2.glade:30
 msgid ""
 "first line\n"
 "second line\n"
@@ -32,7 +32,6 @@ msgstr ""
 "dòng thứ hai\n"
 "dòng thứ ba"
 
-#: hello_glade2.glade:53
+#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<Xin chào thế giới>"
-

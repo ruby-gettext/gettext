@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2008-07-26 15:39+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2008-07-26 15:39+0900\n"
 "Last-Translator: Masao Mutoh <mutomasa at gmail.com>\n"
 "Language-Team: Japanese\n"
@@ -16,26 +16,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: fixtures/pgettext.rb:10 fixtures/pgettext.rb:14
+#: ../fixtures/p_.rb:29 ../fixtures/p_.rb:33
 msgctxt "AAA"
 msgid "BBB"
 msgstr "えーびー"
 
-#: fixtures/pgettext.rb:18
+#: ../fixtures/p_.rb:37
 msgctxt "AAA|BBB"
 msgid "CCC"
 msgstr "えーびーしー"
 
-#: fixtures/pgettext.rb:22
+#: ../fixtures/p_.rb:41
 msgctxt "AAA"
 msgid "CCC"
 msgstr ""
 
-#: fixtures/pgettext.rb:26
+#: ../fixtures/p_.rb:45
 msgctxt "CCC"
 msgid "BBB"
 msgstr "しーびー"
 
-#: fixtures/pgettext.rb:33
+#: ../fixtures/p_.rb:49
 msgid "BBB"
 msgstr "びー"
+
+#. TRANSLATORS:please translate 'name' in the context of 'program'.
+#. Hint: the translation should NOT contain the translation of 'program'.
+#: ../fixtures/p_.rb:55
+msgctxt "program"
+msgid "name"
+msgstr ""

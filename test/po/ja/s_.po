@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-08-12 03:31+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,34 +14,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: sgettext.rb:10 sgettext.rb:14
+#: ../fixtures/s_.rb:28 ../fixtures/s_.rb:32
 msgid "AAA|BBB"
 msgstr "MATCHED"
 
-#: sgettext.rb:18
+#: ../fixtures/s_.rb:36
 msgid "AAA"
 msgstr ""
 
-#: sgettext.rb:22
+#: ../fixtures/s_.rb:40
 msgid "AAA|CCC"
 msgstr ""
 
-#: sgettext.rb:26
+#: ../fixtures/s_.rb:44
 msgid "AAA|BBB|CCC"
 msgstr ""
 
-#: sgettext.rb:30
+#: ../fixtures/s_.rb:48
 msgid "AAA$BBB"
 msgstr ""
 
-#: sgettext.rb:34
+#: ../fixtures/s_.rb:52
 msgid "AAA$B|BB"
 msgstr ""
 
-#: sgettext.rb:38
+#: ../fixtures/s_.rb:56
 msgid "AAA$B|CC"
 msgstr "MATCHED"
 
-#: sgettext.rb:42
+#: ../fixtures/s_.rb:60
 msgid "AAA|CCC|BBB"
+msgstr ""
+
+#: ../fixtures/s_/custom.rb:28
+msgid "context|context$message"
 msgstr ""

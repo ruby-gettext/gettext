@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2004-11-05 21:38+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2008-01-15 00:00+0900\n"
 "Last-Translator: Tamás Tompa <tompata at gmail.com>\n"
 "Language-Team: Hungarian\n"
@@ -18,6 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: hello_tk.rb:10
+#: ../hello_tk.rb:16
 msgid "hello, tk world"
 msgstr "hello, tk világ"

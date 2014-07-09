@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2001-12-24 01:30:54+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2007-03-21 10:13+0900\n"
 "Last-Translator: Ngoc DAO Thanh <ngocdaothanh at gmail.com>\n"
 "Language-Team: Vietnamese\n"
@@ -17,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello.rb:7
-msgid "Hello World\n"
-msgstr "Xin chào cả Thế Giới\n"
-
+#: ../hello.rb:17
+msgid ""
+"Hello World\n"
+msgstr ""
+"Xin chào cả Thế Giới\n"

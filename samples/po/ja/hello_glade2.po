@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 0.8.0\n"
-"POT-Creation-Date: 2004-07-03 23:38+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2004-07-04 00:24+0900\n"
 "Last-Translator: Masao Mutoh\n"
 "Language-Team: Japanese\n"
@@ -13,14 +13,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: hello_glade2.glade:8
+#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "こんにちわ世界 Ruby/Libglade2 テスト"
 
-#: hello_glade2.glade:29
-msgid "first line\nsecond line\nthird line"
-msgstr "１行目\n２行目\n３行目"
+#: ../hello_glade2.glade:30
+msgid ""
+"first line\n"
+"second line\n"
+"third line"
+msgstr ""
+"１行目\n"
+"２行目\n"
+"３行目"
 
-#: hello_glade2.glade:53
+#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<こんにちわ世界>"

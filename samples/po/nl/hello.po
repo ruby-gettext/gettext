@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext-package 1.1.0\n"
-"POT-Creation-Date: 2001-12-24 01:30:54+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2005-12-19 21:44+0100\n"
 "Last-Translator: Menno Jonkers <ruby-gettext@jonkers.com>\n"
 "Language-Team: Dutch <ruby_gettext@jonkers.com>\n"
@@ -18,7 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../hello.rb:7
-msgid "Hello World\n"
-msgstr "Hallo wereld\n"
-
+#: ../hello.rb:17
+msgid ""
+"Hello World\n"
+msgstr ""
+"Hallo wereld\n"

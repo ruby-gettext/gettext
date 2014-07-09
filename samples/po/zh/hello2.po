@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2002-01-01 03:05:08+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2006-04-15 13:11+0300\n"
 "Last-Translator: Yingfeng <blogyingfeng at gmail.com>\n"
 "Language-Team: Simplified Chinese\n"
@@ -18,14 +18,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: hello2.rb:9
+#: ../hello2.rb:19
+msgid ""
+"One is %{num}\n"
+msgstr ""
+"其中一个是%{num}\n"
+
+#: ../hello2.rb:20
+msgid ""
+"Hello %{world}\n"
+msgstr ""
+"你好 %{world}\n"
+
+#: ../hello2.rb:20
 msgid "World"
 msgstr "世界"
-
-#: hello2.rb:8
-msgid "One is %{num}\n"
-msgstr "其中一个是%{num}\n"
-
-#: hello2.rb:9
-msgid "Hello %{world}\n"
-msgstr "你好 %{world}\n"

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the gettext.
 # Runar Ingebrigtsen <runar@mopo.no>, 2008.
 # , fuzzy
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2001-12-24 01:30:54+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2008-07-14 16:23+0200\n"
 "Last-Translator: Runar Ingebrigtsen <runar@mopo.no>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
@@ -17,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit"
 
-#: ../hello.rb:7
-msgid "Hello World\n"
-msgstr "Smil til verden\n"
-
+#: ../hello.rb:17
+msgid ""
+"Hello World\n"
+msgstr ""
+"Smil til verden\n"

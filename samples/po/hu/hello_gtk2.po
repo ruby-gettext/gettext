@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2001-12-24 01:52:10+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2008-01-15 00:00+0900\n"
 "Last-Translator: Tamás Tompa <tompata at gmail.com>\n"
 "Language-Team: Hungarian\n"
@@ -17,6 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello_gtk.rb:14
+#: ../hello_gtk2.rb:25
 msgid "hello, gtk world"
 msgstr "hello, gtk világ"

@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2002-02-21 23:23:08+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2006-04-15 13:11+0300\n"
 "Last-Translator: Yingfeng <blogyingfeng at gmail.com>\n"
 "Language-Team: Simplified Chinese\n"
@@ -18,10 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: hello_noop.rb:8
+#: ../hello_noop.rb:13
 msgid "Hello World"
 msgstr "你好世界"
 
-#: hello_noop.rb:8
+#: ../hello_noop.rb:13
 msgid "Hello World2"
 msgstr "你好世界2"

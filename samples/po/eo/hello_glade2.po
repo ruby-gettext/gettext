@@ -6,11 +6,10 @@
 #
 # Malte Milatz <malte@gmx-topmail.de>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2004-07-03 23:38+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Malte Milatz <malte@gmx-topmail.de>\n"
 "Language-Team: Esperanto\n"
@@ -19,14 +18,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: hello_glade2.glade:8
+#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "fenestro1"
 
-#: hello_glade2.glade:29
-msgid "first line\nsecond line\nthird line"
-msgstr "unua linio\ndua linio\ntria linio"
+#: ../hello_glade2.glade:30
+msgid ""
+"first line\n"
+"second line\n"
+"third line"
+msgstr ""
+"unua linio\n"
+"dua linio\n"
+"tria linio"
 
-#: hello_glade2.glade:53
+#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<Saluton!>"

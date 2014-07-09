@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2002-02-21 23:23:08+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2008-01-15 00:00+0900\n"
 "Last-Translator: Tamás Tompa <tompata at gmail.com>\n"
 "Language-Team: Hungarian\n"
@@ -17,10 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: hello_noop.rb:8
+#: ../hello_noop.rb:13
 msgid "Hello World"
 msgstr "Hello világ"
 
-#: hello_noop.rb:8
+#: ../hello_noop.rb:13
 msgid "Hello World2"
 msgstr "Hello világ 2"

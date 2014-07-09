@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2004-07-03 23:38+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2006-08-21 09:05+0800\n"
 "Last-Translator: LIN CHUNG-YI <xmarsh at gmail.com>\n"
 "Language-Team: zh_TW <xmarsh at gmail.com>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
 
-#: hello_glade2.glade:8
+#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "視窗一"
 
-#: hello_glade2.glade:29
+#: ../hello_glade2.glade:30
 msgid ""
 "first line\n"
 "second line\n"
@@ -34,7 +34,6 @@ msgstr ""
 "第二行\n"
 "第三行"
 
-#: hello_glade2.glade:53
+#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<哈囉世界>"
-

@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.1.1\n"
-"POT-Creation-Date: 2004-07-03 23:38+0900\n"
+"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2008-07-22 09:04+0200\n"
 "Last-Translator: Aivars Akots <aivars.akots@gmail.com>\n"
 "Language-Team: Latvian\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
-#: hello_glade2.glade:8
+#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "logs1"
 
-#: hello_glade2.glade:29
+#: ../hello_glade2.glade:30
 msgid ""
 "first line\n"
 "second line\n"
@@ -32,7 +32,6 @@ msgstr ""
 "otrā rinda\n"
 "trešā rinda"
 
-#: hello_glade2.glade:53
+#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<Sveicināta pasaule>"
-
