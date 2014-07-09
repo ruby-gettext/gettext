@@ -265,6 +265,7 @@ module GetText
         define_pot_file_task
 
         locales.each do |locale|
+          define_edit_po_file_task(locale)
           define_po_file_task(locale)
           define_mo_file_task(locale)
         end
@@ -295,57 +296,73 @@ module GetText
         end
       end
 
+      def define_edit_po_file_task(locale)
+        return unless @enable_po
+
+        path = create_path(locale)
+        directory path.edit_po_directory.to_s
+        dependencies = [
+          path.pot_file.to_s,
+          path.edit_po_directory.to_s,
+        ]
+        if path.po_file_is_updated?
+          dependencies << internal_force_task_name
+        end
+        file path.edit_po_file.to_s => dependencies do
+          if path.po_file_is_updated?
+            rm_f(path.edit_po_file.to_s)
+          end
+          unless path.edit_po_file.exist?
+            if path.po_file.exist?
+              cp(path.po_file.to_s, path.edit_po_file.to_s)
+            else
+              MsgInit.run("--input", path.pot_file.to_s,
+                          "--output", path.po_file.to_s,
+                          "--locale", path.locale,
+                          "--no-translator",
+                          *@msginit_options)
+            end
+          end
+
+          edit_po_file_mtime = path.edit_po_file.mtime
+          MsgMerge.run("--update",
+                       "--sort-by-file",
+                       "--no-wrap",
+                       *@msgmerge_options,
+                       path.edit_po_file.to_s,
+                       path.pot_file.to_s)
+          if path.po_file.exist? and path.po_file.mtime > edit_po_file_mtime
+            MsgMerge.run("--output", path.edit_po_file.to_s,
+                         "--sort-by-file",
+                         "--no-wrap",
+                         "--no-obsolete-entries",
+                         path.po_file.to_s,
+                         path.edit_po_file.to_s)
+          end
+        end
+      end
+
       def define_po_file_task(locale)
         return unless @enable_po
 
         path = create_path(locale)
         directory path.po_directory.to_s
-        po_dependencies = [
-          path.pot_file.to_s,
+        dependencies = [
+          path.edit_po_file.to_s,
           path.po_directory.to_s,
         ]
-        if po_file_is_updated?(path)
-          po_dependencies << internal_force_task_name
-        end
         CLEAN << path.po_time_stamp_file.to_s
-        file path.po_file.to_s => po_dependencies do
-          if path.po_file.exist?
-            command_line = [
-              "--update",
-            ]
-            command_line.concat(@msgmerge_options)
-            command_line.concat([path.po_file.to_s, path.pot_file.to_s])
-            MsgMerge.run(*command_line)
-          else
-            command_line = [
-              "--input", path.pot_file.to_s,
-              "--output", path.po_file.to_s,
-              "--locale", path.locale,
-              "--no-translator",
-            ]
-            command_line.concat(@msginit_options)
-            MsgInit.run(*command_line)
-          end
-          filter_po(path)
+        file path.po_file.to_s => dependencies do
+          MsgCat.run("--output", path.po_file.to_s,
+                     "--sort-by-file",
+                     "--no-all-comments",
+                     "--no-report-warning",
+                     "--no-obsolete-entries",
+                     "--remove-header-field=POT-Creation-Date",
+                     *@msgcat_options,
+                     path.edit_po_file.to_s)
           touch(path.po_time_stamp_file.to_s)
         end
-      end
-
-      def po_file_is_updated?(path)
-        return false unless path.po_file.exist?
-        return true unless path.po_time_stamp_file.exist?
-        path.po_file.mtime > path.po_time_stamp_file.mtime
-      end
-
-      def filter_po(path)
-        command_line = [
-          "--output", path.po_file.to_s,
-          "--sort-by-file",
-          "--remove-header-field=POT-Creation-Date",
-        ]
-        command_line.concat(@msgcat_options)
-        command_line << path.po_file.to_s
-        MsgCat.run(*command_line)
       end
 
       def define_mo_file_task(locale)
@@ -521,6 +538,20 @@ module GetText
 
         def po_time_stamp_file
           po_directory + "#{@domain}.po.time_stamp"
+        end
+
+        def po_file_is_updated?
+          return false unless po_file.exist?
+          return true unless po_time_stamp_file.exist?
+          po_file.mtime > po_time_stamp_file.mtime
+        end
+
+        def edit_po_directory
+          po_directory
+        end
+
+        def edit_po_file
+          edit_po_directory + "#{@domain}.edit.po"
         end
 
         def mo_directory

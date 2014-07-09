@@ -1,14 +1,12 @@
+*.edit.po
 *.po.time_stamp
+*.pot
 /pkg/
 /data/
-/test/po/*.pot
 /test/locale/
-/samples/cgi/po/*.pot
 /samples/cgi/locale/
-/samples/po/*.pot
 /samples/locale/
 /doc/reference/
 /.yardoc/
 /Gemfile.lock
 /locale/
-/po/gettext.pot
