@@ -132,6 +132,11 @@ module GetText
       # @see `rmsgmerge --help`
       attr_accessor :msgmerge_options
 
+      # @return [Array<String>] Command line options for filtering PO.
+      # @see GetText::Tools::MsgCat
+      # @see `rmsgcat --help`
+      attr_accessor :msgcat_options
+
       # @return [Bool]
       # @see #enable_description? For details.
       attr_writer :enable_description
@@ -224,6 +229,7 @@ module GetText
         @xgettext_options = []
         @msginit_options = []
         @msgmerge_options = []
+        @msgcat_options = []
         @enable_description = true
         @enable_po = true
       end
@@ -312,7 +318,19 @@ module GetText
             command_line.concat(@msginit_options)
             GetText::Tools::MsgInit.run(*command_line)
           end
+          filter_po(_po_file)
         end
+      end
+
+      def filter_po(_po_file)
+        command_line = [
+          "--output", _po_file.to_s,
+          "--sort-by-file",
+          "--remove-header-field=POT-Creation-Date",
+        ]
+        command_line.concat(@msgcat_options)
+        command_line << _po_file.to_s
+        MsgCat.run(*command_line)
       end
 
       def define_mo_file_task(locale)
