@@ -286,7 +286,7 @@ module GetText
           end
           command_line.concat(@xgettext_options)
           command_line.concat(files)
-          GetText::Tools::XGetText.run(*command_line)
+          XGetText.run(*command_line)
         end
       end
 
@@ -307,7 +307,7 @@ module GetText
             ]
             command_line.concat(@msgmerge_options)
             command_line.concat([_po_file, pot_file])
-            GetText::Tools::MsgMerge.run(*command_line)
+            MsgMerge.run(*command_line)
           else
             command_line = [
               "--input", pot_file,
@@ -316,7 +316,7 @@ module GetText
               "--no-translator",
             ]
             command_line.concat(@msginit_options)
-            GetText::Tools::MsgInit.run(*command_line)
+            MsgInit.run(*command_line)
           end
           filter_po(_po_file)
         end
@@ -343,7 +343,7 @@ module GetText
         end
         _mo_file = mo_file(locale)
         file _mo_file => mo_dependencies do
-          GetText::Tools::MsgFmt.run(_po_file, "--output", _mo_file)
+          MsgFmt.run(_po_file, "--output", _mo_file)
         end
       end
 
