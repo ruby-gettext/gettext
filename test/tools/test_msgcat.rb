@@ -276,6 +276,25 @@ msgstr ""
       end
     end
 
+    class TestExtracted < self
+      def setup
+        @po = <<-PO
+#. extracted comment
+#: a.rb:1
+msgid "Hello"
+msgstr ""
+        PO
+      end
+
+      def test_no_extracted_comment
+        assert_equal(<<-PO, run_msgcat([@po], "--no-extracted-comment"))
+#: a.rb:1
+msgid "Hello"
+msgstr ""
+        PO
+      end
+    end
+
     class TestAll < self
       def setup
         @po = <<-PO

@@ -250,6 +250,11 @@ module GetText
             @po_format_options[:include_translator_comment] = boolean
           end
 
+          parser.on("--no-extracted-comment",
+                    _("Remove extracted comment")) do |boolean|
+            @po_format_options[:include_extracted_comment] = boolean
+          end
+
           parser.on("--no-all-comments",
                     _("Remove all comments")) do |boolean|
             @po_format_options[:include_all_comments] = boolean
