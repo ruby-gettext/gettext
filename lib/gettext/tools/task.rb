@@ -135,6 +135,7 @@ module GetText
       # @return [Array<String>] Command line options for filtering PO.
       # @see GetText::Tools::MsgCat
       # @see `rmsgcat --help`
+      # @since 3.1.3
       attr_accessor :msgcat_options
 
       # @return [Bool]
