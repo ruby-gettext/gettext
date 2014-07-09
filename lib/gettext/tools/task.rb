@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "pathname"
 require "rake"
 require "gettext/tools"
 
@@ -270,14 +271,15 @@ module GetText
       def define_pot_file_task
         return unless @enable_po
 
+        path = create_path
         pot_dependencies = files.dup
-        unless File.exist?(po_base_directory)
-          directory po_base_directory
-          pot_dependencies << po_base_directory
+        unless path.po_base_directory.exist?
+          directory path.po_base_directory.to_s
+          pot_dependencies << path.po_base_directory.to_s
         end
-        file pot_file => pot_dependencies do
+        file path.pot_file.to_s => pot_dependencies do
           command_line = [
-            "--output", pot_file,
+            "--output", path.pot_file.to_s,
           ]
           if package_name
             command_line.concat(["--package-name", package_name])
@@ -294,57 +296,54 @@ module GetText
       def define_po_file_task(locale)
         return unless @enable_po
 
-        _po_file = po_file(locale)
-        po_dependencies = [pot_file]
-        _po_directory = po_directory(locale)
-        unless File.exist?(_po_directory)
-          directory _po_directory
-          po_dependencies << _po_directory
+        path = create_path(locale)
+        po_dependencies = [path.pot_file.to_s]
+        unless path.po_directory.exist?
+          directory path.po_directory.to_s
+          po_dependencies << path.po_directory.to_s
         end
-        file _po_file => po_dependencies do
-          if File.exist?(_po_file)
+        file path.po_file.to_s => po_dependencies do
+          if path.po_file.exist?
             command_line = [
               "--update",
             ]
             command_line.concat(@msgmerge_options)
-            command_line.concat([_po_file, pot_file])
+            command_line.concat([path.po_file.to_s, path.pot_file.to_s])
             MsgMerge.run(*command_line)
           else
             command_line = [
-              "--input", pot_file,
-              "--output", _po_file,
-              "--locale", locale.to_s,
+              "--input", path.pot_file.to_s,
+              "--output", path.po_file.to_s,
+              "--locale", path.locale,
               "--no-translator",
             ]
             command_line.concat(@msginit_options)
             MsgInit.run(*command_line)
           end
-          filter_po(_po_file)
+          filter_po(path)
         end
       end
 
-      def filter_po(_po_file)
+      def filter_po(path)
         command_line = [
-          "--output", _po_file.to_s,
+          "--output", path.po_file.to_s,
           "--sort-by-file",
           "--remove-header-field=POT-Creation-Date",
         ]
         command_line.concat(@msgcat_options)
-        command_line << _po_file.to_s
+        command_line << path.po_file.to_s
         MsgCat.run(*command_line)
       end
 
       def define_mo_file_task(locale)
-        _po_file  = po_file(locale)
-        mo_dependencies = [_po_file]
-        _mo_directory = mo_directory(locale)
-        unless File.exist?(_mo_directory)
-          directory _mo_directory
-          mo_dependencies << _mo_directory
+        path = create_path(locale)
+        mo_dependencies = [path.po_file.to_s]
+        unless path.mo_directory.exist?
+          directory path.mo_directory.to_s
+          mo_dependencies << path.mo_directory.to_s
         end
-        _mo_file = mo_file(locale)
-        file _mo_file => mo_dependencies do
-          MsgFmt.run(_po_file, "--output", _mo_file)
+        file path.mo_file.to_s => mo_dependencies do
+          MsgFmt.run(path.po_file.to_s, "--output", path.mo_file.to_s)
         end
       end
 
@@ -364,8 +363,9 @@ module GetText
 
       def define_pot_tasks
         namespace :pot do
-          desc "Create #{pot_file}"
-          task :create => pot_file
+          path = create_path
+          desc "Create #{path.pot_file}"
+          task :create => path.pot_file.to_s
         end
       end
 
@@ -386,8 +386,9 @@ module GetText
           update_tasks = []
           @locales.each do |locale|
             namespace locale do
-              desc "Update #{po_file(locale)}"
-              task :update => po_file(locale)
+              path = create_path(locale)
+              desc "Update #{path.po_file}"
+              task :update => path.po_file.to_s
               update_tasks << (current_scope + ["update"]).join(":")
             end
           end
@@ -402,8 +403,9 @@ module GetText
           update_tasks = []
           @locales.each do |locale|
             namespace locale do
-              desc "Update #{mo_file(locale)}"
-              task :update => mo_file(locale)
+              path = create_path(locale)
+              desc "Update #{path.mo_file}"
+              task :update => path.mo_file.to_s
               update_tasks << (current_scope + ["update"]).join(":")
             end
           end
@@ -413,24 +415,12 @@ module GetText
         end
       end
 
-      def pot_file
-        File.join(po_base_directory, "#{domain}.pot")
-      end
-
-      def po_directory(locale)
-        File.join(po_base_directory, locale.to_s)
-      end
-
-      def po_file(locale)
-        File.join(po_directory(locale), "#{domain}.po")
-      end
-
-      def mo_directory(locale)
-        File.join(mo_base_directory, locale.to_s, "LC_MESSAGES")
-      end
-
-      def mo_file(locale)
-        File.join(mo_directory(locale), "#{domain}.mo")
+      def create_path(locale=nil)
+        locale = locale.to_s if locale.is_a?(Symbol)
+        Path.new(Pathname.new(@po_base_directory),
+                 Pathname.new(@mo_base_directory),
+                 @domain,
+                 locale)
       end
 
       def target_files
@@ -478,6 +468,39 @@ module GetText
           else
             namespace_recursive(rest, &block)
           end
+        end
+      end
+
+      class Path
+        attr_reader :po_base_directory
+        attr_reader :mo_base_directory
+        attr_reader :domain
+        attr_reader :locale
+        def initialize(po_base_directory, mo_base_directory, domain, locale=nil)
+          @po_base_directory = po_base_directory
+          @mo_base_directory = mo_base_directory
+          @domain = domain
+          @locale = locale
+        end
+
+        def pot_file
+          @po_base_directory + "#{@domain}.pot"
+        end
+
+        def po_directory
+          @po_base_directory + @locale
+        end
+
+        def po_file
+          po_directory + "#{@domain}.po"
+        end
+
+        def mo_directory
+          @mo_base_directory + @locale + "LC_MESSAGES"
+        end
+
+        def mo_file
+          mo_directory + "#{@domain}.mo"
         end
       end
     end

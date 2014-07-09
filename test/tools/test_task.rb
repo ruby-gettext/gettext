@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2013-2014  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -173,14 +173,14 @@ class TestToolsTask < Test::Unit::TestCase
 
       class TestPOT < self
         def setup
-          @pot_file = @task.send(:pot_file)
+          @path = @task.send(:create_path)
         end
 
         def test_prerequisites
           @task.files = [__FILE__]
           @task.define
           assert_equal([__FILE__],
-                       Rake::Task[@pot_file].prerequisites)
+                       Rake::Task[@path.pot_file.to_s].prerequisites)
         end
       end
 
@@ -188,14 +188,14 @@ class TestToolsTask < Test::Unit::TestCase
         def setup
           @locale = "ja"
           @task.locales = [@locale]
-          @po_file = @task.send(:po_file, @locale)
+          @path = @task.send(:create_path, @locale)
         end
 
         def test_prerequisites
           @task.files = [__FILE__]
           @task.define
-          assert_equal([@task.send(:pot_file)],
-                       Rake::Task[@po_file].prerequisites)
+          assert_equal([@path.pot_file.to_s],
+                       Rake::Task[@path.po_file.to_s].prerequisites)
         end
       end
 
@@ -203,15 +203,14 @@ class TestToolsTask < Test::Unit::TestCase
         def setup
           @locale = "ja"
           @task.locales = [@locale]
-          @po_file = @task.send(:po_file, @locale)
-          @mo_file = @task.send(:mo_file, @locale)
+          @path = @task.send(:create_path, @locale)
         end
 
         def test_prerequisites
           @task.files = [__FILE__]
           @task.define
-          assert_equal([@po_file],
-                       Rake::Task[@mo_file].prerequisites)
+          assert_equal([@path.po_file.to_s],
+                       Rake::Task[@path.mo_file.to_s].prerequisites)
         end
       end
     end
