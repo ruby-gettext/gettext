@@ -194,7 +194,7 @@ class TestToolsTask < Test::Unit::TestCase
         def test_prerequisites
           @task.files = [__FILE__]
           @task.define
-          assert_equal([@path.pot_file.to_s],
+          assert_equal([@path.pot_file.to_s, @path.po_directory.to_s],
                        Rake::Task[@path.po_file.to_s].prerequisites)
         end
       end
@@ -209,7 +209,7 @@ class TestToolsTask < Test::Unit::TestCase
         def test_prerequisites
           @task.files = [__FILE__]
           @task.define
-          assert_equal([@path.po_file.to_s],
+          assert_equal([@path.po_file.to_s, @path.mo_directory.to_s],
                        Rake::Task[@path.mo_file.to_s].prerequisites)
         end
       end
