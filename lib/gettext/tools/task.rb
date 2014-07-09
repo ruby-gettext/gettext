@@ -19,6 +19,8 @@
 
 require "pathname"
 require "rake"
+require "rake/clean"
+
 require "gettext/tools"
 
 module GetText
@@ -302,6 +304,10 @@ module GetText
           path.pot_file.to_s,
           path.po_directory.to_s,
         ]
+        if po_file_is_updated?(path)
+          po_dependencies << internal_force_task_name
+        end
+        CLEAN << path.po_time_stamp_file.to_s
         file path.po_file.to_s => po_dependencies do
           if path.po_file.exist?
             command_line = [
@@ -321,7 +327,14 @@ module GetText
             MsgInit.run(*command_line)
           end
           filter_po(path)
+          touch(path.po_time_stamp_file.to_s)
         end
+      end
+
+      def po_file_is_updated?(path)
+        return false unless path.po_file.exist?
+        return true unless path.po_time_stamp_file.exist?
+        path.po_file.mtime > path.po_time_stamp_file.mtime
       end
 
       def filter_po(path)
@@ -349,6 +362,7 @@ module GetText
 
       def define_named_tasks
         namespace :gettext do
+          define_internal_tasks
           if @enable_po
             define_pot_tasks
             define_po_tasks
@@ -359,6 +373,16 @@ module GetText
 
         desc "Update *.mo"
         task :gettext => (current_scope + ["gettext", "mo", "update"]).join(":")
+      end
+
+      def define_internal_tasks
+        namespace :internal do
+          task :force
+        end
+      end
+
+      def internal_force_task_name
+        [namespace_prefix, "gettext", "internal", "force"].compact.join(":")
       end
 
       def define_pot_tasks
@@ -493,6 +517,10 @@ module GetText
 
         def po_file
           po_directory + "#{@domain}.po"
+        end
+
+        def po_time_stamp_file
+          po_directory + "#{@domain}.po.time_stamp"
         end
 
         def mo_directory

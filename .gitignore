@@ -1,3 +1,4 @@
+*.po.time_stamp
 /pkg/
 /data/
 /test/po/*.pot
