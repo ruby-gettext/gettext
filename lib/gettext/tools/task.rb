@@ -355,7 +355,7 @@ module GetText
         file path.po_file.to_s => dependencies do
           MsgCat.run("--output", path.po_file.to_s,
                      "--sort-by-file",
-                     "--no-all-comments",
+                     "--no-location",
                      "--no-report-warning",
                      "--no-obsolete-entries",
                      "--remove-header-field=POT-Creation-Date",
