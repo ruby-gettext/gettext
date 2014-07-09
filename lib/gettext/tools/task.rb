@@ -297,11 +297,11 @@ module GetText
         return unless @enable_po
 
         path = create_path(locale)
-        po_dependencies = [path.pot_file.to_s]
-        unless path.po_directory.exist?
-          directory path.po_directory.to_s
-          po_dependencies << path.po_directory.to_s
-        end
+        directory path.po_directory.to_s
+        po_dependencies = [
+          path.pot_file.to_s,
+          path.po_directory.to_s,
+        ]
         file path.po_file.to_s => po_dependencies do
           if path.po_file.exist?
             command_line = [
@@ -337,11 +337,11 @@ module GetText
 
       def define_mo_file_task(locale)
         path = create_path(locale)
-        mo_dependencies = [path.po_file.to_s]
-        unless path.mo_directory.exist?
-          directory path.mo_directory.to_s
-          mo_dependencies << path.mo_directory.to_s
-        end
+        directory path.mo_directory.to_s
+        mo_dependencies = [
+          path.po_file.to_s,
+          path.mo_directory.to_s,
+        ]
         file path.mo_file.to_s => mo_dependencies do
           MsgFmt.run(path.po_file.to_s, "--output", path.mo_file.to_s)
         end
