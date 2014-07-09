@@ -255,6 +255,11 @@ module GetText
             @po_format_options[:include_extracted_comment] = boolean
           end
 
+          parser.on("--no-flag-comment",
+                    _("Remove flag comment")) do |boolean|
+            @po_format_options[:include_flag_comment] = boolean
+          end
+
           parser.on("--no-all-comments",
                     _("Remove all comments")) do |boolean|
             @po_format_options[:include_all_comments] = boolean

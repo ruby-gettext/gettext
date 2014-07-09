@@ -295,6 +295,25 @@ msgstr ""
       end
     end
 
+    class TestFlag < self
+      def setup
+        @po = <<-PO
+#, c-format
+#: a.rb:1
+msgid "Hello"
+msgstr ""
+        PO
+      end
+
+      def test_no_flag_comment
+        assert_equal(<<-PO, run_msgcat([@po], "--no-flag-comment"))
+#: a.rb:1
+msgid "Hello"
+msgstr ""
+        PO
+      end
+    end
+
     class TestAll < self
       def setup
         @po = <<-PO
