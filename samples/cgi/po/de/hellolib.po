@@ -6,11 +6,9 @@
 #
 # Detlef Reichl <detlef!reichl()gmx!org, 2005.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: cgi-sample 1.1.1\n"
-"POT-Creation-Date: 2006-01-07 14:53+0900\n"
 "PO-Revision-Date: 2005-04-24 17:10+0100\n"
 "Last-Translator: Detlef Reichl <detlef!reichl()gmx!org\n"
 "Language-Team: German\n"
@@ -19,6 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: hellolib.rb:19
+#: ../hellolib.rb:16
 msgid "This message is from hellolib."
 msgstr "Diese Meldung kommt von hellolib."

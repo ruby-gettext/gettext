@@ -9,7 +9,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ruby-gettext 1.6.0\n"
-"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2005-12-23 02:00+0900\n"
 "Last-Translator: Gyoung-Yoon Noh <nohmad at gmail.com>\n"
 "Language-Team: Korean\n"

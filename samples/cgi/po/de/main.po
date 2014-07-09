@@ -6,11 +6,9 @@
 #
 # Detlef Reichl <detlef!reichl()gmx!org, 2005.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: cgi-sample 1.1.1\n"
-"POT-Creation-Date: 2006-01-07 14:55+0900\n"
 "PO-Revision-Date: 2005-04-24 17:10+0100\n"
 "Last-Translator: Detlef Reichl <detlef!reichl()gmx!org\n"
 "Language-Team: German\n"
@@ -19,68 +17,68 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: index.cgi:36
-msgid "an ERB/CGI sample (UTF-8)."
-msgstr "ein ERB/CGI Beispiel (UTF-8)."
-
-#: index.cgi:37
-msgid ""
-"an ERB/CGI sample (UTF-8). This sample uses the same container as sample 1 "
-"but has a different rhtml file."
-msgstr ""
-"ein ERB/CGI Beispiel (UTF-8). Diese Beispiel verwendet den gleichen "
-"Container wie Beispiel 1 aber eine andere rhtml-Datei."
-
-#: index.cgi:38
-msgid "an ERB/CGI sample (Auto-Detect charset)."
-msgstr "Beispielskript für CGI/ERB (Autoerkennung des Zeichensatzes)"
-
-#: index.cgi:50 cookie.cgi:44
+#: ../cookie.cgi:46 ../index.cgi:52
 msgid "Sample script for CGI/ERB and gettext"
 msgstr "Beispielskript für CGI/ERB und Ruby-GetText-Paket"
 
-#: index.cgi:55
-msgid "Ruby-GetText CGI sample scripts"
-msgstr "Ruby-GetText CGI Beispielskript"
-
-#: index.cgi:57
-msgid "Supported Locales:"
-msgstr "Unterstützte Locales:"
-
-#: index.cgi:58
-msgid "Auto-Detect a locale from the WWW browser"
-msgstr "Auto-Erkennung eines locale vom Webbrowser"
-
-#: index.cgi:66
-msgid "Set locale as a \"lang\" parameter"
-msgstr "Setze locale als einen \"lang\" Parameter"
-
-#: index.cgi:82
-msgid "Set \"lang\" to cookie."
-msgstr "Setze \"lang\" als Cookie."
-
-#: index.cgi:83
-msgid ""
-"Click one of the link below, and then click \"Auto-Detect a locale from the "
-"WWW browser\" samples."
-msgstr ""
-"Klicke auf den unteren Link und dann klicke \"Auto-Erkennung eines locale "
-"vom Webbrowser\" Beispiele."
-
-#: index.cgi:92
-msgid "Source codes"
-msgstr "Quelltexte"
-
-#: index.cgi:103
-msgid "index.cgi is also a Ruby-GetText sample script using CGI(not ERB)."
-msgstr ""
-"index.cgi ist ebenso ein Ruby-GetText Beispielskript das CGI nutzt (nicht "
-"ERB)."
-
-#: cookie.cgi:50
+#: ../cookie.cgi:52
 msgid "Set [%s] as the cookie of your WWW Browser."
 msgstr "Setze [%s] als ein Cookie Deines Webbrowsers."
 
-#: cookie.cgi:54
+#: ../cookie.cgi:56
 msgid "Back"
 msgstr "Zurück"
+
+#: ../index.cgi:38
+msgid "an ERB/CGI sample (UTF-8)."
+msgstr "ein ERB/CGI Beispiel (UTF-8)."
+
+#: ../index.cgi:39
+msgid ""
+"an ERB/CGI sample (UTF-8). This sample uses the same container as sample 1 but"
+" has a different rhtml file."
+msgstr ""
+"ein ERB/CGI Beispiel (UTF-8). Diese Beispiel verwendet den gleichen Container "
+"wie Beispiel 1 aber eine andere rhtml-Datei."
+
+#: ../index.cgi:40
+msgid "an ERB/CGI sample (Auto-Detect charset)."
+msgstr "Beispielskript für CGI/ERB (Autoerkennung des Zeichensatzes)"
+
+#: ../index.cgi:57
+msgid "Ruby-GetText CGI sample scripts"
+msgstr "Ruby-GetText CGI Beispielskript"
+
+#: ../index.cgi:59
+msgid "Supported Locales:"
+msgstr "Unterstützte Locales:"
+
+#: ../index.cgi:60
+msgid "Auto-Detect a locale from the WWW browser"
+msgstr "Auto-Erkennung eines locale vom Webbrowser"
+
+#: ../index.cgi:68
+msgid "Set locale as a \"lang\" parameter"
+msgstr "Setze locale als einen \"lang\" Parameter"
+
+#: ../index.cgi:84
+msgid "Set \"lang\" to cookie."
+msgstr "Setze \"lang\" als Cookie."
+
+#: ../index.cgi:85
+msgid ""
+"Click one of the link below, and then click \"Auto-Detect a locale from the WWW"
+" browser\" samples."
+msgstr ""
+"Klicke auf den unteren Link und dann klicke \"Auto-Erkennung eines locale vom W"
+"ebbrowser\" Beispiele."
+
+#: ../index.cgi:94
+msgid "Source codes"
+msgstr "Quelltexte"
+
+#: ../index.cgi:105
+msgid "index.cgi is also a Ruby-GetText sample script using CGI(not ERB)."
+msgstr ""
+"index.cgi ist ebenso ein Ruby-GetText Beispielskript das CGI nutzt (nicht ERB)"
+"."

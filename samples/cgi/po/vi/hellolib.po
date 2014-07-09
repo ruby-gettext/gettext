@@ -9,7 +9,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cgi-sample 1.1.1\n"
-"POT-Creation-Date: 2006-01-07 14:53+0900\n"
 "PO-Revision-Date: 2007-03-21 11:03+0900\n"
 "Last-Translator: Ngoc DAO Thanh <ngocdaothanh at gmail.com>\n"
 "Language-Team: Vietnamese\n"
@@ -18,7 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: hellolib.rb:19
+#: ../hellolib.rb:16
 msgid "This message is from hellolib."
 msgstr "Thông điệp này là từ hellolib."
-

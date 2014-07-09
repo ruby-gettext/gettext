@@ -9,7 +9,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cgi-sample 1.1.1\n"
-"POT-Creation-Date: 2006-01-07 14:48+0900\n"
 "PO-Revision-Date: 2005-04-23 12:44+0900\n"
 "Last-Translator: Sava Chankov <sava.chankov@gmail.com>\n"
 "Language-Team: Bulgarian <ruby-on-rails-bulgaria@googlegroups.com>\n"
@@ -18,42 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: helloerb1.cgi:32
+#: ../helloerb1.cgi:36
 msgid "Sample script for CGI/ERB (UTF-8)."
 msgstr "Примерен CGI/ERB скрипт (UTF-8)."
-
-#: helloerb.rhtml:5 other.rhtml:5
-msgid "Sample script for CGI/ERB and gettext"
-msgstr "Примерен скрипт, ползващ CGI/ERB и gettext"
-
-#: helloerb.rhtml:12
-msgid "Hello World"
-msgstr "Гепи копеле"
-
-#: helloerb.rhtml:15 other.rhtml:11
-msgid "locale"
-msgstr "локал"
-
-#: helloerb.rhtml:16 other.rhtml:12
-msgid "output_charset"
-msgstr "изходно_кодиране"
-
-#: helloerb.rhtml:17 other.rhtml:13
-msgid "QUERY_STRING"
-msgstr "НИЗ_С_ПАРАМЕТРИ"
-
-#: helloerb.rhtml:19
-msgid "Call a library method which has another textdomain."
-msgstr "Извикване на метод от библиотеката, който принадлежи на друга текстова област"
-
-#: helloerb.rhtml:21 other.rhtml:15
-msgid "Back"
-msgstr "Назад"
-
-#: other.rhtml:8
-msgid "Another sample"
-msgstr "Друг пример"
-
-#: other.rhtml:9
-msgid "This sample(other.rhtml) is the another ERB file of helloerb1.cgi."
-msgstr "Този пример (other.rhtml) е другия ERB файл от helloerb1.cgi."

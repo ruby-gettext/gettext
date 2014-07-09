@@ -8,7 +8,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cgi-sample 1.1.1\n"
-"POT-Creation-Date: 2006-01-07 14:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Laurent Sansonetti\n"
 "Language-Team: French\n"
@@ -17,6 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
-#: hellolib.rb:19
+#: ../hellolib.rb:16
 msgid "This message is from hellolib."
 msgstr "Ce message vient de hellolib."

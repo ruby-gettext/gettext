@@ -7,7 +7,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cgi-sample 1.1.1\n"
-"POT-Creation-Date: 2006-01-07 14:51+0900\n"
 "PO-Revision-Date: 2006-04-17 20:26+0300\n"
 "Last-Translator: Yuri Kozlov <kozlov.y@gmail.com>\n"
 "Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
@@ -16,35 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: helloerb2.cgi:34
+#: ../helloerb2.cgi:35
 msgid "Sample script for CGI/ERB (Auto-Detect charset)."
 msgstr "Пример сценария CGI/ERB (Автоопределение кодировки)."
-
-#: helloerb.rhtml:5
-msgid "Sample script for CGI/ERB and gettext"
-msgstr "Sample script for CGI/ERB and gettext"
-
-#: helloerb.rhtml:12
-msgid "Hello World"
-msgstr "Здравствуй, мир"
-
-#: helloerb.rhtml:15
-msgid "locale"
-msgstr "локаль"
-
-#: helloerb.rhtml:16
-msgid "output_charset"
-msgstr "кодировка_результата"
-
-#: helloerb.rhtml:17
-msgid "QUERY_STRING"
-msgstr "СТРОКА_ЗАПРОСА"
-
-#: helloerb.rhtml:19
-msgid "Call a library method which has another textdomain."
-msgstr "Вызов библиотечного метода, расположенного в другом текстовом домене."
-
-#: helloerb.rhtml:21
-msgid "Back"
-msgstr "Назад"
-

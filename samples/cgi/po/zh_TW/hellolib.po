@@ -9,7 +9,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cgi-sample 1.1.1\n"
-"POT-Creation-Date: 2006-01-07 14:53+0900\n"
 "PO-Revision-Date: 2006-08-21 09:08+0800\n"
 "Last-Translator: LIN CHUNG-YI <xmarsh at gmail.com>\n"
 "Language-Team: zh_TW <xmarsh at gmail.com>\n"
@@ -20,7 +19,6 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
 
-#: hellolib.rb:19
+#: ../hellolib.rb:16
 msgid "This message is from hellolib."
 msgstr "這個訊息來自 hellolib"
-

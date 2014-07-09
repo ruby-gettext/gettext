@@ -6,11 +6,9 @@
 #
 # Masao Mutoh <mutomasa at gmail.com>, 2005.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: cgi-sample 1.1.1\n"
-"POT-Creation-Date: 2006-01-07 14:55+0900\n"
 "PO-Revision-Date: 2005-04-23 16:34+0900\n"
 "Last-Translator: Masao Mutoh <mutomasa at gmail.com>\n"
 "Language-Team: Japanese\n"
@@ -19,67 +17,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
-#: index.cgi:36
-msgid "an ERB/CGI sample (UTF-8)."
-msgstr "ERB/CGIサンプル(UTF-8)"
-
-#: index.cgi:37
-msgid ""
-"an ERB/CGI sample (UTF-8). This sample uses the same container as sample 1 "
-"but has a different rhtml file."
-msgstr ""
-"ERB/CGIサンプル。このサンプルはサンプル１と同じコンテナを使用しています(rhtml"
-"ファイルは別)。"
-
-#: index.cgi:38
-msgid "an ERB/CGI sample (Auto-Detect charset)."
-msgstr "ERB/CGIサンプル（文字コード自動判別）"
-
-#: index.cgi:50 cookie.cgi:44
+#: ../cookie.cgi:46 ../index.cgi:52
 msgid "Sample script for CGI/ERB and gettext"
 msgstr "Ruby-GetText-PacakgeのCGI/ERB向けサンプルスクリプト"
 
-#: index.cgi:55
-msgid "Ruby-GetText CGI sample scripts"
-msgstr "Ruby-GetText CGIサンプルスクリプト"
-
-#: index.cgi:57
-msgid "Supported Locales:"
-msgstr "このサンプルでサポートされているロケール："
-
-#: index.cgi:58
-msgid "Auto-Detect a locale from the WWW browser"
-msgstr "WWWブラウザによるロケール自動判別"
-
-#: index.cgi:66
-msgid "Set locale as a \"lang\" parameter"
-msgstr "ロケールを\"lang\"パラメータとして渡す"
-
-#: index.cgi:82
-msgid "Set \"lang\" to cookie."
-msgstr "ロケールをクッキーの\"lang\"パラメータとして渡す"
-
-#: index.cgi:83
-msgid ""
-"Click one of the link below, and then click \"Auto-Detect a locale from the "
-"WWW browser\" samples."
-msgstr ""
-"以下のリンクを一つ選択した後で、\"WWWブラウザによるロケール自動判別\"サンプル"
-"をクリックしてみてください。"
-
-#: index.cgi:92
-msgid "Source codes"
-msgstr "ソースコード"
-
-#: index.cgi:103
-msgid "index.cgi is also a Ruby-GetText sample script using CGI(not ERB)."
-msgstr ""
-"index.cgiもRuby-GetTextのCGIサンプルスクリプトです(ERBは使っていません)。"
-
-#: cookie.cgi:50
+#: ../cookie.cgi:52
 msgid "Set [%s] as the cookie of your WWW Browser."
 msgstr "[%s]ロケールをあなたのブラウザのクッキーに設定しました。"
 
-#: cookie.cgi:54
+#: ../cookie.cgi:56
 msgid "Back"
 msgstr "戻る"
+
+#: ../index.cgi:38
+msgid "an ERB/CGI sample (UTF-8)."
+msgstr "ERB/CGIサンプル(UTF-8)"
+
+#: ../index.cgi:39
+msgid ""
+"an ERB/CGI sample (UTF-8). This sample uses the same container as sample 1 but"
+" has a different rhtml file."
+msgstr "ERB/CGIサンプル。このサンプルはサンプル１と同じコンテナを使用しています(rhtmlファイルは別)。"
+
+#: ../index.cgi:40
+msgid "an ERB/CGI sample (Auto-Detect charset)."
+msgstr "ERB/CGIサンプル（文字コード自動判別）"
+
+#: ../index.cgi:57
+msgid "Ruby-GetText CGI sample scripts"
+msgstr "Ruby-GetText CGIサンプルスクリプト"
+
+#: ../index.cgi:59
+msgid "Supported Locales:"
+msgstr "このサンプルでサポートされているロケール："
+
+#: ../index.cgi:60
+msgid "Auto-Detect a locale from the WWW browser"
+msgstr "WWWブラウザによるロケール自動判別"
+
+#: ../index.cgi:68
+msgid "Set locale as a \"lang\" parameter"
+msgstr "ロケールを\"lang\"パラメータとして渡す"
+
+#: ../index.cgi:84
+msgid "Set \"lang\" to cookie."
+msgstr "ロケールをクッキーの\"lang\"パラメータとして渡す"
+
+#: ../index.cgi:85
+msgid ""
+"Click one of the link below, and then click \"Auto-Detect a locale from the WWW"
+" browser\" samples."
+msgstr "以下のリンクを一つ選択した後で、\"WWWブラウザによるロケール自動判別\"サンプルをクリックしてみてください。"
+
+#: ../index.cgi:94
+msgid "Source codes"
+msgstr "ソースコード"
+
+#: ../index.cgi:105
+msgid "index.cgi is also a Ruby-GetText sample script using CGI(not ERB)."
+msgstr "index.cgiもRuby-GetTextのCGIサンプルスクリプトです(ERBは使っていません)。"

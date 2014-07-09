@@ -9,7 +9,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cgi-sample 1.1.1\n"
-"POT-Creation-Date: 2006-01-07 14:51+0900\n"
 "PO-Revision-Date: 2006-08-18 15:09+0800\n"
 "Last-Translator: LIN CHUNG-YI <xmarsh at gmail.com>\n"
 "Language-Team: zh_TW <xmarsh at gmail.com>\n"
@@ -20,35 +19,6 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
 
-#: helloerb2.cgi:34
+#: ../helloerb2.cgi:35
 msgid "Sample script for CGI/ERB (Auto-Detect charset)."
 msgstr "CGI/ERB 範例 (自動偵測字集)"
-
-#: helloerb.rhtml:5
-msgid "Sample script for CGI/ERB and gettext"
-msgstr "CGI/ERB 與 gettext 範例"
-
-#: helloerb.rhtml:12
-msgid "Hello World"
-msgstr "哈囉世界"
-
-#: helloerb.rhtml:15
-msgid "locale"
-msgstr "字集"
-
-#: helloerb.rhtml:16
-msgid "output_charset"
-msgstr "output_charset"
-
-#: helloerb.rhtml:17
-msgid "QUERY_STRING"
-msgstr "QUERY_STRING"
-
-#: helloerb.rhtml:19
-msgid "Call a library method which has another textdomain."
-msgstr "Call a library method which has another textdomain."
-
-#: helloerb.rhtml:21
-msgid "Back"
-msgstr "返回"
-

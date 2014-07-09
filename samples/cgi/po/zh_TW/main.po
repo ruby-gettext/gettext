@@ -9,7 +9,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cgi-sample 1.1.1\n"
-"POT-Creation-Date: 2006-01-07 14:55+0900\n"
 "PO-Revision-Date: 2006-08-18 14:43+0800\n"
 "Last-Translator: LIN CHUNG-YI <xmarsh at gmail.com>\n"
 "Language-Team: zh_TW <xmarsh at gmail.com>\n"
@@ -20,60 +19,62 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
 
-#: index.cgi:36
-msgid "an ERB/CGI sample (UTF-8)."
-msgstr "ERB/CGI 範例 (UTF-8)"
-
-#: index.cgi:37
-msgid "an ERB/CGI sample (UTF-8). This sample uses the same container as sample 1 but has a different rhtml file."
-msgstr "ERB/CGI 範例 (UTF-8) 該範例使用範例一同樣的 container 只是 rhtml 檔案不同"
-
-#: index.cgi:38
-msgid "an ERB/CGI sample (Auto-Detect charset)."
-msgstr "ERB/CGI 範例 (字集自動偵測)"
-
-#: index.cgi:50
-#: cookie.cgi:44
+#: ../cookie.cgi:46 ../index.cgi:52
 msgid "Sample script for CGI/ERB and gettext"
 msgstr "CGI/ERB 與 gettext 的範例程式"
 
-#: index.cgi:55
-msgid "Ruby-GetText CGI sample scripts"
-msgstr "Ruby-GetText 的 CGI 範例"
-
-#: index.cgi:57
-msgid "Supported Locales:"
-msgstr "支援字集:"
-
-#: index.cgi:58
-msgid "Auto-Detect a locale from the WWW browser"
-msgstr "自動從瀏覽器判斷字集"
-
-#: index.cgi:66
-msgid "Set locale as a \"lang\" parameter"
-msgstr "利用 \"lang\" 參數設定字集"
-
-#: index.cgi:82
-msgid "Set \"lang\" to cookie."
-msgstr "設定 \"lang\" 到 cookie."
-
-#: index.cgi:83
-msgid "Click one of the link below, and then click \"Auto-Detect a locale from the WWW browser\" samples."
-msgstr "按下面連結再按 \"自動從瀏覽器判斷字集\"  範例"
-
-#: index.cgi:92
-msgid "Source codes"
-msgstr "原始碼"
-
-#: index.cgi:103
-msgid "index.cgi is also a Ruby-GetText sample script using CGI(not ERB)."
-msgstr "index.cgi 也是 Ruby-GetText 的  CGI 範例 (非 ERB)"
-
-#: cookie.cgi:50
+#: ../cookie.cgi:52
 msgid "Set [%s] as the cookie of your WWW Browser."
 msgstr "設定 [%s] 為瀏覽器的 cookie"
 
-#: cookie.cgi:54
+#: ../cookie.cgi:56
 msgid "Back"
 msgstr "返回"
 
+#: ../index.cgi:38
+msgid "an ERB/CGI sample (UTF-8)."
+msgstr "ERB/CGI 範例 (UTF-8)"
+
+#: ../index.cgi:39
+msgid ""
+"an ERB/CGI sample (UTF-8). This sample uses the same container as sample 1 but"
+" has a different rhtml file."
+msgstr "ERB/CGI 範例 (UTF-8) 該範例使用範例一同樣的 container 只是 rhtml 檔案不同"
+
+#: ../index.cgi:40
+msgid "an ERB/CGI sample (Auto-Detect charset)."
+msgstr "ERB/CGI 範例 (字集自動偵測)"
+
+#: ../index.cgi:57
+msgid "Ruby-GetText CGI sample scripts"
+msgstr "Ruby-GetText 的 CGI 範例"
+
+#: ../index.cgi:59
+msgid "Supported Locales:"
+msgstr "支援字集:"
+
+#: ../index.cgi:60
+msgid "Auto-Detect a locale from the WWW browser"
+msgstr "自動從瀏覽器判斷字集"
+
+#: ../index.cgi:68
+msgid "Set locale as a \"lang\" parameter"
+msgstr "利用 \"lang\" 參數設定字集"
+
+#: ../index.cgi:84
+msgid "Set \"lang\" to cookie."
+msgstr "設定 \"lang\" 到 cookie."
+
+#: ../index.cgi:85
+msgid ""
+"Click one of the link below, and then click \"Auto-Detect a locale from the WWW"
+" browser\" samples."
+msgstr "按下面連結再按 \"自動從瀏覽器判斷字集\"  範例"
+
+#: ../index.cgi:94
+msgid "Source codes"
+msgstr "原始碼"
+
+#: ../index.cgi:105
+msgid "index.cgi is also a Ruby-GetText sample script using CGI(not ERB)."
+msgstr "index.cgi 也是 Ruby-GetText 的  CGI 範例 (非 ERB)"

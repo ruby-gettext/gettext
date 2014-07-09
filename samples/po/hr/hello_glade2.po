@@ -7,7 +7,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: hello_glade2\n"
-"POT-Creation-Date: 2014-07-09 12:30+0900\n"
 "PO-Revision-Date: 2007-03-20 20:18+0100\n"
 "Last-Translator: Sanjin Sehic <saserr@gmail.com>\n"
 "Language-Team: Croatian <saserr@gmail.com>\n"

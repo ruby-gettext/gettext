@@ -9,7 +9,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cgi-sample 1.1.1\n"
-"POT-Creation-Date: 2006-01-07 14:51+0900\n"
 "PO-Revision-Date: 2008-07-22 09:13+0200\n"
 "Last-Translator: Aivars Akots <aivars.akots@gmail.com>\n"
 "Language-Team: Latvian\n"
@@ -18,35 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
-#: helloerb2.cgi:34
+#: ../helloerb2.cgi:35
 msgid "Sample script for CGI/ERB (Auto-Detect charset)."
 msgstr "Paraugs CGI/ERB (Automātiska simbolu kodējuma atpazīšana)."
-
-#: helloerb.rhtml:5
-msgid "Sample script for CGI/ERB and gettext"
-msgstr "Paraugs CGI/ERB un gettext"
-
-#: helloerb.rhtml:12
-msgid "Hello World"
-msgstr "Sveicināta pasaule"
-
-#: helloerb.rhtml:15
-msgid "locale"
-msgstr "valoda"
-
-#: helloerb.rhtml:16
-msgid "output_charset"
-msgstr "izvades_simbolu_kodējums"
-
-#: helloerb.rhtml:17
-msgid "QUERY_STRING"
-msgstr "PIEPRASĪJUMA_TEKSTS"
-
-#: helloerb.rhtml:19
-msgid "Call a library method which has another textdomain."
-msgstr "Izsaukt bibliotēku ar citu teksta sakni"
-
-#: helloerb.rhtml:21
-msgid "Back"
-msgstr "Atgriezties"
-
