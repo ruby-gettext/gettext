@@ -260,6 +260,11 @@ module GetText
             @po_format_options[:include_flag_comment] = boolean
           end
 
+          parser.on("--no-previous-comment",
+                    _("Remove previous comment")) do |boolean|
+            @po_format_options[:include_previous_comment] = boolean
+          end
+
           parser.on("--no-all-comments",
                     _("Remove all comments")) do |boolean|
             @po_format_options[:include_all_comments] = boolean

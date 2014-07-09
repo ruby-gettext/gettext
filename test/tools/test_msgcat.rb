@@ -314,6 +314,25 @@ msgstr ""
       end
     end
 
+    class TestPrevious < self
+      def setup
+        @po = <<-PO
+#| msgid "hello"
+#: a.rb:1
+msgid "Hello"
+msgstr ""
+        PO
+      end
+
+      def test_no_previous_comment
+        assert_equal(<<-PO, run_msgcat([@po], "--no-previous-comment"))
+#: a.rb:1
+msgid "Hello"
+msgstr ""
+        PO
+      end
+    end
+
     class TestAll < self
       def setup
         @po = <<-PO
