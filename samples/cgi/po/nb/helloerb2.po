@@ -17,6 +17,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 
-#: ../helloerb2.cgi:35
 msgid "Sample script for CGI/ERB (Auto-Detect charset)."
 msgstr "Eksempelskript for CGI/ERB (Auto-Detect-charset)."

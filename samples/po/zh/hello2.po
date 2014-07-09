@@ -17,18 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../hello2.rb:19
 msgid ""
 "One is %{num}\n"
 msgstr ""
 "其中一个是%{num}\n"
 
-#: ../hello2.rb:20
 msgid ""
 "Hello %{world}\n"
 msgstr ""
 "你好 %{world}\n"
 
-#: ../hello2.rb:20
 msgid "World"
 msgstr "世界"

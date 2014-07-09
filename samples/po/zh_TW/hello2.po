@@ -19,18 +19,15 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
 
-#: ../hello2.rb:19
 msgid ""
 "One is %{num}\n"
 msgstr ""
 "一個是 %{num}\n"
 
-#: ../hello2.rb:20
 msgid ""
 "Hello %{world}\n"
 msgstr ""
 "哈囉 %{world}\n"
 
-#: ../hello2.rb:20
 msgid "World"
 msgstr "世界"

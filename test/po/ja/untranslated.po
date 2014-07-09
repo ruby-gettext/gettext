@@ -16,6 +16,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../fixtures/untranslated.rb:10
 msgid "untranslated"
 msgstr ""

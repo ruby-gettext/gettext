@@ -11,6 +11,5 @@ msgstr ""
 "Content-Type: text/plain; charset=euc-jp\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello_tk.rb:16
 msgid "hello, tk world"
 msgstr "こんにちわ、TK世界"

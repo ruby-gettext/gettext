@@ -15,11 +15,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "окно1"
 
-#: ../hello_glade2.glade:30
 msgid ""
 "first line\n"
 "second line\n"
@@ -29,6 +27,5 @@ msgstr ""
 "вторая строка\n"
 "третья строка"
 
-#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<Здравствуй мир>"

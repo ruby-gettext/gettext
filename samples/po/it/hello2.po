@@ -13,18 +13,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello2.rb:19
 msgid ""
 "One is %{num}\n"
 msgstr ""
 "Uno è %{num}\n"
 
-#: ../hello2.rb:20
 msgid ""
 "Hello %{world}\n"
 msgstr ""
 "Ciao a %{world}\n"
 
-#: ../hello2.rb:20
 msgid "World"
 msgstr "tutti"

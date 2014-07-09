@@ -16,10 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello_noop.rb:13
 msgid "Hello World"
 msgstr "Hello világ"
 
-#: ../hello_noop.rb:13
 msgid "Hello World2"
 msgstr "Hello világ 2"

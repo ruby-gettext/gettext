@@ -17,18 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../hello2.rb:19
 msgid ""
 "One is %{num}\n"
 msgstr ""
 "Un és %{num}\n"
 
-#: ../hello2.rb:20
 msgid ""
 "Hello %{world}\n"
 msgstr ""
 "Hola %{world}\n"
 
-#: ../hello2.rb:20
 msgid "World"
 msgstr "Món"

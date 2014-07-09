@@ -16,18 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello2.rb:19
 msgid ""
 "One is %{num}\n"
 msgstr ""
 "Một là is %{num}\n"
 
-#: ../hello2.rb:20
 msgid ""
 "Hello %{world}\n"
 msgstr ""
 "Xin chào %{world}\n"
 
-#: ../hello2.rb:20
 msgid "World"
 msgstr "Thế Giới"

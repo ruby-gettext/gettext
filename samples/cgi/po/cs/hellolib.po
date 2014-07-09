@@ -19,6 +19,5 @@ msgstr ""
 "4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Czech\n"
 
-#: ../hellolib.rb:16
 msgid "This message is from hellolib."
 msgstr "Tato zpráva je z hellolib."

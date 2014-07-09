@@ -17,11 +17,9 @@ msgstr ""
 "4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Czech\n"
 
-#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "okno1"
 
-#: ../hello_glade2.glade:30
 msgid ""
 "first line\n"
 "second line\n"
@@ -31,6 +29,5 @@ msgstr ""
 "druhý řádek\n"
 "třetí řádek"
 
-#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<Ahoj světe>"

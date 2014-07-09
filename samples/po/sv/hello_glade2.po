@@ -13,11 +13,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "fönster1"
 
-#: ../hello_glade2.glade:30
 msgid ""
 "first line\n"
 "second line\n"
@@ -27,6 +25,5 @@ msgstr ""
 "andra raden\n"
 "tredje raden"
 
-#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<Hej, världen>"

@@ -15,6 +15,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../hello_gtk2.rb:25
 msgid "hello, gtk world"
 msgstr "Здравствуй, мир gtk"

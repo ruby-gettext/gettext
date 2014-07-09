@@ -20,11 +20,9 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "вікно1"
 
-#: ../hello_glade2.glade:30
 msgid ""
 "first line\n"
 "second line\n"
@@ -34,6 +32,5 @@ msgstr ""
 "друга стрічка\n"
 "третя стрічка"
 
-#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<Привіт, світ>"

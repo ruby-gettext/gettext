@@ -15,23 +15,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../cookie.cgi:46 ../index.cgi:52
 msgid "Sample script for CGI/ERB and gettext"
 msgstr "Пример сценария CGI/ERB и gettext"
 
-#: ../cookie.cgi:52
 msgid "Set [%s] as the cookie of your WWW Browser."
 msgstr "Установить [%s] как куки в вашем WWW браузере."
 
-#: ../cookie.cgi:56
 msgid "Back"
 msgstr "Назад"
 
-#: ../index.cgi:38
 msgid "an ERB/CGI sample (UTF-8)."
 msgstr "Пример ERB/CGI (UTF-8)."
 
-#: ../index.cgi:39
 msgid ""
 "an ERB/CGI sample (UTF-8). This sample uses the same container as sample 1 but"
 " has a different rhtml file."
@@ -39,31 +34,24 @@ msgstr ""
 "Пример ERB/CGI (UTF-8). Этот пример использует тот же контейнер как в примере "
 "1, но имеет другой rhtml файл."
 
-#: ../index.cgi:40
 msgid "an ERB/CGI sample (Auto-Detect charset)."
 msgstr "Пример ERB/CGI (автоопределение кодировки)."
 
-#: ../index.cgi:57
 msgid "Ruby-GetText CGI sample scripts"
 msgstr "Примеры сценариев Ruby-GetText CGI"
 
-#: ../index.cgi:59
 msgid "Supported Locales:"
 msgstr "Поддерживаемые локали:"
 
-#: ../index.cgi:60
 msgid "Auto-Detect a locale from the WWW browser"
 msgstr "Автоопределение локали WWW браузера"
 
-#: ../index.cgi:68
 msgid "Set locale as a \"lang\" parameter"
 msgstr "Установка локали в параметре \"lang\""
 
-#: ../index.cgi:84
 msgid "Set \"lang\" to cookie."
 msgstr "Установка \"lang\" в куки."
 
-#: ../index.cgi:85
 msgid ""
 "Click one of the link below, and then click \"Auto-Detect a locale from the WWW"
 " browser\" samples."
@@ -71,10 +59,8 @@ msgstr ""
 "Нажмите на ссылку ниже и затем нажмите на примеры \"Автоопределение локали WWW "
 "браузера\"."
 
-#: ../index.cgi:94
 msgid "Source codes"
 msgstr "Исходные тексты"
 
-#: ../index.cgi:105
 msgid "index.cgi is also a Ruby-GetText sample script using CGI(not ERB)."
 msgstr "index.cgi это также Ruby-GetText пример использующий CGI(не ERB)."

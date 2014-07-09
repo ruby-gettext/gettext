@@ -15,6 +15,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../hellolib.rb:16
 msgid "This message is from hellolib."
 msgstr "Сообщение из hellolib."

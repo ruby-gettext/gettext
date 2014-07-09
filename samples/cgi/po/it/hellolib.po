@@ -17,6 +17,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../hellolib.rb:16
 msgid "This message is from hellolib."
 msgstr "Questo messaggio viene da hellolib"

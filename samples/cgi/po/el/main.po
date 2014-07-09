@@ -17,53 +17,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../cookie.cgi:46 ../index.cgi:52
 msgid "Sample script for CGI/ERB and gettext"
 msgstr "Υπόδειγμα για CGI/ERB και τη βιβλιοθήκη Ruby-GetText"
 
-#: ../cookie.cgi:52
 msgid "Set [%s] as the cookie of your WWW Browser."
 msgstr "Θέσε [%s] ως το μπισκότο του ξεφυλιστή σου (αστείο είναι, όχι μετάφραση)"
 
-#: ../cookie.cgi:56
 msgid "Back"
 msgstr "Πίσω"
 
-#: ../index.cgi:38
 msgid "an ERB/CGI sample (UTF-8)."
 msgstr "ένα υπόδειγμα ERB/CGI (UTF-8)."
 
-#: ../index.cgi:39
 msgid ""
 "an ERB/CGI sample (UTF-8). This sample uses the same container as sample 1 but"
 " has a different rhtml file."
 msgstr "ένα υπόδειγμα ERB/CGI (UTF-8). Αυτό το υπόδειγμα χρησιμοποιεί  "
 
-#: ../index.cgi:40
 msgid "an ERB/CGI sample (Auto-Detect charset)."
 msgstr "ένα υπόδειγμα για CGI/ERB (αυτόματη αναγνώριση συνόλου χρακτήρων)"
 
-#: ../index.cgi:57
 msgid "Ruby-GetText CGI sample scripts"
 msgstr "Ruby-GetText υποδείγματα CGI"
 
-#: ../index.cgi:59
 msgid "Supported Locales:"
 msgstr "Υποστηριζόμενα locale"
 
-#: ../index.cgi:60
 msgid "Auto-Detect a locale from the WWW browser"
 msgstr "Αυτόματη αναγνώριση locale από τον browser"
 
-#: ../index.cgi:68
 msgid "Set locale as a \"lang\" parameter"
 msgstr "Set locale as a \"lang\" parameter"
 
-#: ../index.cgi:84
 msgid "Set \"lang\" to cookie."
 msgstr "Set \"lang\" to cookie."
 
-#: ../index.cgi:85
 msgid ""
 "Click one of the link below, and then click \"Auto-Detect a locale from the WWW"
 " browser\" samples."
@@ -71,10 +59,8 @@ msgstr ""
 "Ακολούθησε έναν από τους δεσμούς και επέλεξε τα υποδείγματα \"Αυτόματη αναγνώρι"
 "ση locale από τον browser\""
 
-#: ../index.cgi:94
 msgid "Source codes"
 msgstr "Κώδικας"
 
-#: ../index.cgi:105
 msgid "index.cgi is also a Ruby-GetText sample script using CGI(not ERB)."
 msgstr "Το index.cgi είναι επίσης ένα υπόδειγμα χρήσης Ruby-GetText με CGI (χωρίς ERB)"

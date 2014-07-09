@@ -17,6 +17,5 @@ msgstr ""
 " && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../helloerb2.cgi:35
 msgid "Sample script for CGI/ERB (Auto-Detect charset)."
 msgstr "Primjer skripte za CGI/ERB (Auto-Detektovanje skupakaraktera)"

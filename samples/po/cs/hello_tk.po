@@ -17,6 +17,5 @@ msgstr ""
 "4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Czech\n"
 
-#: ../hello_tk.rb:16
 msgid "hello, tk world"
 msgstr "ahoj, světe tk"

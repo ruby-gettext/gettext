@@ -19,7 +19,6 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
 
-#: ../hello_plural.rb:20
 msgid ""
 "There is an apple.\n"
 msgid_plural ""

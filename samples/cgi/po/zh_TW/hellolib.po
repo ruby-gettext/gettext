@@ -19,6 +19,5 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
 
-#: ../hellolib.rb:16
 msgid "This message is from hellolib."
 msgstr "這個訊息來自 hellolib"

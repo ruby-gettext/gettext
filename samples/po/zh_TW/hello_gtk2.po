@@ -18,6 +18,5 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
 
-#: ../hello_gtk2.rb:25
 msgid "hello, gtk world"
 msgstr "哈囉, gtk 世界"

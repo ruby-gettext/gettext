@@ -17,6 +17,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../hellolib.rb:16
 msgid "This message is from hellolib."
 msgstr "이것은 hellolib으로부터의 메시지입니다."

@@ -13,6 +13,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../hello_tk.rb:16
 msgid "hello, tk world"
 msgstr "안녕, tk 세상"

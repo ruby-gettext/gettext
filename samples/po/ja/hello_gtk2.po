@@ -12,6 +12,5 @@ msgstr ""
 "Content-Type: text/plain; charset=euc-jp\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello_gtk2.rb:25
 msgid "hello, gtk world"
 msgstr "こんにちわ、GTK世界"

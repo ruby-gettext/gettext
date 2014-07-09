@@ -19,7 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../hello_plural.rb:20
 msgid ""
 "There is an apple.\n"
 msgid_plural ""

@@ -16,11 +16,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 
-#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "vindu1"
 
-#: ../hello_glade2.glade:30
 msgid ""
 "first line\n"
 "second line\n"
@@ -30,6 +28,5 @@ msgstr ""
 "andrelinje\n"
 "tredje linje"
 
-#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<Smil til verden>"

@@ -19,23 +19,18 @@ msgstr ""
 "4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Czech\n"
 
-#: ../cookie.cgi:46 ../index.cgi:52
 msgid "Sample script for CGI/ERB and gettext"
 msgstr "Ukázkový skript pro CGI/ERB a gettext"
 
-#: ../cookie.cgi:52
 msgid "Set [%s] as the cookie of your WWW Browser."
 msgstr "Nastavit [%s] jako cookie Vašeho WWW prohlížeče."
 
-#: ../cookie.cgi:56
 msgid "Back"
 msgstr "Zpět"
 
-#: ../index.cgi:38
 msgid "an ERB/CGI sample (UTF-8)."
 msgstr "ukázka ERB/CGI (UTF-8)"
 
-#: ../index.cgi:39
 msgid ""
 "an ERB/CGI sample (UTF-8). This sample uses the same container as sample 1 but"
 " has a different rhtml file."
@@ -43,31 +38,24 @@ msgstr ""
 "ukázka ERB/CGI (UTF-8). Tato ukázka používá stejný container jako ukázka 1, al"
 "e jiný rhtml soubor."
 
-#: ../index.cgi:40
 msgid "an ERB/CGI sample (Auto-Detect charset)."
 msgstr "ukázka ERB/CGI (Auto-Detect charset)."
 
-#: ../index.cgi:57
 msgid "Ruby-GetText CGI sample scripts"
 msgstr "Ruby-GetText ukázkový CGI skript"
 
-#: ../index.cgi:59
 msgid "Supported Locales:"
 msgstr "Podporované jazyky:"
 
-#: ../index.cgi:60
 msgid "Auto-Detect a locale from the WWW browser"
 msgstr "Automatická detekce jazyka z WWW prohlížeče"
 
-#: ../index.cgi:68
 msgid "Set locale as a \"lang\" parameter"
 msgstr "Nastavit jazyk parametrem \"lang\""
 
-#: ../index.cgi:84
 msgid "Set \"lang\" to cookie."
 msgstr "Nastavit cookie \"lang\""
 
-#: ../index.cgi:85
 msgid ""
 "Click one of the link below, and then click \"Auto-Detect a locale from the WWW"
 " browser\" samples."
@@ -75,10 +63,8 @@ msgstr ""
 "Klikněte na jeden z níže uvedených odkazů a pak klikněte na \"Automatická detek"
 "ce jazyka z WWW prohlížeče\"."
 
-#: ../index.cgi:94
 msgid "Source codes"
 msgstr "Zdrojové kódy"
 
-#: ../index.cgi:105
 msgid "index.cgi is also a Ruby-GetText sample script using CGI(not ERB)."
 msgstr "index.cgi je také ukázka Ruby-GetText CGI skriptu (bez ERB)."

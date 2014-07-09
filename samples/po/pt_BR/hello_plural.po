@@ -15,7 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../hello_plural.rb:20
 msgid ""
 "There is an apple.\n"
 msgid_plural ""

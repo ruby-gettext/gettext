@@ -17,10 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../hello_noop.rb:13
 msgid "Hello World"
 msgstr "Γειά σου κόσμε"
 
-#: ../hello_noop.rb:13
 msgid "Hello World2"
 msgstr "Γειά σου κόσμε 2"

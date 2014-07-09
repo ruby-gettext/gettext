@@ -15,10 +15,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../hello_noop.rb:13
 msgid "Hello World"
 msgstr "Здравствуй, мир"
 
-#: ../hello_noop.rb:13
 msgid "Hello World2"
 msgstr "Здравствуй, мир2"

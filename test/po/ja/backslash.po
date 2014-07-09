@@ -14,6 +14,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../fixtures/backslash.rb:27
 msgid "You should escape '\\' as '\\\\'."
 msgstr "'\\'は'\\\\'とエスケープするべきです。"

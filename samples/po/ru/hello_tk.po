@@ -15,6 +15,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../hello_tk.rb:16
 msgid "hello, tk world"
 msgstr "Здравствуй, мир tk"

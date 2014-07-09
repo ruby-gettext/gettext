@@ -13,6 +13,5 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello_tk.rb:16
 msgid "hello, tk world"
 msgstr "hej, tk-världen"

@@ -12,7 +12,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello.rb:17
 msgid ""
 "Hello World\n"
 msgstr ""

@@ -18,6 +18,5 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../helloerb1.cgi:36
 msgid "Sample script for CGI/ERB (UTF-8)."
 msgstr "用于CGI/ERB的示例脚本(UTF-8)"

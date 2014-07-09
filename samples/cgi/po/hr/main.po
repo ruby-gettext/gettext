@@ -17,23 +17,18 @@ msgstr ""
 " && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../cookie.cgi:46 ../index.cgi:52
 msgid "Sample script for CGI/ERB and gettext"
 msgstr "Primjer skripte za CGI/ERB i Ruby GetText Paketa"
 
-#: ../cookie.cgi:52
 msgid "Set [%s] as the cookie of your WWW Browser."
 msgstr "Postavi [%s] kao cookie u vašem WWW Pregledniku."
 
-#: ../cookie.cgi:56
 msgid "Back"
 msgstr "Nazad"
 
-#: ../index.cgi:38
 msgid "an ERB/CGI sample (UTF-8)."
 msgstr "ERB-CGI primjer (UTF-8)"
 
-#: ../index.cgi:39
 msgid ""
 "an ERB/CGI sample (UTF-8). This sample uses the same container as sample 1 but"
 " has a different rhtml file."
@@ -41,31 +36,24 @@ msgstr ""
 "ERB-CGI primjer (UTF-8). Ovaj primjer koristi isti kontejner kao primjer 1 ali"
 " ima drugačiji rhtml file"
 
-#: ../index.cgi:40
 msgid "an ERB/CGI sample (Auto-Detect charset)."
 msgstr "ERB-CGI primjer (Auto-Pronalaženje charset-a)"
 
-#: ../index.cgi:57
 msgid "Ruby-GetText CGI sample scripts"
 msgstr "Ruby-GetText CGI primjer skripta"
 
-#: ../index.cgi:59
 msgid "Supported Locales:"
 msgstr "Podržani Lokali:"
 
-#: ../index.cgi:60
 msgid "Auto-Detect a locale from the WWW browser"
 msgstr "Auto-Pronalaženje lokala iz WWW preglednika"
 
-#: ../index.cgi:68
 msgid "Set locale as a \"lang\" parameter"
 msgstr "Postavi lokal kao \"lang\" parametar"
 
-#: ../index.cgi:84
 msgid "Set \"lang\" to cookie."
 msgstr "Postavi \"lang\" u cookie."
 
-#: ../index.cgi:85
 msgid ""
 "Click one of the link below, and then click \"Auto-Detect a locale from the WWW"
 " browser\" samples."
@@ -73,10 +61,8 @@ msgstr ""
 "Izaberi jednu prećicu odozdo, i izaberi \"Auto-Pronalaženje lokala iz WWW pregl"
 "ednika\" primjer."
 
-#: ../index.cgi:94
 msgid "Source codes"
 msgstr "Izvorni kodovi"
 
-#: ../index.cgi:105
 msgid "index.cgi is also a Ruby-GetText sample script using CGI(not ERB)."
 msgstr "index.cgi je također Ruby-GetText primjer skripte koja koristi CGI(ne ERB)."

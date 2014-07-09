@@ -15,29 +15,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../fixtures/np_.rb:28 ../fixtures/np_.rb:29 ../fixtures/np_.rb:33
-#: ../fixtures/np_.rb:34
 msgctxt "Magazine"
 msgid "a book"
 msgid_plural "%{num} books"
 msgstr[0] "一つの本"
 msgstr[1] "%{num}の本たち"
 
-#: ../fixtures/np_.rb:38 ../fixtures/np_.rb:39
 msgctxt "Hardcover"
 msgid "a book"
 msgid_plural "%{num} books"
 msgstr[0] "一つのハードカバー本"
 msgstr[1] "%{num}のハードカバー本たち"
 
-#: ../fixtures/np_.rb:43 ../fixtures/np_.rb:44
 msgctxt "Magaine"
 msgid "I have a magazine"
 msgid_plural "I have %{num} magazines"
 msgstr[0] "マガジンを1冊持ってます。"
 msgstr[1] "マガジンたちを%{num}冊持ってます。"
 
-#: ../fixtures/np_.rb:48 ../fixtures/np_.rb:49
 msgctxt "Hardcover"
 msgid "a picture"
 msgid_plural "%{num} pictures"

@@ -15,33 +15,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../fixtures/p_.rb:29 ../fixtures/p_.rb:33
 msgctxt "AAA"
 msgid "BBB"
 msgstr "えーびー"
 
-#: ../fixtures/p_.rb:37
 msgctxt "AAA|BBB"
 msgid "CCC"
 msgstr "えーびーしー"
 
-#: ../fixtures/p_.rb:41
 msgctxt "AAA"
 msgid "CCC"
 msgstr ""
 
-#: ../fixtures/p_.rb:45
 msgctxt "CCC"
 msgid "BBB"
 msgstr "しーびー"
 
-#: ../fixtures/p_.rb:49
 msgid "BBB"
 msgstr "びー"
 
 #. TRANSLATORS:please translate 'name' in the context of 'program'.
 #. Hint: the translation should NOT contain the translation of 'program'.
-#: ../fixtures/p_.rb:55
 msgctxt "program"
 msgid "name"
 msgstr ""

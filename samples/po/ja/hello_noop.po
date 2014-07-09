@@ -12,10 +12,8 @@ msgstr ""
 "Content-Type: text/plain; charset=euc-jp\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hello_noop.rb:13
 msgid "Hello World"
 msgstr "こんにちは、世界。"
 
-#: ../hello_noop.rb:13
 msgid "Hello World2"
 msgstr "こんにちは、世界2。"

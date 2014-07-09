@@ -17,6 +17,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 
-#: ../helloerb1.cgi:36
 msgid "Sample script for CGI/ERB (UTF-8)."
 msgstr "Eksempelskript for CGI/ERB (UTF-8)."

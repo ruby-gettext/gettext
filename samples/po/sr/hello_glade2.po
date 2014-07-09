@@ -18,11 +18,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4"
 " && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "прозор1"
 
-#: ../hello_glade2.glade:30
 msgid ""
 "first line\n"
 "second line\n"
@@ -32,6 +30,5 @@ msgstr ""
 "друга линија\n"
 "трећа линија"
 
-#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<Здраво свете>"

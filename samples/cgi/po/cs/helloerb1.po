@@ -19,6 +19,5 @@ msgstr ""
 "4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Czech\n"
 
-#: ../helloerb1.cgi:36
 msgid "Sample script for CGI/ERB (UTF-8)."
 msgstr "Ukázkový skript pro CGI/ERB (UTF-8)."

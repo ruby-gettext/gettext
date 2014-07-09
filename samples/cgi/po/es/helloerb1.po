@@ -16,6 +16,5 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../helloerb1.cgi:36
 msgid "Sample script for CGI/ERB (UTF-8)."
 msgstr "Script de ejemplo para CGI/ERB (UTF-8)."

@@ -17,11 +17,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "прозорец1"
 
-#: ../hello_glade2.glade:30
 msgid ""
 "first line\n"
 "second line\n"
@@ -31,6 +29,5 @@ msgstr ""
 "втори ред\n"
 "трети ред"
 
-#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<Гепи копеле>"

@@ -19,11 +19,9 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
 
-#: ../hello_glade2.glade:9
 msgid "window1"
 msgstr "視窗一"
 
-#: ../hello_glade2.glade:30
 msgid ""
 "first line\n"
 "second line\n"
@@ -33,6 +31,5 @@ msgstr ""
 "第二行\n"
 "第三行"
 
-#: ../hello_glade2.glade:54
 msgid "<Hello world>"
 msgstr "<哈囉世界>"

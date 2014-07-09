@@ -17,23 +17,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../cookie.cgi:46 ../index.cgi:52
 msgid "Sample script for CGI/ERB and gettext"
 msgstr "Примерен скрипт, ползващ CGI/ERB и gettext"
 
-#: ../cookie.cgi:52
 msgid "Set [%s] as the cookie of your WWW Browser."
 msgstr "[%s] като бисквитка (cookie) във вашия браузър."
 
-#: ../cookie.cgi:56
 msgid "Back"
 msgstr "Назад"
 
-#: ../index.cgi:38
 msgid "an ERB/CGI sample (UTF-8)."
 msgstr "ERB/CGI пример (UTF-8)."
 
-#: ../index.cgi:39
 msgid ""
 "an ERB/CGI sample (UTF-8). This sample uses the same container as sample 1 but"
 " has a different rhtml file."
@@ -41,31 +36,24 @@ msgstr ""
 "ERB/CGI пример (UTF-8). Този пример ползва същия контролер като пример 1 но с "
 "различен rhtml файл."
 
-#: ../index.cgi:40
 msgid "an ERB/CGI sample (Auto-Detect charset)."
 msgstr "ERB/CGI пример (автоматично разпознаване на кодирането)."
 
-#: ../index.cgi:57
 msgid "Ruby-GetText CGI sample scripts"
 msgstr "Ruby-GetText CGI примерни скриптове"
 
-#: ../index.cgi:59
 msgid "Supported Locales:"
 msgstr "Поддържани локали:"
 
-#: ../index.cgi:60
 msgid "Auto-Detect a locale from the WWW browser"
 msgstr "Аавтоматично разпознаване на локал, зададен от браузъра"
 
-#: ../index.cgi:68
 msgid "Set locale as a \"lang\" parameter"
 msgstr "Изберете локал с параметъре \"lang\""
 
-#: ../index.cgi:84
 msgid "Set \"lang\" to cookie."
 msgstr "\"lang\" като бисквитка (cookie)."
 
-#: ../index.cgi:85
 msgid ""
 "Click one of the link below, and then click \"Auto-Detect a locale from the WWW"
 " browser\" samples."
@@ -73,10 +61,8 @@ msgstr ""
 "Щракнете върху една от връзките по-надолу и после на примерите с \"Автоматично "
 "разпознаване на локал, зададен от браузъра\"."
 
-#: ../index.cgi:94
 msgid "Source codes"
 msgstr "Изходен код"
 
-#: ../index.cgi:105
 msgid "index.cgi is also a Ruby-GetText sample script using CGI(not ERB)."
 msgstr "index.cgi е също така примерен скрипт, ползващ Ruby-GetText и CGI (без ERB)."

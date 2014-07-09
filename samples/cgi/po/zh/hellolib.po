@@ -18,6 +18,5 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../hellolib.rb:16
 msgid "This message is from hellolib."
 msgstr "本条信息来自hellolib。"
