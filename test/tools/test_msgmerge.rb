@@ -423,9 +423,10 @@ EOP
     end
 
     class TestFuzzy < self
-      def test_header_message
-        @msgmerge.run("--update", @po_file_path, @pot_file_path)
-        assert_equal(<<-EOP, File.read(@po_file_path))
+      class TestHeader < self
+        def test_remove_fuzzy_from_pot
+          @msgmerge.run("--update", @po_file_path, @pot_file_path)
+          assert_equal(<<-EOP, File.read(@po_file_path))
 #{po_header(@pot_formatted_time, @po_formatted_time)}
 #: hello.rb:1
 msgid "Hello"
@@ -439,6 +440,38 @@ msgstr "Translated World"
 msgid "Hello World"
 msgstr ""
 EOP
+        end
+      end
+
+      class TestMessage < self
+        def po_content
+          <<-PO
+#{po_header(@po_formatted_time, @po_formatted_time)}
+
+#, fuzzy
+msgid "World"
+msgstr "Translated World"
+         PO
+        end
+
+        def test_merge_metadata
+          @msgmerge.run("--update", @po_file_path, @pot_file_path)
+          assert_equal(<<-PO, File.read(@po_file_path))
+#{po_header(@pot_formatted_time, @po_formatted_time)}
+#: hello.rb:1
+msgid "Hello"
+msgstr ""
+
+#: hello.rb:2
+#, fuzzy
+msgid "World"
+msgstr "Translated World"
+
+#: hello.rb:3
+msgid "Hello World"
+msgstr ""
+          PO
+        end
       end
     end
 

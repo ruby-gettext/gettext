@@ -133,13 +133,12 @@ module GetText
             return merge_header(reference_entry, definition_entry)
           end
 
-          return definition_entry if definition_entry.fuzzy?
-
           entry = reference_entry
           entry.translator_comment = definition_entry.translator_comment
           entry.previous = nil
 
-          unless definition_entry.msgid_plural == reference_entry.msgid_plural
+          if definition_entry.fuzzy? or
+              definition_entry.msgid_plural != reference_entry.msgid_plural
             entry.flags << "fuzzy"
           end
 
