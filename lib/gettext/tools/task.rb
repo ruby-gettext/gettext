@@ -149,6 +149,27 @@ module GetText
       # @see #enable_po? For details.
       attr_writer :enable_po
 
+      # It is used to custom how to create POT file. The object must have
+      # `call` method. The method must accept one argument. The argument
+      #  is a `Pathname` object that represents POT file path.
+      #
+      # @example
+      #
+      #   GetText::Tools::Task.define do |task|
+      #     task.pot_creator = lambda do |pot_file_path|
+      #       pot_file_path.open("w") do |pot_file|
+      #         pot_file << <<-POT
+      #   msgid "Hello"
+      #   msgstr ""
+      #         POT
+      #       end
+      #     end
+      #   end
+      #
+      #
+      # @return [Proc]
+      attr_accessor :pot_creator
+
       # @param [Gem::Specification, nil] spec Package information associated
       #   with the task. Some information are extracted from the spec.
       # @see #spec= What information are extracted from the spec.
@@ -236,6 +257,7 @@ module GetText
         @msgcat_options = []
         @enable_description = true
         @enable_po = true
+        @pot_creator = nil
       end
 
       def ensure_variables
@@ -281,19 +303,31 @@ module GetText
           pot_dependencies << path.po_base_directory.to_s
         end
         file path.pot_file.to_s => pot_dependencies do
-          command_line = [
-            "--output", path.pot_file.to_s,
-          ]
-          if package_name
-            command_line.concat(["--package-name", package_name])
-          end
-          if package_version
-            command_line.concat(["--package-version", package_version])
-          end
-          command_line.concat(@xgettext_options)
-          command_line.concat(files)
-          XGetText.run(*command_line)
+          create_pot(path.pot_file)
         end
+      end
+
+      def create_pot(pot_file_path)
+        if @pot_creator
+          @pot_creator.call(pot_file_path)
+        else
+          xettext(pot_file_path)
+        end
+      end
+
+      def xgettext(pot_file_path)
+        command_line = [
+          "--output", pot_file_path.to_s,
+        ]
+        if package_name
+          command_line.concat(["--package-name", package_name])
+        end
+        if package_version
+          command_line.concat(["--package-version", package_version])
+        end
+        command_line.concat(@xgettext_options)
+        command_line.concat(files)
+        XGetText.run(*command_line)
       end
 
       def define_edit_po_file_task(locale)
