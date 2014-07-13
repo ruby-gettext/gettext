@@ -1,6 +1,6 @@
 # News
 
-## <a id="3-1-2">3.1.2</a>: 2014-04-24
+## 3.1.2: 2014-04-24 {#version-3-1-2}
 
 ### Improvements
 
@@ -17,7 +17,7 @@
   * Masafumi Yokoyama
   * David Silva
 
-## <a id="3-1-1">3.1.1</a>: 2014-02-23
+## 3.1.1: 2014-02-23 {#version-3-1-1}
 
 ### Improvements
 
@@ -28,25 +28,25 @@
   * `rmsgcat`: Fixed a bug that fuzzy entries are remained when
     `--no-fuzzy` option is used with `--no-all-comments`.
 
-## <a id="3-1-0">3.1.0</a>: 2014-02-09
+## 3.1.0: 2014-02-09 {#version-3-1-0}
 
 ### Improvements
 
   * `rmsgcat`: Added `--no-obsolete-entries` option.
 
-## <a id="3-0-9">3.0.9</a>: 2014-02-09
+## 3.0.9: 2014-02-09 {#version-3-0-9}
 
 ### Improvements
 
   * `rmsgmerge`: Improves fuzzy matching speed.
 
-## <a id="3-0-8">3.0.8</a>: 2014-02-09
+## 3.0.8: 2014-02-09 {#version-3-0-8}
 
 ### Fixes
 
   * `rmsginit`: Fixed a typo.
 
-## <a id="3-0-7">3.0.7</a>: 2014-02-09
+## 3.0.7: 2014-02-09 {#version-3-0-7}
 
 ### Improvements
 
@@ -54,7 +54,7 @@
   * `rmsginit`: Added `--translator-name`.
   * `rmsginit`: Added `--translator-email`.
 
-## <a id="3-0-6">3.0.6</a>: 2014-02-02
+## 3.0.6: 2014-02-02 {#version-3-0-6}
 
 ### Improvements
 
@@ -62,13 +62,13 @@
   * `rmsgcat` chooses translated entry if it exists.
   * `rmsgmerge`: Added `--no-obsolete-entries` option.
 
-## <a id="3-0-5">3.0.5</a>: 2014-02-02
+## 3.0.5: 2014-02-02 {#version-3-0-5}
 
 ### Fixes
 
   * Added missing `require` for {GetText::Tools::MsgCat}.
 
-## <a id="3-0-4">3.0.4</a>: 2014-02-02
+## 3.0.4: 2014-02-02 {#version-3-0-4}
 
 ### Improvements
 
@@ -111,7 +111,7 @@
   * akira yamada
   * Andreas Loupasakis
 
-## <a id="3-0-3">3.0.3</a>: 2013-12-15
+## 3.0.3: 2013-12-15 {#version-3-0-3}
 
 ### Improvements
 
@@ -141,7 +141,7 @@
   * Sam Lown
   * mtasaka
 
-## <a id="3-0-2">3.0.2</a>: 2013-09-29
+## 3.0.2: 2013-09-29 {#version-3-0-2}
 
 ### Improvements
 
@@ -154,7 +154,7 @@
   * xgettext: Added `--width` option.
   * xgettext: Added `--no-wrap` option.
 
-## <a id="3-0-1">3.0.1</a>: 2013-09-20
+## 3.0.1: 2013-09-20 {#version-3-0-1}
 
 ### Improvements
 
@@ -185,7 +185,7 @@
   * Ladislav Slezák
   * Antonio Terceiro
 
-## <a id="3-0-0">3.0.0</a>: 2013-08-31
+## 3.0.0: 2013-08-31 {#version-3-0-0}
 
 This is a new major version up release!
 
@@ -242,7 +242,7 @@ fix the problem and release a new version.
   * Ladislav Slezák
   * Francesco Poli
 
-## <a id="2-3-9">2.3.9</a>: 2013-04-21
+## 2.3.9: 2013-04-21 {#version-2-3-9}
 
 This is a msgmerge updated release.
 
@@ -261,7 +261,7 @@ This is a msgmerge updated release.
   * Benjamin Kerensa
   * Jérémy Bobbio
 
-## <a id="2-3-8">2.3.8</a>: 2013-04-05
+## 2.3.8: 2013-04-05 {#version-2-3-8}
 
 This is a msgmerge improved release.
 
@@ -285,7 +285,7 @@ This is a msgmerge improved release.
   * Francesco Poli
   * Jérémy Bobbio
 
-## <a id="2-3-7">2.3.7</a>: 2013-01-11
+## 2.3.7: 2013-01-11 {#version-2-3-7}
 
 This is a msgmerge improved release.
 
@@ -299,7 +299,7 @@ This is a msgmerge improved release.
     not fuzzy entries in merged PO.
   * [POEntry] Pretty formated all messages except msgstr.
 
-## <a id="2-3-6">2.3.6</a>: 2012-12-19
+## 2.3.6: 2012-12-19 {#version-2-3-6}
 
 This is a bug fix release.
 
@@ -313,7 +313,7 @@ This is a bug fix release.
     added to new PO file. Any obsolete entries in old PO file aren't
     treated for merging.
 
-## <a id="2-3-5">2.3.5</a>: 2012-12-11
+## 2.3.5: 2012-12-11 {#version-2-3-5}
 
 This is a bug fix release.
 
@@ -321,7 +321,7 @@ This is a bug fix release.
 
   * [POParser] Fixed the class name for backward compatibility.
 
-## <a id="2-3-4">2.3.4</a>: 2012-12-11
+## 2.3.4: 2012-12-11 {#version-2-3-4}
 
 This is a many changes and new implements release.
 
@@ -357,7 +357,7 @@ This is a many changes and new implements release.
   * Raised no error when POEntry doesn't have references.
     It is useful for no references in .PO file.
 
-## <a id="2-3-3">2.3.3</a>: 2012-10-18
+## 2.3.3: 2012-10-18 {#version-2-3-3}
 
 It's a package fix and msginit improvement release.
 
@@ -379,7 +379,7 @@ It's a package fix and msginit improvement release.
 
   * mtasaka
 
-## <a id="2-3-2">2.3.2</a>: 2012-09-20
+## 2.3.2: 2012-09-20 {#version-2-3-2}
 
 It's a bug fix release.
 
@@ -392,7 +392,7 @@ It's a bug fix release.
 
   * Ramón Cahenzli
 
-## <a id="2-3-1">2.3.1</a>: 2012-09-13
+## 2.3.1: 2012-09-13 {#version-2-3-1}
 
 It's a Bug and package fix release.
 Then, it's also encoding support release, only if you use Ruby 1.9.
@@ -441,7 +441,7 @@ Then, it's also encoding support release, only if you use Ruby 1.9.
   * Michael Grosser
   * Fotos Georgiadis
 
-## <a id="2-3-0">2.3.0</a>: 2012-08-28
+## 2.3.0: 2012-08-28 {#version-2-3-0}
 
 Various improvements, changes and fixes release.
 
@@ -502,7 +502,7 @@ Various improvements, changes and fixes release.
   * Eddie Lau
   * Yves-Eric Martin
 
-## <a id="2-2-0">2.2.0</a>: 2012-03-11
+## 2.2.0: 2012-03-11 {#version-2-2-0}
 
 Ruby 1.9 support release.
 
