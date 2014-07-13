@@ -311,7 +311,7 @@ module GetText
         if @pot_creator
           @pot_creator.call(pot_file_path)
         else
-          xettext(pot_file_path)
+          xgettext(pot_file_path)
         end
       end
 
