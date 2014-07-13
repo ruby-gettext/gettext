@@ -1,5 +1,24 @@
 # News
 
+## 3.1.3: 2014-07-13 {#version-3-1-3}
+
+### Improvements
+
+  * Supported `Pathname` in `$LOAD_PATH`.
+    [GitHub#32] [Patch by Ben Carlsson]
+  * `GetText::Tools::Task`: Added `msgcat_options` to custom `rmsgcat`
+    command line.
+  * `GetText::Tools::Task`: Migrated to `.edit.po` style.
+  * `GetText::Tools::Task`: Added `pot_creator` to custom POT creation.
+  * `rmsgcat`: Added `--no-translator-comment` option.
+  * `rmsgcat`: Added `--no-extracted-comment` option.
+  * `rmsgcat`: Added `--no-flag-comment` option.
+  * `rmsgcat`: Added `--no-previous-comment` option.
+
+### Thanks
+
+  * Ben Carlsson
+
 ## 3.1.2: 2014-04-24 {#version-3-1-2}
 
 ### Improvements
