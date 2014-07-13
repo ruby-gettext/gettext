@@ -15,6 +15,10 @@
   * `rmsgcat`: Added `--no-flag-comment` option.
   * `rmsgcat`: Added `--no-previous-comment` option.
 
+### Fixes
+
+  * `rmsgmerge`: Fixed a bug that metadata in fuzzy message aren't merged.
+
 ### Thanks
 
   * Ben Carlsson
