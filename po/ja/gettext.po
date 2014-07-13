@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 2.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2014-02-23 22:33+0900\n"
+"PO-Revision-Date: 2014-07-13 19:11+0900\n"
 "Last-Translator: Haruka Yoshihara <yoshihara@clear-code.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -55,21 +55,17 @@ msgstr "--sort-by-msgidと同じ"
 msgid "Remove location information"
 msgstr "位置情報を削除"
 
-#, fuzzy
 msgid "Remove translator comment"
-msgstr "すべてのコメントを削除"
+msgstr "翻訳者のコメントを削除"
 
-#, fuzzy
 msgid "Remove extracted comment"
-msgstr "すべてのコメントを削除"
+msgstr "抽出したコメントを削除"
 
-#, fuzzy
 msgid "Remove flag comment"
-msgstr "すべてのコメントを削除"
+msgstr "フラグコメントを削除"
 
-#, fuzzy
 msgid "Remove previous comment"
-msgstr "すべてのコメントを削除"
+msgstr "以前のmsgidを示すコメントを削除"
 
 msgid "Remove all comments"
 msgstr "すべてのコメントを削除"
@@ -136,9 +132,8 @@ msgid ""
 " locale on your environment."
 msgstr "LOCALEとして指定された値をターゲットのロケールとして扱います。ロケールが指定されていない場合は、ユーザの現在のロケールを使用します。"
 
-#, fuzzy
 msgid "Whether set translator information or not"
-msgstr "翻訳者情報を設定しません。"
+msgstr "翻訳者情報を設定するかどうか。"
 
 msgid "(set)"
 msgstr ""
