@@ -1,4 +1,7 @@
-= gettext - gettext for Ruby
+# gettext - gettext for Ruby
+
+HELP US: Please fix markup of this file. This file's markup is
+migrated from RDoc format. But some RDoc markups still exist.
 
 NOTE: Gettext gem 3.0.0 removed many deprecated APIs and improves
 internal APIs. We want to keep backward compatibility as much as
@@ -27,11 +30,13 @@ localized message files(message catalogs).
 ((*Rails*))
 Rails support has been removed.
 
-== Website
-* homepage[http://ruby-gettext.github.io/]
-* on github[http://github.com/ruby-gettext/gettext]
+## Website
 
-== Features
+* [Homepage](http://ruby-gettext.github.io/)
+* on [GitHub](http://github.com/ruby-gettext/gettext)
+
+## Features
+
 * Translate singular/plural messages with simple APIs(similar to GNU gettext)
 
 * Thread safety. Message resources are shared from all threads, but
@@ -58,16 +63,18 @@ Rails support has been removed.
   * Locale is retrieved from client informations using Ruby-Locale.
     (HTTP_ACCEPT_LANGUAGE, HTTP_ACCEPT_CHARSET, QUERY_STRING(lang), Cookies(lang)).
 
-== Requirements
-* {Ruby 1.9.3 or later}[http://www.ruby-lang.org]
-* {RubyGems}[http://www.rubygems.org/]
-* {locale gem}[http://ruby-gettext.github.io/]
+## Requirements
+
+* [Ruby 1.9.3 or later](http://www.ruby-lang.org)
+* [RubyGems](http://www.rubygems.org/)
+* [locale gem](http://ruby-gettext.github.io/)
   * $ gem install locale
 * (for development only)
-  * {Racc-1.4.3 or later}[http://rubygems.org/gems/racc]
+  * [Racc-1.4.3 or later](http://rubygems.org/gems/racc)
     * (for compiling src/rmsgfmt.ry only)
 
-== Install
+## Install
+
 * Uninstall old gettext if exists. (You need to do this when updating 1.93.0 -> 2.0.1)
     (sudo/su on POSIX system)
     gem uninstall gettext
@@ -85,8 +92,9 @@ Rails support has been removed.
 You can also install files in your favorite directory by
 supplying setup.rb some options. Try <tt>ruby setup.rb --help</tt>.
 
-== Usage
-===Translation
+## Usage
+
+### Translation
 - _: Basic translation method
   Translates the message.
     _("Hello")
@@ -124,7 +132,8 @@ The gettext methods comes in 3 combinable flavors
     fruits = Nn_("Apple", "%{num} Apples")
     n_(fruits, 3)
 
-=== Bind textdomains to the classes.
+### Bind textdomains to the classes.
+
 A textdomain has a translation file in each language.
 A module/class can have multi textdomains. This means the
 libraries/applications can have their own textdomains.
@@ -140,7 +149,8 @@ libraries/applications can have their own textdomains.
    bindtextdomain "book"
  end
 
-=== Locale
+### Locale
+
 If you need to set the locale by yourself, then use:
   GetText.locale = "en_US" # translate into english from now on
   GetText.locale # => en_US
@@ -151,7 +161,8 @@ Or
 For more details and options, have a look at the samples folder or
 consult the tutorial[http://www.yotabanana.com/hiki/ruby-gettext-howto.html].
 
-== License
+## License
+
 This program is licenced under the same licence as Ruby(See doc/text/ruby-license.txt) or 
 LGPL(Lesser General Public License: doc/text/lgpl-3.0.txt or http://www.gnu.org/licenses/lgpl-3.0.txt).  
 
@@ -171,7 +182,8 @@ LGPL(Lesser General Public License: doc/text/lgpl-3.0.txt or http://www.gnu.org/
   * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
 
 
-== Translators
+## Translators
+
 * Bosnian(bs)                - Sanjin Sehic <saserr at gmail.com>
 * Bulgarian(bg)              - Sava Chankov <sava.chankov at gmail.com>
 * Catalan(ca)                - Ramon Salvadó <rsalvado at gnuine.com>
@@ -216,7 +228,8 @@ LGPL(Lesser General Public License: doc/text/lgpl-3.0.txt or http://www.gnu.org/
 * Ukrainian(uk)              - Alex Rootoff <rootoff at pisem.net>
 * Vietnamese(vi)             - Ngoc Dao Thanh <ngocdaothanh at gmail.com>
 
-== Status of translations
+## Status of translations
+
 * Bosnian(bs)               - 1.90.0 (old)
 * Bulgarian(bg)             - 2.0.1
 * Catalan(ca)               - 2.0.1
@@ -245,10 +258,10 @@ LGPL(Lesser General Public License: doc/text/lgpl-3.0.txt or http://www.gnu.org/
 * Ukrainian(uk)             - 2.0.1
 * Vietnamese(vi)            - 2.0.1
 
-== Maintainer
+## Maintainer
 
-* Kouhei Sutou <tt><kou@clear-code.com></tt>
+* Kouhei Sutou `<kou@clear-code.com>`
 
-=== Old maintainer
+### Old maintainer
 
-* Masao Mutoh <mutomasa at gmail.com>
+* Masao Mutoh `<mutomasa at gmail.com>`
