@@ -36,6 +36,10 @@ msgstr ""
 msgid "Specific options:"
 msgstr "Īpaši uzstādījumi:"
 
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "ierakstīt izvadi norādītajā datnē"
+
 msgid "(default: the standard output)"
 msgstr ""
 
@@ -134,10 +138,6 @@ msgstr ""
 msgid "Whether set translator information or not"
 msgstr ""
 
-#, fuzzy
-msgid "Display version and exit"
-msgstr "parādīt versiju un iziet"
-
 msgid "(set)"
 msgstr ""
 
@@ -151,14 +151,14 @@ msgid "Display this help and exit"
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' does not exist."
-msgstr "Datne '%s' jau eksistē."
+msgid "Display version and exit"
+msgstr "parādīt versiju un iziet"
 
 msgid ".pot file does not exist in the current directory."
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' has already existed."
+msgid "file '%s' does not exist."
 msgstr "Datne '%s' jau eksistē."
 
 msgid ""
@@ -166,10 +166,17 @@ msgid ""
 "s usable."
 msgstr ""
 
+#, fuzzy
+msgid "file '%s' has already existed."
+msgstr "Datne '%s' jau eksistē."
+
 msgid "Please enter your full name"
 msgstr ""
 
 msgid "Please enter your email address"
+msgstr ""
+
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
 #, fuzzy
@@ -183,17 +190,6 @@ msgstr ""
 "e ar tulkojumiem. Ref.pot datne ir pēdējā izveidotā PO datne ar atjauninātām i"
 "zejas faila atsaucēm. Ref.pot ir datni veido rgettext."
 
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "ierakstīt izvadi norādītajā datnē"
-
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
-
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "parādīt versiju un iziet"
-
 msgid "Update definition.po"
 msgstr ""
 
@@ -205,6 +201,10 @@ msgstr ""
 
 msgid "(enable)"
 msgstr ""
+
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "parādīt versiju un iziet"
 
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' nav glade-2.0 formātā."
@@ -221,16 +221,8 @@ msgstr "nav ievades datņu"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Lietošana: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#, fuzzy
-msgid "require the library before executing xgettext"
-msgstr "izmanto \"require bibliotēka\" pirms izsauc rgettext"
-
 msgid "Extract translatable strings from given input files."
 msgstr "Iegūt tulkojamos tekstus no norādītajām ievades datnēm."
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "parādīt versiju un iziet"
 
 msgid "set package name in output"
 msgstr ""
@@ -256,6 +248,10 @@ msgstr ""
 msgid "Sort output by file location"
 msgstr ""
 
+#, fuzzy
+msgid "require the library before executing xgettext"
+msgstr "izmanto \"require bibliotēka\" pirms izsauc rgettext"
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
@@ -274,6 +270,10 @@ msgstr ""
 
 msgid "run in debugging mode"
 msgstr "izpildīt atkļūdošanas veidā"
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "parādīt versiju un iziet"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"

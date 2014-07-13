@@ -36,6 +36,10 @@ msgstr ""
 msgid "Specific options:"
 msgstr "Tùy chọn cụ thể:"
 
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "ghi ra tập tin được chỉ định"
+
 msgid "(default: the standard output)"
 msgstr ""
 
@@ -134,10 +138,6 @@ msgstr ""
 msgid "Whether set translator information or not"
 msgstr ""
 
-#, fuzzy
-msgid "Display version and exit"
-msgstr "hiện thông tin về phiên bản rồi thoát"
-
 msgid "(set)"
 msgstr ""
 
@@ -151,14 +151,14 @@ msgid "Display this help and exit"
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' does not exist."
-msgstr "Tập tin '%s' đã tồn tại."
+msgid "Display version and exit"
+msgstr "hiện thông tin về phiên bản rồi thoát"
 
 msgid ".pot file does not exist in the current directory."
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' has already existed."
+msgid "file '%s' does not exist."
 msgstr "Tập tin '%s' đã tồn tại."
 
 msgid ""
@@ -166,10 +166,17 @@ msgid ""
 "s usable."
 msgstr ""
 
+#, fuzzy
+msgid "file '%s' has already existed."
+msgstr "Tập tin '%s' đã tồn tại."
+
 msgid "Please enter your full name"
 msgstr ""
 
 msgid "Please enter your email address"
+msgstr ""
+
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
 #, fuzzy
@@ -183,17 +190,6 @@ msgstr ""
 " chứa lời dịch. Tập tin ref.pot là tập tin PO được tạo ra lần trước có chứa th"
 "am chiếu mới nhất. ref.pot thường do rgettext tạo ra."
 
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "ghi ra tập tin được chỉ định"
-
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
-
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "hiện thông tin về phiên bản rồi thoát"
-
 msgid "Update definition.po"
 msgstr ""
 
@@ -205,6 +201,10 @@ msgstr ""
 
 msgid "(enable)"
 msgstr ""
+
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "hiện thông tin về phiên bản rồi thoát"
 
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' không có định dạng là glade-2.0."
@@ -221,16 +221,8 @@ msgstr "không có tập tin đầu vào"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Cách sử dụng: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#, fuzzy
-msgid "require the library before executing xgettext"
-msgstr "require thư viện trước khi chạy rgettext"
-
 msgid "Extract translatable strings from given input files."
 msgstr "Trích chuỗi cần dịch từ những tập tin đầu vào."
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "hiện thông tin về phiên bản rồi thoát"
 
 msgid "set package name in output"
 msgstr ""
@@ -256,6 +248,10 @@ msgstr ""
 msgid "Sort output by file location"
 msgstr ""
 
+#, fuzzy
+msgid "require the library before executing xgettext"
+msgstr "require thư viện trước khi chạy rgettext"
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
@@ -274,6 +270,10 @@ msgstr ""
 
 msgid "run in debugging mode"
 msgstr "chạy trong chế độ debug"
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "hiện thông tin về phiên bản rồi thoát"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"

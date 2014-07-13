@@ -35,6 +35,10 @@ msgstr ""
 msgid "Specific options:"
 msgstr "Opzioni:"
 
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "scrivi l'output sul file specificato"
+
 msgid "(default: the standard output)"
 msgstr ""
 
@@ -135,10 +139,6 @@ msgstr ""
 msgid "Whether set translator information or not"
 msgstr ""
 
-#, fuzzy
-msgid "Display version and exit"
-msgstr "mostra la versione ed esce"
-
 msgid "(set)"
 msgstr ""
 
@@ -152,14 +152,14 @@ msgid "Display this help and exit"
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' does not exist."
-msgstr "Il file '%s' è già esistente."
+msgid "Display version and exit"
+msgstr "mostra la versione ed esce"
 
 msgid ".pot file does not exist in the current directory."
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' has already existed."
+msgid "file '%s' does not exist."
 msgstr "Il file '%s' è già esistente."
 
 msgid ""
@@ -167,10 +167,17 @@ msgid ""
 "s usable."
 msgstr ""
 
+#, fuzzy
+msgid "file '%s' has already existed."
+msgstr "Il file '%s' è già esistente."
+
 msgid "Please enter your full name"
 msgstr ""
 
 msgid "Please enter your email address"
+msgstr ""
+
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
 #, fuzzy
@@ -184,17 +191,6 @@ msgstr ""
 "contenente le traduzioni. Il file ref.pot contiene i riferimenti aggiornati al"
 " sorgente e viene creato per ultimo (solitamente viene generato da rgettext)."
 
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "scrivi l'output sul file specificato"
-
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
-
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "mostra la versione ed esce"
-
 msgid "Update definition.po"
 msgstr ""
 
@@ -206,6 +202,10 @@ msgstr ""
 
 msgid "(enable)"
 msgstr ""
+
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "mostra la versione ed esce"
 
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' non è nel formato glade-2.0."
@@ -224,10 +224,6 @@ msgstr "Utilizzo: %s input.rb [-r parser.rb] [-o output.pot]"
 
 msgid "Extract translatable strings from given input files."
 msgstr "Estrae le stringhe traducibili dai file in input."
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "mostra la versione ed esce"
 
 msgid "set package name in output"
 msgstr ""
@@ -266,14 +262,18 @@ msgid ""
 "tput file"
 msgstr ""
 
-msgid "no TAG"
+msgid "(default: %s)"
 msgstr ""
 
-msgid "(default: %s)"
+msgid "no TAG"
 msgstr ""
 
 msgid "run in debugging mode"
 msgstr ""
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "mostra la versione ed esce"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"

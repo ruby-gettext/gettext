@@ -37,6 +37,10 @@ msgstr ""
 msgid "Specific options:"
 msgstr "Volby:"
 
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "zapsat výstup od určeného souboru"
+
 msgid "(default: the standard output)"
 msgstr ""
 
@@ -169,16 +173,8 @@ msgstr ""
 msgid "Please enter your email address"
 msgstr ""
 
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "zapsat výstup od určeného souboru"
-
 msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
-
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "zobrazit informaci o verzi a skončit"
 
 msgid ""
 "Merges two Uniforum style .po files together. The definition.po file is an exi"
@@ -203,6 +199,10 @@ msgstr ""
 msgid "(enable)"
 msgstr ""
 
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "zobrazit informaci o verzi a skončit"
+
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' není ve formátu glade-2.0."
 
@@ -218,16 +218,8 @@ msgstr "vstupní soubory nenalezeny"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Použití: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#, fuzzy
-msgid "require the library before executing xgettext"
-msgstr "před spuštěním rgettext je vyžadován require knihovny"
-
 msgid "Extract translatable strings from given input files."
 msgstr "Extrahuj přeložitelné texty ze zadaných vstupních souborů."
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "zobrazit informaci o verzi a skončit"
 
 msgid "set package name in output"
 msgstr ""
@@ -253,6 +245,10 @@ msgstr ""
 msgid "Sort output by file location"
 msgstr ""
 
+#, fuzzy
+msgid "require the library before executing xgettext"
+msgstr "před spuštěním rgettext je vyžadován require knihovny"
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
@@ -271,6 +267,10 @@ msgstr ""
 
 msgid "run in debugging mode"
 msgstr "běh v debug módu"
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "zobrazit informaci o verzi a skončit"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"

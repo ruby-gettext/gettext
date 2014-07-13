@@ -35,6 +35,10 @@ msgstr ""
 msgid "Specific options:"
 msgstr "특별한 옵션들:"
 
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "지정한 파일에 출력 내용을 저장합니다"
+
 msgid "(default: the standard output)"
 msgstr ""
 
@@ -133,10 +137,6 @@ msgstr ""
 msgid "Whether set translator information or not"
 msgstr ""
 
-#, fuzzy
-msgid "Display version and exit"
-msgstr "버전 정보를 표시하고 빠져나갑니다"
-
 msgid "(set)"
 msgstr ""
 
@@ -150,14 +150,14 @@ msgid "Display this help and exit"
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' does not exist."
-msgstr "'%s' 파일이 이미 존재합니다."
+msgid "Display version and exit"
+msgstr "버전 정보를 표시하고 빠져나갑니다"
 
 msgid ".pot file does not exist in the current directory."
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' has already existed."
+msgid "file '%s' does not exist."
 msgstr "'%s' 파일이 이미 존재합니다."
 
 msgid ""
@@ -165,10 +165,17 @@ msgid ""
 "s usable."
 msgstr ""
 
+#, fuzzy
+msgid "file '%s' has already existed."
+msgstr "'%s' 파일이 이미 존재합니다."
+
 msgid "Please enter your full name"
 msgstr ""
 
 msgid "Please enter your email address"
+msgstr ""
+
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
 #, fuzzy
@@ -181,17 +188,6 @@ msgstr ""
 "2개의 유니포럼 스타일의 .po 파일들을 서로 병합합니다. def.po 파일은 번역을 가진 PO 파일입니다. ref.pot 파일은 최신 소스"
 "를 참조하는 가장 최근에 생성된 PO 파일입니다. ref.pot는 일반적으로 rgettext에 의해 생성됩니다."
 
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "지정한 파일에 출력 내용을 저장합니다"
-
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
-
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "버전 정보를 표시하고 빠져나갑니다"
-
 msgid "Update definition.po"
 msgstr ""
 
@@ -203,6 +199,10 @@ msgstr ""
 
 msgid "(enable)"
 msgstr ""
+
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "버전 정보를 표시하고 빠져나갑니다"
 
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}'이(가) glade-2.0 형식에 맞지 않습니다."
@@ -219,16 +219,8 @@ msgstr "입력 파일이 없습니다"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "사용법: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#, fuzzy
-msgid "require the library before executing xgettext"
-msgstr "rgettext를 실행하려면 라이브러리가 필요합니다"
-
 msgid "Extract translatable strings from given input files."
 msgstr "주어진 입력 파일들로부터 번역할 수 있는 문자열을 추출합니다."
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "버전 정보를 표시하고 빠져나갑니다"
 
 msgid "set package name in output"
 msgstr ""
@@ -254,6 +246,10 @@ msgstr ""
 msgid "Sort output by file location"
 msgstr ""
 
+#, fuzzy
+msgid "require the library before executing xgettext"
+msgstr "rgettext를 실행하려면 라이브러리가 필요합니다"
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
@@ -272,6 +268,10 @@ msgstr ""
 
 msgid "run in debugging mode"
 msgstr "디버깅 모드에서 실행합니다"
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "버전 정보를 표시하고 빠져나갑니다"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"

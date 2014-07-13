@@ -35,6 +35,10 @@ msgstr ""
 msgid "Specific options:"
 msgstr "Specifieke opties:"
 
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "schrijf uitvoer naar opgegeven bestand"
+
 msgid "(default: the standard output)"
 msgstr ""
 
@@ -133,10 +137,6 @@ msgstr ""
 msgid "Whether set translator information or not"
 msgstr ""
 
-#, fuzzy
-msgid "Display version and exit"
-msgstr "toon versie-informatie en stop"
-
 msgid "(set)"
 msgstr ""
 
@@ -150,14 +150,14 @@ msgid "Display this help and exit"
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' does not exist."
-msgstr "Bestand '%s' bestond al."
+msgid "Display version and exit"
+msgstr "toon versie-informatie en stop"
 
 msgid ".pot file does not exist in the current directory."
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' has already existed."
+msgid "file '%s' does not exist."
 msgstr "Bestand '%s' bestond al."
 
 msgid ""
@@ -165,10 +165,17 @@ msgid ""
 "s usable."
 msgstr ""
 
+#, fuzzy
+msgid "file '%s' has already existed."
+msgstr "Bestand '%s' bestond al."
+
 msgid "Please enter your full name"
 msgstr ""
 
 msgid "Please enter your email address"
+msgstr ""
+
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
 #, fuzzy
@@ -183,17 +190,6 @@ msgstr ""
 "estand met actuele bronverwijzingen. ref.pot wordt over het algemeen aangemaak"
 "t door rgettext."
 
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "schrijf uitvoer naar opgegeven bestand"
-
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
-
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "toon versie-informatie en stop"
-
 msgid "Update definition.po"
 msgstr ""
 
@@ -205,6 +201,10 @@ msgstr ""
 
 msgid "(enable)"
 msgstr ""
+
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "toon versie-informatie en stop"
 
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' is niet in glade-2.0 formaat."
@@ -221,16 +221,8 @@ msgstr "geen invoerbestanden"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Gebruik: %s invoer.rb [-r parser.rb] [-o uitvoer.pot]"
 
-#, fuzzy
-msgid "require the library before executing xgettext"
-msgstr "vereis de bibliotheek voordat rgettext uitgevoerd wordt"
-
 msgid "Extract translatable strings from given input files."
 msgstr "Haalt vertaalbare strings uit gegeven invoerbestanden."
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "toon versie-informatie en stop"
 
 msgid "set package name in output"
 msgstr ""
@@ -256,6 +248,10 @@ msgstr ""
 msgid "Sort output by file location"
 msgstr ""
 
+#, fuzzy
+msgid "require the library before executing xgettext"
+msgstr "vereis de bibliotheek voordat rgettext uitgevoerd wordt"
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
@@ -274,6 +270,10 @@ msgstr ""
 
 msgid "run in debugging mode"
 msgstr "draai in debug mode"
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "toon versie-informatie en stop"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"

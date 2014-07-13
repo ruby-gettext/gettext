@@ -174,10 +174,6 @@ msgstr ""
 msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "prikaži informaciju o verziji i završi"
-
 msgid ""
 "Merges two Uniforum style .po files together. The definition.po file is an exi"
 "sting PO file with translations. The reference.pot file is the last created PO"
@@ -201,6 +197,10 @@ msgstr ""
 msgid "(enable)"
 msgstr ""
 
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "prikaži informaciju o verziji i završi"
+
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "'%{file}' nije glade-2.0 format."
 
@@ -216,16 +216,8 @@ msgstr "nema ulaznih datoteka"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Korištenje: %s ulaz.rb [-r parser.rb] [-o izlaz.pot]"
 
-#, fuzzy
-msgid "require the library before executing xgettext"
-msgstr "zahtjevaj biblioteku prije izvršavanja rgettext-a"
-
 msgid "Extract translatable strings from given input files."
 msgstr "Izvadi niske za prevođenje iz date ulazne datoteke."
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "prikaži informaciju o verziji i završi"
 
 msgid "set package name in output"
 msgstr ""
@@ -251,6 +243,10 @@ msgstr ""
 msgid "Sort output by file location"
 msgstr ""
 
+#, fuzzy
+msgid "require the library before executing xgettext"
+msgstr "zahtjevaj biblioteku prije izvršavanja rgettext-a"
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
@@ -269,6 +265,10 @@ msgstr ""
 
 msgid "run in debugging mode"
 msgstr "pokreni u modu za nalaženje grešaka"
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "prikaži informaciju o verziji i završi"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"

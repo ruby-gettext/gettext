@@ -37,6 +37,10 @@ msgstr ""
 msgid "Specific options:"
 msgstr "Specifaj opcioj:"
 
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "skribos la produkton en la indikitan dosieron"
+
 msgid "(default: the standard output)"
 msgstr ""
 
@@ -135,10 +139,6 @@ msgstr ""
 msgid "Whether set translator information or not"
 msgstr ""
 
-#, fuzzy
-msgid "Display version and exit"
-msgstr "montros versi-informon"
-
 msgid "(set)"
 msgstr ""
 
@@ -152,14 +152,14 @@ msgid "Display this help and exit"
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' does not exist."
-msgstr "Dosiero '%s' jam ekzistas."
+msgid "Display version and exit"
+msgstr "montros versi-informon"
 
 msgid ".pot file does not exist in the current directory."
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' has already existed."
+msgid "file '%s' does not exist."
 msgstr "Dosiero '%s' jam ekzistas."
 
 msgid ""
@@ -167,10 +167,17 @@ msgid ""
 "s usable."
 msgstr ""
 
+#, fuzzy
+msgid "file '%s' has already existed."
+msgstr "Dosiero '%s' jam ekzistas."
+
 msgid "Please enter your full name"
 msgstr ""
 
 msgid "Please enter your email address"
+msgstr ""
+
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
 #, fuzzy
@@ -183,17 +190,6 @@ msgstr ""
 "Kunfandos du po-dosierojn `Uniforum'-formatitajn. def.po jam enhavu tradukojn;"
 " ref.pot estu aktuale kreita el la fontkodo per rgettext."
 
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "skribos la produkton en la indikitan dosieron"
-
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
-
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "montros versi-informon"
-
 msgid "Update definition.po"
 msgstr ""
 
@@ -205,6 +201,10 @@ msgstr ""
 
 msgid "(enable)"
 msgstr ""
+
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "montros versi-informon"
 
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' ne konformas al la formato de glade-2.0."
@@ -221,17 +221,8 @@ msgstr "neniu dosiero donita"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Uzmaniero: %s en.rb [ -r analiz.rb ] [ -o el.pot ]"
 
-# TODO: This translation looks somehow unrelated... What did I do that day?
-#, fuzzy
-msgid "require the library before executing xgettext"
-msgstr "uzos indikitan opcianalizilon"
-
 msgid "Extract translatable strings from given input files."
 msgstr "Arigos tradukeblajn frazojn el donitaj dosieroj."
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "montros versi-informon"
 
 msgid "set package name in output"
 msgstr ""
@@ -257,6 +248,11 @@ msgstr ""
 msgid "Sort output by file location"
 msgstr ""
 
+# TODO: This translation looks somehow unrelated... What did I do that day?
+#, fuzzy
+msgid "require the library before executing xgettext"
+msgstr "uzos indikitan opcianalizilon"
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
@@ -275,6 +271,10 @@ msgstr ""
 
 msgid "run in debugging mode"
 msgstr "sencimiga modo"
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "montros versi-informon"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"

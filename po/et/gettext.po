@@ -36,6 +36,10 @@ msgstr ""
 msgid "Specific options:"
 msgstr "Seaded:"
 
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "kirjuta väljund antud faili"
+
 msgid "(default: the standard output)"
 msgstr ""
 
@@ -134,10 +138,6 @@ msgstr ""
 msgid "Whether set translator information or not"
 msgstr ""
 
-#, fuzzy
-msgid "Display version and exit"
-msgstr "esita versiooni info ja välju"
-
 msgid "(set)"
 msgstr ""
 
@@ -151,14 +151,14 @@ msgid "Display this help and exit"
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' does not exist."
-msgstr "Fail '%s' on juba olemas."
+msgid "Display version and exit"
+msgstr "esita versiooni info ja välju"
 
 msgid ".pot file does not exist in the current directory."
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' has already existed."
+msgid "file '%s' does not exist."
 msgstr "Fail '%s' on juba olemas."
 
 msgid ""
@@ -166,10 +166,17 @@ msgid ""
 "s usable."
 msgstr ""
 
+#, fuzzy
+msgid "file '%s' has already existed."
+msgstr "Fail '%s' on juba olemas."
+
 msgid "Please enter your full name"
 msgstr ""
 
 msgid "Please enter your email address"
+msgstr ""
+
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
 #, fuzzy
@@ -183,17 +190,6 @@ msgstr ""
 "ref.pot on fail viimaste uuendatud tõlgetega.ref.pot on üldjuhul loodud rgette"
 "xt poolt."
 
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "kirjuta väljund antud faili"
-
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
-
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "esita versiooni info ja välju"
-
 msgid "Update definition.po"
 msgstr ""
 
@@ -205,6 +201,10 @@ msgstr ""
 
 msgid "(enable)"
 msgstr ""
+
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "esita versiooni info ja välju"
 
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' ei ole glade-2.0 formaadis."
@@ -221,16 +221,8 @@ msgstr "sisendfailid puuduvad"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Kasutus: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#, fuzzy
-msgid "require the library before executing xgettext"
-msgstr "lae moodul enne rgettext jooksutamist"
-
 msgid "Extract translatable strings from given input files."
 msgstr "Eraldab sisendfailidest tõlgitavad osad."
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "esita versiooni info ja välju"
 
 msgid "set package name in output"
 msgstr ""
@@ -256,6 +248,10 @@ msgstr ""
 msgid "Sort output by file location"
 msgstr ""
 
+#, fuzzy
+msgid "require the library before executing xgettext"
+msgstr "lae moodul enne rgettext jooksutamist"
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
@@ -274,6 +270,10 @@ msgstr ""
 
 msgid "run in debugging mode"
 msgstr "silumisrežiimis töötamine"
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "esita versiooni info ja välju"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"

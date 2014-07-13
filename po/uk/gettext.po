@@ -40,6 +40,10 @@ msgstr ""
 msgid "Specific options:"
 msgstr "Додаткові параметри:"
 
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "записати результат у вказаний файл"
+
 msgid "(default: the standard output)"
 msgstr ""
 
@@ -138,10 +142,6 @@ msgstr ""
 msgid "Whether set translator information or not"
 msgstr ""
 
-#, fuzzy
-msgid "Display version and exit"
-msgstr "показати інформацію про версію і завершити роботу"
-
 msgid "(set)"
 msgstr ""
 
@@ -155,14 +155,14 @@ msgid "Display this help and exit"
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' does not exist."
-msgstr "Файл '%s' уже існує."
+msgid "Display version and exit"
+msgstr "показати інформацію про версію і завершити роботу"
 
 msgid ".pot file does not exist in the current directory."
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' has already existed."
+msgid "file '%s' does not exist."
 msgstr "Файл '%s' уже існує."
 
 msgid ""
@@ -170,10 +170,17 @@ msgid ""
 "s usable."
 msgstr ""
 
+#, fuzzy
+msgid "file '%s' has already existed."
+msgstr "Файл '%s' уже існує."
+
 msgid "Please enter your full name"
 msgstr ""
 
 msgid "Please enter your email address"
+msgstr ""
+
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
 #, fuzzy
@@ -188,17 +195,6 @@ msgstr ""
 " містить перекладів. ref.pot зазвичай створюють за допомогою програми rgettext"
 "."
 
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "записати результат у вказаний файл"
-
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
-
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "показати інформацію про версію і завершити роботу"
-
 msgid "Update definition.po"
 msgstr ""
 
@@ -210,6 +206,10 @@ msgstr ""
 
 msgid "(enable)"
 msgstr ""
+
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "показати інформацію про версію і завершити роботу"
 
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' не в форматі glade-2.0."
@@ -226,16 +226,8 @@ msgstr "не задані вхідні файли"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Використання: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#, fuzzy
-msgid "require the library before executing xgettext"
-msgstr "для виконання rgettext необхідна бібліотека"
-
 msgid "Extract translatable strings from given input files."
 msgstr "Витягувати стрічки для перекладу із вказаних вхідних файлів."
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "показати інформацію про версію і завершити роботу"
 
 msgid "set package name in output"
 msgstr ""
@@ -261,6 +253,10 @@ msgstr ""
 msgid "Sort output by file location"
 msgstr ""
 
+#, fuzzy
+msgid "require the library before executing xgettext"
+msgstr "для виконання rgettext необхідна бібліотека"
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
@@ -279,6 +275,10 @@ msgstr ""
 
 msgid "run in debugging mode"
 msgstr "запуск в режимі відлагодження"
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "показати інформацію про версію і завершити роботу"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"

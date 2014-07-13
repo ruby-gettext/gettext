@@ -37,6 +37,10 @@ msgstr ""
 msgid "Specific options:"
 msgstr "Options spécifiques:"
 
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "écrit la sortie dans le fichier spécifié"
+
 msgid "(default: the standard output)"
 msgstr ""
 
@@ -137,10 +141,6 @@ msgstr ""
 msgid "Whether set translator information or not"
 msgstr ""
 
-#, fuzzy
-msgid "Display version and exit"
-msgstr "affiche la version du programme et sort"
-
 msgid "(set)"
 msgstr ""
 
@@ -154,14 +154,14 @@ msgid "Display this help and exit"
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' does not exist."
-msgstr "Le fichier '%s' existe déjà."
+msgid "Display version and exit"
+msgstr "affiche la version du programme et sort"
 
 msgid ".pot file does not exist in the current directory."
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' has already existed."
+msgid "file '%s' does not exist."
 msgstr "Le fichier '%s' existe déjà."
 
 msgid ""
@@ -169,10 +169,17 @@ msgid ""
 "s usable."
 msgstr ""
 
+#, fuzzy
+msgid "file '%s' has already existed."
+msgstr "Le fichier '%s' existe déjà."
+
 msgid "Please enter your full name"
 msgstr ""
 
 msgid "Please enter your email address"
+msgstr ""
+
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
 #, fuzzy
@@ -187,17 +194,6 @@ msgstr ""
 "tion créé avec les sources mise-à-jour.  ref.pot est en général généré par rge"
 "ttext."
 
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "écrit la sortie dans le fichier spécifié"
-
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
-
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "affiche la version du programme et sort"
-
 msgid "Update definition.po"
 msgstr ""
 
@@ -209,6 +205,10 @@ msgstr ""
 
 msgid "(enable)"
 msgstr ""
+
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "affiche la version du programme et sort"
 
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' n'est pas au format glade-2.0."
@@ -225,16 +225,8 @@ msgstr "pas de fichiers d'entrée"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#, fuzzy
-msgid "require the library before executing xgettext"
-msgstr "requérir (require) la librairie avant d'exécuter rgettext"
-
 msgid "Extract translatable strings from given input files."
 msgstr "Extrait les chaînes localisables des fichiers spécifiés en entrée."
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "affiche la version du programme et sort"
 
 msgid "set package name in output"
 msgstr ""
@@ -260,6 +252,10 @@ msgstr ""
 msgid "Sort output by file location"
 msgstr ""
 
+#, fuzzy
+msgid "require the library before executing xgettext"
+msgstr "requérir (require) la librairie avant d'exécuter rgettext"
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
@@ -278,6 +274,10 @@ msgstr ""
 
 msgid "run in debugging mode"
 msgstr "exécuter en mode de deboggage"
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "affiche la version du programme et sort"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"

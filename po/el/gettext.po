@@ -35,6 +35,10 @@ msgstr ""
 msgid "Specific options:"
 msgstr "Ειδικές παράμετροι:"
 
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "εγγραφή στο καθορισμένο αρχείο"
+
 msgid "(default: the standard output)"
 msgstr ""
 
@@ -133,10 +137,6 @@ msgstr ""
 msgid "Whether set translator information or not"
 msgstr ""
 
-#, fuzzy
-msgid "Display version and exit"
-msgstr "πληροφορίες έκδοσης και έξοδος"
-
 msgid "(set)"
 msgstr ""
 
@@ -150,14 +150,14 @@ msgid "Display this help and exit"
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' does not exist."
-msgstr "Το αρχείο '%s' προϋπάρχει."
+msgid "Display version and exit"
+msgstr "πληροφορίες έκδοσης και έξοδος"
 
 msgid ".pot file does not exist in the current directory."
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' has already existed."
+msgid "file '%s' does not exist."
 msgstr "Το αρχείο '%s' προϋπάρχει."
 
 msgid ""
@@ -165,10 +165,17 @@ msgid ""
 "s usable."
 msgstr ""
 
+#, fuzzy
+msgid "file '%s' has already existed."
+msgstr "Το αρχείο '%s' προϋπάρχει."
+
 msgid "Please enter your full name"
 msgstr ""
 
 msgid "Please enter your email address"
+msgstr ""
+
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
 #, fuzzy
@@ -183,17 +190,6 @@ msgstr ""
 "υ κατασκευάστηκε και έχει ενημερωμένες αναφορές κώδικα. Το ref.pot κατασκευάζε"
 "ται γενικά από το rgettext"
 
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "εγγραφή στο καθορισμένο αρχείο"
-
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
-
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "πληροφορίες έκδοσης και έξοδος"
-
 msgid "Update definition.po"
 msgstr ""
 
@@ -205,6 +201,10 @@ msgstr ""
 
 msgid "(enable)"
 msgstr ""
+
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "πληροφορίες έκδοσης και έξοδος"
 
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "το `%{file}' δεν είναι σε μορφή glade-2.0."
@@ -221,16 +221,8 @@ msgstr "που είναι τα αρχεία εισόδου ρε;"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "Χρήση: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#, fuzzy
-msgid "require the library before executing xgettext"
-msgstr "Κάντε χρήση της βιβλιοθήκης (require) πριν από την εκτέλεση του rgettext"
-
 msgid "Extract translatable strings from given input files."
 msgstr "Εξαγωγή μεταφράσεων από αρχεία εισόδου."
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "πληροφορίες έκδοσης και έξοδος"
 
 msgid "set package name in output"
 msgstr ""
@@ -256,6 +248,10 @@ msgstr ""
 msgid "Sort output by file location"
 msgstr ""
 
+#, fuzzy
+msgid "require the library before executing xgettext"
+msgstr "Κάντε χρήση της βιβλιοθήκης (require) πριν από την εκτέλεση του rgettext"
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
@@ -274,6 +270,10 @@ msgstr ""
 
 msgid "run in debugging mode"
 msgstr "εκτέλεση σε debugging mode"
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "πληροφορίες έκδοσης και έξοδος"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"

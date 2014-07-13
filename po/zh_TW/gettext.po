@@ -38,6 +38,10 @@ msgstr ""
 msgid "Specific options:"
 msgstr "特殊選項:"
 
+#, fuzzy
+msgid "Write output to specified file"
+msgstr "輸出到指定檔案"
+
 msgid "(default: the standard output)"
 msgstr ""
 
@@ -136,10 +140,6 @@ msgstr ""
 msgid "Whether set translator information or not"
 msgstr ""
 
-#, fuzzy
-msgid "Display version and exit"
-msgstr "秀出版本資訊後退出"
-
 msgid "(set)"
 msgstr ""
 
@@ -153,14 +153,14 @@ msgid "Display this help and exit"
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' does not exist."
-msgstr "檔案 '%s' 已經存在"
+msgid "Display version and exit"
+msgstr "秀出版本資訊後退出"
 
 msgid ".pot file does not exist in the current directory."
 msgstr ""
 
 #, fuzzy
-msgid "file '%s' has already existed."
+msgid "file '%s' does not exist."
 msgstr "檔案 '%s' 已經存在"
 
 msgid ""
@@ -168,10 +168,17 @@ msgid ""
 "s usable."
 msgstr ""
 
+#, fuzzy
+msgid "file '%s' has already existed."
+msgstr "檔案 '%s' 已經存在"
+
 msgid "Please enter your full name"
 msgstr ""
 
 msgid "Please enter your email address"
+msgstr ""
+
+msgid "Usage: %s [OPTIONS] definition.po reference.pot"
 msgstr ""
 
 #, fuzzy
@@ -184,17 +191,6 @@ msgstr ""
 "合併兩同樣形式的 po 檔， def.po 檔是原來有翻譯的檔案，ref.pot 檔是經過原始碼更新過的新檔，ref.pot 一般是由rgettext 建立"
 "。"
 
-#, fuzzy
-msgid "Write output to specified file"
-msgstr "輸出到指定檔案"
-
-msgid "Usage: %s [OPTIONS] definition.po reference.pot"
-msgstr ""
-
-#, fuzzy
-msgid "Display version information and exit"
-msgstr "秀出版本資訊後退出"
-
 msgid "Update definition.po"
 msgstr ""
 
@@ -206,6 +202,10 @@ msgstr ""
 
 msgid "(enable)"
 msgstr ""
+
+#, fuzzy
+msgid "Display version information and exit"
+msgstr "秀出版本資訊後退出"
 
 msgid "`%{file}' is not glade-2.0 format."
 msgstr "`%{file}' 不是 glade-2.0 格式"
@@ -222,16 +222,8 @@ msgstr "無輸入檔"
 msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
 msgstr "使用: %s input.rb [-r parser.rb] [-o output.pot]"
 
-#, fuzzy
-msgid "require the library before executing xgettext"
-msgstr "在執行 rgettext 之前需要一個庫"
-
 msgid "Extract translatable strings from given input files."
 msgstr "從輸入檔中取出翻譯字串"
-
-#, fuzzy
-msgid "display this help and exit"
-msgstr "秀出版本資訊後退出"
 
 msgid "set package name in output"
 msgstr ""
@@ -257,6 +249,10 @@ msgstr ""
 msgid "Sort output by file location"
 msgstr ""
 
+#, fuzzy
+msgid "require the library before executing xgettext"
+msgstr "在執行 rgettext 之前需要一個庫"
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"
@@ -275,6 +271,10 @@ msgstr ""
 
 msgid "run in debugging mode"
 msgstr "執行除錯模式"
+
+#, fuzzy
+msgid "display this help and exit"
+msgstr "秀出版本資訊後退出"
 
 msgid ""
 "Warning: The empty \"\" msgid is reserved by gettext. So gettext(\"\") doesn't ret"
