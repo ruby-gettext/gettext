@@ -27,7 +27,7 @@ variable or CGI variable).
 The tools for developers support creating, useing, and modifying
 localized message files(message catalogs).
 
-((*Rails*))
+((**Rails**))
 Rails support has been removed.
 
 ## Website
@@ -76,61 +76,76 @@ Rails support has been removed.
 ## Install
 
 * Uninstall old gettext if exists. (You need to do this when updating 1.93.0 -> 2.0.1)
-    (sudo/su on POSIX system)
-    gem uninstall gettext
+
+        (sudo/su on POSIX system)
+        gem uninstall gettext
 
 * gem
-    #from rubyforge
-    (sudo/su on POSIX system)
-    gem install gettext
+
+        #from rubyforge
+        (sudo/su on POSIX system)
+        gem install gettext
 
 * download tar-ball
-    # De-Compress archive and enter its top directory.
-    (sudo/su on POSIX system)
-    ruby setup.rb
+
+        # De-Compress archive and enter its top directory.
+        (sudo/su on POSIX system)
+        ruby setup.rb
 
 You can also install files in your favorite directory by
-supplying setup.rb some options. Try <tt>ruby setup.rb --help</tt>.
+supplying setup.rb some options. Try `ruby setup.rb --help`.
 
 ## Usage
 
 ### Translation
+
 - _: Basic translation method
-  Translates the message.
-    _("Hello")
+
+    Translates the message.
+
+        _("Hello")
 
 The gettext methods comes in 3 combinable flavors
+
 - n: Pluralized
-  Returns singular or plural form, depending on how many you have.
-    n_("Apple", "%{num} Apples", 3)
-    n_(["Apple", "%{num} Apples"], 3)
+
+    Returns singular or plural form, depending on how many you have.
+
+        n_("Apple", "%{num} Apples", 3)
+        n_(["Apple", "%{num} Apples"], 3)
 
 - p: context aware
-  A context is a prefix to your translation, usefull when one word has different meanings, depending on its context.
-    p_("Printer","Open") <=> p_("File","Open")
-    is the same as s_("Printer|Open")  <=> s_("File|Open")
+
+    A context is a prefix to your translation, usefull when one word has different meanings, depending on its context.
+
+        p_("Printer","Open") <=> p_("File","Open")
+        is the same as s_("Printer|Open")  <=> s_("File|Open")
 
 - s: without context
-  If a translation could not be found, return the msgid without context.
-    s_("Printer|Open") => "Öffnen" #translation found
-    s_("Printer|Open") => "Open"   #translation not found
+
+    If a translation could not be found, return the msgid without context.
+
+        s_("Printer|Open") => "Öffnen" #translation found
+        s_("Printer|Open") => "Open"   #translation not found
 
 - combinations
-    np_("Fruit", "Apple", "%{num} Apples", 3)
-    ns_("Fruit|Apple","%{num} Apples", 3)
 
-    np_(["Fruit","Apple","%{num} Apples"], 3)
-    ns_(["Fruit|Apple","%{num} Apples"], 3)
+        np_("Fruit", "Apple", "%{num} Apples", 3)
+        ns_("Fruit|Apple","%{num} Apples", 3)
+
+        np_(["Fruit","Apple","%{num} Apples"], 3)
+        ns_(["Fruit|Apple","%{num} Apples"], 3)
 
 - N_, Nn_: Makes dynamic translation messages readable for the gettext parser.
-  <tt>_(fruit)</tt> cannot be understood by the gettext parser. To help the parser find all your translations,
-  you can add <tt>fruit = N_("Apple")</tt> which does not translate, but tells the parser: "Apple" needs translation.
 
-    fruit = N_("Apple")   # same as fruit = "Apple"
-    _(fruit)              # does a normal translation
+    `_(fruit)` cannot be understood by the gettext parser. To help the parser find all your translations,
+    you can add `fruit = N_("Apple")` which does not translate, but tells the parser: "Apple" needs translation.
 
-    fruits = Nn_("Apple", "%{num} Apples")
-    n_(fruits, 3)
+        fruit = N_("Apple")   # same as fruit = "Apple"
+        _(fruit)              # does a normal translation
+
+        fruits = Nn_("Apple", "%{num} Apples")
+        n_(fruits, 3)
 
 ### Bind textdomains to the classes.
 
@@ -138,28 +153,31 @@ A textdomain has a translation file in each language.
 A module/class can have multi textdomains. This means the
 libraries/applications can have their own textdomains.
 
- class Foo
-   include GetText
-   bindtextdomain "your_app_domain_name"
- end
+    class Foo
+      include GetText
+      bindtextdomain "your_app_domain_name"
+    end
 
- class Book
-   include GetText
-   bindtextdomain "general"
-   bindtextdomain "book"
- end
+    class Book
+      include GetText
+      bindtextdomain "general"
+      bindtextdomain "book"
+    end
 
 ### Locale
 
 If you need to set the locale by yourself, then use:
-  GetText.locale = "en_US" # translate into english from now on
-  GetText.locale # => en_US
+
+    GetText.locale = "en_US" # translate into english from now on
+    GetText.locale # => en_US
+
 Or
-  include GetText
-  set_locale "en_US"
+
+    include GetText
+    set_locale "en_US"
 
 For more details and options, have a look at the samples folder or
-consult the tutorial[http://www.yotabanana.com/hiki/ruby-gettext-howto.html].
+consult the [tutorial](http://www.yotabanana.com/hiki/ruby-gettext-howto.html).
 
 ## License
 
@@ -167,66 +185,66 @@ This program is licenced under the same licence as Ruby(See doc/text/ruby-licens
 LGPL(Lesser General Public License: doc/text/lgpl-3.0.txt or http://www.gnu.org/licenses/lgpl-3.0.txt).  
 
 * mofile.rb
-  * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
-  * Copyright (C) 2001,2002 Masahiro Sakai <s01397ms at sfc.keio.ac.jp>
+  * Copyright (C) 2001-2009 Masao Mutoh `<mutoh at highwhay.ne.jp>`
+  * Copyright (C) 2001,2002 Masahiro Sakai `<s01397ms at sfc.keio.ac.jp>`
 
 * gettext.rb
-  * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
-  * Copyright (C) 2001,2002 Masahiro Sakai <s01397ms at sfc.keio.ac.jp>
+  * Copyright (C) 2001-2009 Masao Mutoh `<mutoh at highwhay.ne.jp>`
+  * Copyright (C) 2001,2002 Masahiro Sakai `<s01397ms at sfc.keio.ac.jp>`
 
 * rxgettext
-  * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
-  * Copyright (C) 2001,2002 Yasushi Shoji <yashi at atmark-techno.com>
+  * Copyright (C) 2001-2009 Masao Mutoh `<mutoh at highwhay.ne.jp>`
+  * Copyright (C) 2001,2002 Yasushi Shoji `<yashi at atmark-techno.com>`
 
 * Others
-  * Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
+  * Copyright (C) 2001-2009 Masao Mutoh `<mutoh at highwhay.ne.jp>`
 
 
 ## Translators
 
-* Bosnian(bs)                - Sanjin Sehic <saserr at gmail.com>
-* Bulgarian(bg)              - Sava Chankov <sava.chankov at gmail.com>
-* Catalan(ca)                - Ramon Salvadó <rsalvado at gnuine.com>
+* Bosnian(bs)                - Sanjin Sehic `<saserr at gmail.com>`
+* Bulgarian(bg)              - Sava Chankov `<sava.chankov at gmail.com>`
+* Catalan(ca)                - Ramon Salvadó `<rsalvado at gnuine.com>`
 * Chinese(Simplified)(zh_CN)
-  * Yang Bob <bob.yang.dev at gmail.com> (current)
-  * Yingfeng <blogyingfeng at gmail.com>
+  * Yang Bob `<bob.yang.dev at gmail.com>` (current)
+  * Yingfeng `<blogyingfeng at gmail.com>`
 * Chinese(Traditional)(zh_TW)
-  * Yang Bob <bob.yang.dev at gmail.com> (current)
-  * LIN CHUNG-YI <xmarsh at gmail.com>
-* Croatian(hr)               - Sanjin Sehic <saserr at gmail.com>
-* Czech(cs)                  - Karel Miarka <kajism at yahoo.com>
-* Dutch(nl)                  - Menno Jonkers <ruby-gettext at jonkers.com>
-* Esperanto(eo)              - Malte Milatz <malte at gmx-topmail.de>
-* Estonian(et)               - Erkki Eilonen <erkki at itech.ee>
+  * Yang Bob `<bob.yang.dev at gmail.com>` (current)
+  * LIN CHUNG-YI `<xmarsh at gmail.com>`
+* Croatian(hr)               - Sanjin Sehic `<saserr at gmail.com>`
+* Czech(cs)                  - Karel Miarka `<kajism at yahoo.com>`
+* Dutch(nl)                  - Menno Jonkers `<ruby-gettext at jonkers.com>`
+* Esperanto(eo)              - Malte Milatz `<malte at gmx-topmail.de>`
+* Estonian(et)               - Erkki Eilonen `<erkki at itech.ee>`
 * French(fr)
-  * Vincent Isambart <vincent.isambart at gmail.com> (current)
-  * David Sulc <davidsulc at gmail.com>
-  * Laurent Sansonetti <laurent.sansonetti at gmail.com>
+  * Vincent Isambart `<vincent.isambart at gmail.com>` (current)
+  * David Sulc `<davidsulc at gmail.com>`
+  * Laurent Sansonetti `<laurent.sansonetti at gmail.com>`
 * German(de)
-  * Patrick Lenz <patrick at limited-overload.de> (current)
-  * Detlef Reichl <detlef.reichl at gmx.org>
-  * Sven Herzberg <herzi at abi02.de>
-  * Sascha Ebach <se at digitale-wertschoepfung.de>
-* Greek(el)                  - Vassilis Rizopoulos <damphyr at gmx.net>
-* Hungarian(hu)              - Tamás Tompa <tompata at gmail.com>
+  * Patrick Lenz `<patrick at limited-overload.de>` (current)
+  * Detlef Reichl `<detlef.reichl at gmx.org>`
+  * Sven Herzberg `<herzi at abi02.de>`
+  * Sascha Ebach `<se at digitale-wertschoepfung.de>`
+* Greek(el)                  - Vassilis Rizopoulos `<damphyr at gmx.net>`
+* Hungarian(hu)              - Tamás Tompa `<tompata at gmail.com>`
 * Italian(it)
-  * Marco Lazzeri <marco.lazzeri at gmail.com>
-  * Gabriele Renzi <surrender_it at yahoo.it>
-* Japanese(ja)               - Masao Mutoh <mutomasa at gmail.com>
-* Korean(ko)                 - Gyoung-Yoon Noh <nohmad at gmail.com>
-* Latvian(lv)                - Aivars Akots <aivars.akots at gmail.com>
-* Norwegian(nb)              - Runar Ingebrigtsen <runar at mopo.no>
+  * Marco Lazzeri `<marco.lazzeri at gmail.com>`
+  * Gabriele Renzi `<surrender_it at yahoo.it>`
+* Japanese(ja)               - Masao Mutoh `<mutomasa at gmail.com>`
+* Korean(ko)                 - Gyoung-Yoon Noh `<nohmad at gmail.com>`
+* Latvian(lv)                - Aivars Akots `<aivars.akots at gmail.com>`
+* Norwegian(nb)              - Runar Ingebrigtsen `<runar at mopo.no>`
 * Portuguese(Brazil)(pt_BR)
-  * Antonio S. de A. Terceiro <terceiro at softwarelivre.org> (current)
-  * Joao Pedrosa <joaopedrosa at gmail.com>
-* Russian(ru)                - Yuri Kozlov <kozlov.y at gmail.com>
-* Serbian(sr)                - Slobodan Paunović" <slobodan.paunovic at gmail.com>
+  * Antonio S. de A. Terceiro `<terceiro at softwarelivre.org>` (current)
+  * Joao Pedrosa `<joaopedrosa at gmail.com>`
+* Russian(ru)                - Yuri Kozlov `<kozlov.y at gmail.com>`
+* Serbian(sr)                - Slobodan Paunović" `<slobodan.paunovic at gmail.com>`
 * Spanish(es)
-  * David Espada <davinci at escomposlinux.org> (current)
-  * David Moreno Garza <damog at damog.net>
-* Swedish(sv)                - Nikolai Weibull <mailing-lists.ruby-talk at rawuncut.elitemail.org>
-* Ukrainian(uk)              - Alex Rootoff <rootoff at pisem.net>
-* Vietnamese(vi)             - Ngoc Dao Thanh <ngocdaothanh at gmail.com>
+  * David Espada `<davinci at escomposlinux.org>` (current)
+  * David Moreno Garza `<damog at damog.net>`
+* Swedish(sv)                - Nikolai Weibull `<mailing-lists.ruby-talk at rawuncut.elitemail.org>`
+* Ukrainian(uk)              - Alex Rootoff `<rootoff at pisem.net>`
+* Vietnamese(vi)             - Ngoc Dao Thanh `<ngocdaothanh at gmail.com>`
 
 ## Status of translations
 
