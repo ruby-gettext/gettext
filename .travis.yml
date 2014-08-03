@@ -9,5 +9,5 @@ env:
   - JRUBY_OPTS=-Xcext.enabled=true
 notifications:
   recipients:
-    - travis@clear-code.com
+    - ruby-gettext-commit@googlegroups.com
 script: bundle exec rake
