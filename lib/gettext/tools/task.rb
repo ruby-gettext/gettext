@@ -351,7 +351,7 @@ module GetText
               cp(path.po_file.to_s, path.edit_po_file.to_s)
             else
               MsgInit.run("--input", path.pot_file.to_s,
-                          "--output", path.po_file.to_s,
+                          "--output", path.edit_po_file.to_s,
                           "--locale", path.locale,
                           "--no-translator",
                           *@msginit_options)
