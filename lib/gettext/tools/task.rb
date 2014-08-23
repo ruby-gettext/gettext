@@ -69,7 +69,7 @@ module GetText
         # @yield [task] Gives the newely created task to the block.
         # @yieldparam [GetText::Tools::Task] task The task that should be
         #   configured.
-        # @see {#define}
+        # @see #define
         # @return [void]
         def define
           task = new
