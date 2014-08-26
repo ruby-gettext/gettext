@@ -1,5 +1,23 @@
 # News
 
+## 3.1.4: 2014-08-26 {#version-3-1-4}
+
+### Improvements
+
+  * Improved document markups by Markdown.
+    [GitHub#33] [Patch by Masafumi Yokoyama]
+
+### Fixes
+
+  * `GetText::Tools::Task`: Fixed a bug that `Errno::ENOENT: No such
+    file or directory @ rb_file_s_mtime - doc/po/ja/rroonga.edit.po`
+    like error is occurred.
+  * `GetText::Tools::Task`: Fixed markup in document.
+
+### Thanks
+
+  * Masafumi Yokoyama
+
 ## 3.1.3: 2014-07-13 {#version-3-1-3}
 
 ### Improvements
