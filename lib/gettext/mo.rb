@@ -55,6 +55,7 @@ module GetText
       @filename = nil
       @last_modified = nil
       @little_endian = true
+      @charset = nil
       @output_charset = output_charset
       @plural_proc = nil
       super()
@@ -157,7 +158,8 @@ module GetText
             msgstr = convert_encoding(msgstr, msgid)
           end
         end
-        self[convert_encoding(msgid, msgid)] = msgstr.freeze
+        msgid.force_encoding(@charset) if @charset
+        self[msgid] = msgstr.freeze
       end
       self
     end
