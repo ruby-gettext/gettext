@@ -95,12 +95,12 @@ module GetText
           end
         end
       else
-        msgid_prefix_re = /^#{Regexp.quote(msgid)}\000/
+        plural_msgid_prefix = "#{msgid}\000"
         mo.each do |key, val|
-          if msgid_prefix_re =~ key
-            ret = val.split("\000")[0]
-            break
-          end
+          next unless Encoding.compatible?(key, plural_msgid_prefix)
+          next unless key.start_with?(plural_msgid_prefix)
+          ret = val.split("\000")[0]
+          break
         end
       end
       ret
