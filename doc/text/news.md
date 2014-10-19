@@ -45,7 +45,7 @@
 
 ### Improvements
 
-  * Travis CI: Enabled Rubyinus again.
+  * Travis CI: Enabled Rubinius again.
     [GitHub#30] [Patch by Masafumi Yokoyama]
   * `GetText::Tools::Task`: Added `msginit_options` to customize `msginit`
     command line.
