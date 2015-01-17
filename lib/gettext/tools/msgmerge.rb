@@ -213,6 +213,7 @@ module GetText
       class FuzzyEntryFinder
         def initialize(entries)
           @entries = entries
+          @target_entries = {}
         end
 
         MAX_FUZZY_DISTANCE = 0.5 # XXX: make sure that its value is proper.
@@ -242,7 +243,7 @@ module GetText
         end
 
         def extract_target_entries(msgctxt)
-          collect_same_msgctxt_entries(msgctxt)
+          @target_entries[msgctxt] ||= collect_same_msgctxt_entries(msgctxt)
         end
 
         MAX_N_CHARACTERS_DIFFERENCE = 10
