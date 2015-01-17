@@ -253,8 +253,12 @@ module GetText
 
           distance = Text::Levenshtein.distance(source,
                                                 destination,
-                                                MAX_N_CHARACTERS_DIFFERENCE)
-          distance / max_size.to_f
+                                                MAX_N_CHARACTERS_DIFFERENCE + 1)
+          if distance == MAX_N_CHARACTERS_DIFFERENCE + 1
+            nil
+          else
+            distance / max_size.to_f
+          end
         end
 
       end
