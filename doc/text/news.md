@@ -1,5 +1,25 @@
 # News
 
+## 3.1.5: 2015-01-17 {#version-3-1-5}
+
+### Improvements
+
+  * `rmsgmerge`: Improves fuzzy matching speed.
+    [GitHub#36][Reported by Dominic Cleal]
+
+### Fixes
+
+  * Fixed a bug that msgid uses wrong encoding.
+    [Patch by OBATA Akio]
+  * Fixed a typo in document.
+    [GitHub#35][Patch by Masafumi Yokoyama]
+
+### Thanks
+
+  * OBATA Akio
+  * Masafumi Yokoyama
+  * Dominic Cleal
+
 ## 3.1.4: 2014-08-26 {#version-3-1-4}
 
 ### Improvements
