@@ -248,13 +248,13 @@ module GetText
 
         MAX_N_CHARACTERS_DIFFERENCE = 10
         def normalize_distance(source, destination)
-          n_characters_difference = (source.size - destination.size).abs
-          return nil if n_characters_difference > MAX_N_CHARACTERS_DIFFERENCE
-
           max_size = [source.size, destination.size].max
           return 0.0 if max_size.zero?
 
-          Text::Levenshtein.distance(source, destination) / max_size.to_f
+          distance = Text::Levenshtein.distance(source,
+                                                destination,
+                                                MAX_N_CHARACTERS_DIFFERENCE)
+          distance / max_size.to_f
         end
 
       end
