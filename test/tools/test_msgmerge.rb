@@ -219,6 +219,20 @@ msgstr "bonjour"
         assert_equal(pot_creation_date, merged_po[""].msgstr)
       end
 
+      def test_already_fuzzy_po
+        @po["hello"] = generate_entry(:msgid => "hello",
+                                      :msgstr => "bonjour",
+                                      :flag => "fuzzy")
+        @pot["hello"] = generate_entry(:msgid => "hello",
+                                       :msgstr => nil)
+        @pot["helol"] = generate_entry(:msgid => "helol",
+                                       :msgstr => nil,
+                                       :flag => "fuzzy")
+        merged_po = merge
+        assert_true(merged_po.has_key?("helol"))
+        assert_equal(["fuzzy"], merged_po["helol"].flags)
+      end
+
       def test_already_fuzzy_pot
         @po["hello"] = generate_entry(:msgid => "hello",
                                       :msgstr => "bonjour")
@@ -229,7 +243,6 @@ msgstr "bonjour"
         assert_true(merged_po.has_key?("helol"))
         assert_equal(["fuzzy"], merged_po["helol"].flags)
       end
-
     end
 
     class TestAddFuzzy < self

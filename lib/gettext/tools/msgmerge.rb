@@ -140,7 +140,7 @@ module GetText
 
           if definition_entry.fuzzy? or
               definition_entry.msgid_plural != reference_entry.msgid_plural
-            entry.flags << "fuzzy"
+            entry.flags << "fuzzy" unless entry.fuzzy?
           end
 
           entry.msgstr = definition_entry.msgstr
