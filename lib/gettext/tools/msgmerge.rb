@@ -224,7 +224,7 @@ module GetText
 
           target_entries = extract_target_entries(msgctxt)
           target_entries.each do |entry|
-            distance = normalize_distance(entry.msgid, msgid)
+            distance = compute_distance(entry.msgid, msgid)
             next if distance.nil?
             if min_distance > distance
               min_distance = distance
@@ -247,7 +247,7 @@ module GetText
         end
 
         MAX_N_CHARACTERS_DIFFERENCE = 10
-        def normalize_distance(source, destination)
+        def compute_distance(source, destination)
           max_size = [source.size, destination.size].max
           return 0.0 if max_size.zero?
 
