@@ -86,6 +86,7 @@ module GetText
           @translated_entries = @definition.reject do |entry|
             entry.msgstr.nil?
           end
+          @fuzzy_entry_finder = FuzzyEntryFinder.new(@translated_entries)
           @config = config
         end
 
@@ -120,7 +121,7 @@ module GetText
             end
           end
 
-          fuzzy_entry = find_fuzzy_entry(@translated_entries, msgid, msgctxt)
+          fuzzy_entry = @fuzzy_entry_finder.find(msgid, msgctxt)
           if fuzzy_entry
             return merge_fuzzy_entry(entry, fuzzy_entry)
           end
@@ -173,39 +174,6 @@ module GetText
           merged_entry
         end
 
-        MAX_FUZZY_DISTANCE = 0.5 # XXX: make sure that its value is proper.
-
-        def find_fuzzy_entry(definition, msgid, msgctxt)
-          return nil if msgid == :last
-          min_distance_entry = nil
-          min_distance = MAX_FUZZY_DISTANCE
-
-          same_msgctxt_entries = definition.find_all do |entry|
-            entry.msgctxt == msgctxt and not entry.msgid == :last
-          end
-          same_msgctxt_entries.each do |entry|
-            distance = normalize_distance(entry.msgid, msgid)
-            next if distance.nil?
-            if min_distance > distance
-              min_distance = distance
-              min_distance_entry = entry
-            end
-          end
-
-          min_distance_entry
-        end
-
-        MAX_N_CHARACTERS_DIFFERENCE = 10
-        def normalize_distance(source, destination)
-          n_characters_difference = (source.size - destination.size).abs
-          return nil if n_characters_difference > MAX_N_CHARACTERS_DIFFERENCE
-
-          max_size = [source.size, destination.size].max
-          return 0.0 if max_size.zero?
-
-          Text::Levenshtein.distance(source, destination) / max_size.to_f
-        end
-
         def add_obsolete_entry(result)
           obsolete_entry = generate_obsolete_entry(result)
           return if obsolete_entry.nil?
@@ -239,6 +207,55 @@ module GetText
             end
           end
         end
+      end
+
+      # @private
+      class FuzzyEntryFinder
+        def initialize(entries)
+          @entries = entries
+        end
+
+        MAX_FUZZY_DISTANCE = 0.5 # XXX: make sure that its value is proper.
+        def find(msgid, msgctxt)
+          return nil if msgid == :last
+          min_distance_entry = nil
+          min_distance = MAX_FUZZY_DISTANCE
+
+          target_entries = extract_target_entries(msgctxt)
+          target_entries.each do |entry|
+            distance = normalize_distance(entry.msgid, msgid)
+            next if distance.nil?
+            if min_distance > distance
+              min_distance = distance
+              min_distance_entry = entry
+            end
+          end
+
+          min_distance_entry
+        end
+
+        private
+        def collect_same_msgctxt_entries(msgctxt)
+          @entries.find_all do |entry|
+            entry.msgctxt == msgctxt and not entry.msgid == :last
+          end
+        end
+
+        def extract_target_entries(msgctxt)
+          collect_same_msgctxt_entries(msgctxt)
+        end
+
+        MAX_N_CHARACTERS_DIFFERENCE = 10
+        def normalize_distance(source, destination)
+          n_characters_difference = (source.size - destination.size).abs
+          return nil if n_characters_difference > MAX_N_CHARACTERS_DIFFERENCE
+
+          max_size = [source.size, destination.size].max
+          return 0.0 if max_size.zero?
+
+          Text::Levenshtein.distance(source, destination) / max_size.to_f
+        end
+
       end
 
       # @private
