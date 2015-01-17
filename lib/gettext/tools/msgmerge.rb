@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012-2013  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2015  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2005-2009 Masao Mutoh
 # Copyright (C) 2005,2006 speakillof
 #
@@ -170,7 +170,7 @@ module GetText
 
         def merge_fuzzy_entry(entry, fuzzy_entry)
           merged_entry = merge_entry(entry, fuzzy_entry)
-          merged_entry.flags << "fuzzy"
+          merged_entry.flags << "fuzzy" unless merged_entry.fuzzy?
           merged_entry
         end
 
