@@ -13,6 +13,7 @@
     [Patch by OBATA Akio]
   * Fixed a typo in document.
     [GitHub#35][Patch by Masafumi Yokoyama]
+  * `rmsgmerge`: Fixed a bug that `fuzzy` flag may be added twice.
 
 ### Thanks
 
