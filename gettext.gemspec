@@ -29,7 +29,7 @@ So you can use GNU gettext tools for maintaining.
   end
 
   s.add_runtime_dependency("locale", ">= 2.0.5")
-  s.add_runtime_dependency("text")
+  s.add_runtime_dependency("text", ">= 1.3.0")
   s.add_development_dependency("rake")
   s.add_development_dependency("racc")
   s.add_development_dependency("yard")
