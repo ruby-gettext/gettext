@@ -1,5 +1,16 @@
 # News
 
+## 3.1.6: 2015-01-20 {#version-3-1-6}
+
+### Fixes
+
+  * Added a missing required text gem version.
+    [GitHub#37][Reported by Hans de Graaff]
+
+### Thanks
+
+  * Hans de Graaff
+
 ## 3.1.5: 2015-01-17 {#version-3-1-5}
 
 ### Improvements
