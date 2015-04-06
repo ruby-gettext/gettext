@@ -455,7 +455,8 @@ module GetText
                 "rake #{_task.name} LOCALE=${LOCALE}'"
             end
             define_po_file_task(locale)
-            Rake::Task[po_file(locale)].invoke
+            path = create_path(locale)
+            Rake::Task[path.po_file].invoke
           end
 
           update_tasks = []
