@@ -124,7 +124,7 @@ module GetText
           new_msgstr = ""
           msgstr.each_line do |line|
             case line
-            when /\A([\w\d\-_]+):/
+            when /\A([\w\-]+):/
               name = $1
               next if remove_header_fields.include?(name)
             end
