@@ -482,6 +482,9 @@ msgstr ""
 msgid "duplicated"
 msgstr ""
 
+msgid "Hello"
+msgstr ""
+
 msgid "language"
 msgstr ""
 
