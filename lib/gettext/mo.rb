@@ -318,17 +318,10 @@ module GetText
         return string
       end
 
-      begin
-        string.encode(@output_charset, @charset)
-      rescue EncodingError
-        if $DEBUG
-          warn "@charset = ", @charset
-          warn "@output_charset = ", @output_charset
-          warn "msgid = ", original_string
-          warn "msgstr = ", string
-        end
-        string
-      end
+      string.encode(@output_charset,
+                    @charset,
+                    :invalid => :replace,
+                    :undef => :replace)
     end
 
     def generate_original_string(msgid, options)
