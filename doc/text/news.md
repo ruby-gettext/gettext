@@ -1,5 +1,27 @@
 # News
 
+## 3.1.7: 2015-09-22 {#version-3-1-7}
+
+### Improvements
+
+  * Supported 3 character language names.
+    [GitHub#39][Patch by Vilius Paulauskas]
+  * Suppressed duplicated range in regular expression warning.
+    [GitHub#40][Patch by Vilius Paulauskas]
+  * Replaced invalid character instead of raising an error on encoding
+    conversion.
+    [GitHub#41][Patch by Vilius Paulauskas]
+
+### Fixes
+
+  * Fixed a bug that undefined method is used.
+    [GitHub#38][Patch by Hiroshi Hatake]
+
+### Thanks
+
+  * Hiroshi Hatake
+  * Vilius Paulauskas
+
 ## 3.1.6: 2015-01-20 {#version-3-1-6}
 
 ### Fixes
