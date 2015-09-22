@@ -19,13 +19,19 @@ class TestMo < Test::Unit::TestCase
     assert_equal("Hello in Japanese", mo["こんにちは"])
   end
 
+  def test_invalid_charset
+    mo = load_mo("hello.mo", "ISO-8859-1")
+    assert_equal("?????", mo["Hello"])
+  end
+
   def test_backslash
     mo = load_mo("backslash.mo")
     assert_equal("'\\'は'\\\\'とエスケープするべきです。",
                  mo["You should escape '\\' as '\\\\'."])
   end
 
-  def load_mo(file)
-    GetText::MO.open("locale/ja/LC_MESSAGES/#{file}", "UTF-8")
+  def load_mo(file, output_charset=nil)
+    output_charset ||= "UTF-8"
+    GetText::MO.open("locale/ja/LC_MESSAGES/#{file}", output_charset)
   end
 end

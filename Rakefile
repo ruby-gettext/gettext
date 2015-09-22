@@ -128,7 +128,14 @@ task "samples:cgi:gettext"
 
 task "samples:gettext" => "samples:cgi:gettext"
 
-["untranslated", "backslash", "non_ascii", "np_", "p_"].each do |domain|
+[
+  "untranslated",
+  "backslash",
+  "non_ascii",
+  "np_",
+  "p_",
+  "hello",
+].each do |domain|
   GetText::Tools::Task.define do |task|
     task.package_name = domain
     task.package_version = spec.version.to_s
