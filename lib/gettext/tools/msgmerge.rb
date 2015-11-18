@@ -246,15 +246,16 @@ module GetText
           @target_entries[msgctxt] ||= collect_same_msgctxt_entries(msgctxt)
         end
 
-        MAX_N_CHARACTERS_DIFFERENCE = 10
+        MAX_DIFFERENCE_RATIO = 0.3
         def compute_distance(source, destination)
           max_size = [source.size, destination.size].max
           return 0.0 if max_size.zero?
 
+          max_difference = (max_size * MAX_DIFFERENCE_RATIO).ceil
           distance = Text::Levenshtein.distance(source,
                                                 destination,
-                                                MAX_N_CHARACTERS_DIFFERENCE + 1)
-          if distance == MAX_N_CHARACTERS_DIFFERENCE + 1
+                                                max_difference)
+          if distance == max_difference
             nil
           else
             distance / max_size.to_f
