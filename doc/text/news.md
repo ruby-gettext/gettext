@@ -1,5 +1,11 @@
 # News
 
+## 3.1.8: 2015-12-29 {#version-3-1-8}
+
+### Improvements
+
+  * Improved fuzzy detection.
+
 ## 3.1.7: 2015-09-22 {#version-3-1-7}
 
 ### Improvements
