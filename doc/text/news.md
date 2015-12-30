@@ -1,5 +1,16 @@
 # News
 
+## 3.1.9: 2015-12-30 {#version-3-1-9}
+
+### Improvements
+
+  * Improved fuzzy detection for small texts.
+    [GitHub#43][Reported by Mamoru TASAKA]
+
+### Thanks
+
+  * Mamoru TASAKA
+
 ## 3.1.8: 2015-12-29 {#version-3-1-8}
 
 ### Improvements
