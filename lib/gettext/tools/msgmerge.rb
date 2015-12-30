@@ -251,7 +251,7 @@ module GetText
           max_size = [source.size, destination.size].max
           return 0.0 if max_size.zero?
 
-          max_difference = (max_size * MAX_DIFFERENCE_RATIO).ceil
+          max_difference = (max_size * MAX_DIFFERENCE_RATIO).ceil + 1
           distance = Text::Levenshtein.distance(source,
                                                 destination,
                                                 max_difference)
