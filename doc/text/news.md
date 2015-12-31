@@ -1,5 +1,11 @@
 # News
 
+## 3.2.0: 2015-12-31 {#version-3-2-0}
+
+### Improvements
+
+  * Improved fuzzy detection for sub text.
+
 ## 3.1.9: 2015-12-30 {#version-3-1-9}
 
 ### Improvements
