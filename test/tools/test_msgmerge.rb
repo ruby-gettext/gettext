@@ -285,6 +285,18 @@ msgstr "bonjour"
         assert_equal("fuzzy", merged_po["hello"].flag)
       end
 
+      def test_fuzzy_matching_included_source
+        base_msgid = "hello"
+        new_msgid = base_msgid + ("!" * 10)
+        @po[base_msgid] = "bonjour"
+        @pot[new_msgid] = ""
+        merged_po = merge
+
+        puts merged_po
+        assert_equal("bonjour", merged_po[new_msgid].msgstr)
+        assert_equal("fuzzy", merged_po[new_msgid].flag)
+      end
+
       def test_merged_entry_from_fuzzy_entry
         @po["hello"] = generate_entry(:msgid => "hello",
                                       :msgstr => "bonjuor",

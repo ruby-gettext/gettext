@@ -251,6 +251,11 @@ module GetText
           max_size = [source.size, destination.size].max
           return 0.0 if max_size.zero?
 
+          if destination.include?(source)
+            added_size = destination.size - source.size
+            return MAX_FUZZY_DISTANCE * (added_size.to_f / destination.size)
+          end
+
           max_difference = (max_size * MAX_DIFFERENCE_RATIO).ceil + 1
           distance = Text::Levenshtein.distance(source,
                                                 destination,
