@@ -423,7 +423,7 @@ msgid "Hello"
 msgstr ""
 
 #: hello.rb:3
-msgid "Hello World"
+msgid "Good-bye"
 msgstr ""
 EOP
     end
@@ -474,7 +474,7 @@ msgid "World"
 msgstr "Translated World"
 
 #: hello.rb:3
-msgid "Hello World"
+msgid "Good-bye"
 msgstr ""
 EOP
         end
@@ -505,7 +505,7 @@ msgid "World"
 msgstr "Translated World"
 
 #: hello.rb:3
-msgid "Hello World"
+msgid "Good-bye"
 msgstr ""
           PO
         end
@@ -526,7 +526,7 @@ msgid "World"
 msgstr "Translated World"
 
 #: hello.rb:3
-msgid "Hello World"
+msgid "Good-bye"
 msgstr ""
         PO
       end
@@ -537,12 +537,12 @@ msgstr ""
                       @po_file_path, @pot_file_path)
         assert_equal(<<-PO, File.read(@po_file_path))
 #{po_header(@pot_formatted_time, @po_formatted_time)}
-#: hello.rb:1
-msgid "Hello"
+#: hello.rb:3
+msgid "Good-bye"
 msgstr ""
 
-#: hello.rb:3
-msgid "Hello World"
+#: hello.rb:1
+msgid "Hello"
 msgstr ""
 
 #: hello.rb:2
@@ -566,7 +566,7 @@ msgid "World"
 msgstr "Translated World"
 
 #: hello.rb:3
-msgid "Hello World"
+msgid "Good-bye"
 msgstr ""
         PO
       end
@@ -586,7 +586,7 @@ msgid "World"
 msgstr "Translated World"
 
 #: hello.rb:3
-msgid "Hello World"
+msgid "Good-bye"
 msgstr ""
         PO
       end
@@ -597,12 +597,12 @@ msgstr ""
                       @po_file_path, @pot_file_path)
         assert_equal(<<-PO, File.read(@po_file_path))
 #{po_header(@pot_formatted_time, @po_formatted_time)}
-#: hello.rb:1
-msgid "Hello"
+#: hello.rb:3
+msgid "Good-bye"
 msgstr ""
 
-#: hello.rb:3
-msgid "Hello World"
+#: hello.rb:1
+msgid "Hello"
 msgstr ""
 
 #: hello.rb:2
@@ -628,7 +628,7 @@ msgid "World"
 msgstr "Translated World"
 
 #: hello.rb:3
-msgid "Hello World"
+msgid "Good-bye"
 msgstr ""
         PO
       end
@@ -645,7 +645,7 @@ msgstr ""
 msgid "World"
 msgstr "Translated World"
 
-msgid "Hello World"
+msgid "Good-bye"
 msgstr ""
         PO
       end
@@ -659,7 +659,7 @@ msgid "Hello very long line! This line is very long. Yes! This line is very long
 msgstr ""
 
 #: hello.rb:3
-msgid "Hello World"
+msgid "Good-bye"
 msgstr ""
         POT
       end
@@ -667,8 +667,8 @@ msgstr ""
       def po_content
         <<-PO
 #: hello.rb:3
-msgid "Hello World"
-msgstr "Translated Hello World. This translation is very long. Yes! Very long translation!!!"
+msgid "Good-bye"
+msgstr "Translated Good-bye. This translation is very long. Yes! Very long translation!!!"
         PO
       end
 
@@ -683,10 +683,10 @@ msgid ""
 msgstr ""
 
 #: hello.rb:3
-msgid "Hello World"
+msgid "Good-bye"
 msgstr ""
-"Translated Hello World. This translation is very long. Yes! Very long translat"
-"ion!!!"
+"Translated Good-bye. This translation is very long. Yes! Very long translation"
+"!!!"
         PO
       end
 
@@ -702,10 +702,10 @@ msgid ""
 msgstr ""
 
 #: hello.rb:3
-msgid "Hello World"
+msgid "Good-bye"
 msgstr ""
-"Translated Hello World. This translation is very long. Yes! Very long "
-"translation!!!"
+"Translated Good-bye. This translation is very long. Yes! Very long tra"
+"nslation!!!"
         PO
       end
 
@@ -719,8 +719,8 @@ msgid "Hello very long line! This line is very long. Yes! This line is very long
 msgstr ""
 
 #: hello.rb:3
-msgid "Hello World"
-msgstr "Translated Hello World. This translation is very long. Yes! Very long translation!!!"
+msgid "Good-bye"
+msgstr "Translated Good-bye. This translation is very long. Yes! Very long translation!!!"
         PO
       end
     end
