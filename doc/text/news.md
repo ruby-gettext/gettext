@@ -1,5 +1,16 @@
 # News
 
+## 3.2.1: 2016-01-23 {#version-3-2-1}
+
+### Improvements
+
+  * Supported customizing msgmerge options on merging edit.po to .po.
+    [GitHub#44][Patch by Dominic Cleal]
+
+### Thanks
+
+  * Dominic Cleal
+
 ## 3.2.0: 2015-12-31 {#version-3-2-0}
 
 ### Improvements
