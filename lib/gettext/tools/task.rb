@@ -370,6 +370,7 @@ module GetText
                          "--sort-by-file",
                          "--no-wrap",
                          "--no-obsolete-entries",
+                         *@msgmerge_options,
                          path.po_file.to_s,
                          path.edit_po_file.to_s)
           end
