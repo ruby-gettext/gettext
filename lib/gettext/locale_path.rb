@@ -95,7 +95,7 @@ module GetText
     # Gets the current path.
     # * lang: a Locale::Tag.
     def current_path(lang)
-      lang_candidates = lang.to_posix.candidates
+      lang_candidates = lang.candidates
 
       lang_candidates.each do |tag|
         path = @locale_paths[tag.to_s]

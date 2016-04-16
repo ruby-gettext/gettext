@@ -122,7 +122,7 @@ module GetText
         ret = nil
       elsif msg.include?("\000")
         # [[msgstr[0], msgstr[1], msgstr[2],...], cond]
-        mo = @mofiles[lang.to_posix.to_s]
+        mo = @mofiles[lang.to_s]
         cond = (mo and mo != :empty) ? mo.plural_as_proc : DEFAULT_PLURAL_CALC
         ret = [msg.split("\000"), cond]
       else
@@ -147,7 +147,6 @@ module GetText
     # Load a mo-file from the file.
     # lang is the subclass of Locale::Tag::Simple.
     def load_mo(lang)
-      lang = lang.to_posix unless lang.kind_of? Locale::Tag::Posix
       lang_key = lang.to_s
 
       mo = @mofiles[lang_key]
@@ -163,7 +162,7 @@ module GetText
       path = @locale_path.current_path(lang)
 
       if path
-        charset = @output_charset || lang.charset || Locale.charset || "UTF-8"
+        charset = @output_charset || lang.to_posix.charset || Locale.charset || "UTF-8"
         charset = normalize_charset(charset)
         @mofiles[lang_key] = MO.open(path, charset)
       else
