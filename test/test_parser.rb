@@ -66,36 +66,66 @@ class TestGetTextParser < Test::Unit::TestCase
     def test_N_
       @ary = @xgettext.parse(['fixtures/upper_n_.rb'])
 
-      assert_target 'aaa', ['fixtures/upper_n_.rb:10']
-      assert_target "aaa\n", ['fixtures/upper_n_.rb:14']
-      assert_target "bbb\nccc", ['fixtures/upper_n_.rb:18']
-      assert_target "bbb\nccc\nddd\n", ['fixtures/upper_n_.rb:22']
-      assert_target 'eee', ['fixtures/upper_n_.rb:29', 'fixtures/upper_n_.rb:33']
-      assert_target 'fff', ['fixtures/upper_n_.rb:33']
-      assert_target 'ggghhhiii', ['fixtures/upper_n_.rb:37']
-      assert_target 'a"b"c"', ['fixtures/upper_n_.rb:43']
-      assert_target 'd"e"f"', ['fixtures/upper_n_.rb:47']
-      assert_target 'jjj', ['fixtures/upper_n_.rb:51']
-      assert_target 'kkk', ['fixtures/upper_n_.rb:52']
-      assert_target 'lllmmm', ['fixtures/upper_n_.rb:56']
-      assert_target "nnn\nooo", ['fixtures/upper_n_.rb:64']
+      assert_target('aaa',
+                    ['fixtures/upper_n_.rb:10'])
+      assert_target("aaa\n",
+                    ['fixtures/upper_n_.rb:14'])
+      assert_target("bbb\nccc",
+                    ['fixtures/upper_n_.rb:18'])
+      assert_target("bbb\nccc\nddd\n",
+                    ['fixtures/upper_n_.rb:22'])
+      assert_target('eee',
+                    [
+                      'fixtures/upper_n_.rb:29',
+                      'fixtures/upper_n_.rb:33',
+                    ])
+      assert_target('fff',
+                    ['fixtures/upper_n_.rb:33'])
+      assert_target('ggghhhiii',
+                    ['fixtures/upper_n_.rb:37'])
+      assert_target('a"b"c"',
+                    ['fixtures/upper_n_.rb:43'])
+      assert_target('d"e"f"',
+                    ['fixtures/upper_n_.rb:47'])
+      assert_target('jjj',
+                    ['fixtures/upper_n_.rb:51'])
+      assert_target('kkk',
+                    ['fixtures/upper_n_.rb:52'])
+      assert_target('lllmmm',
+                    ['fixtures/upper_n_.rb:56'])
+      assert_target("nnn\nooo",
+                    ['fixtures/upper_n_.rb:64'])
     end
 
     def test_n_
       @xgettext.parse_options[:comment_tag] = "TRANSLATORS:"
       @ary = @xgettext.parse(['fixtures/lower_n_.rb'])
-      assert_plural_target "aaa", "aaa2", ['fixtures/lower_n_.rb:29']
-      assert_plural_target "bbb\n", "ccc2\nccc2", ['fixtures/lower_n_.rb:33']
-      assert_plural_target "ddd\nddd", "ddd2\nddd2", ['fixtures/lower_n_.rb:37']
-      assert_plural_target "eee\neee\n", "eee2\neee2\n", ['fixtures/lower_n_.rb:42']
-      assert_plural_target "ddd\neee\n", "ddd\neee2", ['fixtures/lower_n_.rb:48']
-      assert_plural_target "fff", "fff2", ['fixtures/lower_n_.rb:55', 'fixtures/lower_n_.rb:59']
-      assert_plural_target "ggg", "ggg2", ['fixtures/lower_n_.rb:59']
-      assert_plural_target "ggghhhiii", "jjjkkklll", ['fixtures/lower_n_.rb:63']
-      assert_plural_target "a\"b\"c\"", "a\"b\"c\"2", ['fixtures/lower_n_.rb:72']
-      assert_plural_target "mmmmmm", "mmm2mmm2", ['fixtures/lower_n_.rb:80']
-      assert_plural_target "nnn", "nnn2", ['fixtures/lower_n_.rb:81']
-      assert_plural_target "comment", "comments", ['fixtures/lower_n_.rb:97'] do |t|
+      assert_plural_target("aaa", "aaa2",
+                           ['fixtures/lower_n_.rb:29'])
+      assert_plural_target("bbb\n", "ccc2\nccc2",
+                           ['fixtures/lower_n_.rb:33'])
+      assert_plural_target("ddd\nddd", "ddd2\nddd2",
+                           ['fixtures/lower_n_.rb:37'])
+      assert_plural_target("eee\neee\n", "eee2\neee2\n",
+                           ['fixtures/lower_n_.rb:42'])
+      assert_plural_target("ddd\neee\n", "ddd\neee2",
+                           ['fixtures/lower_n_.rb:48'])
+      assert_plural_target("fff", "fff2",
+                           [
+                             'fixtures/lower_n_.rb:55',
+                             'fixtures/lower_n_.rb:59',
+                           ])
+      assert_plural_target("ggg", "ggg2",
+                           ['fixtures/lower_n_.rb:59'])
+      assert_plural_target("ggghhhiii", "jjjkkklll",
+                           ['fixtures/lower_n_.rb:63'])
+      assert_plural_target("a\"b\"c\"", "a\"b\"c\"2",
+                           ['fixtures/lower_n_.rb:72'])
+      assert_plural_target("mmmmmm", "mmm2mmm2",
+                           ['fixtures/lower_n_.rb:80'])
+      assert_plural_target("nnn", "nnn2", ['fixtures/lower_n_.rb:81'])
+      assert_plural_target("comment", "comments",
+                           ['fixtures/lower_n_.rb:97']) do |t|
         assert_equal "TRANSLATORS:please provide translations for all\n the plural forms!",
                        t.extracted_comment
       end
@@ -176,8 +206,16 @@ class TestGetTextParser < Test::Unit::TestCase
     assert_plural_target "ccc1", "ccc2", ['fixtures/erb/ascii.rxml:14']
 
     @ary = @xgettext.parse(['fixtures/lower_n_.rb'])
-    assert_plural_target "ooo", "ppp", ['fixtures/lower_n_.rb:85', 'fixtures/lower_n_.rb:86']
-    assert_plural_target "qqq", "rrr", ['fixtures/lower_n_.rb:90', 'fixtures/lower_n_.rb:91']
+    assert_plural_target("ooo", "ppp",
+                         [
+                           'fixtures/lower_n_.rb:85',
+                           'fixtures/lower_n_.rb:86',
+                         ])
+    assert_plural_target("qqq", "rrr",
+                         [
+                           'fixtures/lower_n_.rb:90',
+                           'fixtures/lower_n_.rb:91',
+                         ])
   end
 
   private
