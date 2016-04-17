@@ -16,8 +16,8 @@ msgstr ""
 
 #: simple.rb:10
 msgid "language"
-msgstr "traditional Japanese"
+msgstr "traditional Chinese"
 
 #: simple.rb:14
 msgid "one is %d."
-msgstr "TRADITIONAL JAPANESE:ONE IS %d."
+msgstr "TRADITIONAL CHINESE:ONE IS %d."
