@@ -115,10 +115,10 @@ msgid ""
 "literal\n"
 msgstr ""
 
-msgid "in same line"
+msgid "multiple"
 msgstr ""
 
-msgid "multiple"
+msgid "in same line"
 msgstr ""
 
 msgid "multiple same messages"
