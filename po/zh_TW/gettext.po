@@ -481,15 +481,6 @@ msgstr ""
 msgid "Hello"
 msgstr ""
 
-msgid "language"
-msgstr ""
-
-msgid "LANGUAGE"
-msgstr ""
-
-msgid "no data"
-msgstr ""
-
 msgid ""
 "bbb\n"
 msgid_plural ""
@@ -556,6 +547,15 @@ msgid "comment"
 msgid_plural "comments"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "language"
+msgstr ""
+
+msgid "LANGUAGE"
+msgstr ""
+
+msgid "no data"
+msgstr ""
 
 msgid "こんにちは"
 msgstr ""
