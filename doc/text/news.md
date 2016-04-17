@@ -1,5 +1,17 @@
 # News
 
+## 3.2.2: 2016-04-17 {#version-3-2-2}
+
+### Improvements
+
+  * Supported non POSIX locale format such as "zh-Hant" for
+    .mo search path.
+    [GitHub#45][Patch by Michaël Hoste]
+
+### Thanks
+
+  * Michaël Hoste
+
 ## 3.2.1: 2016-01-23 {#version-3-2-1}
 
 ### Improvements
