@@ -19,7 +19,7 @@ So you can use GNU gettext tools for maintaining.
   s.rubyforge_project = "gettext"
   s.require_paths = ["lib"]
   Dir.chdir(base_dir) do
-    s.files = Dir.glob("{locale,bin,data,doc/text,lib,po,samples,src,test}/**/*")
+    s.files = Dir.glob("{locale,bin,data,doc/text,lib,po,src,test}/**/*")
     s.files += ["README.md", "Rakefile", "gettext.gemspec"]
     s.files += [".yardopts"]
     s.executables = Dir.chdir("bin") do
