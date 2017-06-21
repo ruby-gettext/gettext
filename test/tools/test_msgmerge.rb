@@ -41,11 +41,11 @@ class TestToolsMsgMerge < Test::Unit::TestCase
 
     class TestUpdate < self
       def test_msgstr
-        pot = <<-POT
+        pot = <<-POT.dup
 msgid "hello"
 msgstr ""
         POT
-        po = <<-PO
+        po = <<-PO.dup
 msgid "hello"
 msgstr "bonjour"
         PO
@@ -67,11 +67,11 @@ msgstr "bonjour"
 
     class TestObosleteEntry < self
       def test_in_po
-        pot = <<-POT
+        pot = <<-POT.dup
 msgid "hello"
 msgstr ""
         POT
-        po = <<-PO
+        po = <<-PO.dup
 msgid "hello"
 msgstr "bonjour"
 

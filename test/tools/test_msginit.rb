@@ -81,7 +81,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
     options = default_po_header_options.merge(options)
     package_name = options[:package_name] || default_package_name
     have_plural_forms = options[:have_plural_forms] || true
-    header = <<EOF
+    header = <<EOF.dup
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.

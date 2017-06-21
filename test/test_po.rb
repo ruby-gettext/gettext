@@ -208,7 +208,7 @@ class TestPO < Test::Unit::TestCase
     def setup
       @po = GetText::PO.new
       parser = GetText::POParser.new
-      parser.parse(<<-PO, @po)
+      parser.parse(<<-PO.dup, @po)
 #: hello.rb:2
 msgid "World"
 msgstr ""
@@ -300,7 +300,7 @@ msgstr ""
 
     class TestHeader < self
       def test_no_entry
-        @po[""] = <<-HEADER
+        @po[""] = <<-HEADER.dup
 Project-Id-Version: test 1.0.0
 POT-Creation-Date: 2012-10-31 12:40+0900
 PO-Revision-Date: 2012-11-01 17:46+0900
@@ -312,7 +312,7 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Plural-Forms: nplurals=2; plural=(n != 1)
         HEADER
-        @po[""].translator_comment = <<-HEADER_COMMENT
+        @po[""].translator_comment = <<-HEADER_COMMENT.dup
 Japanese translations for test package.
 Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
 This file is distributed under the same license as the PACKAGE package.
