@@ -43,8 +43,8 @@ module GetText
       :trans_sysdep_tab_offset
     end
 
-    MAGIC_BIG_ENDIAN    = "\x95\x04\x12\xde".force_encoding("ASCII-8BIT")
-    MAGIC_LITTLE_ENDIAN = "\xde\x12\x04\x95".force_encoding("ASCII-8BIT")
+    MAGIC_BIG_ENDIAN    = "\x95\x04\x12\xde".dup.force_encoding("ASCII-8BIT")
+    MAGIC_LITTLE_ENDIAN = "\xde\x12\x04\x95".dup.force_encoding("ASCII-8BIT")
 
     def self.open(arg = nil, output_charset = nil)
       result = self.new(output_charset)
@@ -325,7 +325,7 @@ module GetText
     end
 
     def generate_original_string(msgid, options)
-      string = ""
+      string = "".dup
 
       msgctxt = options.delete(:msgctxt)
       msgid_plural = options.delete(:msgid_plural)

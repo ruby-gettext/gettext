@@ -121,7 +121,7 @@ module GetText
           msgstr = header_entry.msgstr
           return if msgstr.nil?
 
-          new_msgstr = ""
+          new_msgstr = "".dup
           msgstr.each_line do |line|
             case line
             when /\A([\w\-]+):/

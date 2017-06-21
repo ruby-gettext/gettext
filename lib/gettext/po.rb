@@ -194,7 +194,7 @@ module GetText
     # @return [String] Formatted and joined PO entries. It is used for
     #   creating .po files.
     def to_s(options={})
-      po_string = ""
+      po_string = "".dup
 
       header_entry = @entries[[nil, ""]]
       unless header_entry.nil?

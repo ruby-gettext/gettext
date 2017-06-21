@@ -236,7 +236,7 @@ module GetText
 
       po_entry = nil
       line_no = nil
-      last_comment = ""
+      last_comment = "".dup
       reset_comment = false
       ignore_next_comma = false
       rl.parse do |tk|
@@ -287,7 +287,7 @@ module GetText
 
         case tk
         when RubyToken::TkCOMMENT_WITH_CONTENT
-          last_comment = "" if reset_comment
+          last_comment = "".dup if reset_comment
           if last_comment.empty?
             comment1 = tk.value.lstrip
             if comment_to_be_extracted?(comment1)
