@@ -3,7 +3,7 @@
 =begin
     mo.rb - A simple class for operating GNU MO file.
 
-    Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+    Copyright (C) 2012-2017  Kouhei Sutou <kou@clear-code.com>
     Copyright (C) 2003-2009  Masao Mutoh
     Copyright (C) 2002  Masahiro Sakai, Masao Mutoh
     Copyright (C) 2001  Masahiro Sakai
@@ -43,8 +43,8 @@ module GetText
       :trans_sysdep_tab_offset
     end
 
-    MAGIC_BIG_ENDIAN    = "\x95\x04\x12\xde".force_encoding("ASCII-8BIT")
-    MAGIC_LITTLE_ENDIAN = "\xde\x12\x04\x95".force_encoding("ASCII-8BIT")
+    MAGIC_BIG_ENDIAN    = "\x95\x04\x12\xde".b
+    MAGIC_LITTLE_ENDIAN = "\xde\x12\x04\x95".b
 
     def self.open(arg = nil, output_charset = nil)
       result = self.new(output_charset)
@@ -325,7 +325,7 @@ module GetText
     end
 
     def generate_original_string(msgid, options)
-      string = ""
+      string = String.new
 
       msgctxt = options.delete(:msgctxt)
       msgid_plural = options.delete(:msgid_plural)

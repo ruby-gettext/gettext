@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2017  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -101,7 +101,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\\n"
 EOF
     if have_plural_forms
-      header << "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
+      header += "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"
     end
     header
   end

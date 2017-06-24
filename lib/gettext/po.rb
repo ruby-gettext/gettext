@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2017  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
 #
 # License: Ruby's or LGPL
@@ -194,7 +194,7 @@ module GetText
     # @return [String] Formatted and joined PO entries. It is used for
     #   creating .po files.
     def to_s(options={})
-      po_string = ""
+      po_string = String.new
 
       header_entry = @entries[[nil, ""]]
       unless header_entry.nil?

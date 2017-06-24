@@ -2,7 +2,7 @@
 =begin
   parser/ruby.rb - parser for ruby script
 
-  Copyright (C) 2013       Kouhei Sutou <kou@clear-code.com>
+  Copyright (C) 2013-2017  Kouhei Sutou <kou@clear-code.com>
   Copyright (C) 2003-2009  Masao Mutoh
   Copyright (C) 2005       speakillof
   Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
@@ -291,7 +291,7 @@ module GetText
           if last_comment.empty?
             comment1 = tk.value.lstrip
             if comment_to_be_extracted?(comment1)
-              last_comment << comment1
+              last_comment += comment1
             end
           else
             last_comment += "\n"

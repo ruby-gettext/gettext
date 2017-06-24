@@ -1,4 +1,4 @@
-# Copyright (C) 2014  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2014-2017  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -121,7 +121,7 @@ module GetText
           msgstr = header_entry.msgstr
           return if msgstr.nil?
 
-          new_msgstr = ""
+          new_msgstr = String.new
           msgstr.each_line do |line|
             case line
             when /\A([\w\-]+):/

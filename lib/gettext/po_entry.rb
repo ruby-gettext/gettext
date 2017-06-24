@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2017  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
 # Copyright (C) 2009  Masao Mutoh
 #
@@ -83,7 +83,7 @@ module GetText
     # @return [void]
     def add_comment(new_comment)
       if (new_comment and ! new_comment.empty?)
-        @extracted_comment ||= ""
+        @extracted_comment ||= String.new
         @extracted_comment << "\n" unless @extracted_comment.empty?
         @extracted_comment << new_comment
       end
@@ -366,7 +366,7 @@ module GetText
       end
 
       def format_comments
-        formatted_comment = ""
+        formatted_comment = String.new
         if include_translator_comment?
           formatted_comment << format_translator_comment
         end
@@ -395,7 +395,7 @@ module GetText
 
       def format_reference_comment
         max_line_width = @options[:max_line_width]
-        formatted_reference = ""
+        formatted_reference = String.new
         if not @entry.references.nil? and not @entry.references.empty?
           formatted_reference << REFERENCE_COMMENT_MARK
           line_width = 2
@@ -417,7 +417,7 @@ module GetText
       end
 
       def format_flag_comment
-        formatted_flags = ""
+        formatted_flags = String.new
         @entry.flags.each do |flag|
           formatted_flags << format_comment(FLAG_MARK, flag)
         end
@@ -431,7 +431,7 @@ module GetText
       def format_comment(mark, comment)
         return "" if comment.nil?
 
-        formatted_comment = ""
+        formatted_comment = String.new
         comment.each_line do |comment_line|
           if comment_line == "\n"
             formatted_comment << "#{mark}\n"
@@ -446,7 +446,7 @@ module GetText
         mark = "#~"
         return "" if comment.nil?
 
-        formatted_comment = ""
+        formatted_comment = String.new
         comment.each_line do |comment_line|
           if /\A#[^~]/ =~ comment_line or comment_line.start_with?(mark)
             formatted_comment << "#{comment_line.chomp}\n"
@@ -466,7 +466,7 @@ module GetText
         chunks = wrap_message(message)
         return empty_formatted_message if chunks.empty?
 
-        formatted_message = ""
+        formatted_message = String.new
         if chunks.size > 1 or chunks.first.end_with?("\n")
           formatted_message << empty_formatted_message
         end
