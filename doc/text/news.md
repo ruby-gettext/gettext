@@ -1,5 +1,21 @@
 # News
 
+## 3.2.3: 2017-06-24 {#version-3-2-3}
+
+### Improvements
+
+  * Disabled unmaintainable Ruby from CI.
+    [GitHub#48][Reported by JP Hastings-Spital]
+
+  * Supported `--enable-frozen-string-literal` `ruby` option.
+    [GitHub#52][Reported by Pat Allan]
+
+### Thanks
+
+  * JP Hastings-Spital
+
+  * Pat Allan
+
 ## 3.2.2: 2016-04-17 {#version-3-2-2}
 
 ### Improvements
