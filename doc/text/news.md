@@ -1,5 +1,16 @@
 # News
 
+## 3.2.4: 2017-08-13 {#version-3-2-4}
+
+### Fixes
+
+  * Fixed a bug that block parameter is handled as method name.
+    [GitHub#53][Reported by Renaud Chaput]
+
+### Thanks
+
+  * Renaud Chaput
+
 ## 3.2.3: 2017-06-24 {#version-3-2-3}
 
 ### Improvements
