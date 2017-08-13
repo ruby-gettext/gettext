@@ -260,6 +260,8 @@ module GetText
               po_entry = nil
             end
             line_no = tk.line_no.to_s
+          when RubyToken::TkBITOR
+            po_entry = nil
           when RubyToken::TkSTRING, RubyToken::TkDSTRING
             po_entry.set_current_attribute tk.value if po_entry
           when RubyToken::TkPLUS, RubyToken::TkNL

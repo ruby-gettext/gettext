@@ -221,6 +221,12 @@ class TestRubyParser < Test::Unit::TestCase
                    path)
     end
 
+    def test_block_parameter
+      path = "block_parameter.rb"
+      assert_parse([],
+                   path)
+    end
+
     private
     def fixture_path(*components)
       super("_", *components)
