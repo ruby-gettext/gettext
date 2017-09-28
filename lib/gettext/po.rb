@@ -269,7 +269,7 @@ module GetText
       entries.sort_by do |msgid_entry|
         # msgid_entry = [[msgctxt, msgid], POEntry]
         msgctxt = msgid_entry[0][0] || ""
-        msgid = msgid_entry[0][0]
+        msgid = msgid_entry[0][1]
         [msgctxt, msgid]
       end
     end
