@@ -263,7 +263,17 @@ module GetText
           when RubyToken::TkBITOR
             po_entry = nil
           when RubyToken::TkSTRING, RubyToken::TkDSTRING
-            po_entry.set_current_attribute tk.value if po_entry
+            if po_entry
+              msg_entry = tk.value.split("|")
+              if msg_entry.length > 1 && po_entry.msgid.nil?
+                po_entry.type = :msgctxt
+                po_entry.set_current_attribute msg_entry[0]
+                po_entry.advance_to_next_attribute
+                po_entry.set_current_attribute msg_entry[1]
+              else
+                po_entry.set_current_attribute tk.value
+              end
+            end
           when RubyToken::TkPLUS, RubyToken::TkNL
             #do nothing
           when RubyToken::TkINTEGER
