@@ -16,8 +16,58 @@ require "irb/ruby-lex"
 require "stringio"
 require "gettext/po_entry"
 
+require "ripper"
+
 module GetText
   class RubyLexX < RubyLex  # :nodoc: all
+    class StringExtractor < Ripper::Filter
+      def initialize(*args)
+        super
+        @string_mark_stack = []
+      end
+
+      def on_default(event, token, output)
+        case event
+        when :on_tstring_content
+          if @string_mark_stack.last == "\""
+            output << token.gsub(/\\./) do |data|
+              case data
+              when "\\n"
+                "\n"
+              when "\\t"
+                "\t"
+              when "\\\\"
+                "\\"
+              when "\\\""
+                "\""
+              when "\\\#"
+                "#"
+              else
+                data
+              end
+            end
+          else
+            output << token
+          end
+        when :on_tstring_beg
+          unless @string_mark_stack.empty?
+            output << token
+          end
+          @string_mark_stack << token
+        when :on_tstring_end
+          @string_mark_stack.pop
+          unless @string_mark_stack.empty?
+            output << token
+          end
+        else
+          unless @string_mark_stack.empty?
+            output << token.to_s
+          end
+        end
+        output
+      end
+    end
+
     # Parser#parse resemlbes RubyLex#lex
     def parse
       until (  (tk = token).kind_of?(RubyToken::TkEND_OF_SCRIPT) && !@continue or tk.nil?  )
@@ -34,11 +84,7 @@ module GetText
           if @here_header
             s = s.sub(/\A.*?\n/, "").sub(/^.*\n\Z/, "")
           else
-            begin
-              s = eval(s)
-            rescue Exception
-              # Do nothing.
-            end
+            s = StringExtractor.new(s).parse("")
           end
 
           tk.value = s
