@@ -164,8 +164,8 @@ msgid "file '%s' does not exist."
 msgstr "檔案 '%s' 已經存在"
 
 msgid ""
-"\"Locale '#{language_tag}' is invalid. \"Please check if your specified locale i"
-"s usable."
+"Locale '#{language_tag}' is invalid. Please check if your specified locale is "
+"usable."
 msgstr ""
 
 #, fuzzy

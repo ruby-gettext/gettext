@@ -158,8 +158,8 @@ msgid "file '%s' does not exist."
 msgstr "El fitxer '%s' ja existeix"
 
 msgid ""
-"\"Locale '#{language_tag}' is invalid. \"Please check if your specified locale i"
-"s usable."
+"Locale '#{language_tag}' is invalid. Please check if your specified locale is "
+"usable."
 msgstr ""
 
 msgid "file '%s' has already existed."

@@ -161,8 +161,8 @@ msgid "file '%s' does not exist."
 msgstr "'%s' 파일이 이미 존재합니다."
 
 msgid ""
-"\"Locale '#{language_tag}' is invalid. \"Please check if your specified locale i"
-"s usable."
+"Locale '#{language_tag}' is invalid. Please check if your specified locale is "
+"usable."
 msgstr ""
 
 #, fuzzy
