@@ -1,5 +1,16 @@
 # News
 
+## 3.2.5: 2017-12-14 {#version-3-2-5}
+
+### Improvements
+
+  * Stop to use `eval`.
+    [GitHub#56][Reported by Michaël Hoste]
+
+### Thanks
+
+  * Michaël Hoste
+
 ## 3.2.4: 2017-08-13 {#version-3-2-4}
 
 ### Fixes
