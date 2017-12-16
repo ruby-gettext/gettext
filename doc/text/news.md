@@ -1,5 +1,17 @@
 # News
 
+## 3.2.6: 2017-12-17 {#version-3-2-6}
+
+### Fixes
+
+  * Fixed a regression bug that `\'` and `\\` aren't processed in
+    `'...'`.
+    [GitHub#56][Reported by Michaël Hoste]
+
+### Thanks
+
+  * Michaël Hoste
+
 ## 3.2.5: 2017-12-14 {#version-3-2-5}
 
 ### Improvements
