@@ -387,7 +387,7 @@ msgstr ""
 msgid "#"
 msgstr ""
 
-msgid "\taaa"
+msgid "\taaa'bbb\\ccc"
 msgstr ""
 
 msgid ""
