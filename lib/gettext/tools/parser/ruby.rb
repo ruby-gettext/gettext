@@ -47,7 +47,16 @@ module GetText
               end
             end
           else
-            output << token
+            output << token.gsub(/\\./) do |data|
+              case data
+              when "\\\\"
+                "\\"
+              when "\\'"
+                "'"
+              else
+                data
+              end
+            end
           end
         when :on_tstring_beg
           unless @string_mark_stack.empty?

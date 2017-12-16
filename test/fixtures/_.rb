@@ -93,7 +93,7 @@ ddd
   end
 
   def test_16
-    _('\taaa')
+    _('\taaa\'bbb\\ccc')
   end
 
   def test_17

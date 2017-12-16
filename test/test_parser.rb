@@ -43,7 +43,7 @@ class TestGetTextParser < Test::Unit::TestCase
       assert_target 'lllmmm', ['fixtures/_.rb:76']
       assert_target "nnn\nooo", ['fixtures/_.rb:84']
       assert_target "\#", ['fixtures/_.rb:88', 'fixtures/_.rb:92']
-      assert_target "\\taaa", ['fixtures/_.rb:96']
+      assert_target "\\taaa'bbb\\ccc", ['fixtures/_.rb:96']
       assert_target "Here document1\nHere document2\n", ['fixtures/_.rb:100']
       assert_target "Francois Pinard", ['fixtures/_.rb:120'] do |t|
         assert_match(/proper name/, t.extracted_comment)
