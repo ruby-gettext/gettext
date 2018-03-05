@@ -1,5 +1,11 @@
 # News
 
+## 3.2.9: 2018-03-05 {#version-3-2-9}
+
+### Fixes
+
+  * `rmsgcat`: Removed a debug print.
+
 ## 3.2.8: 2018-03-05 {#version-3-2-8}
 
 ### Fixes
