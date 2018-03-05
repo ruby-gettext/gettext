@@ -120,7 +120,6 @@ module GetText
 
         def update_po_revision_date!(header_entry)
           return unless @config.update_po_revision_date?
-          p [:here]
 
           now = Time.now.strftime("%Y-%m-%d %H:%M%z")
           po_revision_date_value = "PO-Revision-Date: #{now}\n"
