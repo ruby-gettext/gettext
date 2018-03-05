@@ -1,5 +1,11 @@
 # News
 
+## 3.2.7: 2018-03-05 {#version-3-2-7}
+
+### Improvements
+
+  * `rmsgcat`: Added `--update-po-revision-date` option.
+
 ## 3.2.6: 2017-12-17 {#version-3-2-6}
 
 ### Fixes
