@@ -1,5 +1,12 @@
 # News
 
+## 3.2.8: 2018-03-05 {#version-3-2-8}
+
+### Fixes
+
+  * `rmsgcat`: Fixed a bug that extra newline is added by
+    `--update-po-revision-date` option.
+
 ## 3.2.7: 2018-03-05 {#version-3-2-7}
 
 ### Improvements
