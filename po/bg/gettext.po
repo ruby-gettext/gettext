@@ -90,6 +90,9 @@ msgstr ""
 msgid "Don't output obsolete entries"
 msgstr ""
 
+msgid "Update PO-Revision-Date header field"
+msgstr ""
+
 msgid "Remove FIELD from header"
 msgstr ""
 
