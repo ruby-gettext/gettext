@@ -1,4 +1,4 @@
-# Copyright (C) 2014  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2014-2018  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -524,6 +524,54 @@ msgstr "Bonjour"
 
     def test_no_obsolete_entries
       assert_equal("", run_msgcat([@po_obsolete], "--no-obsolete-entries"))
+    end
+  end
+
+  class TestUpdatePORevisionDate < self
+    def setup
+      @po_revision_date = "2018-03-05 14:55+0900"
+      @po_source = <<-PO
+msgid ""
+msgstr ""
+"Language: ja\\n"
+"PO-Revision-Date: #{@po_revision_date}\\n"
+"MIME-Version: 1.0\\n"
+      PO
+    end
+
+    def test_default
+      po = run_msgcat([@po_source])
+      assert_equal(<<-PO, normalize_result(po))
+msgid ""
+msgstr ""
+"Language: ja\\n"
+"PO-Revision-Date: ORIGINAL-PO-REVISION-DATE\\n"
+"MIME-Version: 1.0\\n"
+      PO
+    end
+
+    def test_update_po_revision_date
+      po = run_msgcat([@po_source], "--update-po-revision-date")
+      assert_equal(<<-PO, normalize_result(po))
+msgid ""
+msgstr ""
+"Language: ja\\n"
+"PO-Revision-Date: UPDATED-PO-REVISION-DATE\\n"
+"MIME-Version: 1.0\\n"
+      PO
+    end
+
+    private
+    def normalize_result(result)
+      result.gsub(/"PO-Revision-Date: (.+?)\\n"/) do
+        po_revision_date = $1
+        if po_revision_date == @po_revision_date
+          new_po_revision_date = "ORIGINAL-PO-REVISION-DATE"
+        else
+          new_po_revision_date = "UPDATED-PO-REVISION-DATE"
+        end
+        "\"PO-Revision-Date: #{new_po_revision_date}\\n\""
+      end
     end
   end
 

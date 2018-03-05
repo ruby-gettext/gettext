@@ -83,7 +83,10 @@ module GetText
               merged_entry = entry
             end
             next unless merged_entry
-            remove_header_fields!(merged_entry) if merged_entry.header?
+            if merged_entry.header?
+              update_po_revision_date!(merged_entry)
+              remove_header_fields!(merged_entry)
+            end
             @output_po[*id] = merged_entry
           end
         end
@@ -113,6 +116,28 @@ module GetText
           return new_entry unless new_entry.fuzzy?
           return nil unless @config.include_fuzzy?
           base_entry
+        end
+
+        def update_po_revision_date!(header_entry)
+          return unless @config.update_po_revision_date?
+
+          now = Time.now.strftime("%Y-%m-%d %H:%M%z")
+          po_revision_date_value = "PO-Revision-Date: #{now}\\n\n"
+          have_po_revision_date = false
+          new_msgstr = String.new
+          header_entry.msgstr.each_line do |line|
+            case line
+            when /\APO-Revision-Date:/
+              new_msgstr << po_revision_date_value
+              have_po_revision_date = true
+            else
+              new_msgstr << line
+            end
+          end
+          unless have_po_revision_date
+            new_msgstr << po_revision_date_value
+          end
+          header_entry.msgstr = new_msgstr
         end
 
         def remove_header_fields!(header_entry)
@@ -163,6 +188,9 @@ module GetText
         # (see output_obsolete_entries?)
         attr_writer :output_obsolete_entries
 
+        # @see #update_po_revision_date?
+        attr_writer :update_po_revision_date
+
         # @return [Array<String>] The field names to be removed from
         #   header entry.
         attr_reader :remove_header_fields
@@ -178,6 +206,7 @@ module GetText
           @report_warning = true
           @output_obsolete_entries = true
           @remove_header_fields = []
+          @update_po_revision_date = false
         end
 
         # @return [Boolean] Whether includes fuzzy entries or not.
@@ -193,6 +222,12 @@ module GetText
         # @return [Boolean] Whether outputs obsolete entries or not.
         def output_obsolete_entries?
           @output_obsolete_entries
+        end
+
+        # @return [Boolean] Whether updates PO-Revision-Date header
+        #   field or not.
+        def update_po_revision_date?
+          @update_po_revision_date
         end
 
         def parse(command_line)
@@ -300,6 +335,11 @@ module GetText
           parser.on("--no-obsolete-entries",
                     _("Don't output obsolete entries")) do
             @output_obsolete_entries = false
+          end
+
+          parser.on("--[no-]update-po-revision-date",
+                    _("Update PO-Revision-Date header field")) do |update|
+            @update_po_revision_date = update
           end
 
           parser.on("--remove-header-field=FIELD",
