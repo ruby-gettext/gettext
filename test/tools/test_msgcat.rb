@@ -561,6 +561,22 @@ msgstr ""
       PO
     end
 
+    def test_no_po_revision_date
+      po = run_msgcat([<<-PO], "--update-po-revision-date")
+msgid ""
+msgstr ""
+"Language: ja\\n"
+"MIME-Version: 1.0\\n"
+      PO
+      assert_equal(<<-PO, normalize_result(po))
+msgid ""
+msgstr ""
+"Language: ja\\n"
+"MIME-Version: 1.0\\n"
+"PO-Revision-Date: UPDATED-PO-REVISION-DATE\\n"
+      PO
+    end
+
     private
     def normalize_result(result)
       result.gsub(/"PO-Revision-Date: (.+?)\\n"/) do
