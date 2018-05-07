@@ -222,11 +222,11 @@ module GetText
     def sort(entries)
       case @order
       when :reference, :references # :references is deprecated.
-        sorted_entries = sort_by_reference(entries)
+        sort_by_reference(entries)
       when :msgid
-        sorted_entries = sort_by_msgid(entries)
+        sort_by_msgid(entries)
       else
-        sorted_entries = entries.to_a
+        entries.to_a
       end
     end
 
