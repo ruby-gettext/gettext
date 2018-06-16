@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2018  Kouhei Sutou <kou@clear-code.com>
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
 #
 # License: Ruby's or LGPL
@@ -62,6 +60,8 @@ EOP
   end
 
   class TestPO < self
+    include GetTextTestUtils
+
     def test_msgstr
       po_file = create_po_file(<<-EOP)
 # This is the comment.
@@ -220,7 +220,9 @@ EOP
 msgid "hello"
 msgstr "bonjour"
 EOP
-      entries = parse_po_file(po_file, :ignore_fuzzy => false)
+      entries = suppress_warning do
+        parse_po_file(po_file, :ignore_fuzzy => false)
+      end
 
       assert_true(entries.has_key?("hello"))
       assert_equal("fuzzy", entries["hello"].flag)

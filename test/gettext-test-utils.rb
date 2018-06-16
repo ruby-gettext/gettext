@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2018  Kouhei Sutou <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -40,5 +38,14 @@ module GetTextTestUtils
 
   def teardown_tmpdir
     FileUtils.rm_rf(@tmpdir, :secure => true) if @tmpdir
+  end
+
+  def suppress_warning
+    stderr, $stderr = $stderr, StringIO.new
+    begin
+      yield
+    ensure
+      $stderr = stderr
+    end
   end
 end

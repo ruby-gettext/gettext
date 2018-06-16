@@ -1,15 +1,6 @@
-# -*- coding: utf-8 -*-
-
 class TestGetTextString < Test::Unit::TestCase
   class TestFormat < self
-    def suppress_warning
-      stderr, $stderr = $stderr, StringIO.new
-      begin
-        yield
-      ensure
-        $stderr = stderr
-      end
-    end
+    include GetTextTestUtils
 
     def test_basic
       assert_equal("foo is a number", "%{msg} is a number" % {:msg => "foo"})
