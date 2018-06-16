@@ -352,6 +352,9 @@ DDD
   end
 
   def test_safe_mode
+    if RUBY_VERSION >= "2.6.0"
+      omit("Per thread $SAFE is removed since Ruby 2.6.")
+    end
     Thread.start{
       $SAFE = 1
       GetText.bindtextdomain("test1", :path => "locale")
