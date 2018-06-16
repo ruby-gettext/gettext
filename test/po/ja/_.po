@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2013-08-30 23:17+0900\n"
+"PO-Revision-Date: 2018-06-17 07:37+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,7 @@ msgstr ""
 msgid "#"
 msgstr ""
 
-msgid "\taaa"
+msgid "\taaa'bbb\\ccc"
 msgstr ""
 
 msgid ""
