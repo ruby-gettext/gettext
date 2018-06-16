@@ -30,11 +30,6 @@ module M8
   include M9
 end
 
-# Anonymous module
-@@anon = Module.new
-class @@anon::AC1; end
-module @@anon::AM1; end
-
 module TestClassInfoSandbox
   class << self
     def clear
@@ -57,11 +52,15 @@ class TestClassInfo < Test::Unit::TestCase
     assert_equal TestClassInfo, normalize_class(self)
   end
 
+  @@anonymous_module = Module.new
+  class @@anonymous_module::AC1; end
+  module @@anonymous_module::AM1; end
+
   def test_normalize_class_anonymous_module
-    assert_equal Object, normalize_class(@@anon)
-    assert_equal Object, normalize_class(@@anon)
-    assert_equal Object, normalize_class(@@anon::AC1)
-    assert_equal Object, normalize_class(@@anon::AM1)
+    assert_equal Object, normalize_class(@@anonymous_module)
+    assert_equal Object, normalize_class(@@anonymous_module)
+    assert_equal Object, normalize_class(@@anonymous_module::AC1)
+    assert_equal Object, normalize_class(@@anonymous_module::AM1)
   end
 
   def test_related_classes
