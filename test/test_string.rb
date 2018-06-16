@@ -2,6 +2,15 @@
 
 class TestGetTextString < Test::Unit::TestCase
   class TestFormat < self
+    def suppress_warning
+      stderr, $stderr = $stderr, StringIO.new
+      begin
+        yield
+      ensure
+        $stderr = stderr
+      end
+    end
+
     def test_basic
       assert_equal("foo is a number", "%{msg} is a number" % {:msg => "foo"})
       assert_equal("bar is a number", "%s is a number" % ["bar"])
@@ -22,7 +31,9 @@ class TestGetTextString < Test::Unit::TestCase
 
     def test_percent
       assert_equal("% 1", "%% %<num>d" % {:num => 1.0})
-      assert_equal("%{num} %<num>d", "%%{num} %%<num>d" % {:num => 1})
+      suppress_warning do
+        assert_equal("%{num} %<num>d", "%%{num} %%<num>d" % {:num => 1})
+      end
     end
 
     def test_percent_in_replacement
@@ -30,8 +41,10 @@ class TestGetTextString < Test::Unit::TestCase
     end
 
     def test_no_placeholder
-      assert_equal("aaa", "aaa" % {:num => 1})
-      assert_equal("bbb", "bbb" % [1])
+      suppress_warning do
+        assert_equal("aaa", "aaa" % {:num => 1})
+        assert_equal("bbb", "bbb" % [1])
+      end
     end
 
     def test_ruby19_style
