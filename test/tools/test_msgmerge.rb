@@ -481,6 +481,8 @@ EOP
       end
 
       class TestMessage < self
+        include GetTextTestUtils
+
         def po_content
           <<-PO
 #{po_header(@po_formatted_time, @po_formatted_time)}
@@ -492,7 +494,9 @@ msgstr "Translated World"
         end
 
         def test_merge_metadata
-          @msgmerge.run("--update", @po_file_path, @pot_file_path)
+          suppress_warning do
+            @msgmerge.run("--update", @po_file_path, @pot_file_path)
+          end
           assert_equal(<<-PO, File.read(@po_file_path))
 #{po_header(@pot_formatted_time, @po_formatted_time)}
 #: hello.rb:1
