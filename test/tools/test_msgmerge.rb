@@ -292,7 +292,6 @@ msgstr "bonjour"
         @pot[new_msgid] = ""
         merged_po = merge
 
-        puts merged_po
         assert_equal("bonjour", merged_po[new_msgid].msgstr)
         assert_equal("fuzzy", merged_po[new_msgid].flag)
       end
