@@ -124,7 +124,7 @@ module GetText
         # [[msgstr[0], msgstr[1], msgstr[2],...], cond]
         mo = @mofiles[lang.to_s]
         cond = (mo and mo != :empty) ? mo.plural_as_proc : DEFAULT_PLURAL_CALC
-        ret = [msg.split("\000"), cond]
+        ret = [msg.split("\000", -1), cond]
       else
         ret = [[msg], DEFAULT_SINGLE_CALC]
       end

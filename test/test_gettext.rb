@@ -235,7 +235,10 @@ DDD
     set_locale("fr")
     assert_equal("fr_first", n_("first", "second", 0))
     assert_equal("fr_first", n_("first", "second", 1))
-    assert_equal("fr_first", n_("first", "second", 2))
+    assert_equal("fr_first", n_("first", "second", 2)) # no translation
+    assert_equal("fr_first_2", n_("first_2", "second_2", 0))
+    assert_equal("fr_first_2", n_("first_2", "second_2", 1))
+    assert_equal("", n_("first_2", "second_2", 2))     # empty translation
     set_locale("da") # Invalid Plural-Forms.
     assert_equal("da_first", n_("first", "second", 0))
     assert_equal("da_first", n_("first", "second", 1))
