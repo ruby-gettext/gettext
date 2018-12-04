@@ -268,7 +268,7 @@ module GetText
     def sort_by_msgid(entries)
       entries.sort_by do |msgid_entry|
         # msgid_entry = [[msgctxt, msgid], POEntry]
-        msgid_entry[0]
+        msgid_entry[0][1]
       end
     end
   end
