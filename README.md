@@ -111,54 +111,125 @@ Try `ruby setup.rb --help`.
 
 ### Translation
 
-#### `_()`: basic translation method
+#### `_()` or `gettext()`: basic translation method
 
-Translates the message.
+Translates the message, using the `msgid` if a translation is not found.
 
 ```ruby
-_("Hello")
+_("Hello") => "Bonjour"  # Found
 ```
 
-The gettext methods come in 3 combinable flavors:
+This translation will appear in the po or pot file as:
 
-#### `n_()`: pluralized
+```
+msgid: "Hello"
+msgstr: "Bonjour"
+```
+
+When a translation is not found it, it will return the `msgid`. This is a core
+benefit of gettext and applies to all its translation methods.
+
+```ruby
+_("Hello") => "Hello"  # Not Found
+```
+
+Additional gettext methods come in 3 combinable flavors:
+
+#### `n_()` or `ngettext()`: pluralized
 
 Returns singular or plural form, depending on how many you have.
 
 ```ruby
-n_("Apple", "%{num} Apples", 3)
-n_(["Apple", "%{num} Apples"], 3)
+n_("Apple", "%{num} Apples", n) => "3 Pommes"  # When n = 3
+n_("Apple", "%{num} Apple", n)  => "Pomme"     # When n = 1
+n_(["Apple", "%{num} Apple"], n)  => "Pomme"   # 2 arg variation
 ```
 
-#### `p_()`: context aware
+This translation will appear in the po or pot file as:
 
-A context is a prefix to your translation, usefull when one word has different meanings, depending on its context.
+```
+msgid "Apple"
+msgid_plural "%{num} Apples"
+msgstr[0] "Pomme"
+msgstr[1] "#{num} Pommes"
+```
+
+#### `p_()` or `pgettext()`: context aware
+
+A context is a prefix to your translation, useful when one word has different meanings, depending on its context.  
 
 ```ruby
-p_("Printer","Open") <=> p_("File","Open")
-is the same as s_("Printer|Open")  <=> s_("File|Open")
+p_("Printer","Open") => "Öffnen" #translation found
+p_("Printer","Open") => "Open"   #translation not found
 ```
 
-#### `s_()`: without context
+This translation will appear in the po or pot file as:
 
-If a translation could not be found, return the msgid without context.
+```
+msgctxt "Printer"
+msgid "Open"
+msgstr "Öffnen"
+```
+
+Note that the parser when sorting by `msgid` will strictly sort by the `msgid` ignoring
+the `msgctxt`. If you prefer to sort with the `msgctxt` you should consider the
+`s_()` method.
+
+#### `s_()` or `sgettext()`: without context
+
+The `s_()` method is very similar to the `p_()` method except that the context is
+inside the msgid.
 
 ```ruby
 s_("Printer|Open") => "Öffnen" #translation found
 s_("Printer|Open") => "Open"   #translation not found
 ```
 
+```
+msgid "Printer|Open"
+msgstr "Öffnen"
+```
+
+Note the the parser when sorting by `msgid` will take the context into consideration
+as it is part of the `msgid` unlike the `p_()` method.
+
+Your preference of using `s_()` or `p_()` will depend on your translation workflow and process.
+
 #### Combinations
+
+You can combine `n_()` with either `p_()` or `s_()`.
+
+#### `np_()` or `npgettext()`: context aware pluralized
 
 ```ruby
 np_("Fruit", "Apple", "%{num} Apples", 3)
-ns_("Fruit|Apple","%{num} Apples", 3)
-
-np_(["Fruit","Apple","%{num} Apples"], 3)
-ns_(["Fruit|Apple","%{num} Apples"], 3)
+np_(["Fruit","Apple","%{num} Apples"], 3) # 2 arg variation
 ```
 
-#### `N_()`, `Nn_()`: makes dynamic translation messages readable for the gettext parser
+```
+msgctxt "Fruit"
+msgid "Apple"
+msgid_plural "%{num} Apples"
+msgstr[0] ""
+msgstr[1] ""
+```
+
+#### `sp_()` or `spgettext()`: context aware pluralized
+
+
+```ruby
+ns_("Fruit|Apple","%{num} Apples", 3)
+ns_(["Fruit|Apple","%{num} Apples"], 3) # 2 arg variation
+```
+
+```
+msgid "Fruit|Apple"
+msgid_plural "%{num} Apples"
+msgstr[0] ""
+msgstr[1] ""
+```
+
+#### `N_()` and `Nn_()`: makes dynamic translation messages readable for the gettext parser
 
 `_(fruit)` cannot be understood by the gettext parser.
 To help the parser find all your translations, you can add `fruit = N_("Apple")` which does not translate, but tells the parser: "Apple" needs translation.
@@ -171,10 +242,20 @@ fruits = Nn_("Apple", "%{num} Apples")
 n_(fruits, 3)
 ```
 
+### Interpolating translations
+
+This is not a feature of gettext but worth noting. You can interpolate translated strings without the ruby String `%` operator.
+
+```ruby
+N_("active"); N_("inactive"); N_("paused") # possible value of status for parser to find.
+_("Your account is #{account_state}.") % { account_state: _(status) }
+```
+
+
 ### Bind textdomains to the classes
 
 A textdomain has a translation file in each language.
-A module/class can have multi textdomains.
+A module/class can have multiple textdomains.
 This means the libraries/applications can have their own textdomains.
 
 ```ruby
@@ -206,11 +287,11 @@ include GetText
 set_locale "en_US"
 ```
 
-For more details and options, have a look at the samples folder or consult the [tutorial](http://www.yotabanana.com/hiki/ruby-gettext-howto.html).
+For more details and options, have a look at the samples folder.
 
 ## License
 
-This program is licenced under the same licence as Ruby (See `doc/text/ruby-license.txt`) or 
+This program is licenced under the same licence as Ruby (See `doc/text/ruby-license.txt`) or
 LGPL (Lesser General Public License: `doc/text/lgpl-3.0.txt` or http://www.gnu.org/licenses/lgpl-3.0.txt).  
 
 `mofile.rb`
@@ -274,7 +355,7 @@ Copyright (C) 2001-2009 Masao Mutoh <mutoh at highwhay.ne.jp>
 
 Old maintainer
 
-* Masao Mutoh `<mutomasa at gmail.com>` 
+* Masao Mutoh `<mutomasa at gmail.com>`
 
 ## Links
 
