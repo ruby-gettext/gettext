@@ -187,7 +187,7 @@ class TestGetTextParser < Test::Unit::TestCase
       fixture_path = "fixtures/erb/non_ascii.rhtml"
       @ary = GetText::ErbParser.parse(fixture_path)
 
-      assert_target('わたし', ["#{fixture_path}:11"])
+      assert_target('わたし', ["#{fixture_path}:12"])
     end
   end
 
