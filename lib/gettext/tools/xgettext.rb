@@ -52,9 +52,9 @@ module GetText
       # @api private
       @@default_parsers = []
       builtin_parser_info_list = [
-        ["glade", "GladeParser"],
+        ["ruby", "RubyParser"], # Default parser.
         ["erb", "ErbParser"],
-        ["ruby", "RubyParser"] # Default parser.
+        ["glade", "GladeParser"],
       ]
       builtin_parser_info_list.each do |f, klass|
         begin
