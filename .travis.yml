@@ -1,11 +1,11 @@
+notifications:
+  webhooks:
+    - https://webhook.commit-email.info/
 rvm:
   - 2.5
   - 2.6
   - 2.7
   - ruby-head
-notifications:
-  recipients:
-    - ruby-gettext@commit-email.info
 matrix:
   allow_failures:
     - rvm: ruby-head
