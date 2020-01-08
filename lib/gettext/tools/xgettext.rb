@@ -59,7 +59,7 @@ module GetText
       builtin_parser_info_list.each do |f, klass|
         begin
           require "gettext/tools/parser/#{f}"
-          @@default_parsers << GetText.const_get(klass)
+          add_parser(GetText.const_get(klass))
         rescue
           $stderr.puts(_("'%{klass}' is ignored.") % {:klass => klass})
           $stderr.puts($!) if $DEBUG
@@ -73,7 +73,7 @@ module GetText
       attr_reader :parse_options
 
       def initialize #:nodoc:
-        @parsers = @@default_parsers.dup
+        @parsers = []
 
         @input_files = nil
         @output = nil
@@ -356,7 +356,7 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
       end
 
       def parse_path(path, po)
-        @parsers.each do |parser|
+        (@parsers + @@default_parsers).each do |parser|
           next unless parser.target?(path)
 
           # For backward compatibility
