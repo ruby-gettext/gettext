@@ -1,5 +1,48 @@
 # News
 
+## 3.3.0: 2020-01-08 {#version-3-3-0}
+
+### Improvements
+
+  * Fixed README markup.
+    [GitHub#57][Patch by Alexander Paukste]
+
+  * Suppressed warnings.
+    [GitHub#58][Patch by 284km]
+
+  * Improved README.
+    [GitHub#62][Patch by Robert Graff]
+
+  * Added support for finding `racc` of Ruby 2.7.
+    [GitHub#65][Patch by KITAITI Makoto]
+
+  * Added support for Ruby 2.7.
+    [GitHub#64][Reported by Anatol Pomozov]
+
+  * Dropped support for Ruby 2.4.
+
+### Fixes
+
+  * Fixed a bug that `n_` may return nil.
+    [GitHub#60][Patch by Michaël Hoste]
+
+  * Fixed a sort by msgid bug.
+    [GitHub#61][Patch by Robert Graff]
+
+### Thanks
+
+  * Alexander Paukste
+
+  * 284km
+
+  * Michaël Hoste
+
+  * Robert Graff
+
+  * KITAITI Makoto
+
+  * Anatol Pomozov
+
 ## 3.2.9: 2018-03-05 {#version-3-2-9}
 
 ### Fixes
