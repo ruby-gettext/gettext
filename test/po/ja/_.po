@@ -77,6 +77,9 @@ msgid ""
 "Here document2\n"
 msgstr ""
 
+msgid "in_quote"
+msgstr ""
+
 #. TRANSLATORS: This is a proper name.  See the gettext
 #. manual, section Names.  Note this is actually a non-ASCII
 #. name: The first name is (with Unicode escapes)
