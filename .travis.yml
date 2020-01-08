@@ -2,17 +2,10 @@ rvm:
   - 2.5
   - 2.6
   - 2.7
-#  - rbx-2
-#  - jruby
   - ruby-head
-env:
-  - JRUBY_OPTS=-Xcext.enabled=true
 notifications:
   recipients:
     - ruby-gettext@commit-email.info
 matrix:
   allow_failures:
     - rvm: ruby-head
-before_install:
-  - gem update bundler
-script: bundle exec rake
