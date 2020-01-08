@@ -15,7 +15,7 @@ So you can use GNU gettext tools for maintaining.
   EOD
   s.authors = ["Kouhei Sutou", "Masao Mutoh"]
   s.email = ["kou@clear-code.com", "mutomasa at gmail.com"]
-  s.homepage = "http://ruby-gettext.github.com/"
+  s.homepage = "https://ruby-gettext.github.io/"
   s.require_paths = ["lib"]
   Dir.chdir(base_dir) do
     s.files = Dir.glob("{locale,bin,data,doc/text,lib,po,samples,src,test}/**/*")
