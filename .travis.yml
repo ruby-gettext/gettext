@@ -1,6 +1,7 @@
 notifications:
   webhooks:
     - https://webhook.commit-email.info/
+dist: bionic
 rvm:
   - 2.5
   - 2.6
