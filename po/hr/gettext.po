@@ -164,9 +164,7 @@ msgstr ""
 msgid "file '%s' does not exist."
 msgstr "Datoteka '%s' već postoji."
 
-msgid ""
-"Locale '#{language_tag}' is invalid. Please check if your specified locale is "
-"usable."
+msgid "Locale '%s' is invalid. Please check if your specified locale is usable."
 msgstr ""
 
 #, fuzzy
@@ -398,6 +396,9 @@ msgstr ""
 msgid ""
 "Here document1\n"
 "Here document2\n"
+msgstr ""
+
+msgid "in_quote"
 msgstr ""
 
 #. TRANSLATORS: This is a proper name.  See the gettext

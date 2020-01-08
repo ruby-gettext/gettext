@@ -156,7 +156,7 @@ module GetText
         else
           unless File.exist?(@input_file)
             raise(ValidationError,
-                  _("file '%s' does not exist." % @input_file))
+                  _("file '%s' does not exist.") % @input_file)
           end
         end
 
@@ -168,8 +168,9 @@ module GetText
 
         unless valid_locale?(language_tag)
           raise(ValidationError,
-                _("Locale '#{language_tag}' is invalid. " +
-                    "Please check if your specified locale is usable."))
+                _("Locale '%s' is invalid. " +
+                  "Please check if your specified locale is usable.") %
+                language_tag)
         end
         @locale = language_tag.to_simple.to_s
         @language = language_tag.language
@@ -177,7 +178,7 @@ module GetText
         @output_file ||= "#{@locale}.po"
         if File.exist?(@output_file)
           raise(ValidationError,
-                _("file '%s' has already existed." % @output_file))
+                _("file '%s' has already existed.") % @output_file)
         end
       end
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 2.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2018-03-05 15:13+0900\n"
+"PO-Revision-Date: 2020-01-08 18:34+0900\n"
 "Last-Translator: Haruka Yoshihara <yoshihara@clear-code.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -159,10 +159,8 @@ msgstr "現在のカレントディレクトリにpotファイルが存在しま
 msgid "file '%s' does not exist."
 msgstr "ファイル'%s'は存在しません。"
 
-msgid ""
-"Locale '#{language_tag}' is invalid. Please check if your specified locale is "
-"usable."
-msgstr "'#{language_tag}'というロケールは正しくありません。指定したロケールが使用可能かどうか確認してください。"
+msgid "Locale '%s' is invalid. Please check if your specified locale is usable."
+msgstr "'%s'というロケールは正しくありません。指定したロケールが使用可能かどうか確認してください。"
 
 msgid "file '%s' has already existed."
 msgstr "ファイル'%s'はすでに存在します。"
@@ -389,6 +387,9 @@ msgstr ""
 msgid ""
 "Here document1\n"
 "Here document2\n"
+msgstr ""
+
+msgid "in_quote"
 msgstr ""
 
 #. TRANSLATORS: This is a proper name.  See the gettext
