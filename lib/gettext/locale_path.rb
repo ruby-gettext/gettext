@@ -85,7 +85,11 @@ module GetText
         this_path_rules = rule % {:lang => "([^\/]+)", :name => name}
         Dir.glob(rule % {:lang => "*", :name => name}).each do |path|
           if /#{this_path_rules}/ =~ path
-            @locale_paths[$1] = path.untaint unless @locale_paths[$1]
+            locale_path = $1
+            unless @locale_paths[locale_path]
+              path.untaint if RUBY_VERSION < "2.7"
+              @locale_paths[locale_path] = path
+            end
           end
         end
       end
