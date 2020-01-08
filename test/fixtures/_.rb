@@ -135,6 +135,11 @@ EOF
   def test_regexp
     /Regular Expression/
   end
+
+  def test_variable
+    message = "dynamic message"
+    _(message)
+  end
 end
 
 module ActionController

@@ -245,9 +245,7 @@ module GetText
 
       def store_po_entry(po)
         return if @current_po_entry.nil?
-        return unless @current_po_entry.msgid
-
-        po << @current_po_entry
+        po << @current_po_entry if @current_po_entry.msgid
         @current_po_entry = nil
         @current_po_entry_nth_attribute = 0
       end
