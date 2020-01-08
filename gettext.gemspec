@@ -27,7 +27,7 @@ So you can use GNU gettext tools for maintaining.
     s.test_files = Dir.glob("test/test_*.rb")
   end
 
-  spec.required_ruby_version = ">= 2.5.0"
+  s.required_ruby_version = ">= 2.5.0"
 
   s.add_runtime_dependency("locale", ">= 2.0.5")
   s.add_runtime_dependency("text", ">= 1.3.0")
