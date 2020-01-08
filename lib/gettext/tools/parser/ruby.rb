@@ -38,7 +38,6 @@ module GetText
         @comment_tag = nil
         @last_comment = ""
         @reset_comment = false
-        @embed_expression_level = 0
         @string_mark_stack = []
         @string_stack = []
       end
@@ -67,11 +66,6 @@ module GetText
       end
 
       def process_on_ident(token, po)
-        if @embed_expression_level > 0
-          @string_stack.last << token
-          return po
-        end
-
         store_po_entry(po)
 
         return po if @in_block_arguments
@@ -198,14 +192,8 @@ module GetText
       end
 
       def process_on_embexpr_beg(token, po)
-        @embed_expression_level += 1
-        @string_stack.last << token
-        po
-      end
-
-      def process_on_embexpr_end(token, po)
-        @embed_expression_level -= 1
-        @string_stack.last << token
+        @current_po_entry = nil
+        @current_po_entry_nth_attribute = 0
         po
       end
 
