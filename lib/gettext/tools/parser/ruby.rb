@@ -185,6 +185,18 @@ module GetText
         process_on_tstring_end(token, po)
       end
 
+      def process_on_regexp_beg(token, po)
+        @string_mark_stack << "\""
+        @string_stack << ""
+        po
+      end
+
+      def process_on_regexp_end(token, po)
+        @string_mark_stack.pop
+        @string_stack.pop
+        po
+      end
+
       def process_on_int(token, po)
         @ignore_next_comma = true
         po

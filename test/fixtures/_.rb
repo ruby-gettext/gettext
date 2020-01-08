@@ -131,6 +131,10 @@ EOF
   def test_includeing_sharp
     _("This is a # including string.")
   end
+
+  def test_regexp
+    /Regular Expression/
+  end
 end
 
 module ActionController
