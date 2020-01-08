@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2012-2017  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2019  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
 # Copyright (C) 2009  Masao Mutoh
 #
@@ -210,13 +208,25 @@ module GetText
       true
     end
 
-    def [](number)
-      param = @param_type[number]
-      raise ParseError, 'no more string parameters expected' unless param
-      send param
+    def [](number_or_param)
+      __send__(resolve_param(number_or_param))
+    end
+
+    def []=(number_or_param, value)
+      __send__("#{resolve_param(number_or_param)}=", value)
     end
 
     private
+    def resolve_param(number_or_param)
+      case number_or_param
+      when Integer
+        param = @param_type[number_or_param]
+        raise ParseError, 'no more string parameters expected' unless param
+        param
+      else
+        number_or_param
+      end
+    end
 
     # sets or extends the value of a translation target params like msgid,
     # msgctxt etc.

@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-#
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2019  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
 # Copyright (C) 2009  Masao Mutoh
 #
@@ -33,16 +31,6 @@ class TestPOEntry < Test::Unit::TestCase
     assert_raise GetText::ParseError do
       tt1.merge tt2
     end
-  end
-
-  def test_attribute_accumulation
-    tt = GetText::POEntry.new(:plural)
-    tt.set_current_attribute 'long'
-    tt.set_current_attribute ' tail'
-    tt.advance_to_next_attribute
-    tt.set_current_attribute 'long tails'
-    assert_equal 'long tail', tt.msgid
-    assert_equal 'long tails', tt.msgid_plural
   end
 
   class TestSetType < self

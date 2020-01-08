@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 =begin
   parser/ruby.rb - parser for ruby script
 
-  Copyright (C) 2013-2017  Kouhei Sutou <kou@clear-code.com>
+  Copyright (C) 2013-2019  Sutou Kouhei <kou@clear-code.com>
   Copyright (C) 2003-2009  Masao Mutoh
   Copyright (C) 2005       speakillof
   Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
@@ -12,162 +11,243 @@
 
 =end
 
-require "irb/ruby-lex"
+require "ripper"
 require "stringio"
+
 require "gettext/po_entry"
 
-require "ripper"
-
 module GetText
-  class RubyLexX < RubyLex  # :nodoc: all
-    class StringExtractor < Ripper::Filter
+  class RubyParser
+    class POExtractor < Ripper::Filter
+      ID = ["gettext", "_", "N_", "sgettext", "s_"]
+      PLURAL_ID = ["ngettext", "n_", "Nn_", "ns_", "nsgettext"]
+      MSGCTXT_ID = ["pgettext", "p_"]
+      MSGCTXT_PLURAL_ID = ["npgettext", "np_"]
+
+      attr_accessor :use_comment
+      attr_accessor :comment_tag
       def initialize(*args)
-        super
+        super(*args)
+        @in_block_arguments = false
+        @ignore_next_comma = false
+        @context_stack = []
+        @need_definition_name = false
+        @current_po_entry = nil
+        @current_po_entry_nth_attribute = 0
+        @use_comment = false
+        @comment_tag = nil
+        @last_comment = ""
+        @reset_comment = false
         @string_mark_stack = []
+        @string_stack = []
       end
 
-      def on_default(event, token, output)
-        case event
-        when :on_tstring_content
-          if @string_mark_stack.last == "\""
-            output << token.gsub(/\\./) do |data|
-              case data
-              when "\\n"
-                "\n"
-              when "\\t"
-                "\t"
-              when "\\\\"
-                "\\"
-              when "\\\""
-                "\""
-              when "\\\#"
-                "#"
-              else
-                data
-              end
-            end
-          else
-            output << token.gsub(/\\./) do |data|
-              case data
-              when "\\\\"
-                "\\"
-              when "\\'"
-                "'"
-              else
-                data
-              end
-            end
+      def process_on_op(token, po)
+        @in_block_arguments = !@in_block_arguments if token == "|"
+        po
+      end
+
+      def process_on_kw(token, po)
+        store_po_entry(po)
+        case token
+        when "begin", "case", "do", "for"
+          @context_stack.push(token)
+        when "class", "def", "module"
+          @context_stack.push(token)
+        when "if", "unless", "until", "while"
+          # postfix case
+          unless state.allbits?(Ripper::EXPR_LABEL)
+            @context_stack.push(token)
           end
-        when :on_tstring_beg
-          unless @string_mark_stack.empty?
-            output << token
-          end
-          @string_mark_stack << token
-        when :on_tstring_end
-          @string_mark_stack.pop
-          unless @string_mark_stack.empty?
-            output << token
+        when "end"
+          @context_stack.pop
+        end
+        po
+      end
+
+      def process_on_ident(token, po)
+        store_po_entry(po)
+
+        return po if @in_block_arguments
+        return po if state.allbits?(Ripper::EXPR_ENDFN)
+
+        case token
+        when *ID
+          @current_po_entry = POEntry.new(:normal)
+        when *PLURAL_ID
+          @current_po_entry = POEntry.new(:plural)
+        when *MSGCTXT_ID
+          @current_po_entry = POEntry.new(:msgctxt)
+        when *MSGCTXT_PLURAL_ID
+          @current_po_entry = POEntry.new(:msgctxt_plural)
+        end
+        if @current_po_entry
+          @current_po_entry.add_comment(@last_comment) unless @last_comment.empty?
+          @last_comment = ""
+          @current_po_entry.references << "#{filename}:#{lineno}"
+          @current_po_entry_nth_attribute = 0
+        end
+        po
+      end
+
+      def process_on_const(token, po)
+        case token
+        when "N_"," Nn_"
+          # TODO: Check the next token is :on_lparen
+          process_on_ident(token, po)
+        else
+          po
+        end
+      end
+
+      def process_on_comment(token, po)
+        @last_comment = "" if @reset_comment
+        @reset_comment = false
+        if @last_comment.empty?
+          content = token.gsub(/\A#\s*/, "").chomp
+          if comment_to_be_extracted?(content)
+            @last_comment << content
           end
         else
-          unless @string_mark_stack.empty?
-            output << token.to_s
+          content = token.gsub(/\A#/, "").chomp
+          @last_comment << "\n"
+          @last_comment << content
+        end
+        po
+      end
+
+      def process_on_sp(token, po)
+        po
+      end
+
+      def process_on_tstring_beg(token, po)
+        @string_mark_stack << token
+        @string_stack << ""
+        po
+      end
+
+      def process_on_tstring_content(token, po)
+        if @string_mark_stack.last == "\""
+          @string_stack.last << token.gsub(/\\./) do |data|
+            case data
+            when "\\n"
+              "\n"
+            when "\\t"
+              "\t"
+            when "\\\\"
+              "\\"
+            when "\\\""
+              "\""
+            when "\\\#"
+              "#"
+            else
+              data
+            end
+          end
+        else
+          @string_stack.last << token.gsub(/\\./) do |data|
+            case data
+            when "\\\\"
+              "\\"
+            when "\\'"
+              "'"
+            else
+              data
+            end
           end
         end
-        output
+        po
       end
-    end
 
-    # Parser#parse resemlbes RubyLex#lex
-    def parse
-      until (  (tk = token).kind_of?(RubyToken::TkEND_OF_SCRIPT) && !@continue or tk.nil?  )
-        s = get_readed
-        if RubyToken::TkSTRING === tk or RubyToken::TkDSTRING === tk
-          def tk.value
-            @value
+      def process_on_tstring_end(token, po)
+        @ignore_next_comma = false
+        @string_mark_stack.pop
+        last_string = @string_stack.pop
+        if @current_po_entry and last_string
+          @current_po_entry[@current_po_entry_nth_attribute] =
+            (@current_po_entry[@current_po_entry_nth_attribute] || "") +
+            last_string
+        end
+        po
+      end
+
+      def process_on_heredoc_beg(token, po)
+        if token.end_with?("'")
+          @string_mark_stack << "'"
+        else
+          @string_mark_stack << "\""
+        end
+        @string_stack << ""
+        po
+      end
+
+      def process_on_heredoc_end(token, po)
+        process_on_tstring_end(token, po)
+      end
+
+      def process_on_int(token, po)
+        @ignore_next_comma = true
+        po
+      end
+
+      def process_on_comma(token, po)
+        unless @ignore_next_comma
+          if @current_po_entry
+            @current_po_entry_nth_attribute += 1
           end
+        end
+        po
+      end
 
-          def tk.value=(s)
-            @value = s
-          end
+      def process_on_rparen(token, po)
+        store_po_entry(po)
+        po
+      end
 
-          if @here_header
-            s = s.sub(/\A.*?\n/, "").sub(/^.*\n\Z/, "")
+      def process_on_nl(token, po)
+        @reset_comment = true
+        po
+      end
+
+      def on_default(event, token, po)
+        trace(event, token) do
+          process_method = "process_#{event}"
+          if respond_to?(process_method)
+            __send__(process_method, token, po)
           else
-            s = StringExtractor.new(s).parse("")
-          end
-
-          tk.value = s
-        end
-
-        if $DEBUG
-          if tk.is_a? TkSTRING or tk.is_a? TkDSTRING
-            $stderr.puts("#{tk}: #{tk.value}")
-          elsif tk.is_a? TkIDENTIFIER
-            $stderr.puts("#{tk}: #{tk.name}")
-          else
-            $stderr.puts(tk)
+            po
           end
         end
-
-        yield tk
       end
-      return nil
-    end
 
-    # Original parser does not keep the content of the comments,
-    # so monkey patching this with new token type and extended
-    # identify_comment implementation
-    RubyToken.def_token :TkCOMMENT_WITH_CONTENT, TkVal
-
-    def identify_comment
-      @ltype = "#"
-      get_readed # skip the hash sign itself
-
-      while ch = getc
-        if ch == "\n"
-          @ltype = nil
-          ungetc
-          break
-        end
+      private
+      @@debug = ENV["GETTEXT_RUBY_PARSER_DEBUG"]
+      def debug?
+        @@debug
       end
-      return Token(TkCOMMENT_WITH_CONTENT, get_readed)
-    end
 
-  end
+      def trace(event_name, token)
+        pp [event_name, token, state, @context_stack.last] if debug?
+        yield
+      end
 
-  # Extends POEntry for RubyParser.
-  # Implements a sort of state machine to assist the parser.
-  module POEntryForRubyParser
-    # Supports parsing by setting attributes by and by.
-    def set_current_attribute(str)
-      param = @param_type[@param_number]
-      raise ParseError, "no more string parameters expected" unless param
-      set_value(param, str)
-    end
+      def store_po_entry(po)
+        return if @current_po_entry.nil?
+        return unless @current_po_entry.msgid
 
-    def init_param
-      @param_number = 0
-      self
-    end
+        po << @current_po_entry
+        @current_po_entry = nil
+        @current_po_entry_nth_attribute = 0
+      end
 
-    def advance_to_next_attribute
-      @param_number += 1
-    end
-  end
-  class POEntry
-    include POEntryForRubyParser
-    alias :initialize_old :initialize
-    def initialize(type)
-      initialize_old(type)
-      init_param
-    end
-  end
+      def comment_to_be_extracted?(comment)
+        return false unless @use_comment
 
-  class RubyParser
-    ID = ["gettext", "_", "N_", "sgettext", "s_"]
-    PLURAL_ID = ["ngettext", "n_", "Nn_", "ns_", "nsgettext"]
-    MSGCTXT_ID = ["pgettext", "p_"]
-    MSGCTXT_PLURAL_ID = ["npgettext", "np_"]
+        return true if @comment_tag.nil?
+
+        comment.start_with?(@comment_tag)
+      end
+    end
 
     class << self
       def target?(file)  # :nodoc:
@@ -282,106 +362,12 @@ module GetText
     end
 
     def parse_source(source)
-      po = []
-      file = StringIO.new(source)
-      rl = RubyLexX.new
-      rl.set_input(file)
-      rl.skip_space = true
-      #rl.readed_auto_clean_up = true
-
-      po_entry = nil
-      line_no = nil
-      last_comment = ""
-      reset_comment = false
-      ignore_next_comma = false
-      rl.parse do |tk|
-        begin
-          ignore_current_comma = ignore_next_comma
-          ignore_next_comma = false
-          case tk
-          when RubyToken::TkIDENTIFIER, RubyToken::TkCONSTANT
-            if store_po_entry(po, po_entry, line_no, last_comment)
-              last_comment = ""
-            end
-            if ID.include?(tk.name)
-              po_entry = POEntry.new(:normal)
-            elsif PLURAL_ID.include?(tk.name)
-              po_entry = POEntry.new(:plural)
-            elsif MSGCTXT_ID.include?(tk.name)
-              po_entry = POEntry.new(:msgctxt)
-            elsif MSGCTXT_PLURAL_ID.include?(tk.name)
-              po_entry = POEntry.new(:msgctxt_plural)
-            else
-              po_entry = nil
-            end
-            line_no = tk.line_no.to_s
-          when RubyToken::TkBITOR
-            po_entry = nil
-          when RubyToken::TkSTRING, RubyToken::TkDSTRING
-            po_entry.set_current_attribute tk.value if po_entry
-          when RubyToken::TkPLUS, RubyToken::TkNL
-            #do nothing
-          when RubyToken::TkINTEGER
-            ignore_next_comma = true
-          when RubyToken::TkCOMMA
-            unless ignore_current_comma
-              po_entry.advance_to_next_attribute if po_entry
-            end
-          else
-            if store_po_entry(po, po_entry, line_no, last_comment)
-              po_entry = nil
-              last_comment = ""
-            end
-          end
-        rescue
-          $stderr.print "\n\nError"
-          $stderr.print " parsing #{@path}:#{tk.line_no}\n\t #{source.lines.to_a[tk.line_no - 1]}" if tk
-          $stderr.print "\n #{$!.inspect} in\n"
-          $stderr.print $!.backtrace.join("\n")
-          $stderr.print "\n"
-          exit 1
-        end
-
-        case tk
-        when RubyToken::TkCOMMENT_WITH_CONTENT
-          last_comment = "" if reset_comment
-          if last_comment.empty?
-            comment1 = tk.value.lstrip
-            if comment_to_be_extracted?(comment1)
-              last_comment += comment1
-            end
-          else
-            last_comment += "\n"
-            last_comment += tk.value
-          end
-          reset_comment = false
-        when RubyToken::TkNL
-        else
-          reset_comment = true
-        end
+      extractor = POExtractor.new(source, @path)
+      if @options.key?(:comment_tag)
+        extractor.use_comment = true
+        extractor.comment_tag = @options[:comment_tag]
       end
-      po
-    end
-
-    private
-    def store_po_entry(po, po_entry, line_no, last_comment) #:nodoc:
-      if po_entry && po_entry.msgid
-        po_entry.references << @path + ":" + line_no
-        po_entry.add_comment(last_comment) unless last_comment.empty?
-        po << po_entry
-        true
-      else
-        false
-      end
-    end
-
-    def comment_to_be_extracted?(comment)
-      return false unless @options.has_key?(:comment_tag)
-
-      tag = @options[:comment_tag]
-      return true if tag.nil?
-
-      /\A#{Regexp.escape(tag)}/ === comment
+      extractor.parse([])
     end
   end
 end
