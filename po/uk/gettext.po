@@ -683,6 +683,11 @@ msgid_plural "second"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "first_2"
+msgid_plural "second_2"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "single"
 msgid_plural "plural"
 msgstr[0] ""
