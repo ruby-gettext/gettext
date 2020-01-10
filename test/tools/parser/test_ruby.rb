@@ -227,6 +227,18 @@ class TestRubyParser < Test::Unit::TestCase
                    path)
     end
 
+
+    def test_percent_strings
+      path = "percent_strings.rb"
+      assert_parse([
+                     {
+                       :msgid      => "hello world",
+                       :references => ["#{path}:17"],
+                     }
+                   ],
+                   path)
+    end
+
     private
     def fixture_path(*components)
       super("_", *components)
