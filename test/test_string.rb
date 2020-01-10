@@ -1,6 +1,6 @@
 class TestGetTextString < Test::Unit::TestCase
   class TestFormat < self
-    include GetTextTestUtils
+    include Helper::Warning
 
     def test_basic
       assert_equal("foo is a number", "%{msg} is a number" % {:msg => "foo"})

@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2018  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2020  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
 #
 # License: Ruby's or LGPL
@@ -60,7 +60,7 @@ EOP
   end
 
   class TestPO < self
-    include GetTextTestUtils
+    include Helper::Warning
 
     def test_msgstr
       po_file = create_po_file(<<-EOP)

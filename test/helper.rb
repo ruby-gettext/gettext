@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2018  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2020  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -22,30 +22,36 @@ require "time"
 
 require "gettext"
 
-module GetTextTestUtils
-  module_function
-  def fixture_path(*components)
-    File.join(File.dirname(__FILE__), "fixtures", *components)
+module Helper
+  module Path
+    module_function
+    def fixture_path(*components)
+      File.join(File.dirname(__FILE__), "fixtures", *components)
+    end
+
+    def locale_path
+      File.join(File.dirname(__FILE__), "locale")
+    end
   end
 
-  def locale_path
-    File.join(File.dirname(__FILE__), "locale")
+  module Tmpdir
+    def setup_tmpdir
+      @tmpdir = Dir.mktmpdir
+    end
+
+    def teardown_tmpdir
+      FileUtils.rm_rf(@tmpdir, :secure => true) if @tmpdir
+    end
   end
 
-  def setup_tmpdir
-    @tmpdir = Dir.mktmpdir
-  end
-
-  def teardown_tmpdir
-    FileUtils.rm_rf(@tmpdir, :secure => true) if @tmpdir
-  end
-
-  def suppress_warning
-    stderr, $stderr = $stderr, StringIO.new
-    begin
-      yield
-    ensure
-      $stderr = stderr
+  module Warning
+    def suppress_warning
+      stderr, $stderr = $stderr, StringIO.new
+      begin
+        yield
+      ensure
+        $stderr = stderr
+      end
     end
   end
 end

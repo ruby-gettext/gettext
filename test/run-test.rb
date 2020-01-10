@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2020  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -32,7 +32,7 @@ require "test-unit"
 require "test/unit/notify"
 require "test/unit/rr"
 
-require "gettext-test-utils"
+require "helper"
 
 Dir.chdir(test_dir) do
   Dir.glob("**/test_*.rb").each do |test_file_path|

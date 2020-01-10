@@ -1,4 +1,4 @@
-# Copyright (C) 2017  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2017-2020  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -20,7 +20,7 @@ module Fixtures
     class BlockParameter
       include GetText
 
-      bindtextdomain("_", :path => GetTextTestUtils.locale_path)
+      bindtextdomain("_", :path => Helper::Path.locale_path)
 
       def message
         message_generator = lambda do |_|

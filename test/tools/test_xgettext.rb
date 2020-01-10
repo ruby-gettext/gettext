@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2020  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
 #
 # License: Ruby's or LGPL
@@ -22,7 +22,7 @@ require "locale"
 require "gettext/tools/xgettext"
 
 class TestToolsXGetText < Test::Unit::TestCase
-  include GetTextTestUtils
+  include Helper::Tmpdir
 
   def setup
     @xgettext = GetText::Tools::XGetText.new

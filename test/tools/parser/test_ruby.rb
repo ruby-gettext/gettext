@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2020  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
 # Copyright (C) 2009  Vladimir Dobriakov <vladimir@geekq.net>
 # Copyright (C) 2009-2010  Masao Mutoh
@@ -24,7 +24,7 @@
 require "gettext/tools/parser/ruby"
 
 class TestRubyParser < Test::Unit::TestCase
-  include GetTextTestUtils
+  include Helper::Path
 
   private
   def parse(file)

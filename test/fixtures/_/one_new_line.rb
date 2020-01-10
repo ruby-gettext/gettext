@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2013-2020  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -22,7 +22,7 @@ module Fixtures
     class OneNewLine
       include GetText
 
-      bindtextdomain("_", :path => GetTextTestUtils.locale_path)
+      bindtextdomain("_", :path => Helper::Path.locale_path)
 
       def message
         _("one new line\n")

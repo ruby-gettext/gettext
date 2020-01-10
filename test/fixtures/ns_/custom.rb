@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2020  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -22,7 +22,7 @@ module Fixtures
     class Custom
       include GetText
 
-      bindtextdomain("ns_", :path => GetTextTestUtils.locale_path)
+      bindtextdomain("ns_", :path => Helper::Path.locale_path)
 
       def message
         ns_("context|context$message", "context|context$messages", 1, "$")

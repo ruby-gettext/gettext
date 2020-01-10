@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012-2015  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2020  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2010  Eddie Lau <tatonlto@gmail.com>
 #
 # License: Ruby's or LGPL
@@ -363,7 +363,7 @@ EOC
   end
 
   class TestCommand < self
-    include GetTextTestUtils
+    include Helper::Tmpdir
 
     def setup
       @msgmerge = GetText::Tools::MsgMerge.new
@@ -480,7 +480,7 @@ EOP
       end
 
       class TestMessage < self
-        include GetTextTestUtils
+        include Helper::Warning
 
         def po_content
           <<-PO

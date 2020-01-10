@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2020  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
 # Copyright (C) 2009  Vladimir Dobriakov <vladimir@geekq.net>
 # Copyright (C) 2009-2010  Masao Mutoh
@@ -160,7 +160,7 @@ class TestGetTextParser < Test::Unit::TestCase
   end
 
   class TestErbParser < self
-    include GetTextTestUtils
+    include Helper::Path
 
     def test_detect_encoding
       euc_file = Tempfile.new("euc-jp.rhtml")
@@ -175,19 +175,20 @@ class TestGetTextParser < Test::Unit::TestCase
     end
 
     def test_ascii
-      @ary = GetText::ErbParser.parse('fixtures/erb/ascii.rhtml')
+      path = fixture_path("erb", "ascii.rhtml")
+      @ary = GetText::ErbParser.parse(path)
 
-      assert_target 'aaa', ['fixtures/erb/ascii.rhtml:8']
-      assert_target "aaa\n", ['fixtures/erb/ascii.rhtml:11']
-      assert_target 'bbb', ['fixtures/erb/ascii.rhtml:12']
-      assert_plural_target "ccc1", "ccc2", ['fixtures/erb/ascii.rhtml:13']
+      assert_target 'aaa', ["#{path}:8"]
+      assert_target "aaa\n", ["#{path}:11"]
+      assert_target 'bbb', ["#{path}:12"]
+      assert_plural_target "ccc1", "ccc2", ["#{path}:13"]
     end
 
     def test_non_ascii
-      fixture_path = "fixtures/erb/non_ascii.rhtml"
-      @ary = GetText::ErbParser.parse(fixture_path)
+      path = fixture_path("erb", "non_ascii.rhtml")
+      @ary = GetText::ErbParser.parse(path)
 
-      assert_target('わたし', ["#{fixture_path}:12"])
+      assert_target('わたし', ["#{path}:12"])
     end
   end
 
