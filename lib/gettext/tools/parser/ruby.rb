@@ -227,6 +227,22 @@ module GetText
         po
       end
 
+      def process_on_qsymbols_beg(token, po)
+        process_on_tstring_beg(token, po)
+      end
+
+      def process_on_symbeg(token, po)
+        process_on_tstring_beg(token, po)
+      end
+
+      def process_on_qwords_beg(token, po)
+        process_on_tstring_beg(token, po)
+      end
+
+      def process_on_backtick(token, po)
+        process_on_tstring_beg(token, po)
+      end
+
       def on_default(event, token, po)
         trace(event, token) do
           process_method = "process_#{event}"
