@@ -40,6 +40,7 @@ module GetText
         @reset_comment = false
         @string_mark_stack = []
         @string_stack = []
+        @percent_string_stack = []
       end
 
       def process_on_op(token, po)
@@ -127,7 +128,9 @@ module GetText
       end
 
       def process_on_tstring_content(token, po)
-        if @string_mark_stack.last == "\""
+        if ! @percent_string_stack.empty?
+          # Do nothing
+        elsif @string_mark_stack.last == "\""
           @string_stack.last << token.gsub(/\\./) do |data|
             case data
             when "\\n"
@@ -162,11 +165,13 @@ module GetText
       def process_on_tstring_end(token, po)
         @ignore_next_comma = false
         @string_mark_stack.pop
-        last_string = @string_stack.pop
-        if @current_po_entry and last_string
-          @current_po_entry[@current_po_entry_nth_attribute] =
-            (@current_po_entry[@current_po_entry_nth_attribute] || "") +
-            last_string
+        unless @percent_string_stack.pop
+          last_string = @string_stack.pop
+          if @current_po_entry and last_string
+            @current_po_entry[@current_po_entry_nth_attribute] =
+              (@current_po_entry[@current_po_entry_nth_attribute] || "") +
+              last_string
+          end
         end
         po
       end
@@ -227,20 +232,30 @@ module GetText
         po
       end
 
-      def process_on_qsymbols_beg(token, po)
-        process_on_tstring_beg(token, po)
-      end
-
       def process_on_symbeg(token, po)
-        process_on_tstring_beg(token, po)
-      end
-
-      def process_on_qwords_beg(token, po)
-        process_on_tstring_beg(token, po)
+        if token.start_with?("%") || [":'", ':"'].include?(token)
+          @string_mark_stack << token
+          @percent_string_stack << token
+        end
+        po
       end
 
       def process_on_backtick(token, po)
-        process_on_tstring_beg(token, po)
+        @string_mark_stack << token
+        @percent_string_stack << token
+        po
+      end
+
+      def process_on_qsymbols_beg(token, po)
+        @string_mark_stack << token
+        @percent_string_stack << token
+        po
+      end
+
+      def process_on_qwords_beg(token, po)
+        @string_mark_stack << token
+        @percent_string_stack << token
+        po
       end
 
       def on_default(event, token, po)
