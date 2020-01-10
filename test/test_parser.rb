@@ -142,12 +142,6 @@ class TestGetTextParser < Test::Unit::TestCase
         assert_equal "TRANSLATORS:please translate 'name' in the context of 'program'.\n Hint: the translation should NOT contain the translation of 'program'.", t.extracted_comment
       end
     end
-
-    def test_percent_strings
-      assert_nothing_raised do
-        @xgettext.parse(['fixtures/percent_strings.rb'])
-      end
-    end
   end
 
   class TestGlade < self
