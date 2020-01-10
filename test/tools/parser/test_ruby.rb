@@ -24,47 +24,10 @@
 require "gettext/tools/parser/ruby"
 
 class TestRubyParser < Test::Unit::TestCase
-  include Helper::Path
+  include Helper::Parser
 
-  private
   def parse(file)
     GetText::RubyParser.parse(fixture_path(file))
-  end
-
-  def assert_parse(expected, file)
-    assert_equal(normalize_expected(expected),
-                 normalize_actual(parse(file)))
-  end
-
-  def normalize_expected(messages)
-    messages.collect do |message|
-      default = {
-        :msgid        => nil,
-        :msgid_plural => nil,
-        :msgstr       => nil,
-        :separator    => nil,
-        :references   => nil,
-      }
-      default.merge(message)
-    end
-  end
-
-  def normalize_actual(po)
-    po.collect do |po_entry|
-      {
-        :msgid        => po_entry.msgid,
-        :msgid_plural => po_entry.msgid_plural,
-        :msgstr       => po_entry.msgstr,
-        :separator    => po_entry.separator,
-        :references   => normalize_references(po_entry.references),
-      }
-    end
-  end
-
-  def normalize_references(references)
-    references.collect do |reference|
-      reference.sub(/\A#{Regexp.escape(fixture_path)}\//, "")
-    end
   end
 
   class TestDetectEncoding < self

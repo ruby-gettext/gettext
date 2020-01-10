@@ -54,6 +54,7 @@ module GetText
       builtin_parser_info_list = [
         ["ruby", "RubyParser"], # Default parser.
         ["erb", "ErbParser"],
+        ["gtk_builder_ui_definitions", "GtkBuilderUIDefinitionsParser"],
         ["glade", "GladeParser"],
       ]
       builtin_parser_info_list.each do |f, klass|
