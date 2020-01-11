@@ -233,7 +233,7 @@ class TestRubyParser < Test::Unit::TestCase
       assert_parse([
                      {
                        :msgid      => "hello world",
-                       :references => ["#{path}:36"],
+                       :references => ["#{path}:34"],
                      }
                    ],
                    path)
