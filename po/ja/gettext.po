@@ -446,6 +446,9 @@ msgid ""
 "one new line\n"
 msgstr ""
 
+msgid "hello world"
+msgstr ""
+
 msgid "You should escape '\\' as '\\\\'."
 msgstr ""
 
