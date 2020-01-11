@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Copyright (C) 2013-2020  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
