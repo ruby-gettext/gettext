@@ -1,5 +1,28 @@
 # News
 
+## 3.3.1: 2020-01-12 {#version-3-3-1}
+
+### Improvements
+
+  * Stopped detecting string interpolation literal.
+    [GitHub#21][Reported by Remo]
+
+  * `rxgettext`: Added support for adding a new parser by `--require`.
+
+  * Added support for GtkBuilder UI definitions file.
+    [GitHub#63][Reported by Alex]
+
+  * Improved percent literal parsing.
+    [GitHub#67][Patch by KITAITI Makoto]
+
+### Thanks
+
+  * Remo
+
+  * Alex
+
+  * KITAITI Makoto
+
 ## 3.3.0: 2020-01-08 {#version-3-3-0}
 
 ### Improvements
