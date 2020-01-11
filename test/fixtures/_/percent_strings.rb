@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2013-2020  Sutou Kouhei <kou@clear-code.com>
+# Copyright (C) 2020  Kitaiti Makoto <KitaitiMakoto@gmail.com>
 #
 # License: Ruby's or LGPL
 #
