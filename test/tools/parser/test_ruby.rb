@@ -190,6 +190,30 @@ class TestRubyParser < Test::Unit::TestCase
                    path)
     end
 
+
+    def test_percent_strings
+      path = "percent_strings.rb"
+      assert_parse([
+                     {
+                       :msgid      => "hello world",
+                       :references => ["#{path}:34"],
+                     }
+                   ],
+                   path)
+    end
+
+    def test_quoted_symbol
+      path = "quoted_symbol.rb"
+      assert_parse([],
+                   path)
+    end
+
+    def test_backtick
+      path = "backtick.rb"
+      assert_parse([],
+                   path)
+    end
+
     private
     def fixture_path(*components)
       super("_", *components)
