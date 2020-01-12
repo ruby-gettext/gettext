@@ -1,5 +1,16 @@
 # News
 
+## 3.3.2: 2020-01-13 {#version-3-3-2}
+
+### Fixes
+
+  * Fixed a bug that `rake gettext:po:add]` raises an error.
+    [GitHub#70][Patch by KITAITI Makoto]
+
+### Thanks
+
+  * KITAITI Makoto
+
 ## 3.3.1: 2020-01-12 {#version-3-3-1}
 
 ### Improvements
