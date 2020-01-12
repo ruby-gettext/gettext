@@ -381,6 +381,7 @@ module GetText
         return unless @enable_po
 
         path = create_path(locale)
+        define_edit_po_file_task(locale)
         directory path.po_directory.to_s
         dependencies = [
           path.edit_po_file.to_s,
