@@ -10,7 +10,7 @@ jobs:
         ruby-version:
           - "2.5"
           - "2.6"
-          # - "2.7"
+          - "2.7"
         runs-on:
           - ubuntu-latest
           - macos-latest
