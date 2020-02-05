@@ -1,4 +1,5 @@
 # Copyright (C) 2020  Kitaiti Makoto <KitaitiMakoto@gmail.com>
+# Copyright (C) 2020  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -26,6 +27,10 @@ module Fixtures
         _(%i(hello world))
       end
 
+      def in_symbol_array
+        %I(before#{_("in_symbol_array")}after)
+      end
+
       def symbol
         _(%s(hello world))
       end
@@ -36,6 +41,10 @@ module Fixtures
 
       def string_array
         _(%w(hello world))
+      end
+
+      def in_string_array
+        %W(before#{_("in_string_array")}after)
       end
 
       def execute

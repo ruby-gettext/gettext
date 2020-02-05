@@ -247,6 +247,12 @@ module GetText
         po
       end
 
+      def process_on_symbols_beg(token, po)
+        @string_mark_stack << "\""
+        @string_stack << ""
+        po
+      end
+
       def process_on_backtick(token, po)
         @string_mark_stack << "`"
         @string_stack << ""

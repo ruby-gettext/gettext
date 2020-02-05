@@ -195,9 +195,17 @@ class TestRubyParser < Test::Unit::TestCase
       path = "percent_strings.rb"
       assert_parse([
                      {
+                       :msgid      => "in_symbol_array",
+                       :references => ["#{path}:31"],
+                     },
+                     {
                        :msgid      => "hello world",
-                       :references => ["#{path}:34"],
-                     }
+                       :references => ["#{path}:39"],
+                     },
+                     {
+                       :msgid      => "in_string_array",
+                       :references => ["#{path}:47"],
+                     },
                    ],
                    path)
     end
