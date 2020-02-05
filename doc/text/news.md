@@ -1,5 +1,16 @@
 # News
 
+## 3.3.3: 2020-02-05 {#version-3-3-3}
+
+### Improvements
+
+  * Added support for `%I`.
+    [GitHub#71][Reported by Kai Ramuenke]
+
+### Thanks
+
+  * Kai Ramuenke
+
 ## 3.3.2: 2020-01-13 {#version-3-3-2}
 
 ### Fixes
