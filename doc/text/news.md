@@ -1,5 +1,16 @@
 # News
 
+## 3.3.4: 2020-02-12 {#version-3-3-4}
+
+### Improvements
+
+  * Added support for `%W`.
+    [GitHub#72][Reported by Michaël Hoste]
+
+### Thanks
+
+  * Michaël Hoste
+
 ## 3.3.3: 2020-02-05 {#version-3-3-3}
 
 ### Improvements
