@@ -266,4 +266,16 @@ class TestRubyParser < Test::Unit::TestCase
       super("ns_", *components)
     end
   end
+
+  sub_test_case("parse") do
+    def test_percent_W
+      assert_parse([],
+                   "percent_W.rb")
+    end
+
+    private
+    def fixture_path(*components)
+      super("ruby", *components)
+    end
+  end
 end

@@ -209,6 +209,12 @@ module GetText
         po
       end
 
+      def process_on_words_beg(token, po)
+        @string_mark_stack << "\""
+        @string_stack << ""
+        po
+      end
+
       def process_on_embexpr_beg(token, po)
         @current_po_entry = nil
         @current_po_entry_nth_attribute = 0
