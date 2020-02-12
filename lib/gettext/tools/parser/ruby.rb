@@ -203,15 +203,15 @@ module GetText
         po
       end
 
-      def process_on_embexpr_beg(token, po)
-        @current_po_entry = nil
-        @current_po_entry_nth_attribute = 0
-        po
-      end
-
       def process_on_regexp_end(token, po)
         @string_mark_stack.pop
         @string_stack.pop
+        po
+      end
+
+      def process_on_embexpr_beg(token, po)
+        @current_po_entry = nil
+        @current_po_entry_nth_attribute = 0
         po
       end
 
