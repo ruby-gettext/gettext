@@ -209,12 +209,6 @@ module GetText
         po
       end
 
-      def process_on_words_beg(token, po)
-        @string_mark_stack << "\""
-        @string_stack << ""
-        po
-      end
-
       def process_on_embexpr_beg(token, po)
         @current_po_entry = nil
         @current_po_entry_nth_attribute = 0
@@ -253,20 +247,26 @@ module GetText
         po
       end
 
-      def process_on_symbols_beg(token, po)
-        @string_mark_stack << "\""
-        @string_stack << ""
-        po
-      end
-
       def process_on_backtick(token, po)
         @string_mark_stack << "`"
         @string_stack << ""
         po
       end
 
+      def process_on_symbols_beg(token, po)
+        @string_mark_stack << "\""
+        @string_stack << ""
+        po
+      end
+
       def process_on_qsymbols_beg(token, po)
         @string_mark_stack << token
+        @string_stack << ""
+        po
+      end
+
+      def process_on_words_beg(token, po)
+        @string_mark_stack << "\""
         @string_stack << ""
         po
       end
