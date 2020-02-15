@@ -455,6 +455,9 @@ msgstr ""
 msgid "in_string_array"
 msgstr ""
 
+msgid "Hello"
+msgstr ""
+
 msgid "You should escape '\\' as '\\\\'."
 msgstr ""
 
@@ -479,9 +482,6 @@ msgid "<span>&quot;markup&quot; with &lt;escaped strings&gt;</span>"
 msgstr ""
 
 msgid "duplicated"
-msgstr ""
-
-msgid "Hello"
 msgstr ""
 
 msgid ""
