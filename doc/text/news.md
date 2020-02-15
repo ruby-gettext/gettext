@@ -1,5 +1,16 @@
 # News
 
+## 3.3.5: 2020-02-15 {#version-3-3-5}
+
+### Improvements
+
+  * Added support for `|` method.
+    [GitHub#73][Reported by dorle-o]
+
+### Thanks
+
+  * dorle-o
+
 ## 3.3.4: 2020-02-12 {#version-3-3-4}
 
 ### Improvements
