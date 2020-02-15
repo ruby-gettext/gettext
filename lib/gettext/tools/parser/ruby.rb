@@ -28,9 +28,9 @@ module GetText
       attr_accessor :comment_tag
       def initialize(*args)
         super(*args)
+        @start_block = false
         @in_block_arguments = false
         @ignore_next_comma = false
-        @context_stack = []
         @need_definition_name = false
         @current_po_entry = nil
         @current_po_entry_nth_attribute = 0
@@ -43,25 +43,28 @@ module GetText
       end
 
       def process_on_op(token, po)
-        @in_block_arguments = !@in_block_arguments if token == "|"
+        if @start_block
+          @in_block_arguments = (token == "|")
+        else
+          if @in_block_arguments and token == "|"
+            @in_block_arguments = false
+          end
+        end
         po
       end
 
       def process_on_kw(token, po)
         store_po_entry(po)
         case token
-        when "begin", "case", "do", "for"
-          @context_stack.push(token)
-        when "class", "def", "module"
-          @context_stack.push(token)
-        when "if", "unless", "until", "while"
-          # postfix case
-          unless state.allbits?(Ripper::EXPR_LABEL)
-            @context_stack.push(token)
-          end
-        when "end"
-          @context_stack.pop
+        when "do"
+          @start_block = true
         end
+        po
+      end
+
+      def process_on_lbrace(token, po)
+        store_po_entry(po)
+        @start_block = (state == Ripper::EXPR_BEG)
         po
       end
 
@@ -280,11 +283,14 @@ module GetText
       def on_default(event, token, po)
         trace(event, token) do
           process_method = "process_#{event}"
+          start_block = @start_block
           if respond_to?(process_method)
-            __send__(process_method, token, po)
-          else
-            po
+            po = __send__(process_method, token, po)
           end
+          if start_block and event != :on_sp
+            @start_block = false
+          end
+          po
         end
       end
 
@@ -295,7 +301,16 @@ module GetText
       end
 
       def trace(event_name, token)
-        pp [event_name, token, state, @context_stack.last] if debug?
+        if debug?
+          status = [
+            event_name,
+            token,
+            state,
+          ]
+          status << :start_block if @start_block
+          status << :in_block_arguments if @in_block_arguments
+          pp status
+        end
         yield
       end
 

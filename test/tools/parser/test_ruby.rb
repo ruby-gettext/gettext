@@ -222,6 +222,21 @@ class TestRubyParser < Test::Unit::TestCase
                    path)
     end
 
+    def test_pipe
+      path = "pipe.rb"
+      assert_parse([
+                     {
+                       :msgid      => "Hello",
+                       :references => ["#{path}:26"],
+                     },
+                     {
+                       :msgid      => "World",
+                       :references => ["#{path}:28"],
+                     },
+                   ],
+                   path)
+    end
+
     private
     def fixture_path(*components)
       super("_", *components)
