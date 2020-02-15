@@ -50,9 +50,6 @@ module GetText
       end
     end
 
-    TARGET1 = /<property.*translatable="yes">(.*)/
-    TARGET2 = /(.*)<\/property>/
-
     def initialize(path, options={})
       @path = path
       @options = options
