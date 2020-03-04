@@ -1,3 +1,8 @@
+NB This file is largely obsolete and is preserved for historical interest.  
+For up to date summaries of recent releases' changes, see the file doc/text/news.md
+
+==========================================================================
+
 = Ruby-GetText-Package-2.2.1 (2012-05-20)
  * Supported non ASCII string in msgid. [GitHub#1]
    [Patch by Urban Hafner]
