@@ -57,12 +57,20 @@ module GetText
       @options = options
     end
 
+    @@erb_accept_keyword_arguments =
+      ERB.instance_method(:initialize).parameters.any? {|type, _| type == :key}
+
     # Extracts messages from @path.
     #
     # @return [Array<POEntry>] Extracted messages
     def parse
       content = IO.read(@path)
-      src = ERB.new(content).src
+      if @@erb_accept_keyword_arguments
+        erb = ERB.new(content, trim_mode: "-")
+      else
+        erb = ERB.new(content, nil, "-")
+      end
+      src = erb.src
 
       # Force the src encoding back to the encoding in magic comment
       # or original content.

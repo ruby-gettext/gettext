@@ -190,6 +190,13 @@ class TestGetTextParser < Test::Unit::TestCase
 
       assert_target('わたし', ["#{path}:12"])
     end
+
+    def test_minus
+      path = fixture_path("erb", "minus.rhtml")
+      @ary = GetText::ErbParser.parse(path)
+
+      assert_target("Hello", ["#{path}:8"])
+    end
   end
 
   def test_xgettext_parse
