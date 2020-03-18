@@ -29,7 +29,6 @@ $LOAD_PATH.unshift(lib_dir)
 $LOAD_PATH.unshift(test_dir)
 
 require "test-unit"
-require "test/unit/notify"
 require "test/unit/rr"
 
 require "helper"
