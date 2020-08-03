@@ -1,5 +1,24 @@
 # News
 
+## 3.3.6: 2020-08-04 {#version-3-3-6}
+
+### Improvements
+
+  * erb: Added support for `-%>`.
+    [GitHub#77][Reported by lremes]
+
+  * Removed ChangeLog.
+    [GitHub#76][Reported by Will Stephenson]
+
+  * Don't assume `RbConfig::CONFIG["datadir"]` is available. For
+    example, TruffleRuby doesn't provide it.
+
+### Thanks
+
+  * lremes
+
+  * Will Stephenson
+
 ## 3.3.5: 2020-02-15 {#version-3-3-5}
 
 ### Improvements
