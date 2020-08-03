@@ -17,14 +17,18 @@ module GetText
   class LocalePath
     # The default locale paths.
     CONFIG_PREFIX = RbConfig::CONFIG['prefix'].gsub(/\/local/, "")
-    DEFAULT_RULES = [
-                     "./locale/%{lang}/LC_MESSAGES/%{name}.mo",
-                     "./locale/%{lang}/%{name}.mo",
-                     "#{RbConfig::CONFIG['datadir']}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
-                     "#{RbConfig::CONFIG['datadir'].gsub(/\/local/, "")}/locale/%{lang}/LC_MESSAGES/%{name}.mo",
-                     "#{CONFIG_PREFIX}/share/locale/%{lang}/LC_MESSAGES/%{name}.mo",
-                     "#{CONFIG_PREFIX}/local/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
-                    ].uniq
+    default_rules_candidates = [
+      "./locale/%{lang}/LC_MESSAGES/%{name}.mo",
+      "./locale/%{lang}/%{name}.mo",
+    ]
+    data_dir = RbConfig::CONFIG["datadir"]
+    if data_dir
+      default_rules_candidates << "#{data_dir}/locale/%{lang}/LC_MESSAGES/%{name}.mo"
+      default_rules_candidates << "#{data_dir.gsub(/\/local/, "")}/locale/%{lang}/LC_MESSAGES/%{name}.mo"
+    end
+    default_rules_candidates << "#{CONFIG_PREFIX}/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
+    default_rules_candidates << "#{CONFIG_PREFIX}/local/share/locale/%{lang}/LC_MESSAGES/%{name}.mo"
+    DEFAULT_RULES = default_rules_candidates.uniq
 
     class << self
       # Add default locale path. Usually you should use GetText.add_default_locale_path instead.
