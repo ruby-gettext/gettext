@@ -11,10 +11,17 @@ jobs:
           - "2.5"
           - "2.6"
           - "2.7"
+          - truffleruby
+          - truffleruby-head
         runs-on:
           - ubuntu-latest
           - macos-latest
           - windows-latest
+        exclude:
+          - runs-on: windows-lates
+            ruby-version: truffleruby
+          - runs-on: windows-lates
+            ruby-version: truffleruby-head
     name: ${{ matrix.ruby-version}} on ${{ matrix.runs-on }}
     runs-on: ${{ matrix.runs-on }}
     steps:
