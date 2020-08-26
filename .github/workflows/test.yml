@@ -18,15 +18,15 @@ jobs:
           - macos-latest
           - windows-latest
         exclude:
-          - runs-on: windows-lates
-            ruby-version: truffleruby
-          - runs-on: windows-lates
-            ruby-version: truffleruby-head
+          - ruby-version: truffleruby
+            runs-on: windows-lates
+          - ruby-version: truffleruby-head
+            runs-on: windows-lates
     name: ${{ matrix.ruby-version}} on ${{ matrix.runs-on }}
     runs-on: ${{ matrix.runs-on }}
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-ruby@master
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
       - name: Install Bundler
