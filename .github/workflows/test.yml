@@ -18,8 +18,8 @@ jobs:
           - macos-latest
           - windows-latest
         allow_failures:
-          - rvm: truffleruby-head
-          - rvm: truffleruby
+          - ruby-version: truffleruby-head
+          - ruby-version: truffleruby
     name: ${{ matrix.ruby-version}} on ${{ matrix.runs-on }}
     runs-on: ${{ matrix.runs-on }}
     steps:
