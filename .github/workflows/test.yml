@@ -17,11 +17,9 @@ jobs:
           - ubuntu-latest
           - macos-latest
           - windows-latest
-        exclude:
-          - ruby-version: truffleruby
-            runs-on: windows-lates
-          - ruby-version: truffleruby-head
-            runs-on: windows-lates
+        allow_failures:
+          - rvm: truffleruby-head
+          - rvm: truffleruby
     name: ${{ matrix.ruby-version}} on ${{ matrix.runs-on }}
     runs-on: ${{ matrix.runs-on }}
     steps:
