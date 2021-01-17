@@ -1,5 +1,16 @@
 # News
 
+## 3.3.7: 2021-01-18 {#version-3-3-7}
+
+### Improvements
+
+  * msgmerge: Added `--no-report-warning` option.
+    [GitHub#81][Reported by Akim Demaille]
+
+### Thanks
+
+  * Akim Demaille
+
 ## 3.3.6: 2020-08-04 {#version-3-3-6}
 
 ### Improvements
