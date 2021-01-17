@@ -49,6 +49,7 @@ module GetText
         config.parse(command_line)
 
         parser = POParser.new
+        parser.report_warning = config.report_warning?
         parser.ignore_fuzzy = false
         definition_po = PO.new
         reference_pot = PO.new
@@ -313,6 +314,7 @@ module GetText
           }
           @enable_fuzzy_matching = true
           @update = nil
+          @report_warning = true
           @output_obsolete_entries = true
           @backup = ENV["VERSION_CONTROL"]
           @suffix = ENV["SIMPLE_BACKUP_SUFFIX"] || "~"
@@ -335,6 +337,12 @@ module GetText
         # @return [Bool] true if fuzzy matching is enabled, false otherwise.
         def enable_fuzzy_matching?
           @enable_fuzzy_matching
+        end
+
+        # @return [Bool] true if reporting warning is enabled,
+        #    false otherwise.
+        def report_warning?
+          @report_warning
         end
 
         # @return [Bool] true if outputting obsolete entries is
@@ -420,6 +428,11 @@ module GetText
                     _("Disable fuzzy matching"),
                     _("(enable)")) do |boolean|
             @enable_fuzzy_matching = boolean
+          end
+
+          parser.on("--no-report-warning",
+                    _("Don't report warning messages")) do |report_warning|
+            @report_warning = report_warning
           end
 
           parser.on("--no-obsolete-entries",

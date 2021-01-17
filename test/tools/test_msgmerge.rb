@@ -784,6 +784,40 @@ msgstr ""
       end
     end
 
+    class TestWarning < self
+      def pot_content
+        <<-POT
+msgid "Hello"
+msgstr ""
+        POT
+      end
+
+      def po_content
+        <<-PO
+#, fuzzy
+msgid "Hello!"
+msgstr "Bonjour!"
+        PO
+      end
+
+      def test_default
+        _stdout, stderr = capture_output do
+          @msgmerge.run(@po_file_path, @pot_file_path)
+        end
+        assert_equal(<<-STDERR, stderr)
+Warning: fuzzy message was used.
+  #{@po_file_path}: msgid 'Hello!'
+        STDERR
+      end
+
+      def test_no_report_warning
+        _stdout, stderr = capture_output do
+          @msgmerge.run("--no-report-warning", @po_file_path, @pot_file_path)
+        end
+        assert_equal("", stderr)
+      end
+    end
+
     class TestObsoleteEntries < self
       def pot_content
         <<-POT
