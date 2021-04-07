@@ -290,7 +290,7 @@ class TestRubyParser < Test::Unit::TestCase
 
     def test_percent_W
       assert_parse([],
-                   "percent_upper_W.rb")
+                   "percent_upper_w.rb")
     end
 
     def test_percent_i
@@ -300,7 +300,7 @@ class TestRubyParser < Test::Unit::TestCase
 
     def test_percent_I
       assert_parse([],
-                   "percent_upper_I.rb")
+                   "percent_upper_i.rb")
     end
 
     private
