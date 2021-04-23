@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2020  Sutou Kouhei <kou@clear-code.com>
+# Copyright (C) 2012-2021  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
 # Copyright (C) 2009  Vladimir Dobriakov <vladimir@geekq.net>
 # Copyright (C) 2009-2010  Masao Mutoh
@@ -95,6 +95,40 @@ class TestGetTextParser < Test::Unit::TestCase
                     ['fixtures/upper_n_.rb:56'])
       assert_target("nnn\nooo",
                     ['fixtures/upper_n_.rb:64'])
+    end
+
+    def test_Nn_
+      @ary = @xgettext.parse(['fixtures/upper_nn_.rb'])
+
+      assert_plural_target('aaa', 'aaas',
+                           ['fixtures/upper_nn_.rb:10'])
+      assert_plural_target("aaa\n", "aaas\n",
+                           ['fixtures/upper_nn_.rb:14'])
+      assert_plural_target("bbb\nccc", "bbbs\ncccs",
+                           ['fixtures/upper_nn_.rb:18'])
+      assert_plural_target("bbb\nccc\nddd\n", "bbbs\ncccs\nddds\n",
+                           ['fixtures/upper_nn_.rb:22'])
+      assert_plural_target('eee', 'eees',
+                           [
+                             'fixtures/upper_nn_.rb:33',
+                             'fixtures/upper_nn_.rb:37',
+                           ])
+      assert_plural_target('fff', 'fffs',
+                           ['fixtures/upper_nn_.rb:37'])
+      assert_plural_target('ggghhhiii', 'gggshhhsiiis',
+                           ['fixtures/upper_nn_.rb:41'])
+      assert_plural_target('a"b"c"', 'as"bs"cs"',
+                           ['fixtures/upper_nn_.rb:50'])
+      assert_plural_target('d"e"f"', 'ds"es"fs"',
+                           ['fixtures/upper_nn_.rb:54'])
+      assert_plural_target('jjj', 'jjjs',
+                           ['fixtures/upper_nn_.rb:58'])
+      assert_plural_target('kkk', 'kkks',
+                           ['fixtures/upper_nn_.rb:59'])
+      assert_plural_target('lllmmm', 'lllsmmms',
+                           ['fixtures/upper_nn_.rb:63'])
+      assert_plural_target("nnn\nooo", "nnns\nooos",
+                           ['fixtures/upper_nn_.rb:71'])
     end
 
     def test_n_

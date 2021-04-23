@@ -1,7 +1,7 @@
 =begin
   parser/ruby.rb - parser for ruby script
 
-  Copyright (C) 2013-2019  Sutou Kouhei <kou@clear-code.com>
+  Copyright (C) 2013-2021  Sutou Kouhei <kou@clear-code.com>
   Copyright (C) 2003-2009  Masao Mutoh
   Copyright (C) 2005       speakillof
   Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
@@ -95,7 +95,7 @@ module GetText
 
       def process_on_const(token, po)
         case token
-        when "N_"," Nn_"
+        when "N_", "Nn_"
           # TODO: Check the next token is :on_lparen
           process_on_ident(token, po)
         else
