@@ -4,8 +4,8 @@ module MultiTextDomain
   class C11
     include GetText
     def initialize
-      bindtextdomain("test1", :path => "locale")
-      bindtextdomain("test2", :path => "locale")
+      bindtextdomain("test1", :path => Helper::Path.locale_path)
+      bindtextdomain("test2", :path => Helper::Path.locale_path)
     end
     def test
       _("language")
@@ -17,8 +17,8 @@ module MultiTextDomain
 
   class C12
     include GetText
-    bindtextdomain("test1", :path => "locale")
-    bindtextdomain("test2", :path => "locale")
+    bindtextdomain("test1", :path => Helper::Path.locale_path)
+    bindtextdomain("test2", :path => Helper::Path.locale_path)
 
     def test
       _("language")
@@ -36,7 +36,7 @@ module MultiTextDomain
 
   module M1
     include GetText
-    bindtextdomain("test1", :path => "locale")
+    bindtextdomain("test1", :path => Helper::Path.locale_path)
 
     module_function
     def test
@@ -57,7 +57,7 @@ module MultiTextDomain
 
     class M1C1
       include GetText
-      bindtextdomain("test2", :path => "locale")
+      bindtextdomain("test2", :path => Helper::Path.locale_path)
       def test
         _("language")
       end
@@ -69,7 +69,7 @@ module MultiTextDomain
     class M1C2
       include GetText
       def initialize
-        bindtextdomain("test2", :path => "locale")
+        bindtextdomain("test2", :path => Helper::Path.locale_path)
       end
       def test
         _("language")
@@ -84,7 +84,7 @@ module MultiTextDomain
   class C2
     include GetText
     def initialize
-      bindtextdomain("test1", :path => "locale")
+      bindtextdomain("test1", :path => Helper::Path.locale_path)
     end
 
     def test
@@ -98,7 +98,7 @@ module MultiTextDomain
 
   class C3
     include GetText
-    bindtextdomain("test1", :path => "locale")
+    bindtextdomain("test1", :path => Helper::Path.locale_path)
 
     def test
       _("language")
@@ -110,7 +110,7 @@ module MultiTextDomain
   end
 
   class C4 < C3
-    bindtextdomain("test2", :path => "locale")
+    bindtextdomain("test2", :path => Helper::Path.locale_path)
 
     def test2
       _("LANGUAGE")
@@ -123,13 +123,13 @@ module MultiTextDomain
 
   class C51
     include GetText
-    bindtextdomain("test3", :path => "locale")
+    bindtextdomain("test3", :path => Helper::Path.locale_path)
     def test
       _("language")
     end
   end
 
   class C52 < C12
-    bindtextdomain("test3", :path => "locale")
+    bindtextdomain("test3", :path => Helper::Path.locale_path)
   end
 end

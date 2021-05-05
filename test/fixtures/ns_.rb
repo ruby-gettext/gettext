@@ -22,7 +22,7 @@ require 'gettext'
 
 class TestNSGetText
   include GetText
-  bindtextdomain("ns_", :path => "locale")
+  bindtextdomain("ns_", :path => Helper::Path.locale_path)
 
   def test_1
     [ns_("AAA|BBB", "CCC", 1), ns_("AAA|BBB", "CCC", 2)]

@@ -4,7 +4,7 @@ require 'gettext'
 
 class Simple
   include GetText
-  bindtextdomain("test1", :path => "locale")
+  bindtextdomain("test1", :path => Helper::Path.locale_path)
 
   def test
     _("language")

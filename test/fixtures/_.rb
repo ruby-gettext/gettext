@@ -24,7 +24,7 @@ require 'gettext'
 include GetText
 
 class MessageFixture
-  bindtextdomain("rubyparser", :path => "locale")
+  bindtextdomain("rubyparser", :path => Helper::Path.locale_path)
 
   def test_1
     _("aaa")
