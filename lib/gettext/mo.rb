@@ -278,11 +278,13 @@ module GetText
 
     def load_from_file(filename)
       @filename = filename
-      begin
-        File.open(filename, 'rb'){|f| load_from_stream(f)}
-      rescue => e
-        e.set_backtrace("File: #{@filename}")
-        raise e
+      File.open(filename, 'rb') do |f|
+        begin
+          load_from_stream(f)
+        rescue => e
+          e.set_backtrace(["#{filename}:#{f.lineno}"] + e.backtrace)
+          raise e
+        end
       end
     end
 
