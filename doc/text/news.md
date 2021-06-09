@@ -1,5 +1,30 @@
 # News
 
+## 3.3.8: 2021-06-09 {#version-3-3-8}
+
+### Improvements
+
+  * msginit: Added support for generating plural forms with
+    Unicode's CLDR plural rules data.
+    [GitHub#85][Suggested by Michaël Hoste]
+
+  * rxgettext ui: Added support for GtkBuilder UI definitions format
+    with `.glade` extension.
+    [GitHub#74][Reported by dorle-o]
+
+### Fixes
+
+  * rxgettext ruby: Fixed a bug that `Nn_` isn't extracted.
+    [GitHub#86][Reported by Kai Ramuenke]
+
+### Thanks
+
+  * Kai Ramuenke
+
+  * Michaël Hoste
+
+  * dorle-o
+
 ## 3.3.7: 2021-01-18 {#version-3-3-7}
 
 ### Improvements
