@@ -24,13 +24,14 @@ require "gettext/po_entry"
 module GetText
   class GtkBuilderUIDefinitionsParser
     @config = {
-      :extnames => [".ui"]
+      :extnames => [".ui", ".glade"]
     }
 
     class << self
       # Sets some preferences to parse GtkBuilder UI definitions files.
       # * config: a Hash of the config. It can takes some values below:
-      #   * :extnames: An Array of target files extension. Default is [".ui"].
+      #   * :extnames: An Array of target files extension.
+      #     Default is [".ui", ".glade"].
       def init(config)
         config.each do |k, v|
           @config[k] = v
@@ -39,7 +40,9 @@ module GetText
 
       def target?(file) # :nodoc:
         @config[:extnames].each do |extname|
-          return true if File.extname(file) == extname
+          next unless File.extname(file) == extname
+          next unless File.read(file).include?("<interface>")
+          return true
         end
         false
       end

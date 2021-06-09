@@ -30,15 +30,11 @@ module GetText
       GLADE_RE = /glade-2.0.dtd/
 
       def target?(file) # :nodoc:
-        data = IO.readlines(file)
-        if XML_RE =~ data[0] and GLADE_RE =~ data[1]
-          true
-        else
-          if File.extname(file) == '.glade'
-            raise _("`%{file}' is not glade-2.0 format.") % {:file => file}
-          end
-          false
-        end
+        return false unless File.extname(file) == ".glade"
+        data = File.read(file)
+        return false unless data.include?("<?xml")
+        return false unless data.include?("glade-2.0.dtd")
+        true
       end
 
       def parse(path, options={})

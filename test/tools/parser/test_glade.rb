@@ -56,7 +56,7 @@ class TestGladeParser < Test::Unit::TestCase
                      msgid:
                        "<span>" +
                        "&quot;markup&quot; with &lt;escaped strings&gt;" +
-                     "</span>",
+                       "</span>",
                     references: ["glade/2.glade:116"],
                    },
                    {
@@ -68,5 +68,24 @@ class TestGladeParser < Test::Unit::TestCase
                    },
                  ],
                  "glade/2.glade")
+  end
+
+
+  class TestDetect < self
+    def target?(file)
+      GetText::GladeParser.target?(fixture_path(file))
+    end
+
+    def test_2
+      assert do
+        target?("glade/2.glade")
+      end
+    end
+
+    def test_3
+      assert do
+        not target?("glade/3.glade")
+      end
+    end
   end
 end

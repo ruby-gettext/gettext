@@ -24,7 +24,7 @@ class TestGtkBuilderUIDefinitionsParser < Test::Unit::TestCase
     GetText::GtkBuilderUIDefinitionsParser.parse(fixture_path(file))
   end
 
-  def test_all
+  def test_ui
     assert_parse([
                    {
                      :msgid => "label with context",
@@ -41,5 +41,23 @@ class TestGtkBuilderUIDefinitionsParser < Test::Unit::TestCase
                    },
                  ],
                  "gtk_builder_ui_definitions.ui")
+  end
+
+  class TestDetect < self
+    def target?(file)
+      GetText::GtkBuilderUIDefinitionsParser.target?(fixture_path(file))
+    end
+
+    def test_ui
+      assert do
+        target?("gtk_builder_ui_definitions.ui")
+      end
+    end
+
+    def test_glade_3
+      assert do
+        target?("glade/3.glade")
+      end
+    end
   end
 end
