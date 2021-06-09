@@ -86,6 +86,10 @@ end
 xgettext_options = ["--add-comments=TRANSLATORS:"]
 GetText::Tools::Task.define do |task|
   task.spec = spec
+  task.files = task.files.reject do |file|
+    file.start_with?("samples/") or
+      file.start_with?("test/")
+  end
   task.xgettext_options.concat(xgettext_options)
 end
 
