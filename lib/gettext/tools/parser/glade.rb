@@ -1,14 +1,20 @@
-# -*- coding: utf-8 -*-
-
-=begin
-  parser/glade.rb - parser for Glade-2
-
-  Copyright (C) 2013       Kouhei Sutou <kou@clear-code.com>
-  Copyright (C) 2004,2005  Masao Mutoh
-
-  You may redistribute it and/or modify it under the same
-  license terms as Ruby or LGPL.
-=end
+# Copyright (C) 2004,2005  Masao Mutoh
+# Copyright (C) 2013       Kouhei Sutou <kou@clear-code.com>
+#
+# License: Ruby's or LGPL
+#
+# This library is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'cgi'
 require 'gettext'
@@ -57,7 +63,7 @@ module GetText
 
     private
     def parse_source(input) # :nodoc:
-      targets = []
+      po = []
       target = false
       start_line_no = nil
       val = nil
@@ -69,14 +75,14 @@ module GetText
           target = true
           if TARGET2 =~ $1
             val = $1
-            add_target(val, start_line_no, targets)
+            add_po_entry(po, val, start_line_no)
             val = nil
             target = false
           end
         elsif target
           if TARGET2 =~ line
             val << $1
-            add_target(val, start_line_no, targets)
+            add_po_entry(po, val, start_line_no)
             val = nil
             target = false
           else
@@ -84,26 +90,22 @@ module GetText
           end
         end
       end
-      targets
+      po
     end
 
-    def add_target(val, line_no, targets) # :nodoc:
-      return unless val.size > 0
-      assoc_data = targets.assoc(val)
-      val = CGI.unescapeHTML(val)
-      if assoc_data
-        targets[targets.index(assoc_data)] = assoc_data << "#{@path}:#{line_no}"
-      else
-        targets << [val.gsub(/\n/, '\n'), "#{@path}:#{line_no}"]
+    def add_po_entry(po, value, line_no) # :nodoc:
+      return if value.empty?
+      value = CGI.unescapeHTML(value)
+      value = value.gsub(/\n/, "\n")
+      po_entry = po.find do |entry|
+        entry.msgid == value
       end
-      targets
+      if po_entry.nil?
+        po_entry = POEntry.new(:normal)
+        po_entry.msgid = value
+        po << po_entry
+      end
+      po_entry.references << "#{@path}:#{line_no}"
     end
-  end
-end
-
-if __FILE__ == $0
-  # ex) ruby glade.rb foo.glade  bar.glade
-  ARGV.each do |file|
-    p GetText::GladeParser.parse(file)
   end
 end

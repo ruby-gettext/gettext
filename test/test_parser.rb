@@ -23,7 +23,6 @@
 
 require "tempfile"
 require "gettext/tools/parser/ruby"
-require "gettext/tools/parser/glade"
 require "gettext/tools/parser/erb"
 
 require "gettext/tools/xgettext"
@@ -175,21 +174,6 @@ class TestGetTextParser < Test::Unit::TestCase
       assert_target_in_context "program", "name", ['fixtures/p_.rb:55'] do |t|
         assert_equal "TRANSLATORS:please translate 'name' in the context of 'program'.\n Hint: the translation should NOT contain the translation of 'program'.", t.extracted_comment
       end
-    end
-  end
-
-  class TestGlade < self
-    def test_old_style
-      # Old style (~2.0.4)
-      ary = GetText::GladeParser.parse('fixtures/gladeparser.glade')
-
-      assert_equal(['window1', 'fixtures/gladeparser.glade:8'], ary[0])
-      assert_equal(['normal text', 'fixtures/gladeparser.glade:29'], ary[1])
-      assert_equal(['1st line\n2nd line\n3rd line', 'fixtures/gladeparser.glade:50'], ary[2])
-      assert_equal(['<span color="red" weight="bold" size="large">markup </span>', 'fixtures/gladeparser.glade:73'], ary[3])
-      assert_equal(['<span color="red">1st line markup </span>\n<span color="blue">2nd line markup</span>', 'fixtures/gladeparser.glade:94'], ary[4])
-      assert_equal(['<span>&quot;markup&quot; with &lt;escaped strings&gt;</span>', 'fixtures/gladeparser.glade:116'], ary[5])
-      assert_equal(['duplicated', 'fixtures/gladeparser.glade:137', 'fixtures/gladeparser.glade:158'], ary[6])
     end
   end
 
