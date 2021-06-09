@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-#
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2017  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2021  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -326,6 +324,82 @@ EOF
         assert_equal(po_header(current_locale, current_language),
                      run_msginit(:have_plural_forms => false))
       end
+    end
+
+    def test_ja
+      assert_equal("nplurals=1; plural=0;",
+                   @msginit.__send__(:plural_forms, "ja"))
+    end
+
+    def test_en
+      assert_equal("nplurals=2; plural=n != 1;",
+                   @msginit.__send__(:plural_forms, "en"))
+    end
+
+    def test_fr
+      assert_equal("nplurals=2; plural=n > 1;",
+                   @msginit.__send__(:plural_forms, "fr"))
+    end
+
+    def test_lv
+      assert_equal("nplurals=3; " +
+                   "plural=((n % 10) == 1) && ((n % 100) != 11) ? 0 : " +
+                   "((n % 10) == 0) || ((n % 100) >= 11 && (n % 100) <= 19) " +
+                   "? 1 : 2;",
+                   @msginit.__send__(:plural_forms, "lv"))
+    end
+
+    def test_ga
+      assert_equal("nplurals=5; " +
+                   "plural=(n == 1) ? 0 : (n == 2) ? 1 : " +
+                   "(n >= 3 && n <= 6) ? 2 : (n >= 7 && n <= 10) ? 3 : 4;",
+                   @msginit.__send__(:plural_forms, "ga"))
+    end
+
+    def test_ro
+      assert_equal("nplurals=3; " +
+                   "plural=(n == 1) ? 0 : " +
+                   "(n == 0) || ((n % 100) >= 2 && (n % 100) <= 19) ? 1 : 2;",
+                   @msginit.__send__(:plural_forms, "ro"))
+    end
+
+    def test_lt
+      assert_equal("nplurals=3; " +
+                   "plural=((n % 10) == 1) && " +
+                   "((n % 100) < 11 || (n % 100) > 19) ? 0 : " +
+                   "((n % 10) >= 2 && (n % 10) <= 9) && " +
+                   "((n % 100) < 11 || (n % 100) > 19) ? 1 : 2;",
+                   @msginit.__send__(:plural_forms, "lt"))
+    end
+
+    def test_ru
+      assert_equal("nplurals=3; " +
+                   "plural=((n % 10) == 1) && ((n % 100) != 11) ? 0 : " +
+                   "((n % 10) >= 2 && (n % 10) <= 4) && " +
+                   "((n % 100) < 12 || (n % 100) > 14) ? 1 : 2;",
+                   @msginit.__send__(:plural_forms, "ru"))
+    end
+
+    def test_cs
+      assert_equal("nplurals=3; " +
+                   "plural=(n == 1) ? 0 : (n >= 2 && n <= 4) ? 1 : 2;",
+                   @msginit.__send__(:plural_forms, "cs"))
+    end
+
+    def test_pl
+      assert_equal("nplurals=3; " +
+                   "plural=(n == 1) ? 0 : " +
+                   "((n % 10) >= 2 && (n % 10) <= 4) && " +
+                   "((n % 100) < 12 || (n % 100) > 14) ? 1 : 2;",
+                   @msginit.__send__(:plural_forms, "pl"))
+    end
+
+    def test_sl
+      assert_equal("nplurals=4; " +
+                   "plural=((n % 100) == 1) ? 0 : " +
+                   "((n % 100) == 2) ? 1 : " +
+                   "((n % 100) >= 3 && (n % 100) <= 4) ? 2 : 3;",
+                   @msginit.__send__(:plural_forms, "sl"))
     end
   end
 end

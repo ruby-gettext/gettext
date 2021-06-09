@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2021  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -19,11 +19,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require "etc"
+require "optparse"
+
+require "datasets"
+require "locale/info"
+
 require "gettext"
 require "gettext/po_parser"
 require "gettext/tools/msgmerge"
-require "locale/info"
-require "optparse"
 
 module GetText
   module Tools
@@ -320,53 +323,8 @@ module GetText
       end
 
       def plural_forms(language)
-        case language
-        when "ja", "vi", "ko", /\Azh.*\z/
-          nplural = "1"
-          plural_expression = "0"
-        when "en", "de", "nl", "sv", "da", "no", "fo", "es", "pt",
-             "it", "bg", "el", "fi", "et", "he", "eo", "hu", "tr",
-             "ca", "nb"
-          nplural = "2"
-          plural_expression = "n != 1"
-        when "pt_BR", "fr"
-          nplural = "2"
-          plural_expression = "n>1"
-        when "lv"
-          nplural = "3"
-          plural_expression = "n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2"
-        when "ga"
-          nplural = "3"
-          plural_expression = "n==1 ? 0 : n==2 ? 1 : 2"
-        when "ro"
-          nplural = "3"
-          plural_expression = "n==1 ? 0 : " +
-                                "(n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2"
-        when "lt", "bs"
-          nplural = "3"
-          plural_expression = "n%10==1 && n%100!=11 ? 0 : " +
-                                "n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2"
-        when "ru", "uk", "sr", "hr"
-          nplural = "3"
-          plural_expression = "n%10==1 && n%100!=11 ? 0 : n%10>=2 && " +
-                                "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2"
-        when "cs", "sk"
-          nplural = "3"
-          plural_expression = "(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2"
-        when "pl"
-          nplural = "3"
-          plural_expression = "n==1 ? 0 : n%10>=2 && " +
-                                "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2"
-        when "sl"
-          nplural = "4"
-          plural_expression = "n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 " +
-                                "|| n%100==4 ? 2 : 3"
-        else
-          nplural = nil
-          plural_expression = nil
-        end
-
-        "nplurals=#{nplural}; plural=#{plural_expression};"
+        converter = CLDRPluralsConverter.new(language)
+        converter.convert
       end
 
       DESCRIPTION_TITLE = /^SOME DESCRIPTIVE TITLE\.$/
@@ -407,6 +365,214 @@ module GetText
 
       def year
         now.year
+      end
+
+      class CLDRPluralsConverter
+        def initialize(language)
+          @language = language
+
+        end
+
+        def convert
+          n_plurals = nil
+          expression = nil
+          plurals = Datasets::CLDRPlurals.new
+          plurals.each do |locale|
+            next unless locale.name == @language
+            n_plurals, expression = convert_plural_rules(locale.rules)
+            break
+          end
+          "nplurals=#{n_plurals}; plural=#{expression};"
+        end
+
+        private
+        def convert_plural_rules(rules)
+          n_plurals = 1
+          conditions = []
+          order = [
+            "one",
+            "zero",
+            "two",
+            "few",
+            "many",
+            "other",
+          ]
+          rules = rules.reject do |rule|
+            rule.integer_samples.nil?
+          end
+          rules = rules.sort_by do |rule|
+            order.index(rule.count)
+          end
+          rules[0..-2].each do |rule|
+            next if rule.condition.nil?
+            condition = convert_plural_condition(rule.condition)
+            next if condition.nil?
+            next if condition == false
+            n_plurals += 1
+            conditions << condition
+          end
+          expression = ""
+          case conditions.size
+          when 0
+            expression << "0"
+          when 1
+            condition = conditions[0]
+            case condition
+            when "(n == 1)"
+              expression << "n != 1"
+            when "(n <= 1)"
+              expression << "n > 1"
+            else
+              expression << "#{condition} ? 1 : 0"
+            end
+          else
+            (conditions.size + 1).times do |i|
+              if i == conditions.size
+                expression << i.to_s
+              else
+                condition = conditions[i]
+                expression << "#{condition} ? #{i} : "
+              end
+            end
+          end
+          [n_plurals, expression]
+        end
+
+        def convert_plural_condition(condition)
+          case condition[0]
+          when :and
+            gettext_condition = nil
+            condition[1..-1].each do |sub_condition|
+              sub_gettext_condition = convert_plural_condition(sub_condition)
+              case sub_gettext_condition
+              when String
+                if gettext_condition.is_a?(String)
+                  gettext_condition << " && #{sub_gettext_condition}"
+                else
+                  gettext_condition = sub_gettext_condition
+                end
+              when TrueClass
+                unless gettext_condition.is_a?(String)
+                  gettext_condition = true
+                end
+              when FalseClass
+                return false
+              else
+                raise "unknown value #{sub_gettext_condition.inspect}"
+              end
+            end
+            gettext_condition
+          when :or
+            gettext_condition = false
+            condition[1..-1].each do |sub_condition|
+              sub_gettext_condition = convert_plural_condition(sub_condition)
+              case sub_gettext_condition
+              when String
+                if gettext_condition.is_a?(String)
+                  gettext_condition << " || #{sub_gettext_condition}"
+                else
+                  gettext_condition = sub_gettext_condition
+                end
+              when TrueClass
+                return true
+              when FalseClass
+              else
+                raise "unknown value #{sub_gettext_condition.inspect}"
+              end
+            end
+            gettext_condition
+          when :equal
+            left = convert_plural_condition(condition[1])
+            right = condition[2]
+            case left
+            when String
+              right = compact_equal_values(right)
+              gettext_conditions = right.collect do |right_value|
+                case right_value
+                when Range
+                  if right_value.begin.zero?
+                    "(#{left} <= #{right_value.end})"
+                  else
+                    "(#{left} >= #{right_value.begin} && " +
+                      "#{left} <= #{right_value.end})"
+                  end
+                else
+                  "(#{left} == #{right_value})"
+                end
+              end
+              if gettext_conditions.size == 1
+                gettext_conditions[0]
+              else
+                gettext_conditions.join(" || ")
+              end
+            when 0
+              if right.include?(0)
+                true
+              else
+                false
+              end
+            else
+              false
+            end
+          when :not_equal
+            left = convert_plural_condition(condition[1])
+            right = condition[2]
+            case left
+            when String
+              right = compact_equal_values(right)
+              gettext_conditions = right.collect do |right_value|
+                case right_value
+                when Range
+                  "(#{left} < #{right_value.begin} || " +
+                    "#{left} > #{right_value.end})"
+                else
+                  "(#{left} != #{right_value})"
+                end
+              end
+              if gettext_conditions.size == 1
+                gettext_conditions[0]
+              else
+                gettext_conditions = gettext_conditions.collect do |gettext_condition|
+                  "(#{gettext_condition})"
+                end
+                gettext_conditions.join(" && ")
+              end
+            when 0
+              if right.include?(0)
+                false
+              else
+                true
+              end
+            else
+              false
+            end
+          when :mod
+            left = convert_plural_condition(condition[1])
+            right = condition[2]
+            case left
+            when "n"
+              "(n % #{right})"
+            else
+              false
+            end
+          when "n", "i"
+            "n"
+          when "v", "w"
+            0
+          when "f", "t", "c", "e"
+            false
+          else
+            raise "unknown operator: #{condition[0].inspect}"
+          end
+        end
+
+        def compact_equal_values(values)
+          if values == [0, 1]
+            [0..1]
+          else
+            values
+          end
+        end
       end
     end
   end
