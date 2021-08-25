@@ -1,5 +1,16 @@
 # News
 
+## 3.3.9: 2021-08-26 {#version-3-3-9}
+
+### Improvements
+
+  * msginit: Made Red Datasets dependency optional.
+    [GitHub:red-datatools/red-datasets#105][Suggested by Mamoru TASAKA]
+
+### Thanks
+
+  * Mamoru TASAKA
+
 ## 3.3.8: 2021-06-09 {#version-3-3-8}
 
 ### Improvements
