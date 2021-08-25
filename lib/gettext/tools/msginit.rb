@@ -21,7 +21,10 @@
 require "etc"
 require "optparse"
 
-require "datasets"
+begin
+  require "datasets"
+rescue LoadError
+end
 require "locale/info"
 
 require "gettext"
@@ -376,11 +379,13 @@ module GetText
         def convert
           n_plurals = nil
           expression = nil
-          plurals = Datasets::CLDRPlurals.new
-          plurals.each do |locale|
-            next unless locale.name == @language
-            n_plurals, expression = convert_plural_rules(locale.rules)
-            break
+          if defined?(Datasets::CLDRPlurals)
+            plurals = Datasets::CLDRPlurals.new
+            plurals.each do |locale|
+              next unless locale.name == @language
+              n_plurals, expression = convert_plural_rules(locale.rules)
+              break
+            end
           end
           "nplurals=#{n_plurals}; plural=#{expression};"
         end

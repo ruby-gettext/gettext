@@ -30,13 +30,13 @@ So you can use GNU gettext tools for maintaining.
   s.required_ruby_version = ">= 2.5.0"
 
   s.add_runtime_dependency("locale", ">= 2.0.5")
-  s.add_runtime_dependency("red-datasets")
   s.add_runtime_dependency("text", ">= 1.3.0")
-  s.add_development_dependency("rake")
-  s.add_development_dependency("racc")
-  s.add_development_dependency("yard")
   s.add_development_dependency("kramdown")
+  s.add_development_dependency("racc")
+  s.add_development_dependency("rake")
+  s.add_development_dependency("red-datasets")
   s.add_development_dependency("test-unit")
   s.add_development_dependency("test-unit-rr")
+  s.add_development_dependency("yard")
   s.license = "Ruby or LGPLv3+"
 end
