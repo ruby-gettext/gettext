@@ -1,5 +1,16 @@
 # News
 
+## 3.4.0: 2021-08-26 {#version-3-4-0}
+
+### Improvements
+
+  * test: Added missing Red Datasets availability check.
+    [GitHub#87][Reported by Mamoru TASAKA]
+
+### Thanks
+
+  * Mamoru TASAKA
+
 ## 3.3.9: 2021-08-26 {#version-3-3-9}
 
 ### Improvements
