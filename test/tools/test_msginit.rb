@@ -312,6 +312,11 @@ EOF
   end
 
   class TestPluralForms < self
+    def setup
+      super
+      omit("Red Datasets is required") unless defined?(Datasets::CLDRPlurals)
+    end
+
     def run_msginit(pot_header_options={})
       create_pot_file("test.pot", pot_header_options)
       po_file_path = "output.po"
