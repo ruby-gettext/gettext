@@ -1,5 +1,16 @@
 # News
 
+## 3.4.1: 2021-09-08 {#version-3-4-1}
+
+### Improvements
+
+  * Listed licenses separately in gemspec.
+    [GitHub#88][Patch by Josh Cooper]
+
+### Thanks
+
+  * Josh Cooper
+
 ## 3.4.0: 2021-08-26 {#version-3-4-0}
 
 ### Improvements
