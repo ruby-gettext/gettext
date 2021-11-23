@@ -9,7 +9,7 @@
   license terms as Ruby or LGPL.
 =end
 
-require 'erb'
+require 'erubi'
 require 'gettext/tools/parser/ruby'
 
 module GetText
@@ -48,8 +48,6 @@ module GetText
       end
     end
 
-    MAGIC_COMMENT = /\A#coding:.*\n/
-
     # @param path [String] eRuby script path to be parsed
     # @param options [Hash]
     def initialize(path, options={})
@@ -57,37 +55,30 @@ module GetText
       @options = options
     end
 
-    @@erb_accept_keyword_arguments =
-      ERB.instance_method(:initialize).parameters.any? {|type, _| type == :key}
-
     # Extracts messages from @path.
     #
     # @return [Array<POEntry>] Extracted messages
     def parse
-      content = IO.read(@path)
-      if @@erb_accept_keyword_arguments
-        erb = ERB.new(content, trim_mode: "-")
-      else
-        erb = ERB.new(content, nil, "-")
+      content  = IO.read(@path)
+      encoding = detect_encoding(content)
+
+      if encoding != 'UTF-8'
+        content.force_encoding(encoding).encode('UTF-8')
       end
+
+      erb = Erubi::Engine.new(content)
       src = erb.src
-
-      # Force the src encoding back to the encoding in magic comment
-      # or original content.
-      encoding = detect_encoding(src) || content.encoding
-      src.force_encoding(encoding)
-
-      # Remove magic comment prepended by erb in Ruby 1.9.
-      src = src.gsub(MAGIC_COMMENT, "")
 
       RubyParser.new(@path, @options).parse_source(src)
     end
 
     def detect_encoding(erb_source)
-      if /\A#coding:(.*)\n/ =~ erb_source
-        $1
+      first_line = erb_source.lines.first
+
+      if first_line.include?('-*-') && first_line.include?('coding:')
+        first_line.split('coding: ').last.split(' ').first.upcase
       else
-        nil
+        'UTF-8'
       end
     end
   end
