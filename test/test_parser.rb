@@ -186,8 +186,8 @@ class TestGetTextParser < Test::Unit::TestCase
       euc_file.puts("<%#-*- coding: euc-jp -*-%>")
       euc_file.close
 
-      eur_file_content = File.read(euc_file.path)
-      encoding = GetText::ErbParser.new(euc_file.path).detect_encoding(eur_file_content)
+      euc_file_content = File.read(euc_file.path)
+      encoding = GetText::ErbParser.new(euc_file.path).detect_encoding(euc_file_content)
 
       assert_equal("EUC-JP", encoding)
     end
