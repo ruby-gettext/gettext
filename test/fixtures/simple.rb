@@ -13,4 +13,8 @@ class Simple
   def test_formatted_string
     _("one is %d.") % 1
   end
+
+  def test_plural
+    n_("There is an apple.", "There are %{num} apples.", 5) % {:num => 5}
+  end
 end

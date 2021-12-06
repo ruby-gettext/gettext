@@ -77,11 +77,12 @@ module GetText
     end
 
     def each_text_domains(klass) #:nodoc:
-      lang = Locale.candidates[0]
-      ClassInfo.related_classes(klass, @@gettext_classes).each do |target|
-        if group = @@text_domain_group_pool[target]
-          group.text_domains.each do |text_domain|
-            yield text_domain, lang
+      Locale.candidates.each do |lang|
+        ClassInfo.related_classes(klass, @@gettext_classes).each do |target|
+          if group = @@text_domain_group_pool[target]
+            group.text_domains.each do |text_domain|
+              yield text_domain, lang
+            end
           end
         end
       end

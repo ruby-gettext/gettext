@@ -17,14 +17,4 @@ msgstr ""
 
 #: simple.rb:10
 msgid "language"
-msgstr "french"
-
-#: simple.rb:14
-msgid "one is %d."
-msgstr "FRENCH:ONE IS %d."
-
-#: simple.rb:18
-msgid "There is an apple."
-msgid_plural "There are %{num} apples."
-msgstr[0] "FRENCH:Il y a une pomme."
-msgstr[1] "FRENCH:Il y a %{num} pommes."
+msgstr "french-Belgium-Foo"
