@@ -59,6 +59,29 @@ class TestGetText < Test::Unit::TestCase
     assert_equal("nomsgstr", _("nomsgstr"))
   end
 
+  def test_fallbacks
+    bindtextdomain("test1", "locale")
+    test = Simple.new
+
+    # Translation present in all candidates
+    GetText.set_current_locale("fr_BE_Foo")
+    assert_equal("french-Belgium-Foo", test.test)
+    GetText.set_current_locale("fr_BE")
+    assert_equal("french-Belgium", test.test)
+    GetText.set_current_locale("fr")
+    assert_equal("french", test.test)
+
+    # Translation Missing in fr_BE_Foo (fallback to fr_BE)
+    GetText.set_current_locale("fr_BE_Foo")
+    assert_equal("FRENCH-BELGIUM:ONE IS 1.", test.test_formatted_string)
+
+    # Translation Missing in fr_BE_Foo *and* fr_BE (both languages fallback to fr)
+    GetText.set_current_locale("fr_BE_Foo")
+    assert_equal("FRENCH:Il y a 5 pommes.", test.test_plural)
+    GetText.set_current_locale("fr_BE")
+    assert_equal("FRENCH:Il y a 5 pommes.", test.test_plural)
+  end
+
   def test_empty
     bindtextdomain("test1", "locale")
     assert_equal("japanese", gettext("language"))

@@ -53,9 +53,11 @@ class TestLocalePath < Test::Unit::TestCase
     testdir = File.dirname(File.expand_path(__FILE__))
     path = GetText::LocalePath.new("test1", "#{testdir}/locale")
     assert_equal({
-                   "ja"      => "#{testdir}/locale/ja/LC_MESSAGES/test1.mo",
-                   "fr"      => "#{testdir}/locale/fr/LC_MESSAGES/test1.mo",
-                   "zh_Hant" => "#{testdir}/locale/zh_Hant/LC_MESSAGES/test1.mo"
+                   "ja"        => "#{testdir}/locale/ja/LC_MESSAGES/test1.mo",
+                   "fr"        => "#{testdir}/locale/fr/LC_MESSAGES/test1.mo",
+                   "fr_BE"     => "#{testdir}/locale/fr_BE/LC_MESSAGES/test1.mo",
+                   "fr_BE_Foo" => "#{testdir}/locale/fr_BE_Foo/LC_MESSAGES/test1.mo",
+                   "zh_Hant"   => "#{testdir}/locale/zh_Hant/LC_MESSAGES/test1.mo"
                  },
                  path.locale_paths)
     assert_equal("#{testdir}/locale/ja/LC_MESSAGES/test1.mo",
@@ -66,6 +68,12 @@ class TestLocalePath < Test::Unit::TestCase
                  path.current_path(Locale::Tag.parse("ja_JP.UTF-8")))
     assert_equal(nil,
                  path.current_path(Locale::Tag.parse("en")))
+    assert_equal("#{testdir}/locale/fr/LC_MESSAGES/test1.mo",
+                 path.current_path(Locale::Tag.parse("fr")))
+    assert_equal("#{testdir}/locale/fr_BE/LC_MESSAGES/test1.mo",
+                 path.current_path(Locale::Tag.parse("fr-BE")))
+    assert_equal("#{testdir}/locale/fr_BE_Foo/LC_MESSAGES/test1.mo",
+                 path.current_path(Locale::Tag.parse("fr-BE-Foo")))
     assert_equal("#{testdir}/locale/zh_Hant/LC_MESSAGES/test1.mo",
                  path.current_path(Locale::Tag.parse("zh-Hant")))
   end
@@ -73,7 +81,7 @@ class TestLocalePath < Test::Unit::TestCase
   def test_supported_locales
     testdir = File.dirname(File.expand_path(__FILE__))
     path = GetText::LocalePath.new("test1", "#{testdir}/locale")
-    assert_equal ["fr", "ja", "zh_Hant"], path.supported_locales
+    assert_equal ["fr", "fr_BE", "fr_BE_Foo", "ja", "zh_Hant"], path.supported_locales
 
     path = GetText::LocalePath.new("plural", "#{testdir}/locale")
     assert_equal ["cr", "da", "fr", "ir", "ja", "la", "li", "po", "sl"], path.supported_locales
