@@ -59,12 +59,10 @@ module GetText
     #
     # @return [Array<POEntry>] Extracted messages
     def parse
-      content  = IO.read(@path)
-      encoding = detect_encoding(content)
+      content = IO.read(@path)
 
-      if encoding != 'UTF-8'
-        content.force_encoding(encoding).encode('UTF-8')
-      end
+      encoding = detect_encoding(content)
+      content.force_encoding(encoding)
 
       erb = Erubi::Engine.new(content)
       src = erb.src
@@ -72,13 +70,11 @@ module GetText
       RubyParser.new(@path, @options).parse_source(src)
     end
 
-    def detect_encoding(erb_source)
-      first_line = erb_source.lines.first
-
-      if first_line.include?('-*-') && first_line.include?('coding:')
-        first_line.split('coding: ').last.split(' ').first.upcase
+    def detect_encoding(content)
+      if /#.*(encoding|coding): (\S*)/ =~ content.lines.first
+        $2.upcase
       else
-        'UTF-8'
+        content.encoding
       end
     end
   end

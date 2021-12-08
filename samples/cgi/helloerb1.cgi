@@ -19,7 +19,7 @@ begin
 rescue LoadError
 end
 
-require 'erubi'
+require 'erb'
 require 'gettext/cgi'
 
 class SimpleContainer1
@@ -37,9 +37,8 @@ class SimpleContainer1
   end
 
   def to_html(path)
-    erb = Erubi::Engine.new(IO.read(path))
-    src = erb.src
-    eval(src, binding)
+    erb = ERB.new(IO.read(path)).src
+    eval(erb, binding)
   end
 end
 
