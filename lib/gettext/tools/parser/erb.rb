@@ -71,8 +71,8 @@ module GetText
     end
 
     def detect_encoding(content)
-      if /#.*(encoding|coding): (\S*)/ =~ content.lines.first
-        $2.upcase
+      if /#.*coding: (\S*)/ =~ content.lines.first
+        $1.upcase
       else
         content.encoding
       end
