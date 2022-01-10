@@ -3,7 +3,7 @@
 =begin
     mo.rb - A simple class for operating GNU MO file.
 
-    Copyright (C) 2012-2017  Kouhei Sutou <kou@clear-code.com>
+    Copyright (C) 2012-2022  Sutou Kouhei <kou@clear-code.com>
     Copyright (C) 2003-2009  Masao Mutoh
     Copyright (C) 2002  Masahiro Sakai, Masao Mutoh
     Copyright (C) 2001  Masahiro Sakai
@@ -18,6 +18,8 @@
 =end
 
 require 'stringio'
+
+require 'prime'
 
 module GetText
   class MO < Hash
@@ -168,19 +170,8 @@ module GetText
       ('1' * number) !~ /^1?$|^(11+?)\1+$/
     end
 
-    begin
-      require 'prime'
-      def next_prime(seed)
-        Prime.instance.find{|x| x > seed }
-      end
-    rescue LoadError
-      def next_prime(seed)
-        require 'mathn'
-        prime = Prime.new
-        while current = prime.succ
-          return current if current > seed
-        end
-      end
+    def next_prime(seed)
+      Prime.instance.find{|x| x > seed }
     end
 
     HASHWORDBITS = 32
