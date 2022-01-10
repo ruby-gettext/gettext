@@ -1,5 +1,22 @@
 # News
 
+## 3.4.2: 2022-01-11 {#version-3-4-2}
+
+### Improvements
+
+  * Added support for fallback for specific locale.
+    e.g.: `fr_BE_Foo` -> `fr_BE` -> `fr`
+    [GitHub#90][Patch by Michaël Hoste]
+
+  * Added support for Ruby 3.1.
+    [GitHub#92][Reported by ahiru]
+
+### Thanks
+
+  * Michaël Hoste
+
+  * ahiru
+
 ## 3.4.1: 2021-09-08 {#version-3-4-1}
 
 ### Improvements
