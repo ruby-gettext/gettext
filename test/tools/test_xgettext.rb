@@ -118,6 +118,76 @@ EOP
     end
   end
 
+  class TestParser < self
+    # Default ERB parser (don't find anything after "case")
+    def test_erb
+      rhtml = <<-EOR
+<div>
+  <%= _('Hello') %>
+  <% case 1 %>
+  <% end %>
+  <%= _('World') %>
+</div>
+EOR
+
+      File.open(@rhtml_file_path, "w") do |rhtml_file|
+        rhtml_file.puts(rhtml)
+      end
+
+      @xgettext.run(
+        "--output", @pot_file_path,
+        @rhtml_file_path
+      )
+
+      pot_content = File.read(@pot_file_path)
+      expected_content = <<-EOP
+#{header}
+#: ../templates/xgettext.rhtml:2
+msgid "Hello"
+msgstr ""
+EOP
+
+      assert_equal(expected_content, pot_content)
+    end
+
+    # Optional Erubi parser (find text after "case")
+    def test_erubi
+      rhtml = <<-EOR
+<div>
+  <%= _('Hello') %>
+  <% case 1 %>
+  <% end %>
+  <%= _('World') %>
+</div>
+EOR
+
+      File.open(@rhtml_file_path, "w") do |rhtml_file|
+        rhtml_file.puts(rhtml)
+      end
+
+      @xgettext.run(
+        "--output", @pot_file_path,
+        '--require', 'gettext/tools/parser/erubi',
+        '--parser', 'GetText::ErubiParser',
+        @rhtml_file_path
+      )
+
+      pot_content = File.read(@pot_file_path)
+      expected_content = <<-EOP
+#{header}
+#: ../templates/xgettext.rhtml:2
+msgid "Hello"
+msgstr ""
+
+#: ../templates/xgettext.rhtml:5
+msgid "World"
+msgstr ""
+EOP
+
+      assert_equal(expected_content, pot_content)
+    end
+  end
+
   class TestEncoding < self
     def test_different_encoding_from_current_locale
       rhtml = <<-EOR

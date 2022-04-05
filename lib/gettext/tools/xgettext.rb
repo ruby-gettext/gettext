@@ -330,6 +330,12 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
           require out
         end
 
+        parser.on("--parser=PARSER",
+                  _("Add PARSER to parser list for xgettext")) do |parser_name|
+          parser_class = parser_name.split('::').inject(Object) {|o,c| o.const_get c}
+          add_parser(parser_class)
+        end
+
         parser.on("-c", "--add-comments[=TAG]",
                   _("If TAG is specified, place comment blocks starting with TAG and precedding keyword lines in output file"),
                   _("If TAG is not specified, place all comment blocks preceing keyword lines in output file"),

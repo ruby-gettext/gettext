@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 =begin
-  parser/erb.rb - parser for ERB
+  parser/erubi.rb - parser for ERB using Erubi
 
   Copyright (C) 2005-2009  Masao Mutoh
 
@@ -9,11 +9,10 @@
   license terms as Ruby or LGPL.
 =end
 
-require 'erb'
 require 'gettext/tools/parser/ruby'
 
 module GetText
-  class ErbParser
+  class ErubiParser
     @config = {
       :extnames => ['.rhtml', '.erb']
     }
@@ -48,8 +47,6 @@ module GetText
       end
     end
 
-    MAGIC_COMMENT = /\A#coding:.*\n/
-
     # @param path [String] eRuby script path to be parsed
     # @param options [Hash]
     def initialize(path, options={})
@@ -57,37 +54,26 @@ module GetText
       @options = options
     end
 
-    @@erb_accept_keyword_arguments =
-      ERB.instance_method(:initialize).parameters.any? {|type, _| type == :key}
-
     # Extracts messages from @path.
     #
     # @return [Array<POEntry>] Extracted messages
     def parse
       content = IO.read(@path)
-      if @@erb_accept_keyword_arguments
-        erb = ERB.new(content, trim_mode: "-")
-      else
-        erb = ERB.new(content, nil, "-")
-      end
+
+      encoding = detect_encoding(content)
+      content.force_encoding(encoding)
+
+      erb = Erubi::Engine.new(content)
       src = erb.src
-
-      # Force the src encoding back to the encoding in magic comment
-      # or original content.
-      encoding = detect_encoding(src) || content.encoding
-      src.force_encoding(encoding)
-
-      # Remove magic comment prepended by erb in Ruby 1.9.
-      src = src.gsub(MAGIC_COMMENT, "")
 
       RubyParser.new(@path, @options).parse_source(src)
     end
 
-    def detect_encoding(erb_source)
-      if /\A#coding:(.*)\n/ =~ erb_source
-        $1
+    def detect_encoding(content)
+      if /#.*coding: (\S*)/ =~ content.lines.first
+        $1.upcase
       else
-        nil
+        content.encoding
       end
     end
   end
@@ -96,6 +82,6 @@ end
 if __FILE__ == $0
   # ex) ruby glade.rhtml foo.rhtml  bar.rhtml
   ARGV.each do |file|
-    p GetText::ErbParser.parse(file)
+    p GetText::ErubiParser.parse(file)
   end
 end
