@@ -140,12 +140,27 @@ EOR
       )
 
       pot_content = File.read(@pot_file_path)
-      expected_content = <<-EOP
+
+      if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.0.0')
+        expected_content = <<-EOP
+#{header}
+#: ../templates/xgettext.rhtml:2
+msgid "Hello"
+msgstr ""
+
+#: ../templates/xgettext.rhtml:5
+msgid "World"
+msgstr ""
+EOP
+      else
+        # "World" not detected. see PR #91
+        expected_content = <<-EOP
 #{header}
 #: ../templates/xgettext.rhtml:2
 msgid "Hello"
 msgstr ""
 EOP
+      end
 
       assert_equal(expected_content, pot_content)
     end

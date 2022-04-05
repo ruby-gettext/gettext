@@ -222,8 +222,13 @@ class TestGetTextParser < Test::Unit::TestCase
       path = fixture_path("erb", "case.rhtml")
       @ary = GetText::ErbParser.parse(path)
 
-      assert_target("Hello", ["#{path}:11"])
-      assert_nil(@ary.detect {|elem| elem.msgid == 'World'}) # Not detected. see PR #91
+      if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.0.0')
+        assert_target("Hello", ["#{path}:11"])
+        assert_target("World", ["#{path}:14"])
+      else
+        assert_target("Hello", ["#{path}:11"])
+        assert_nil(@ary.detect {|elem| elem.msgid == 'World'}) # Not detected. see PR #91
+      end
     end
   end
 
