@@ -9,6 +9,7 @@
   license terms as Ruby or LGPL.
 =end
 
+require "erubi"
 require 'gettext/tools/parser/ruby'
 
 module GetText

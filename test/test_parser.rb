@@ -22,7 +22,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require "tempfile"
-require "erubi"
 require "gettext/tools/parser/ruby"
 require "gettext/tools/parser/erb"
 require "gettext/tools/parser/erubi"
