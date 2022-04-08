@@ -24,6 +24,7 @@
 require "tempfile"
 require "gettext/tools/parser/ruby"
 require "gettext/tools/parser/erb"
+require "gettext/tools/parser/erubi"
 
 require "gettext/tools/xgettext"
 
@@ -214,6 +215,67 @@ class TestGetTextParser < Test::Unit::TestCase
       @ary = GetText::ErbParser.parse(path)
 
       assert_target("Hello", ["#{path}:8"])
+    end
+
+    def test_case
+      path = fixture_path("erb", "case.rhtml")
+      @ary = GetText::ErbParser.parse(path)
+
+      if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.0.0')
+        assert_target("Hello", ["#{path}:11"])
+        assert_target("World", ["#{path}:14"])
+      else
+        assert_target("Hello", ["#{path}:11"])
+        assert_nil(@ary.detect {|elem| elem.msgid == 'World'}) # Not detected. see PR #91
+      end
+    end
+  end
+
+  class TestErubiParser < self
+    include Helper::Path
+
+    def test_detect_encoding
+      euc_file = Tempfile.new("euc-jp.rhtml")
+      euc_file.open
+      euc_file.puts("<%#-*- coding: euc-jp -*-%>")
+      euc_file.close
+
+      euc_file_content = File.read(euc_file.path)
+      encoding = GetText::ErubiParser.new(euc_file.path).detect_encoding(euc_file_content)
+
+      assert_equal("EUC-JP", encoding)
+    end
+
+    def test_ascii
+      path = fixture_path("erb", "ascii.rhtml")
+      @ary = GetText::ErubiParser.parse(path)
+
+      assert_target 'aaa', ["#{path}:8"]
+      assert_target "aaa\n", ["#{path}:11"]
+      assert_target 'bbb', ["#{path}:12"]
+      assert_plural_target "ccc1", "ccc2", ["#{path}:13"]
+    end
+
+    def test_non_ascii
+      path = fixture_path("erb", "non_ascii.rhtml")
+      @ary = GetText::ErubiParser.parse(path)
+
+      assert_target('わたし', ["#{path}:12"])
+    end
+
+    def test_minus
+      path = fixture_path("erb", "minus.rhtml")
+      @ary = GetText::ErubiParser.parse(path)
+
+      assert_target("Hello", ["#{path}:8"])
+    end
+
+    def test_case
+      path = fixture_path("erb", "case.rhtml")
+      @ary = GetText::ErubiParser.parse(path)
+
+      assert_target("Hello", ["#{path}:11"])
+      assert_target("World", ["#{path}:14"]) # Detected with Erubi
     end
   end
 
