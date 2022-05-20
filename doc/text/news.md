@@ -1,5 +1,16 @@
 # News
 
+## 3.4.3: 2022-05-20 {#version-3-4-3}
+
+### Improvements
+
+  * Added support for Erubi to parse `.erb`
+    [GitHub#91][Patch by Michaël Hoste]
+
+### Thanks
+
+  * Michaël Hoste
+
 ## 3.4.2: 2022-01-11 {#version-3-4-2}
 
 ### Improvements
