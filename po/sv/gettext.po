@@ -237,6 +237,9 @@ msgstr ""
 msgid "require the library before executing xgettext"
 msgstr ""
 
+msgid "Add PARSER to parser list for xgettext"
+msgstr ""
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"

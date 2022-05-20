@@ -248,6 +248,9 @@ msgstr ""
 msgid "require the library before executing xgettext"
 msgstr "rgettext를 실행하려면 라이브러리가 필요합니다"
 
+msgid "Add PARSER to parser list for xgettext"
+msgstr ""
+
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
 "word lines in output file"

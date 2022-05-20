@@ -133,3 +133,18 @@ msgstr "ONE LINE"
 msgid ""
 "one new line\n"
 msgstr ""
+
+msgid "in_symbol_array"
+msgstr ""
+
+msgid "hello world"
+msgstr ""
+
+msgid "in_string_array"
+msgstr ""
+
+msgid "Hello"
+msgstr ""
+
+msgid "World"
+msgstr ""

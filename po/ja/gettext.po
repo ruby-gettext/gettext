@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 2.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-01-08 18:34+0900\n"
+"PO-Revision-Date: 2022-05-20 19:57+0900\n"
 "Last-Translator: Haruka Yoshihara <yoshihara@clear-code.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -239,6 +239,9 @@ msgstr "出力を位置情報でソート"
 
 msgid "require the library before executing xgettext"
 msgstr "xgettextを実行する前に読み込むライブラリを指定します"
+
+msgid "Add PARSER to parser list for xgettext"
+msgstr "PARSERをxgettext用のパーサーリストに追加します"
 
 msgid ""
 "If TAG is specified, place comment blocks starting with TAG and precedding key"
