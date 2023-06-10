@@ -16,3 +16,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "\n"
+
+msgid "window1"
+msgstr ""
+
+msgid ""
+"first line\n"
+"second line\n"
+"third line"
+msgstr ""
+
+msgid "<Hello world>"
+msgstr ""
