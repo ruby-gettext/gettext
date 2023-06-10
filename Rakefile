@@ -56,12 +56,10 @@ file po_parser_rb_path => po_parser_ry_path do
 
   File.open(po_parser_rb_path, "w") do |po_parser_rb|
     po_parser_rb.puts(<<-EOH)
-# -*- coding: utf-8 -*-
-#
 # po_parser.rb - Generate a .mo
 #
 # Copyright (C) 2003-2009 Masao Mutoh <mutomasa at gmail.com>
-# Copyright (C) 2012 Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2023 Sutou Kouhei <kou@clear-code.com>
 #
 # You may redistribute it and/or modify it under the same
 # license terms as Ruby or LGPL.
