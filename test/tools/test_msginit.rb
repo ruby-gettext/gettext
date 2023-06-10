@@ -1,5 +1,5 @@
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2021  Sutou Kouhei <kou@clear-code.com>
+# Copyright (C) 2012-2023  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -364,7 +364,7 @@ EOF
     def test_ro
       assert_equal("nplurals=3; " +
                    "plural=(n == 1) ? 0 : " +
-                   "(n == 0) || ((n % 100) >= 2 && (n % 100) <= 19) ? 1 : 2;",
+                   "(n == 0) || (n != 1) && ((n % 100) >= 1 && (n % 100) <= 19) ? 1 : 2;",
                    @msginit.__send__(:plural_forms, "ro"))
     end
 
