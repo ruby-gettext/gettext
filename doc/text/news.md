@@ -1,5 +1,12 @@
 # News
 
+## 3.4.4: 2023-06-11 {#version-3-4-4}
+
+### Improvements
+
+  * Added `racc` to runtime dependencies because Ruby 3.3 doesn't
+    include `racc/parser`.
+
 ## 3.4.3: 2022-05-20 {#version-3-4-3}
 
 ### Improvements
