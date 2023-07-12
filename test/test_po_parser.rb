@@ -62,6 +62,16 @@ EOP
   class TestPO < self
     include Helper::Warning
 
+    def test_msgid_escape
+      po_file = create_po_file(<<-'EOP')
+msgid "\\\\r \\r \t \r \n"
+msgstr "\\\\r \\r \t \r \n"
+EOP
+      entries = parse_po_file(po_file)
+      assert_equal("\\\\r \\r \t \r \n",
+                   entries["\\\\r \\r \t \r \n"].msgstr)
+    end
+
     def test_msgstr
       po_file = create_po_file(<<-EOP)
 # This is the comment.
