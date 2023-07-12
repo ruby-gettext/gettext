@@ -1,5 +1,12 @@
 # News
 
+## 3.4.6: 2023-07-12 {#version-3-4-6}
+
+### Fixes
+
+  * po: Fixed a bug that parsed `msgid`/`msgstr`/`msgctxt` in `.po`
+    may be too much unescaped.
+
 ## 3.4.5: 2023-07-12 {#version-3-4-5}
 
 ### Improvements
