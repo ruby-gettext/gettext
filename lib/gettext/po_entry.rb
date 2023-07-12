@@ -241,8 +241,7 @@ module GetText
         def escape(string)
           return "" if string.nil?
 
-          string.gsub(/([\\"\t\r\n])/) do
-            special_character = $1
+          string.gsub(/[\\"\t\r\n]/) do |special_character|
             case special_character
             when "\t"
               "\\t"
