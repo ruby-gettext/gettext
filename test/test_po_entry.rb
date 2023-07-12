@@ -233,13 +233,15 @@ EOE
       class TestEscape < self
         def test_normal
           entry = GetText::POEntry.new(:normal)
-          entry.msgid = "He said \"hello.\""
-          entry.msgstr = "Il a dit \"bonjour.\""
+          entry.msgid = "He said \"hello.\"\r\n"
+          entry.msgstr = "Il a dit \"bonjour.\"\r\n"
           entry.references = ["file1:1", "file2:10"]
           expected_po = <<-EOE
 #: file1:1 file2:10
-msgid "He said \\"hello.\\""
-msgstr "Il a dit \\"bonjour.\\""
+msgid ""
+"He said \\"hello.\\"\\r\\n"
+msgstr ""
+"Il a dit \\"bonjour.\\"\\r\\n"
 EOE
           assert_equal(expected_po, entry.to_s)
         end
