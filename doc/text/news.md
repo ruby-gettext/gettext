@@ -1,5 +1,11 @@
 # News
 
+## 3.4.5: 2023-07-12 {#version-3-4-5}
+
+### Improvements
+
+  * po: Added support for escaping `\r` in `msgid`/`msgstr`.
+
 ## 3.4.4: 2023-06-11 {#version-3-4-4}
 
 ### Improvements
