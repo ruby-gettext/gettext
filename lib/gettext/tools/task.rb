@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2023  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -452,8 +450,8 @@ module GetText
             locale = args.locale || ENV["LOCALE"]
             if locale.nil?
               raise "specify locale name by " +
-                "'rake #{_task.name}[${LOCALE}]' or " +
-                "rake #{_task.name} LOCALE=${LOCALE}'"
+                    "rake '#{_task.name}[${LOCALE}]' or " +
+                    "rake #{_task.name} LOCALE=${LOCALE}'"
             end
             define_edit_po_file_task(locale)
             define_po_file_task(locale)
