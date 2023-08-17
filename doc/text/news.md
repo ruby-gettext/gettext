@@ -1,5 +1,27 @@
 # News
 
+## 3.4.7: 2023-08-17 {#version-3-4-7}
+
+### Fixes
+
+  * po: Fixed a parser bug that it may add a `fuzzy` flag to non-fuzzy
+    entry with `ignore_fuzzy: true`.
+
+    Example PO:
+
+    ```po
+    #, fuzzy
+    #: file.rb:10
+    msgid "hello"
+    msgstr "bonjour"
+
+    msgid "non-fuzzy"
+    msgstr "non-fuzzy string"
+	```
+
+    `hello` entry is ignored because `ignore_fuzzy` is `true`. The
+    `fuzzy` flag in the `hello` entry is added to `non-fuzzy` entry.
+
 ## 3.4.6: 2023-07-12 {#version-3-4-6}
 
 ### Fixes
