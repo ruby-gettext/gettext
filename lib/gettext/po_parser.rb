@@ -19,7 +19,7 @@ require "gettext/po"
 module GetText
   class POParser < Racc::Parser
 
-module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 122)
+module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 126)
   if GetText.respond_to?(:bindtextdomain)
     include GetText
     GetText.bindtextdomain("gettext")
@@ -62,16 +62,8 @@ module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 122)
   private :unescape
 
   def parse(str, data)
-    @translator_comments = []
-    @extracted_comments = []
-    @references = []
-    @flags = []
-    @previous = []
-    @comments = []
+    clear
     @data = data
-    @fuzzy = false
-    @msgctxt = nil
-    @msgid_plural = nil
 
     str = str.strip
     @q = []
@@ -157,15 +149,7 @@ module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 122)
       @data.set_comment(msgid, format_comment(@comments))
     end
 
-    @translator_comments = []
-    @extracted_comments = []
-    @references = []
-    @flags = []
-    @previous = []
-    @references = []
-    @comments.clear
-    @msgctxt = nil
-    @msgid_plural = nil
+    clear
   end
 
   def format_comment(comments)
@@ -262,6 +246,18 @@ module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 122)
 
   def parse_flags_line(line)
     line.split(/\s+/)
+  end
+
+  def clear
+    @translator_comments = []
+    @extracted_comments = []
+    @references = []
+    @flags = []
+    @previous = []
+    @references = []
+    @comments = []
+    @msgctxt = nil
+    @msgid_plural = nil
   end
 ...end po_parser.ry/module_eval...
 ##### State transition tables begin ###
@@ -417,14 +413,18 @@ module_eval(<<'.,.,', 'po_parser.ry', 38)
       end
     end
     @fuzzy = false
-    on_message(msgid, msgstr) if use_message_p
+    if use_message_p
+      on_message(msgid, msgstr)
+    else
+      clear
+    end
     result = ""
 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'po_parser.ry', 60)
+module_eval(<<'.,.,', 'po_parser.ry', 64)
   def _reduce_9(val, _values, result)
         if @fuzzy and ignore_fuzzy?
       if val[1] != ""
@@ -446,7 +446,7 @@ module_eval(<<'.,.,', 'po_parser.ry', 60)
   end
 .,.,
 
-module_eval(<<'.,.,', 'po_parser.ry', 81)
+module_eval(<<'.,.,', 'po_parser.ry', 85)
   def _reduce_10(val, _values, result)
         if val[0].size > 0
       result = val[0] + "\000" + val[1]
@@ -460,7 +460,7 @@ module_eval(<<'.,.,', 'po_parser.ry', 81)
 
 # reduce 11 omitted
 
-module_eval(<<'.,.,', 'po_parser.ry', 93)
+module_eval(<<'.,.,', 'po_parser.ry', 97)
   def _reduce_12(val, _values, result)
         result = val[2]
 
@@ -468,7 +468,7 @@ module_eval(<<'.,.,', 'po_parser.ry', 93)
   end
 .,.,
 
-module_eval(<<'.,.,', 'po_parser.ry', 100)
+module_eval(<<'.,.,', 'po_parser.ry', 104)
   def _reduce_13(val, _values, result)
         on_comment(val[0])
 
@@ -476,7 +476,7 @@ module_eval(<<'.,.,', 'po_parser.ry', 100)
   end
 .,.,
 
-module_eval(<<'.,.,', 'po_parser.ry', 108)
+module_eval(<<'.,.,', 'po_parser.ry', 112)
   def _reduce_14(val, _values, result)
         result = val.delete_if{|item| item == ""}.join
 
@@ -484,7 +484,7 @@ module_eval(<<'.,.,', 'po_parser.ry', 108)
   end
 .,.,
 
-module_eval(<<'.,.,', 'po_parser.ry', 112)
+module_eval(<<'.,.,', 'po_parser.ry', 116)
   def _reduce_15(val, _values, result)
         result = val[0]
 

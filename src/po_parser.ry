@@ -2,9 +2,9 @@
 #
 #  po_parser.ry - ruby version of msgfmt
 #
-#  Copyright (C) 2002-2008 Masao Mutoh <mutomasa at gmail.com>
-#  Copyright (C) 2012-2017 Kouhei Sutou <kou@clear-code.com>
-#  Copyright (C) 2012-2013 Haruka Yoshihara <yoshihara@clear-code.com>
+#  Copyright (C) 2002-2008  Masao Mutoh <mutomasa at gmail.com>
+#  Copyright (C) 2012-2023  Sutou Kouhei <kou@clear-code.com>
+#  Copyright (C) 2012-2013  Haruka Yoshihara <yoshihara@clear-code.com>
 #
 #  You may redistribute it and/or modify it under the same
 #  license terms as Ruby or LGPL.
@@ -51,7 +51,11 @@ class GetText::POParser
       end
     end
     @fuzzy = false
-    on_message(msgid, msgstr) if use_message_p
+    if use_message_p
+      on_message(msgid, msgstr)
+    else
+      clear
+    end
     result = ""
   }
 
@@ -161,16 +165,8 @@ require "gettext/po"
   private :unescape
 
   def parse(str, data)
-    @translator_comments = []
-    @extracted_comments = []
-    @references = []
-    @flags = []
-    @previous = []
-    @comments = []
+    clear
     @data = data
-    @fuzzy = false
-    @msgctxt = nil
-    @msgid_plural = nil
 
     str = str.strip
     @q = []
@@ -256,15 +252,7 @@ require "gettext/po"
       @data.set_comment(msgid, format_comment(@comments))
     end
 
-    @translator_comments = []
-    @extracted_comments = []
-    @references = []
-    @flags = []
-    @previous = []
-    @references = []
-    @comments.clear
-    @msgctxt = nil
-    @msgid_plural = nil
+    clear
   end
 
   def format_comment(comments)
@@ -361,6 +349,18 @@ require "gettext/po"
 
   def parse_flags_line(line)
     line.split(/\s+/)
+  end
+
+  def clear
+    @translator_comments = []
+    @extracted_comments = []
+    @references = []
+    @flags = []
+    @previous = []
+    @references = []
+    @comments = []
+    @msgctxt = nil
+    @msgid_plural = nil
   end
 ---- footer
 

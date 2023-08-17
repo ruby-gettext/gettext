@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2020  Sutou Kouhei <kou@clear-code.com>
+# Copyright (C) 2012-2023  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
 #
 # License: Ruby's or LGPL
@@ -236,6 +236,33 @@ EOP
 
       assert_true(entries.has_key?("hello"))
       assert_equal("fuzzy", entries["hello"].flag)
+    end
+
+    def test_fuzzy_ignore
+      po_file = create_po_file(<<-PO)
+#, fuzzy
+#: file.rb:10
+msgid "hello"
+msgstr "bonjour"
+
+msgid "non-fuzzy"
+msgstr "non-fuzzy string"
+PO
+      entries = suppress_warning do
+        parse_po_file(po_file)
+      end
+
+      actual = entries.collect do |entry|
+        [
+          entry.msgid,
+          entry.msgstr,
+          entry.flags,
+        ]
+      end
+      assert_equal([
+                     ["non-fuzzy", "non-fuzzy string", []],
+                   ],
+                   actual)
     end
 
     private
