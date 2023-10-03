@@ -244,11 +244,11 @@ n_(fruits, 3)
 
 ### Interpolating translations
 
-This is not a feature of gettext but worth noting. You can interpolate translated strings without the ruby String `%` operator.
+This is not a feature of gettext but worth noting. You can interpolate translated strings with the ruby String `%` operator.
 
 ```ruby
 N_("active"); N_("inactive"); N_("paused") # possible value of status for parser to find.
-_("Your account is #{account_state}.") % { account_state: _(status) }
+_("Your account is %{account_state}.") % { account_state: _(status) }
 ```
 
 
