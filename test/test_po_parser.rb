@@ -245,6 +245,12 @@ EOP
 msgid "hello"
 msgstr "bonjour"
 
+#, c-format, fuzzy , no-sh-format
+#: file.rb:11
+msgid "world"
+msgstr "monde"
+
+# This is not fuzzy
 msgid "non-fuzzy"
 msgstr "non-fuzzy string"
 PO

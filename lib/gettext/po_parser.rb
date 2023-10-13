@@ -161,7 +161,11 @@ module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 126)
   end
 
   def on_comment(comment)
-    @fuzzy = true if (/fuzzy/ =~ comment)
+    if comment.start_with?(POFormat::FLAG_MARK)
+      content = comment[POFormat::FLAG_MARK.size..-1]
+      flags = parse_flags_line(content)
+      @fuzzy = true if flags.include?("fuzzy")
+    end
     if @data.instance_of?(PO)
       if comment == "#"
         @translator_comments << ""
@@ -176,7 +180,7 @@ module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 126)
         when POFormat::REFERENCE_COMMENT_MARK
           @references.concat(parse_references_line(content))
         when POFormat::FLAG_MARK
-          @flags.concat(parse_flags_line(content))
+          @flags.concat(flags)
         when POFormat::PREVIOUS_COMMENT_MARK
           @previous << content
         else
@@ -245,7 +249,7 @@ module_eval(<<'...end po_parser.ry/module_eval...', 'po_parser.ry', 126)
   end
 
   def parse_flags_line(line)
-    line.split(/\s+/)
+    line.split(",").collect(&:strip)
   end
 
   def clear
