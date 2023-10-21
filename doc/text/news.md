@@ -1,5 +1,12 @@
 # News
 
+## 3.4.9: 2023-10-22 {#version-3-4-9}
+
+### Improvements
+
+  * `rmsgcat`, `rmsgmerge`, `rxgettext`: Added
+    `--use-one-line-per-reference` option.
+
 ## 3.4.8: 2023-10-22 {#version-3-4-8}
 
 ### Fixes
