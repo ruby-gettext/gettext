@@ -344,6 +344,20 @@ EOP
       assert_equal(expected_po, entry.to_s)
     end
 
+        def test_multiple_flags
+          entry = GetText::POEntry.new(:normal)
+          entry.msgid = "msgid"
+          entry.msgstr = "msgstr"
+          entry.flags = ["It's the flag.", "fuzzy"]
+
+          expected_po = <<-EOP
+#, It's the flag., fuzzy
+msgid "msgid"
+msgstr "msgstr"
+EOP
+          assert_equal(expected_po, entry.to_s)
+        end
+
     def test_previous
       entry = GetText::POEntry.new(:normal)
       entry.msgid = "msgid"
