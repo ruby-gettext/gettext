@@ -428,11 +428,12 @@ module GetText
       end
 
       def format_flag_comment
-        formatted_flags = String.new
-        @entry.flags.each do |flag|
-          formatted_flags << format_comment(FLAG_MARK, flag)
+        if @entry.flags.empty?
+          String.new
+        else
+          joined_flags = @entry.flags.join(", ")
+          format_comment(FLAG_MARK, joined_flags)
         end
-        formatted_flags
       end
 
       def format_previous_comment
