@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2019  Sutou Kouhei <kou@clear-code.com>
+# Copyright (C) 2012-2023  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2010  masone (Christian Felder) <ema@rh-productions.ch>
 # Copyright (C) 2009  Masao Mutoh
 #
@@ -282,6 +282,9 @@ module GetText
       #   Wraps long lines that is longer than the `:max_line_width`.
       #   Don't break long lines if `:max_line_width` is less than 0
       #   such as `-1`.
+      # @option options [Bool] :use_one_line_per_reference (false)
+      #   Whether each reference comment uses one line or not. If this
+      #   is `true`, `:max_line_width` is ignored for reference comment.
       # @option options [Encoding] :encoding (nil)
       #   Encodes to the specific encoding.
       def initialize(entry, options={})
@@ -405,24 +408,29 @@ module GetText
       end
 
       def format_reference_comment
-        max_line_width = @options[:max_line_width]
         formatted_reference = String.new
-        if not @entry.references.nil? and not @entry.references.empty?
-          formatted_reference << REFERENCE_COMMENT_MARK
-          line_width = 2
-          @entry.references.each do |reference|
-            if max_line_width > 0 and
-                line_width + reference.size > max_line_width
-              formatted_reference << "\n"
-              formatted_reference <<  "#{REFERENCE_COMMENT_MARK} #{reference}"
-              line_width = 3 + reference.size
-            else
-              formatted_reference << " #{reference}"
-              line_width += 1 + reference.size
-            end
+        if @options[:use_one_line_per_reference]
+          @entry.references&.each do |reference|
+            formatted_reference << "#{REFERENCE_COMMENT_MARK} #{reference}\n"
           end
-
-          formatted_reference << "\n"
+        else
+          max_line_width = @options[:max_line_width]
+          if not @entry.references.nil? and not @entry.references.empty?
+            formatted_reference << REFERENCE_COMMENT_MARK
+            line_width = 2
+            @entry.references.each do |reference|
+              if max_line_width > 0 and
+                line_width + reference.size > max_line_width
+                formatted_reference << "\n"
+                formatted_reference <<  "#{REFERENCE_COMMENT_MARK} #{reference}"
+                line_width = 3 + reference.size
+              else
+                formatted_reference << " #{reference}"
+                line_width += 1 + reference.size
+              end
+            end
+            formatted_reference << "\n"
+          end
         end
         formatted_reference
       end

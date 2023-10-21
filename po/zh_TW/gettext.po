@@ -86,6 +86,9 @@ msgid ""
 "s"
 msgstr ""
 
+msgid "Use one line for each reference comment"
+msgstr ""
+
 msgid "Ignore fuzzy entries"
 msgstr ""
 

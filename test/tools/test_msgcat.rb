@@ -1,4 +1,4 @@
-# Copyright (C) 2014-2018  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2014-2023  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -243,6 +243,7 @@ msgstr ""
         @po = <<-PO
 # translator comment
 #: a.rb:1
+#: a.rb:2
 msgid "Hello"
 msgstr ""
         PO
@@ -251,6 +252,25 @@ msgstr ""
       def test_no_location
         assert_equal(<<-PO, run_msgcat([@po], "--no-location"))
 # translator comment
+msgid "Hello"
+msgstr ""
+        PO
+      end
+
+      def test_wrap
+        assert_equal(<<-PO, run_msgcat([@po], "--wrap"))
+# translator comment
+#: a.rb:1 a.rb:2
+msgid "Hello"
+msgstr ""
+        PO
+      end
+
+      def test_use_one_line_per_reference
+        assert_equal(<<-PO, run_msgcat([@po], "--wrap", "--use-one-line-per-reference"))
+# translator comment
+#: a.rb:1
+#: a.rb:2
 msgid "Hello"
 msgstr ""
         PO

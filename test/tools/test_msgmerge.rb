@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2012-2020  Sutou Kouhei <kou@clear-code.com>
+# Copyright (C) 2012-2023  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2010  Eddie Lau <tatonlto@gmail.com>
 #
 # License: Ruby's or LGPL
@@ -649,6 +647,46 @@ msgid "World"
 msgstr "Translated World"
 
 msgid "Good-bye"
+msgstr ""
+        PO
+      end
+    end
+
+    class TestUseOneLinePerReference < self
+      def pot_content
+        super + <<-POT
+
+#: hello.rb:10
+#: hello.rb:20
+#: hello.rb:30
+msgid "Good morning"
+msgstr ""
+        POT
+      end
+
+      def test_with_wrap
+        @msgmerge.run("--update",
+                      "--wrap",
+                      "--use-one-line-per-reference",
+                      @po_file_path, @pot_file_path)
+        assert_equal(<<-PO, File.read(@po_file_path))
+#{po_header(@pot_formatted_time, @po_formatted_time)}
+#: hello.rb:1
+msgid "Hello"
+msgstr ""
+
+#: hello.rb:2
+msgid "World"
+msgstr "Translated World"
+
+#: hello.rb:3
+msgid "Good-bye"
+msgstr ""
+
+#: hello.rb:10
+#: hello.rb:20
+#: hello.rb:30
+msgid "Good morning"
 msgstr ""
         PO
       end

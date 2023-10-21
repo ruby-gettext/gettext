@@ -1,4 +1,4 @@
-# Copyright (C) 2014-2017  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2014-2023  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -200,7 +200,8 @@ module GetText
           @output = nil
           @order = nil
           @po_format_options = {
-            :max_line_width => POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
+            max_line_width: POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
+            use_one_line_per_reference: false,
           }
           @include_fuzzy = true
           @report_warning = true
@@ -320,6 +321,12 @@ module GetText
               max_line_width = -1
             end
             @po_format_options[:max_line_width] = max_line_width
+          end
+
+          parser.on("--[no-]use-one-line-per-reference",
+                    _("Use one line for each reference comment"),
+                    "(#{@po_format_options[:use_one_line_per_reference]})") do |use|
+            @po_format_options[:use_one_line_per_reference] = use
           end
 
           parser.on("--no-fuzzy",

@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2012-2020  Sutou Kouhei <kou@clear-code.com>
+# Copyright (C) 2012-2023  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
 #
 # License: Ruby's or LGPL
@@ -115,6 +113,20 @@ EOR
 msgid "Hello"
 msgstr ""
 EOP
+    end
+
+    def test_use_one_line_per_reference
+      pot_content = generate(<<-RUBY, "--use-one-line-per-reference")
+_("Hello")
+_("Hello")
+      RUBY
+      assert_equal(<<-POT, pot_content)
+#{header}
+#: ../lib/xgettext.rb:1
+#: ../lib/xgettext.rb:2
+msgid "Hello"
+msgstr ""
+      POT
     end
   end
 

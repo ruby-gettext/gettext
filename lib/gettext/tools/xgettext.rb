@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-#
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2012-2023  Sutou Kouhei <kou@clear-code.com>
 # Copyright (C) 2003-2010  Masao Mutoh
 # Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
 #
@@ -90,7 +88,8 @@ module GetText
 
         @po_order = :references
         @po_format_options = {
-          :max_line_width => POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
+          max_line_width: POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
+          use_one_line_per_reference: false,
         }
       end
 
@@ -323,6 +322,12 @@ Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;
             max_line_width = -1
           end
           @po_format_options[:max_line_width] = max_line_width
+        end
+
+        parser.on("--[no-]use-one-line-per-reference",
+                  _("Use one line for each reference comment"),
+                  "(#{@po_format_options[:use_one_line_per_reference]})") do |use|
+          @po_format_options[:use_one_line_per_reference] = use
         end
 
         parser.on("-r", "--require=library",

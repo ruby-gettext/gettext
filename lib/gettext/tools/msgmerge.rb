@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-#
 # Copyright (C) 2012-2013  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2015  Kouhei Sutou <kou@clear-code.com>
-# Copyright (C) 2005-2009 Masao Mutoh
-# Copyright (C) 2005,2006 speakillof
+# Copyright (C) 2012-2023  Sutou Kouhei <kou@clear-code.com>
+# Copyright (C) 2005-2009  Masao Mutoh
+# Copyright (C) 2005,2006  speakillof
 #
 # License: Ruby's or LGPL
 #
@@ -310,7 +308,8 @@ module GetText
           @output = nil
           @order = :reference
           @po_format_options = {
-            :max_line_width => POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
+            max_line_width: POEntry::Formatter::DEFAULT_MAX_LINE_WIDTH,
+            use_one_line_per_reference: false,
           }
           @enable_fuzzy_matching = true
           @update = nil
@@ -422,6 +421,12 @@ module GetText
               max_line_width = -1
             end
             @po_format_options[:max_line_width] = max_line_width
+          end
+
+          parser.on("--[no-]use-one-line-per-reference",
+                    _("Use one line for each reference comment"),
+                    "(#{@po_format_options[:use_one_line_per_reference]})") do |use|
+            @po_format_options[:use_one_line_per_reference] = use
           end
 
           parser.on("--[no-]fuzzy-matching",
