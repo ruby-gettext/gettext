@@ -1,5 +1,27 @@
 # News
 
+## 3.4.8: 2023-10-22 {#version-3-4-8}
+
+### Fixes
+
+  * doc: Fixed a wrong description for interpolation.
+    * GH-102
+    * Patch by Ilmari Karonen
+
+  * po: Fixed a parser bug that flags aren't parsed correctly. If a
+    normal comment has "fuzzy", the entry is also treated as a fuzzy
+    entry.
+
+  * po: Fixed an output bug that flags aren't formatted correctly.
+    * GH-105
+    * Patch by Yoshikazu Nojima
+
+### Thanks
+
+  * Ilmari Karonen
+
+  * Yoshikazu Nojima
+
 ## 3.4.7: 2023-08-17 {#version-3-4-7}
 
 ### Fixes
