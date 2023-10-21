@@ -429,10 +429,10 @@ module GetText
 
       def format_flag_comment
         if @entry.flags.empty?
-          return String.new
+          String.new
         else
           joined_flags = @entry.flags.join(', ')
-          return format_comment(FLAG_MARK, joined_flags)
+          format_comment(FLAG_MARK, joined_flags)
         end
       end
 
