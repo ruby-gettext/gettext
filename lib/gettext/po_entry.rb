@@ -431,7 +431,7 @@ module GetText
         if @entry.flags.empty?
           String.new
         else
-          joined_flags = @entry.flags.join(', ')
+          joined_flags = @entry.flags.join(", ")
           format_comment(FLAG_MARK, joined_flags)
         end
       end
