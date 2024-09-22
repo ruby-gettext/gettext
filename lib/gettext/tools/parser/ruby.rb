@@ -1,7 +1,7 @@
 =begin
   parser/ruby.rb - parser for ruby script
 
-  Copyright (C) 2013-2021  Sutou Kouhei <kou@clear-code.com>
+  Copyright (C) 2013-2024  Sutou Kouhei <kou@clear-code.com>
   Copyright (C) 2003-2009  Masao Mutoh
   Copyright (C) 2005       speakillof
   Copyright (C) 2001,2002  Yasushi Shoji, Masao Mutoh
@@ -36,7 +36,7 @@ module GetText
         @current_po_entry_nth_attribute = 0
         @use_comment = false
         @comment_tag = nil
-        @last_comment = ""
+        @last_comment = +""
         @reset_comment = false
         @string_mark_stack = []
         @string_stack = []
@@ -86,7 +86,7 @@ module GetText
         end
         if @current_po_entry
           @current_po_entry.add_comment(@last_comment) unless @last_comment.empty?
-          @last_comment = ""
+          @last_comment = +""
           @current_po_entry.references << "#{filename}:#{lineno}"
           @current_po_entry_nth_attribute = 0
         end
@@ -104,7 +104,7 @@ module GetText
       end
 
       def process_on_comment(token, po)
-        @last_comment = "" if @reset_comment
+        @last_comment = +"" if @reset_comment
         @reset_comment = false
         if @last_comment.empty?
           content = token.gsub(/\A#\s*/, "").chomp
@@ -133,7 +133,7 @@ module GetText
         else
           @string_mark_stack << token
         end
-        @string_stack << ""
+        @string_stack << +""
         po
       end
 
@@ -192,7 +192,7 @@ module GetText
         else
           @string_mark_stack << "\""
         end
-        @string_stack << ""
+        @string_stack << +""
         po
       end
 
@@ -202,7 +202,7 @@ module GetText
 
       def process_on_regexp_beg(token, po)
         @string_mark_stack << "\""
-        @string_stack << ""
+        @string_stack << +""
         po
       end
 
@@ -245,38 +245,38 @@ module GetText
       def process_on_symbeg(token, po)
         if token.start_with?("%s") or [":'", ":\""].include?(token)
           @string_mark_stack << ":"
-          @string_stack << ""
+          @string_stack << +""
         end
         po
       end
 
       def process_on_backtick(token, po)
         @string_mark_stack << "`"
-        @string_stack << ""
+        @string_stack << +""
         po
       end
 
       def process_on_symbols_beg(token, po)
         @string_mark_stack << "\""
-        @string_stack << ""
+        @string_stack << +""
         po
       end
 
       def process_on_qsymbols_beg(token, po)
         @string_mark_stack << token
-        @string_stack << ""
+        @string_stack << +""
         po
       end
 
       def process_on_words_beg(token, po)
         @string_mark_stack << "\""
-        @string_stack << ""
+        @string_stack << +""
         po
       end
 
       def process_on_qwords_beg(token, po)
         @string_mark_stack << token
-        @string_stack << ""
+        @string_stack << +""
         po
       end
 
