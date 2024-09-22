@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012  Haruka Yoshihara <yoshihara@clear-code.com>
-# Copyright (C) 2012-2021  Sutou Kouhei <kou@clear-code.com>
+# Copyright (C) 2012-2024  Sutou Kouhei <kou@clear-code.com>
 #
 # License: Ruby's or LGPL
 #
@@ -416,7 +416,7 @@ module GetText
             n_plurals += 1
             conditions << condition
           end
-          expression = ""
+          expression = +""
           case conditions.size
           when 0
             expression << "0"
