@@ -32,12 +32,10 @@ class TestToolsMsgInit < Test::Unit::TestCase
     stub(@msginit).revision_date {@po_revision_date}
 
     Locale.current = "ja_JP.UTF-8"
-  end
 
-  def run(*args, &blcok)
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do
-        super
+        yield
       end
     end
   end
@@ -171,9 +169,11 @@ EOF
 
   class TestOutput < self
     def setup
-      super
-      @pot_file_path = "test.pot"
-      create_pot_file(@pot_file_path)
+      super do
+        @pot_file_path = "test.pot"
+        create_pot_file(@pot_file_path)
+        yield
+      end
     end
 
     def test_default
@@ -313,8 +313,10 @@ EOF
 
   class TestPluralForms < self
     def setup
-      super
       omit("Red Datasets is required") unless defined?(Datasets::CLDRPlurals)
+      super do
+        yield
+      end
     end
 
     def run_msginit(pot_header_options={})
