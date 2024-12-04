@@ -1,5 +1,11 @@
 # News
 
+## 3.5.0: 2024-12-04 {#version-3-5-0}
+
+### Improvements
+
+  * Suppressed warnings with Ruby 3.4.0.
+
 ## 3.4.9: 2023-10-22 {#version-3-4-9}
 
 ### Improvements
