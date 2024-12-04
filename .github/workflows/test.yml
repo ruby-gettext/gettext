@@ -21,7 +21,9 @@ jobs:
           - macos-latest
           - windows-latest
         exclude:
-        - { ruby-version: truffleruby-head, runs-on: windows-latest }
+          # macos-latest doesn't provide Ruby 2.5
+          - { ruby-version: "2.5", runs-on: macos-latest }
+          - { ruby-version: truffleruby-head, runs-on: windows-latest }
     name: ${{ matrix.ruby-version}} on ${{ matrix.runs-on }}
     runs-on: ${{ matrix.runs-on }}
     steps:
