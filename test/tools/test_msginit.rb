@@ -77,6 +77,7 @@ class TestToolsMsgInit < Test::Unit::TestCase
     options = default_po_header_options.merge(options)
     package_name = options[:package_name] || default_package_name
     have_plural_forms = options[:have_plural_forms] || true
+    charset = options[:charset] || "UTF-8"
     header = <<EOF
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -93,7 +94,7 @@ msgstr ""
 "Language: \\n"
 "Language-Team: LANGUAGE <LL@li.org>\\n"
 "MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=UTF-8\\n"
+"Content-Type: text/plain; charset=#{charset}\\n"
 "Content-Transfer-Encoding: 8bit\\n"
 EOF
     if have_plural_forms
@@ -109,6 +110,7 @@ EOF
     name = options[:translator_name] || "FULL NAME"
     email = options[:translator_email] || "EMAIL@ADDRESS"
     language_name = Locale::Info.get_language(language).name
+    charset = options[:charset] || "UTF-8"
     plural_forms = @msginit.send(:plural_forms, language)
 
     <<EOF
@@ -126,7 +128,7 @@ msgstr ""
 "Language: #{locale}\\n"
 "Language-Team: #{language_name}\\n"
 "MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=UTF-8\\n"
+"Content-Type: text/plain; charset=#{charset}\\n"
 "Content-Transfer-Encoding: 8bit\\n"
 "Plural-Forms: #{plural_forms}\\n"
 EOF
@@ -196,8 +198,8 @@ EOF
   end
 
   class TestLocale < self
-    def run_msginit(locale)
-      create_pot_file("test.pot")
+    def run_msginit(locale, charset = "UTF-8")
+      create_pot_file("test.pot", :charset => charset)
       po_file_path = "output.po"
       @msginit.run("--output", po_file_path,
                    "--locale", locale)
@@ -223,6 +225,50 @@ EOF
       charset = "UTF-8"
       assert_equal(po_header(locale, language),
                    run_msginit("#{locale}.#{charset}"))
+    end
+
+    def test_language_charset_with_replace_content_type
+      locale = "en"
+      assert_equal(po_header(locale, locale),
+                   run_msginit(locale, "CHARSET"))
+    end
+
+    def test_language_region_with_replace_content_type
+      locale = "en_US"
+      language = "en"
+      assert_equal(po_header(locale, language),
+                   run_msginit(locale, "CHARSET"))
+    end
+
+    def test_language_region_charset_with_replace_content_type
+      locale = "en_US"
+      language = "en"
+      charset = "UTF-8"
+      assert_equal(po_header(locale, language),
+                   run_msginit("#{locale}.#{charset}", "CHARSET"))
+    end
+  end
+
+  class TestCurrentCharset < self
+    def run_msginit(charset)
+      create_pot_file("test.pot", :charset => charset)
+      po_file_path = "output.po"
+      @msginit.run("--output", po_file_path)
+      File.read(po_file_path)
+    end
+
+    def po_header(options)
+      super(current_locale, current_language, options)
+    end
+
+    def test_change
+        assert_equal(po_header(:charset => "UTF-8"),
+                     run_msginit("CHARSET"))
+    end
+
+    def test_not_change
+        assert_equal(po_header(:charset => "ASCII"),
+                     run_msginit("ASCII"))
     end
   end
 
