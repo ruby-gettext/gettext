@@ -69,9 +69,8 @@ msgstr ""
 msgid "#"
 msgstr ""
 
-#, fuzzy
-msgid "\\taaa'bbb\\ccc"
-msgstr "AAA"
+msgid "\taaa'bbb\\ccc"
+msgstr ""
 
 msgid ""
 "Here document1\n"
