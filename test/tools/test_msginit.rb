@@ -198,8 +198,8 @@ EOF
   end
 
   class TestLocale < self
-    def run_msginit(locale, charset = "UTF-8")
-      create_pot_file("test.pot", :charset => charset)
+    def run_msginit(locale, pot_charset=nil)
+      create_pot_file("test.pot", charset: pot_charset)
       po_file_path = "output.po"
       @msginit.run("--output", po_file_path,
                    "--locale", locale)
@@ -250,8 +250,8 @@ EOF
   end
 
   class TestCurrentCharset < self
-    def run_msginit(charset)
-      create_pot_file("test.pot", :charset => charset)
+    def run_msginit(pot_charset)
+      create_pot_file("test.pot", charset: pot_charset)
       po_file_path = "output.po"
       @msginit.run("--output", po_file_path)
       File.read(po_file_path)
@@ -262,13 +262,13 @@ EOF
     end
 
     def test_change
-        assert_equal(po_header(:charset => "UTF-8"),
-                     run_msginit("CHARSET"))
+      assert_equal(po_header(charset: "UTF-8"),
+                   run_msginit("CHARSET"))
     end
 
     def test_not_change
-        assert_equal(po_header(:charset => "ASCII"),
-                     run_msginit("ASCII"))
+      assert_equal(po_header(charset: "ASCII"),
+                   run_msginit("ASCII"))
     end
   end
 
