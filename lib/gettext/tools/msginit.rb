@@ -332,12 +332,10 @@ module GetText
         end
       end
 
-      CONTENT_TYPE_CHARSET = /(Content-Type: .+ charset=)CHARSET/
+      CONTENT_TYPE_CHARSET = /^(Content-Type:.+ charset=)CHARSET/
 
       def replace_charset
-        if CONTENT_TYPE_CHARSET =~ @entry
-          @entry = @entry.gsub(CONTENT_TYPE_CHARSET, "\\1#{@charset}")
-        end
+        @entry = @entry.gsub(CONTENT_TYPE_CHARSET, "\\1#{@charset}")
       end
 
       def plural_forms(language)
