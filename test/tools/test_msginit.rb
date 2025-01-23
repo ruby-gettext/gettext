@@ -49,12 +49,20 @@ class TestToolsMsgInit < Test::Unit::TestCase
     Locale.current.language
   end
 
+  def current_charset
+    Locale.current.charset
+  end
+
   def translator_name
     "me"
   end
 
   def translator_email
     "me@example.com"
+  end
+
+  def template_charset
+    "CHARSET"
   end
 
   def create_pot_file(path, options=nil)
@@ -227,25 +235,25 @@ EOF
                    run_msginit("#{locale}.#{charset}"))
     end
 
-    def test_language_charset_with_replace_content_type
+    def test_language_charset_with_template_charset
       locale = "en"
       assert_equal(po_header(locale, locale),
-                   run_msginit(locale, "CHARSET"))
+                   run_msginit(locale, template_charset))
     end
 
-    def test_language_region_with_replace_content_type
+    def test_language_region_with_template_charset
       locale = "en_US"
       language = "en"
       assert_equal(po_header(locale, language),
-                   run_msginit(locale, "CHARSET"))
+                   run_msginit(locale, template_charset))
     end
 
-    def test_language_region_charset_with_replace_content_type
+    def test_language_region_charset_with_template_charset
       locale = "en_US"
       language = "en"
       charset = "UTF-8"
       assert_equal(po_header(locale, language),
-                   run_msginit("#{locale}.#{charset}", "CHARSET"))
+                   run_msginit("#{locale}.#{charset}", template_charset))
     end
   end
 
@@ -261,12 +269,12 @@ EOF
       super(current_locale, current_language, options)
     end
 
-    def test_change
-      assert_equal(po_header(charset: "UTF-8"),
-                   run_msginit("CHARSET"))
+    def test_template_charset
+      assert_equal(po_header(charset: current_charset),
+                   run_msginit(template_charset))
     end
 
-    def test_not_change
+    def test_no_template_charset
       assert_equal(po_header(charset: "ASCII"),
                    run_msginit("ASCII"))
     end
