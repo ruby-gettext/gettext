@@ -1,5 +1,17 @@
 # News
 
+## 3.5.1: 2025-01-27 {#version-3-5-1}
+
+### Improvements
+
+  * `rmsginit`: Added support for replacing charset.
+    * GH-113
+    * Patch by Abe Tomoaki
+
+### Thanks
+
+  * Abe Tomoaki
+
 ## 3.5.0: 2024-12-04 {#version-3-5-0}
 
 ### Improvements
