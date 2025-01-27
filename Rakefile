@@ -8,7 +8,7 @@
 # You don't need to use this file directly.
 #
 # Copyright(c) 2005-2009 Masao Mutoh
-# Copyright(c) 2012-2013 Kouhei Sutou <kou@clear-code.com>
+# Copyright(c) 2012-2025 Kouhei Sutou <kou@clear-code.com>
 # Copyright(c) 2012 Haruka Yoshihara <yoshihara@clear-code.com>
 # This program is licenced under the same licence as Ruby.
 
@@ -198,3 +198,14 @@ task :build => [:gettext]
 
 YARD::Rake::YardocTask.new do |t|
 end
+
+release_task = Rake.application["release"]
+# We use Trusted Publishing.
+release_task.prerequisites.delete("build")
+release_task.prerequisites.delete("release:rubygem_push")
+release_task_comment = release_task.comment
+if release_task_comment
+  release_task.clear_comments
+  release_task.comment = release_task_comment.gsub(/ and build.*$/, "")
+end
+
