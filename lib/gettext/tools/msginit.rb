@@ -62,6 +62,7 @@ module GetText
         @output_file = nil
         @locale = nil
         @language = nil
+        @charset = nil
         @entry = nil
         @comment = nil
         @translator = nil
@@ -180,6 +181,11 @@ module GetText
         end
         @locale = language_tag.to_simple.to_s
         @language = language_tag.language
+        if language_tag.respond_to?(:charset)
+          @charset = language_tag.charset
+        else
+          @charset = Locale.charset
+        end
 
         @output_file ||= "#{@locale}.po"
         if File.exist?(@output_file)
@@ -280,6 +286,7 @@ module GetText
         replace_pot_revision_date
         replace_language
         replace_plural_forms
+        replace_charset
       end
 
       def replace_comment
@@ -323,6 +330,12 @@ module GetText
         else
           @entry << "Plural-Forms: #{plural_entry}\n"
         end
+      end
+
+      CONTENT_TYPE_CHARSET = /^(Content-Type:.+ charset=)CHARSET/
+
+      def replace_charset
+        @entry = @entry.gsub(CONTENT_TYPE_CHARSET, "\\1#{@charset}")
       end
 
       def plural_forms(language)
