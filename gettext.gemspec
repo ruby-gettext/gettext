@@ -16,6 +16,10 @@ So you can use GNU gettext tools for maintaining.
   s.authors = ["Kouhei Sutou", "Masao Mutoh"]
   s.email = ["kou@clear-code.com", "mutomasa at gmail.com"]
   s.homepage = "https://ruby-gettext.github.io/"
+  s.metadata = {
+    "source_code_uri" => "https://github.com/ruby-gettext/gettext",
+    "changelog_uri"   => "https://github.com/ruby-gettext/gettext/releases/tag/#{s.version}"
+  }
   s.require_paths = ["lib"]
   Dir.chdir(base_dir) do
     s.files = Dir.glob("{locale,bin,data,doc/text,lib,po,samples,src,test}/**/*")
