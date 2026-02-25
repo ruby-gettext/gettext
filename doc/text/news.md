@@ -1,5 +1,22 @@
 # News
 
+## 3.5.2: 2026-02-25 {#version-3-5-2}
+
+### Improvements
+
+  * Add more metadata to gemspec.
+    * GH-115
+    * Patch by Keenan Brock
+
+  * Add support for ERB 6.0.2.
+    * GH-118
+    * Patch by Karine Vieira
+
+### Thanks
+
+  * Keenan Brock
+  * Karine Vieira
+
 ## 3.5.1: 2025-01-27 {#version-3-5-1}
 
 ### Improvements
