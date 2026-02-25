@@ -70,7 +70,7 @@ module GetText
       else
         erb = ERB.new(content, nil, "-")
       end
-      src = erb.src
+      src = +erb.src
 
       # Force the src encoding back to the encoding in magic comment
       # or original content.
