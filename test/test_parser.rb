@@ -223,7 +223,7 @@ class TestGetTextParser < Test::Unit::TestCase
 
       if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.0.0')
         assert_target("Hello", ["#{path}:11"])
-        assert_target("World", ["#{path}:14"])
+        assert_target("World", ["#{path}:15"])
       else
         assert_target("Hello", ["#{path}:11"])
         assert_nil(@ary.detect {|elem| elem.msgid == 'World'}) # Not detected. see PR #91
@@ -275,7 +275,7 @@ class TestGetTextParser < Test::Unit::TestCase
       @ary = GetText::ErubiParser.parse(path)
 
       assert_target("Hello", ["#{path}:11"])
-      assert_target("World", ["#{path}:14"]) # Detected with Erubi
+      assert_target("World", ["#{path}:15"]) # Detected with Erubi
     end
   end
 
