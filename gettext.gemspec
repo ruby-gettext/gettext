@@ -22,13 +22,12 @@ So you can use GNU gettext tools for maintaining.
   }
   s.require_paths = ["lib"]
   Dir.chdir(base_dir) do
-    s.files = Dir.glob("{locale,bin,data,doc/text,lib,po,samples,src,test}/**/*")
+    s.files = Dir.glob("{locale,bin,data,doc/text,lib,po,samples,src}/**/*")
     s.files += ["README.md", "Rakefile", "gettext.gemspec"]
     s.files += [".yardopts"]
     s.executables = Dir.chdir("bin") do
       Dir.glob("*")
     end
-    s.test_files = Dir.glob("test/test_*.rb")
   end
 
   s.required_ruby_version = ">= 2.5.0"
